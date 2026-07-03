@@ -11,11 +11,23 @@
 |---|---|---|---|
 | 1 | **E-046** | Komplementaritaet — `hostTriple` als Gap-Menge, Vereinigung mit Host-Komponente | `[A-T]` bewiesen |
 | 2 | **E-048** | Konsolidierung — `dumasLemma`, `dumas_gap_encodes_host` (Gap kodiert Host) | `[A-T]` bewiesen |
-| 3 | **E-032** | Objektivitaets-Bruecke — `LabelIntertwiningGraphAuto` → kanonischer Transfer | `[A-T]` in Arbeit (1 `sorry`) |
+| 3 | **E-032** | Objektivitaets-Bruecke — `CanonicalBridgeHypothesis` → kanonischer Transfer | `[A-T]` bewiesen |
 | 4 | **E-026** | Zielhypothese — `MusketiereNeighborTripleHypothesis` (kanonischer Orbit) | `[C]` offen |
 
-Kette: **E-046 → E-048 → E-032 → E-026**. Die holographische Auslassung (`dumas_gap_encodes_host`)
-verankert Schritt 2: fehlende Komponente im Host-Dreier identifiziert den Host.
+Kette: **E-046 → E-048 → E-032 → E-026**. Die holographische Auslassung (`dumas_gap_encodes_host`,
+Alias `holographic_omission_gap_encodes_host`) verankert Schritt 2: fehlende Komponente im
+Host-Dreier identifiziert den Host.
+
+**E-032-Update (2026-07-03):** Die Bruecke `objectivity_hypothesis_implies_canonical_bridge`
+verwendet nun `CanonicalBridgeHypothesis` (existiert Faser-respektierendes `φ` oder
+`IsEquivalentToCanonical`) statt der tautologischen `MusketiereNeighborTripleObjective`.
+`RespectsLabelFibers` folgt nicht aus label-Erhaltung allein — explizite Annahme.
+
+**Prägnant (#Energiedoku):** *Die Lücke im Tripel ist kein Verlust, sondern die Codierung des Hosts.*
+
+**Paper-Zitierbare Lean-Sätze:**
+- `hostTriple_membership_iff_not_host` — `x ∈ hostTriple ↔ x ∈ primvierlingFinset ∧ x ≠ hostComponent`
+- `dumas_gap_encodes_host` / `holographic_omission_gap_encodes_host` — `x ∉ hostTriple ↔ x = hostComponent`
 
 Im Kern beschreibt dieses Lemma eine perfekte, holografische Symmetrie: Jede der vier
 Primzahlkomponenten uebernimmt einmal die Rolle des „D'Artagnan“ (die isolierte

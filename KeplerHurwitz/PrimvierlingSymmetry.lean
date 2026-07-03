@@ -97,6 +97,12 @@ def primvierlingDistinct (v : Primvierling) : Prop :=
 /--
 A-D: Musketiere-Dreier — Komplement der Host-Komponente in der 4-Menge.
 Entspricht `otherChannels host` auf Label-Ebene in `DreiMusketiere.lean`.
+
+**Holographische Auslassung:** Das Tripel ist nicht bloß „drei von vier“, sondern die
+kanonische Komplement-Codierung `P(v) \ {hostComponent host v}`. Unter Distinktheit
+traegt die Auslassung dieselbe Information wie die Host-Zuweisung
+(`dumas_gap_encodes_host`, Alias `holographic_omission_gap_encodes_host`).
+Prägnant: *Die Lücke im Tripel ist kein Verlust, sondern die Codierung des Hosts.*
 -/
 def hostTriple (host : EABCChannel) (v : Primvierling) : Finset Nat :=
   primvierlingFinset v \ {hostComponent host v}
@@ -232,6 +238,11 @@ theorem mem_hostTriple_iff_ne_hostComponent {host : EABCChannel} {v : Primvierli
     x ∈ hostTriple host v ↔ x ∈ primvierlingFinset v ∧ x ≠ hostComponent host v :=
   mem_hostTriple_iff
 
+/-- Paper alias: explizite Komplement-Iff-Form der Host-Dreier-Mitgliedschaft. -/
+theorem mem_hostTriple_iff_complement {host : EABCChannel} {v : Primvierling} {x : Nat} :
+    x ∈ hostTriple host v ↔ x ∈ primvierlingFinset v ∧ x ≠ hostComponent host v :=
+  mem_hostTriple_iff_ne_hostComponent
+
 theorem not_mem_hostTriple_iff_eq_hostComponent {host : EABCChannel} {v : Primvierling} {x : Nat}
     (hx : x ∈ primvierlingFinset v) :
     x ∉ hostTriple host v ↔ x = hostComponent host v := by
@@ -324,11 +335,26 @@ A-T (E-048): Gap kodiert Host — fehlende Komponente im Host-Dreier ist genau d
 Fuer `x ∈ primvierlingFinset v`: Auslassung im Host-Dreier genau dann, wenn
 `x = hostComponent host v`.
 Unter `primvierlingDistinct` identifiziert die Auslassung im Dreier den Traegerkanal eindeutig.
+
+Informationsaussage: `Luecke ↔ Host` — die Auslassung kodiert den Host, kein zusaetzlicher Wahlparameter.
 -/
 theorem dumas_gap_encodes_host {host : EABCChannel} {v : Primvierling} {x : Nat}
     (hx : x ∈ primvierlingFinset v) :
     x ∉ hostTriple host v ↔ x = hostComponent host v :=
   not_mem_hostTriple_iff_eq_hostComponent hx
+
+/-- Paper-Zitiername fuer `dumas_gap_encodes_host` (holographische Auslassung). -/
+theorem holographic_omission_gap_encodes_host {host : EABCChannel} {v : Primvierling} {x : Nat}
+    (hx : x ∈ primvierlingFinset v) :
+    x ∉ hostTriple host v ↔ x = hostComponent host v :=
+  dumas_gap_encodes_host hx
+
+/--
+A-T (E-048): Aequivalente Membership-Form — Tripel-Mitglied genau dann, wenn Komplement des Hosts.
+-/
+theorem hostTriple_membership_iff_not_host {host : EABCChannel} {v : Primvierling} {x : Nat} :
+    x ∈ hostTriple host v ↔ x ∈ primvierlingFinset v ∧ x ≠ hostComponent host v :=
+  mem_hostTriple_iff_ne_hostComponent
 
 /-!
 ## Dumas-Lemma (E-048, Konsolidierung von E-034/E-047)

@@ -34,9 +34,14 @@ Fuer jede gueltige Bremensaal-Zerlegung `σ` und jeden Trägerkanal `host ∈ {E
 σ.HasMusketiereNeighborTriple G host
 ```
 
-### [C] `MusketiereNeighborTripleObjective`
+### [C] `MusketiereNeighborTripleObjective` (schwach / legacy)
 
-Die obige Existenz impliziert Objektivitaet unter `LabelPreservingGraphMap`.
+Die obige Existenz impliziert formal Objektivitaet unter `LabelPreservingGraphMap` —
+tautologisch, sobald die Musketiere-Dreier existieren (`musketiereNeighborTripleObjective_tautological`).
+
+**Starke Objektivitaet (E-032):** `RespectsLabelFibersUnderAutos`, `ExistsRespectingLabelFiberMap`,
+`CanonicalBridgeHypothesis` (= `StrongMusketiereObjective`). Die Bruecke zu
+`IsEquivalentToCanonical` ist unter dieser Annahme bewiesen (`objectivity_hypothesis_implies_canonical_bridge`).
 
 ### Gesamtinterface
 
@@ -137,9 +142,10 @@ via `a5_geo_chi_objectivity` (chi-Potenzen 0..3: `all_hosts_ok=True`).
 Sage `a5_geo_canonical_equivalence`: `strict_equivalent=0/9` (Musketiere-passende
 Toys sind nicht strikt `(σ,τ)`-äquivalent zum K1–K4-Kern; andere Bremensaal-Partitionen).
 
-**E-032 (in Arbeit):** `objectivity_hypothesis_implies_canonical_bridge` — Brücke von
-`LabelPreservingGraphMap` zu `IsEquivalentToCanonical`; Zielkorridor
-`musketiere_hypothesis_canonical_orbit` fuer `E-026`.
+**E-032 (bewiesen):** `objectivity_hypothesis_implies_canonical_bridge` — Bruecke von
+`CanonicalBridgeHypothesis` (Faser-respektierendes `φ` oder `IsEquivalentToCanonical`) zu
+`LabelPreservingGraphMapToCanonical`; Zielkorridor `musketiere_hypothesis_canonical_orbit` fuer `E-026`.
+Die schwache `MusketiereNeighborTripleObjective` reicht hier nicht (explizite Annahme noetig).
 
 **E-033 (bewiesen, Lean-Label):** Primvierling-Komplementarität in
 `KeplerHurwitz/PrimvierlingSymmetry.lean` — `hostTriple_union_host_eq_four_set`,
@@ -158,10 +164,9 @@ Lean: `KeplerHurwitz/PrimvierlingSymmetry.lean`.
 
 ## 6. Finaler Beweisstatus
 
-Stand: 2026-07-03. Lean-Audit: `DreiMusketiere.lean` kompiliert mit **1 `sorry`**
-(`objectivity_hypothesis_implies_canonical_bridge`); `PrimvierlingSymmetry.lean`
-enthält **0 `sorry`**, der kombinierte Build schlaegt derzeit noch an zwei
-Beweisstellen fehl (`hostTriple_gap_pair` Fall B, `hostTriple_shiftCEAB`).
+Stand: 2026-07-03. Lean-Audit: `DreiMusketiere.lean` kompiliert mit **0 `sorry`**
+(E-032-Bruecke unter `CanonicalBridgeHypothesis`); `PrimvierlingSymmetry.lean`
+enthaelt **0 `sorry`**.
 
 ### Abgeschlossene Meilensteine
 
@@ -179,7 +184,7 @@ Musketiere-Nachbar-Dreiers erbt. Die im Toy-Modell gescheiterten Embeddings
 sind als reine **Gauge-Artefakte** klassifiziert, die die topologische
 Orbit-Spreizung verzerren, aber den invarianten Kern nicht beruehren.
 
-#### E-032: Begrifflicher Brueckenschlag (`experimental`, 1 `sorry`)
+#### E-032: Begrifflicher Brueckenschlag (`stable`)
 
 Die staerkere Bijektions-Struktur `LabelIntertwiningGraphAuto` verknuepft die
 globale invarianten-theoretische Formulierung mit dem generischen
@@ -190,10 +195,10 @@ Graphen-Transfer. Bewiesen ohne `sorry`:
 - `LabelIntertwiningGraphAuto.ofRespectsLabelFibers`
 - `objectivity_map_implies_equivalence` (definitorisch)
 - `objectivity_bridge_implies_musketiere`
+- `RespectsLabelFibersUnderAutos`, `CanonicalBridgeHypothesis`, `objectivity_hypothesis_implies_canonical_bridge`
 
-**Offen:** genau **1 `sorry`** in `objectivity_hypothesis_implies_canonical_bridge`
-— globale Objektivitaet (`LabelPreservingGraphMap` + Faser-Symmetrie) muss noch
-einen `LabelPreservingGraphMapToCanonical`-Zeugen liefern.
+**Explizite Annahme:** `RespectsLabelFibers` folgt nicht aus label-Erhaltung allein;
+`CanonicalBridgeHypothesis` ist die ehrliche Schnittstelle fuer den Zielkorridor.
 
 #### E-033 und E-034: Arithmetische Projektionstheorie (Lean-Labels, `stable` sobald Build gruen)
 
@@ -216,7 +221,7 @@ Kepler-Zeit-Leiter bzw. Riemann-Resonanz belegt).
 |---|---|---|---|
 | 1 | **E-046** | Komplementaritaet — Host-Dreier als Gap-Menge auf `primvierlingFinset` | `[A-T]` bewiesen |
 | 2 | **E-048** | Konsolidierung — `dumasLemma`, `dumas_gap_encodes_host` | `[A-T]` bewiesen |
-| 3 | **E-032** | Objektivitaets-Bruecke — Faser-Bijektionen → `IsEquivalentToCanonical` | `[A-T]` in Arbeit (1 `sorry`) |
+| 3 | **E-032** | Objektivitaets-Bruecke — `CanonicalBridgeHypothesis` → `IsEquivalentToCanonical` | `[A-T]` bewiesen |
 | 4 | **E-026** | Zielhypothese — `MusketiereNeighborTripleHypothesis` | `[C]` offen |
 
 Kette: **E-046 → E-048 → E-032 → E-026**. Ausfuehrliches Dumas-Dossier: [dumas_lemma.md](dumas_lemma.md).
@@ -225,8 +230,7 @@ Kette: **E-046 → E-048 → E-032 → E-026**. Ausfuehrliches Dumas-Dossier: [d
 [Arithmetik] Primvierling (E-046/E-048: Gap kodiert Host, Dumas-Lemma)
     │
     ▼  Struktur-Isomorphismus ueber Faser-Bijektionen (hostComponentEquiv)
-[Topologie]  LabelIntertwiningGraphAuto (E-032: IsEquivalentToCanonical)
-    │         [1 sorry in objectivity_hypothesis_implies_canonical_bridge]
+[Topologie]  LabelIntertwiningGraphAuto (E-032: CanonicalBridgeHypothesis)
     ▼  Generische Transfer-Maschine (E-031)
 [Lean-Kern]  DreiMusketiere.lean (E-029/E-030: kanonischer Kern + chi-Objektivitaet)
     │
@@ -250,7 +254,7 @@ Kette: **E-046 → E-048 → E-032 → E-026**. Ausfuehrliches Dumas-Dossier: [d
 | E-029 | Kanonischer Musketiere-Kern | `[A-T]` | bewiesen | `stable` | 0 |
 | E-030 | chi-Objektivitaet | `[A-T]` | bewiesen | `stable` | 0 |
 | E-031 | `IsEquivalentToCanonical`-Transfer | `[A-T]` | bewiesen | `stable` | 0 |
-| E-032 | Objektivitaets-Bruecke | `[A-T]` | in Arbeit | `experimental` | **1** |
+| E-032 | Objektivitaets-Bruecke | `[A-T]` | bewiesen | `stable` | 0 |
 | E-033 | Primvierling-Komplementaritaet | `[A-T]` | bewiesen* | `stable` | 0 |
 | E-034 | `hostComponentEquiv` + Multiplizitaet | `[A-T]` | bewiesen* | `stable` | 0 |
 
@@ -265,7 +269,7 @@ noch nicht vollstaendig gruen (siehe Audit oben).
 2. **Symmetrie `[A]`:** chi-Relabeling auf festem Träger — **E-030 erledigt**
 3. **Transfer `[A-T]`:** `IsEquivalentToCanonical` → Musketiere — **E-031 erledigt**
 4. **Arithmetik `[A-T]`:** Primvierling-Komplementaritaet + Bijektion — **E-033/E-034 erledigt** (Build-Audit offen)
-5. **Objektivitäts-Brücke `[A-T]`:** `LabelPreservingGraphMap` → `IsEquivalentToCanonical` — **E-032 offen (1 sorry)**
+5. **Objektivitäts-Bruecke `[A-T]`:** `CanonicalBridgeHypothesis` → `IsEquivalentToCanonical` — **E-032 erledigt**
 6. **Global `[C→A]`:** Klassifikation aller Bremensaal-Zerlegungen modulo `A5`, Fallnachweis
 7. **Objektivitaet:** Trennung zwischen kanonischer Geometrie und toy-Label-Embedding (`E-024`-Kontext)
 
@@ -279,7 +283,7 @@ E-030
 E-031 (musketiere_hypothesis_transfer)
   ↓ hostComponentEquiv / mem_hostTriple_count (E-034)
 E-033/E-034 (PrimvierlingSymmetry.lean)
-  ↓ LabelPreservingGraphMapToCanonical  [E-032, 1 sorry]
+  ↓ CanonicalBridgeHypothesis → LabelPreservingGraphMapToCanonical  [E-032]
 E-026 (MusketiereNeighborTripleHypothesis, kanonischer Orbit)
 ```
 

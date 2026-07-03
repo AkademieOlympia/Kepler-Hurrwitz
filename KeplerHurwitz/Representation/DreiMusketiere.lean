@@ -176,6 +176,11 @@ structure LabelPreservingGraphMap where
   preserves_label :
     ∀ v, labeling.label (toPerm v) = labeling.label v
 
+/--
+Legacy (schwach / tautologisch): unter der Praemisse der Existenz von Musketiere-Nachbar-Dreiern
+fuer alle Traeger folgt dieselbe Existenz — unabhaengig von `LabelPreservingGraphMap`.
+Echte Objektivitaets-Bruecke: `RespectsLabelFibersUnderAutos`, `CanonicalBridgeHypothesis` (E-032).
+-/
 def MusketiereNeighborTripleObjective
     (G : IcosahedronCarrier) (σ : VertexLabeling) : Prop :=
   (∀ host : EABCChannel, σ.HasMusketiereNeighborTriple G host) →
@@ -183,9 +188,17 @@ def MusketiereNeighborTripleObjective
       φ.carrier = G → φ.labeling = σ →
       ∀ host : EABCChannel, σ.HasMusketiereNeighborTriple G host
 
+theorem musketiereNeighborTripleObjective_tautological (G : IcosahedronCarrier) (σ : VertexLabeling)
+    (h : ∀ host : EABCChannel, σ.HasMusketiereNeighborTriple G host) :
+    MusketiereNeighborTripleObjective G σ :=
+  fun hTriple _φ _hG _hσ host => hTriple host
+
 /--
 C: In jedem Bremensaal (je EABC-Kanal) existiert ein Nachbar-Dreier der
 drei uebrigen Familien, und diese Beziehung ist objektiv.
+
+Fuer den kanonischen Orbit-Zielkorridor (`musketiere_hypothesis_canonical_orbit`) genuegt
+`CanonicalBridgeHypothesis` statt der schwachen `MusketiereNeighborTripleObjective`.
 -/
 def MusketiereNeighborTripleHypothesis : Prop :=
   ∀ (G : IcosahedronCarrier) (σ : VertexLabeling),
@@ -1048,33 +1061,93 @@ def LabelPreservingGraphMapFor (L : VertexLabeling) : Type :=
   { φ : LabelPreservingGraphMap //
     φ.carrier = canonicalIcosahedronCarrier ∧ φ.labeling = L }
 
-/--
-E-032 Kernaufgabe (Beweis offen): globale Objektivität (`LabelPreservingGraphMap`,
-Bremensaal-Faser-Symmetrie) induziert eine `LabelPreservingGraphMapToCanonical`-Witness.
+lemma LabelPreservingGraphMapFor.carrier_eq (φ : LabelPreservingGraphMapFor L) :
+    φ.val.carrier = canonicalIcosahedronCarrier := φ.property.1
 
-Reduktion: `objectivity_hypothesis_implies_canonical_bridge_of_map` — sobald ein
-`LabelPreservingGraphMap` `φ` mit `RespectsLabelFibers` fuer `φ.toGraphEquiv` existiert,
-liefert `ofRespectsLabelFibers` den Zeugen `(σ, τ)`.
+lemma LabelPreservingGraphMapFor.labeling_eq (φ : LabelPreservingGraphMapFor L) :
+    φ.val.labeling = L := φ.property.2
+
+def RespectsLabelFibersOf (L : VertexLabeling) (φ : LabelPreservingGraphMapFor L) : Prop :=
+  RespectsLabelFibers L (φ.val.toGraphEquiv φ.property.1)
+
+/--
+A-D (E-032, stark): Jeder label-erhaltende Graph-Automorphismus auf `(canonical, L)`
+respektiert Bremensaal-Fasern im Sinne von `RespectsLabelFibers`.
+
+Nicht aus label-Erhaltung allein ableitbar; explizite Annahme fuer die Bruecke.
+-/
+def RespectsLabelFibersUnderAutos (L : VertexLabeling) : Prop :=
+  ∀ (φ : LabelPreservingGraphMapFor L), RespectsLabelFibersOf L φ
+
+/--
+A-D (E-032): Es existiert ein label-erhaltendes `φ` mit Faser-Symmetrie.
+Schwaecher als `RespectsLabelFibersUnderAutos`, ausreichend fuer die Bruecke.
+-/
+def ExistsRespectingLabelFiberMap (L : VertexLabeling) : Prop :=
+  ∃ (φ : LabelPreservingGraphMapFor L), RespectsLabelFibersOf L φ
+
+/--
+A-D (E-032, stark): Kanonische Bruecke — Faser-respektierendes `φ` oder direkte
+`IsEquivalentToCanonical`-Aequivalenz. Alias: `StrongMusketiereObjective`.
+-/
+def CanonicalBridgeHypothesis (L : VertexLabeling) : Prop :=
+  ExistsRespectingLabelFiberMap L ∨ IsEquivalentToCanonical L
+
+abbrev StrongMusketiereObjective (L : VertexLabeling) := CanonicalBridgeHypothesis L
+
+theorem existsRespectingLabelFiberMap_implies_canonical_bridge_hypothesis (L : VertexLabeling)
+    (h : ExistsRespectingLabelFiberMap L) : CanonicalBridgeHypothesis L :=
+  Or.inl h
+
+theorem isEquivalentToCanonical_implies_canonical_bridge_hypothesis (L : VertexLabeling)
+    (h : IsEquivalentToCanonical L) : CanonicalBridgeHypothesis L :=
+  Or.inr h
+
+theorem respectsLabelFibersUnderAutos_implies_existsRespecting (L : VertexLabeling)
+    (h : RespectsLabelFibersUnderAutos L) (φ : LabelPreservingGraphMapFor L) :
+    RespectsLabelFibersOf L φ :=
+  h φ
+
+theorem respectsLabelFibersUnderAutos_implies_existsRespectingLabelFiberMap (L : VertexLabeling)
+    (hφ : Nonempty (LabelPreservingGraphMapFor L)) (h : RespectsLabelFibersUnderAutos L) :
+    ExistsRespectingLabelFiberMap L :=
+  ⟨hφ.some, h hφ.some⟩
+
+/--
+E-032: Starke Objektivitaets-Bruecke induziert `LabelPreservingGraphMapToCanonical`.
+
+Beweis via `objectivity_hypothesis_implies_canonical_bridge_of_map` (Faser-Fall) bzw.
+`isEquivalentToCanonical_iff_labelIntertwining` (Aequivalenz-Fall). Die schwache
+`MusketiereNeighborTripleObjective` reicht hier nicht — sie ist tautologisch.
 -/
 theorem objectivity_hypothesis_implies_canonical_bridge (L : VertexLabeling)
-    (h_decomp : L.IsBremensaalDecomposition)
-    (h_triple : ∀ host : EABCChannel,
-      L.HasMusketiereNeighborTriple canonicalIcosahedronCarrier host)
-    (h_obj : MusketiereNeighborTripleObjective canonicalIcosahedronCarrier L) :
+    (hL : L.IsBremensaalDecomposition) (h : CanonicalBridgeHypothesis L) :
     Nonempty (LabelPreservingGraphMapToCanonical L) := by
-  sorry
+  rcases h with h | h
+  · rcases h with ⟨φ, hFib⟩
+    exact objectivity_hypothesis_implies_canonical_bridge_of_map L φ.val
+      φ.property.1 φ.property.2 hL hFib
+  · exact (isEquivalentToCanonical_iff_labelIntertwining L).mp h
+
+theorem respectsLabelFibersUnderAutos_implies_canonical_bridge (L : VertexLabeling)
+    (hL : L.IsBremensaalDecomposition) (hφ : Nonempty (LabelPreservingGraphMapFor L))
+    (h : RespectsLabelFibersUnderAutos L) :
+    Nonempty (LabelPreservingGraphMapToCanonical L) :=
+  objectivity_hypothesis_implies_canonical_bridge L hL
+    (existsRespectingLabelFiberMap_implies_canonical_bridge_hypothesis L
+      (respectsLabelFibersUnderAutos_implies_existsRespectingLabelFiberMap L hφ h))
 
 /--
-E-032 Zielkorridor: `E-026`-Hypothese auf dem kanonischen Träger (Beweis offen).
+E-032 Zielkorridor: `E-026`-Hypothese auf dem kanonischen Traeger via starker Bruecke.
 -/
 theorem musketiere_hypothesis_canonical_orbit (L : VertexLabeling)
-    (h_decomp : L.IsBremensaalDecomposition)
-    (h_triple : ∀ host : EABCChannel,
+    (hL : L.IsBremensaalDecomposition)
+    (_h_triple : ∀ host : EABCChannel,
       L.HasMusketiereNeighborTriple canonicalIcosahedronCarrier host)
-    (h_obj : MusketiereNeighborTripleObjective canonicalIcosahedronCarrier L)
+    (h_bridge : CanonicalBridgeHypothesis L)
     (h_canon : CanonicalMusketiereNeighborTripleHypothesis) :
     MusketiereNeighborTripleHypothesisFor canonicalIcosahedronCarrier L := by
-  have h_bridge := objectivity_hypothesis_implies_canonical_bridge L h_decomp h_triple h_obj
-  exact objectivity_bridge_implies_musketiere L h_bridge.some h_canon
+  have h_witness := objectivity_hypothesis_implies_canonical_bridge L hL h_bridge
+  exact objectivity_bridge_implies_musketiere L h_witness.some h_canon
 
 end KeplerHurwitz

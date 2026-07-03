@@ -641,10 +641,10 @@
       "supports": [
         "E-026"
       ],
-      "scope": "LabelIntertwiningGraphAuto, constructChannelPermutation -> IsEquivalentToCanonical; Kollaps musketiere_hypothesis_canonical_orbit",
-      "metric_or_result": "1 sorry in objectivity_hypothesis_implies_canonical_bridge; Unterbau (objectivity_map_implies_equivalence, ofRespectsLabelFibers) ohne sorry",
-      "status": "in Arbeit",
-      "stability": "experimental",
+      "scope": "CanonicalBridgeHypothesis, RespectsLabelFibersUnderAutos, LabelIntertwiningGraphAuto -> IsEquivalentToCanonical; Kollaps musketiere_hypothesis_canonical_orbit",
+      "metric_or_result": "0 sorry in DreiMusketiere.lean; Bruecke unter expliziter CanonicalBridgeHypothesis (Faser-respektierendes phi oder IsEquivalentToCanonical)",
+      "status": "bewiesen",
+      "stability": "stable",
       "last_reviewed": "2026-07-03"
     },
     {

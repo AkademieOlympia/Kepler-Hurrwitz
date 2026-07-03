@@ -26,11 +26,13 @@ import KeplerHurwitz.OddCoreDynamics
 import KeplerHurwitz.OctonionicSlice
 import KeplerHurwitz.PhotonModel
 import KeplerHurwitz.PhotonKeplerShift
+import KeplerHurwitz.DumasIntertwiningBridge
 import KeplerHurwitz.PrimvierlingSymmetry
 import KeplerHurwitz.README_OrbitSymmetry
 import KeplerHurwitz.ReachableTheorems
 import KeplerHurwitz.Representation.DreiMusketiere
 import KeplerHurwitz.Representation.EABCChronology
+import KeplerHurwitz.Representation.KeplerEABCAtlas
 import KeplerHurwitz.Representation.Invariant
 import KeplerHurwitz.ResidueFilters
 import KeplerHurwitz.SchalenDynamik
