@@ -721,14 +721,15 @@
       "title": "Kepler-Zeit-Leiter: diskretes Delta-M-Linienspektrum auf Floquet-Attraktoren",
       "level": "B",
       "aclass": null,
-      "source": "src/kepler_hurwitz/kepler_time_bridge.py, examples/run_kepler_time_bridge.py, docs/plots/spectrum_*.dat",
+      "source": "src/kepler_hurwitz/kepler_time_bridge.py, src/kepler_hurwitz/kepler_eabc_atlas.py, examples/run_kepler_time_bridge.py, examples/run_kepler_eabc_floquet_annotation.py, docs/plots/spectrum_*.dat, docs/reports/E033_FLOQUET_CHANNEL_ALIGNMENT.md",
       "depends_on": [
         "discrete_time_flow.simulate_physical_flow",
-        "tests/test_kepler_time_bridge.py"
+        "tests/test_kepler_time_bridge.py",
+        "tests/test_kepler_eabc_atlas.py"
       ],
       "supports": [],
-      "scope": "500 Schritte, Tail=64, soft+ring2, 8 zyklische Operatoren",
-      "metric_or_result": "baseline unique_dM=2, M_period=8, Spektrum ±1.85619; pi/2 unique_dM=3; Stoerung unique_dM=1",
+      "scope": "500 Schritte, Tail=64, soft+ring2, 8 zyklische Operatoren; Floquet-Channel-Alignment [B/C] via summarize_annotated_delta_m; Reproducible numerical alignment diagnostics compare observed ΔM tails with the formal 2×4 χ-lift annotation. The report does not claim that ΔM values generate or determine the channel projection.",
+      "metric_or_result": "baseline unique_dM=2, M_period=8, Spektrum ±1.85619; pi/2 unique_dM=3; Stoerung unique_dM=1; baseline max lift-sheet abs diff ≈3.71",
       "status": "reproduzierbar",
       "stability": "stable",
       "last_reviewed": "2026-07-03"
