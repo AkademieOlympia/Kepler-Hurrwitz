@@ -1,0 +1,110 @@
+{
+  "conclusion": "The negative E-051 structured-control result remains stable across tested limits and sieve bounds: no feature consistently exceeds residue-stratified null enrichment.",
+  "decision_rule": "A feature is considered scale-stable only if its observed enrichment exceeds the residue-stratified null enrichment at all tested limits for the same sieve_bound, with the same direction of effect.",
+  "inherits_from": "E-051 structured controls for twin-prime EABC analysis",
+  "not_claimed": "No proof of twin primes, no deterministic prediction, and no optimized predictor.",
+  "primary_question": "Does the negative structured-control result remain stable across larger limits and sieve bounds?",
+  "stage1_interpretation": "The stage-1 enrichment is explained by CE residue preference and is not yet evidence for Floquet-specific predictive power.",
+  "stage2_signal_summary": {
+    "orientation_dual": "not scale-stable; deltas=0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000",
+    "right_wing_prime_count_eq_2": "not scale-stable; deltas=0.0000, 0.0000, -0.0901, 0.0000, 0.1308, 0.0000",
+    "right_wing_prime_count_ge_1": "not scale-stable; deltas=0.0000, 0.0000, 0.0563, 0.0000, 0.0134, 0.0000"
+  },
+  "status": "B scale robustness check",
+  "sweep_rows": [
+    {
+      "ab_hit_rate": 1.0,
+      "baseline_hit_rate": 1.0,
+      "candidate_count": 1666,
+      "ce_ab_lift": 1.0,
+      "ce_hit_rate": 1.0,
+      "conclusion": "No feature delta exceeds the residue-stratified null at this limit and sieve bound.",
+      "limit": 10000,
+      "orientation_dual_delta_vs_null": 0.0,
+      "right_wing_eq_2_delta_vs_null": 0.0,
+      "right_wing_ge_1_delta_vs_null": 0.0,
+      "sieve_bound": 97,
+      "sieved_candidate_count": 204
+    },
+    {
+      "ab_hit_rate": 1.0,
+      "baseline_hit_rate": 1.0,
+      "candidate_count": 1666,
+      "ce_ab_lift": 1.0,
+      "ce_hit_rate": 1.0,
+      "conclusion": "No feature delta exceeds the residue-stratified null at this limit and sieve bound.",
+      "limit": 10000,
+      "orientation_dual_delta_vs_null": 0.0,
+      "right_wing_eq_2_delta_vs_null": 0.0,
+      "right_wing_ge_1_delta_vs_null": 0.0,
+      "sieve_bound": 997,
+      "sieved_candidate_count": 204
+    },
+    {
+      "ab_hit_rate": 0.6508620689655172,
+      "baseline_hit_rate": 0.6582346609257266,
+      "candidate_count": 16666,
+      "ce_ab_lift": 1.0226304920601013,
+      "ce_hit_rate": 0.6655913978494624,
+      "conclusion": "At least one feature delta exceeds null; inspect per-feature values before any follow-up.",
+      "limit": 100000,
+      "orientation_dual_delta_vs_null": 0.0,
+      "right_wing_eq_2_delta_vs_null": -0.09014539579967684,
+      "right_wing_ge_1_delta_vs_null": 0.056296723899984746,
+      "sieve_bound": 97,
+      "sieved_candidate_count": 1858
+    },
+    {
+      "ab_hit_rate": 1.0,
+      "baseline_hit_rate": 1.0,
+      "candidate_count": 16666,
+      "ce_ab_lift": 1.0,
+      "ce_hit_rate": 1.0,
+      "conclusion": "No feature delta exceeds the residue-stratified null at this limit and sieve bound.",
+      "limit": 100000,
+      "orientation_dual_delta_vs_null": 0.0,
+      "right_wing_eq_2_delta_vs_null": 0.0,
+      "right_wing_ge_1_delta_vs_null": 0.0,
+      "sieve_bound": 997,
+      "sieved_candidate_count": 1223
+    },
+    {
+      "ab_hit_rate": 0.41931806404808786,
+      "baseline_hit_rate": 0.42314666114075533,
+      "candidate_count": 166666,
+      "ce_ab_lift": 1.018256335547051,
+      "ce_hit_rate": 0.42697327532628965,
+      "conclusion": "At least one feature delta exceeds null; inspect per-feature values before any follow-up.",
+      "limit": 1000000,
+      "orientation_dual_delta_vs_null": 0.0,
+      "right_wing_eq_2_delta_vs_null": 0.13084479639235846,
+      "right_wing_ge_1_delta_vs_null": 0.013368638054981619,
+      "sieve_bound": 97,
+      "sieved_candidate_count": 19303
+    },
+    {
+      "ab_hit_rate": 1.0,
+      "baseline_hit_rate": 1.0,
+      "candidate_count": 166666,
+      "ce_ab_lift": 1.0,
+      "ce_hit_rate": 1.0,
+      "conclusion": "No feature delta exceeds the residue-stratified null at this limit and sieve bound.",
+      "limit": 1000000,
+      "orientation_dual_delta_vs_null": 0.0,
+      "right_wing_eq_2_delta_vs_null": 0.0,
+      "right_wing_ge_1_delta_vs_null": 0.0,
+      "sieve_bound": 997,
+      "sieved_candidate_count": 8168
+    }
+  ],
+  "tested_limits": [
+    10000,
+    100000,
+    1000000
+  ],
+  "tested_sieve_bounds": [
+    97,
+    997
+  ],
+  "warning": "This sweep is descriptive and does not establish predictive power. Any candidate rule suggested by the sweep must be tested on a disjoint held-out range."
+}

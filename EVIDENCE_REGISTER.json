@@ -1020,6 +1020,23 @@
       "stability": "experimental",
       "last_reviewed": "2026-07-03",
       "not_claimed": "No deterministic prediction, no proof of twin-prime infinitude, and no evidence yet for EABC/Floquet-specific predictive power beyond residue-class controls"
+    },
+    {
+      "id": "E-052",
+      "title": "Scale robustness check for structured twin-prime controls",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/twin_prime_eabc_scale_sweep.py, examples/run_twin_prime_eabc_scale_sweep.py, docs/energiedoku_exports/twin_prime_eabc_scale_sweep.json, docs/energiedoku_exports/twin_prime_eabc_scale_sweep_report.md, tests/test_twin_prime_eabc_scale_sweep.py",
+      "depends_on": [
+        "E-051"
+      ],
+      "supports": [],
+      "scope": "The E-051 structured-control diagnostics were repeated across limits 10^4, 10^5, and 10^6 and sieve bounds 97 and 997. The sweep tests whether the negative E-051 result remains stable across scale and sieve strength; no new features",
+      "metric_or_result": "6-cell grid: orientation_dual delta vs null = 0 at all scales; right_wing features not scale-stable; negative E-051 result stable across tested limits and sieve bounds",
+      "status": "descriptive scale robustness check",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "not_claimed": "No proof of twin primes, no deterministic prediction, no optimized predictor, and no confirmation of EABC/Floquet-specific predictive power unless observed effects exceed residue-stratified nulls consistently across all tested scales"
     }
   ]
 }
