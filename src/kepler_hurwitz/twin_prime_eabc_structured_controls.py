@@ -277,6 +277,8 @@ def _feature_predicate(
         return row.orientation_dual_score >= 1.0
     if feature_name == "right_wing":
         return row.right_wing_prime_count >= 1
+    if feature_name == "right_wing_eq_2":
+        return row.right_wing_prime_count == 2
     raise ValueError(f"Unknown feature: {feature_name}")
 
 
