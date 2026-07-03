@@ -1,0 +1,142 @@
+{
+  "by_channel": [
+    {
+      "channel": "A",
+      "count": 2424,
+      "hit_rate": 0.43275577557755773,
+      "hits": 1049
+    },
+    {
+      "channel": "B",
+      "count": 2398,
+      "hit_rate": 0.42118432026688907,
+      "hits": 1010
+    },
+    {
+      "channel": "C",
+      "count": 2431,
+      "hit_rate": 0.4306869600987248,
+      "hits": 1047
+    },
+    {
+      "channel": "E",
+      "count": 2401,
+      "hit_rate": 0.4231570179092045,
+      "hits": 1016
+    }
+  ],
+  "by_floquet_step": [
+    {
+      "count": 1204,
+      "hit_rate": 0.42857142857142855,
+      "hits": 516,
+      "phase": 0
+    },
+    {
+      "count": 1218,
+      "hit_rate": 0.44170771756978655,
+      "hits": 538,
+      "phase": 1
+    },
+    {
+      "count": 1211,
+      "hit_rate": 0.42526837324525185,
+      "hits": 515,
+      "phase": 2
+    },
+    {
+      "count": 1186,
+      "hit_rate": 0.41989881956155145,
+      "hits": 498,
+      "phase": 3
+    },
+    {
+      "count": 1197,
+      "hit_rate": 0.4177109440267335,
+      "hits": 500,
+      "phase": 4
+    },
+    {
+      "count": 1206,
+      "hit_rate": 0.42371475953565507,
+      "hits": 511,
+      "phase": 5
+    },
+    {
+      "count": 1220,
+      "hit_rate": 0.4360655737704918,
+      "hits": 532,
+      "phase": 6
+    },
+    {
+      "count": 1212,
+      "hit_rate": 0.42244224422442245,
+      "hits": 512,
+      "phase": 7
+    }
+  ],
+  "candidate_count": 83333,
+  "exploratory_best_phase": {
+    "enrichment": 1.0345090503199221,
+    "phase": 1,
+    "status": "C exploratory only",
+    "warning": "Selected after inspecting the same dataset; not a confirmatory phase-selection rule."
+  },
+  "exploratory_question": "Do any fixed phases show enrichment worth testing in a future preregistered run?",
+  "limit": 1000000,
+  "mode": "phase_distribution_analysis",
+  "not_claimed": "No proof of twin primes, no held-out confirmation of any phase rule, and no optimized selector",
+  "overall_hit_rate": 0.42697327532628965,
+  "phase_shifts": [
+    {
+      "max_enrichment": 1.0345090503199221,
+      "shift": 1
+    },
+    {
+      "max_enrichment": 1.0345090503199221,
+      "shift": 2
+    },
+    {
+      "max_enrichment": 1.0345090503199221,
+      "shift": 3
+    },
+    {
+      "max_enrichment": 1.0345090503199221,
+      "shift": 4
+    },
+    {
+      "max_enrichment": 1.0345090503199221,
+      "shift": 5
+    },
+    {
+      "max_enrichment": 1.0345090503199221,
+      "shift": 6
+    },
+    {
+      "max_enrichment": 1.0345090503199221,
+      "shift": 7
+    }
+  ],
+  "primary_analysis": {
+    "chi2": 2.6346433770014555,
+    "degrees_of_freedom": 7,
+    "evidence_tag": "[B]",
+    "expected_hits_per_phase": 515.25,
+    "p_value": 0.9165232083089959,
+    "rejects_uniformity": false,
+    "total_hits": 4122
+  },
+  "primary_question": "Are true twin-prime hits uniformly distributed across the fixed EABC/Floquet phases among classically sieved CE candidates?",
+  "selection_rule": "No phase selection rule is used in this report; all phases are reported descriptively.",
+  "sieve_bound": 97,
+  "sieved_candidate_count": 9654,
+  "status": "B descriptive phase-distribution analysis",
+  "twin_hit_count": 4122,
+  "uniformity_diagnostic": {
+    "max_enrichment_vs_overall": 1.0345090503199221,
+    "max_hit_rate": 0.44170771756978655,
+    "min_hit_rate": 0.4177109440267335,
+    "spread": 0.023996773543053074,
+    "status": "B descriptive only"
+  }
+}
