@@ -47,6 +47,20 @@ def N6_collapse_rate : ℝ := 0.767
 /-- Exact rational model of the live collapse rate. -/
 def N6_rational_collapse_rate : ℝ := (23 : ℝ) / 30
 
+namespace Real
+
+/-- `log(1/2) = -log 2`. -/
+theorem log_one_half : Real.log ((1 : ℝ) / 2) = - Real.log 2 := by
+  rw [show (1 / 2 : ℝ) = (2 : ℝ)⁻¹ by norm_num, log_inv (2 : ℝ)]
+
+end Real
+
+lemma half_log_entropy_term :
+    - (1 / 2) * (- Real.log 2) / Real.log 2 = (1 : ℝ) / 2 := by
+  have hlog2 : Real.log 2 ≠ 0 :=
+    Real.log_ne_zero_of_pos_of_ne_one (by norm_num : (0 : ℝ) < 2) (by norm_num : (2 : ℝ) ≠ 1)
+  field_simp
+
 /--
 Statement A (interface): binary entropy is at most one bit on `[0,1]`.
 Analytic proof deferred; not used to derive dynamic row entropy.
@@ -56,17 +70,29 @@ theorem binary_entropy_le_one {p : ℝ} (hp0 : 0 ≤ p) (hp1 : p ≤ 1) :
   sorry
 
 /--
-Statement B (interface): symmetric quantization carries maximal row entropy.
-Requires `log(1/2) = -log 2`; proof deferred.
+Statement B: symmetric quantization carries maximal row entropy.
+`Q_sym(ρ) = (1/2, 1/2) ⇒ H_row = 1`.
 -/
 theorem Qsym2_entropy_eq_one (ρ : ℝ) :
     rowEntropy2 (Qsym2 ρ).1 (Qsym2 ρ).2 = 1 := by
-  sorry
+  unfold rowEntropy2 Qsym2
+  have hlog2 : Real.log 2 ≠ 0 :=
+    Real.log_ne_zero_of_pos_of_ne_one (by norm_num : (0 : ℝ) < 2) (by norm_num : (2 : ℝ) ≠ 1)
+  have hhalf : - (1 / 2 * logb (2 : ℝ) ((1 : ℝ) / 2)) = (1 : ℝ) / 2 := by
+    rw [logb, Real.log_one_half]
+    convert half_log_entropy_term using 1
+    field_simp [hlog2]
+  linarith
 
-/-- Legacy bound kept as analytic interface; does not identify `H_alg` with `H_row`. -/
+/-- Dynamic-layer alias: row entropy of `Q_sym` is maximal. -/
+theorem dynamic_row_entropy_eq_one (ρ : ℝ) :
+    rowEntropy2 (Qsym2 ρ).1 (Qsym2 ρ).2 = 1 :=
+  Qsym2_entropy_eq_one ρ
+
+/-- Statement A bound (interface): does not identify `H_alg` with `H_row`. -/
 theorem entropy_defect_bound (ρ : ℝ) (h1 : 0 < ρ) (h2 : ρ < 1) :
     binaryEntropyShannon ρ ≤ 1 := by
-  sorry
+  exact binary_entropy_le_one (le_of_lt h1) (le_of_lt h2)
 
 end
 
