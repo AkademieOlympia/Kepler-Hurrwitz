@@ -1,0 +1,188 @@
+{
+  "claim_class": "C",
+  "upgrade_candidate": "E-039",
+  "e039_upgrade_eligible": false,
+  "depends_on": [
+    "E-037",
+    "E-038",
+    "E-039-pre"
+  ],
+  "quotient": {
+    "ambient_dimension": 7,
+    "kernel_dimension": 3,
+    "check_row_count": 4,
+    "number_of_cosets": 16
+  },
+  "check_rows": [
+    [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      1,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+    ]
+  ],
+  "shell_cosets": {
+    "N=4": {
+      "actual_norm": 4,
+      "parity_bits": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "syndrome": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "syndrome_id": "1000",
+      "canonical_representative": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "coset_weight_profile": {
+        "1": 1,
+        "3": 4,
+        "5": 3
+      },
+      "distance_to_kernel": 1,
+      "nearest_kernel_coordinates": [
+        0,
+        1,
+        0
+      ],
+      "in_kernel": false
+    },
+    "N=6": {
+      "actual_norm": 6,
+      "parity_bits": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "syndrome": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "syndrome_id": "0001",
+      "canonical_representative": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "coset_weight_profile": {
+        "1": 1,
+        "3": 4,
+        "5": 3
+      },
+      "distance_to_kernel": 1,
+      "nearest_kernel_coordinates": [
+        1,
+        0,
+        0
+      ],
+      "in_kernel": false
+    },
+    "N=8": {
+      "actual_norm": 8,
+      "parity_bits": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "syndrome": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "syndrome_id": "1000",
+      "canonical_representative": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "coset_weight_profile": {
+        "1": 1,
+        "3": 4,
+        "5": 3
+      },
+      "distance_to_kernel": 1,
+      "nearest_kernel_coordinates": [
+        0,
+        1,
+        0
+      ],
+      "in_kernel": false
+    }
+  },
+  "relations": {
+    "N4_equals_N8_coset": true,
+    "N4_equals_N6_coset": false,
+    "N6_equals_N8_coset": false
+  },
+  "basis_invariance": {
+    "gl3_matrix_count": 168,
+    "syndrome_labels_invariant": true,
+    "coset_weight_profiles_invariant": true,
+    "nearest_kernel_coordinates_not_used_as_invariant": true
+  },
+  "methodological_note": "Coset classes are labeled by syndrome vectors sigma = R @ v and are basis-independent. Nearest kernel coordinates are not used as invariants. E-039 [B] requires distinct cosets for N=4 and N=8; current parity extraction yields sigma_4 = sigma_8."
+}

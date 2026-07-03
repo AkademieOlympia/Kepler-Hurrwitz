@@ -1,0 +1,33 @@
+\contentsline {section}{\numberline {1}Introduction and Lean Formalization Core}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Problem and contribution}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Lean core (S1--S3)}{3}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Geometric Floquet Rigidity and the Kinematic Time-Ladder}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Discrete Kepler time bridge \textnormal {[\,B\,]}, E-033}{4}{subsection.2.1}%
+\contentsline {section}{\numberline {3}Analysis of the Global Riemann Spectrum: A Negative Empirical Report}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Cosine averaging over zeta zeros \textnormal {[\,C\,]}, E-034}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Scale interference metric \textnormal {[\,C\,]}, E-035}{5}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Dyadic Metacommutation and Associator Collapse}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Norm-$2$ dyadic basis \textnormal {[\,C\,]}, E-037}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Quaternion prime model (\#Energiedoku interface)}{6}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Metacommutation relation}{7}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Shell-proxy associator profile}{7}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Arithmetic Shell Resonance and Quantized Energy Levels}{8}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Definition \textnormal {[\,C\,]}, E-036}{8}{subsection.5.1}%
+\contentsline {section}{\numberline {6}Fano-QEC Bridge and Signed Shell Separation}{8}{section.6}%
+\contentsline {subsection}{\numberline {6.1}CSS projection and Steane abgrenzung \textnormal {[\,B\,]}, E-038, S7}{9}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}GF(2) quotient limit \textnormal {[\,C\,]}, E-039}{9}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Refinement catalog \textnormal {[\,C\,]}, E-040}{9}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Signed support separation \textnormal {[\,B\,]}, E-041}{10}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Symmetry invariance validator \textnormal {[\,C\,]}, E-042}{10}{subsection.6.5}%
+\contentsline {section}{\numberline {7}The $[[5,1,3]]$ Stabilizer Bridge}{11}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Stabilizer interface \textnormal {[\,C\,]}, E-044}{11}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Empirical result E-044}{11}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Defensive interpretation}{12}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Relation to the Fano bridge}{13}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Prospective refinement: signed stabilizer support \textnormal {[\,C\,]}}{13}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Reproducibility}{13}{subsection.7.6}%
+\contentsline {section}{\numberline {8}Framework Replication and Test-Suite Diagnostics}{14}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Automated verification}{14}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Reproduction commands}{14}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Export artifacts}{14}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Scope limits}{15}{subsection.8.4}%

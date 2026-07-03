@@ -1,0 +1,136 @@
+{
+  "total_transitions": 24,
+  "x0_states": [
+    -2.0,
+    -1.0,
+    0.0,
+    0.5,
+    1.0
+  ],
+  "operator_labels": [
+    "shell_proxy_N4_for_3",
+    "shell_proxy_N6_for_5",
+    "shell_proxy_N8_for_7"
+  ],
+  "max_row_entropy": 1.0,
+  "min_row_entropy": 0.0,
+  "entries": [
+    {
+      "operator_label": "shell_proxy_N4_for_3",
+      "requested_norm": 3,
+      "actual_norm": 4,
+      "x0_from": -2.0,
+      "x0_to": -2.0,
+      "count": 3,
+      "row_probability": 1.0
+    },
+    {
+      "operator_label": "shell_proxy_N4_for_3",
+      "requested_norm": 3,
+      "actual_norm": 4,
+      "x0_from": 0.0,
+      "x0_to": 0.0,
+      "count": 3,
+      "row_probability": 1.0
+    },
+    {
+      "operator_label": "shell_proxy_N4_for_3",
+      "requested_norm": 3,
+      "actual_norm": 4,
+      "x0_from": 0.5,
+      "x0_to": 1.0,
+      "count": 2,
+      "row_probability": 1.0
+    },
+    {
+      "operator_label": "shell_proxy_N6_for_5",
+      "requested_norm": 5,
+      "actual_norm": 6,
+      "x0_from": -2.0,
+      "x0_to": -2.0,
+      "count": 1,
+      "row_probability": 0.3333333333333333
+    },
+    {
+      "operator_label": "shell_proxy_N6_for_5",
+      "requested_norm": 5,
+      "actual_norm": 6,
+      "x0_from": -2.0,
+      "x0_to": 0.0,
+      "count": 2,
+      "row_probability": 0.6666666666666666
+    },
+    {
+      "operator_label": "shell_proxy_N6_for_5",
+      "requested_norm": 5,
+      "actual_norm": 6,
+      "x0_from": 0.0,
+      "x0_to": -2.0,
+      "count": 1,
+      "row_probability": 0.3333333333333333
+    },
+    {
+      "operator_label": "shell_proxy_N6_for_5",
+      "requested_norm": 5,
+      "actual_norm": 6,
+      "x0_from": 0.0,
+      "x0_to": 0.0,
+      "count": 2,
+      "row_probability": 0.6666666666666666
+    },
+    {
+      "operator_label": "shell_proxy_N6_for_5",
+      "requested_norm": 5,
+      "actual_norm": 6,
+      "x0_from": 1.0,
+      "x0_to": -1.0,
+      "count": 1,
+      "row_probability": 0.5
+    },
+    {
+      "operator_label": "shell_proxy_N6_for_5",
+      "requested_norm": 5,
+      "actual_norm": 6,
+      "x0_from": 1.0,
+      "x0_to": 1.0,
+      "count": 1,
+      "row_probability": 0.5
+    },
+    {
+      "operator_label": "shell_proxy_N8_for_7",
+      "requested_norm": 7,
+      "actual_norm": 8,
+      "x0_from": -2.0,
+      "x0_to": -2.0,
+      "count": 2,
+      "row_probability": 1.0
+    },
+    {
+      "operator_label": "shell_proxy_N8_for_7",
+      "requested_norm": 7,
+      "actual_norm": 8,
+      "x0_from": -1.0,
+      "x0_to": -2.0,
+      "count": 1,
+      "row_probability": 1.0
+    },
+    {
+      "operator_label": "shell_proxy_N8_for_7",
+      "requested_norm": 7,
+      "actual_norm": 8,
+      "x0_from": 0.0,
+      "x0_to": 0.0,
+      "count": 4,
+      "row_probability": 1.0
+    },
+    {
+      "operator_label": "shell_proxy_N8_for_7",
+      "requested_norm": 7,
+      "actual_norm": 8,
+      "x0_from": 1.0,
+      "x0_to": 0.5,
+      "count": 1,
+      "row_probability": 1.0
+    }
+  ]
+}

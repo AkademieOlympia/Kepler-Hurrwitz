@@ -1,0 +1,39 @@
+/-
+Copyright (c) 2026 Kepler-Hurrwitz contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Kepler-Hurrwitz Team
+-/
+
+import KeplerHurwitz.CollatzNormShell
+import KeplerHurwitz.CollatzProofAttemptV2
+import KeplerHurwitz.CollatzProofAttemptV21
+import KeplerHurwitz.CollatzProofAttemptV22
+import KeplerHurwitz.CollatzProofAttemptV23
+import KeplerHurwitz.CollatzProofAttemptV24
+import KeplerHurwitz.CollatzProofAttemptV25
+import KeplerHurwitz.Collatz.CkA.OrbitSmoothBridge
+import KeplerHurwitz.CyclicWordOrbit
+import KeplerHurwitz.EABCLayer
+import KeplerHurwitz.GodelKerr
+import KeplerHurwitz.HalesTaoIntegration
+import KeplerHurwitz.InterferenceAttraktorBridge
+import KeplerHurwitz.InterferenceModEqCoverage
+import KeplerHurwitz.KeplerInvariants
+import KeplerHurwitz.KleinCollapse
+import KeplerHurwitz.Nu2Bounds
+import KeplerHurwitz.OddCore
+import KeplerHurwitz.OddCoreDynamics
+import KeplerHurwitz.OctonionicSlice
+import KeplerHurwitz.PhotonModel
+import KeplerHurwitz.PhotonKeplerShift
+import KeplerHurwitz.PrimvierlingSymmetry
+import KeplerHurwitz.README_OrbitSymmetry
+import KeplerHurwitz.ReachableTheorems
+import KeplerHurwitz.Representation.DreiMusketiere
+import KeplerHurwitz.Representation.EABCChronology
+import KeplerHurwitz.Representation.Invariant
+import KeplerHurwitz.ResidueFilters
+import KeplerHurwitz.SchalenDynamik
+import KeplerHurwitz.SchuettePtolemyCaeda
+import KeplerHurwitz.SmoothAttraktor
+import KeplerHurwitz.SymbolicResultants

@@ -1,0 +1,42 @@
+{
+  "description": "Symbolic SageMath constraints for the Grigorian G2 -> SU(3) octonionic slice.",
+  "variables": {
+    "mu": "trace-like slice coordinate",
+    "Q": "slice coordinate with S = Q^2 elimination",
+    "S": "Q^2, used for rational symbolic elimination"
+  },
+  "intersection_points": [
+    [
+      "-5/2",
+      "1/2*sqrt(15)"
+    ],
+    [
+      "-5/2",
+      "-1/2*sqrt(15)"
+    ]
+  ],
+  "interference_point_squared": [
+    "-5/2",
+    "15/4"
+  ],
+  "verification": {
+    "mu": "-5/2",
+    "S": "15/4",
+    "quartic_residual": "0",
+    "circle_residual": "0",
+    "on_quartic": true,
+    "on_circle": true,
+    "on_both": true
+  },
+  "resultant_mu": "-24*mu^2 - 60*mu",
+  "resultant_Q": "576*Q^4 - 2160*Q^2",
+  "symbolic_constraints": {
+    "ring": "Multivariate Polynomial Ring in mu, S over Rational Field",
+    "variables": "mu,S",
+    "substitution": "S=Q^2",
+    "quartic": "mu^4 + 6*mu^3 + 2*mu^2*S - 15*mu^2 + 6*mu*S + S^2 - 56*mu + S",
+    "circle": "mu^2 + 4*mu + S",
+    "resultant_mu": "-24*mu^2 - 60*mu",
+    "resultant_Q": "576*Q^4 - 2160*Q^2"
+  }
+}

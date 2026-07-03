@@ -1,0 +1,212 @@
+{
+  "summary": {
+    "fano_line_count": 7,
+    "independent_generator_count": 4,
+    "dyadic_root_count": 112,
+    "dyadic_class_count": 28,
+    "fano_aligned_root_count": 84,
+    "real_axis_root_count": 28,
+    "shell_syndrome_map": {
+      "Fixpunkt": "stable_code_subspace",
+      "Ground shell": "vacuum_syndrome",
+      "Pumpen": "correction_transition",
+      "Bifurkation": "syndrome_split",
+      "Transitiv": "transient_syndrome"
+    }
+  },
+  "fano_stabilizer_generators": [
+    {
+      "line_index": 0,
+      "indices": [
+        1,
+        2,
+        3
+      ],
+      "parity_mask": 7
+    },
+    {
+      "line_index": 1,
+      "indices": [
+        1,
+        4,
+        5
+      ],
+      "parity_mask": 25
+    },
+    {
+      "line_index": 2,
+      "indices": [
+        1,
+        7,
+        6
+      ],
+      "parity_mask": 97
+    },
+    {
+      "line_index": 3,
+      "indices": [
+        2,
+        4,
+        6
+      ],
+      "parity_mask": 42
+    },
+    {
+      "line_index": 4,
+      "indices": [
+        2,
+        5,
+        7
+      ],
+      "parity_mask": 82
+    },
+    {
+      "line_index": 5,
+      "indices": [
+        3,
+        4,
+        7
+      ],
+      "parity_mask": 76
+    },
+    {
+      "line_index": 6,
+      "indices": [
+        3,
+        6,
+        5
+      ],
+      "parity_mask": 52
+    }
+  ],
+  "syndrome_table": {
+    "total_pairs": 26880,
+    "syndrome_count": 4,
+    "class_totals": {
+      "associative_dyadic": 4320,
+      "associative_half_integer": 3584,
+      "non_associative_dyadic": 8224,
+      "non_associative_half_integer": 10752
+    },
+    "entries": [
+      {
+        "syndrome_id": 0,
+        "syndrome_class": "non_associative_half_integer",
+        "count": 10752,
+        "degeneracy": 16
+      },
+      {
+        "syndrome_id": 1,
+        "syndrome_class": "non_associative_dyadic",
+        "count": 8224,
+        "degeneracy": 112
+      },
+      {
+        "syndrome_id": 2,
+        "syndrome_class": "associative_dyadic",
+        "count": 4320,
+        "degeneracy": 112
+      },
+      {
+        "syndrome_id": 3,
+        "syndrome_class": "associative_half_integer",
+        "count": 3584,
+        "degeneracy": 16
+      }
+    ]
+  },
+  "dyadic_root_class_histogram": {
+    "0": 28,
+    "1": 84
+  },
+  "commutation_summary": {
+    "pair_count": 28,
+    "involution_count": 7,
+    "anticommutation_count": 0
+  },
+  "css_projection": {
+    "fano_line_rank": 4,
+    "kernel_dimension": 3,
+    "independent_generator_rows": [
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    ],
+    "kernel_basis_rows": [
+      [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    ],
+    "generator_hamming_weights": [
+      3,
+      3,
+      3,
+      4
+    ],
+    "kernel_min_hamming_weight": 4,
+    "steane_hx_rank": 3,
+    "steane_hz_rank": 3,
+    "steane_hx_contained_in_fano_rowspace": false,
+    "fano_rowspace_contained_in_steane_hx": false,
+    "rowspace_intersection_dimension": 1,
+    "steane_classical_distance": 3,
+    "steane_css_generator_count": 6
+  }
+}

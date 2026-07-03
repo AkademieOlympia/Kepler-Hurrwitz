@@ -1,0 +1,44 @@
+{
+  "description": "Schema/template for symbolic SageMath constraints of the Grigorian G2 -> SU(3) octonionic slice.",
+  "status": "schema_only_not_computed",
+  "generated_by": "examples/run_sage_bridge.py",
+  "required_runtime": "SageMath via sage -python",
+  "variables": {
+    "mu": "trace-like slice coordinate",
+    "Q": "norm-like slice coordinate",
+    "S": "Q^2, used for rational symbolic elimination over QQ"
+  },
+  "intersection_points": [
+    {
+      "mu": "-5/2",
+      "Q": "sqrt(15)/2",
+      "S": "15/4"
+    },
+    {
+      "mu": "-5/2",
+      "Q": "-sqrt(15)/2",
+      "S": "15/4"
+    }
+  ],
+  "verification": {
+    "quartic_residual_at_interference_points": "<computed by SageMath>",
+    "circle_residual_at_interference_points": "<computed by SageMath>",
+    "on_quartic": "<bool>",
+    "on_circle": "<bool>",
+    "on_both": "<bool>"
+  },
+  "symbolic_constraints": {
+    "ring": "QQ[mu, S]",
+    "substitution": "S = Q^2",
+    "quartic": "<quartic locus polynomial in mu,S>",
+    "circle": "<circle locus polynomial in mu,S>",
+    "resultant_mu": "<eliminate S: univariate polynomial in mu>",
+    "resultant_Q": "<eliminate mu: polynomial lifted to Q via S=Q^2>"
+  },
+  "notes": [
+    "This file is a static schema/template only.",
+    "It intentionally contains no computed SageMath resultants.",
+    "Computed output should be generated with: sage -python examples/run_sage_bridge.py --json --out docs/energiedoku_exports/sage_symbolic_constraints.json",
+    "The S=Q^2 convention avoids adjoining sqrt(15) over QQ during symbolic elimination."
+  ]
+}

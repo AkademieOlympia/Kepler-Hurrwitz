@@ -1,0 +1,150 @@
+{
+  "metric": "delta_M_cosine_mean",
+  "verdict": "negative_evidence",
+  "zeros_count": 2001052,
+  "results": [
+    {
+      "scenario_name": "baseline_cyclic",
+      "delta_M": -1.85619,
+      "probe_value": -1.85619,
+      "sample_count": 2001052,
+      "interference_factor": 2.597717331702856e-07,
+      "variance": 0.5000157470576976,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "baseline_cyclic",
+      "delta_M": 1.85619,
+      "probe_value": 1.85619,
+      "sample_count": 2001052,
+      "interference_factor": 2.597717331702856e-07,
+      "variance": 0.5000157470576976,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "random_chain",
+      "delta_M": -2.5708,
+      "probe_value": -2.5708,
+      "sample_count": 2001052,
+      "interference_factor": 2.5709409768973228e-06,
+      "variance": 0.5000003332880284,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "random_chain",
+      "delta_M": -1.85619,
+      "probe_value": -1.85619,
+      "sample_count": 2001052,
+      "interference_factor": 2.597717331702856e-07,
+      "variance": 0.5000157470576976,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "random_chain",
+      "delta_M": 0.0,
+      "probe_value": 0.0,
+      "sample_count": 2001052,
+      "interference_factor": 1.0,
+      "variance": 0.0,
+      "is_resonant": true,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "random_chain",
+      "delta_M": 1.85619,
+      "probe_value": 1.85619,
+      "sample_count": 2001052,
+      "interference_factor": 2.597717331702856e-07,
+      "variance": 0.5000157470576976,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "random_chain",
+      "delta_M": 2.5708,
+      "probe_value": 2.5708,
+      "sample_count": 2001052,
+      "interference_factor": 2.5709409768973228e-06,
+      "variance": 0.5000003332880284,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "gauge_pi_over_4",
+      "delta_M": -1.85619,
+      "probe_value": -1.85619,
+      "sample_count": 2001052,
+      "interference_factor": 2.597717331702856e-07,
+      "variance": 0.5000157470576976,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "gauge_pi_over_4",
+      "delta_M": 1.85619,
+      "probe_value": 1.85619,
+      "sample_count": 2001052,
+      "interference_factor": 2.597717331702856e-07,
+      "variance": 0.5000157470576976,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "gauge_pi_over_2",
+      "delta_M": -1.85619,
+      "probe_value": -1.85619,
+      "sample_count": 2001052,
+      "interference_factor": 2.597717331702856e-07,
+      "variance": 0.5000157470576976,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "gauge_pi_over_2",
+      "delta_M": 0.0,
+      "probe_value": 0.0,
+      "sample_count": 2001052,
+      "interference_factor": 1.0,
+      "variance": 0.0,
+      "is_resonant": true,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "gauge_pi_over_2",
+      "delta_M": 1.85619,
+      "probe_value": 1.85619,
+      "sample_count": 2001052,
+      "interference_factor": 2.597717331702856e-07,
+      "variance": 0.5000157470576976,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    },
+    {
+      "scenario_name": "perturbation_at_100",
+      "delta_M": 0.0,
+      "probe_value": 0.0,
+      "sample_count": 2001052,
+      "interference_factor": 1.0,
+      "variance": 0.0,
+      "is_resonant": true,
+      "resonance_threshold": 0.05,
+      "metric": "delta_M_cosine_mean"
+    }
+  ]
+}

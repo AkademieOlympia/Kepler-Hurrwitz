@@ -1,0 +1,41 @@
+{
+  "claim_class": "C",
+  "upgrade_status": "pre",
+  "depends_on": [
+    "E-041"
+  ],
+  "group": {
+    "name": "G_model",
+    "definition": "G_model := Aut(Fano_7) x Z2_global_imaginary_sign. Aut(Fano_7) is the set of permutations of imaginary axes {1,...,7} that map Fano lines from discrete_time_flow.fano_triples() to Fano lines. Z2_global_imaginary_sign multiplies all imaginary components by +1 or -1; the real axis is fixed. This group is fixed before any shell comparison.",
+    "fano_automorphism_count": 168,
+    "global_imaginary_sign_count": 2,
+    "total_elements": 336
+  },
+  "separation_reports": [
+    {
+      "pair": "N=4_vs_N=8",
+      "preserved_for_all_transforms": true,
+      "failing_transform_count": 0
+    },
+    {
+      "pair": "N=4_vs_N=6",
+      "preserved_for_all_transforms": true,
+      "failing_transform_count": 0
+    },
+    {
+      "pair": "N=6_vs_N=8",
+      "preserved_for_all_transforms": true,
+      "failing_transform_count": 0
+    }
+  ],
+  "all_separations_preserved": true,
+  "canonicality_verified": true,
+  "reproducibility_verified": true,
+  "e041_upgrade_eligible": true,
+  "upgrade_conditions": {
+    "canonicality": true,
+    "symmetry_invariance": true,
+    "reproducibility": true
+  },
+  "methodological_note": "E-042 is the invariance validator for E-041 [B]. Symmetry group G_model is declared before evaluation. Invariance requires signed_support(N=4) != signed_support(N=8) for all g in G_model, and likewise for the N=6 separation pairs."
+}

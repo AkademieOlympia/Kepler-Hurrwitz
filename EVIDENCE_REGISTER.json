@@ -1,0 +1,988 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-07-03",
+  "id_notes": {
+    "musketiere_lean_labels": "E-033/E-034 in PrimvierlingSymmetry.lean map to register entries E-046/E-047",
+    "energiedoku_e033_e034": "Register E-033/E-034 remain Kepler time bridge and Riemann resonance"
+  },
+  "levels": {
+    "A": "formal bewiesen (Lean)",
+    "B": "reproduzierbar numerisch/empirisch",
+    "C": "offene mathematische Hypothese/Interface",
+    "L4": "programmatische Interpretation"
+  },
+  "a_subclasses": {
+    "A-T": "Theorem",
+    "A-I": "Infrastructure",
+    "A-D": "Definition"
+  },
+  "stability_status": {
+    "stable": "langfristig tragender Projektbaustein",
+    "experimental": "kann sich mit neuen Daten/Formalisierungen aendern",
+    "deprecated": "wird nicht mehr aktiv verwendet, bleibt aber dokumentiert",
+    "superseded": "durch neueren Eintrag ersetzt"
+  },
+  "entries": [
+    {
+      "id": "E-001",
+      "title": "collatz_iterate_pow_two_to_one",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/CollatzNormShell.lean",
+      "depends_on": [
+        "collatz_step_pow_two"
+      ],
+      "supports": [],
+      "scope": "Zweierpotenzen",
+      "metric_or_result": "formaler Satz",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-002",
+      "title": "B=11-Attraktor zeigt erhoehte Trefferquote",
+      "level": "B",
+      "aclass": null,
+      "source": "docs/energiedoku_exports/smoothness_b_bound_summary.json",
+      "depends_on": [
+        "smoothness_b_bound_matrix.json"
+      ],
+      "supports": [
+        "E-003"
+      ],
+      "scope": "Scans ueber mehrere Skalen/B-Bounds",
+      "metric_or_result": "Trendmetriken (stability_score, v_ratio)",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-003",
+      "title": "InterferenceSelectsB11",
+      "level": "C",
+      "aclass": null,
+      "source": "KeplerHurwitz/InterferenceAttraktorBridge.lean",
+      "depends_on": [
+        "E-005",
+        "E-006",
+        "E-008",
+        "E-009"
+      ],
+      "supports": [],
+      "scope": "globale Bridge-Formulierung",
+      "metric_or_result": "offen",
+      "status": "offen; nicht zu [B] geupgradet",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-004",
+      "title": "Diskrete Operatorgeometrie kann langfristig fuer physikalische Modelle relevant sein",
+      "level": "L4",
+      "aclass": null,
+      "source": "README.md",
+      "depends_on": [
+        "ARCHITECTURE.md (L4-Vertrag)"
+      ],
+      "supports": [],
+      "scope": "Programmrahmen",
+      "metric_or_result": "programmatische Einordnung",
+      "status": "programmatisch",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-005",
+      "title": "Reproduzierbare numerische Bridge-Studie fuer den kanonischen Interferenzpunkt innerhalb des definierten Testbereichs",
+      "level": "B",
+      "aclass": null,
+      "source": "docs/energiedoku_exports/interference_b11_study.json",
+      "depends_on": [
+        "examples/run_interference_b11_study.py",
+        "CanonicalInterferencePoint (SymbolicResultants)"
+      ],
+      "supports": [
+        "E-003"
+      ],
+      "scope": "kanonischer Interferenzpunkt (-5/2, 15/4), limit_m=200001 (100001 ungerade Samples)",
+      "metric_or_result": "violation_count=0, b11_hit_rate=1.0",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-006",
+      "title": "CanonicalInterferenceSelectsB11Local",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/InterferenceAttraktorBridge.lean",
+      "depends_on": [
+        "mod12_residue_le_eleven",
+        "odd_mod12_cases"
+      ],
+      "supports": [
+        "E-003"
+      ],
+      "scope": "lokale Zwischenstufe via endlicher Mod-12-Restklassenrechnung",
+      "metric_or_result": "formaler Satz (canonicalInterferenceSelectsB11Local_true)",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-007",
+      "title": "Hales/Tao-Integration als formales Seed-Interface",
+      "level": "A",
+      "aclass": "A-I",
+      "source": "KeplerHurwitz/HalesTaoIntegration.lean",
+      "depends_on": [
+        "hales_kepler_seed",
+        "tao_odd_mod8_seed",
+        "halesSeedNode_integrated",
+        "taoSeedNode_integrated"
+      ],
+      "supports": [
+        "zukuenftige Hales-Integration",
+        "zukuenftige Tao-Integration"
+      ],
+      "scope": "nur Interface + konkrete Seed-Lemmata; keine Vollintegration der Arbeiten von Hales oder Tao",
+      "metric_or_result": "typisierte Integrationsstruktur mit formalisierten Seeds",
+      "status": "Seed integriert",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-008",
+      "title": "canonicalInterferenceResidue_implies_odd und canonicalInterferenceResidue_implies_le11",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/InterferenceAttraktorBridge.lean",
+      "depends_on": [
+        "odd_mod12_cases",
+        "mod12_residue_le_eleven"
+      ],
+      "supports": [
+        "E-003"
+      ],
+      "scope": "lokale Residueneigenschaften fuer kanonische Interferenzresiduen",
+      "metric_or_result": "formale Saetze (r % 2 = 1, r <= 11)",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-009",
+      "title": "GlobalCoverageByCanonicalResidues",
+      "level": "C",
+      "aclass": null,
+      "source": "KeplerHurwitz/InterferenceAttraktorBridge.lean",
+      "depends_on": [
+        "E-006",
+        "E-008",
+        "E-010"
+      ],
+      "supports": [
+        "E-003"
+      ],
+      "scope": "offene Abdeckungsannahme von global admissible auf kanonische Residuen",
+      "metric_or_result": "offen",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-010",
+      "title": "ModEq-basierte lokale Odd-Residue-Coverage (OddResidueMod12)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/InterferenceModEqCoverage.lean",
+      "depends_on": [
+        "Nat.mod_modEq",
+        "odd_mod12_to_oddResidueMod12",
+        "oddResidueMod12_of_canonicalResidue"
+      ],
+      "supports": [
+        "E-009",
+        "E-003"
+      ],
+      "scope": "lokale Mod-12-Coverage-Schicht ohne Globalclaim",
+      "metric_or_result": "formale Lemmaschicht (modEq_of_eq_mod12, oddResidueMod12_of_canonicalResidue)",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-011",
+      "title": "OrbitHasSmoothRepresentative",
+      "level": "A",
+      "aclass": "A-D",
+      "source": "KeplerHurwitz/Collatz/CkA/OrbitSmoothBridge.lean",
+      "depends_on": [
+        "IsBSmooth"
+      ],
+      "supports": [
+        "E-017"
+      ],
+      "scope": "Defensives Orbit-Interface mit mindestens einem B-glatten Repräsentanten in explizitem Carrier",
+      "metric_or_result": "formale Definition",
+      "status": "definiert",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-012",
+      "title": "OrbitAllSmooth",
+      "level": "A",
+      "aclass": "A-D",
+      "source": "KeplerHurwitz/Collatz/CkA/OrbitSmoothBridge.lean",
+      "depends_on": [
+        "IsBSmooth"
+      ],
+      "supports": [
+        "E-017"
+      ],
+      "scope": "Alle expliziten Orbit-Carrier-Werte sind B-glatt",
+      "metric_or_result": "formale Definition",
+      "status": "definiert",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-013",
+      "title": "OrbitSmoothProfile",
+      "level": "A",
+      "aclass": "A-D",
+      "source": "KeplerHurwitz/Collatz/CkA/OrbitSmoothBridge.lean",
+      "depends_on": [
+        "CyclicWordOrbit",
+        "IsBSmooth"
+      ],
+      "supports": [
+        "E-015",
+        "E-016"
+      ],
+      "scope": "Profilstruktur zur Kopplung von Orbit, Werteliste und All-Smooth-Nachweis",
+      "metric_or_result": "formale Strukturdefinition",
+      "status": "definiert",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-014",
+      "title": "orbit_has_smooth_rep_mono",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/Collatz/CkA/OrbitSmoothBridge.lean",
+      "depends_on": [
+        "E-011",
+        "IsBSmooth_mono"
+      ],
+      "supports": [
+        "E-017"
+      ],
+      "scope": "Monotonie in B fuer glatten Orbit-Repräsentanten",
+      "metric_or_result": "formales Lemma (defensive Transferaussage)",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-015",
+      "title": "profile_member_smooth_of_dvd",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/Collatz/CkA/OrbitSmoothBridge.lean",
+      "depends_on": [
+        "E-013",
+        "IsBSmooth_of_dvd"
+      ],
+      "supports": [
+        "E-017"
+      ],
+      "scope": "Teilervererbung auf Profilwerten",
+      "metric_or_result": "formales Lemma",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-016",
+      "title": "profile_member_mul_smooth",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/Collatz/CkA/OrbitSmoothBridge.lean",
+      "depends_on": [
+        "E-013",
+        "IsBSmooth_mul"
+      ],
+      "supports": [
+        "E-017"
+      ],
+      "scope": "Multiplikative Stabilitaet auf Profilwerten",
+      "metric_or_result": "formales Lemma",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-017",
+      "title": "OrbitSmoothBiasHypothesis",
+      "level": "C",
+      "aclass": null,
+      "source": "KeplerHurwitz/Collatz/CkA/OrbitSmoothBridge.lean",
+      "depends_on": [
+        "E-011",
+        "E-012",
+        "E-014",
+        "E-015",
+        "E-016",
+        "E-018"
+      ],
+      "supports": [],
+      "scope": "Offene Smoothness-Bias-Hypothese als reine Interface-Schicht",
+      "metric_or_result": "offen; keine formale Attraktorwirkung behauptet",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-018",
+      "title": "EABC Smoothness Attraktor Dossier und Exportartefakte",
+      "level": "B",
+      "aclass": null,
+      "source": "results/reports/EABC_SMOOTHNESS_ATTRACTOR_DOSSIER.md",
+      "depends_on": [
+        "docs/energiedoku_exports/smoothness_significance.json",
+        "docs/energiedoku_exports/smoothness_scale_stability.json",
+        "docs/energiedoku_exports/smoothness_b_bound_matrix.json",
+        "docs/energiedoku_exports/smoothness_b_bound_summary.json"
+      ],
+      "supports": [
+        "E-017"
+      ],
+      "scope": "Reproduzierbare Empirie getrennt von Lean-Theoremen",
+      "metric_or_result": "Artefaktkette dokumentiert; Attraktorfrage bleibt offen",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-02"
+    },
+    {
+      "id": "E-019",
+      "title": "a5_geo invariant-subspace representation check (rotational icosahedral group)",
+      "level": "B",
+      "aclass": null,
+      "source": "scripts/invariant_subspaces_a4_toy.sage",
+      "depends_on": [
+        "KeplerHurwitz/Representation/Invariant.lean (konzeptioneller Kontext)",
+        "scripts/invariant_subspaces_a4_toy.sage (a5_geo mode)"
+      ],
+      "supports": [
+        "results/reports/A5_GEO_INVARIANT_SUBSPACES_REPORT.md"
+      ],
+      "scope": "Geometrische A5-Wirkung auf 12 Ikosaeder-Ecken; explizit nicht Ih",
+      "metric_or_result": "group order=60, vertices preserved=True, W_triv invariant=True, W_sumzero invariant=True, direct sum dimension=12, intersection dimension=0, sum invariant=True",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-020",
+      "title": "a5_geo_decompose character decomposition check (geometric A5 action)",
+      "level": "B",
+      "aclass": null,
+      "source": "scripts/invariant_subspaces_a4_toy.sage",
+      "depends_on": [
+        "E-019",
+        "scripts/invariant_subspaces_a4_toy.sage (a5_geo_decompose mode)"
+      ],
+      "supports": [
+        "results/reports/A5_GEO_CHARACTER_DECOMPOSITION_REPORT.md"
+      ],
+      "scope": "Charakteranalyse der 12-Ecken-Permutationsdarstellung; explizit nicht Ih",
+      "metric_or_result": "class sizes=[1,12,12,15,20], perm char=[12,2,2,0,0], irred deg=[1,3,3,4,5], mult=[1,1,1,0,1], dim sum=12, trivial mult=1",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-021",
+      "title": "a5_geo_projectors central projector decomposition check (geometric A5 action)",
+      "level": "B",
+      "aclass": null,
+      "source": "scripts/invariant_subspaces_a4_toy.sage",
+      "depends_on": [
+        "E-020",
+        "scripts/invariant_subspaces_a4_toy.sage (a5_geo_projectors mode)"
+      ],
+      "supports": [
+        "results/reports/A5_GEO_PROJECTOR_DECOMPOSITION_REPORT.md"
+      ],
+      "scope": "Zentrale Charakterprojektoren fuer die 12-Ecken-Wirkung; explizit nicht Ih",
+      "metric_or_result": "idempotence=True, orthogonality=True, ranks=[1,3,3,5], sum identity=True, group order=60",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-022",
+      "title": "a5_geo_mode_fingerprints mode-energy fingerprint diagnostics (geometric A5 action)",
+      "level": "B",
+      "aclass": null,
+      "source": "scripts/invariant_subspaces_a4_toy.sage",
+      "depends_on": [
+        "E-021",
+        "scripts/invariant_subspaces_a4_toy.sage (a5_geo_mode_fingerprints mode)"
+      ],
+      "supports": [
+        "results/reports/A5_GEO_MODE_FINGERPRINTS_REPORT.md"
+      ],
+      "scope": "Modenanteile konkreter Testvektoren via Projektoren; explizit nicht Ih",
+      "metric_or_result": "reconstruction=True und energy sum=True fuer alle Testvektoren; Mode-Energien dokumentiert",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-023",
+      "title": "a5_geo_eabc_signature_modes toy EABC mode comparison (geometric A5 action)",
+      "level": "B",
+      "aclass": null,
+      "source": "scripts/invariant_subspaces_a4_toy.sage",
+      "depends_on": [
+        "E-022",
+        "scripts/invariant_subspaces_a4_toy.sage (a5_geo_eabc_signature_modes mode)"
+      ],
+      "supports": [
+        "results/reports/A5_GEO_EABC_SIGNATURE_MODES_REPORT.md"
+      ],
+      "scope": "Toy zyklische ABCE/CEAB-Labelzuweisung auf 12 Ecken; explizit nicht kanonische EABC-Geometrie und nicht Ih",
+      "metric_or_result": "stabile Projektorchecks; unter diesem toy embedding identische ABCE/CEAB-Fingerprints (delta_3=0, delta_3'=0)",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-024",
+      "title": "a5_geo_eabc_embedding_sweep embedding-sensitivity check (geometric A5 action)",
+      "level": "B",
+      "aclass": null,
+      "source": "scripts/invariant_subspaces_a4_toy.sage",
+      "depends_on": [
+        "E-023",
+        "scripts/invariant_subspaces_a4_toy.sage (a5_geo_eabc_embedding_sweep mode)"
+      ],
+      "supports": [
+        "results/reports/A5_GEO_EABC_EMBEDDING_SWEEP_REPORT.md"
+      ],
+      "scope": "Vergleich von ABCE/CEAB-Fingerprints ueber mehrere toy label-to-vertex embeddings; kein kanonisches EABC->Ikosaeder-Embedding behauptet",
+      "metric_or_result": "tested=15, identical=4, non-identical=11, max|delta E3|=7.15541752799933, max|delta E3'|=7.15541752799933, Rekonstruktion immer wahr",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-025",
+      "title": "Bremensaal und MusketiereNeighborTriple Definitionen (Projekt Die drei Musketiere)",
+      "level": "A",
+      "aclass": "A-D",
+      "source": "KeplerHurwitz/Representation/DreiMusketiere.lean",
+      "depends_on": [
+        "EABCChronology",
+        "E-019"
+      ],
+      "supports": [
+        "E-026",
+        "E-027"
+      ],
+      "scope": "12-Ecken-Ikosaeder-Träger, vier EABC-Dreierbloecke",
+      "metric_or_result": "formale Definitionen",
+      "status": "definiert",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-026",
+      "title": "MusketiereNeighborTripleHypothesis — Nachbar-Dreier der uebrigen Familien in jedem Bremensaal, objektiv",
+      "level": "C",
+      "aclass": null,
+      "source": "KeplerHurwitz/Representation/DreiMusketiere.lean",
+      "depends_on": [
+        "E-025",
+        "E-024",
+        "docs/drei_musketiere_hypothese.md"
+      ],
+      "supports": [],
+      "scope": "alle Traegerkanaele E,A,B,C; Objektivitaet unter label-erhaltenden Automorphismen",
+      "metric_or_result": "offen",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-027",
+      "title": "a5_geo_drei_musketiere numerische Nachbar-Dreier-Diagnose",
+      "level": "B",
+      "aclass": null,
+      "source": "scripts/invariant_subspaces_a4_toy.sage",
+      "depends_on": [
+        "E-025",
+        "E-026",
+        "scripts/invariant_subspaces_a4_toy.sage (a5_geo_drei_musketiere mode)"
+      ],
+      "supports": [
+        "docs/drei_musketiere_hypothese.md"
+      ],
+      "scope": "toy-Embeddings auf 12-Ecken-Ikosaeder; inkl. kanonisches Embedding seit E-028",
+      "metric_or_result": "tested=16, all_pass=10, host_failures={E:2,A:2,B:3,C:2}; zyklisch+antipodal+kanonisch vollstaendig, face_neighbor scheitert",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-028",
+      "title": "a5_geo_canonical_embedding kanonisches EABC-Ikosaeder-Embedding (K1-K4)",
+      "level": "B",
+      "aclass": null,
+      "source": "scripts/invariant_subspaces_a4_toy.sage",
+      "depends_on": [
+        "E-025",
+        "E-026",
+        "E-027",
+        "EABCChronology",
+        "docs/drei_musketiere_hypothese.md",
+        "scripts/invariant_subspaces_a4_toy.sage (a5_geo_canonical_embedding mode)"
+      ],
+      "supports": [
+        "E-026"
+      ],
+      "scope": "lex-sort + mod-4-Orbit + E-Mittelachse + chi-Label; Hurwitz-Anschluss strukturell",
+      "metric_or_result": "musketiere_all_hosts_ok=True, chi_orbit_under_A5=1/60, toy_musk_pass=9/15, face_neighbor=False",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-029",
+      "title": "canonical_musketiere_neighbor_triple_for_all_hosts (kanonisches Referenzsystem)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/Representation/DreiMusketiere.lean",
+      "depends_on": [
+        "E-025",
+        "E-028"
+      ],
+      "supports": [
+        "E-026",
+        "E-030"
+      ],
+      "scope": "hart kodierter Ikosaeder-Graph + Labelcode auf Fin 12",
+      "metric_or_result": "formaler Satz fuer alle Traegerkanaele E,A,B,C",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-030",
+      "title": "canonical_musketiere_neighbor_triple_chi_objectivity (chi-Relabeling)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/Representation/DreiMusketiere.lean",
+      "depends_on": [
+        "E-029",
+        "EABCChronology",
+        "scripts/invariant_subspaces_a4_toy.sage (a5_geo_chi_objectivity mode)"
+      ],
+      "supports": [
+        "E-026",
+        "E-031"
+      ],
+      "scope": "Invarianz unter chi-Orbit auf festem Vertex-Traeger; HasMusketiereNeighborTriple_relabel",
+      "metric_or_result": "chi-Potenzen 0..3: all_hosts_ok=True",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-031",
+      "title": "musketiere_hypothesis_transfer / IsEquivalentToCanonical (Aequivalenz-Kollaps)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/Representation/DreiMusketiere.lean, scripts/invariant_subspaces_a4_toy.sage (a5_geo_canonical_equivalence)",
+      "depends_on": [
+        "E-029",
+        "E-030",
+        "E-028",
+        "scripts/invariant_subspaces_a4_toy.sage (a5_geo_canonical_equivalence)"
+      ],
+      "supports": [
+        "E-026",
+        "E-032"
+      ],
+      "scope": "Lean: Graph-Automorphismus + Kanal-Relabeling transportiert kanonischen Musketiere-Beweis; Sage: strikte (sigma,tau)-Aequivalenz auf festem Traeger",
+      "metric_or_result": "Lean ohne sorry; Sage strict_equivalent=0/9, partition_compatible=0/9, canonical_self=True",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-032",
+      "title": "objectivity_hypothesis_implies_canonical_bridge (Objektivitaets-Bruecke)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/Representation/DreiMusketiere.lean",
+      "depends_on": [
+        "E-025",
+        "E-031",
+        "E-046",
+        "E-047",
+        "E-026"
+      ],
+      "supports": [
+        "E-026"
+      ],
+      "scope": "LabelIntertwiningGraphAuto, constructChannelPermutation -> IsEquivalentToCanonical; Kollaps musketiere_hypothesis_canonical_orbit",
+      "metric_or_result": "1 sorry in objectivity_hypothesis_implies_canonical_bridge; Unterbau (objectivity_map_implies_equivalence, ofRespectsLabelFibers) ohne sorry",
+      "status": "in Arbeit",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-046",
+      "title": "Primvierling-Komplementaritaet und Host-Auslassungs-Symmetrie (Lean-Label E-033)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/PrimvierlingSymmetry.lean",
+      "depends_on": [
+        "E-025",
+        "EABCChronology"
+      ],
+      "supports": [
+        "E-032",
+        "E-047",
+        "E-026",
+        "E-048"
+      ],
+      "scope": "hostTriple, hostTriple_union_host_eq_four_set, hostTriples_pairwise_ne, Gap-Paare, hostTriple_shiftCEAB",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.PrimvierlingSymmetry gruen (2026-07-03)",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03",
+      "lean_label": "E-033"
+    },
+    {
+      "id": "E-047",
+      "title": "hostComponentEquiv und Dreier-Multiplizitaet (Lean-Label E-034)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/PrimvierlingSymmetry.lean",
+      "depends_on": [
+        "E-046",
+        "E-025"
+      ],
+      "supports": [
+        "E-032",
+        "E-026",
+        "E-048"
+      ],
+      "scope": "hostComponentEquiv; mem_hostTriple_count = 3; unique_excluded_host; mem_hostTriple_iff_ne_hostComponent; Bruecke zu RespectsLabelFibers / LabelIntertwiningGraphAuto",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.PrimvierlingSymmetry gruen (2026-07-03)",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03",
+      "lean_label": "E-034"
+    },
+    {
+      "id": "E-048",
+      "title": "Dumas-Lemma Dumas_one_for_all_all_for_one (Lean E-048; Konsolidierung Lean-Label E-034)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/PrimvierlingSymmetry.lean",
+      "depends_on": [
+        "E-046",
+        "E-047"
+      ],
+      "supports": [
+        "E-032",
+        "E-026"
+      ],
+      "scope": "Dumas_one_for_all_all_for_one; dumasLemma; dumasLemma_hostComponent_bij; dumasLemma_otherChannels_card",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.PrimvierlingSymmetry gruen (2026-07-03)",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03",
+      "lean_label": "E-048",
+      "related_lean_labels": [
+        "E-034"
+      ]
+    },
+    {
+      "id": "E-033",
+      "title": "Kepler-Zeit-Leiter: diskretes Delta-M-Linienspektrum auf Floquet-Attraktoren",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/kepler_time_bridge.py, examples/run_kepler_time_bridge.py, docs/plots/spectrum_*.dat",
+      "depends_on": [
+        "discrete_time_flow.simulate_physical_flow",
+        "tests/test_kepler_time_bridge.py"
+      ],
+      "supports": [],
+      "scope": "500 Schritte, Tail=64, soft+ring2, 8 zyklische Operatoren",
+      "metric_or_result": "baseline unique_dM=2, M_period=8, Spektrum ±1.85619; pi/2 unique_dM=3; Stoerung unique_dM=1",
+      "status": "reproduzierbar",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-034",
+      "title": "Riemann-Resonanz via S(Delta_M)=mean cos(gamma*Delta_M) — Schnittstellen-Kosinus-Mittelung",
+      "level": "C",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/riemann_resonance_checker.py, docs/energiedoku_exports/riemann_resonance.json",
+      "depends_on": [
+        "E-033",
+        "data/riemann_zeros_imag_f8.bin"
+      ],
+      "supports": [],
+      "scope": "volle Stichprobe N=2_001_052 Riemann-Nullstellen; pytest-Gesamtsuite 127 passed (1 skipped)",
+      "metric_or_result": "Verdict: refuted. S(±1.85619)≈2.6e-7, var≈0.500, nicht resonant; S(0)=1.0 trivial; identisch zum Zufalls-Nullmodell; destruktive Interferenz, kein Baseline-Ueberhang",
+      "status": "refuted",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-035",
+      "title": "Riemann-Skalen-Interferenz via S(x_0)=mean cos(gamma*log(a/a_0)) — Skalen-Kosinus-Mittelung",
+      "level": "C",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/riemann_resonance_checker.py, docs/energiedoku_exports/riemann_scale_resonance.json",
+      "depends_on": [
+        "E-033",
+        "E-034",
+        "phi/phi_inv Skalenkomponente x_0"
+      ],
+      "supports": [],
+      "scope": "korrigierte explizite-Formel-Metrik; volle Stichprobe N=2_001_052",
+      "metric_or_result": "Verdict: open_hypothesis / experimental. Tail-x_0 in {0,-0.5}; S(0)=1.0 trivial; S(-0.5)≈-1.8e-6, nicht resonant; negative Evidenz ohne statistisch signifikantes Signal — keine formale Widerlegung der strukturellen Kopplung",
+      "status": "open_hypothesis",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-036",
+      "title": "Arithmetische Evolution via Hurwitz-Shell-Operatoren (Proxy N=4,6,8)",
+      "level": "C",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/arithmetic_evolution.py, examples/run_arithmetic_evolution.py, docs/energiedoku_exports/arithmetic_transition_matrix.json",
+      "depends_on": [
+        "E-033",
+        "discrete_time_flow.physical_step_filter"
+      ],
+      "supports": [
+        "E-037",
+        "E-043"
+      ],
+      "scope": "Shell-Proxies 3/5/7; Uebergangsmatrix; periodic_recovery=12/12",
+      "metric_or_result": "P(x0| op) asymmetrisch; periodic_recovery=12/12; Kaskade ueber 6 x0-Schalen",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-037",
+      "title": "Dyadische Metakommutation der 112 Norm-2-Integer-Wurzeln",
+      "level": "C",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/metacommutation.py, docs/energiedoku_exports/dyadic_metacommutation.json",
+      "depends_on": [
+        "E-036",
+        "discrete_time_flow.hurwitz_units_240"
+      ],
+      "supports": [
+        "E-038",
+        "H3"
+      ],
+      "scope": "112 dyadische Wurzeln x 240 Einheiten; P·U=U'·P' mit Norm-2-Partnern",
+      "metric_or_result": "resolved=26880/26880; dyadic/half-integer Partner-Anteile dokumentiert",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-038",
+      "title": "Fano-QEC-Bruecke: GF(2)-Stabilisatormatrix, Syndrompartition, CSS-Projektion",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/qec_bridge.py, docs/energiedoku_exports/qec_bridge.json, tests/test_qec_bridge.py",
+      "depends_on": [
+        "E-037",
+        "discrete_time_flow.fano_triples"
+      ],
+      "supports": [
+        "E-039",
+        "H3"
+      ],
+      "scope": "7 Fano-Linien; 112 dyadische Wurzeln; 26880 Metakommutations-Paare; CSS-Vergleich mit Steane-Referenz",
+      "metric_or_result": "GF(2)-Rang=4; Kern-Dim=3; Syndromklassen=4; Zeilenraum-Schnitt mit Steane H_X=1; Kern-Mindestgewicht=4 vs Steane-Distanz=3",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-039",
+      "title": "E-039-pre: Fano-Kernfreiheiten und Schalen-Syndrom-Kandidaten",
+      "level": "C",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/qec_bridge.py, docs/energiedoku_exports/fano_kernel_shell_map.json, docs/energiedoku_exports/fano_shell_cosets.json, tests/test_qec_bridge.py",
+      "depends_on": [
+        "E-037",
+        "E-038"
+      ],
+      "supports": [
+        "E-040",
+        "H3"
+      ],
+      "scope": "Negativer Quotient-Test: dyadische Fano-Koset-Projektion; Schalen N=4,6,8",
+      "metric_or_result": "sigma_4=sigma_8; sigma_6 distinct; e039_upgrade_eligible=false; trennt N=6 von (N=4,N=8), nicht N=4 von N=8",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-040",
+      "title": "E-040-pre: Kanonische verfeinerte Shell-Signaturen jenseits dyadischer GF(2)-Paritaet",
+      "level": "C",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/qec_bridge.py, docs/energiedoku_exports/refined_shell_projection.json, tests/test_qec_bridge.py",
+      "depends_on": [
+        "E-039"
+      ],
+      "supports": [
+        "E-041",
+        "H3"
+      ],
+      "scope": "Drei Verfeinerungen (hurwitz_residue, signed_support, real_axis); vor Label-Vergleich definiert",
+      "metric_or_result": "alle drei Modi trennen N=4/N=8 und erhalten N=6-Trennung; residue_key allein fuer N=4/N=8 gleich; claim_class=C",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-041",
+      "title": "Signierte Shell-Syndrome als kanonische Verfeinerung",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/qec_bridge.py, docs/energiedoku_exports/signed_shell_syndromes.json, tests/test_qec_bridge.py",
+      "depends_on": [
+        "E-039",
+        "E-040",
+        "E-042"
+      ],
+      "supports": [
+        "H3"
+      ],
+      "scope": "signed_support trennt N=4/6/8 paarweise; hebt sigma_4=sigma_8 auf ohne E-039 zu revidieren",
+      "metric_or_result": "upgrade_status=upgraded_from_pre; validated_by=E-042; separation_failures_under_G_model=0; defensive_scope ohne Kausalbehauptung",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "upgrade_status": "upgraded_from_pre",
+      "validated_by": "E-042",
+      "core_result": {
+        "old_gf2_collision": "sigma_4 = sigma_8",
+        "signed_support_separates": [
+          "N4_vs_N8",
+          "N4_vs_N6",
+          "N6_vs_N8"
+        ],
+        "model_symmetry_group_size": 336,
+        "separation_failures_under_G_model": 0
+      },
+      "defensive_scope": "No causal identification of pumping/fixpoint/bifurcation; only a canonical, symmetry-invariant refined signature separation."
+    },
+    {
+      "id": "E-042",
+      "title": "Symmetrieinvarianz der signierten Support-Projektion (Invarianzvalidator)",
+      "level": "C",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/qec_bridge.py, docs/energiedoku_exports/signed_support_symmetry.json, tests/test_qec_bridge.py",
+      "depends_on": [
+        "E-041"
+      ],
+      "supports": [
+        "E-041",
+        "H3"
+      ],
+      "scope": "Invarianzvalidator fuer E-041 [B]; G_model=Aut(Fano_7)xZ2_global_imag_sign; |G|=336; vor Auswertung definiert",
+      "metric_or_result": "signed_support Trennung N=4/N=8, N=4/N=6, N=6/N=8 unter allen g in G; e041_upgrade_eligible=true; E-041 ist Strukturclaim, E-042 Invarianzvalidator",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03"
+    },
+    {
+      "id": "E-043",
+      "title": "E-043-pre: Coupled Shell Resonance Graph",
+      "level": "C",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/coupled_shell_resonance.py, docs/energiedoku_exports/coupled_shell_resonance_graph.json, tests/test_coupled_shell_resonance.py",
+      "depends_on": [
+        "E-036",
+        "E-037",
+        "E-041",
+        "S8"
+      ],
+      "supports": [
+        "H3"
+      ],
+      "scope": "Keil A-pre; paarweise/dreifach gekoppelte N=4,6,8 auf 6 x0-Niveaus; Resonanzgraph-Invarianten",
+      "metric_or_result": "single_operator_profiles + coupled N4_N6/N4_N8/N6_N8/N4_N6_N8; graph_invariants fixed_points/cycles/pump_paths; N6 bifurcation nodes",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "upgrade_status": "pre",
+      "defensive_scope": "No astrophysical identification; finite coupled-shell dynamics only."
+    },
+    {
+      "id": "E-044",
+      "title": "Five-qubit stabilizer bridge [[5,1,3]]",
+      "level": "C",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/qec_bridge.py, docs/energiedoku_exports/five_qubit_stabilizer_bridge.json, examples/run_qec_stabilizer_check.py, tests/test_five_qubit_stabilizer_bridge.py",
+      "depends_on": [
+        "E-037",
+        "E-038"
+      ],
+      "supports": [
+        "H3",
+        "E-045"
+      ],
+      "scope": "symplektische Projektion 112 dyadischer Wurzeln auf 15 nichttriviale [[5,1,3]]-Stabilisatoren; strukturelles Interface, keine physikalische Identifikation",
+      "metric_or_result": "15/15 Stabilisatoren; 1680=112x15 Paare; 784/1680=7/15 commutation_signum=+1; 49 symplektische Wurzelklassen; Shell-Kommutationsquote entartet fuer N=4/6/8",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "defensive_scope": "Complete finite stabilizer interface, but not a separating invariant for shell proxies N=4,6,8; separation remains in E-037 associative_ratio.",
+      "negative_result": "Scalar commutation quota 7/15 identical for N=4, N=6, N=8"
+    },
+    {
+      "id": "E-045",
+      "title": "E-045-pre: Signed [[5,1,3]] stabilizer support profile",
+      "level": "C",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/qec_bridge.py, docs/energiedoku_exports/signed_stabilizer_support_profile.json, examples/run_signed_stabilizer_support.py, tests/test_signed_stabilizer_support.py",
+      "depends_on": [
+        "E-044"
+      ],
+      "supports": [
+        "H3"
+      ],
+      "scope": "v_N in {±1}^15 for N=4,6,8; G_5-code before comparison; tests scalar 7/15 degeneration in full signed profile",
+      "metric_or_result": "positive_count=7/15 preserved; raw profiles distinct; orbit classes equal under G_5-code (|G|=20); e045_upgrade_eligible=false",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "upgrade_status": "pre",
+      "defensive_scope": "No classification theorem; scalar E-044 negative result preserved; signed orbit classes do not separate N=4,6,8 under G_5-code."
+    }
+  ]
+}

@@ -1,0 +1,604 @@
+{
+  "analyses": [
+    {
+      "base": [
+        5,
+        7,
+        11,
+        13
+      ],
+      "orbit": [
+        [
+          5,
+          7,
+          11,
+          13
+        ],
+        [
+          11,
+          13,
+          5,
+          7
+        ]
+      ],
+      "invariant_name": "sum",
+      "is_invariant": true,
+      "orbit_values": [
+        36,
+        36
+      ]
+    },
+    {
+      "base": [
+        5,
+        7,
+        11,
+        13
+      ],
+      "orbit": [
+        [
+          5,
+          7,
+          11,
+          13
+        ],
+        [
+          11,
+          13,
+          5,
+          7
+        ]
+      ],
+      "invariant_name": "multiset",
+      "is_invariant": true,
+      "orbit_values": [
+        [
+          5,
+          7,
+          11,
+          13
+        ],
+        [
+          5,
+          7,
+          11,
+          13
+        ]
+      ]
+    },
+    {
+      "base": [
+        5,
+        7,
+        11,
+        13
+      ],
+      "orbit": [
+        [
+          5,
+          7,
+          11,
+          13
+        ],
+        [
+          11,
+          13,
+          5,
+          7
+        ]
+      ],
+      "invariant_name": "pair_gaps",
+      "is_invariant": true,
+      "orbit_values": [
+        72,
+        72
+      ]
+    },
+    {
+      "base": [
+        5,
+        7,
+        11,
+        13
+      ],
+      "orbit": [
+        [
+          5,
+          7,
+          11,
+          13
+        ],
+        [
+          11,
+          13,
+          5,
+          7
+        ]
+      ],
+      "invariant_name": "quat_norm",
+      "is_invariant": true,
+      "orbit_values": [
+        364,
+        364
+      ]
+    },
+    {
+      "base": [
+        5,
+        7,
+        11,
+        13
+      ],
+      "orbit": [
+        [
+          5,
+          7,
+          11,
+          13
+        ],
+        [
+          11,
+          13,
+          5,
+          7
+        ]
+      ],
+      "invariant_name": "quat_reduced_norm",
+      "is_invariant": true,
+      "orbit_values": [
+        364,
+        364
+      ]
+    },
+    {
+      "base": [
+        11,
+        13,
+        17,
+        19
+      ],
+      "orbit": [
+        [
+          11,
+          13,
+          17,
+          19
+        ],
+        [
+          17,
+          19,
+          11,
+          13
+        ]
+      ],
+      "invariant_name": "sum",
+      "is_invariant": true,
+      "orbit_values": [
+        60,
+        60
+      ]
+    },
+    {
+      "base": [
+        11,
+        13,
+        17,
+        19
+      ],
+      "orbit": [
+        [
+          11,
+          13,
+          17,
+          19
+        ],
+        [
+          17,
+          19,
+          11,
+          13
+        ]
+      ],
+      "invariant_name": "multiset",
+      "is_invariant": true,
+      "orbit_values": [
+        [
+          11,
+          13,
+          17,
+          19
+        ],
+        [
+          11,
+          13,
+          17,
+          19
+        ]
+      ]
+    },
+    {
+      "base": [
+        11,
+        13,
+        17,
+        19
+      ],
+      "orbit": [
+        [
+          11,
+          13,
+          17,
+          19
+        ],
+        [
+          17,
+          19,
+          11,
+          13
+        ]
+      ],
+      "invariant_name": "pair_gaps",
+      "is_invariant": true,
+      "orbit_values": [
+        72,
+        72
+      ]
+    },
+    {
+      "base": [
+        11,
+        13,
+        17,
+        19
+      ],
+      "orbit": [
+        [
+          11,
+          13,
+          17,
+          19
+        ],
+        [
+          17,
+          19,
+          11,
+          13
+        ]
+      ],
+      "invariant_name": "quat_norm",
+      "is_invariant": true,
+      "orbit_values": [
+        940,
+        940
+      ]
+    },
+    {
+      "base": [
+        11,
+        13,
+        17,
+        19
+      ],
+      "orbit": [
+        [
+          11,
+          13,
+          17,
+          19
+        ],
+        [
+          17,
+          19,
+          11,
+          13
+        ]
+      ],
+      "invariant_name": "quat_reduced_norm",
+      "is_invariant": true,
+      "orbit_values": [
+        940,
+        940
+      ]
+    },
+    {
+      "base": [
+        101,
+        103,
+        107,
+        109
+      ],
+      "orbit": [
+        [
+          101,
+          103,
+          107,
+          109
+        ],
+        [
+          107,
+          109,
+          101,
+          103
+        ]
+      ],
+      "invariant_name": "sum",
+      "is_invariant": true,
+      "orbit_values": [
+        420,
+        420
+      ]
+    },
+    {
+      "base": [
+        101,
+        103,
+        107,
+        109
+      ],
+      "orbit": [
+        [
+          101,
+          103,
+          107,
+          109
+        ],
+        [
+          107,
+          109,
+          101,
+          103
+        ]
+      ],
+      "invariant_name": "multiset",
+      "is_invariant": true,
+      "orbit_values": [
+        [
+          101,
+          103,
+          107,
+          109
+        ],
+        [
+          101,
+          103,
+          107,
+          109
+        ]
+      ]
+    },
+    {
+      "base": [
+        101,
+        103,
+        107,
+        109
+      ],
+      "orbit": [
+        [
+          101,
+          103,
+          107,
+          109
+        ],
+        [
+          107,
+          109,
+          101,
+          103
+        ]
+      ],
+      "invariant_name": "pair_gaps",
+      "is_invariant": true,
+      "orbit_values": [
+        72,
+        72
+      ]
+    },
+    {
+      "base": [
+        101,
+        103,
+        107,
+        109
+      ],
+      "orbit": [
+        [
+          101,
+          103,
+          107,
+          109
+        ],
+        [
+          107,
+          109,
+          101,
+          103
+        ]
+      ],
+      "invariant_name": "quat_norm",
+      "is_invariant": true,
+      "orbit_values": [
+        44140,
+        44140
+      ]
+    },
+    {
+      "base": [
+        101,
+        103,
+        107,
+        109
+      ],
+      "orbit": [
+        [
+          101,
+          103,
+          107,
+          109
+        ],
+        [
+          107,
+          109,
+          101,
+          103
+        ]
+      ],
+      "invariant_name": "quat_reduced_norm",
+      "is_invariant": true,
+      "orbit_values": [
+        44140,
+        44140
+      ]
+    },
+    {
+      "base": [
+        191,
+        193,
+        197,
+        199
+      ],
+      "orbit": [
+        [
+          191,
+          193,
+          197,
+          199
+        ],
+        [
+          197,
+          199,
+          191,
+          193
+        ]
+      ],
+      "invariant_name": "sum",
+      "is_invariant": true,
+      "orbit_values": [
+        780,
+        780
+      ]
+    },
+    {
+      "base": [
+        191,
+        193,
+        197,
+        199
+      ],
+      "orbit": [
+        [
+          191,
+          193,
+          197,
+          199
+        ],
+        [
+          197,
+          199,
+          191,
+          193
+        ]
+      ],
+      "invariant_name": "multiset",
+      "is_invariant": true,
+      "orbit_values": [
+        [
+          191,
+          193,
+          197,
+          199
+        ],
+        [
+          191,
+          193,
+          197,
+          199
+        ]
+      ]
+    },
+    {
+      "base": [
+        191,
+        193,
+        197,
+        199
+      ],
+      "orbit": [
+        [
+          191,
+          193,
+          197,
+          199
+        ],
+        [
+          197,
+          199,
+          191,
+          193
+        ]
+      ],
+      "invariant_name": "pair_gaps",
+      "is_invariant": true,
+      "orbit_values": [
+        72,
+        72
+      ]
+    },
+    {
+      "base": [
+        191,
+        193,
+        197,
+        199
+      ],
+      "orbit": [
+        [
+          191,
+          193,
+          197,
+          199
+        ],
+        [
+          197,
+          199,
+          191,
+          193
+        ]
+      ],
+      "invariant_name": "quat_norm",
+      "is_invariant": true,
+      "orbit_values": [
+        152140,
+        152140
+      ]
+    },
+    {
+      "base": [
+        191,
+        193,
+        197,
+        199
+      ],
+      "orbit": [
+        [
+          191,
+          193,
+          197,
+          199
+        ],
+        [
+          197,
+          199,
+          191,
+          193
+        ]
+      ],
+      "invariant_name": "quat_reduced_norm",
+      "is_invariant": true,
+      "orbit_values": [
+        152140,
+        152140
+      ]
+    }
+  ]
+}

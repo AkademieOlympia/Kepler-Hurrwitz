@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "generated_at_utc": "2026-07-02T11:10:52.631322+00:00",
+    "limit_m": 1999,
+    "b": 5,
+    "sample_count": 1000,
+    "test_name": "chi_square_independence"
+  },
+  "result": {
+    "chi2": 22.403258655804482,
+    "p_value": 1.3651934457145235e-05,
+    "degrees_of_freedom": 2,
+    "sample_count": 1000,
+    "cramers_v": 0.14967718148002548,
+    "observed": [
+      {
+        "channel": "klein",
+        "b_smooth": 2,
+        "not_b_smooth": 498,
+        "total": 500
+      },
+      {
+        "channel": "mittel",
+        "b_smooth": 3,
+        "not_b_smooth": 247,
+        "total": 250
+      },
+      {
+        "channel": "tief",
+        "b_smooth": 13,
+        "not_b_smooth": 237,
+        "total": 250
+      }
+    ],
+    "expected": {
+      "klein": {
+        "b_smooth": 9.0,
+        "not_b_smooth": 491.0
+      },
+      "mittel": {
+        "b_smooth": 4.5,
+        "not_b_smooth": 245.5
+      },
+      "tief": {
+        "b_smooth": 4.5,
+        "not_b_smooth": 245.5
+      }
+    }
+  }
+}

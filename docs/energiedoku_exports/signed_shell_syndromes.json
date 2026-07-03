@@ -1,0 +1,156 @@
+{
+  "claim_class": "B",
+  "upgrade_status": "upgraded_from_pre",
+  "depends_on": [
+    "E-039",
+    "E-040",
+    "E-042"
+  ],
+  "validated_by": "E-042",
+  "mode": "signed_support",
+  "control_mode": "full_hurwitz_projection",
+  "old_fact": {
+    "sigma_4_equals_sigma_8": true,
+    "sigma_6_separated": true
+  },
+  "refined_signatures": {
+    "N=4": {
+      "old_syndrome_id": "1000",
+      "signed_support": {
+        "positive_imaginary_mask": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "negative_imaginary_mask": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signed_imaginary_support": [],
+        "real_sign": 1,
+        "real_magnitude": 2.0
+      },
+      "signed_support_key": "{\"negative\": [0, 0, 0, 0, 0, 0, 0], \"positive\": [0, 0, 0, 0, 0, 0, 0], \"real_magnitude\": 2.0, \"real_sign\": 1}"
+    },
+    "N=6": {
+      "old_syndrome_id": "0001",
+      "signed_support": {
+        "positive_imaginary_mask": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "negative_imaginary_mask": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signed_imaginary_support": [
+          [
+            1,
+            1
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        "real_sign": 1,
+        "real_magnitude": 2.0
+      },
+      "signed_support_key": "{\"negative\": [0, 0, 0, 0, 0, 0, 0], \"positive\": [1, 0, 0, 1, 0, 0, 0], \"real_magnitude\": 2.0, \"real_sign\": 1}"
+    },
+    "N=8": {
+      "old_syndrome_id": "1000",
+      "signed_support": {
+        "positive_imaginary_mask": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "negative_imaginary_mask": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signed_imaginary_support": [
+          [
+            1,
+            1
+          ]
+        ],
+        "real_sign": 1,
+        "real_magnitude": 2.0
+      },
+      "signed_support_key": "{\"negative\": [0, 0, 0, 0, 0, 0, 0], \"positive\": [1, 0, 0, 0, 0, 0, 0], \"real_magnitude\": 2.0, \"real_sign\": 1}"
+    }
+  },
+  "relations": {
+    "N4_equals_N8_refined": false,
+    "N4_equals_N6_refined": false,
+    "N6_equals_N8_refined": false
+  },
+  "control_relations": {
+    "N4_equals_N8_refined": false,
+    "N4_equals_N6_refined": false,
+    "N6_equals_N8_refined": false
+  },
+  "auxiliary": {
+    "residue_only_keys": {
+      "N=4": "{\"residue\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}",
+      "N=6": "{\"residue\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}",
+      "N=8": "{\"residue\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}"
+    },
+    "residue_only_N4_equals_N8": true,
+    "real_axis_keys": {
+      "N=4": "{\"imaginary_support\": [0, 0, 0, 0, 0, 0, 0], \"projected_norm_sq\": 4.0, \"real_part\": 2.0}",
+      "N=6": "{\"imaginary_support\": [1, 0, 0, 1, 0, 0, 0], \"projected_norm_sq\": 6.0, \"real_part\": 2.0}",
+      "N=8": "{\"imaginary_support\": [1, 0, 0, 0, 0, 0, 0], \"projected_norm_sq\": 8.0, \"real_part\": 2.0}"
+    },
+    "real_axis_separates_N4_N8": true,
+    "real_axis_is_secondary_not_primary": true,
+    "full_hurwitz_projection_keys": {
+      "N=4": "{\"nearest\": [1.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"projected\": [2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"residue\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}",
+      "N=6": "{\"nearest\": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0], \"projected\": [2.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0], \"residue\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}",
+      "N=8": "{\"nearest\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"projected\": [2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"residue\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}"
+    }
+  },
+  "signed_support_basis_independent": true,
+  "core_result": {
+    "old_gf2_collision": "sigma_4 = sigma_8",
+    "signed_support_separates": [
+      "N4_vs_N8",
+      "N4_vs_N6",
+      "N6_vs_N8"
+    ],
+    "model_symmetry_group_size": 336,
+    "separation_failures_under_G_model": 0
+  },
+  "defensive_scope": "No causal identification of pumping/fixpoint/bifurcation; only a canonical, symmetry-invariant refined signature separation.",
+  "methodological_note": "E-041 [B]: signed_support separates N=4, N=6, and N=8 pairwise while preserving the E-039 GF(2) collision sigma_4=sigma_8. Symmetry invariance under G_model is validated by E-042. Control: full_hurwitz_projection. Excluded as primary: residue_key alone and real_axis (norm-squared too close to shell label)."
+}

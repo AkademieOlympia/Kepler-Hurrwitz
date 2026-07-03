@@ -1,0 +1,28 @@
+name: Quality Gate
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Validate evidence registry
+        run: python scripts/validate_registry.py --registry EVIDENCE_REGISTER.json --out-dir results
+
+      - name: Run pytest
+        run: pytest
+
+      - name: Setup Lean toolchain
+        uses: leanprover/lean-action@v1
+
+      - name: Build Lean core
+        run: lake build KeplerHurwitz

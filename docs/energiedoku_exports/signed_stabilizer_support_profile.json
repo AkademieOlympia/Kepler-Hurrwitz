@@ -1,0 +1,159 @@
+{
+  "id": "E-045-pre",
+  "claim_class": "C",
+  "upgrade_status": "pre",
+  "depends_on": [
+    "E-044"
+  ],
+  "old_fact": {
+    "scalar_ratio_degenerate": true,
+    "positive_count": 7,
+    "total_nontrivial_stabilizers": 15,
+    "E-044_negative_result_preserved": true
+  },
+  "stabilizer_order": [
+    "IXZZX",
+    "IYXXY",
+    "IZYYZ",
+    "XIXZZ",
+    "XXYIY",
+    "XYIYX",
+    "XZZXI",
+    "YIYXX",
+    "YXXYI",
+    "YYZIZ",
+    "YZIZY",
+    "ZIZYY",
+    "ZXIXZ",
+    "ZYYZI",
+    "ZZXIX"
+  ],
+  "signed_profiles": {
+    "N=4": [
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1
+    ],
+    "N=6": [
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      -1
+    ],
+    "N=8": [
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      1
+    ]
+  },
+  "raw_relations": {
+    "N4_equals_N6": false,
+    "N4_equals_N8": false,
+    "N6_equals_N8": false
+  },
+  "orbit_relations": {
+    "symmetry_group_defined_before_comparison": true,
+    "symmetry_group_size": 20,
+    "N4_equals_N6_orbit": true,
+    "N4_equals_N8_orbit": true,
+    "N6_equals_N8_orbit": true
+  },
+  "canonical_orbit_representatives": {
+    "N=4": [
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "N=6": [
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "N=8": [
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+    ]
+  },
+  "symmetry_group": {
+    "name": "G_5-code",
+    "definition": "G_5-code := Aut([[5,1,3]]) x Z2_global_profile_sign. Aut([[5,1,3]]) is the set of qubit permutations on {0,...,4} that map the canonical stabilizer set to itself. Z2_global_profile_sign multiplies every entry of a signed stabilizer profile by -1. This group is fixed before any shell profile comparison.",
+    "qubit_automorphism_count": 10,
+    "global_profile_sign_count": 2,
+    "total_elements": 20
+  },
+  "e045_upgrade_eligible": false,
+  "defensive_scope": "No classification theorem; tests whether the 7/15 scalar degeneration survives in the full signed stabilizer profile.",
+  "methodological_note": "E-045-pre asks whether scalar E-044 degeneration (#(+1)=7/15) persists in full signed stabilizer profiles v_N in {\u00b11}^15, and whether orbit classes under the pre-defined G_5-code separate N=4,6,8. E-044 negative scalar result is preserved regardless."
+}

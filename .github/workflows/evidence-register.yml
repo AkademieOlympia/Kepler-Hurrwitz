@@ -1,0 +1,30 @@
+name: Evidence Register Audit
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  evidence-register:
+    name: Check evidence register
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate Evidence Register JSON
+        run: python -m json.tool EVIDENCE_REGISTER.json > /dev/null
+
+      - name: Run Evidence Register Audit
+        run: python scripts/check_evidence_register.py
+
+      - name: Run Registry Validator
+        run: python scripts/validate_registry.py --registry EVIDENCE_REGISTER.json --out-dir results

@@ -1,0 +1,117 @@
+{
+  "metric": "log_scale_cosine_mean",
+  "verdict": "open_hypothesis",
+  "zeros_count": 2001052,
+  "results": [
+    {
+      "scenario_name": "baseline_cyclic",
+      "x0": -0.5,
+      "sample_count": 2001052,
+      "interference_factor": -1.7711009571133578e-06,
+      "variance": 0.5000000894342339,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    },
+    {
+      "scenario_name": "baseline_cyclic",
+      "x0": 0.0,
+      "sample_count": 2001052,
+      "interference_factor": 1.0,
+      "variance": 0.0,
+      "is_resonant": true,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    },
+    {
+      "scenario_name": "random_chain",
+      "x0": -1.0,
+      "sample_count": 2001052,
+      "interference_factor": 1.7887474145319747e-07,
+      "variance": 0.4999997812495749,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    },
+    {
+      "scenario_name": "random_chain",
+      "x0": -0.5,
+      "sample_count": 2001052,
+      "interference_factor": -1.7711009571133578e-06,
+      "variance": 0.5000000894342339,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    },
+    {
+      "scenario_name": "random_chain",
+      "x0": 0.0,
+      "sample_count": 2001052,
+      "interference_factor": 1.0,
+      "variance": 0.0,
+      "is_resonant": true,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    },
+    {
+      "scenario_name": "gauge_pi_over_4",
+      "x0": -0.5,
+      "sample_count": 2001052,
+      "interference_factor": -1.7711009571133578e-06,
+      "variance": 0.5000000894342339,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    },
+    {
+      "scenario_name": "gauge_pi_over_4",
+      "x0": 0.0,
+      "sample_count": 2001052,
+      "interference_factor": 1.0,
+      "variance": 0.0,
+      "is_resonant": true,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    },
+    {
+      "scenario_name": "gauge_pi_over_2",
+      "x0": -0.5,
+      "sample_count": 2001052,
+      "interference_factor": -1.7711009571133578e-06,
+      "variance": 0.5000000894342339,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    },
+    {
+      "scenario_name": "gauge_pi_over_2",
+      "x0": 0.0,
+      "sample_count": 2001052,
+      "interference_factor": 1.0,
+      "variance": 0.0,
+      "is_resonant": true,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    },
+    {
+      "scenario_name": "perturbation_at_100",
+      "x0": -1.0,
+      "sample_count": 2001052,
+      "interference_factor": 1.7887474145319747e-07,
+      "variance": 0.4999997812495749,
+      "is_resonant": false,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    },
+    {
+      "scenario_name": "perturbation_at_100",
+      "x0": 0.0,
+      "sample_count": 2001052,
+      "interference_factor": 1.0,
+      "variance": 0.0,
+      "is_resonant": true,
+      "resonance_threshold": 0.05,
+      "metric": "log_scale_cosine_mean"
+    }
+  ]
+}

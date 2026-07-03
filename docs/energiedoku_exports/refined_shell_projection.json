@@ -1,0 +1,297 @@
+{
+  "claim_class": "C",
+  "depends_on": [
+    "E-039"
+  ],
+  "input_fact": {
+    "sigma_4_equals_sigma_8": true,
+    "sigma_6_separated": true
+  },
+  "signatures": [
+    {
+      "shell_label": "N=4",
+      "actual_norm": 4,
+      "operator_label": "shell_proxy_N4_for_3",
+      "old_syndrome_id": "1000",
+      "hurwitz_residue": {
+        "projected": [
+          2.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nearest_dyadic_root": [
+          1.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "residue": [
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "residue_norm_sq": 2.0
+      },
+      "signed_support": {
+        "positive_imaginary_mask": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "negative_imaginary_mask": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signed_imaginary_support": [],
+        "real_sign": 1,
+        "real_magnitude": 2.0
+      },
+      "real_axis": {
+        "real_part": 2.0,
+        "imaginary_support_parity": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "projected_norm_sq": 4.0
+      }
+    },
+    {
+      "shell_label": "N=6",
+      "actual_norm": 6,
+      "operator_label": "shell_proxy_N6_for_5",
+      "old_syndrome_id": "0001",
+      "hurwitz_residue": {
+        "projected": [
+          2.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nearest_dyadic_root": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "residue": [
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "residue_norm_sq": 2.0
+      },
+      "signed_support": {
+        "positive_imaginary_mask": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "negative_imaginary_mask": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signed_imaginary_support": [
+          [
+            1,
+            1
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        "real_sign": 1,
+        "real_magnitude": 2.0
+      },
+      "real_axis": {
+        "real_part": 2.0,
+        "imaginary_support_parity": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "projected_norm_sq": 6.0
+      }
+    },
+    {
+      "shell_label": "N=8",
+      "actual_norm": 8,
+      "operator_label": "shell_proxy_N8_for_7",
+      "old_syndrome_id": "1000",
+      "hurwitz_residue": {
+        "projected": [
+          2.0,
+          2.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nearest_dyadic_root": [
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "residue": [
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "residue_norm_sq": 2.0
+      },
+      "signed_support": {
+        "positive_imaginary_mask": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "negative_imaginary_mask": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "signed_imaginary_support": [
+          [
+            1,
+            1
+          ]
+        ],
+        "real_sign": 1,
+        "real_magnitude": 2.0
+      },
+      "real_axis": {
+        "real_part": 2.0,
+        "imaginary_support_parity": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "projected_norm_sq": 8.0
+      }
+    }
+  ],
+  "refinements": {
+    "hurwitz_residue": {
+      "mode": "hurwitz_residue",
+      "signature_keys_by_shell": {
+        "N=4": "{\"nearest\": [1.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"projected\": [2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"residue\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}",
+        "N=6": "{\"nearest\": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0], \"projected\": [2.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0], \"residue\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}",
+        "N=8": "{\"nearest\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"projected\": [2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"residue\": [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}"
+      },
+      "separates_N4_N8": true,
+      "preserves_N6_separation_from_N4": true,
+      "preserves_N6_separation_from_N8": true,
+      "upgrade_eligible": true
+    },
+    "signed_support": {
+      "mode": "signed_support",
+      "signature_keys_by_shell": {
+        "N=4": "{\"negative\": [0, 0, 0, 0, 0, 0, 0], \"positive\": [0, 0, 0, 0, 0, 0, 0], \"real_magnitude\": 2.0, \"real_sign\": 1}",
+        "N=6": "{\"negative\": [0, 0, 0, 0, 0, 0, 0], \"positive\": [1, 0, 0, 1, 0, 0, 0], \"real_magnitude\": 2.0, \"real_sign\": 1}",
+        "N=8": "{\"negative\": [0, 0, 0, 0, 0, 0, 0], \"positive\": [1, 0, 0, 0, 0, 0, 0], \"real_magnitude\": 2.0, \"real_sign\": 1}"
+      },
+      "separates_N4_N8": true,
+      "preserves_N6_separation_from_N4": true,
+      "preserves_N6_separation_from_N8": true,
+      "upgrade_eligible": true
+    },
+    "real_axis": {
+      "mode": "real_axis",
+      "signature_keys_by_shell": {
+        "N=4": "{\"imaginary_support\": [0, 0, 0, 0, 0, 0, 0], \"projected_norm_sq\": 4.0, \"real_part\": 2.0}",
+        "N=6": "{\"imaginary_support\": [1, 0, 0, 1, 0, 0, 0], \"projected_norm_sq\": 6.0, \"real_part\": 2.0}",
+        "N=8": "{\"imaginary_support\": [1, 0, 0, 0, 0, 0, 0], \"projected_norm_sq\": 8.0, \"real_part\": 2.0}"
+      },
+      "separates_N4_N8": true,
+      "preserves_N6_separation_from_N4": true,
+      "preserves_N6_separation_from_N8": true,
+      "upgrade_eligible": true
+    }
+  },
+  "upgrade_condition": {
+    "required": "canonical_refinement_separates_N4_N8",
+    "no_basis_choice": true,
+    "no_posthoc_labeling": true,
+    "any_mode_separates_N4_N8": true
+  },
+  "any_mode_separates_N4_N8": true,
+  "methodological_note": "Refinements are defined from Hurwitz projection geometry before shell-role comparison. Residue-only keys may coincide for N=4 and N=8; projected and signed-support keys may differ. No upgrade to E-039 [B] without a pre-defined refinement that separates N=4 and N=8 while preserving N=6 separation."
+}

@@ -1,0 +1,4 @@
+channel,total,b_smooth,ratio,limit_m,b
+klein,500,2,0.004,1999,5
+mittel,250,3,0.012,1999,5
+tief,250,13,0.052,1999,5

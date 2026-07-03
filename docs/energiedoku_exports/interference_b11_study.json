@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "generated_at_utc": "2026-07-02T11:42:35.206861+00:00",
+    "study_id": "E-003-B-v1",
+    "script": "examples/run_interference_b11_study.py"
+  },
+  "result": {
+    "limit_m": 200001,
+    "b_bound": 11,
+    "mu": -2.5,
+    "s": 3.75,
+    "is_interference_admissible": true,
+    "sample_count": 100001,
+    "evaluated_count": 100001,
+    "b11_hits": 100001,
+    "b11_hit_rate": 1.0,
+    "violation_count": 0,
+    "violating_residues": []
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "hypothesis": "H3",
+  "layer_separation": {
+    "A_algebraic_density": {
+      "rho_alg": 0.7666666666666667,
+      "H_alg_bits": 0.7837769474847008,
+      "operator_defect": 0.2666666666666667,
+      "trace_distance_from_balanced": 0.5333333333333334
+    },
+    "B_dynamic_row_law": {
+      "operator_label": "shell_proxy_N6_for_5",
+      "actual_norm": 6,
+      "x0_from": 1.0,
+      "P_row": [
+        {
+          "x0_to": -1.0,
+          "probability": 0.5
+        },
+        {
+          "x0_to": 1.0,
+          "probability": 0.5
+        }
+      ],
+      "p_dyn_max": 0.5,
+      "H_row_bits": 1.0
+    },
+    "C_quantization_bridge": {
+      "Q_sym": [
+        0.5,
+        0.5
+      ],
+      "H_Q_sym_bits": 1.0,
+      "quantization_gap": 0.2666666666666667,
+      "quantization_gap_rational": "4/15",
+      "note": "H_alg != H_row; Q_sym is the explicit layer map"
+    }
+  }
+}

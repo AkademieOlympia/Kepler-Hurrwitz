@@ -1,0 +1,293 @@
+{
+  "claim_class": "C",
+  "depends_on": [
+    "E-037",
+    "E-038"
+  ],
+  "fano_kernel": {
+    "dimension": 3,
+    "basis": [
+      [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    ],
+    "basis_independent": true,
+    "words": [
+      {
+        "word_id": 0,
+        "bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "hamming_weight": 0,
+        "basis_coordinates": [
+          0,
+          0,
+          0
+        ],
+        "is_zero": true
+      },
+      {
+        "word_id": 1,
+        "bits": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "hamming_weight": 4,
+        "basis_coordinates": [
+          1,
+          0,
+          0
+        ],
+        "is_zero": false
+      },
+      {
+        "word_id": 2,
+        "bits": [
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        "hamming_weight": 4,
+        "basis_coordinates": [
+          0,
+          1,
+          0
+        ],
+        "is_zero": false
+      },
+      {
+        "word_id": 3,
+        "bits": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "hamming_weight": 4,
+        "basis_coordinates": [
+          1,
+          1,
+          0
+        ],
+        "is_zero": false
+      },
+      {
+        "word_id": 4,
+        "bits": [
+          1,
+          1,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "hamming_weight": 4,
+        "basis_coordinates": [
+          0,
+          0,
+          1
+        ],
+        "is_zero": false
+      },
+      {
+        "word_id": 5,
+        "bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "hamming_weight": 4,
+        "basis_coordinates": [
+          1,
+          0,
+          1
+        ],
+        "is_zero": false
+      },
+      {
+        "word_id": 6,
+        "bits": [
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1
+        ],
+        "hamming_weight": 4,
+        "basis_coordinates": [
+          0,
+          1,
+          1
+        ],
+        "is_zero": false
+      },
+      {
+        "word_id": 7,
+        "bits": [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        "hamming_weight": 4,
+        "basis_coordinates": [
+          1,
+          1,
+          1
+        ],
+        "is_zero": false
+      }
+    ],
+    "weight_profile": {
+      "0": 1,
+      "4": 7
+    },
+    "min_nonzero_weight": 4
+  },
+  "basis_invariance": {
+    "gl3_matrix_count": 168,
+    "weight_profile_invariant": true,
+    "min_nonzero_weight_invariant": true,
+    "shell_distance_to_kernel_invariant": true,
+    "coordinate_labels_basis_dependent": true
+  },
+  "shell_syndrome_map": {
+    "N=4": {
+      "actual_norm": 4,
+      "operator_label": "shell_proxy_N4_for_3",
+      "parity_bits": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "in_kernel": false,
+      "stabilization_classes": [
+        "Pumpen",
+        "Fixpunkt"
+      ],
+      "syndrome_label_candidate": "correction_transition",
+      "interpretation_status": "candidate",
+      "distance_to_kernel": 1,
+      "nearest_kernel_word_id": 2,
+      "nearest_kernel_coordinates": [
+        0,
+        1,
+        0
+      ]
+    },
+    "N=6": {
+      "actual_norm": 6,
+      "operator_label": "shell_proxy_N6_for_5",
+      "parity_bits": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "in_kernel": false,
+      "stabilization_classes": [
+        "Bifurkation"
+      ],
+      "syndrome_label_candidate": "syndrome_split",
+      "interpretation_status": "candidate",
+      "distance_to_kernel": 1,
+      "nearest_kernel_word_id": 1,
+      "nearest_kernel_coordinates": [
+        1,
+        0,
+        0
+      ]
+    },
+    "N=8": {
+      "actual_norm": 8,
+      "operator_label": "shell_proxy_N8_for_7",
+      "parity_bits": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "in_kernel": false,
+      "stabilization_classes": [
+        "Fixpunkt"
+      ],
+      "syndrome_label_candidate": "stable_code_subspace",
+      "interpretation_status": "candidate",
+      "distance_to_kernel": 1,
+      "nearest_kernel_word_id": 2,
+      "nearest_kernel_coordinates": [
+        0,
+        1,
+        0
+      ]
+    }
+  },
+  "interpretation": {
+    "pumping": "candidate",
+    "bifurcation": "candidate",
+    "fixpoint": "candidate"
+  },
+  "methodological_note": "Classification and correlation structure only; not a causal identification. Coordinate labels are basis-dependent; distance-to-kernel and weight profile are GL(3,GF(2)) invariant."
+}

@@ -1,0 +1,28 @@
+{
+  "generated_at_utc": "2026-07-02T11:10:52.937644+00:00",
+  "b_bound": 5,
+  "script_version": "smoothness_scale_stability_v1",
+  "scales": [
+    {
+      "limit_m": 1000,
+      "sample_size": 500,
+      "chi2": 17.56198347107438,
+      "p_value": 0.0001536256536052338,
+      "cramers_v": 0.18741389207353001
+    },
+    {
+      "limit_m": 10000,
+      "sample_size": 5000,
+      "chi2": 37.81200705205531,
+      "p_value": 6.154984928161261e-09,
+      "cramers_v": 0.08696206880250183
+    },
+    {
+      "limit_m": 100000,
+      "sample_size": 50000,
+      "chi2": 62.074058791498395,
+      "p_value": 3.3173355189217276e-14,
+      "cramers_v": 0.035234658730147625
+    }
+  ]
+}

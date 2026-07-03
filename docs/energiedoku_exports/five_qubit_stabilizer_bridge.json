@@ -1,0 +1,456 @@
+{
+  "summary": {
+    "dyadic_root_count": 112,
+    "stabilizer_count": 15,
+    "match_count": 1680,
+    "commuting_matches": 784,
+    "anticommuting_matches": 896,
+    "code_space_projector_ratio": 0.4666666666666667,
+    "unique_dyadic_symplectic_classes": 49,
+    "shell_commutation_profile": {
+      "N=4": {
+        "nearest_dyadic_root": [
+          1,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "symplectic_encoding": [
+          1,
+          2
+        ],
+        "commuting_stabilizer_ratio": 0.4666666666666667,
+        "anticommuting_stabilizer_ratio": 0.5333333333333333,
+        "mean_commutation_signum": -0.06666666666666667
+      },
+      "N=6": {
+        "nearest_dyadic_root": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "symplectic_encoding": [
+          17,
+          0
+        ],
+        "commuting_stabilizer_ratio": 0.4666666666666667,
+        "anticommuting_stabilizer_ratio": 0.5333333333333333,
+        "mean_commutation_signum": -0.06666666666666667
+      },
+      "N=8": {
+        "nearest_dyadic_root": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "symplectic_encoding": [
+          3,
+          0
+        ],
+        "commuting_stabilizer_ratio": 0.4666666666666667,
+        "anticommuting_stabilizer_ratio": 0.5333333333333333,
+        "mean_commutation_signum": -0.06666666666666667
+      }
+    },
+    "shell_commutation_ratios_degenerate": true
+  },
+  "generators": [
+    "XZZXI",
+    "IXZZX",
+    "XIXZZ",
+    "ZXIXZ"
+  ],
+  "stabilizers": [
+    "IXZZX",
+    "IYXXY",
+    "IZYYZ",
+    "XIXZZ",
+    "XXYIY",
+    "XYIYX",
+    "XZZXI",
+    "YIYXX",
+    "YXXYI",
+    "YYZIZ",
+    "YZIZY",
+    "ZIZYY",
+    "ZXIXZ",
+    "ZYYZI",
+    "ZZXIX"
+  ],
+  "sample_matches": [
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "IXZZX",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "IYXXY",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "IZYYZ",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "XIXZZ",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "XXYIY",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "XYIYX",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "XZZXI",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "YIYXX",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "YXXYI",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "YYZIZ",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "YZIZY",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "ZIZYY",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "ZXIXZ",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "ZYYZI",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "ZZXIX",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "IXZZX",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "IYXXY",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "IZYYZ",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "XIXZZ",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "XXYIY",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "XYIYX",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "XZZXI",
+      "commutation_signum": -1,
+      "is_code_space_projector": false
+    },
+    {
+      "dyadic_root": [
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "YIYXX",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    },
+    {
+      "dyadic_root": [
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stabilizer_string": "YXXYI",
+      "commutation_signum": 1,
+      "is_code_space_projector": true
+    }
+  ]
+}

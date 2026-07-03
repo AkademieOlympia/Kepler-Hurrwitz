@@ -1,0 +1,330 @@
+{
+  "claim_class": "C",
+  "upgrade_status": "pre",
+  "depends_on": [
+    "E-036",
+    "E-037",
+    "E-041",
+    "S8"
+  ],
+  "operators": [
+    "N4",
+    "N6",
+    "N8"
+  ],
+  "x0_levels": [
+    -2.0,
+    -1.0,
+    0.0,
+    0.5,
+    1.0,
+    2.0
+  ],
+  "single_operator_profiles": {
+    "N4": {
+      "operator_key": "N4",
+      "operator_label": "shell_proxy_N4_for_3",
+      "actual_norm": 4,
+      "transitions_by_x0": {
+        "-2.0": [
+          {
+            "x0_from": -2.0,
+            "x0_to": -2.0,
+            "probability": 1.0,
+            "count": 3
+          }
+        ],
+        "-1.0": [],
+        "0.0": [
+          {
+            "x0_from": 0.0,
+            "x0_to": 0.0,
+            "probability": 1.0,
+            "count": 3
+          }
+        ],
+        "0.5": [
+          {
+            "x0_from": 0.5,
+            "x0_to": 1.0,
+            "probability": 1.0,
+            "count": 2
+          }
+        ],
+        "1.0": [],
+        "2.0": []
+      },
+      "x0_classifications": {
+        "-2.0": "fixpoint",
+        "-1.0": "unvisited",
+        "0.0": "fixpoint",
+        "0.5": "pump",
+        "1.0": "unvisited",
+        "2.0": "unvisited"
+      }
+    },
+    "N6": {
+      "operator_key": "N6",
+      "operator_label": "shell_proxy_N6_for_5",
+      "actual_norm": 6,
+      "transitions_by_x0": {
+        "-2.0": [
+          {
+            "x0_from": -2.0,
+            "x0_to": -2.0,
+            "probability": 0.3333333333333333,
+            "count": 1
+          },
+          {
+            "x0_from": -2.0,
+            "x0_to": 0.0,
+            "probability": 0.6666666666666666,
+            "count": 2
+          }
+        ],
+        "-1.0": [],
+        "0.0": [
+          {
+            "x0_from": 0.0,
+            "x0_to": -2.0,
+            "probability": 0.3333333333333333,
+            "count": 1
+          },
+          {
+            "x0_from": 0.0,
+            "x0_to": 0.0,
+            "probability": 0.6666666666666666,
+            "count": 2
+          }
+        ],
+        "0.5": [],
+        "1.0": [
+          {
+            "x0_from": 1.0,
+            "x0_to": -1.0,
+            "probability": 0.5,
+            "count": 1
+          },
+          {
+            "x0_from": 1.0,
+            "x0_to": 1.0,
+            "probability": 0.5,
+            "count": 1
+          }
+        ],
+        "2.0": []
+      },
+      "x0_classifications": {
+        "-2.0": "bifurcation",
+        "-1.0": "unvisited",
+        "0.0": "bifurcation",
+        "0.5": "unvisited",
+        "1.0": "bifurcation",
+        "2.0": "unvisited"
+      }
+    },
+    "N8": {
+      "operator_key": "N8",
+      "operator_label": "shell_proxy_N8_for_7",
+      "actual_norm": 8,
+      "transitions_by_x0": {
+        "-2.0": [
+          {
+            "x0_from": -2.0,
+            "x0_to": -2.0,
+            "probability": 1.0,
+            "count": 2
+          }
+        ],
+        "-1.0": [
+          {
+            "x0_from": -1.0,
+            "x0_to": -2.0,
+            "probability": 1.0,
+            "count": 1
+          }
+        ],
+        "0.0": [
+          {
+            "x0_from": 0.0,
+            "x0_to": 0.0,
+            "probability": 1.0,
+            "count": 4
+          }
+        ],
+        "0.5": [],
+        "1.0": [
+          {
+            "x0_from": 1.0,
+            "x0_to": 0.5,
+            "probability": 1.0,
+            "count": 1
+          }
+        ],
+        "2.0": []
+      },
+      "x0_classifications": {
+        "-2.0": "fixpoint",
+        "-1.0": "pump",
+        "0.0": "fixpoint",
+        "0.5": "unvisited",
+        "1.0": "pump",
+        "2.0": "unvisited"
+      }
+    }
+  },
+  "coupled_operator_profiles": {
+    "N4_N6": {
+      "coupled_key": "N4_N6",
+      "operator_sequence": [
+        "N4",
+        "N6"
+      ],
+      "deterministic_edges": {
+        "-2.0": "-1.0",
+        "-1.0": "-1.0",
+        "0.0": "1.0",
+        "0.5": "1.0",
+        "1.0": "1.0",
+        "2.0": "1.0"
+      },
+      "graph_invariants": {
+        "fixed_points": [
+          "-1.0",
+          "1.0"
+        ],
+        "cycles": [],
+        "bifurcation_nodes": [],
+        "pump_paths": [
+          "-2.0->-1.0",
+          "0.0->1.0",
+          "0.5->1.0"
+        ]
+      }
+    },
+    "N4_N8": {
+      "coupled_key": "N4_N8",
+      "operator_sequence": [
+        "N4",
+        "N8"
+      ],
+      "deterministic_edges": {
+        "-2.0": "-0.5",
+        "-1.0": "-0.5",
+        "0.0": "0.5",
+        "0.5": "0.5",
+        "1.0": "0.5",
+        "2.0": "0.5"
+      },
+      "graph_invariants": {
+        "fixed_points": [
+          "0.5"
+        ],
+        "cycles": [],
+        "bifurcation_nodes": [],
+        "pump_paths": [
+          "-1.0->-0.5",
+          "-2.0->-0.5",
+          "0.0->0.5"
+        ]
+      }
+    },
+    "N6_N8": {
+      "coupled_key": "N6_N8",
+      "operator_sequence": [
+        "N6",
+        "N8"
+      ],
+      "deterministic_edges": {
+        "-2.0": "-2.0",
+        "-1.0": "-2.0",
+        "0.0": "0.0",
+        "0.5": "0.0",
+        "1.0": "0.0",
+        "2.0": "0.0"
+      },
+      "graph_invariants": {
+        "fixed_points": [
+          "-2.0",
+          "0.0"
+        ],
+        "cycles": [],
+        "bifurcation_nodes": [],
+        "pump_paths": []
+      }
+    },
+    "N4_N6_N8": {
+      "coupled_key": "N4_N6_N8",
+      "operator_sequence": [
+        "N4",
+        "N6",
+        "N8"
+      ],
+      "deterministic_edges": {
+        "-2.0": "-0.5",
+        "-1.0": "-0.5",
+        "0.0": "0.5",
+        "0.5": "0.5",
+        "1.0": "0.5",
+        "2.0": "0.5"
+      },
+      "graph_invariants": {
+        "fixed_points": [
+          "0.5"
+        ],
+        "cycles": [],
+        "bifurcation_nodes": [],
+        "pump_paths": [
+          "-1.0->-0.5",
+          "-2.0->-0.5",
+          "0.0->0.5"
+        ]
+      }
+    }
+  },
+  "graph_invariants": {
+    "fixed_points": [
+      "-1.0",
+      "-2.0",
+      "0.0",
+      "0.5",
+      "1.0"
+    ],
+    "cycles": [],
+    "bifurcation_nodes": [],
+    "pump_paths": [
+      "-1.0->-0.5",
+      "-2.0->-0.5",
+      "-2.0->-1.0",
+      "0.0->0.5",
+      "0.0->1.0",
+      "0.5->1.0"
+    ],
+    "single_operator_bifurcation_nodes": [
+      "N6@-2.0",
+      "N6@0.0",
+      "N6@1.0"
+    ],
+    "single_operator_fixed_points": [
+      "N4@-1.0",
+      "N4@-2.0",
+      "N4@0.0",
+      "N4@1.0",
+      "N4@2.0",
+      "N6@-1.0",
+      "N6@0.0",
+      "N6@0.5",
+      "N6@2.0",
+      "N8@-2.0",
+      "N8@0.0",
+      "N8@0.5",
+      "N8@2.0"
+    ],
+    "single_operator_pump_paths": [
+      "N4:0.5->1.0",
+      "N6:-2.0->0.0"
+    ]
+  },
+  "defensive_scope": "No astrophysical identification; finite coupled-shell dynamics only.",
+  "methodological_note": "Keil A-pre: finite coupled-shell dynamics on validated N=4,6,8 proxies. Single operators from E-036 transition matrix; pairwise and triple couplings as deterministic resonance graphs on six x0 levels. No N-body or gravity claim."
+}
