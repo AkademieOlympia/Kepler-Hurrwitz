@@ -208,6 +208,28 @@ Im Projektwurzelverzeichnis ausfuehren:
 
 `python examples/export_energiedoku_artifacts.py`
 
+## Dumas / Musketiere Evidence Chain (E-046 → E-048 → E-032 → E-026)
+
+**Status:** Die Lücke im Host-Tripel ist kein Verlust, sondern die Codierung des Hosts.
+Die Dumas-Schicht formalisiert die Host-Auslassung als informationsaequivalente Komplementstruktur
+(`dumas_gap_encodes_host`, Alias `holographic_omission_gap_encodes_host` in
+`KeplerHurwitz/PrimvierlingSymmetry.lean`).
+
+| Ebene | ID | Funktion | Status |
+|---|---|---|---|
+| Kanal / Primvierling | E-046 | `hostTriple` als Gap-Menge; Komplementaritaet | `[A-T]` bewiesen |
+| Dumas | E-048 | `dumasLemma`, Gap kodiert Host | `[A-T]` bewiesen |
+| Ikosaeder-Bruecke | E-032 | `LabelIntertwiningGraphAuto` → kanonischer Transfer | `[A-T]` in Arbeit (1 `sorry`) |
+| Zielhypothese | E-026 | `MusketiereNeighborTripleHypothesis` | `[C]` offen |
+
+Dossier: `docs/dumas_lemma.md` · Getrennt von Collatz-V2: `docs/collatz_v2_evidence_chain.md`
+
+## Collatz-V2 (lokale Evidence Chain, getrennt)
+
+Lokale arithmetische Evidenz — **nicht** Teil der Energiedoku-Floquet- oder Dumas-Kette.
+Offene globale Schicht: `CollatzMod4ThreeGlobalDescentStatement`.
+Siehe `docs/collatz_v2_evidence_chain.md`.
+
 ## Optionale SageMath-Bruecke
 
 Fuer symbolische Eliminierung (Resultanten) der Grigorian-Slice-Loci steht
