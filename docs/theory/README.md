@@ -20,3 +20,21 @@ Theorie-Dokumente und didaktische Modellbrücken des Kepler-Hurrwitz-Programms.
 | E-063 | (offen) | Restklassen-DH-Profil mod 12 |
 | E-067–E-069 | `KeplerHurwitz/DedekindIdealLayer.lean` | Lean-Ideal-Schicht |
 | E-053 | `KeplerHurwitz/DedekindHasseDumasInterface.lean` | Dedekind–Hasse ↔ Dumas |
+
+---
+
+### Oppenheim–eabc: Stochastische Raumzeit als Stabilitätstest
+
+**Datei:** `docs/theory/oppenheim_eabc_stability_bridge.md`  
+**Status:** `[D]` konzeptionelle Brücke / externe Analogie  
+**Evidenz:** E-070  
+**Zweck:** Methodische Parallele zwischen Oppenheim post-quantum classical gravity (stochastische Metrik) und eabc-/quaternionischen Stabilitätstests — Perturbationsklassen für Invarianten, keine Physikbehauptung.  
+**Claim-Grenze:** Keine Kausalbehauptung zwischen Raumzeit-Diffusion und Primidealstruktur.
+
+**Verwandte Schichten:**
+
+| ID | Datei | Rolle |
+|---|---|---|
+| E-053 | `docs/energiedoku_exports/eabc_renormalisierungsprogramm.md` | EABC-Renormierungskern |
+| E-064 | `docs/theory/ideal_dedekind_hasse_intro_abitur.md` | DH-QPID-Stabilitätstest |
+| E-067 | `docs/dedekind_ideal_layer.md` | Lean-Idealinterface |

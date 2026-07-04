@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-07-03",
+  "updated_at": "2026-07-04",
   "id_notes": {
     "musketiere_lean_labels": "E-033/E-034 in PrimvierlingSymmetry.lean map to register entries E-046/E-047",
     "energiedoku_e033_e034": "Register E-033/E-034 remain Kepler time bridge and Riemann resonance"
@@ -9,6 +9,7 @@
     "A": "formal bewiesen (Lean)",
     "B": "reproduzierbar numerisch/empirisch",
     "C": "offene mathematische Hypothese/Interface",
+    "D": "konzeptionelle Bruecke / externe Analogie",
     "L4": "programmatische Interpretation"
   },
   "a_subclasses": {
@@ -1199,6 +1200,24 @@
       "lean_label": "E-069",
       "not_claimed": "No claim that all quaternion orders are PID; obstruction test is an interface for non-reference orders only",
       "renumbered_from": "E-066"
+    },
+    {
+      "id": "E-070",
+      "title": "Oppenheim-eabc stability bridge (stochastic spacetime as perturbation test)",
+      "level": "D",
+      "aclass": null,
+      "source": "docs/theory/oppenheim_eabc_stability_bridge.md, docs/theory/README.md",
+      "depends_on": [
+        "E-053",
+        "E-064"
+      ],
+      "supports": [],
+      "scope": "Methodological bridge: Oppenheim post-quantum classical gravity perturbation classes as external reference for eabc/DH invariant stability tests",
+      "metric_or_result": "Formal test protocol E[I(G_xi)] approx I(G_0) or Var(I(G_xi)) <= C epsilon^2; no implementation required",
+      "status": "conceptual bridge / external analogy",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "not_claimed": "No claim that quaternionic prime structure physically causes spacetime diffusion; no Oppenheim physics validation"
     }
   ]
 }

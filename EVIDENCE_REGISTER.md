@@ -8,6 +8,7 @@ Es dient als Referenzschicht fuer Doku, Reviews und spaetere Publikationen.
 - `[A]`: formal bewiesen (Lean)
 - `[B]`: reproduzierbar numerisch/empirisch
 - `[C]`: offene mathematische Hypothese/Interface
+- `[D]`: konzeptionelle Bruecke / externe Analogie
 - `L4`: programmatische Interpretation
 
 ### Stabilitaetsstatus
@@ -86,6 +87,7 @@ Es dient als Referenzschicht fuer Doku, Reviews und spaetere Publikationen.
 | `E-067` | Dedekind-Idealtheorie-Schicht (LeftIdeal, RightIdeal, PID-Zeugen, DED-1/2/4) | `[C]`/`[B]` | `-` | `KeplerHurwitz/DedekindIdealLayer.lean`, `docs/dedekind_ideal_layer.md`, `docs/energiedoku_exports/dedekind_ideal_eabc_layers.md` | `E-053`, `E-048`, `E-064` | `E-068`, `E-069` | `LeftIdeal`, `RightIdeal`, `PrincipalLeftIdeal`, `PrincipalRightIdeal`, `LeftPIDWitness`, `RightPIDWitness`, `DedekindHasseImpliesPID`, `dedekind_hasse_implies_left_pid`, DED-1…DED-4 | 0 `sorry`; `lake build KeplerHurwitz.DedekindIdealLayer` gruen; **nicht behauptet:** Ideale beweisen EABC | Ideal-Schicht | `stable` | `2026-07-04` |
 | `E-068` | Links-Rechts-Idealpfad-Asymmetrie (Chiralitaet σ(H·γ)−σ(γ·H)) | `[B]`/`[C]` | `-` | `KeplerHurwitz/DedekindIdealLayer.lean` | `E-067`, `E-053` | `-` | `DedekindTest_DED3_LeftRightPathAsymmetry`, `LeftRightIdealPathAsymmetryStatement`, `idealPathChiralityDelta`; Rechts-PID fuer Referenzordnungen nicht behauptet | DED-3 fuer H_1_7/H_7_13; chirality delta ≠ 0; numerischer Experiment-Check in progress | dokumentierte Asymmetrie | `stable` | `2026-07-04` |
 | `E-069` | Nichttriviale Idealclassen-Obstruktion gegen PID (DED-5) | `[B]` | `-` | `KeplerHurwitz/DedekindIdealLayer.lean` | `E-067` | `-` | `IdealClassObstructsLeftPID`, `DedekindTest_DED5_NonPIDIdealClassObstruction`, `ReferenceOrdersNoIdealClassObstruction` | Referenzordnungen ohne Obstruktion; DED-5 negativ fuer H_1_7/H_7_13 | negativer Obstruktionsbefund | `stable` | `2026-07-04` |
+| `E-070` | Oppenheim-eabc Stabilitaetsbruecke (stochastische Raumzeit als Perturbationstest) | `[D]` | `-` | `docs/theory/oppenheim_eabc_stability_bridge.md`, `docs/theory/README.md` | `E-053`, `E-064` | `-` | Oppenheim post-quantum classical gravity als externe Stoerungsreferenz; eabc/DH-Invarianten unter G_xi = G_0 + epsilon xi | **Claim-Grenze:** keine Physik-Kausalbehauptung; Testprotokoll E[I(G_xi)] approx I(G_0) oder Var <= C epsilon^2 | konzeptionelle Bruecke / externe Analogie | `experimental` | `2026-07-04` |
 
 **ID-Hinweis DH-QPID:** Die frueheren Lean-Ideal-Eintraege **E-064/E-065/E-066** wurden zu **E-067/E-068/E-069** renummeriert. **E-064** ist jetzt die didaktische DH-QPID-Modellbruecke (`docs/theory/ideal_dedekind_hasse_intro_abitur.md`).
 
