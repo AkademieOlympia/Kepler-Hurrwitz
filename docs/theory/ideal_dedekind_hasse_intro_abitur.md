@@ -237,7 +237,7 @@ Die stärkste Schlussformel bleibt:
 | ID | Inhalt | Status |
 |---|---|---|
 | **E-064** | Dieser didaktische Einstieg | `[C]` Modellbrücke |
-| **E-061** | Non-Euclidean Rescue Witnesses (numerisch) | `[B]` |
+| **E-061** | Bounded DH Search and Rescue-Witness Protocol (numerisch) | `[B]` |
 | **E-062** | Dedekind-Hasse Correction Energy (numerisch) | `[B]` |
 | **E-063** | EABC Residue-Class DH Profile | `[C]` offen |
 | **E-067–E-069** | Lean-Ideal-Schicht (`DedekindIdealLayer.lean`) | `[C]`/`[B]` |

@@ -1059,7 +1059,7 @@
     },
     {
       "id": "E-061",
-      "title": "Non-Euclidean Rescue Witnesses (bounded DH-QPID search)",
+      "title": "Bounded DH Search and Rescue-Witness Protocol",
       "level": "B",
       "aclass": null,
       "source": "src/kepler_hurwitz/dhqpid_prototype.py, examples/run_dhqpid_prototype.py, docs/theory/dhqpid_prototype_report.md",
@@ -1070,13 +1070,13 @@
       "supports": [
         "E-062"
       ],
-      "scope": "Cardoso-Machiavelo orders H_{1,7} and H_{7,13}; bounded search compares norm-Euclidean remainder (EUC) with Dedekind-Hasse witnesses (DH); rescue = EUC fail and DH success",
-      "metric_or_result": "Reproducible bounded-search prototype; no EABC claim",
+      "scope": "Cardoso-Machiavelo orders H_{1,7} and H_{7,13}; bounded search compares norm-Euclidean remainder (EUC) with Dedekind-Hasse witnesses (DH); documents search protocol and witness structure; rescue = EUC fail and DH success",
+      "metric_or_result": "H17 p<=13: 3192 candidates, 0 true EUC=0/DH=1 rescues; H713 p<=11: 2816 candidates, 0 rescues; manual DH witness p=2 verified but EUC already succeeds with rest norm 1/4",
       "status": "numerical prototype",
       "stability": "experimental",
       "last_reviewed": "2026-07-04",
       "lean_label": null,
-      "not_claimed": "Does not prove PID globally, EABC structure, or Cardoso-Machiavelo completeness"
+      "not_claimed": "Does not prove PID globally, EABC structure, Cardoso-Machiavelo completeness, or that non-Euclidean rescues occur in the current bounded window"
     },
     {
       "id": "E-062",

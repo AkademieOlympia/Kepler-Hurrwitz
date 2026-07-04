@@ -62,14 +62,17 @@ def E064_is_didactic_bridge : Prop :=
 theorem e064_is_didactic_bridge : E064_is_didactic_bridge := by
   constructor <;> rfl
 
-/-- E-061: Non-Euclidean Rescue Witnesses — numerischer Prototyp `[B]`. -/
+/-- E-061: Bounded DH Search and Rescue-Witness Protocol — numerischer Prototyp `[B]`. -/
 def E061 : EvidenceEntry where
   id := "E-061"
-  title := "Non-Euclidean Rescue Witnesses"
+  title := "Bounded DH Search and Rescue-Witness Protocol"
   level := EvidenceLevel.B
-  claim := "Bounded search finds rho with EUC=0 and DH=1 for H_{1,7} and H_{7,13}."
+  claim :=
+    "Documents bounded EUC vs DH search protocol for H_{1,7} and H_{7,13}; " ++
+      "current window finds no true EUC=0, DH=1 rescue cases."
   hasEABCClaim := false
-  notes := "Prototype only. No EABC claim. See dhqpid_prototype.py."
+  notes :=
+    "Prototype only. No EABC claim. Manual DH witness p=2 verified; EUC already ok with rest 1/4."
 
 /-- E-062: Dedekind-Hasse Correction Energy — numerischer Prototyp `[B]`. -/
 def E062 : EvidenceEntry where

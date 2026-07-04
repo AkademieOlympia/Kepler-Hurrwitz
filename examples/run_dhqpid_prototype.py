@@ -18,7 +18,7 @@ from kepler_hurwitz.dhqpid_prototype import (  # noqa: E402
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="DH-QPID bounded search for Cardoso-Machiavelo orders (E-061 / E-062)."
+        description="Bounded DH search protocol for Cardoso-Machiavelo orders (E-061 / E-062)."
     )
     parser.add_argument(
         "--out-dir",

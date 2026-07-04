@@ -1,5 +1,8 @@
 """DH-QPID bounded-search prototype (E-061 / E-062).
 
+E-061: Bounded DH Search and Rescue-Witness Protocol — documents EUC vs DH
+comparison without overclaiming non-Euclidean rescue cases in the current window.
+
 Cardoso-Machiavelo reference orders H_{1,7} and H_{7,13}: compare norm-Euclidean
 division (EUC) with Dedekind-Hasse correction witnesses.
 
