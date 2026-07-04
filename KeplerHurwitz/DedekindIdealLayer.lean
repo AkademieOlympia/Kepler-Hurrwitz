@@ -8,7 +8,7 @@ namespace DedekindIdealLayer
 open EABCChannel EABCSignature4
 
 /-!
-## Dedekind-Idealtheorie-Schicht (E-064 / E-065 / E-066)
+## Dedekind-Idealtheorie-Schicht (E-067 / E-068 / E-069)
 
 Ergaenzt E-053 (`DedekindHasseDumasInterface.lean`) um eine **Dedekind-artige Ideal-Schicht**
 fuer quaternionische Referenzordnungen — als `[C]` Schnittstellenmodell, ohne vollstaendige
@@ -22,7 +22,7 @@ Quaternionenalgebra.
 | Schicht | Objekt | Rolle | Status |
 |---|---|---|---|
 | **DH** | `α·ρ − β` (Normreduktion) | analytisch-metrisch; Stabilitaetscheck PID | `[C]` E-053 |
-| **Dedekind-Ideal** | `H·γ` vs. `γ·H` | topologisch-algebraisch; **einheiteninvariant** | `[C]`/`[B]` E-064–E-066 |
+| **Dedekind-Ideal** | `H·γ` vs. `γ·H` | topologisch-algebraisch; **einheiteninvariant** | `[C]`/`[B]` E-067–E-069 |
 | **EABC mod 12** | `EABCSignature4`, Kanalprojektion | Interpretationsschicht | `[C]` offen |
 
 **DH beweist nicht EABC.** Idealpfade sind **invariant** gegenueber Elementdarstellungen;
@@ -174,24 +174,24 @@ def IdealFactorizationChain (order : ReferenceQuaternionOrder) (I : LeftIdeal or
 ### Tests DED-1 … DED-5 (Prop-Schnittstellen, keine numerischen Experimente)
 -/
 
-/-- DED-1: Dedekind–Hasse → PID-Faehigkeit (links). E-064. -/
+/-- DED-1: Dedekind–Hasse → PID-Faehigkeit (links). E-067. -/
 def DedekindTest_DED1_DedekindHasseImpliesPID (order : ReferenceQuaternionOrder) : Prop :=
   DedekindHasseImpliesPID order
 
-/-- DED-2: Jedes Linksideal traegt einen Hauptideal-Pfad. E-064. -/
+/-- DED-2: Jedes Linksideal traegt einen Hauptideal-Pfad. E-067. -/
 def DedekindTest_DED2_PrincipalIdealPath (order : ReferenceQuaternionOrder) : Prop :=
   ∀ (I : LeftIdeal order), IdealFactorizationPath order I
 
-/-- DED-3: Links-Rechts-Pfad-Asymmetrie (Cardoso-Machiavelo: links-PID). E-065. -/
+/-- DED-3: Links-Rechts-Pfad-Asymmetrie (Cardoso-Machiavelo: links-PID). E-068. -/
 def DedekindTest_DED3_LeftRightPathAsymmetry (order : ReferenceQuaternionOrder) : Prop :=
   ReferenceOrderHasLeftPIDWitness order ∧
     (ReferenceOrderHasRightPIDWitness order → False)
 
-/-- DED-4: Faktorisierungskette entlang dokumentierter Idealpfade. E-064. -/
+/-- DED-4: Faktorisierungskette entlang dokumentierter Idealpfade. E-067. -/
 def DedekindTest_DED4_IdealFactorizationChain (order : ReferenceQuaternionOrder) : Prop :=
   ∀ (I : LeftIdeal order), IdealFactorizationChain order I
 
-/-- DED-5: Nichttriviale Idealclassen-Obstruktion gegen links-PID. E-066. -/
+/-- DED-5: Nichttriviale Idealclassen-Obstruktion gegen links-PID. E-069. -/
 def IdealClassObstructsLeftPID (order : ReferenceQuaternionOrder) : Prop :=
   ¬ ReferenceOrderHasLeftPIDWitness order ∧ ∃ (_I : LeftIdeal order), True
 
@@ -228,7 +228,7 @@ def EabcInterpretationFromIdealPaths : Prop :=
     h.spread = 0 → h.eccentricity = 0
 
 /-!
-### [B]/[C] Asymmetrie- und Obstruktionsaussagen (E-065, E-066)
+### [B]/[C] Asymmetrie- und Obstruktionsaussagen (E-068, E-069)
 -/
 
 /--
@@ -241,8 +241,8 @@ def principalLeftPathSigma (_order : QuaternionOrder) (γ : Nat) : Nat := γ
 -/
 def principalRightPathSigma (order : QuaternionOrder) (γ : Nat) : Nat :=
   γ + match order with
-  | QuaternionOrder.H17 => 1
-  | QuaternionOrder.H713 => 2
+  | ReferenceQuaternionOrder.H17 => 1
+  | ReferenceQuaternionOrder.H713 => 2
 
 /--
 [B] Chiralitaetsindikator `σ(H·γ) − σ(γ·H)` — numerischer Experiment-Check **in progress**.
@@ -307,9 +307,8 @@ theorem dedekind_hasse_witness_reference (order : QuaternionOrder) (Norm : Nat �
 
 theorem ideal_path_chirality_nonzero_reference (order : QuaternionOrder) (γ : Nat) :
     IdealPathChiralityNonzero order γ := by
-  unfold IdealPathChiralityNonzero idealPathChiralityDelta principalLeftPathSigma
-    principalRightPathSigma
-  cases order <;> simp
+  cases order <;> simp [IdealPathChiralityNonzero, idealPathChiralityDelta,
+    principalLeftPathSigma, principalRightPathSigma]
 
 theorem dedekind_DED1_H17 : DedekindTest_DED1_DedekindHasseImpliesPID H_1_7 :=
   dedekind_DED1_holds H_1_7

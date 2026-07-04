@@ -1,4 +1,4 @@
-# Dedekind-Idealtheorie-Schicht — Schnittstelle (E-064 / E-065 / E-066)
+# Dedekind-Idealtheorie-Schicht — Schnittstelle (E-067 / E-068 / E-069)
 
 **Didaktischer Einstieg:** [Ideale, Dedekind-Hasse und quaternionische Primzahlpfade](energiedoku_exports/idealtheorie_abitur_kurz.md)
 
@@ -13,9 +13,9 @@
 | Schicht | Symbole | Status |
 |---|---|---|
 | Dedekind–Hasse (PID-Check) | `DedekindHasseCriterion`, `DedekindHasseImpliesPID` | `[C]` E-053 |
-| Dedekind-Idealtheorie | `LeftIdeal`, `RightIdeal`, `PrincipalLeftIdeal`, `LeftPIDWitness` | `[C]` E-064 |
-| Links/Rechts-Asymmetrie | `DedekindTest_DED3_*`, `LeftRightIdealPathAsymmetryStatement` | `[B]`/`[C]` E-065 |
-| Idealclassen-Obstruktion | `DedekindTest_DED5_*`, `ReferenceOrdersNoIdealClassObstruction` | `[B]` E-066 |
+| Dedekind-Idealtheorie | `LeftIdeal`, `RightIdeal`, `PrincipalLeftIdeal`, `LeftPIDWitness` | `[C]` E-067 |
+| Links/Rechts-Asymmetrie | `DedekindTest_DED3_*`, `LeftRightIdealPathAsymmetryStatement` | `[B]`/`[C]` E-068 |
+| Idealclassen-Obstruktion | `DedekindTest_DED5_*`, `ReferenceOrdersNoIdealClassObstruction` | `[B]` E-069 |
 | EABC-Interpretation | `EabcInterpretationLayer`, `EabcInterpretationFromIdealPaths` | `[C]` offen |
 
 ## Tests DED-1 … DED-5
@@ -56,12 +56,12 @@ In der **#Energiedoku** erscheint $S_{235}$ nicht als physikalische Primfaktorbe
 |---|---|---|
 | **Element** | $n=2^a3^b5^c$ | explizite Zahl; Faktorisierung in `{2,3,5}` eindeutig |
 | **Monoid / Struktur** | $S_{235}$ als multiplikatives Gerüst | kontrollierte Skalenmenge; Rekursion `g_i = min{s∈S \| …}` liefert **Pfade** entlang Chiralitätsworten |
-| **Idealtheorie (E-064)** | Linksideale, Hauptideal-Ketten | einheiteninvariante Pfade in quaternionischen Ordnungen — **andere** Zahlwelt als $S_{235}$ |
+| **Idealtheorie (E-067)** | Linksideale, Hauptideal-Ketten | einheiteninvariante Pfade in quaternionischen Ordnungen — **andere** Zahlwelt als $S_{235}$ |
 
 Die didaktische Parallele ist **methodisch**, nicht formal bewiesen:
 
 - **Enge Primleiter `{2,3,5}`:** Elementdarstellungen bleiben in einem kleinen, gut kontrollierten Faktorband — wenig „Rauschen“ von grossen Primteilerwechseln.
-- **Ideale in nichtkommutativen Ordnungen:** Elemente können täuschen; Idealpfade stabilisieren die Struktur (E-064–E-066).
+- **Ideale in nichtkommutativen Ordnungen:** Elemente können täuschen; Idealpfade stabilisieren die Struktur (E-067–E-069).
 - **Hamming-Skala vs. Quaternion-Ideal:** $S_{235}$ beschreibt **Skalenlifts** im EABC-Renormalisierungsprogramm; Dedekind-Ideale beschreiben **arithmetische Pfade** in Ordnungen wie $\mathcal H_{1,7}$ — ohne etablierte Abbildung zwischen beiden.
 
 ### Abgrenzung im Repo

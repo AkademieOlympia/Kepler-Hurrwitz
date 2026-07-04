@@ -6,6 +6,7 @@ Authors: Kepler-Hurrwitz Team
 
 import KeplerHurwitz.DedekindHasseDumasInterface
 import KeplerHurwitz.DedekindIdealLayer
+import KeplerHurwitz.DHQPID
 import KeplerHurwitz.CollatzNormShell
 import KeplerHurwitz.CollatzProofAttemptV2
 import KeplerHurwitz.CollatzProofAttemptV21

@@ -212,9 +212,9 @@ Siehe: [chebyshev_bias_interface.md](chebyshev_bias_interface.md)
 
 ---
 
-## 4c. Abgrenzung: Dedekind-Idealtheorie (E-064–E-066)
+## 4c. Abgrenzung: Dedekind-Idealtheorie (E-067–E-069)
 
-E-053 (Dedekind–Hasse) prüft **PID-Fähigkeit**; E-064 ff. beschreiben **Idealpfade**
+E-053 (Dedekind–Hasse) prüft **PID-Fähigkeit**; E-067 ff. beschreiben **Idealpfade**
 (`LeftIdeal`, `PrincipalLeftIdeal`, DED-1…DED-5). EABC-Signaturdeutung
 (`EabcInterpretationLayer`) ist **nicht** aus Idealen bewiesen.
 

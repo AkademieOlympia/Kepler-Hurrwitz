@@ -1,10 +1,25 @@
 ---
 title: Ideale, Dedekind-Hasse und quaternionische Primzahlpfade
 date: 2026-07-04
-status: Didaktische Kurzfassung (publikationsfähig)
+status: "[C] didaktische Modellbrücke"
+claim_boundary: >-
+  Der Text erklärt Ideale, Einheiten, linke/rechte Quaternionenideale und
+  Dedekind-Hasse als Stabilitätstest. Er beweist keine EABC-Struktur.
+evidence_id: E-064
 ---
 
 # Ideale, Dedekind-Hasse und quaternionische Primzahlpfade
+
+**Status:** `[C]` didaktische Modellbrücke  
+**Evidenz:** E-064 · **Lean:** `KeplerHurwitz/DHQPID.lean`
+
+> **Claim-Grenze:** Der Text erklärt die Motivation und Struktur der DH-QPID-Testreihe,
+> beweist aber **keine** EABC-Struktur. Die EABC-Brücke bleibt eine testbare Modellinterpretation.
+
+**Motto:** Die Elemente zeigen die Oberfläche. Die Ideale zeigen das arithmetische Gerüst.
+Dedekind-Hasse testet, ob dieses Gerüst auch ohne euklidisches Teilen stabil bleibt.
+
+---
 
 Stell dir vor, du hast die Welt der normalen Zahlen satt — also $1, 2, 3, 4, \dots$ — und baust dir ein neues mathematisches Universum. Zum Beispiel mit **Quaternionen**. Das sind vierdimensionale Zahlen, die unter anderem in der Computergrafik benutzt werden, etwa um Drehungen im Raum elegant zu beschreiben.
 
@@ -193,7 +208,7 @@ Für das Quaternionenmodell ist das sehr wichtig. Denn es zeigt:
 
 Kurz gesagt:
 
-> **Die Elemente zeigen die Oberfläche. Die Ideale zeigen das arithmetische Gerüst. Dedekind-Hasse testet, ob dieses Gerüst auch dann noch hält, wenn das einfache euklidische Teilen versagt.**
+> **Die Elemente zeigen die Oberfläche. Die Ideale zeigen das arithmetische Gerüst. Dedekind-Hasse testet, ob dieses Gerüst auch dann noch hält, wenn das einfache euklidisches Teilen versagt.**
 
 ---
 
@@ -207,7 +222,9 @@ Die zentrale Prüfthese lautet daher:
 
 *Sind die beobachteten quaternionischen Primzahlpfade nur ein Spezialeffekt der norm-euklidischen Hurwitz-Ordnung — oder bleiben sie auch in nicht-euklidischen, aber Dedekind-Hasse-prinzipalen Ordnungen erhalten?*
 
-Als **kontrolliertes Gegenbild auf Elementebene** dient in der #Energiedoku das Monoid der **glatten Hamming-Zahlen** $S_{235}=\{2^a3^b5^c\}$: dort bleibt die Zerlegung in die Primleiter `{2,3,5}` eindeutig und eignet sich als Skalenhülle (Artikel §11) — methodisch parallel zu „strukturell stabil, wenig Faktor-Rauschen“, aber **nicht** identisch mit quaternionischer Idealtheorie. Technische Einordnung: [`dedekind_ideal_layer.md`](../dedekind_ideal_layer.md).
+Als **kontrolliertes Gegenbild auf Elementebene** dient das Monoid der **glatten Hamming-Zahlen**
+$S_{235}=\{2^a3^b5^c\}$ — methodisch parallel zu „strukturell stabil, wenig Faktor-Rauschen“,
+**nicht** identisch mit quaternionischer Idealtheorie. Siehe [`../dedekind_ideal_layer.md`](../dedekind_ideal_layer.md).
 
 Die stärkste Schlussformel bleibt:
 
@@ -215,17 +232,19 @@ Die stärkste Schlussformel bleibt:
 
 ---
 
-## Brücke zum Kepler-Hurrwitz-Projekt (E-064, E-067–E-069)
+## DH-QPID-Evidenzkette (Register)
 
-Die obige Erklärung ist **didaktisch** gemeint — kein Beweisanspruch. Im Kepler-Hurrwitz-Modell:
+| ID | Inhalt | Status |
+|---|---|---|
+| **E-064** | Dieser didaktische Einstieg | `[C]` Modellbrücke |
+| **E-061** | Non-Euclidean Rescue Witnesses (numerisch) | `[B]` |
+| **E-062** | Dedekind-Hasse Correction Energy (numerisch) | `[B]` |
+| **E-063** | EABC Residue-Class DH Profile | `[C]` offen |
+| **E-067–E-069** | Lean-Ideal-Schicht (`DedekindIdealLayer.lean`) | `[C]`/`[B]` |
 
-- **E-064** ist der didaktische Einstieg (`docs/theory/ideal_dedekind_hasse_intro_abitur.md`).
-- **E-067** formalisiert Links- und Rechtsideale sowie Hauptideal-Ketten als einheiteninvariante Pfadbeschreibung.
-- **E-068** untersucht die Chiralität zwischen links- und rechtsseitigen Idealpfaden.
-- **E-069** prüft Idealclassen-Obstruktion als negativen Kontrollrahmen für Referenzordnungen.
+**Nicht behauptet:** Numerische Prototypen (E-061/E-062) beweisen keine EABC-Struktur.
+Lean-Ideal-Schicht (E-067–E-069) beweist keine Kanalprojektion aus Idealen.
 
-EABC-Pfade sollen deshalb **ideal-theoretisch** und nicht elementabhängig formuliert werden: Elementdarstellungen tragen Einheiten-Rauschen, Ideale nicht — aber Links-/Rechts-Asymmetrie und Einheitenmigration bleiben messbare Signale.
-
-Die technische Einordnung steht in [`dedekind_ideal_eabc_layers.md`](dedekind_ideal_eabc_layers.md); die Lean-Schnittstelle in [`KeplerHurwitz/DedekindIdealLayer.lean`](../../KeplerHurwitz/DedekindIdealLayer.lean). Dedekind-Hasse (E-053) ist in [`dedekind_hasse_eabc_bridge.md`](dedekind_hasse_eabc_bridge.md) und [`KeplerHurwitz/DedekindHasseDumasInterface.lean`](../../KeplerHurwitz/DedekindHasseDumasInterface.lean) dokumentiert.
-
-Dedekind-Hasse prüft PID-Fähigkeit; Idealtheorie beschreibt die Pfade; EABC interpretiert mögliche Signaturmuster — ohne dass eine Schicht die andere beweist.
+**Verwandte Dateien:** [`../dedekind_ideal_layer.md`](../dedekind_ideal_layer.md) ·
+[`../../KeplerHurwitz/DHQPID.lean`](../../KeplerHurwitz/DHQPID.lean) ·
+[`../../KeplerHurwitz/DedekindIdealLayer.lean`](../../KeplerHurwitz/DedekindIdealLayer.lean)

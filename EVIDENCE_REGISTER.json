@@ -1058,35 +1058,117 @@
       "not_claimed": "Dedekind-Hasse does not prove Dumas (E-048) or EABC renormalization; no explicit map Phi from EABC configurations to quaternion orders"
     },
     {
-      "id": "E-064",
-      "title": "Dedekind ideal theory layer (LeftIdeal, RightIdeal, PID witnesses, DED-1/2/4)",
-      "level": "C",
-      "aclass": "B",
-      "source": "KeplerHurwitz/DedekindIdealLayer.lean, docs/dedekind_ideal_layer.md",
+      "id": "E-061",
+      "title": "Non-Euclidean Rescue Witnesses (bounded DH-QPID search)",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/dhqpid_prototype.py, examples/run_dhqpid_prototype.py, docs/theory/dhqpid_prototype_report.md",
       "depends_on": [
         "E-053",
-        "E-048"
+        "E-064"
       ],
       "supports": [
-        "E-065",
-        "E-066"
+        "E-062"
+      ],
+      "scope": "Cardoso-Machiavelo orders H_{1,7} and H_{7,13}; bounded search compares norm-Euclidean remainder (EUC) with Dedekind-Hasse witnesses (DH); rescue = EUC fail and DH success",
+      "metric_or_result": "Reproducible bounded-search prototype; no EABC claim",
+      "status": "numerical prototype",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "lean_label": null,
+      "not_claimed": "Does not prove PID globally, EABC structure, or Cardoso-Machiavelo completeness"
+    },
+    {
+      "id": "E-062",
+      "title": "Dedekind-Hasse Correction Energy (alpha-norm budget)",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/dhqpid_prototype.py, docs/theory/dhqpid_prototype_H17.csv, docs/theory/dhqpid_prototype_H713.csv",
+      "depends_on": [
+        "E-061"
+      ],
+      "supports": [],
+      "scope": "Tracks alpha_norm_sq in DH witnesses as arithmetical correction cost, not physical energy",
+      "metric_or_result": "Prototype exports alpha_norm_sq column; max observed in bounded window documented in summary CSV",
+      "status": "numerical prototype",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "lean_label": null,
+      "not_claimed": "Not a physical energy measurement; bounded-search metric only"
+    },
+    {
+      "id": "E-063",
+      "title": "EABC Residue-Class DH Profile (future)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/ideal_dedekind_hasse_intro_abitur.md",
+      "depends_on": [
+        "E-061",
+        "E-062"
+      ],
+      "supports": [],
+      "scope": "Future stratification of alpha/delta profiles by residue classes 1,5,7,11 mod 12",
+      "metric_or_result": "Not implemented",
+      "status": "open",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-063",
+      "not_claimed": "No EABC claim until implemented and validated"
+    },
+    {
+      "id": "E-064",
+      "title": "Ideal-theoretic introduction to DH-QPID (didactic model bridge)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/ideal_dedekind_hasse_intro_abitur.md, KeplerHurwitz/DHQPID.lean, docs/theory/README.md",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [
+        "E-061",
+        "E-062",
+        "E-063"
+      ],
+      "scope": "Didactic introduction to ideals, units, left/right quaternionic ideals, and Dedekind-Hasse as stability test",
+      "metric_or_result": "E064_is_model_bridge in DHQPID.lean; claim boundary documented in markdown front matter",
+      "status": "didactic model bridge",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-064",
+      "not_claimed": "Does not prove EABC structure; EABC bridge remains testable model interpretation only"
+    },
+    {
+      "id": "E-067",
+      "title": "Dedekind ideal theory layer (LeftIdeal, RightIdeal, PID witnesses, DED-1/2/4)",
+      "level": "C",
+      "aclass": null,
+      "source": "KeplerHurwitz/DedekindIdealLayer.lean, docs/dedekind_ideal_layer.md, docs/energiedoku_exports/dedekind_ideal_eabc_layers.md",
+      "depends_on": [
+        "E-053",
+        "E-048",
+        "E-064"
+      ],
+      "supports": [
+        "E-068",
+        "E-069"
       ],
       "scope": "LeftIdeal, RightIdeal, PrincipalLeftIdeal, PrincipalRightIdeal, LeftPIDWitness, RightPIDWitness, DedekindHasseImpliesPID, DedekindTest_DED1 through DED4",
       "metric_or_result": "0 sorry; lake build KeplerHurwitz.DedekindIdealLayer green (2026-07-04)",
       "status": "ideal layer interface",
       "stability": "stable",
       "last_reviewed": "2026-07-04",
-      "lean_label": "E-064",
-      "not_claimed": "Ideal theory does not prove EABC signature patterns; EabcInterpretationFromIdealPaths remains open"
+      "lean_label": "E-067",
+      "not_claimed": "Ideal theory does not prove EABC signature patterns; EabcInterpretationFromIdealPaths remains open",
+      "renumbered_from": "E-064"
     },
     {
-      "id": "E-065",
+      "id": "E-068",
       "title": "Left/right ideal path asymmetry (Cardoso-Machiavelo left-PID)",
       "level": "B",
-      "aclass": "C",
+      "aclass": null,
       "source": "KeplerHurwitz/DedekindIdealLayer.lean",
       "depends_on": [
-        "E-064",
+        "E-067",
         "E-053"
       ],
       "supports": [],
@@ -1095,17 +1177,18 @@
       "status": "documented asymmetry",
       "stability": "stable",
       "last_reviewed": "2026-07-04",
-      "lean_label": "E-065",
-      "not_claimed": "Right-PID for reference quaternion orders is not claimed; asymmetry is typological and documentary, not a numerical experiment"
+      "lean_label": "E-068",
+      "not_claimed": "Right-PID for reference quaternion orders is not claimed; asymmetry is typological and documentary, not a numerical experiment",
+      "renumbered_from": "E-065"
     },
     {
-      "id": "E-066",
+      "id": "E-069",
       "title": "Non-PID ideal-class obstruction (DED-5)",
       "level": "B",
       "aclass": null,
       "source": "KeplerHurwitz/DedekindIdealLayer.lean",
       "depends_on": [
-        "E-064"
+        "E-067"
       ],
       "supports": [],
       "scope": "IdealClassObstructsLeftPID, DedekindTest_DED5_NonPIDIdealClassObstruction, ReferenceOrdersNoIdealClassObstruction",
@@ -1113,8 +1196,9 @@
       "status": "negative obstruction finding",
       "stability": "stable",
       "last_reviewed": "2026-07-04",
-      "lean_label": "E-066",
-      "not_claimed": "No claim that all quaternion orders are PID; obstruction test is an interface for non-reference orders only"
+      "lean_label": "E-069",
+      "not_claimed": "No claim that all quaternion orders are PID; obstruction test is an interface for non-reference orders only",
+      "renumbered_from": "E-066"
     }
   ]
 }
