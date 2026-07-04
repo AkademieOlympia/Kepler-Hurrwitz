@@ -9,6 +9,8 @@ import KeplerHurwitz.CollatzProofAttemptV22
 import KeplerHurwitz.CollatzProofAttemptV23
 import KeplerHurwitz.CollatzProofAttemptV24
 import KeplerHurwitz.CollatzProofAttemptV25
+import KeplerHurwitz.DedekindHasseProofAttempt
+import KeplerHurwitz.DedekindIdealLayer
 import KeplerHurwitz.Representation.Invariant
 import KeplerHurwitz.Representation.EABCChronology
 import KeplerHurwitz.SchuettePtolemyCaeda
@@ -325,5 +327,55 @@ EABC-Chronologie: linksseitige Rotation entspricht rechtsseitiger inverser Rotat
 theorem reachable_phi_left_eq_right_inverse :
     JchiLeft Phi = JchiRightInv Phi := by
   exact Phi_left_rotation_eq_right_inverse_rotation
+
+/--
+Dedekind–Hasse ↔ EABC: DH-Kriterium-Schnittstelle ist dokumentiert (Cardoso–Machiavelo).
+-/
+theorem reachable_dedekindHasse_criterion_statement (order : ReferenceQuaternionOrder) :
+    DedekindHasseProofAttempt.DedekindHasseCriterionStatement order := by
+  exact DedekindHasseProofAttempt.dedekindHasse_criterion_holds order
+
+/--
+Dedekind–Hasse ↔ EABC: isotrope EABC-Signatur hat Exzentrizitaet null (Kepler-Projektion).
+-/
+theorem reachable_isotropic_eabc_signature_zero_eccentricity (h : EABCSignature4)
+    (hi : DedekindHasseProofAttempt.IsotropicEabcSignature h) :
+    h.eccentricity = 0 := by
+  exact DedekindHasseProofAttempt.isotropic_signature_eccentricity_zero h hi
+
+/--
+Dedekind–Hasse ↔ EABC: Status-Buendel (DH/Dumas lokal, EABC-Zertifikat extern, Φ offen).
+-/
+theorem reachable_dedekindHasse_proof_attempt_status :
+    DedekindHasseProofAttempt.DedekindHasseProofAttemptStatus := by
+  exact DedekindHasseProofAttempt.dedekindHasse_proof_attempt_status
+
+/--
+Dedekind-Ideal-Schicht: DH-Kriterium impliziert links-PID-Zeuge (E-067, Schnittstellenbeweis).
+-/
+theorem reachable_dedekind_hasse_implies_left_pid (order : ReferenceQuaternionOrder) :
+    DedekindHasseCriterion order → Nonempty (DedekindIdealLayer.LeftPIDWitness order) := by
+  exact DedekindIdealLayer.dedekind_hasse_implies_left_pid order
+
+/--
+Dedekind-Ideal-Schicht: Links-Rechts-Pfad-Asymmetrie fuer Referenzordnungen (E-068).
+-/
+theorem reachable_leftRightIdealPathAsymmetry :
+    DedekindIdealLayer.LeftRightIdealPathAsymmetryStatement := by
+  exact DedekindIdealLayer.leftRightIdealPathAsymmetryStatement_holds
+
+/--
+Dedekind-Ideal-Schicht: Referenzordnungen ohne Idealclassen-Obstruktion (E-069, negativer Befund).
+-/
+theorem reachable_referenceOrdersNoIdealClassObstruction :
+    DedekindIdealLayer.ReferenceOrdersNoIdealClassObstruction := by
+  exact DedekindIdealLayer.dedekind_reference_no_ideal_class_obstruction
+
+/--
+Dedekind-Ideal-Schicht: Chiralitaetsindikator σ(H·γ)−σ(γ·H) ≠ 0 fuer Referenzordnungen (E-068).
+-/
+theorem reachable_idealPathChiralityNonzero (order : ReferenceQuaternionOrder) (γ : Nat) :
+    DedekindIdealLayer.IdealPathChiralityNonzero order γ := by
+  exact DedekindIdealLayer.ideal_path_chirality_nonzero_reference order γ
 
 end KeplerHurwitz
