@@ -207,6 +207,8 @@ Die zentrale Prüfthese lautet daher:
 
 *Sind die beobachteten quaternionischen Primzahlpfade nur ein Spezialeffekt der norm-euklidischen Hurwitz-Ordnung — oder bleiben sie auch in nicht-euklidischen, aber Dedekind-Hasse-prinzipalen Ordnungen erhalten?*
 
+Als **kontrolliertes Gegenbild auf Elementebene** dient in der #Energiedoku das Monoid der **glatten Hamming-Zahlen** $S_{235}=\{2^a3^b5^c\}$: dort bleibt die Zerlegung in die Primleiter `{2,3,5}` eindeutig und eignet sich als Skalenhülle (Artikel §11) — methodisch parallel zu „strukturell stabil, wenig Faktor-Rauschen“, aber **nicht** identisch mit quaternionischer Idealtheorie. Technische Einordnung: [`dedekind_ideal_layer.md`](../dedekind_ideal_layer.md).
+
 Die stärkste Schlussformel bleibt:
 
 > **Die Elemente zeigen die Oberfläche. Die Ideale zeigen das arithmetische Gerüst. Dedekind-Hasse testet, ob dieses Gerüst auch ohne euklidisches Teilen stabil bleibt.**
