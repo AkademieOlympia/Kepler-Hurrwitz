@@ -1218,6 +1218,23 @@
       "stability": "experimental",
       "last_reviewed": "2026-07-04",
       "not_claimed": "No claim that quaternionic prime structure physically causes spacetime diffusion; no Oppenheim physics validation"
+    },
+    {
+      "id": "E-071",
+      "title": "Higgs bubble collision eabc analogy (topological defect production as renormalization test)",
+      "level": "D",
+      "aclass": null,
+      "source": "docs/theory/higgs_bubble_eabc_analogy.md, docs/theory/README.md",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [],
+      "scope": "Methodological bridge: DESY/Hamburg Higgs bubble collision baryogenesis (T=0 non-thermal sphalerons) as external analogy for eabc defect-collision, topological sector change, and renormalized global bias tests",
+      "metric_or_result": "Abstract test schema Omega_i, K_ij, N_top <-> I_eabc, measure Delta I_eabc(K_ij); five-step protocol in docs/theory/higgs_bubble_eabc_analogy.md section 8",
+      "status": "conceptual bridge / external analogy",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "not_claimed": "No claim that eabc or quaternionic prime structure explains baryogenesis or is physically identified with Higgs bubble dynamics; DESY does not prove eabc; primes do not generate baryons"
     }
   ]
 }

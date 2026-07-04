@@ -38,3 +38,21 @@ Theorie-Dokumente und didaktische Modellbrücken des Kepler-Hurrwitz-Programms.
 | E-053 | `docs/energiedoku_exports/eabc_renormalisierungsprogramm.md` | EABC-Renormierungskern |
 | E-064 | `docs/theory/ideal_dedekind_hasse_intro_abitur.md` | DH-QPID-Stabilitätstest |
 | E-067 | `docs/dedekind_ideal_layer.md` | Lean-Idealinterface |
+
+---
+
+### Higgs-Blasen–eabc: Topologische Defektkollision als Renormierungstest
+
+**Datei:** `docs/theory/higgs_bubble_eabc_analogy.md`  
+**Status:** `[D]` konzeptionelle Brücke / externe Analogie  
+**Evidenz:** E-071  
+**Zweck:** Methodische Parallele zwischen DESY/Hamburg Higgs-Blasenkollisions-Baryogenese ($T=0$, nichtthermische Sphaleronen) und eabc-Renormierungs-/Invariantentests — Defektkollision, topologischer Sektorwechsel, globaler Bias, keine Physikbehauptung.  
+**Claim-Grenze:** Keine Kausalbehauptung zwischen Higgs-Blasendynamik und quaternionischer Primstruktur oder eabc.
+
+**Verwandte Schichten:**
+
+| ID | Datei | Rolle |
+|---|---|---|
+| E-053 | `docs/energiedoku_exports/eabc_renormalisierungsprogramm.md` | EABC-Renormierungskern |
+| E-070 | `docs/theory/oppenheim_eabc_stability_bridge.md` | Geschwister-[D]-Brücke (stochastische Perturbation) |
+| E-064 | `docs/theory/ideal_dedekind_hasse_intro_abitur.md` | DH-QPID-Stabilitätstest |
