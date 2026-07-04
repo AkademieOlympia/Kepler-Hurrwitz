@@ -136,3 +136,4 @@ The projection does not separate the shell proxies N=4, N=6, N=8 by commutation 
 Signed stabilizer orbit classes do **not** separate N=4,6,8; `e045_upgrade_eligible=false`. Separation remains in E-037.
 
 **Status.** `[C]` structural test, not a classification theorem.
+- **E-053** Dedekind-Hasse ↔ Dumas methodical interface (Cardoso-Machiavelo H_{1,7}, H_{7,13})
