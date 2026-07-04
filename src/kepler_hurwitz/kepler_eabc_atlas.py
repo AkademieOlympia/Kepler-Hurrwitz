@@ -22,6 +22,16 @@ ALIGNMENT_NOT_CLAIMED = (
     "proven to realize the channel projection."
 )
 
+SIGNED_DUALITY_STATUS = "B descriptive statistics only"
+SIGNED_DUALITY_CLAIM = (
+    "The signed sheet-lift diagnostic checks whether the second Floquet sheet is "
+    "numerically compatible with an orientation-reversed copy of the first sheet."
+)
+SIGNED_DUALITY_NOT_CLAIMED = (
+    "The chi-lift does not generate the delta-M spectrum; orientation compatibility "
+    "does not prove causal channel realization."
+)
+
 # Matches Lean `EABCChronology.chi`: E -> A -> C -> B -> E.
 CHI_CYCLE_CHANNELS: tuple[str, ...] = ("E", "A", "C", "B")
 
@@ -168,6 +178,57 @@ def lift_sheet_pair_differences(
     return pairs
 
 
+def lift_sheet_signed_duality_pairs(
+    annotated_rows: Sequence[Mapping[str, int | float | str]],
+) -> list[dict[str, int | float | str | bool]]:
+    """Per chi phase: test whether sheet 1 is an orientation-reversed lift of sheet 0."""
+    enriched: list[dict[str, int | float | str | bool]] = []
+    for pair in lift_sheet_pair_differences(annotated_rows):
+        delta_sheet0 = float(pair["delta_m_sheet0"])
+        delta_sheet1 = float(pair["delta_m_sheet1"])
+        signed_dual_sum = delta_sheet0 + delta_sheet1
+        enriched.append(
+            {
+                **pair,
+                "signed_dual_sum": signed_dual_sum,
+                "abs_dual_sum": abs(signed_dual_sum),
+                "same_magnitude_difference": abs(abs(delta_sheet0) - abs(delta_sheet1)),
+                "orientation_flip": delta_sheet0 * delta_sheet1 < 0,
+            }
+        )
+    return enriched
+
+
+def lift_sheet_signed_duality_summary(
+    annotated_rows: Sequence[Mapping[str, int | float | str]],
+) -> dict[str, Any]:
+    """Aggregate signed dual-sheet diagnostics for one annotated delta-M tail."""
+    pairs = lift_sheet_signed_duality_pairs(annotated_rows)
+    if not pairs:
+        return {
+            "status": SIGNED_DUALITY_STATUS,
+            "not_claimed": SIGNED_DUALITY_NOT_CLAIMED,
+            "pairs": [],
+            "max_abs_dual_sum": None,
+            "mean_abs_dual_sum": None,
+            "max_magnitude_difference": None,
+            "all_orientation_flips": None,
+        }
+
+    abs_dual_sums = [float(pair["abs_dual_sum"]) for pair in pairs]
+    magnitude_differences = [float(pair["same_magnitude_difference"]) for pair in pairs]
+    orientation_flips = [bool(pair["orientation_flip"]) for pair in pairs]
+    return {
+        "status": SIGNED_DUALITY_STATUS,
+        "not_claimed": SIGNED_DUALITY_NOT_CLAIMED,
+        "pairs": pairs,
+        "max_abs_dual_sum": max(abs_dual_sums),
+        "mean_abs_dual_sum": sum(abs_dual_sums) / len(abs_dual_sums),
+        "max_magnitude_difference": max(magnitude_differences),
+        "all_orientation_flips": all(orientation_flips),
+    }
+
+
 def max_lift_sheet_abs_difference(
     annotated_rows: Sequence[Mapping[str, int | float | str]],
 ) -> float | None:
@@ -183,6 +244,7 @@ def summarize_annotated_delta_m(
 ) -> dict[str, Any]:
     """Combined [B/C] alignment summary for one annotated delta-M tail."""
     pairs = lift_sheet_pair_differences(annotated_rows)
+    signed_duality = lift_sheet_signed_duality_summary(annotated_rows)
     return {
         "status": "B/C alignment only",
         "not_claimed": (
@@ -191,6 +253,11 @@ def summarize_annotated_delta_m(
         "channel_alignment_summary": channel_alignment_summary(annotated_rows),
         "lift_sheet_pair_differences": pairs,
         "max_lift_sheet_abs_difference": max_lift_sheet_abs_difference(annotated_rows),
+        "signed_sheet_lift_diagnostic": signed_duality,
+        "max_abs_dual_sum": signed_duality["max_abs_dual_sum"],
+        "mean_abs_dual_sum": signed_duality["mean_abs_dual_sum"],
+        "max_magnitude_difference": signed_duality["max_magnitude_difference"],
+        "all_orientation_flips": signed_duality["all_orientation_flips"],
     }
 
 
@@ -242,6 +309,10 @@ def format_alignment_markdown_report(export: FloquetAnnotationExport) -> str:
         "",
         f"**Not claimed:** {export.alignment_not_claimed}",
         "",
+        SIGNED_DUALITY_CLAIM,
+        "",
+        f"**Signed duality not claimed:** {SIGNED_DUALITY_NOT_CLAIMED}",
+        "",
         "## Formal 2x4 lift cycle",
         "",
         " -> ".join(export.cycle),
@@ -252,6 +323,7 @@ def format_alignment_markdown_report(export: FloquetAnnotationExport) -> str:
     for scenario in export.scenarios:
         alignment = scenario["alignment_summary"]
         pairs = alignment["lift_sheet_pair_differences"]
+        duality = alignment["signed_sheet_lift_diagnostic"]
         abs_differences = [float(pair["abs_difference"]) for pair in pairs]
         mean_abs_difference = (
             sum(abs_differences) / len(abs_differences) if abs_differences else None
@@ -267,6 +339,10 @@ def format_alignment_markdown_report(export: FloquetAnnotationExport) -> str:
                 f"- max_lift_sheet_abs_difference: "
                 f"{alignment['max_lift_sheet_abs_difference']}",
                 f"- mean lift-sheet abs difference: {mean_abs_difference}",
+                f"- max_abs_dual_sum: {alignment['max_abs_dual_sum']}",
+                f"- mean_abs_dual_sum: {alignment['mean_abs_dual_sum']}",
+                f"- max_magnitude_difference: {alignment['max_magnitude_difference']}",
+                f"- all_orientation_flips: {alignment['all_orientation_flips']}",
                 "",
                 "#### Per-channel delta-M statistics",
                 "",
@@ -292,6 +368,23 @@ def format_alignment_markdown_report(export: FloquetAnnotationExport) -> str:
             lines.append(
                 f"| {pair['phase']} | {pair['channel']} | {pair['delta_m_sheet0']:.6f} | "
                 f"{pair['delta_m_sheet1']:.6f} | {pair['abs_difference']:.6f} |"
+            )
+        lines.extend(["", "#### Signed sheet-lift diagnostic", ""])
+        lines.extend(
+            [
+                f"- status: {duality['status']}",
+                f"- not_claimed: {duality['not_claimed']}",
+                "",
+                "| phase | channel | dual sum | abs dual sum | |Δ| diff | flip |",
+                "|---:|---|---:|---:|---:|:---:|",
+            ]
+        )
+        for pair in duality["pairs"]:
+            flip = "yes" if pair["orientation_flip"] else "no"
+            lines.append(
+                f"| {pair['phase']} | {pair['channel']} | {pair['signed_dual_sum']:.6f} | "
+                f"{pair['abs_dual_sum']:.6f} | {pair['same_magnitude_difference']:.6f} | "
+                f"{flip} |"
             )
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"

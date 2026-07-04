@@ -6,6 +6,10 @@ The alignment report measures whether observed delta-M tails are numerically com
 
 **Not claimed:** The channel lift does not generate the delta-M spectrum; delta-M values are not proven to realize the channel projection.
 
+The signed sheet-lift diagnostic checks whether the second Floquet sheet is numerically compatible with an orientation-reversed copy of the first sheet.
+
+**Signed duality not claimed:** The chi-lift does not generate the delta-M spectrum; orientation compatibility does not prove causal channel realization.
+
 ## Formal 2x4 lift cycle
 
 E -> A -> C -> B -> E -> A -> C -> B
@@ -20,6 +24,10 @@ E -> A -> C -> B -> E -> A -> C -> B
 - unique_delta_M_count: 2
 - max_lift_sheet_abs_difference: 3.7123889803846897
 - mean lift-sheet abs difference: 3.7123889803846897
+- max_abs_dual_sum: 0.0
+- mean_abs_dual_sum: 0.0
+- max_magnitude_difference: 0.0
+- all_orientation_flips: True
 
 #### Per-channel delta-M statistics
 
@@ -39,6 +47,18 @@ E -> A -> C -> B -> E -> A -> C -> B
 | 2 | C | 1.856194 | -1.856194 | 3.712389 |
 | 3 | B | 1.856194 | -1.856194 | 3.712389 |
 
+#### Signed sheet-lift diagnostic
+
+- status: B descriptive statistics only
+- not_claimed: The chi-lift does not generate the delta-M spectrum; orientation compatibility does not prove causal channel realization.
+
+| phase | channel | dual sum | abs dual sum | |Δ| diff | flip |
+|---:|---|---:|---:|---:|:---:|
+| 0 | E | 0.000000 | 0.000000 | 0.000000 | yes |
+| 1 | A | 0.000000 | 0.000000 | 0.000000 | yes |
+| 2 | C | 0.000000 | 0.000000 | 0.000000 | yes |
+| 3 | B | 0.000000 | 0.000000 | 0.000000 | yes |
+
 ### random_chain
 
 - status: B/C alignment only
@@ -47,6 +67,10 @@ E -> A -> C -> B -> E -> A -> C -> B
 - unique_delta_M_count: 5
 - max_lift_sheet_abs_difference: 3.7123889803846897
 - mean lift-sheet abs difference: 2.320243112740431
+- max_abs_dual_sum: 1.8561944901923448
+- mean_abs_dual_sum: 1.3921458676442586
+- max_magnitude_difference: 1.8561944901923448
+- all_orientation_flips: False
 
 #### Per-channel delta-M statistics
 
@@ -66,6 +90,18 @@ E -> A -> C -> B -> E -> A -> C -> B
 | 2 | C | 0.000000 | 1.856194 | 1.856194 |
 | 3 | B | 0.000000 | -1.856194 | 1.856194 |
 
+#### Signed sheet-lift diagnostic
+
+- status: B descriptive statistics only
+- not_claimed: The chi-lift does not generate the delta-M spectrum; orientation compatibility does not prove causal channel realization.
+
+| phase | channel | dual sum | abs dual sum | |Δ| diff | flip |
+|---:|---|---:|---:|---:|:---:|
+| 0 | E | 0.000000 | 0.000000 | 0.000000 | yes |
+| 1 | A | -1.856194 | 1.856194 | 1.856194 | no |
+| 2 | C | 1.856194 | 1.856194 | 1.856194 | no |
+| 3 | B | -1.856194 | 1.856194 | 1.856194 | no |
+
 ### gauge_pi_over_4
 
 - status: B/C alignment only
@@ -74,6 +110,10 @@ E -> A -> C -> B -> E -> A -> C -> B
 - unique_delta_M_count: 2
 - max_lift_sheet_abs_difference: 3.7123889803846897
 - mean lift-sheet abs difference: 3.7123889803846897
+- max_abs_dual_sum: 0.0
+- mean_abs_dual_sum: 0.0
+- max_magnitude_difference: 0.0
+- all_orientation_flips: True
 
 #### Per-channel delta-M statistics
 
@@ -93,6 +133,18 @@ E -> A -> C -> B -> E -> A -> C -> B
 | 2 | C | 1.856194 | -1.856194 | 3.712389 |
 | 3 | B | 1.856194 | -1.856194 | 3.712389 |
 
+#### Signed sheet-lift diagnostic
+
+- status: B descriptive statistics only
+- not_claimed: The chi-lift does not generate the delta-M spectrum; orientation compatibility does not prove causal channel realization.
+
+| phase | channel | dual sum | abs dual sum | |Δ| diff | flip |
+|---:|---|---:|---:|---:|:---:|
+| 0 | E | 0.000000 | 0.000000 | 0.000000 | yes |
+| 1 | A | 0.000000 | 0.000000 | 0.000000 | yes |
+| 2 | C | 0.000000 | 0.000000 | 0.000000 | yes |
+| 3 | B | 0.000000 | 0.000000 | 0.000000 | yes |
+
 ### gauge_pi_over_2
 
 - status: B/C alignment only
@@ -101,6 +153,10 @@ E -> A -> C -> B -> E -> A -> C -> B
 - unique_delta_M_count: 3
 - max_lift_sheet_abs_difference: 1.8561944901923448
 - mean lift-sheet abs difference: 1.8561944901923448
+- max_abs_dual_sum: 1.8561944901923448
+- mean_abs_dual_sum: 1.8561944901923448
+- max_magnitude_difference: 1.8561944901923448
+- all_orientation_flips: False
 
 #### Per-channel delta-M statistics
 
@@ -120,6 +176,18 @@ E -> A -> C -> B -> E -> A -> C -> B
 | 2 | C | 0.000000 | 1.856194 | 1.856194 |
 | 3 | B | -1.856194 | 0.000000 | 1.856194 |
 
+#### Signed sheet-lift diagnostic
+
+- status: B descriptive statistics only
+- not_claimed: The chi-lift does not generate the delta-M spectrum; orientation compatibility does not prove causal channel realization.
+
+| phase | channel | dual sum | abs dual sum | |Δ| diff | flip |
+|---:|---|---:|---:|---:|:---:|
+| 0 | E | 1.856194 | 1.856194 | 1.856194 | no |
+| 1 | A | -1.856194 | 1.856194 | 1.856194 | no |
+| 2 | C | 1.856194 | 1.856194 | 1.856194 | no |
+| 3 | B | -1.856194 | 1.856194 | 1.856194 | no |
+
 ### perturbation_at_100
 
 - status: B/C alignment only
@@ -128,6 +196,10 @@ E -> A -> C -> B -> E -> A -> C -> B
 - unique_delta_M_count: 1
 - max_lift_sheet_abs_difference: 0.0
 - mean lift-sheet abs difference: 0.0
+- max_abs_dual_sum: 0.0
+- mean_abs_dual_sum: 0.0
+- max_magnitude_difference: 0.0
+- all_orientation_flips: False
 
 #### Per-channel delta-M statistics
 
@@ -146,3 +218,15 @@ E -> A -> C -> B -> E -> A -> C -> B
 | 1 | A | 0.000000 | 0.000000 | 0.000000 |
 | 2 | C | 0.000000 | 0.000000 | 0.000000 |
 | 3 | B | 0.000000 | 0.000000 | 0.000000 |
+
+#### Signed sheet-lift diagnostic
+
+- status: B descriptive statistics only
+- not_claimed: The chi-lift does not generate the delta-M spectrum; orientation compatibility does not prove causal channel realization.
+
+| phase | channel | dual sum | abs dual sum | |Δ| diff | flip |
+|---:|---|---:|---:|---:|:---:|
+| 0 | E | 0.000000 | 0.000000 | 0.000000 | no |
+| 1 | A | 0.000000 | 0.000000 | 0.000000 | no |
+| 2 | C | 0.000000 | 0.000000 | 0.000000 | no |
+| 3 | B | 0.000000 | 0.000000 | 0.000000 | no |

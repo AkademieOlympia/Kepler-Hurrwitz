@@ -48,11 +48,15 @@ def main() -> None:
         "baseline max_lift_sheet_abs_difference: "
         f"{baseline['max_lift_sheet_abs_difference']}"
     )
+    print(f"baseline max_abs_dual_sum: {baseline['max_abs_dual_sum']}")
+    print(f"baseline all_orientation_flips: {baseline['all_orientation_flips']}")
     for record in records:
         alignment = summarize_annotated_delta_m(annotate_kepler_time_bridge_record(record))
         print(
-            f"{record.control_name} max_lift_sheet_abs_difference: "
-            f"{alignment['max_lift_sheet_abs_difference']}"
+            f"{record.control_name} max_lift_sheet_abs_difference="
+            f"{alignment['max_lift_sheet_abs_difference']} "
+            f"max_abs_dual_sum={alignment['max_abs_dual_sum']} "
+            f"all_orientation_flips={alignment['all_orientation_flips']}"
         )
     print(f"json export: {json_path}")
     print(f"markdown report: {markdown_path}")

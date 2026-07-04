@@ -19,6 +19,8 @@ from kepler_hurwitz.kepler_eabc_atlas import (
     floquet_channel_table,
     floquet_step_channel,
     lift_sheet_pair_differences,
+    lift_sheet_signed_duality_pairs,
+    lift_sheet_signed_duality_summary,
     max_lift_sheet_abs_difference,
     summarize_annotated_delta_m,
 )
@@ -178,3 +180,45 @@ def test_summarize_annotated_delta_m_governance_fields():
     assert summary["channel_alignment_summary"]["E"]["count"] == 2
     assert len(summary["lift_sheet_pair_differences"]) == 4
     assert summary["max_lift_sheet_abs_difference"] == pytest.approx(0.4)
+    assert summary["all_orientation_flips"] is False
+    assert summary["max_abs_dual_sum"] == pytest.approx(8.4)
+
+
+def test_lift_sheet_signed_duality_perfect_orientation_flip():
+    rows = annotate_delta_m_with_channels([1.856, -1.856, 1.856, -1.856, -1.856, 1.856, -1.856, 1.856])
+    summary = lift_sheet_signed_duality_summary(rows)
+    assert summary["all_orientation_flips"] is True
+    assert summary["max_abs_dual_sum"] == pytest.approx(0.0, abs=1e-12)
+    assert summary["max_magnitude_difference"] == pytest.approx(0.0, abs=1e-12)
+    assert len(summary["pairs"]) == 4
+
+
+def test_lift_sheet_signed_duality_no_orientation_flip():
+    rows = annotate_delta_m_with_channels([1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0])
+    summary = lift_sheet_signed_duality_summary(rows)
+    assert summary["all_orientation_flips"] is False
+    assert summary["max_abs_dual_sum"] == pytest.approx(8.0)
+    assert summary["max_magnitude_difference"] == pytest.approx(0.0)
+
+
+def test_lift_sheet_signed_duality_missing_pairs():
+    rows = [
+        {"step": 0, "channel": "E", "delta_m": 1.0},
+        {"step": 4, "channel": "E", "delta_m": -1.0},
+    ]
+    pairs = lift_sheet_signed_duality_pairs(rows)
+    summary = lift_sheet_signed_duality_summary(rows)
+    assert len(pairs) == 1
+    assert pairs[0]["orientation_flip"] is True
+    assert summary["all_orientation_flips"] is True
+    assert summary["max_abs_dual_sum"] == pytest.approx(0.0)
+    assert summary["mean_abs_dual_sum"] == pytest.approx(0.0)
+
+
+def test_lift_sheet_signed_duality_pairs_fields():
+    rows = annotate_delta_m_with_channels([2.0, -3.0, 4.0, -5.0, -2.0, 3.0, -4.0, 5.0])
+    pair = lift_sheet_signed_duality_pairs(rows)[0]
+    assert pair["signed_dual_sum"] == pytest.approx(0.0)
+    assert pair["abs_dual_sum"] == pytest.approx(0.0)
+    assert pair["same_magnitude_difference"] == pytest.approx(0.0)
+    assert pair["orientation_flip"] is True
