@@ -17,6 +17,7 @@ import KeplerHurwitz.CollatzProofAttemptV25
 import KeplerHurwitz.Collatz.CkA.OrbitSmoothBridge
 import KeplerHurwitz.CyclicWordOrbit
 import KeplerHurwitz.EABCLayer
+import KeplerHurwitz.EABCChannelPartition
 import KeplerHurwitz.GodelKerr
 import KeplerHurwitz.HalesTaoIntegration
 import KeplerHurwitz.InterferenceAttraktorBridge
