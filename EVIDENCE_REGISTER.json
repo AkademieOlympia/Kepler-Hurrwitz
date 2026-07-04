@@ -1002,6 +1002,28 @@
       "last_reviewed": "2026-07-04",
       "lean_label": "E-053",
       "not_claimed": "Dedekind-Hasse does not prove Dumas (E-048) or EABC renormalization; no explicit map Phi from EABC configurations to quaternion orders"
+    },
+    {
+      "id": "E-064",
+      "title": "Ideal-theoretic introduction to DH-QPID (didactic model bridge)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/ideal_dedekind_hasse_intro_abitur.md, KeplerHurwitz/DHQPID.lean, docs/theory/README.md",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [
+        "E-061",
+        "E-062",
+        "E-063"
+      ],
+      "scope": "Didactic introduction to ideals, units, left/right quaternionic ideals, and Dedekind-Hasse as stability test",
+      "metric_or_result": "E064_is_model_bridge in DHQPID.lean; claim boundary documented in markdown front matter",
+      "status": "didactic model bridge",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-064",
+      "not_claimed": "Does not prove EABC structure; EABC bridge remains testable model interpretation only"
     }
   ]
 }

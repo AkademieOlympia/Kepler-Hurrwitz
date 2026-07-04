@@ -137,3 +137,6 @@ Signed stabilizer orbit classes do **not** separate N=4,6,8; `e045_upgrade_eligi
 
 **Status.** `[C]` structural test, not a classification theorem.
 - **E-053** Dedekind-Hasse ↔ Dumas methodical interface (Cardoso-Machiavelo H_{1,7}, H_{7,13})
+- **E-064** Dedekind ideal theory layer (LeftIdeal, RightIdeal, PID witnesses, DED-1/2/4)
+- **E-065** Left/right ideal path asymmetry (Cardoso-Machiavelo left-PID)
+- **E-066** Non-PID ideal-class obstruction (DED-5)
