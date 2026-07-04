@@ -1056,6 +1056,65 @@
       "last_reviewed": "2026-07-04",
       "lean_label": "E-053",
       "not_claimed": "Dedekind-Hasse does not prove Dumas (E-048) or EABC renormalization; no explicit map Phi from EABC configurations to quaternion orders"
+    },
+    {
+      "id": "E-064",
+      "title": "Dedekind ideal theory layer (LeftIdeal, RightIdeal, PID witnesses, DED-1/2/4)",
+      "level": "C",
+      "aclass": "B",
+      "source": "KeplerHurwitz/DedekindIdealLayer.lean, docs/dedekind_ideal_layer.md",
+      "depends_on": [
+        "E-053",
+        "E-048"
+      ],
+      "supports": [
+        "E-065",
+        "E-066"
+      ],
+      "scope": "LeftIdeal, RightIdeal, PrincipalLeftIdeal, PrincipalRightIdeal, LeftPIDWitness, RightPIDWitness, DedekindHasseImpliesPID, DedekindTest_DED1 through DED4",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.DedekindIdealLayer green (2026-07-04)",
+      "status": "ideal layer interface",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-064",
+      "not_claimed": "Ideal theory does not prove EABC signature patterns; EabcInterpretationFromIdealPaths remains open"
+    },
+    {
+      "id": "E-065",
+      "title": "Left/right ideal path asymmetry (Cardoso-Machiavelo left-PID)",
+      "level": "B",
+      "aclass": "C",
+      "source": "KeplerHurwitz/DedekindIdealLayer.lean",
+      "depends_on": [
+        "E-064",
+        "E-053"
+      ],
+      "supports": [],
+      "scope": "DedekindTest_DED3_LeftRightPathAsymmetry, LeftRightIdealPathAsymmetryStatement; right-PID not claimed for reference orders",
+      "metric_or_result": "DED-3 proved for H_1_7 and H_7_13; leftRightIdealPathAsymmetryStatement_holds",
+      "status": "documented asymmetry",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-065",
+      "not_claimed": "Right-PID for reference quaternion orders is not claimed; asymmetry is typological and documentary, not a numerical experiment"
+    },
+    {
+      "id": "E-066",
+      "title": "Non-PID ideal-class obstruction (DED-5)",
+      "level": "B",
+      "aclass": null,
+      "source": "KeplerHurwitz/DedekindIdealLayer.lean",
+      "depends_on": [
+        "E-064"
+      ],
+      "supports": [],
+      "scope": "IdealClassObstructsLeftPID, DedekindTest_DED5_NonPIDIdealClassObstruction, ReferenceOrdersNoIdealClassObstruction",
+      "metric_or_result": "Reference orders H_1_7 and H_7_13 carry no ideal-class obstruction; DED-5 negative for reference orders",
+      "status": "negative obstruction finding",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-066",
+      "not_claimed": "No claim that all quaternion orders are PID; obstruction test is an interface for non-reference orders only"
     }
   ]
 }
