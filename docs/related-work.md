@@ -80,6 +80,16 @@ Relevanz fuer EABC:
 - Legitimer Geometrie-Rahmen fuer die Projektion von Signaturen auf Kegelschnitt-Invarianten.
 - Die EABC-Spezifik liegt in der mod-12-komprimierten Signatur-Reduktion.
 
+## 7) Holonomie / Bockstein-Braiding (L4)
+
+- Bockstein-Braiding-Statistik fuer benachbarte Dimensionen (W_N-Zyklen, Bockstein-Operation):
+  - [Bockstein braiding statistics](https://arxiv.org/abs/2607.02280) `[HsinChen2026]`
+
+Relevanz fuer EABC:
+- Operative Definition von W_N-Holonomie und lokaler Plaquette-Kommutatordichte K(P,Q;a) auf Z_N x Z_N.
+- Numerischer Vergleich summierter lokaler Phasen (Bockstein-Treppe) vs. globales W_N im Modul `bockstein_braiding`.
+- Evidenzlayer [A]/[B]/[C]: `docs/bockstein_braiding_layer.md` (defensiv: phase(W_N) in mu_N).
+
 ## Einordnung der Neuheit
 
 Der aktuelle Kenntnisstand legt nahe:

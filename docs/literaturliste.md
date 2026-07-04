@@ -86,27 +86,39 @@ Sie ist thematisch gruppiert und kann direkt fuer Doku, Notizen und Paper-Entwue
     arXiv:2312.08173  
     Link: <https://arxiv.org/abs/2312.08173>
 
+## I. L4 / Holonomie / Bockstein-Braiding
+
+15. Hsin, P.-S.; Chen, Y.-A.  
+    **Bockstein braiding statistics**  
+    arXiv:2607.02280  
+    Link: <https://arxiv.org/abs/2607.02280>  
+    Kurzform: `[HsinChen2026]`  
+    Interner Evidenzlayer: `docs/bockstein_braiding_layer.md` ([A]/[B]/[C])
+
 ## H. Interne PDFs (Mathematische Texte)
 
 Quelle: `Desktop/Mathematische Texte`
 
-15. **collatz_quantum_paper.pdf**  
+16. **collatz_quantum_paper.pdf**  
     Lokal: `Desktop/Mathematische Texte/collatz_quantum_paper.pdf`
 
-16. **eabc_spektrum_artikel.pdf**  
+17. **eabc_spektrum_artikel.pdf**  
     Lokal: `Desktop/Mathematische Texte/eabc_spektrum_artikel.pdf`
 
-17. **SM_Parameter_und_BM_Status.pdf**  
+18. **SM_Parameter_und_BM_Status.pdf**  
     Lokal: `Desktop/Mathematische Texte/SM_Parameter_und_BM_Status.pdf`
 
-18. **BM_Arbeitsformeln_Uebersicht.pdf**  
+19. **BM_Arbeitsformeln_Uebersicht.pdf**  
     Lokal: `Desktop/Mathematische Texte/BM_Arbeitsformeln_Uebersicht.pdf`
 
-19. **bm_toy_modell_langfassung.pdf**  
+20. **bm_toy_modell_langfassung.pdf**  
     Lokal: `Desktop/Mathematische Texte/bm_toy_modell_langfassung.pdf`
 
-20. **bm_toy_modell_memo.pdf**  
+21. **bm_toy_modell_memo.pdf**  
     Lokal: `Desktop/Mathematische Texte/bm_toy_modell_memo.pdf`
+
+22. **Aharonov-Bohm phase .pdf**  
+    Lokal: `Desktop/Mathematische Texte/Aharonov-Bohm phase .pdf`
 
 ---
 
@@ -121,5 +133,6 @@ Fuer interne Referenzen kann folgende Kurzform genutzt werden:
 - `[Ford2024]` fuer arXiv:2408.03803
 - `[Yip2026]` fuer arXiv:2602.04875
 - `[Kolossvary2017]` fuer arXiv:1711.02903
+- `[HsinChen2026]` fuer arXiv:2607.02280
 
 Empfehlung: bei Paper-Entwuerfen spaeter auf BibTeX umstellen.
