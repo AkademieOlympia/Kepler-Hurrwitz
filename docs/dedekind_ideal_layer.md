@@ -1,5 +1,7 @@
 # Dedekind-Idealtheorie-Schicht — Schnittstelle (E-064 / E-065 / E-066)
 
+**Didaktischer Einstieg:** [Ideale, Dedekind-Hasse und quaternionische Primzahlpfade](energiedoku_exports/idealtheorie_abitur_kurz.md)
+
 **Lean:** `KeplerHurwitz/DedekindIdealLayer.lean`  
 **Basis:** E-053 (`DedekindHasseDumasInterface.lean`)
 
