@@ -1024,6 +1024,46 @@
       "last_reviewed": "2026-07-04",
       "lean_label": "E-064",
       "not_claimed": "Does not prove EABC structure; EABC bridge remains testable model interpretation only"
+    },
+    {
+      "id": "E-061",
+      "title": "Bounded DH Search and Rescue-Witness Protocol",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/dhqpid_prototype.py, examples/run_dhqpid_prototype.py, docs/theory/dhqpid_prototype_report.md",
+      "depends_on": [
+        "E-053",
+        "E-064"
+      ],
+      "supports": [
+        "E-062"
+      ],
+      "scope": "Cardoso-Machiavelo orders H_{1,7} and H_{7,13}; bounded search compares norm-Euclidean remainder (EUC) with Dedekind-Hasse witnesses (DH); documents search protocol and witness structure; rescue = EUC fail and DH success",
+      "metric_or_result": "H17 p<=13: 3192 candidates, 0 true EUC=0/DH=1 rescues; H713 p<=11: 2816 candidates, 0 rescues; manual DH witness p=2 verified but EUC already succeeds with rest norm 1/4",
+      "status": "numerical prototype",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "lean_label": null,
+      "not_claimed": "Does not prove PID globally, EABC structure, Cardoso-Machiavelo completeness, or that non-Euclidean rescues occur in the current bounded window"
+    },
+    {
+      "id": "E-063",
+      "title": "EABC Residue-Class DH Profile (future)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/ideal_dedekind_hasse_intro_abitur.md",
+      "depends_on": [
+        "E-061",
+        "E-062"
+      ],
+      "supports": [],
+      "scope": "Future stratification of alpha/delta profiles by residue classes 1,5,7,11 mod 12",
+      "metric_or_result": "Not implemented",
+      "status": "open",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-063",
+      "not_claimed": "No EABC claim until implemented and validated"
     }
   ]
 }

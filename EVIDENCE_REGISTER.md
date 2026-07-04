@@ -140,3 +140,5 @@ Signed stabilizer orbit classes do **not** separate N=4,6,8; `e045_upgrade_eligi
 - **E-064** Dedekind ideal theory layer (LeftIdeal, RightIdeal, PID witnesses, DED-1/2/4)
 - **E-065** Left/right ideal path asymmetry (Cardoso-Machiavelo left-PID)
 - **E-066** Non-PID ideal-class obstruction (DED-5)
+- **E-061** Bounded DH Search and Rescue-Witness Protocol
+- **E-063** EABC Residue-Class DH Profile (future)
