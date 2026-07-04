@@ -20,14 +20,14 @@ from sage.all import *
 
 
 def root_of_unity(n):
-    """Primitive N-te Einheitswurzel zeta = exp(2 pi i / N) im Zyclotomischen Koerper."""
+    """[B] Primitive N-te Einheitswurzel zeta = exp(2 pi i / N) im Zyclotomischen Koerper."""
     K = CyclotomicField(n)
     return K.gen()
 
 
 def phase_mod_N(phase, n, tol=1e-10):
     """
-    Exponent k mod N mit phase ~ zeta^k, falls phase nahe der N-ten Einheitswurzelgruppe liegt.
+    [B] Exponent k mod N mit phase ~ zeta^k, falls phase nahe der N-ten Einheitswurzelgruppe liegt.
     Gibt None zurueck, wenn kein k gefunden wird.
     """
     zeta = root_of_unity(n)
@@ -72,7 +72,7 @@ def is_central_scalar(M, I, tol=1e-12):
 
 def commutator_phase(n, flux=1, tol=1e-12):
     """
-    Zentrale Phase von C(X,Y) = Y^{-1} X^{-1} Y X in der Heisenberg-Probe.
+    [B] Zentrale Phase von C(X,Y) = Y^{-1} X^{-1} Y X in der Heisenberg-Probe.
     Erwartung: C = zeta^{flux} I (Plaquette-Kommutator dual zu XY X^{-1} Y^{-1} = zeta^{-flux} I).
     """
     _MS, X, Y, zeta, _twist, I = heisenberg_matrices(n, flux=flux)
@@ -85,7 +85,7 @@ def commutator_phase(n, flux=1, tol=1e-12):
 
 def compare_commutator_vs_w_n(n, flux=1, tol=1e-12):
     """
-    Vergleicht C(X,Y) und W_N(X,Y): beide Phasen und Exponenten mod N ausgeben.
+    [B] Vergleicht C(X,Y) und W_N(X,Y): beide Phasen und Exponenten mod N ausgeben.
     Kein Claim W_N^N = I; nur phase(W_N) in mu_N pruefen (via verify_quantization).
     """
     _MS, X, Y, zeta, _twist, I = heisenberg_matrices(n, flux=flux)
@@ -108,7 +108,7 @@ def compare_commutator_vs_w_n(n, flux=1, tol=1e-12):
 
 def torus_staircase_path(n):
     """
-    Zwei alternierende Treppenpfade auf Z_N x Z_N (YX vs XY) plus diagonale Bockstein-Treppe.
+    [B] Zwei alternierende Treppenpfade auf Z_N x Z_N (YX vs XY) plus diagonale Bockstein-Treppe.
 
     path_YX: pro Schritt X dann Y, (a,b) -> (a+1,b) -> (a+1,b+1).
     path_XY: pro Schritt Y dann X, (a,b) -> (a,b+1) -> (a+1,b+1).
@@ -148,14 +148,14 @@ def local_square_cocycle(p, q, a_spec, n):
 
 
 def bockstein_torus_sum(a_spec, n):
-    """Summe des Toy-Kozyklus entlang der Bockstein-Treppe sum_{m=0}^{N-1} K(m,m) mod N."""
+    """[B] Summe des Toy-Kozyklus entlang der Bockstein-Treppe sum_{m=0}^{N-1} K(m,m) mod N."""
     return Integer(
         sum(local_square_cocycle(m, m, a_spec, n) for m in range(n)) % n
     )
 
 
 def bockstein_torus_phase(a_spec, n):
-    """Quantisierte Torsionsphase zeta^{bockstein_torus_sum} in mu_N."""
+    """[B] Quantisierte Torsionsphase zeta^{bockstein_torus_sum} in mu_N."""
     k = bockstein_torus_sum(a_spec, n)
     zeta = root_of_unity(n)
     return zeta**k, k
@@ -191,6 +191,18 @@ def verify_quantization(n, flux=1, tol=1e-12):
     }
 
 
+def demo_compare_commutator_vs_w_n(n=4, flux=1, tol=1e-12):
+    """[B] Demo: Plaquette-Kommutator vs. W_N-Holonomie fuer festes N und flux."""
+    cmp_result = compare_commutator_vs_w_n(n, flux=flux, tol=tol)
+    c_phase = commutator_phase(n, flux=flux, tol=tol)
+    quant = verify_quantization(n, flux=flux, tol=tol)
+    return {
+        "compare": cmp_result,
+        "commutator_phase": c_phase,
+        "quantization": quant,
+    }
+
+
 def demo_staircase_n4():
     """Staircase-Demo N=4: Pfad, Toy-Kozykel, Phase vs. W_N-Vergleich."""
     n = 4
@@ -219,8 +231,27 @@ def print_verify_results(results):
         )
 
 
+def print_compare_demo(demo):
+    print("=== [B] Demo 2/3: compare_commutator_vs_w_n N=4, flux=1 ===")
+    c = demo["compare"]
+    print(
+        f"C(X,Y): central={c['C_central']}, phase={c['C_phase']}, exp mod N={c['C_exponent_mod_N']} "
+        f"(erwartet {c['expected_C_exponent']})"
+    )
+    print(
+        f"W_N(X,Y): central={c['W_central']}, phase={c['W_phase']}, exp mod N={c['W_exponent_mod_N']}"
+    )
+    print(f"commutator_phase() = {demo['commutator_phase']}")
+    q = demo["quantization"]
+    print(
+        f"verify_quantization OK? {q['quantization_ok']} "
+        f"(phase^N=1: {q['phase_power_N_is_one']}, "
+        f"numerisch W^N=I: {q['W_power_N_is_I_numerical']})"
+    )
+
+
 def print_staircase_demo(demo):
-    print("=== [B] Bockstein-Treppe N=4 (Toy-Kozykel) ===")
+    print("=== [B] Demo 3/3: Bockstein-Treppe N=4 (Toy-Kozykel) ===")
     path = demo["path"]
     print(f"YX-Treppe (3 Plaquettes): {path['path_YX'][:2]} ...")
     print(f"XY-Treppe (3 Plaquettes): {path['path_XY'][:2]} ...")
@@ -242,15 +273,22 @@ def print_staircase_demo(demo):
 
 def main():
     ns = (2, 3, 4, 5)
-    print("=== [B] verify_quantization: phase(W_N)^N = 1 (nicht Operator-Claim W^N=I) ===")
+    print("=== [B] Demo 1/3: verify_quantization — phase(W_N)^N = 1 (nicht Operator-Claim W^N=I) ===")
     results = [verify_quantization(n, flux=1) for n in ns]
     print_verify_results(results)
     all_ok = all(r["quantization_ok"] for r in results)
     print(f"Alle Quantization-Checks: {all_ok}")
     print()
+    cmp_demo = demo_compare_commutator_vs_w_n(n=4, flux=1)
+    print_compare_demo(cmp_demo)
+    print()
     demo = demo_staircase_n4()
     print_staircase_demo(demo)
-    if not all_ok or not demo["quantization"]["quantization_ok"]:
+    if (
+        not all_ok
+        or not cmp_demo["quantization"]["quantization_ok"]
+        or not demo["quantization"]["quantization_ok"]
+    ):
         raise SystemExit(1)
 
 

@@ -153,6 +153,13 @@ def w_n_phase_exponent_mod_n(n: int, flux: int, tol: float = 1e-10) -> int | Non
     return best_k if best_dist < tol else None
 
 
+def _phase_power_n_is_one(phase: complex | None, n: int, tol: float = 1e-10) -> bool:
+    """Defensiver Check: phase(W_N) in mu_N, d.h. phase^N ≈ 1."""
+    if phase is None:
+        return False
+    return abs(phase**n - 1.0) < tol
+
+
 @dataclass(frozen=True)
 class GroupRingVerification:
     n: int
@@ -168,6 +175,7 @@ class HeisenbergVerification:
     plaquette_commutator_ok: bool
     w_central: bool
     w_phase: complex | None
+    phase_power_n_is_one: bool
     w_power_n_is_one: bool
     linearity: tuple[tuple[int, bool], ...]
 
@@ -179,6 +187,7 @@ class Lattice2DDemo:
     flux: int
     k_sum_mod_n: int
     w_phase: complex | None
+    phase_power_n_is_one: bool
     w_power_n_is_one: bool
     linearity_flux: bool
 
@@ -191,6 +200,7 @@ class VariableFluxDemo:
     effective_flux: int
     w_phase: complex | None
     w_phase_exponent_mod_n: int | None
+    phase_power_n_is_one: bool
     w_power_n_is_one: bool
     linearity_flux: bool
     hsin_chen_staircase_matches_w: bool
@@ -235,6 +245,7 @@ def verify_heisenberg(
 
     w = w_n_matrix(x, y, n)
     central, phase = is_central_scalar(w, identity, tol=tol)
+    phase_ok = _phase_power_n_is_one(phase, n, tol=tol)
     np_ok = matrices_allclose(np.linalg.matrix_power(w, n), identity, tol=tol)
 
     lin = []
@@ -253,6 +264,7 @@ def verify_heisenberg(
         plaquette_commutator_ok=ok_comm,
         w_central=central,
         w_phase=phase,
+        phase_power_n_is_one=phase_ok,
         w_power_n_is_one=np_ok,
         linearity=tuple(lin),
     )
@@ -289,6 +301,7 @@ def lattice_2d_demo(
         flux=flux,
         k_sum_mod_n=k_sum_mod,
         w_phase=phase,
+        phase_power_n_is_one=_phase_power_n_is_one(phase, n, tol=tol),
         w_power_n_is_one=matrices_allclose(np.linalg.matrix_power(w, n), identity, tol=tol),
         linearity_flux=lin_flux,
     )
@@ -332,6 +345,7 @@ def lattice_2d_variable_demo(
         effective_flux=eff_flux,
         w_phase=phase,
         w_phase_exponent_mod_n=w_exp,
+        phase_power_n_is_one=_phase_power_n_is_one(phase, n, tol=tol),
         w_power_n_is_one=matrices_allclose(np.linalg.matrix_power(w, n), identity, tol=tol),
         linearity_flux=lin_flux,
         hsin_chen_staircase_matches_w=matches_w,

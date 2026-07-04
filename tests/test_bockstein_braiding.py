@@ -55,6 +55,7 @@ def test_heisenberg_w_n_phase_quantization(n):
     assert result.plaquette_commutator_ok
     assert result.w_central
     assert result.w_phase is not None
+    assert result.phase_power_n_is_one
     assert _phase_power_n_is_one(result.w_phase, n)
     assert result.w_power_n_is_one  # numerischer Skalar-Folgecheck
     assert all(ok for _, ok in result.linearity)
@@ -103,6 +104,7 @@ def test_lattice_2d_demo(n, a):
     if a >= n:
         pytest.skip("a >= n")
     result = lattice_2d_demo(n, a=a)
+    assert result.phase_power_n_is_one
     assert result.w_power_n_is_one
     assert result.linearity_flux
     assert result.k_sum_mod_n == 0
@@ -136,6 +138,7 @@ def test_variable_flux_homogeneous_int_matches_lattice(n, a):
     assert demo.staircase_holonomy_mod_n == 0
     assert demo.grid_holonomy_mod_n == 0
     assert demo.effective_flux == a
+    assert demo.phase_power_n_is_one
     assert demo.w_power_n_is_one
     assert demo.linearity_flux
 
@@ -143,6 +146,7 @@ def test_variable_flux_homogeneous_int_matches_lattice(n, a):
 @pytest.mark.parametrize("n", (3, 4, 5, 7))
 def test_variable_flux_default_a_pq(n):
     demo = lattice_2d_variable_demo(n, a_spec=lambda p, q, n=n: a_pq_default(p, q, n))
+    assert demo.phase_power_n_is_one
     assert demo.w_power_n_is_one
     assert demo.linearity_flux
     assert demo.grid_holonomy_mod_n == 0
@@ -168,6 +172,7 @@ def test_variable_flux_staircase_vs_grid_n4():
 def test_variable_flux_callable_n5(a_fn):
     n = 5
     demo = lattice_2d_variable_demo(n, a_spec=a_fn)
+    assert demo.phase_power_n_is_one
     assert demo.w_power_n_is_one
     assert demo.linearity_flux
     assert demo.staircase_holonomy_mod_n == staircase_holonomy_mod_n(a_fn, n)

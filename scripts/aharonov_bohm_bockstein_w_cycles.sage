@@ -153,7 +153,7 @@ def grid_holonomy_mod_N(a_spec, N):
     )
 
 
-def lattice_2d_variable_demo(N, a_spec):
+def lattice_2d_variable_demo(N, a_spec, tol=1e-12):
     """Vergleich Bockstein-Treppe vs. Gitter-Summe vs. globales W_N."""
     stair = staircase_holonomy_mod_N(a_spec, N)
     grid = grid_holonomy_mod_N(a_spec, N)
@@ -161,7 +161,9 @@ def lattice_2d_variable_demo(N, a_spec):
 
     MS, X, Y, zeta, twist, I = heisenberg_matrices(N, flux=int(eff_flux))
     W = W_N_element(X, Y, N)
-    _, phase = is_central_scalar(W, I)
+    central, phase = is_central_scalar(W, I)
+    phase_power_n_is_one = phase is not None and abs(phase**N - 1) < tol
+    w_power_n_is_identity = central and W**N == I
 
     W_a2 = W_N_element(*heisenberg_matrices(N, flux=int(2 * eff_flux % N))[1:3], N)
     _, phase_a2 = is_central_scalar(W_a2, I)
@@ -172,12 +174,15 @@ def lattice_2d_variable_demo(N, a_spec):
         "grid_holonomy_mod_N": grid,
         "effective_flux": eff_flux,
         "W_phase": phase,
-        "W_power_N_is_one": W**N == I,
+        "W_central": central,
+        "phase_power_N_is_one": phase_power_n_is_one,
+        "W_power_N_is_one": w_power_n_is_identity,
+        "quantization_ok": central and phase_power_n_is_one,
         "linearity_flux": phase_a2 == phase**2 if phase is not None else False,
     }
 
 
-def lattice_2d_demo(N, a=1, flux=None):
+def lattice_2d_demo(N, a=1, flux=None, tol=1e-12):
     """
     2D-Gitter: Summe der lokalen K(P,Q;a) ueber ein N x N Plaquetten-Gitter.
 
@@ -192,7 +197,9 @@ def lattice_2d_demo(N, a=1, flux=None):
     K_sum_mod = K_sum % N
 
     W = W_N_element(X, Y, N)
-    _, phase = is_central_scalar(W, I)
+    central, phase = is_central_scalar(W, I)
+    phase_power_n_is_one = phase is not None and abs(phase**N - 1) < tol
+    w_power_n_is_identity = central and W**N == I
 
     # Erwartete zentrale Phase: zeta^{N * flux} = 1; Linearitaet in a testen
     W_a2 = W_N_element(
@@ -208,7 +215,10 @@ def lattice_2d_demo(N, a=1, flux=None):
         "K_sum_mod_N": K_sum_mod,
         "sample_K": [(P, Q, K_plaquette(P, Q, a, N)) for P in range(min(N, 3)) for Q in range(min(N, 3))],
         "W_phase": phase,
-        "W_power_N_is_one": W**N == I,
+        "W_central": central,
+        "phase_power_N_is_one": phase_power_n_is_one,
+        "W_power_N_is_one": w_power_n_is_identity,
+        "quantization_ok": central and phase_power_n_is_one,
         "double_flux_phase": phase_a2,
         "linearity_flux": phase_a2 == phase**2 if phase is not None else False,
     }
@@ -245,7 +255,7 @@ def print_lattice_2d(results):
         print(f"  sum_PQ K mod N = {r['K_sum_mod_N']}")
         print(f"  Stichprobe K(P,Q;a): {r['sample_K']}")
         print(
-            f"  W-Phase={r['W_phase']}, phase(W_N) in mu_N? {r.get('phase_power_N_is_one', r['W_power_N_is_one'])}, "
+            f"  W-Phase={r['W_phase']}, phase(W_N) in mu_N? {r['phase_power_N_is_one']}, "
             f"(numerisch W^N=I: {r['W_power_N_is_one']}), "
             f"2*flux-Linearitaet? {r['linearity_flux']}"
         )
@@ -294,7 +304,7 @@ def print_lattice_2d_variable(results):
         print(
             f"N={r['N']}: Treppe={r['staircase_holonomy_mod_N']}, "
             f"Gitter={r['grid_holonomy_mod_N']}, flux={r['effective_flux']}, "
-            f"W-Phase={r['W_phase']}, phase(W_N) in mu_N? {r.get('phase_power_N_is_one', r['W_power_N_is_one'])}, "
+            f"W-Phase={r['W_phase']}, phase(W_N) in mu_N? {r['phase_power_N_is_one']}, "
             f"(numerisch W^N=I: {r['W_power_N_is_one']})"
         )
 
