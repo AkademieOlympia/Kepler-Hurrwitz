@@ -984,6 +984,59 @@
       "last_reviewed": "2026-07-03",
       "upgrade_status": "pre",
       "defensive_scope": "No classification theorem; scalar E-044 negative result preserved; signed orbit classes do not separate N=4,6,8 under G_5-code."
+    },
+    {
+      "id": "E-049",
+      "title": "EABC/Floquet phase distribution for twin-prime candidates (n ≡ 11 mod 12)",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/twin_prime_eabc_phase_analysis.py, examples/run_twin_prime_eabc_phase_analysis.py, docs/energiedoku_exports/twin_prime_eabc_phase_analysis.json, docs/energiedoku_exports/twin_prime_eabc_phase_analysis_report.md, tests/test_twin_prime_eabc_phase_analysis.py",
+      "depends_on": [
+        "E-033"
+      ],
+      "supports": [],
+      "scope": "CE twin-prime candidate generation for n ≡ 11 mod 12; annotate candidates by fixed EABC/Floquet phase using candidate_index mod 8; small-sieve baseline and true twin-prime hit counting; hit-rate distributions by floquet step, channel, chi phase, and sheet; phase-shift null summaries and exploratory best-phase diagnostics; explicit non-predictive governance",
+      "metric_or_result": "9654 sieved candidates, 4122 twin hits at X=10^6, B=97; chi²=2.63, p=0.917, uniformity not rejected (α=0.05); max hit-rate spread 0.024 across 8 phases; exploratory max enrichment 1.03 at phase A (post-hoc [C])",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "not_claimed": "No proof of twin primes, no held-out confirmation of any phase rule, and no optimized selector"
+    },
+    {
+      "id": "E-051",
+      "title": "Structured controls for twin-prime EABC analysis",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/twin_prime_eabc_structured_controls.py, examples/run_twin_prime_eabc_structured_controls.py, docs/energiedoku_exports/twin_prime_eabc_structured_controls.json, docs/energiedoku_exports/twin_prime_eabc_structured_controls_report.md, tests/test_twin_prime_eabc_structured_controls.py",
+      "depends_on": [
+        "E-033",
+        "E-049",
+        "E-048"
+      ],
+      "supports": [],
+      "scope": "Residue-stratified CE/AB twin-prime controls; E-033 orientation-duality feature (binary signed dual pair match); leakage-safe Dumas right-wing features from n+6 and n+8; randomized labels within residue class and phase-shift null models; negative structured-control result",
+      "metric_or_result": "X=10^4, B=29: stage-1 CE vs AB enrichment ~1.01; orientation_dual constant in baseline_cyclic (non-discriminative); right_wing enrichment ~0.98-1.06 with null models similar; no stable EABC/Floquet signal beyond mod-12 controls",
+      "status": "negative structured-control result",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "not_claimed": "No deterministic prediction, no proof of twin-prime infinitude, and no evidence yet for EABC/Floquet-specific predictive power beyond residue-class controls"
+    },
+    {
+      "id": "E-052",
+      "title": "Scale robustness check for structured twin-prime controls",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/twin_prime_eabc_scale_sweep.py, examples/run_twin_prime_eabc_scale_sweep.py, docs/energiedoku_exports/twin_prime_eabc_scale_sweep.json, docs/energiedoku_exports/twin_prime_eabc_scale_sweep_report.md, tests/test_twin_prime_eabc_scale_sweep.py",
+      "depends_on": [
+        "E-051"
+      ],
+      "supports": [],
+      "scope": "The E-051 structured-control diagnostics were repeated across limits 10^4, 10^5, and 10^6 and sieve bounds 97 and 997. The sweep tests whether the negative E-051 result remains stable across scale and sieve strength; no new features",
+      "metric_or_result": "6-cell grid: orientation_dual delta vs null = 0 at all scales; right_wing features not scale-stable; negative E-051 result stable across tested limits and sieve bounds",
+      "status": "descriptive scale robustness check",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "not_claimed": "No proof of twin primes, no deterministic prediction, no optimized predictor, and no confirmation of EABC/Floquet-specific predictive power unless observed effects exceed residue-stratified nulls consistently across all tested scales"
     }
   ]
 }

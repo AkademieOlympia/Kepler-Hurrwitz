@@ -1,0 +1,115 @@
+{
+  "controls": [
+    "residue-stratified null model",
+    "phase-shift null model",
+    "randomized labels within residue class"
+  ],
+  "diagnostic_quadruplet_counts": {
+    "failed_candidate": 132,
+    "near_quadruplet": 87,
+    "prime_quadruplet": 12,
+    "twin_only": 105
+  },
+  "limit": 10000,
+  "not_claimed": "No proof of twin primes and no deterministic prediction",
+  "null_models": {
+    "phase_shift_orientation": {
+      "AB": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0
+      },
+      "CE": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0
+      }
+    },
+    "randomized_labels_within_residue_class": {
+      "AB": {
+        "orientation_dual": 1.0,
+        "right_wing": 1.0710801393728224
+      },
+      "CE": {
+        "orientation_dual": 1.0,
+        "right_wing": 0.9613636363636363
+      }
+    }
+  },
+  "orientation_features": [
+    {
+      "baseline_hit_rate": 0.6111111111111112,
+      "enrichment_positive_vs_baseline": 1.0,
+      "enrichment_positive_vs_negative": null,
+      "feature_is_constant": true,
+      "feature_name": "orientation_dual",
+      "negative_candidate_count": 0,
+      "negative_hit_rate": null,
+      "positive_candidate_count": 162,
+      "positive_hit_rate": 0.6111111111111112,
+      "stratum": "CE"
+    },
+    {
+      "baseline_hit_rate": 0.603448275862069,
+      "enrichment_positive_vs_baseline": 1.0,
+      "enrichment_positive_vs_negative": null,
+      "feature_is_constant": true,
+      "feature_name": "orientation_dual",
+      "negative_candidate_count": 0,
+      "negative_hit_rate": null,
+      "positive_candidate_count": 174,
+      "positive_hit_rate": 0.603448275862069,
+      "stratum": "AB"
+    }
+  ],
+  "primary_question": "Do E-033 orientation-duality and Dumas-gap features add signal beyond residue-class and small-sieve baselines?",
+  "right_wing_features": [
+    {
+      "baseline_hit_rate": 0.6111111111111112,
+      "enrichment_positive_vs_baseline": 0.9818181818181817,
+      "enrichment_positive_vs_negative": 0.9647058823529412,
+      "feature_is_constant": false,
+      "feature_name": "right_wing",
+      "negative_candidate_count": 82,
+      "negative_hit_rate": 0.6219512195121951,
+      "positive_candidate_count": 80,
+      "positive_hit_rate": 0.6,
+      "stratum": "CE"
+    },
+    {
+      "baseline_hit_rate": 0.603448275862069,
+      "enrichment_positive_vs_baseline": 1.0306620209059234,
+      "enrichment_positive_vs_negative": 1.059620596205962,
+      "feature_is_constant": false,
+      "feature_name": "right_wing",
+      "negative_candidate_count": 92,
+      "negative_hit_rate": 0.5869565217391305,
+      "positive_candidate_count": 82,
+      "positive_hit_rate": 0.6219512195121951,
+      "stratum": "AB"
+    }
+  ],
+  "sieve_bound": 29,
+  "signed_dual_reference": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true
+  },
+  "stage1_interpretation": "The stage-1 enrichment is explained by CE residue preference and is not yet evidence for Floquet-specific predictive power.",
+  "stage1_residue_summary": {
+    "ab_hit_rate": 0.603448275862069,
+    "ce_hit_rate": 0.6111111111111112,
+    "ce_vs_ab_enrichment": 1.0126984126984129,
+    "interpretation": "The stage-1 enrichment is explained by CE residue preference and is not yet evidence for Floquet-specific predictive power."
+  },
+  "status": "B/C structured feature test"
+}
