@@ -1037,6 +1037,25 @@
       "stability": "experimental",
       "last_reviewed": "2026-07-03",
       "not_claimed": "No proof of twin primes, no deterministic prediction, no optimized predictor, and no confirmation of EABC/Floquet-specific predictive power unless observed effects exceed residue-stratified nulls consistently across all tested scales"
+    },
+    {
+      "id": "E-053",
+      "title": "Dedekind-Hasse ↔ Dumas methodical interface (Cardoso-Machiavelo H_{1,7}, H_{7,13})",
+      "level": "C",
+      "aclass": null,
+      "source": "KeplerHurwitz/DedekindHasseDumasInterface.lean, docs/energiedoku_exports/eabc_renormalisierungsprogramm.md",
+      "depends_on": [
+        "E-048",
+        "E-032"
+      ],
+      "supports": [],
+      "scope": "[C] DedekindHasseCriterion, DedekindHasseLeftPID, CardosoMachiaveloFiniteness; open DedekindHasseDumasInterface; proved Dumas-side parallels via dumasReductionArchitecture and dedekindHasseDumasInterface_of_local; quatNorm CEAB invariance",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.DedekindHasseDumasInterface green (2026-07-04)",
+      "status": "methodical interface",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-053",
+      "not_claimed": "Dedekind-Hasse does not prove Dumas (E-048) or EABC renormalization; no explicit map Phi from EABC configurations to quaternion orders"
     }
   ]
 }

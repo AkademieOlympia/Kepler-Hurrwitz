@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Kepler-Hurrwitz Team
 -/
 
+import KeplerHurwitz.DedekindHasseDumasInterface
 import KeplerHurwitz.CollatzNormShell
 import KeplerHurwitz.CollatzProofAttemptV2
 import KeplerHurwitz.CollatzProofAttemptV21
