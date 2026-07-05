@@ -80,3 +80,14 @@ def test_dhqpid_entries_present():
     assert by_id["E-061"]["depends_on"] == ["E-053", "E-064"]
     assert by_id["E-062"]["depends_on"] == ["E-061"]
     assert by_id["E-063"]["level"] == "C"
+
+
+def test_hott_identity_layer_entry_present():
+    """E-073: HoTT Identity Layer conceptual interface."""
+    data = load_registry()
+    by_id = {entry["id"]: entry for entry in data["entries"]}
+    assert "E-073" in by_id
+    assert "HoTTIdentityLayer" in by_id["E-073"]["source"]
+    assert by_id["E-073"]["level"] == "C"
+    assert "E-067" in by_id["E-073"]["depends_on"]
+    assert "E-072" in by_id["E-073"]["depends_on"]
