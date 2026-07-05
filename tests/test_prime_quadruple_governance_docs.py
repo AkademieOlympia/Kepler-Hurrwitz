@@ -60,3 +60,13 @@ def test_test_concept_doc_exists_and_references_layers() -> None:
     assert "strukturell" in text
     assert "kein Axiom" in text or "kein globales Axiom" in text
     assert "test_prime_quadruple_product_mass_four_is_structural_invariant" in text
+
+
+def test_governance_kern_section_present() -> None:
+    text = TEST_CONCEPT_DOC.read_text(encoding="utf-8")
+    assert "### Governance-Kern" in text
+    assert "M(P(v))=4" in text
+    assert "M(n(v))" in text
+    assert "kein automatischer Beweis" in text
+    assert "HoTT-Pfadobjekt" in text
+    assert "Komponentenmenge" in text or "{a,b,c,e}" in text

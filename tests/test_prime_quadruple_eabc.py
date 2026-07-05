@@ -9,6 +9,13 @@ from pathlib import Path
 
 import pytest
 
+from kepler_hurwitz.dumas_natural_fill import (
+    HOST_CHANNEL_ORDER,
+    host_component,
+    host_triple,
+    primvierling_four_set,
+    verify_dumas_lemma,
+)
 from kepler_hurwitz.primvierling import (
     build_prime_quadruplet,
     ceab_orbit,
@@ -210,6 +217,24 @@ def test_pure_prime_quadruples_csv_first_rows() -> None:
         seen_quadruples.add(v)
 
     assert len(seen_quadruples) == len(rows)
+
+
+@pytest.mark.parametrize("v", KNOWN_QUADRUPLETS)
+def test_dumas_host_triple_is_component_complement(v: tuple[int, int, int, int]) -> None:
+    """Host-Dreier = {a,b,c,e} \\ {hostComponent(host, v)} (E-048)."""
+    four_set = primvierling_four_set(v)
+    for host in HOST_CHANNEL_ORDER:
+        triple = host_triple(host, v)
+        host_prime = host_component(host, v)
+        assert len(triple) == 3
+        assert host_prime not in triple
+        assert frozenset(triple) | {host_prime} == four_set
+        assert set(triple) == four_set - {host_prime}
+
+
+@pytest.mark.parametrize("v", KNOWN_QUADRUPLETS)
+def test_verify_dumas_lemma_on_prime_quadruplets(v: tuple[int, int, int, int]) -> None:
+    assert verify_dumas_lemma(v)
 
 
 @pytest.mark.parametrize("v", KNOWN_QUADRUPLETS)

@@ -191,7 +191,15 @@ Minimaltests:
 **Lean:** `KeplerHurwitz/PrimvierlingSymmetry.lean`  
 **Register:** E-048 — Host-Dreier = Komplement der Host-Komponente
 
-Für \(v=(a,b,c,e)\): `host_triple(host, v)` = `P(v) \ {host_component(host, v)}`; `verify_dumas_lemma(v)` auf Referenz-Vierlingen.
+Für \(v=(a,b,c,e)\) bezeichnet \(P(v)\) hier die **Komponentenmenge** \(\{a,b,c,e\}\), nicht das arithmetische Produkt \(a\cdot b\cdot c\cdot e\).
+
+\[
+\texttt{host\_triple(host, v)} = \{a,b,c,e\} \setminus \{\texttt{host\_component(host, v)}\}
+\]
+
+Alternativ: `hostTriple(h,v) = components(v) \ {hostComponent(h,v)}`.
+
+`verify_dumas_lemma(v)` auf Referenz-Vierlingen.
 
 ---
 
@@ -234,6 +242,13 @@ Negativsätze in der Dedekind-Doku:
 - Kanalvierling \(\neq\) Primquadruplet.
 
 Evidence-Trennung: `[B]` für arithmetische Tests; `[C]` für \(\Phi\), Chiralität, HoTT.
+
+### Governance-Kern
+
+- \(M(P(v))=4\) ist arithmetisch strukturell testbar `[B]`.
+- \(M(n(v))\) bleibt empirisch/referenzbasiert und wird nicht als globales Axiom geführt.
+- \(\Phi(v)=\gamma\) bleibt die offene dedekindsche Brücke `[C]`.
+- Ein Primvierling ist kein automatischer Beweis für ein Primelement, Primideal oder HoTT-Pfadobjekt in einer konkreten Quaternionenordnung.
 
 ---
 
@@ -314,9 +329,3 @@ Die Dedekind-Idealtheorie beginnt erst bei \(\Phi(v)=\gamma\) in einer konkreten
 M(P(v))=4 \;\text{ist starker arithmetischer Vollabdeckungs-Test;}\quad
 \Phi(v)=\gamma \;\text{ist die offene Brücke zur dedekindschen Idealtheorie.}
 \]
-
-> **Governance-Kern**
->
-> - \(M(P(v))=4\) ist arithmetisch strukturell testbar (`[B]`).
-> - \(\Phi(v)=\gamma\) bleibt offene dedekindsche Brücke (`[C]`).
-> - \(M(n(v))\) bleibt empirisch/referenzbasiert, kein Axiom.
