@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import math
+from collections import Counter
 from pathlib import Path
 
 import pytest
@@ -13,6 +14,7 @@ from kepler_hurwitz.primvierling import (
     ceab_orbit,
     ceab_rotate,
     component_channels,
+    generate_prime_quadruplets,
     is_prime,
     is_prime_quadruplet,
     quat_norm,
@@ -30,9 +32,53 @@ KNOWN_QUADRUPLETS = [
 
 NEGATIVE_ANCHORS = [7, 13, 17]
 
+# EABC invertible residues mod 12 (E-072); full coverage is structural for p>3 quadruplets.
+EABC_MOD12_RESIDUES = frozenset({1, 5, 7, 11})
+
 
 def quadruple_product(v: tuple[int, int, int, int]) -> int:
     return math.prod(v)
+
+
+def _component_mod12_residues(v: tuple[int, int, int, int]) -> set[int]:
+    return {component % 12 for component in v}
+
+
+def _load_csv_rows(limit: int) -> list[dict[str, str]]:
+    with CSV_PATH.open(encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        return [row for _, row in zip(range(limit), reader)]
+
+
+def _csv_quadruples(limit: int) -> list[tuple[int, int, int, int]]:
+    rows = _load_csv_rows(limit)
+    return [
+        (
+            int(row["quat_a"]),
+            int(row["quat_b"]),
+            int(row["quat_c"]),
+            int(row["quat_e"]),
+        )
+        for row in rows
+    ]
+
+
+def _structural_invariant_witnesses() -> list[tuple[int, int, int, int]]:
+    """Witness pool for M(P(v))=4: known cases, generated quadruplets, CSV rows."""
+    seen: set[tuple[int, int, int, int]] = set()
+    witnesses: list[tuple[int, int, int, int]] = []
+    for v in (
+        *KNOWN_QUADRUPLETS,
+        *generate_prime_quadruplets(5, 50_000),
+        *_csv_quadruples(50),
+    ):
+        if v not in seen:
+            seen.add(v)
+            witnesses.append(v)
+    return witnesses
+
+
+STRUCTURAL_INVARIANT_WITNESSES = _structural_invariant_witnesses()
 
 
 @pytest.mark.parametrize("v", KNOWN_QUADRUPLETS)
@@ -63,6 +109,27 @@ def test_quadruple_components_have_distinct_eabc_channels(
     assert set(channels) == {"E", "A", "B", "C"}
 
 
+@pytest.mark.parametrize("v", STRUCTURAL_INVARIANT_WITNESSES)
+def test_prime_quadruple_product_mass_four_is_structural_invariant(
+    v: tuple[int, int, int, int],
+) -> None:
+    """M(P(v))=4 follows from mod-12 full coverage {1,5,7,11}, not mere empirics."""
+    p = v[0]
+    assert p > 3
+    assert is_prime_quadruplet(v)
+
+    residues = _component_mod12_residues(v)
+    assert residues == EABC_MOD12_RESIDUES
+    assert set(component_channels(v)) == {"E", "A", "B", "C"}
+
+    product = quadruple_product(v)
+    sig = signature_from_nat(product)
+    assert sig.as_tuple() == (1, 1, 1, 1)
+    assert sig.sorted_counts() == (1, 1, 1, 1)
+    assert sig.total_weight() == 4
+    assert eabc_mass(product) == 4
+
+
 @pytest.mark.parametrize("v", KNOWN_QUADRUPLETS)
 def test_quadruple_product_signature_full_coverage(v: tuple[int, int, int, int]) -> None:
     product = quadruple_product(v)
@@ -91,10 +158,17 @@ def test_norm_mass_differs_from_product_mass_reference_case() -> None:
     assert norm_mass != product_mass
 
 
-def _load_csv_rows(limit: int) -> list[dict[str, str]]:
-    with CSV_PATH.open(encoding="utf-8", newline="") as handle:
-        reader = csv.DictReader(handle)
-        return [row for _, row in zip(range(limit), reader)]
+def test_prime_quadruple_norm_mass_empirical_distribution_from_csv() -> None:
+    """Collect M(n(v)) over CSV rows — reference/empirics only, not a global axiom."""
+    rows = _load_csv_rows(50)
+    assert rows
+
+    masses = [int(row["M"]) for row in rows]
+    histogram = dict(sorted(Counter(masses).items()))
+    # Empirical snapshot (first 50 CSV rows, factorization-dependent):
+    # M(n(v)) histogram varies with quat_norm factorization; not asserted globally.
+    assert all(m >= 0 for m in masses)
+    assert histogram  # documents observed distribution without fixing M=2
 
 
 def test_pure_prime_quadruples_csv_first_rows() -> None:
@@ -108,19 +182,24 @@ def test_pure_prime_quadruples_csv_first_rows() -> None:
         b = int(row["quat_b"])
         c = int(row["quat_c"])
         e = int(row["quat_e"])
+        v = (a, b, c, e)
         assert (b, c, e) == (a + 2, a + 6, a + 8)
-        assert all(is_prime(x) for x in (a, b, c, e))
-        assert is_prime_quadruplet((a, b, c, e))
+        assert all(is_prime(x) for x in v)
+        assert is_prime_quadruplet(v)
+        assert _component_mod12_residues(v) == EABC_MOD12_RESIDUES
 
         product_sig = signature_from_nat(a * b * c * e)
         assert product_sig.sorted_counts() == (1, 1, 1, 1)
         assert product_sig.total_weight() == 4
         assert int(row["product_M"]) == 4
+        assert eabc_mass(a * b * c * e) == 4
 
         norm = a * a + b * b + c * c + e * e
         assert int(row["quat_norm"]) == norm
         assert int(row["n"]) == norm
         assert int(row["M"]) == eabc_mass(norm)
+        norm_sig = signature_from_nat(norm)
+        assert norm_sig.total_weight() >= 0
         assert signature_from_nat(norm).as_tuple() == (
             int(row["E"]),
             int(row["A"]),
@@ -128,7 +207,7 @@ def test_pure_prime_quadruples_csv_first_rows() -> None:
             int(row["C"]),
         )
 
-        seen_quadruples.add((a, b, c, e))
+        seen_quadruples.add(v)
 
     assert len(seen_quadruples) == len(rows)
 

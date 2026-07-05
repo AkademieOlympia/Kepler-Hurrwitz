@@ -38,7 +38,7 @@ Zusätzlich trägt jede Komponente \(x \in \{a,b,c,e\}\) als Primzahl genau **ei
 P(v) := a \cdot b \cdot c \cdot e
 \]
 
-hat typischerweise die volle Vier-Kanal-Signatur \(H(P(v))=(1,1,1,1)\), \(M(P(v))=4\) — ein struktureller Kontrast zur p-only-Schicht mit \(M(p)=1\).
+hat für echte Primvierlinge \(p>3\) **strukturell** die volle Vier-Kanal-Signatur \(H(P(v))=(1,1,1,1)\), \(M(P(v))=4\) (mod-12-Vollabdeckung \(\{1,5,7,11\}\); siehe [`docs/prime_quadruple_test_concept.md`](prime_quadruple_test_concept.md)) — ein Kontrast zur p-only-Schicht mit \(M(p)=1\).
 
 Idealtheoretisch sind reine Primzahlvierlinge Kandidaten für **volle** Quaternionen-Generatoren mit Dumas-Host-Struktur — aber noch keine bewiesene Einbettung in eine konkrete Dedekind- oder Hurwitz-Ordung.
 
@@ -83,7 +83,7 @@ Jede Komponente ist eine EABC-Klasse prim (\( \bmod 12 \in \{1,5,7,11\}\)):
 | \(p+6\) | variiert | … |
 | \(p+8\) | variiert | … |
 
-Für kanonische Quadruplet ab \(p>3\) sind die vier Primzahlen paarweise verschieden und decken typischerweise **alle vier Kanäle** ab:
+Für kanonische Quadruplet ab \(p>3\) sind die vier Primzahlen paarweise verschieden und belegen modulo 12 **genau** die Restklassen \(\{1,5,7,11\}\) — daher strukturell:
 
 \[
 H(P(v)) = (1,1,1,1), \quad M(P(v)) = 4.
@@ -97,7 +97,7 @@ Beispiel \(v=(5,7,11,13)\): Kanäle A, B, C, E je einmal; \(P(v)=5005\).
 |---|---|---|
 | **Strukturell rein** | alle vier Komponenten prim, paarweise verschieden | definitorisch (`PrimeQuadruplet`, `primvierlingDistinct`) |
 | **EABC-Normatom** | \(M(n(v))=1\) | **nicht** typisch für Vierlinge; gilt p-only-Schicht |
-| **EABC-Vollabdeckung** | \(M(P(v))=4\), \(H=(1,1,1,1)\) | typisch für kanonische Primvierlinge |
+| **EABC-Vollabdeckung** | \(M(P(v))=4\), \(H=(1,1,1,1)\) | strukturell invariant für \(p>3\) (mod 12) |
 | **Hurwitz-Primelement** | \(q\) ist irreduzibel in konkreter Ordnung | offen (braucht \(\Phi\)) |
 
 „Rein prim“ beim Vierling meint im Repo **primzahltheoretische Reinheit aller vier Achsen**, nicht die p-only-Bedingung \(M=1\).
@@ -214,7 +214,8 @@ Für reine Primzahlvierlinge:
 | \(v=(p,p+2,p+6,p+8)\), alle vier prim, \(p>3\) | definitorisch (`PrimeQuadruplet`) |
 | `primvierlingDistinct v` | bewiesen für \(p>3\) (Lean) |
 | \(M(n(v))\) via `eabc_mass(quat_norm(v))` | arithmetische Signaturkonvention `[B]` |
-| \(M(P(v))=4\), \(H(P(v))=(1,1,1,1)\) typisch | empirisch / getestet auf Witnessen |
+| \(M(P(v))=4\), \(H(P(v))=(1,1,1,1)\) | strukturell invariant / getestet `[B]` |
+| \(M(n(v))\) nur Referenz/Empirie | faktorisatorisch variabel, kein globales Axiom |
 | Echter Vierling vs. achsenausgerichtetes \((p,0,0,0)\) | Export-/Modellkonvention |
 | Ein Bild \(\Phi(v)=\gamma\) würde links/rechts Hauptideal-Kandidaten \(H\gamma\) und \(\gamma H\) erzeugen | nur nach \(\Phi\) sinnvoll |
 | Dumas Host-Dreier / Gap kodiert Host | E-048, bewiesen |
@@ -237,7 +238,7 @@ M(p)=1,\qquad H(p)\in \{(1,0,0,0),(0,1,0,0),(0,0,1,0),(0,0,0,1)\}.
 Die **Primzahlvierling-Schicht** ist die volle 4-Achsen-Testebene mit Dumas-Symmetrie:
 
 \[
-v=(a,b,c,e)\ \text{prim},\quad M(n(v))\ \text{typisch}\ 2,\quad M(P(v))\ \text{typisch}\ 4.
+v=(a,b,c,e)\ \text{prim},\quad M(n(v))\ \text{Referenz/Empirie},\quad M(P(v))=4\ \text{strukturell}.
 \]
 
 Die Dedekind-Ideal-Schicht bleibt die nichtkommutative Struktur- und Pfadebene:

@@ -57,3 +57,6 @@ def test_test_concept_doc_exists_and_references_layers() -> None:
     assert "[C]" in text
     assert "Phi" in text or "Φ" in text or "\\Phi" in text
     assert "Kanalvierling" in text
+    assert "strukturell" in text
+    assert "kein Axiom" in text or "kein globales Axiom" in text
+    assert "test_prime_quadruple_product_mass_four_is_structural_invariant" in text
