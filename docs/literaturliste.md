@@ -108,6 +108,28 @@ Quelle: `Desktop/Mathematische Texte`
 20. **bm_toy_modell_memo.pdf**  
     Lokal: `Desktop/Mathematische Texte/bm_toy_modell_memo.pdf`
 
+## I. Arithmetisches Vakuum / Feinstruktur (extern `[C]`)
+
+21. Hassall, R. (Grok/xAI)  
+    **Emergent Quantum Foundations and Charge in the Arithmetic Vacuum: Statistics, Uncertainty, Time, and the Fine-Structure Constant**  
+    Lokal: `Desktop/Mathematische Texte/ Fine-Structure Constant.pdf`  
+    (März 2026)
+
+22. Hoffbauer, T.  
+    **Arithmetische Quantenelektrodynamik (AQED): Die universelle Einheit der Naturkonstanten**  
+    Lokal: `Desktop/Mathematische Texte/Pdf/Die universelle Einheit der Naturkonstanten.pdf`  
+    (Januar 2026)
+
+23. Hoffbauer, T.  
+    **Berechnung der Feinstrukturkonstante aus einer endlichen arithmetischen Struktur**  
+    Lokal: `Desktop/Mathematische Texte/Pdf/Feinstrukturkonstante.pdf`  
+    Quelltext: `Desktop/Mathematische Texte/Tex/Feinstrukturkonstante.tex`
+
+24. (numerischer Kern $\alpha_0$, Zeta-Jitter)  
+    **`Neues Paper.py`** — $\alpha_0 = 1/(4\pi\zeta(3)\cdot 9)$, Dirichlet-Defekt mod $3$  
+    Lokal: `Desktop/Mathematische Texte/Neues Paper.py`  
+    Doku: `Desktop/Mathematische Texte/kapitel-deterministische-numerik-fixpunkte.tex`
+
 ---
 
 ## Zitierhinweis fuer dieses Projekt

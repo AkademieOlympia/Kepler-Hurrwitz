@@ -80,6 +80,19 @@ Relevanz fuer EABC:
 - Legitimer Geometrie-Rahmen fuer die Projektion von Signaturen auf Kegelschnitt-Invarianten.
 - Die EABC-Spezifik liegt in der mod-12-komprimierten Signatur-Reduktion.
 
+## Externe arithmetische Feinstruktur-Analogie `[C]`
+
+- Hassall, *Emergent Quantum Foundations and Charge in the Arithmetic Vacuum* (März 2026):
+  Prim-Log-Gitter ($w=\ln p$), Zeta-Jitter, Liouville-Dämpfung, $\alpha_0 = 1/(4\pi\zeta(3)\cdot 9)$, $\alpha_0^{-1}\approx 135{,}96$; lokale Korrektur $\alpha_{\mathrm{intern}}(M)=\alpha_0\kappa(M)$ mit $\kappa(M)=1+(\pi/2)g(M)$; Dirac-artige Ladungsquantisierung
+  - Lokal: `Desktop/Mathematische Texte/ Fine-Structure Constant.pdf`
+  - Numerischer Kern: `Desktop/Mathematische Texte/Neues Paper.py`, `Tex/energiedoku_text.tex`
+- Repo-Einordnung (nur `[C]`):
+  - [`docs/theory/arithmetic_vacuum_eabc_analogy.md`](theory/arithmetic_vacuum_eabc_analogy.md) (E-074 motivisch)
+
+Relevanz fuer EABC:
+- Externer Resonanzanker fuer Prim-/Zeta-/Feinstruktur-Motive (Log-Gitter, Jitter, Dirac-artige Ladung).
+- **Kein** Formal-Core-Beleg; **nicht** „EABC erklaert alpha“; $\alpha^{-1}\approx 137{,}036$ (CODATA) folgt **nicht** direkt aus der $\zeta(3)$-Formel — Differenz ca. 0,78 % als lokale Jitter-Korrektur im externen Modell.
+
 ## Einordnung der Neuheit
 
 Der aktuelle Kenntnisstand legt nahe:
