@@ -102,7 +102,13 @@ Schnittstellenmarker `UnitMigrationPath` und `UnitChainEquivalence` dokumentiere
 **zusammenfallen könnten**.
 
 In echter HoTT ist Univalenz eine **Äquivalenz** zwischen Identität und Äquivalenz
-(`(A ≃ B) ≃ (A = B)`) — nicht bloße Implikation (`A ≃ B → A = B`).
+(`(A = B) ≃ (A ≃ B)`, äquivalent zu `(A ≃ B) ≃ (A = B)`) — nicht bloße Implikation
+(`A ≃ B → A = B`). Autoritative Formulierung (Voevodsky, *HoTT Book* 2013, Introduction
+«Univalent foundations»; formales Axiom §2.10): die kanonische Abbildung
+`idtoequiv : (A =_𝒰 B) → (A ≃ B)` (Transport entlang der Identitätsfaser) ist selbst eine
+Äquivalenz — kurz **Univalenz-Axiom: `(A = B) ≃ (A ≃ B)`** („identity is equivalent to
+equivalence“). Univalenz **erweitert** Identität zur strukturellen Äquivalenz; es kollabiert
+Äquivalenz nicht bloß zu Identität.
 Die Lean-Marker sind vereinfachte Schnittstellen-Props; **kein** Voevodsky-Axiom formalisiert.
 
 Bei genuiner Chiralität blockiert Asymmetrie den Kollaps (`IdealChiralityBlocksUnivalence` → E-068).
@@ -159,6 +165,7 @@ Die endliche Kanalabbildung aus E-072 ist ein kombinatorischer Schnittstellen-Ch
 | Referenz | Link | Rolle im Referenzrahmen |
 |---|---|---|
 | **HoTT Book** | [homotopytypetheory.org/book](https://homotopytypetheory.org/book/) | Grundlegende Univalent Foundations; Begriffsrahmen für Pfad-Typen und `A ≃ B` |
+| **HoTT Book, Introduction (Univalenz)** | [homotopytypetheory.org/book](https://homotopytypetheory.org/book/) (Introduction «Univalent foundations»; §2.10) | Kanonische Formulierung `(A = B) ≃ (A ≃ B)` via `idtoequiv`; Referenzrahmen für `IdealUnivalenceHypothesis`, nicht implementiert |
 | **Coq-HoTT** | [github.com/HoTT/Coq-HoTT](https://github.com/HoTT/Coq-HoTT) | Traditionelle HoTT-Bibliothek für Univalenz und HITs — **Referenz**, nicht Basis dieses Repos |
 | **Lean 2 HoTT** | [lean2/hott](https://github.com/leanprover/lean2/tree/master/hott) | Historisches Lean-HoTT-Experiment; veraltet, nicht Lean 4 |
 | **nLab: Lean** | [nLab/Lean](https://ncatlab.org/nlab/show/Lean) | Dokumentiert: **Lean 4 ≠ HoTT mit Univalenz** |
