@@ -3,7 +3,8 @@
 **Evidenz:** `[C]` Grundlagenhypothese · **Lean-Label:** E-073 · **Register:** E-073  
 **Quelle:** `KeplerHurwitz/HoTTIdentityLayer.lean`  
 **Register-Dokumentation:** [`docs/evidence_register.md`](evidence_register.md)  
-**Abhängigkeiten:** E-067–E-069 (Dedekind-Ideal-Schicht), E-053 (Dedekind–Hasse), E-072 (mod-12-Kanalpartition)
+**Abhängigkeiten:** E-067–E-069 (Dedekind-Ideal-Schicht), E-053 (Dedekind–Hasse), E-072 (mod-12-Kanalpartition)  
+**Anwendungsfall:** [`docs/pure_prime_eabc_dedekind_interpretation.md`](pure_prime_eabc_dedekind_interpretation.md) (Unit-Migration für reine Prim-EABC-Quaternionen)
 
 > **ID-Hinweis:** Die Ausarbeitung führte diesen Layer als „E-067 HoTT“; nach Renumberierung der
 > Dedekind-Ideal-Schicht (E-067–E-069) ist **E-073** die aktuelle Register-ID.
