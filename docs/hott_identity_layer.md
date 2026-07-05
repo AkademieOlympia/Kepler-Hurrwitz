@@ -2,6 +2,7 @@
 
 **Evidenz:** `[C]` Grundlagenhypothese · **Lean-Label:** E-073 · **Register:** E-073  
 **Quelle:** `KeplerHurwitz/HoTTIdentityLayer.lean`  
+**Register-Dokumentation:** [`docs/evidence_register.md`](evidence_register.md)  
 **Abhängigkeiten:** E-067–E-069 (Dedekind-Ideal-Schicht), E-053 (Dedekind–Hasse), E-072 (mod-12-Kanalpartition)
 
 > **ID-Hinweis:** Die Ausarbeitung führte diesen Layer als „E-067 HoTT“; nach Renumberierung der
