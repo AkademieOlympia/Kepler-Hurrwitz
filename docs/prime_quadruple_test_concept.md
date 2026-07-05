@@ -7,8 +7,6 @@
 **Konvention:** [`docs/eabc_mass_convention.md`](eabc_mass_convention.md)  
 **Tests:** `tests/test_prime_quadruple_eabc.py`, `tests/test_prime_quadruple_governance_docs.py`
 
-> **Hinweis:** Kanonische Version → [`docs/test_concept_prime_quadruple_eabc.md`](test_concept_prime_quadruple_eabc.md)
-
 ---
 
 ## Ziel
@@ -193,9 +191,7 @@ Minimaltests:
 **Lean:** `KeplerHurwitz/PrimvierlingSymmetry.lean`  
 **Register:** E-048 — Host-Dreier = Komplement der Host-Komponente
 
-Für \(v=(a,b,c,e)\): jeder Host wählt eine Komponente; der Host-Dreier ist das Komplement. Test nutzt vorhandene Repo-Funktionen (`host_for_quadruplet_index`, …), keine harte Rotation.
-
-*(Optional / separat getestet über Dumas-Export — nicht in `test_prime_quadruple_eabc.py` duplizieren.)*
+Für \(v=(a,b,c,e)\): `host_triple(host, v)` = `P(v) \ {host_component(host, v)}`; `verify_dumas_lemma(v)` auf Referenz-Vierlingen.
 
 ---
 
@@ -248,13 +244,17 @@ Evidence-Trennung: `[B]` für arithmetische Tests; `[C]` für \(\Phi\), Chiralit
 1. `test_known_prime_quadruplets_are_detected`
 2. `test_non_quadruplets_are_rejected`
 3. `test_quadruple_components_cover_all_eabc_channels`
-4. `test_prime_quadruple_product_mass_four_is_structural_invariant` — parametrisiert über viele Witnesses
-5. `test_quadruple_product_signature_full_coverage`
-6. `test_quadruple_norm_signature_reference_case`
-7. `test_norm_mass_differs_from_product_mass_reference_case`
-8. `test_prime_quadruple_norm_mass_empirical_distribution_from_csv`
-9. `test_pure_prime_quadruples_csv_first_rows`
-10. `test_ceab_rotation_preserves_quat_norm`
+4. `test_quadruple_components_have_distinct_eabc_channels`
+5. `test_prime_quadruple_product_mass_four_is_structural_invariant` — parametrisiert über `STRUCTURAL_INVARIANT_WITNESSES`
+6. `test_quadruple_product_signature_full_coverage`
+7. `test_quadruple_norm_signature_reference_case`
+8. `test_norm_mass_differs_from_product_mass_reference_case`
+9. `test_prime_quadruple_norm_mass_empirical_distribution_from_csv`
+10. `test_pure_prime_quadruples_csv_first_rows`
+11. `test_dumas_host_triple_is_component_complement`
+12. `test_verify_dumas_lemma_on_prime_quadruplets`
+13. `test_ceab_rotation_preserves_quat_norm`
+14. `test_all_ceab_orbit_states_share_quat_norm`
 
 ### `tests/test_prime_quadruple_governance_docs.py`
 
@@ -262,7 +262,8 @@ Evidence-Trennung: `[B]` für arithmetische Tests; `[C]` für \(\Phi\), Chiralit
 2. `test_no_ideal_theorem_claimed`
 3. `test_hott_claims_declared_conceptual`
 4. `test_channel_quadruple_not_identified_with_prime_quadruplet`
-5. `test_test_concept_doc_exists_and_references_layers`
+5. `test_governance_negative_claims_present`
+6. `test_test_concept_doc_exists_and_references_layers`
 
 ---
 
@@ -319,15 +320,3 @@ M(P(v))=4 \;\text{ist starker arithmetischer Vollabdeckungs-Test;}\quad
 > - \(M(P(v))=4\) ist arithmetisch strukturell testbar (`[B]`).
 > - \(\Phi(v)=\gamma\) bleibt offene dedekindsche Brücke (`[C]`).
 > - \(M(n(v))\) bleibt empirisch/referenzbasiert, kein Axiom.
-
----
-
-## Commit-Message-Hinweis
-
-```
-Refine prime quadruple test concept and invariant product mass
-
-- treat M(P(v))=4 as structural invariant for prime quadruples p>3
-- keep M(n(v)) as reference and empirical only, not global axiom
-- update test concept doc with final governance framing
-```
