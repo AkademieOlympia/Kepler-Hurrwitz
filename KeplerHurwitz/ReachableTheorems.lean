@@ -13,8 +13,10 @@ import KeplerHurwitz.DedekindHasseProofAttempt
 import KeplerHurwitz.DedekindIdealLayer
 import KeplerHurwitz.CollatzProofAttemptV26
 import KeplerHurwitz.CollatzProofAttemptV27
+import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Representation.Invariant
 import KeplerHurwitz.Representation.EABCChronology
+import KeplerHurwitz.DistilledParameters
 import KeplerHurwitz.SchuettePtolemyCaeda
 import KeplerHurwitz.SymbolicResultants
 import KeplerHurwitz.HalesTaoIntegration
@@ -458,5 +460,33 @@ Dedekind-Ideal-Schicht: Chiralitaetsindikator σ(H·γ)−σ(γ·H) ≠ 0 fuer R
 theorem reachable_idealPathChiralityNonzero (order : ReferenceQuaternionOrder) (γ : Nat) :
     DedekindIdealLayer.IdealPathChiralityNonzero order γ := by
   exact DedekindIdealLayer.ideal_path_chirality_nonzero_reference order γ
+
+/--
+Destillierte Kanalparameter: Spread ist durch Kanalmass begrenzt.
+-/
+theorem reachable_channel_spread_le_mass (h : EABCSignature4) :
+    channelSpread_ofSignature h ≤ channelMass_ofSignature h := by
+  exact channelSpread_le_channelMass h
+
+/--
+V2.7 Diagnostics: positive net margin from good-branch entry yields net-descent witness.
+-/
+def reachable_collatz_bad_run_net_descent_witness_of_margin
+    {n : Nat}
+    (e : CollatzAttemptV2.CollatzNetDescent.BadRunGoodBranchEntryWitness n)
+    (t_loc : Nat)
+    (hmargin :
+      0 < CollatzAttemptV2.CollatzNetDescent.netDescentMargin n t_loc e.m_good) :
+    CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentWitness n :=
+  CollatzAttemptV2.CollatzNetDescent.bad_run_net_descent_witness_of_margin e t_loc hmargin
+
+/--
+V2.7 Diagnostics: uniform witness existence equals uniform positive net margin.
+-/
+theorem reachable_collatz_net_descent_via_margin_iff :
+    CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentViaMarginStatement ↔
+      CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentStatement := by
+  exact CollatzAttemptV2.CollatzNetDescent.bad_run_net_descent_via_margin_iff
+
 
 end KeplerHurwitz

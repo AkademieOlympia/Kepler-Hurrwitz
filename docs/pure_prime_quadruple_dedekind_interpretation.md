@@ -303,6 +303,14 @@ aber
 
 ## Lift-Projektions-Prinzip (methodische Brücke, `[C]`)
 
-Quaternionen \(\gamma_v\) und Keplerellipsen sind **nicht identisch** — sie verbinden sich über dasselbe Schema Lift → Schnitt → Projektion. Die Normschale \(N(\gamma)\) entspricht methodisch dem Givental-Kegel; \(\pi_Q : H \to \mathbb{Z}^4_{\mathrm{EABC}}\) der Kepler-Projektion \(\pi_K\).
+Quaternionen \(\gamma_v\) und Keplerellipsen sind **nicht identisch** — sie verbinden sich über dasselbe Schema Lift → Schnitt → Projektion. Kepler-Kegel (\(r^2-x^2-y^2=0\)) und quaternionische Norm (\(N(\gamma)=a^2+b^2+c^2+e^2\)) sind **beide quadratische Lift-Strukturen**, aber nicht identisch. Konservativ:
+\[
+  \mathcal{O}=\pi_K(C\cap\Pi)
+  \qquad\leftrightarrow\qquad
+  H=\pi_Q(\mathcal{Q}_{\mathrm{arith}}\cap\mathcal{S}),
+  \qquad
+  \pi_Q:\mathcal{Q}_{\mathrm{arith}}\to\mathbb{N}^4,\ \gamma\mapsto H(\gamma)=(E,A,B,C).
+\]
+\(\Phi\) bleibt **`[C]` offen**.
 
-**Detail:** [`lift_projection_principle.md`](lift_projection_principle.md) · Givental-Parallele E-075: [`e075_prime_grid_signaturgeometrie.md`](energiedoku_exports/e075_prime_grid_signaturgeometrie.md)
+**Detail:** [`theory/kepler_quaternion_lift_projection.md`](theory/kepler_quaternion_lift_projection.md) · Givental-Parallele E-075: [`e075_prime_grid_signaturgeometrie.md`](energiedoku_exports/e075_prime_grid_signaturgeometrie.md)

@@ -82,13 +82,21 @@ V2.7 beweist die syntaktische Netto-Abstiegsbrücke: Ein `BadRunNetDescentWitnes
 
 **Offener Kern (`[C]`):** `bad_run_net_descent_witness_of_mod4_three` — die quantitative Ungleichung
 
-```text
-∃ t_local,  (collatzStep^[t_local]) m_good < n
-```
+\[
+m_{\mathrm{good}} = \mathrm{collatzStep}^{[t_{\mathrm{good}}]}(n),
+\qquad m_{\mathrm{good}} \equiv 1 \pmod 4
+\]
 
-wobei `m_good = (collatzStep^[t_good]) n` und `m_good % 4 = 1` aus V2.6 kommen. Lokaler Good-Branch-Shrink
-`(collatzStep^[3]) m_good < m_good` ist bewiesen; die **Netto**-Bedingung `… < n` (Bad-Run-Kosten vs. Shrink)
-bleibt der naechste Angriffspunkt fuer `mod 4 = 3`.
+\[
+\Delta_{\mathrm{net}}(n) = n - \mathrm{collatzStep}^{[t_{\mathrm{loc}}]}(m_{\mathrm{good}})
+\]
+
+Offen: uniform $\Delta_{\mathrm{net}} > 0$ für $n \equiv 3 \pmod 4$. Äquivalent: $\exists t_{\mathrm{loc}}$ mit
+$\mathrm{collatzStep}^{[t_{\mathrm{loc}}]} m_{\mathrm{good}} < n$. Python-Diagnostics:
+`kepler_hurwitz.diagnostics.net_descent_margin`, `bad_run_cost`, `shrink_efficiency`.
+
+Lokaler Good-Branch-Shrink `(collatzStep^[3]) m_good < m_good` ist bewiesen; die **Netto**-Bedingung
+(Bad-Run-Kosten $C_{\mathrm{bad}}=t_{\mathrm{good}}$ vs. Shrink) bleibt der nächste Angriffspunkt für `mod 4 = 3`.
 
 **Build:** `lake build KeplerHurwitz.CollatzProofAttemptV27`
 

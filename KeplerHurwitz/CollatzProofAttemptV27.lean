@@ -4,10 +4,9 @@ import KeplerHurwitz.CollatzProofAttemptV26
 namespace KeplerHurwitz
 
 namespace CollatzAttemptV2
-/--
-V2.7 (mixed): `[A]` syntactic net-descent composition (`mod4_three_descends_from_net_descent_witness`, no sorry);
-`[C]` uniform witness existence (`bad_run_net_descent_witness_of_mod4_three`, open).
--/
+
+/- V2.7: syntactic net-descent composition is proved; uniform witness existence remains open. -/
+
 namespace CollatzNetDescent
 
 open CollatzBridge

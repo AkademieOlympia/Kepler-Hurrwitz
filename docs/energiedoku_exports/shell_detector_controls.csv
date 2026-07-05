@@ -1,0 +1,14 @@
+control_name,seed,n_shells,points_per_shell,epsilon,sep,overlap_count,shell_separation_loss,expected_loss,passed,notes
+positive_overlapping,,4,1,1.0,0.08333333333333333,6,True,True,True,centroid spacing=0.0833 < epsilon=1.0
+negative_separated,,4,1,1.0,10.0,0,False,False,True,min centroid gap >= 10.0000 >> epsilon=1.0
+degenerate_collapsed,,4,1,1.0,0.0,6,True,True,True,all centroids at origin; sep=0
+random_null,0,4,5,1.0,1.8549449615890252,0,False,False,True,null-model baseline; expected_loss not enforced
+random_null,1,4,5,1.0,6.862265716748226,0,False,False,True,null-model baseline; expected_loss not enforced
+random_null,2,4,5,1.0,5.699134211311865,0,False,False,True,null-model baseline; expected_loss not enforced
+random_null,3,4,5,1.0,4.630870675829997,0,False,False,True,null-model baseline; expected_loss not enforced
+random_null,4,4,5,1.0,2.1408271502798817,0,False,False,True,null-model baseline; expected_loss not enforced
+random_null,5,4,5,1.0,1.1291806442598358,0,False,False,True,null-model baseline; expected_loss not enforced
+random_null,6,4,5,1.0,5.919335730780239,0,False,False,True,null-model baseline; expected_loss not enforced
+random_null,7,4,5,1.0,4.800768785792305,0,False,False,True,null-model baseline; expected_loss not enforced
+random_null,8,4,5,1.0,3.189305202307478,0,False,False,True,null-model baseline; expected_loss not enforced
+random_null,9,4,5,1.0,1.7454392026017982,0,False,False,True,null-model baseline; expected_loss not enforced

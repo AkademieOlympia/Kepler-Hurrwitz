@@ -1322,6 +1322,187 @@
       "stability": "stable",
       "last_reviewed": "2026-07-05",
       "defensive_scope": "Prime Grid beweist nicht EABC, Dedekind-Hasse, HoTT, Renormalisierung, RH oder verwandte offene Programme."
+    },
+    {
+      "id": "E-076",
+      "title": "Physik-Referenz-Analogien (AB / Klitzing / Meissner)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/reports/physical_reference_analogies.md, docs/theory/meissner_analogy_assessment.md",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [
+        "E-080",
+        "E-081",
+        "E-083"
+      ],
+      "scope": "Aharonov-Bohm, von-Klitzing/QHE, Meissner als interpretative Resonanzanker fuer 24I_3, Retraktion, Shell-Stapel",
+      "metric_or_result": "interpretativ; keine Lean-Formalisation der Analogien",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Analogie, nicht Identitaet; liefert keinen Beweisweg fuer Collatz V2.7, Dedekind-Hasse oder globale EABC-Renorm."
+    },
+    {
+      "id": "E-077",
+      "title": "MetricSeparationLossExistence / ShellSeparationLoss(n)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/energiedoku_exports/eabc_renormalisierungsprogramm.md, docs/open_research_questions.md (ORQ-077)",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [
+        "E-085"
+      ],
+      "scope": "metrischer Raum, Shell-Einbettung iota_n, erster kontrollierter Separationsverlust n_0",
+      "metric_or_result": "offen; kein Lean-Symbol MetricSeparationLossExists",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "[C→B] Zielstatus: Derzeit [C] im Register; [B]-Upgrade erst nach formaler Definition von ShellSeparationLoss(n), Metrik, Schwelle und reproduzierbarem Export. projection_loss in diagnostics.py ist Prime-Grid L_pi=Omega-M, nicht metrischer Shell-Separationsverlust. shell_separation_diagnostics.py ist Diagnose only — beweist nicht MetricSeparationLossExists. Meissner (E-076) ist Lesesprache fuer Separationsverlust, kein Hauptangriff; siehe docs/theory/meissner_analogy_assessment.md."
+    },
+    {
+      "id": "E-078",
+      "title": "Globale R3-Einbettung aller Shells (iota_n fuer alle n)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/energiedoku_exports/eabc_renormalisierungsprogramm.md, docs/open_research_questions.md (ORQ-078)",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [
+        "E-079"
+      ],
+      "scope": "ShellVertex(n) -> R^3 fuer alle n mit uniformen Separations- und Ueberdeckungsabschaetzungen",
+      "metric_or_result": "offen; bisher nur n=1,2,3",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Minkowski-Bouligand-Dimension nicht ohne Grenzuebergang n->infty behauptet."
+    },
+    {
+      "id": "E-079",
+      "title": "Minkowski-Bouligand-Boxdimension aus Shell-Metrik",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/energiedoku_exports/eabc_renormalisierungsprogramm.md, docs/open_research_questions.md (ORQ-079)",
+      "depends_on": [
+        "E-078",
+        "E-053"
+      ],
+      "supports": [],
+      "scope": "echte Boxdimension in R^3 aus M_n^sep=4^n und kontrollierter Metrik",
+      "metric_or_result": "offen; ln(4)/ln(phi) allein nicht ausreichend",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Kombinatorische Skalierung ist noch kein metrischer Dimensionssatz."
+    },
+    {
+      "id": "E-080",
+      "title": "MonopoleHurwitzWindingHypothesis",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-080)",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [
+        "E-082"
+      ],
+      "scope": "effektive Monopolladung (Spin-Ice-[?]) als algebraischer Index auf Hurwitz-Orbits",
+      "metric_or_result": "offen; kein Code-Hook",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Kein physikalischer Beweis; Primideal ist nicht Monopol; Spin-Ice nicht etabliertes EABC-Modell."
+    },
+    {
+      "id": "E-081",
+      "title": "DiracSchwingerEmergentHypothesis",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-081)",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [],
+      "scope": "emergente Monopole und Dirac-Schwinger-artige Kopplung in EABC-Shell-Geometrie",
+      "metric_or_result": "offen",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Kein Schwinger-Monopol-Theorem; keine QED-Identifikation."
+    },
+    {
+      "id": "E-082",
+      "title": "DipoleOctupoleMonopoleChargeHypothesis",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-082)",
+      "depends_on": [
+        "E-080"
+      ],
+      "supports": [],
+      "scope": "Dipol-/Oktupol-Defekte vs. effektive Monopolladung auf EABC-Shells",
+      "metric_or_result": "offen",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Multipol-Expansion ist keine etablierte EABC-Observable."
+    },
+    {
+      "id": "E-083",
+      "title": "BerryHolonomyConnectionHypothesis",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-083)",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [],
+      "scope": "Berry-Holonomie als holonome Verbindung auf diskreten EABC-Orbiten",
+      "metric_or_result": "offen",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Berry-Phase ist keine gemessene Groesse im Formal Core."
+    },
+    {
+      "id": "E-084",
+      "title": "GeometryScaffold (Morley / Marion Walter / crossed Ptolemy / Ikosaeder-Ptolemy)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-084), KeplerHurwitz/SchuettePtolemyCaeda.lean",
+      "depends_on": [
+        "E-025"
+      ],
+      "supports": [],
+      "scope": "vier klassische euklidische Saetze als Scaffold; PtolemaicClosure noch abstrakt",
+      "metric_or_result": "offen; nicht euklidisch spezialisiert",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "PtolemaicClosure ist nicht identisch mit euklidischem Ptolemy; kein Beweis im EABC-Kern."
+    },
+    {
+      "id": "E-085",
+      "title": "shellPrimeMatchAtFirstLoss (gated on E-077)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/reports/shell_separation_diagnostics_protocol.md, docs/reports/shell_separation_preregistration.json, docs/reports/shell_n0_dual_track_decision.md, docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-086)",
+      "depends_on": [
+        "E-077"
+      ],
+      "supports": [],
+      "scope": "Kopplung erster metrischer Separationsverlust an EABC-Primindex; nur nach MetricSeparationLossExists",
+      "metric_or_result": "GATE INACTIVE — Dual-Track: Track A primary n_0=NONE; Track B exploratory_n_0=2 gate_eligible=false",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Keine vorzeitige Prim-Prognose aus Diagnostics; E-072-Kanalpartition allein reicht nicht. Aktivierung erst nach blindem internem Instabilitaetsnachweis (E-077) aus gate-eligible primary track; Track B n_0=2 (energiedoku_full, [C]) darf nicht verwendet werden solange Track A primary bleibt; siehe docs/reports/shell_separation_diagnostics_protocol.md Dual-Track n0 Governance."
     }
   ]
 }

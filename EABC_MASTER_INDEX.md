@@ -41,7 +41,10 @@
 - Dedekind-Ideal-Brücke / Primzahlvierlinge **[B/C]**
   - **[B] Arithmetik:** \(M(P(v))=4\) für kanonische Primvierlinge; Dumas E-048
   - **[C] Interface:** \(\Phi(v)=\gamma\) — Domain/Codomain in `docs/pure_prime_quadruple_dedekind_interpretation.md`, `docs/energiedoku_exports/dedekind_hasse_eabc_bridge.md`
-  - **[C] Methode:** Lift-Projektions-Prinzip (Quaternionen ↔ Kepler/Givental) — `docs/lift_projection_principle.md`
+  - **[C] Methode:** Lift-Projektions-Prinzip (Quaternionen ↔ Kepler/Givental) — `docs/theory/kepler_quaternion_lift_projection.md`
+  - **[B] Dumas Cone–Orbit (H1–H11):** numerisch auf 166 Primvierlingen bis \(p\le10^6\) — `docs/theory/dumas_cone_orbit_model.md` · `tests/test_dumas_cone_orbit.py`
+  - **[B] Dumas-Orbit Experimental Protocol:** Regression vs. H12–H15 vs. Nullmodelle F1–F5 — `docs/reports/dumas_orbit_experimental_protocol.md` · `scripts/dumas_orbit_experiment.py` · CSV unter `docs/energiedoku_exports/dumas_orbit_*.csv`
+  - **[B] Parameter-Atlas:** `docs/theory/distilled_parameters.md` · `src/kepler_hurwitz/diagnostics.py` (acht priorisierte Diagnostics, Governance-Box)
   - **LaTeX:** `eabc-renorm/docs/EABC_Uebersicht.tex` (`sec:prime-quadruple-dedekind`, Alias `eabc_renorm_overview.tex`)
   - **Register:** E-067–E-069, E-053, E-072, E-073
 
@@ -56,3 +59,11 @@
   - **Loader:** `src/kepler_hurwitz/energiedoku_shell_construction.py`
   - **Audit:** `scripts/compare_shell_embeddings.py`, `docs/reports/EMBEDDING_AUDIT_PIPELINE.md`
   - **Ticket:** `docs/tickets/extract-energiedoku-shell-coordinates-n1-n3.md` (COMPLETE)
+
+- **Physical Analogies [C]** — AB / Klitzing / Meissner als Resonanzanker
+  - **[C] Interpretation:** Aharonov–Bohm → Orbit-/Phasenanker; von Klitzing/QHE → Kanal-/Topologieanker; Meissner → Defekt-Exklusionsanker (Meissner-Shell / Meissner-Randschale)
+  - **[C] Analogiekette (nicht Identität):** \(B \approx 0 \leadsto \Delta_{\mathrm{innen}} \approx 0 \leadsto M_{\mathrm{eff}} \to 24I_3\)
+  - **[B] Meissner-Diagnostik:** vorgeschlagene Metriken — operationalisiert in `diagnostics.py` erst dann `[B]`
+  - **Dossier:** `docs/reports/physical_reference_analogies.md` · Didaktik: `docs/physics/meissner_effect.md`
+  - **Trennung:** Dumas-Orbit-Protokoll bleibt empirisch — Physik-Analogien separat (siehe Protokoll §Governance)
+  - **Register:** E-076

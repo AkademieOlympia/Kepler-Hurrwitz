@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass
 from typing import Tuple
 
@@ -25,9 +26,21 @@ class EABCSignature4:
     def as_tuple(self) -> tuple[int, int, int, int]:
         return (self.E, self.A, self.B, self.C)
 
+    def channels(self) -> tuple[int, int, int, int]:
+        return self.as_tuple()
+
     def sorted_counts(self) -> tuple[int, int, int, int]:
         """Non-increasing channel multiset (Phase-4 partition typing)."""
         return tuple(sorted(self.as_tuple(), reverse=True))
+
+    def max_channel(self) -> int:
+        return max(self.as_tuple())
+
+    def min_channel(self) -> int:
+        return min(self.as_tuple())
+
+    def spread(self) -> int:
+        return self.max_channel() - self.min_channel()
 
 
 def signature_from_nat(n: int) -> EABCSignature4:
@@ -58,6 +71,25 @@ def signature_from_nat(n: int) -> EABCSignature4:
 def eabc_mass(n: int) -> int:
     """Kanonische EABC-Masse M(n) := totalWeight(H(n))."""
     return signature_from_nat(n).total_weight()
+
+
+def channel_mass(signature: EABCSignature4) -> int:
+    return signature.total_weight()
+
+
+def prime_factorization_with_multiplicity(n: int) -> list[tuple[int, int]]:
+    if n < 1:
+        raise ValueError("n must be >= 1")
+    if n == 1:
+        return []
+    return list(Counter(prime_factors(n)).items())
+
+
+def prime_omega(n: int) -> int:
+    """Totale Primfaktorzahl Omega(n) mit Multiplizitaet."""
+    if n < 1:
+        raise ValueError("n must be >= 1")
+    return len(prime_factors(n))
 
 
 @dataclass(frozen=True)

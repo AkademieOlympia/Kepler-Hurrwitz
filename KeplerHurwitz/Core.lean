@@ -16,6 +16,7 @@ import KeplerHurwitz.CollatzProofAttemptV24
 import KeplerHurwitz.CollatzProofAttemptV25
 import KeplerHurwitz.CollatzProofAttemptV26
 import KeplerHurwitz.CollatzProofAttemptV27
+import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Collatz.CkA.OrbitSmoothBridge
 import KeplerHurwitz.CyclicWordOrbit
 import KeplerHurwitz.EABCLayer
@@ -33,6 +34,7 @@ import KeplerHurwitz.OctonionicSlice
 import KeplerHurwitz.PhotonModel
 import KeplerHurwitz.PhotonKeplerShift
 import KeplerHurwitz.DumasIntertwiningBridge
+import KeplerHurwitz.DistilledParameters
 import KeplerHurwitz.PrimvierlingSymmetry
 import KeplerHurwitz.README_OrbitSymmetry
 import KeplerHurwitz.ReachableTheorems

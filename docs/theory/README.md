@@ -42,6 +42,29 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ---
 
+### Offene Bridge Targets `[C]` (ORQ-077–ORQ-086)
+
+**Kanonischer Katalog:** [`../open_mathematical_bridge_targets.md`](../open_mathematical_bridge_targets.md) — Governance-Tabelle, Prioritaeten, Abhaengigkeiten, Durchbruchspfad  
+**ORQ-Kurzindex:** [`../open_research_questions.md`](../open_research_questions.md)  
+**Register:** E-077–E-085 (+ E-076 Physik-Dossier, E-053 Renorm-Stub) in [`EVIDENCE_REGISTER.md`](../../EVIDENCE_REGISTER.md)  
+**Research Map:** [`../research_map.md`](../research_map.md)
+
+| Prio | Cluster | ORQ | E-ID |
+|---|---|---|---|
+| 1 | Metrischer Separationsverlust | ORQ-077 | E-077 |
+| 2–3 | Globale R³ / Bouligand | ORQ-078–079 | E-078–E-079 |
+| 4 | Dedekind Φ(v)=γ | ORQ-085 | E-067–E-069, Lean `EabcToQuaternionOrderMapHypothesis` |
+| 5 | Berry-Holonomie | ORQ-083 | E-083 |
+| 6 | GeometryScaffold | ORQ-084 | E-084 |
+| 7–8 | Monopol / Windung | ORQ-080–082 | E-080–E-082 |
+| 9 | shellPrimeMatchAtFirstLoss | ORQ-086 | E-085 (gated on E-077) |
+
+**Claim-Grenze:** Alle Eintraege sind `[C]` — keine physikalische Identifikation, kein Lean-Beweis ohne explizite Formalisierung. E-085 erst nach internem Nachweis von `MetricSeparationLossExists`. Meissner (E-076) nur als Lesesprache fuer E-077: [`meissner_analogy_assessment.md`](meissner_analogy_assessment.md).
+
+**Shell-Separationsdiagnostik (E-077–E-079):** [`../reports/shell_separation_diagnostics_protocol.md`](../reports/shell_separation_diagnostics_protocol.md) · Implementierung `src/kepler_hurwitz/shell_separation_diagnostics.py` · CSV-Export `scripts/shell_separation_diagnostics.py`
+
+---
+
 ### Arithmetisches Vakuum–eabc: Externe arithmetische Feinstruktur-Analogie
 
 **Datei:** `docs/theory/arithmetic_vacuum_eabc_analogy.md`  
@@ -89,12 +112,36 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ---
 
+### Dumas Cone–Orbit Model (E-048 / Gedankenexperiment)
+
+**Datei:** [`dumas_cone_orbit_model.md`](dumas_cone_orbit_model.md)  
+**Status:** `[C]` methodische Analogie  
+**Evidenz:** E-048 (Dumas-Lemma), Lift-Parallel E-075  
+**Zweck:** D'Artagnan-Kreis / Musketeer-Triple im Doppelkegel-Lift; Gewichtspartition auf \(\Delta^3\); Zwei-Prim-Extension mit Phantom-Inversen.  
+**Claim-Grenze:** Gleiche Methode, nicht gleiche Objekte; Kepler-Namen sind Analogiesprache.
+
+---
+
 ### Lift-Projektions-Prinzip (Quaternionen ↔ Kepler/Givental)
 
-**Datei:** `docs/lift_projection_principle.md`  
+**Datei:** `docs/theory/kepler_quaternion_lift_projection.md`  
 **Status:** `[C]` methodische Brücke  
-**Zweck:** Givental-Kegel-Lift und EABC-Normschale als **parallele** Projektionsschemata — gleiche Methode, nicht gleiche Objekte.  
-**Claim-Grenze:** Kein Identitätsclaim; \(\Phi(v)=\gamma\) bleibt offen.
+**Evidenz:** E-075 (Givental-Parallele), E-067–E-069 (Dedekind-Ideal-Schicht)  
+**Zweck:** Kepler-Kegel und quaternionische Norm als **quadratische Lift-Strukturen** im gleichen Projektionsschema ($\mathcal{O}=\pi_K(C\cap\Pi)$, $H=\pi_Q(\mathcal{Q}_{\mathrm{arith}}\cap\mathcal{S})$) — gleiche Methode, nicht gleiche Objekte.  
+**Claim-Grenze:** Kein Identitätsclaim; $\Phi(v)=\gamma$ bleibt offen.  
+**Stub:** [`docs/lift_projection_principle.md`](../lift_projection_principle.md) (Weiterleitung)  
+**Parameter:** [`distilled_parameters.md`](distilled_parameters.md) — acht priorisierte Diagnostics (`kepler_hurwitz.diagnostics`)
+
+---
+
+### Parameter-Atlas (E-075)
+
+**Datei:** [`../diagnostics_parameter_atlas.md`](../diagnostics_parameter_atlas.md) — Top-8 Primär-API, Formeln, Governance-Box  
+**Theorie:** [`distilled_parameters.md`](distilled_parameters.md)  
+**Implementierung:** `src/kepler_hurwitz/diagnostics.py`  
+**Status:** `[B]` arithmetische Diagnostics; `[C]` Collatz-Witness, Chiralität Nat→8D  
+**Acht Kernfunktionen:** `net_descent_margin`, `bad_run_cost`, `shrink_efficiency`, `channel_entropy`, `prime_grid_compression`, `norm_signature_defect`, `projection_loss`, `chirality_norm`  
+**Governance:** Parameter destillieren ja; Identifikation behaupten nein.
 
 ---
 
@@ -104,3 +151,31 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 **Status:** `[A]` Witness ⇒ Abstieg; `[C]` uniforme Witness-Existenz  
 **Lean:** `KeplerHurwitz/CollatzProofAttemptV27.lean`  
 **Kette:** `docs/collatz_v2_evidence_chain.md`
+
+---
+
+### Physical Analogies [C] — AB / Klitzing / Meissner (E-076)
+
+**Datei:** [`../reports/physical_reference_analogies.md`](../reports/physical_reference_analogies.md)  
+**Status:** `[C]` methodische Physik-Analogie  
+**Evidenz:** E-076 (interpretativ; keine Lean-Formalisation der Analogien)  
+**Zweck:** Drei Referenzphänomene als Resonanzanker — Aharonov–Bohm (Orbit/Phase), von Klitzing/QHE (Kanal/Topologie), Meissner (Defekt-Exklusion, Meissner-Shell) — für Lesefragen zu $24I_3$, Retraktion und Shell-Stapel.  
+**Claim-Grenze:** Analogie, nicht Identität; Dumas-Orbit-Protokoll bleibt empirisch getrennt.
+
+**Verwandte Schichten:**
+
+| ID | Datei | Rolle |
+|---|---|---|
+| E-053 | [`eabc_renormalisierungsprogramm.md`](../energiedoku_exports/eabc_renormalisierungsprogramm.md) | Formaler $24I_3$-Kern `[A]`/`[B]` |
+| E-074 | [`arithmetic_vacuum_eabc_analogy.md`](arithmetic_vacuum_eabc_analogy.md) | Geschwister-`[C]` (Feinstruktur/Vakuum) |
+| E-076 | [`physical_reference_analogies.md`](../reports/physical_reference_analogies.md) | AB / Klitzing / Meissner |
+| E-076 | [`meissner_analogy_assessment.md`](meissner_analogy_assessment.md) | Urteil: Meissner `[C]` — Lesen ja, Durchbruch nein |
+
+---
+
+### Physik-Referenz (extern)
+
+| Thema | Datei | Rolle |
+|---|---|---|
+| Meissner-Effekt | [`../physics/meissner_effect.md`](../physics/meissner_effect.md) | Didaktische Referenz zu Supraleitung und Magnetfeldverdrängung (extern, nicht EABC-Kern) |
+| Physical Analogies | [`../reports/physical_reference_analogies.md`](../reports/physical_reference_analogies.md) | EABC-Interpretation AB / Klitzing / Meissner `[C]` |
