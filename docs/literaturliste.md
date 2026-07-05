@@ -65,10 +65,11 @@ Sie ist thematisch gruppiert und kann direkt fuer Doku, Notizen und Paper-Entwue
 
 ## F. Geometrische Primdarstellungen / Spektrale Perspektiven
 
-11. Kolossvary, I.  
-    **The Prime Grid. Introducing a geometric representation of natural numbers**  
-    arXiv:1711.02903  
+11. Kolossvary, I.
+    **The Prime Grid. Introducing a geometric representation of natural numbers**
+    arXiv:1711.02903
     Link: <https://arxiv.org/abs/1711.02903>
+    Repo: [`docs/mathematische_texte/kolossvary_the_prime_grid.pdf`](mathematische_texte/kolossvary_the_prime_grid.pdf) (E-075)
 
 12. (aktuelle Spektralperspektive)  
     **Spectral Geometry of the Primes**  
@@ -77,9 +78,10 @@ Sie ist thematisch gruppiert und kann direkt fuer Doku, Notizen und Paper-Entwue
 
 ## G. Kepler / Kegelschnitt-Hintergrund
 
-13. Givental, A.  
-    **Kepler's laws and conic sections**  
+13. Givental, A.
+    **Kepler's laws and conic sections**
     Link: <https://sumizdat.com/homepage/kepler_091615.pdf>
+    Repo: [`docs/mathematische_texte/givental_kepler_laws_conic_sections.pdf`](mathematische_texte/givental_kepler_laws_conic_sections.pdf) (E-075)
 
 14. Montgomery, R.  
     **The Kepler Cone, Maclaurin Duality and Jacobi-Maupertuis metrics**  
@@ -88,7 +90,15 @@ Sie ist thematisch gruppiert und kann direkt fuer Doku, Notizen und Paper-Entwue
 
 ## H. Interne PDFs (Mathematische Texte)
 
-Quelle: `Desktop/Mathematische Texte`
+Quelle: `Desktop/Mathematische Texte` — versionierte Repo-Kopien unter [`docs/mathematische_texte/`](mathematische_texte/README.md)
+
+25. **kolossvary_the_prime_grid.pdf** (Kolossváry, *The Prime Grid*)
+    Repo: [`docs/mathematische_texte/kolossvary_the_prime_grid.pdf`](mathematische_texte/kolossvary_the_prime_grid.pdf)
+    arXiv:1711.02903 · Evidenz E-075
+
+26. **givental_kepler_laws_conic_sections.pdf** (Givental, *Kepler's laws and conic sections*)
+    Repo: [`docs/mathematische_texte/givental_kepler_laws_conic_sections.pdf`](mathematische_texte/givental_kepler_laws_conic_sections.pdf)
+    Extern: <https://sumizdat.com/homepage/kepler_091615.pdf> · Evidenz E-075
 
 15. **collatz_quantum_paper.pdf**  
     Lokal: `Desktop/Mathematische Texte/collatz_quantum_paper.pdf`
@@ -107,6 +117,28 @@ Quelle: `Desktop/Mathematische Texte`
 
 20. **bm_toy_modell_memo.pdf**  
     Lokal: `Desktop/Mathematische Texte/bm_toy_modell_memo.pdf`
+
+## I. Arithmetisches Vakuum / Feinstruktur (extern `[C]`)
+
+21. Hassall, R. (Grok/xAI)  
+    **Emergent Quantum Foundations and Charge in the Arithmetic Vacuum: Statistics, Uncertainty, Time, and the Fine-Structure Constant**  
+    Lokal: `Desktop/Mathematische Texte/ Fine-Structure Constant.pdf`  
+    (März 2026)
+
+22. Hoffbauer, T.  
+    **Arithmetische Quantenelektrodynamik (AQED): Die universelle Einheit der Naturkonstanten**  
+    Lokal: `Desktop/Mathematische Texte/Pdf/Die universelle Einheit der Naturkonstanten.pdf`  
+    (Januar 2026)
+
+23. Hoffbauer, T.  
+    **Berechnung der Feinstrukturkonstante aus einer endlichen arithmetischen Struktur**  
+    Lokal: `Desktop/Mathematische Texte/Pdf/Feinstrukturkonstante.pdf`  
+    Quelltext: `Desktop/Mathematische Texte/Tex/Feinstrukturkonstante.tex`
+
+24. (numerischer Kern $\alpha_0$, Zeta-Jitter)  
+    **`Neues Paper.py`** — $\alpha_0 = 1/(4\pi\zeta(3)\cdot 9)$, Dirichlet-Defekt mod $3$  
+    Lokal: `Desktop/Mathematische Texte/Neues Paper.py`  
+    Doku: `Desktop/Mathematische Texte/kapitel-deterministische-numerik-fixpunkte.tex`
 
 ---
 

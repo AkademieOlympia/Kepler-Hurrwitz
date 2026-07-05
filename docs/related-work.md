@@ -68,17 +68,35 @@ Relevanz fuer EABC:
 
 ## 6) Geometrische Primdarstellungen und Kepler/Kegel
 
-- Prime Grid als Geometrie natuerlicher Zahlen:
+- Prime Grid als Geometrie natuerlicher Zahlen (E-075):
   - [The Prime Grid](https://arxiv.org/abs/1711.02903)
+  - Repo-PDF: [`docs/mathematische_texte/kolossvary_the_prime_grid.pdf`](mathematische_texte/kolossvary_the_prime_grid.pdf)
+  - Doku: [`docs/energiedoku_exports/e075_prime_grid_signaturgeometrie.md`](energiedoku_exports/e075_prime_grid_signaturgeometrie.md)
 - Spektral-geometrische Primdarstellungen:
   - [Spectral Geometry of the Primes](https://arxiv.org/abs/2604.03351)
 - Kepler/Kegelschnitt-Geometrie:
   - [Kepler's laws and conic sections](https://sumizdat.com/homepage/kepler_091615.pdf)
+  - Repo-PDF: [`docs/mathematische_texte/givental_kepler_laws_conic_sections.pdf`](mathematische_texte/givental_kepler_laws_conic_sections.pdf)
   - [The Kepler Cone, Maclaurin Duality and Jacobi-Maupertuis metrics](https://arxiv.org/abs/2312.08173)
 
 Relevanz fuer EABC:
 - Legitimer Geometrie-Rahmen fuer die Projektion von Signaturen auf Kegelschnitt-Invarianten.
 - Die EABC-Spezifik liegt in der mod-12-komprimierten Signatur-Reduktion.
+
+**Prime Grid ↔ EABC (E-075, `[B]`/`[C]`):** Kolossvárys Prime Grid identifiziert $N=\prod_p p^{i_p}$ mit der Signatur $\mathbf{i}_N=(i_p)_p$ und den Normen $\|\mathbf{i}_N\|_1=\Omega(N)$, $\|\mathbf{i}_N\|_\infty=\max_p i_p$. EABC komprimiert Priminformation auf vier mod-12-Kanäle $H(n)=(E,A,B,C)$ mit restriktiver $\ell^1$-Norm $M(n)=E+A+B+C$ (optional $Q(n)=\max\{E,A,B,C\}$). Number trail / $L_\infty$ und Givental-Kegel-Lift dienen als **methodische** Parallelen zu EABC-Streams und Signatur-Projektion — **ohne** Beweis von EABC, Dedekind–Hasse oder HoTT. Siehe [`e075_prime_grid_signaturgeometrie.md`](energiedoku_exports/e075_prime_grid_signaturgeometrie.md).
+
+## Externe arithmetische Feinstruktur-Analogie `[C]`
+
+- Hassall, *Emergent Quantum Foundations and Charge in the Arithmetic Vacuum* (März 2026):
+  Prim-Log-Gitter ($w=\ln p$), Zeta-Jitter, Liouville-Dämpfung, $\alpha_0 = 1/(4\pi\zeta(3)\cdot 9)$, $\alpha_0^{-1}\approx 135{,}96$; lokale Korrektur $\alpha_{\mathrm{intern}}(M)=\alpha_0\kappa(M)$ mit $\kappa(M)=1+(\pi/2)g(M)$; Dirac-artige Ladungsquantisierung
+  - Lokal: `Desktop/Mathematische Texte/ Fine-Structure Constant.pdf`
+  - Numerischer Kern: `Desktop/Mathematische Texte/Neues Paper.py`, `Tex/energiedoku_text.tex`
+- Repo-Einordnung (nur `[C]`):
+  - [`docs/theory/arithmetic_vacuum_eabc_analogy.md`](theory/arithmetic_vacuum_eabc_analogy.md) (E-074 motivisch)
+
+Relevanz fuer EABC:
+- Externer Resonanzanker fuer Prim-/Zeta-/Feinstruktur-Motive (Log-Gitter, Jitter, Dirac-artige Ladung).
+- **Kein** Formal-Core-Beleg; **nicht** „EABC erklaert alpha“; $\alpha^{-1}\approx 137{,}036$ (CODATA) folgt **nicht** direkt aus der $\zeta(3)$-Formel — Differenz ca. 0,78 % als lokale Jitter-Korrektur im externen Modell.
 
 ## Einordnung der Neuheit
 

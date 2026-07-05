@@ -264,3 +264,45 @@ Die wichtigste offene Brücke bleibt:
 \]
 
 Erst mit \(\Phi\) wird aus der Parallelität zwischen EABC-Signatur, Primquadruplet-Geometrie und Dedekind-Idealtheorie eine echte deduktive Verbindung.
+
+Die quaternionische Norm \(n(v)=\|v\|^2\) hat eine eigene Faktorisierung; \(M(n(v))\) wird nur als Referenz-/Empiriegröße geführt — kein globaler Satz \(M(n(v))=2\).
+
+---
+
+## Interface \(\Phi\) (formal dokumentiert, Implementierung `[C]` offen)
+
+Die dedekindische Brücke ist als **Governance-Schnittstelle** beschrieben, auch ohne konkrete Lean-/Python-Implementierung:
+
+| | |
+|---|---|
+| **Domain** | EABC-Kanalstruktur / kanonischer Primzahlvierling \(v=(p,p+2,p+6,p+8)\) |
+| **Codomain** | \(\gamma=\Phi(v)\) in einer konkreten Quaternionenordnung \(H\); Idealpfade \(H\gamma\), \(\gamma H\) |
+| **Status** | `[C]` offen — keine etablierte mathematische Korrespondenz |
+
+Erst mit \(\Phi\) werden aus \(v\) Linksideal- und Rechtsidealkandidaten analysierbar. Ohne \(\Phi\) bleibt der Zusammenhang methodisch (DH ↔ EABC-Architektur), nicht deduktiv.
+
+---
+
+## Governance-Grenze
+
+\[
+M(P(v))=4
+\quad\text{ist arithmetisch strukturell testbar,}
+\]
+
+aber
+
+\[
+\Phi(v)=\gamma
+\quad\text{ist die offene Brücke zur dedekindischen Idealtheorie.}
+\]
+
+**Nicht behauptet:** Primvierling \(\Rightarrow\) Primideal; \(M(n(v))\) \(\Rightarrow\) Dedekind–Hasse-Kontrolle; Kanalabdeckung \(\Rightarrow\) Idealchiralität.
+
+---
+
+## Lift-Projektions-Prinzip (methodische Brücke, `[C]`)
+
+Quaternionen \(\gamma_v\) und Keplerellipsen sind **nicht identisch** — sie verbinden sich über dasselbe Schema Lift → Schnitt → Projektion. Die Normschale \(N(\gamma)\) entspricht methodisch dem Givental-Kegel; \(\pi_Q : H \to \mathbb{Z}^4_{\mathrm{EABC}}\) der Kepler-Projektion \(\pi_K\).
+
+**Detail:** [`lift_projection_principle.md`](lift_projection_principle.md) · Givental-Parallele E-075: [`e075_prime_grid_signaturgeometrie.md`](energiedoku_exports/e075_prime_grid_signaturgeometrie.md)
