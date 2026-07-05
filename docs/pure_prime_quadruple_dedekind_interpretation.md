@@ -5,6 +5,7 @@
 **Lean:** `KeplerHurwitz/DedekindIdealLayer.lean`, `KeplerHurwitz/PrimvierlingSymmetry.lean` (`PrimeQuadruplet`)  
 **Daten:** [`docs/energiedoku_exports/pure_prime_quadruples.csv`](energiedoku_exports/pure_prime_quadruples.csv)  
 **Konvention:** [`docs/eabc_mass_convention.md`](eabc_mass_convention.md)  
+**Testkonzept:** [`docs/prime_quadruple_test_concept.md`](prime_quadruple_test_concept.md)  
 **Schwester-Doku (1D / achsenausgerichtet):** [`docs/pure_prime_eabc_dedekind_interpretation.md`](pure_prime_eabc_dedekind_interpretation.md)
 
 ---

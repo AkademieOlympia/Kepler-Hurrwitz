@@ -136,9 +136,11 @@ def first_pure_prime_quadruples(count: int) -> list[PurePrimeQuadrupleRecord]:
 
     stop = 100
     selected: list[Primvierling] = []
+    seen: set[Primvierling] = set()
     while len(selected) < count:
         for candidate in generate_prime_quadruplets(2, stop):
-            if is_pure_prime_quadruple(candidate):
+            if is_pure_prime_quadruple(candidate) and candidate not in seen:
+                seen.add(candidate)
                 selected.append(candidate)
                 if len(selected) >= count:
                     break

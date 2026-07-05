@@ -29,6 +29,7 @@
   - **Tests:** `tests/test_signatures.py`
   - **Reine Prim-EABC-Quaternionen (p-only, achsenausgerichtet):** `docs/energiedoku_exports/pure_prime_eabc_quaternions.csv`; idealtheoretische Einordnung → `docs/pure_prime_eabc_dedekind_interpretation.md`
   - **Reine Primzahlvierlinge (kanonische Primquadruplet):** `docs/energiedoku_exports/pure_prime_quadruples.csv`; idealtheoretische Einordnung → `docs/pure_prime_quadruple_dedekind_interpretation.md`
+  - **Testkonzept Primzahlvierlinge:** `docs/prime_quadruple_test_concept.md`; Tests → `tests/test_prime_quadruple_eabc.py`, `tests/test_prime_quadruple_governance_docs.py`
 
 - HoTT Identity Layer (konzeptionelles Interface / Grundlagenhypothese) **[C]**
   - **[C] Formal:** `KeplerHurwitz/HoTTIdentityLayer.lean` (`E-073`: `HoTT_EABC_Interface` mit `PathWitness`/`migration_path` als Pfadzeuge-Hypothese, `IdealUnivalence*` als univalentes Zielbild-Marker, `DH_Quat`-Modellskizze, `period_equiv_zmod12` als Fundamentalperioden-Modellierung, `EabcMod12Pi1Hypothesis` separat)

@@ -74,6 +74,18 @@ def orbit_under_ceab(v: Primvierling) -> tuple[Primvierling, ...]:
     return (v, shifted)
 
 
+# Lean `shiftCEAB` / `orbitCEAB` aliases for tests and exports.
+ceab_rotate = symmetry_shift_ceab
+ceab_orbit = orbit_under_ceab
+
+
+def component_channels(v: Primvierling) -> tuple[str, str, str, str]:
+    """EABC channel labels (E/A/B/C) for quaternion components (a, b, c, e)."""
+    from kepler_hurwitz.dumas_natural_fill import eabc_channel_from_mod12
+
+    return tuple(eabc_channel_from_mod12(component).value for component in v)
+
+
 def pair_gaps(v: Primvierling) -> int:
     a, b, c, e = v
     return (a - c) ** 2 + (b - e) ** 2
