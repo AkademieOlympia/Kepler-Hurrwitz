@@ -38,3 +38,14 @@ Behauptungen ueber bereits gesicherte Resultate.
 - Existiert in jedem Bremensaal ein Nachbar-Dreier der drei uebrigen EABC-Familien?
 - Unter welchen Annahmen ist die Musketiere-Nachbar-Relation objektiv (chi-Aequivalenz / `LabelPreservingGraphMap`)?
 - Welche `A5`-Orbits der 6 scheiternden toy-Embeddings liegen ausserhalb des kanonischen Partitionsmusters (`E-028`)?
+
+## Fixed-Locus / Riemann-Programm (L4)
+
+### ORQ-087: Fixed-Locus Nullstellen-Konfinierung via SDTC
+
+- **Kontext:** Involutive Selbstdualität \(D(s)=1-\bar{s}\); Lokations-Aussage \(\sigma=\tfrac{1}{2}\) als Fixpunkt-Locus; programmatischer HoTT-Anschluss (Identitätstyp \(D(z)\equiv z\)).
+- **Kernfrage:** Lässt sich die Abweichung einer Nullstelle von der kritischen Linie als anti-invarianter spektraler Operator \(\mathcal{A}\) so darstellen, dass *Self-Dual Trace Confinement (SDTC)* eine spurlos gegen Null konvergierende Dominanz erzwingt?
+- **Status:** `[C / programmatisch-offen]` — kein Register-Upgrade ohne explizite Operator-Brücke.
+- **Abhängigkeiten:** Lean-Stufe 3 (abstraktes Symmetrie-Skelett); blockiert nicht den Daten-Kanonisierungs-Branch `extract-energiedoku-shell-coordinates-n1-n3`.
+- **Gegen-Evidenz:** E-034 (`[C]` refuted) — Kosinus-Mittelung über \(\Delta M\) erzeugt keine Trennschärfe; E-035 (`[C]` open_hypothesis) — Skalenpfad offen.
+- **Dossier:** [`theory/fixed_locus_riemann_program.md`](theory/fixed_locus_riemann_program.md)
