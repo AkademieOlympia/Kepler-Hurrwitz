@@ -4,7 +4,8 @@
 **Register:** E-067–E-069 (Dedekind-Ideal-Schicht), E-053 (Dedekind–Hasse), E-072 (mod-12-Kanalpartition), E-073 (HoTT Identity Layer)  
 **Lean:** `KeplerHurwitz/DedekindIdealLayer.lean`  
 **Daten:** [`docs/energiedoku_exports/pure_prime_eabc_quaternions.csv`](energiedoku_exports/pure_prime_eabc_quaternions.csv)  
-**Konvention:** [`docs/eabc_mass_convention.md`](eabc_mass_convention.md)
+**Konvention:** [`docs/eabc_mass_convention.md`](eabc_mass_convention.md)  
+**Schwester-Doku (volle Primzahlvierlinge):** [`docs/pure_prime_quadruple_dedekind_interpretation.md`](pure_prime_quadruple_dedekind_interpretation.md)
 
 ---
 

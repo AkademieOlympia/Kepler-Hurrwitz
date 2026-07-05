@@ -58,4 +58,4 @@ Partitionstypen für \(\Omega_{EABC} \le 4\): `docs/arbeitsprogramm.md` Phase 4.
 
 **Nicht behauptet:** Keine Lean-Bridge für `signature_from_nat`; `sorted_counts()` ersetzt nicht \(H(n)\); Partitionsvergleich gilt nur für \(\Omega_{EABC} \le 4\) im Arbeitsprogramm-Kontext.
 
-**Idealtheoretische Einordnung:** Für reine Prim-EABC-Quaternionen (\(M(p)=1\), \(p>3\), \(p \equiv 1,5,7,11 \pmod{12}\)) siehe [`docs/pure_prime_eabc_dedekind_interpretation.md`](pure_prime_eabc_dedekind_interpretation.md).
+**Idealtheoretische Einordnung:** Für reine Prim-EABC-Quaternionen (\(M(p)=1\), \(p>3\), \(p \equiv 1,5,7,11 \pmod{12}\)) siehe [`docs/pure_prime_eabc_dedekind_interpretation.md`](pure_prime_eabc_dedekind_interpretation.md). Für kanonische Primzahlvierlinge \((p,p+2,p+6,p+8)\) mit Masse auf der Norm \(n=\texttt{quat\_norm}(v)\) siehe [`docs/pure_prime_quadruple_dedekind_interpretation.md`](pure_prime_quadruple_dedekind_interpretation.md).
