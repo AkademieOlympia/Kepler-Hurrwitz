@@ -4,6 +4,15 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ---
 
+### Fixed-Locus / Riemann-Programm (L4)
+
+**Datei:** [`fixed_locus_riemann_program.md`](fixed_locus_riemann_program.md)  
+**Status:** `[L4 / programmatisch]` — ORQ-087  
+**Register-Abgrenzung:** E-034 (`[C]` refuted), E-035 (`[C]` open_hypothesis)  
+**Claim-Grenze:** Symmetrie \(D(Z)=Z\) bekannt; Konfinierung \(\mathrm{Fix}(D\mid_Z)=Z\) offen — kein RH-Loss-Claim.
+
+---
+
 ### Ideale, Dedekind-Hasse und quaternionische Primzahlpfade
 
 **Datei:** `docs/theory/ideal_dedekind_hasse_intro_abitur.md`  
