@@ -1279,6 +1279,11 @@
           "note": "external reference frame for univalent foundations; not implemented in this repo"
         },
         {
+          "label": "HoTT Book (Introduction, Univalence)",
+          "url": "https://homotopytypetheory.org/book/",
+          "note": "Univalence Axiom (A = B) ≃ (A ≃ B): canonical idtoequiv map is an equivalence (Introduction Univalent foundations; §2.10); reference frame for IdealUnivalenceHypothesis, not Voevodsky postulate in repo"
+        },
+        {
           "label": "Coq-HoTT",
           "url": "https://github.com/HoTT/Coq-HoTT",
           "note": "traditional univalence/HIT library; reference frame only, not used here"
