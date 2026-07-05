@@ -7,8 +7,6 @@
 **Konvention:** [`docs/eabc_mass_convention.md`](eabc_mass_convention.md)  
 **Tests:** `tests/test_prime_quadruple_eabc.py`, `tests/test_prime_quadruple_governance_docs.py`
 
-> **Hinweis:** Kanonische Version → [`docs/test_concept_prime_quadruple_eabc.md`](test_concept_prime_quadruple_eabc.md)
-
 ---
 
 ## Ziel
@@ -33,7 +31,7 @@ soll systematisch auf drei Ebenen getestet werden:
 
 offen ist.
 
-Die Tests dürfen also arithmetische und endliche Strukturbehauptungen absichern. Sie dürfen aber **nicht** aus einem Primvierling automatisch ein Primelement, Primideal oder HoTT-Pfadobjekt in einer konkreten Quaternionenordnung machen.
+Die Tests dürfen arithmetische und endliche Strukturbehauptungen absichern. Sie dürfen aber **nicht** aus einem Primvierling automatisch ein Primelement, Primideal oder HoTT-Pfadobjekt in einer konkreten Quaternionenordnung machen.
 
 ---
 
@@ -61,59 +59,33 @@ Die Tests dürfen also arithmetische und endliche Strukturbehauptungen absichern
 
 ## 2. Arithmetische Basistests
 
-**Empfohlene Datei:** `tests/test_prime_quadruple_eabc.py`
+**Datei:** `tests/test_prime_quadruple_eabc.py`
 
 ### 2.1 Positive PrimeQuadruplet-Witnesses
 
-Referenzfälle:
-
-- `(5, 7, 11, 13)`
-- `(11, 13, 17, 19)`
-- `(101, 103, 107, 109)`
+Referenzfälle: `(5, 7, 11, 13)`, `(11, 13, 17, 19)`, `(101, 103, 107, 109)`.
 
 Erwartung: `is_prime_quadruplet(v) == True`
 
 ### 2.2 Negative Fälle
 
-- `p = 7` → `(7, 9, 13, 15)`
-- `p = 13` → `(13, 15, 19, 21)`
-- `p = 17` → `(17, 19, 23, 25)`
-
-Erwartung: `is_prime_quadruplet(build_prime_quadruplet(p)) == False`
-
-**Zweck:** Die Vierlingsschicht meint echte Primzahlvierlinge, nicht beliebige Kanalvierlinge.
+`p ∈ {7, 13, 17}` → `build_prime_quadruplet(p)` wird abgelehnt (nicht alle Komponenten prim).
 
 ---
 
 ## 3. Komponentenkanal-Tests
 
-Für echte Vierlinge \(v=(p,p+2,p+6,p+8)\) mit \(p>3\) sollen die vier Komponenten die vier EABC-Kanäle **exakt einmal** abdecken.
+Für echte Vierlinge \(v=(p,p+2,p+6,p+8)\) mit \(p>3\) decken die vier Komponenten die EABC-Kanäle **exakt einmal** ab.
 
-Beispiel \(v=(5,7,11,13)\):
+Beispiel \(v=(5,7,11,13)\): mod 12 → A, B, C, E; `set(component_channels(v)) == {"E","A","B","C"}`.
 
-| Zahl | mod 12 | Kanal |
-|---|---|---|
-| 5 | 5 | A |
-| 7 | 7 | B |
-| 11 | 11 | C |
-| 13 | 1 | E |
-
-Erwartung:
-
-```python
-set(component_channels(v)) == {"E", "A", "B", "C"}
-```
-
-**Abgrenzung p-only-Schicht:**
-
-- p-only: ein Kanal aktiv, \(M(p)=1\)
-- Vierling: vier Primkomponenten, volle Kanalabdeckung im Produkt
+**Abgrenzung p-only-Schicht:** p-only: ein Kanal, \(M(p)=1\); Vierling: volle Kanalabdeckung im Produkt.
 
 ---
 
 ## 4. Produkt-Signaturtest (strukturell invariant)
 
-Für \(P(v)=a\cdot b\cdot c\cdot e\) gilt für alle echten Primvierlinge \(p>3\):
+Für \(P(v)=a\cdot b\cdot c\cdot e\) und alle echten Primvierlinge \(p>3\):
 
 \[
 H(P(v))=(1,1,1,1),\qquad M(P(v))=4.
@@ -128,18 +100,7 @@ H(P(v))=(1,1,1,1),\qquad M(P(v))=4.
 
 Für echte Primvierlinge \(p>3\) ist \(M(P(v))=4\) ein struktureller Test: Die vier Komponenten durchlaufen modulo 12 einen der Zyklen \((5,7,11,1)\) oder \((11,1,5,7)\); die volle Kanalabdeckung betrifft das **Komponentenprodukt** \(P(v)\), nicht die Quaternionennorm \(n(v)\).
 
-Beispiel: \(v=(5,7,11,13)\), \(P(v)=5005\), \(H(5005)=(1,1,1,1)\), \(M(5005)=4\).
-
-**Implementierter Test:**
-
-```python
-@pytest.mark.parametrize("v", STRUCTURAL_INVARIANT_WITNESSES)
-def test_prime_quadruple_product_mass_four_is_structural_invariant(v):
-    assert _component_mod12_residues(v) == {1, 5, 7, 11}
-    sig = signature_from_nat(math.prod(v))
-    assert sig.as_tuple() == (1, 1, 1, 1)
-    assert eabc_mass(math.prod(v)) == 4
-```
+Implementiert als `test_prime_quadruple_product_mass_four_is_structural_invariant`, parametrisiert über `STRUCTURAL_INVARIANT_WITNESSES` (bekannte Fälle, generierte Vierlinge, CSV-Zeilen).
 
 `as_tuple()`: kanonische E/A/B/C-Signatur; `sorted_counts()`: Partitionsform — beide getrennt prüfen.
 
@@ -147,29 +108,13 @@ def test_prime_quadruple_product_mass_four_is_structural_invariant(v):
 
 ## 5. Norm-Signaturtest (Referenz, kein globales Axiom)
 
-Quaternionennorm:
+\(n(v)=a^2+b^2+c^2+e^2\). Referenzfall \(v=(5,7,11,13)\): \(n(v)=364=2^2\cdot7\cdot13\), \(H(364)=(1,0,1,0)\), \(M(364)=2\).
 
-\[
-n(v)=a^2+b^2+c^2+e^2.
-\]
-
-Referenzfall \(v=(5,7,11,13)\):
-
-\[
-n(v)=364=2^2\cdot7\cdot13,\qquad H(364)=(1,0,1,0),\qquad M(364)=2
-\]
-
-(2 wird in der EABC-Masse ignoriert.)
-
-**Wichtig:** Dieser Test ist ein **Referenztest**, kein globaler Satz. Die Normsignatur hängt faktorisatorisch von \(n(v)\) ab; \(M(n(v))\) kann 2, 3, 4, … sein — siehe Empirie-Test über CSV-Zeilen.
+**Wichtig:** Referenztest, kein globaler Satz. \(M(n(v))\) kann 2, 3, 4, … sein — siehe CSV-Empirie-Test.
 
 \(M(n(v))=2\) für \((5,7,11,13)\) ist Referenzfall, kein Invariantensatz über alle Primvierlinge; die Normsignatur hängt faktorisatorisch von \(n(v)\) ab und darf **nicht** als globale Eigenschaft behauptet werden.
 
-Struktureller Kontrast (nur Referenzfall):
-
-\[
-\text{Normsignatur} \neq \text{Produktsignatur},\qquad M(n(v))=2 \neq M(P(v))=4 \text{ für } (5,7,11,13).
-\]
+Struktureller Kontrast (nur Referenzfall): Normsignatur \(\neq\) Produktsignatur, \(M(n(v))=2 \neq M(P(v))=4\).
 
 ---
 
@@ -177,14 +122,7 @@ Struktureller Kontrast (nur Referenzfall):
 
 **Datenquelle:** `docs/energiedoku_exports/pure_prime_quadruples.csv`
 
-Minimaltests:
-
-1. CSV existiert.
-2. Erste Zeilen enthalten echte Vierlinge.
-3. \(b=a+2\), \(c=a+6\), \(e=a+8\).
-4. Alle vier Komponenten prim.
-5. Mod-12-Restklassen \(\{1,5,7,11\}\); Produkt \(M=4\) (strukturell).
-6. Normsignatur berechnet und mit CSV abgeglichen — **nicht** als globaler Invariantensatz überdeutet (`total_weight() >= 0`, kein `M==2` für alle Zeilen).
+Minimaltests: CSV existiert; erste Zeilen sind echte Vierlinge; \(b=a+2\), \(c=a+6\), \(e=a+8\); mod-12 \(\{1,5,7,11\}\); Produkt \(M=4\); Normsignatur berechnet und mit CSV abgeglichen — **nicht** als globaler Invariantensatz überdeutet.
 
 ---
 
@@ -193,9 +131,7 @@ Minimaltests:
 **Lean:** `KeplerHurwitz/PrimvierlingSymmetry.lean`  
 **Register:** E-048 — Host-Dreier = Komplement der Host-Komponente
 
-Für \(v=(a,b,c,e)\): jeder Host wählt eine Komponente; der Host-Dreier ist das Komplement. Test nutzt vorhandene Repo-Funktionen (`host_for_quadruplet_index`, …), keine harte Rotation.
-
-*(Optional / separat getestet über Dumas-Export — nicht in `test_prime_quadruple_eabc.py` duplizieren.)*
+Für \(v=(a,b,c,e)\): `host_triple(host, v)` = `P(v) \ {host_component(host, v)}`; `verify_dumas_lemma(v)` auf Referenz-Vierlingen.
 
 ---
 
@@ -203,12 +139,7 @@ Für \(v=(a,b,c,e)\): jeder Host wählt eine Komponente; der Host-Dreier ist das
 
 Lean-Referenz: `dedekindHasse_quatNorm_CEAB_invariant`
 
-```python
-def test_ceab_rotation_preserves_quat_norm(v):
-    assert quat_norm(v) == quat_norm(ceab_rotate(v))
-```
-
-Governance: Norminvarianz ist **kein** Idealtheorie-Beweis.
+`quat_norm(v) == quat_norm(ceab_rotate(v))` — Governance: Norminvarianz ist **kein** Idealtheorie-Beweis.
 
 ---
 
@@ -216,15 +147,9 @@ Governance: Norminvarianz ist **kein** Idealtheorie-Beweis.
 
 **Datei:** `tests/test_prime_quadruple_governance_docs.py`
 
-### 9.1 Keine automatische \(\Phi\)-Behauptung
-
 Nicht testen: `assert is_prime_ideal(phi(v))` solange \(\Phi\) undefiniert.
 
 Doku muss enthalten: \(\Phi\) offen; Primquadruplet \(\Rightarrow\) Primelement **nicht** behauptet; Dedekind-Hasse erklärt EABC-Masse **nicht**.
-
-### 9.2 Links-/Rechtsideal nur als Kandidat
-
-Doku: „Kandidat“, \(H\gamma\), \(\gamma H\) — kein bewiesenes Idealobjekt aus dem Vierling allein.
 
 ---
 
@@ -248,21 +173,19 @@ Evidence-Trennung: `[B]` für arithmetische Tests; `[C]` für \(\Phi\), Chiralit
 1. `test_known_prime_quadruplets_are_detected`
 2. `test_non_quadruplets_are_rejected`
 3. `test_quadruple_components_cover_all_eabc_channels`
-4. `test_prime_quadruple_product_mass_four_is_structural_invariant` — parametrisiert über viele Witnesses
+4. `test_prime_quadruple_product_mass_four_is_structural_invariant`
 5. `test_quadruple_product_signature_full_coverage`
 6. `test_quadruple_norm_signature_reference_case`
 7. `test_norm_mass_differs_from_product_mass_reference_case`
 8. `test_prime_quadruple_norm_mass_empirical_distribution_from_csv`
 9. `test_pure_prime_quadruples_csv_first_rows`
-10. `test_ceab_rotation_preserves_quat_norm`
+10. `test_dumas_host_triple_is_component_complement`
+11. `test_verify_dumas_lemma_on_prime_quadruplets`
+12. `test_ceab_rotation_preserves_quat_norm`
 
 ### `tests/test_prime_quadruple_governance_docs.py`
 
-1. `test_phi_bridge_declared_open`
-2. `test_no_ideal_theorem_claimed`
-3. `test_hott_claims_declared_conceptual`
-4. `test_channel_quadruple_not_identified_with_prime_quadruplet`
-5. `test_test_concept_doc_exists_and_references_layers`
+Governance-Negativsätze und Verweis auf dieses Testkonzept.
 
 ---
 
@@ -319,15 +242,3 @@ M(P(v))=4 \;\text{ist starker arithmetischer Vollabdeckungs-Test;}\quad
 > - \(M(P(v))=4\) ist arithmetisch strukturell testbar (`[B]`).
 > - \(\Phi(v)=\gamma\) bleibt offene dedekindsche Brücke (`[C]`).
 > - \(M(n(v))\) bleibt empirisch/referenzbasiert, kein Axiom.
-
----
-
-## Commit-Message-Hinweis
-
-```
-Refine prime quadruple test concept and invariant product mass
-
-- treat M(P(v))=4 as structural invariant for prime quadruples p>3
-- keep M(n(v)) as reference and empirical only, not global axiom
-- update test concept doc with final governance framing
-```

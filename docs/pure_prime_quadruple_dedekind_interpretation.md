@@ -70,7 +70,7 @@ n(v) = 25 + 49 + 121 + 169 = 364 = 2^2 \cdot 7 \cdot 13,
 H(364) = (1,0,1,0), \quad M(364) = 2.
 \]
 
-Die Achsen \(2,3\) werden in der EABC-Zählung abgespalten; der Faktor \(2^2\) aus der Norm trägt nicht zu \(M\) bei. Typisch ist \(M(n(v))=2\) für kanonische Primvierlinge — **nicht** \(M=1\).
+Die Achsen \(2,3\) werden in der EABC-Zählung abgespalten; der Faktor \(2^2\) aus der Norm trägt nicht zu \(M\) bei. \(M(n(v))=2\) für \((5,7,11,13)\) ist **Referenzfall**, kein Invariantensatz über alle Primvierlinge — faktorisatorisch variabel, nicht als globale Eigenschaft zu behaupten.
 
 ### 1.2 Komponenten und Produkt \(H(P(v))\)
 
@@ -88,6 +88,8 @@ Für kanonische Quadruplet ab \(p>3\) sind die vier Primzahlen paarweise verschi
 \[
 H(P(v)) = (1,1,1,1), \quad M(P(v)) = 4.
 \]
+
+**Strukturelle Begründung (mod 12):** Für echte Primvierlinge gilt \(p \equiv 5\) oder \(p \equiv 11 \pmod{12}\) (sonst trifft \(p+2\) oder \(p+8\) die Restklasse 3); die Komponenten durchlaufen einen der Zyklen \((5,7,11,1)\) oder \((11,1,5,7)\). Details und `[B]`-Test → [`docs/prime_quadruple_test_concept.md`](prime_quadruple_test_concept.md), Abschnitt 4.
 
 Beispiel \(v=(5,7,11,13)\): Kanäle A, B, C, E je einmal; \(P(v)=5005\).
 
