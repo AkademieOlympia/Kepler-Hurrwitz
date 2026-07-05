@@ -73,8 +73,11 @@ structure HoTT_EABC_Interface where
 -/
 
 /--
-[C] Optionales Univalenz-Axiom fuer Ideale: strukturelle Aequivalenz links/rechts
-impliziert Identitaet — **nicht** als Lean-Theorem behauptet, nur als Interface-Feld.
+[C] Optionales Univalenz-**Zielbild** fuer Ideale: wann Identitaet strukturierter Idealtypen
+und strukturelle Aequivalenz zusammenfallen koennten.
+
+**not_claimed:** kein Voevodsky-Axiom; kein Lean-Theorem. Echte Univalenz waere
+`(A ≃ B) ≃ (A = B)` — nicht bloße Implikation. Dieses Feld ist ein vereinfachter Marker.
 -/
 structure IdealUnivalenceHypothesis (I : HoTT_EABC_Interface) : Prop where
   structural_equiv_implies_eq :
@@ -143,9 +146,10 @@ def IdealPathStructuralEquivalence (order : ReferenceQuaternionOrder)
   principalLeftPathSigma order γL = principalRightPathSigma order γR
 
 /--
-[C] IdealUnivalence-Axiom als **Prop-Marker** (Hypotheseninterface).
+[C] IdealUnivalence als **Prop-Marker** fuer das univalente Zielbild (Hypotheseninterface).
 
-**not_claimed:** kein Univalence-Axiom aus HoTT/Coq-HoTT; kein Lean-Theorem.
+**not_claimed:** kein Voevodsky-Postulat; kein Univalence-Axiom aus HoTT/Coq-HoTT;
+kein Lean-Theorem. Univalenz = Aequivalenz Identitaet↔Aequivalenz, nicht bloße Implikation.
 -/
 def IdealUnivalenceAxiom : Prop :=
   ∀ (order : ReferenceQuaternionOrder) (γL γR : Nat),

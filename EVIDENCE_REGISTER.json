@@ -1253,7 +1253,7 @@
     },
     {
       "id": "E-073",
-      "title": "HoTT Identity Layer (unit migration path witness, ideal univalence field, DH_Quat HIT sketch, mod 12 fundamental period modeling)",
+      "title": "HoTT Identity Layer (unit migration path witness, ideal univalence target-picture marker, DH_Quat HIT sketch, mod 12 fundamental period modeling)",
       "level": "C",
       "aclass": null,
       "source": "KeplerHurwitz/HoTTIdentityLayer.lean, docs/hott_identity_layer.md",
@@ -1265,13 +1265,13 @@
         "E-072"
       ],
       "supports": [],
-      "scope": "Conceptual identity-layer interface [C] (Anschlussraum, not replacement for E-067–E-069): HoTT_EABC_Interface with explicit hypothesis fields (PathWitness/migration_path as path witness not identity collapse, period_equiv_zmod12 as fundamental period modeling not pi1 theorem, defect_repair_path); UnitMigrationPath markers; IdealUnivalenceHypothesis as optional axiom field; DH_QuatPoint as HIT sketch; EabcMod12Pi1Hypothesis separate from period_equiv_zmod12",
+      "scope": "Conceptual identity-layer interface [C] (Anschlussraum, not replacement for E-067–E-069): HoTT_EABC_Interface with explicit hypothesis fields (PathWitness/migration_path as path witness not identity collapse, period_equiv_zmod12 as fundamental period modeling not pi1 theorem, defect_repair_path); UnitMigrationPath markers; IdealUnivalenceHypothesis/IdealUnivalenceAxiom as optional target-picture markers (not Voevodsky postulate); DH_QuatPoint as HIT sketch; EabcMod12Pi1Hypothesis separate from period_equiv_zmod12; EabcMod12ChannelMapping (E-072) is finite channel check not homotopy claim",
       "metric_or_result": "0 sorry; lake build KeplerHurwitz.HoTTIdentityLayer green; hott_identity_layer_status (finite checks only, no HoTT theorems)",
       "status": "foundational hypothesis / conceptual interface",
       "stability": "experimental",
       "last_reviewed": "2026-07-05",
       "lean_label": "E-073",
-      "not_claimed": "Lean 4 is not univalent HoTT (Coq-HoTT stronger for univalence/HITs); migration_path postulates path witnesses (strongest core, not derived HoTT theorem); period_equiv_zmod12 models fundamental period, not pi1 ≃ Z/12Z; EabcMod12Pi1Hypothesis is separate hypothesis interface; ideal univalence is optional field not Lean theorem; HIT repair is model sketch not native HIT; no formal HoTT proofs in standard Lean; HoTT does not prove EABC, Dumas (E-048), or Dedekind PID (E-053); E-073 is Anschlussraum not replacement for E-067–E-069",
+      "not_claimed": "Lean 4 is not univalent HoTT (Coq-HoTT stronger for univalence/HITs); migration_path postulates path witnesses (strongest core, not derived HoTT theorem); period_equiv_zmod12 models fundamental period, not pi1 ≃ Z/12Z; EabcMod12Pi1Hypothesis is separate hypothesis interface not proved; EabcMod12ChannelMapping (E-072) is finite channel check not homotopy claim; IdealUnivalenceHypothesis/IdealUnivalenceAxiom document univalent target picture as optional markers, not Voevodsky axiom or Lean theorem; univalence is equivalence between identity and equivalence, not mere implication; HIT repair is model sketch not native HIT; no formal HoTT proofs in standard Lean; HoTT does not prove EABC, Dumas (E-048), or Dedekind PID (E-053); E-073 is Anschlussraum not replacement for E-067–E-069",
       "references": [
         {
           "label": "HoTT Book",
@@ -1296,7 +1296,7 @@
         {
           "label": "nLab: univalence axiom",
           "url": "https://ncatlab.org/nlab/show/univalence+axiom",
-          "note": "conceptual frame for IdealUnivalenceHypothesis field"
+          "note": "conceptual frame for IdealUnivalenceHypothesis target-picture marker (not Voevodsky postulate)"
         },
         {
           "label": "nLab: higher inductive type",

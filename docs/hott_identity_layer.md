@@ -70,7 +70,7 @@ structure HoTT_EABC_Interface where
 | Schicht | Symbole | Status |
 |---|---|---|
 | **Unit-Migration** (stärkster Kern) | `PathWitness`, `migration_path`, `UnitMigrationPath`, `UnitChainEquivalence` | `[C]` Hypothese (Pfadzeuge, kein abgeleiteter HoTT-Satz) |
-| Ideal-Univalenz | `IdealUnivalenceHypothesis`, `IdealUnivalenceAxiom` (Marker) | `[C]` optionales Axiom/Feld |
+| Ideal-Univalenz | `IdealUnivalenceHypothesis`, `IdealUnivalenceAxiom` (Marker) | `[C]` optionales Zielbild-Marker, kein Voevodsky-Postulat |
 | DH_Quat HIT-Stub | `DH_QuatPoint`, `DH_QuatPath_H17`, `DH_QuatPath_H713` | `[C]` Modellskizze |
 | mod 12 / π₁ | `period_equiv_zmod12` (Modellierung), `EabcMod12Pi1Hypothesis` (π₁ separat) | `[C]` Hypothesenfelder |
 | Brücke Ideal → HoTT | `IdealPathsAsDH_QuatCells`, `Mod12ToIdealChiralityBridge` | `[C]` offen |
@@ -94,14 +94,19 @@ Schnittstellenmarker `UnitMigrationPath` und `UnitChainEquivalence` dokumentiere
 **Bewiesen (endlicher Check):** links/rechts-Migration hat verschiedene Ziele
 (`unitMigrationPaths_distinct_targets`).
 
-### 2. Ideal-Univalenz — optionales Axiom, kein Lean-Theorem
+### 2. Ideal-Univalenz — univalentes Zielbild, kein Lean-Theorem
 
-`IdealUnivalenceHypothesis` und der Prop-Marker `IdealUnivalenceAxiom` dokumentieren das
-Univalenz-Bild für Ideale: strukturelle Äquivalenz links/rechts soll Identität implizieren.
+`IdealUnivalenceHypothesis` und der Prop-Marker `IdealUnivalenceAxiom` dokumentieren ein
+**univalentes Zielbild** für strukturierte Idealtypen: wann Identität und strukturelle Äquivalenz
+**zusammenfallen könnten**.
+
+In echter HoTT ist Univalenz eine **Äquivalenz** zwischen Identität und Äquivalenz
+(`(A ≃ B) ≃ (A = B)`) — nicht bloße Implikation (`A ≃ B → A = B`).
+Die Lean-Marker sind vereinfachte Schnittstellen-Props; **kein** Voevodsky-Axiom formalisiert.
 
 Bei genuiner Chiralität blockiert Asymmetrie den Kollaps (`IdealChiralityBlocksUnivalence` → E-068).
 
-**Nicht behauptet:** kein Univalence-Axiom aus HoTT/Coq-HoTT formalisiert oder bewiesen.
+**Nicht behauptet:** kein Univalence-Axiom aus HoTT/Coq-HoTT formalisiert, postuliert oder bewiesen.
 
 ### 3. DH_Quat — HIT-Reparatur als Modellskizze
 
@@ -119,10 +124,11 @@ Echte HITs sind in Standard-Lean 4 **nicht** nativ verfügbar.
 |---|---|
 | `period_equiv_zmod12` | **Hypothesenfeld:** gewählte Modellierung der Fundamentalperiode als `≃ ZMod 12` — **nicht** π₁ ≃ Z/12Z |
 | `EabcMod12Pi1Hypothesis` | **Separates** Prop-Marker-Interface für die π₁-Interpretation |
-| `EabcMod12ChannelMapping` | **Bewiesen:** vier Restklassen `{1,5,7,11}` mappen auf EABC-Kanäle (E-072) |
+| `EabcMod12ChannelMapping` | **Bewiesen:** vier Restklassen `{1,5,7,11}` mappen auf EABC-Kanäle (E-072) — **keine** Homotopieaussage |
 
-Die endliche Kanalabbildung ist ein Schnittstellen-Check — **kein** Beweis der
-Homotopiegruppe π₁ ≃ Z/12Z.
+Die endliche Kanalabbildung aus E-072 ist ein kombinatorischer Schnittstellen-Check —
+**kein** Beweis der Homotopiegruppe π₁ ≃ Z/12Z und **unabhängig** von
+`period_equiv_zmod12` (Fundamentalperioden-Modellierung).
 
 ## Bewiesen in Lean (endliche Schnittstellen-Checks)
 
@@ -138,7 +144,7 @@ Homotopiegruppe π₁ ≃ Z/12Z.
 - **`migration_path`** postuliert Pfadzeugen — stärkster Kern, aber **kein abgeleiteter HoTT-Satz**.
 - **`period_equiv_zmod12`** ist Modellierung der Fundamentalperiode — **nicht** π₁ ≃ Z/12Z.
 - **π₁ ≃ Z/12Z** (`EabcMod12Pi1Hypothesis`) ist separates Hypotheseninterface, keine bewiesene Homotopiegruppe.
-- **Univalenz für Ideale** ist optionales Axiom/Feld, kein Lean-Theorem.
+- **Univalenz für Ideale** (`IdealUnivalenceHypothesis`, `IdealUnivalenceAxiom`) ist optionales Zielbild/Marker — kein Voevodsky-Postulat, kein Lean-Theorem; Univalenz = Äquivalenz Identität↔Äquivalenz, nicht bloße Implikation.
 - **HIT-Reparatur** (`defect_repair_path`) ist Modellskizze/Postulat, kein nativer HIT.
 - `IdealPathsAsDH_QuatCells` und `Mod12ToIdealChiralityBridge` sind **offen**.
 - Keine formalen HoTT-Beweise in Standard-Lean behauptet.
