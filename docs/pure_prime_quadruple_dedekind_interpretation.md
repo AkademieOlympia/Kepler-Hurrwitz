@@ -148,13 +148,13 @@ Die Dedekind-Ideal-Schicht E-067–E-069 macht Nichtkommutativität sichtbar:
        links   rechts
 ```
 
-Ein reiner Primzahlvierling ist auf der **Komponentenebene** Dumas-symmetrisch (vier Host-Rollen, je ein Host-Dreier). Auf der **Idealpfadebene** können Links- und Rechtsideale dennoch verschieden sein.
+Ein reiner Primzahlvierling ist auf der **Komponentenebene** Dumas-symmetrisch (vier Host-Rollen, je ein Host-Dreier). Auf der **Idealpfadebene** werden \(H\gamma\) und \(\gamma H\) in der Dedekind-Ideal-Schicht als **chiral unterscheidbare Pfade modelliert** — solange \(\Phi\) offen ist, ohne zu behaupten, dass diese Pfade bereits bewiesen verschieden sind.
 
 | Aussage | Status |
 |---|---|
 | Vier paarweise verschiedene Primkomponenten | definitorisch / getestet |
 | Dumas-Lemma: Host-Dreier = Komplement der Host-Komponente | E-048, bewiesen |
-| Links- und Rechtsidealpfade können verschieden sein | Dedekind-Ideal-Schicht |
+| Links- und Rechtsidealpfade als chiral unterscheidbare Pfade modelliert (falls \(\Phi\) offen) | Dedekind-Ideal-Schicht |
 | mod-12-Kanalabdeckung erklärt Idealchiralität vollständig | offen |
 | Kanal \(\Rightarrow\) Idealchiralität | Hypothesenbrücke, nicht bewiesen |
 
@@ -215,7 +215,7 @@ Für reine Primzahlvierlinge:
 | \(M(n(v))\) via `eabc_mass(quat_norm(v))` | arithmetische Signaturkonvention `[B]` |
 | \(M(P(v))=4\), \(H(P(v))=(1,1,1,1)\) typisch | empirisch / getestet auf Witnessen |
 | Echter Vierling vs. achsenausgerichtetes \((p,0,0,0)\) | Export-/Modellkonvention |
-| \(v\) erzeugt links/rechts Hauptideal in konkreter Ordnung | nur nach \(\Phi\) sinnvoll |
+| Ein Bild \(\Phi(v)=\gamma\) würde links/rechts Hauptideal-Kandidaten \(H\gamma\) und \(\gamma H\) erzeugen | nur nach \(\Phi\) sinnvoll |
 | Dumas Host-Dreier / Gap kodiert Host | E-048, bewiesen |
 | mod-12-Kanal erklärt Idealchiralität | offen |
 | Dedekind-Hasse erklärt EABC-Masse auf Norm | nicht behauptet |

@@ -110,7 +110,7 @@ Die Dedekind-Ideal-Schicht E-067–E-069 ist gerade deshalb interessant, weil si
        links   rechts
 ```
 
-Selbst wenn \(\gamma\) auf der EABC-Seite „rein“ ist, also nur einen Kanal trägt, können die zugehörigen Links- und Rechtsidealpfade unterschiedlich sein.
+Selbst wenn \(\gamma\) auf der EABC-Seite „rein“ ist, also nur einen Kanal trägt, werden \(H\gamma\) und \(\gamma H\) in der Dedekind-Ideal-Schicht als **chiral unterscheidbare Pfade modelliert** — solange \(\Phi\) offen ist, ohne zu behaupten, dass diese Pfade bereits bewiesen verschieden sind.
 
 Das ist der zentrale Punkt:
 
@@ -129,7 +129,7 @@ Präzise gesagt:
 | Aussage | Status |
 |---|---|
 | Reines \(p\) hat genau einen EABC-Kanal | definitorisch / getestet |
-| Links- und Rechtsidealpfade können verschieden sein | Dedekind-Ideal-Schicht |
+| Links- und Rechtsidealpfade als chiral unterscheidbare Pfade modelliert (falls \(\Phi\) offen) | Dedekind-Ideal-Schicht |
 | Diese Verschiedenheit erklärt die mod-12-Kanäle vollständig | offen |
 | mod-12-Kanal \(\Rightarrow\) Idealchiralität | Hypothesenbrücke, nicht bewiesen |
 
@@ -219,8 +219,8 @@ Für reine EABC-Primzahlen bedeutet das:
 | \(p>3\), \(p \equiv 1,5,7,11 \pmod{12}\) hat genau einen EABC-Kanal | definitorisch / E-072 |
 | \(M(p)=1\) für reine Prim-EABC-Quaternionen | arithmetische Signaturkonvention |
 | Achsenausrichtung in der CSV | Export-/Modellkonvention |
-| \(p\) erzeugt links/rechts ein Hauptideal in einer konkreten Ordnung | nur nach gewählter Einbettung \(\Phi\) sinnvoll |
-| Links-/Rechtsidealpfade unterscheiden sich | Dedekind-Ideal-/Chiralitätsschicht |
+| Ein Bild \(\Phi(p)=\gamma\) würde links/rechts Hauptideal-Kandidaten \(H\gamma\) und \(\gamma H\) erzeugen | nur nach gewählter Einbettung \(\Phi\) sinnvoll |
+| Links-/Rechtsidealpfade als chiral unterscheidbare Pfade modelliert (falls \(\Phi\) offen) | Dedekind-Ideal-/Chiralitätsschicht |
 | mod-12-Kanal erklärt Idealchiralität | offen |
 | Dedekind-Hasse erklärt EABC-Masse | nicht behauptet |
 | Unit-Migration als Pfad | E-073, konzeptionell `[C]` |
@@ -251,19 +251,23 @@ Die HoTT-Schicht ist die konzeptionelle Identitätsebene:
 Kurz gesagt:
 
 \[
-M(p)=1
+M(p)=1 \;\Rightarrow\; \text{EABC-Atom},
 \]
 
-heißt: arithmetisch ein EABC-Atom.
+aber **nicht automatisch**
 
-Idealtheoretisch heißt es vorsichtig: ein natürlicher Kandidat für einen einfachen Hauptideal-Generator.
+\[
+p = \text{Quaternionen-Primelement oder Primidealgenerator}.
+\]
+
+Erst nach expliziter Brücke
+
+\[
+\Phi : \text{EABC-Kanalstruktur} \longrightarrow \text{Quaternionenordnung / Idealpfade}
+\]
+
+wird aus einem EABC-Atom ein Bild \(\Phi(p)=\gamma\) mit Hauptideal-Kandidaten \(H\gamma\) und \(\gamma H\) — nicht davor.
 
 Nicht behauptet wird: dass daraus bereits ein bewiesenes Primideal, eine vollständige Idealklassenerklärung oder eine HoTT-Topologie folgt.
 
-Die wichtigste offene Brücke bleibt daher:
-
-\[
-\Phi : \text{EABC-Kanalstruktur} \longrightarrow \text{Quaternionenordnung / Idealpfade}.
-\]
-
-Erst mit einer solchen Abbildung kann aus der Parallelität zwischen EABC-Masse und Dedekind-Idealtheorie eine echte deduktive Verbindung werden.
+**Ohne \(\Phi\) bleibt der Zusammenhang methodisch, nicht deduktiv.**
