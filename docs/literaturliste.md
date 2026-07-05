@@ -65,10 +65,11 @@ Sie ist thematisch gruppiert und kann direkt fuer Doku, Notizen und Paper-Entwue
 
 ## F. Geometrische Primdarstellungen / Spektrale Perspektiven
 
-11. Kolossvary, I.  
-    **The Prime Grid. Introducing a geometric representation of natural numbers**  
-    arXiv:1711.02903  
+11. Kolossvary, I.
+    **The Prime Grid. Introducing a geometric representation of natural numbers**
+    arXiv:1711.02903
     Link: <https://arxiv.org/abs/1711.02903>
+    Repo: [`docs/mathematische_texte/kolossvary_the_prime_grid.pdf`](mathematische_texte/kolossvary_the_prime_grid.pdf) (E-075)
 
 12. (aktuelle Spektralperspektive)  
     **Spectral Geometry of the Primes**  
@@ -77,9 +78,10 @@ Sie ist thematisch gruppiert und kann direkt fuer Doku, Notizen und Paper-Entwue
 
 ## G. Kepler / Kegelschnitt-Hintergrund
 
-13. Givental, A.  
-    **Kepler's laws and conic sections**  
+13. Givental, A.
+    **Kepler's laws and conic sections**
     Link: <https://sumizdat.com/homepage/kepler_091615.pdf>
+    Repo: [`docs/mathematische_texte/givental_kepler_laws_conic_sections.pdf`](mathematische_texte/givental_kepler_laws_conic_sections.pdf) (E-075)
 
 14. Montgomery, R.  
     **The Kepler Cone, Maclaurin Duality and Jacobi-Maupertuis metrics**  
@@ -88,7 +90,15 @@ Sie ist thematisch gruppiert und kann direkt fuer Doku, Notizen und Paper-Entwue
 
 ## H. Interne PDFs (Mathematische Texte)
 
-Quelle: `Desktop/Mathematische Texte`
+Quelle: `Desktop/Mathematische Texte` — versionierte Repo-Kopien unter [`docs/mathematische_texte/`](mathematische_texte/README.md)
+
+25. **kolossvary_the_prime_grid.pdf** (Kolossváry, *The Prime Grid*)
+    Repo: [`docs/mathematische_texte/kolossvary_the_prime_grid.pdf`](mathematische_texte/kolossvary_the_prime_grid.pdf)
+    arXiv:1711.02903 · Evidenz E-075
+
+26. **givental_kepler_laws_conic_sections.pdf** (Givental, *Kepler's laws and conic sections*)
+    Repo: [`docs/mathematische_texte/givental_kepler_laws_conic_sections.pdf`](mathematische_texte/givental_kepler_laws_conic_sections.pdf)
+    Extern: <https://sumizdat.com/homepage/kepler_091615.pdf> · Evidenz E-075
 
 15. **collatz_quantum_paper.pdf**  
     Lokal: `Desktop/Mathematische Texte/collatz_quantum_paper.pdf`

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-07-03",
+  "updated_at": "2026-07-05",
   "id_notes": {
     "musketiere_lean_labels": "E-033/E-034 in PrimvierlingSymmetry.lean map to register entries E-046/E-047",
     "energiedoku_e033_e034": "Register E-033/E-034 remain Kepler time bridge and Riemann resonance"
@@ -983,6 +983,23 @@
       "last_reviewed": "2026-07-03",
       "upgrade_status": "pre",
       "defensive_scope": "No classification theorem; scalar E-044 negative result preserved; signed orbit classes do not separate N=4,6,8 under G_5-code."
+    },
+    {
+      "id": "E-075",
+      "title": "Prime Grid / Signaturgeometrie natuerlicher Zahlen",
+      "level": "B/C",
+      "aclass": null,
+      "source": "docs/mathematische_texte/kolossvary_the_prime_grid.pdf, docs/energiedoku_exports/e075_prime_grid_signaturgeometrie.md",
+      "depends_on": [],
+      "supports": [
+        "E-018"
+      ],
+      "scope": "Prime Grid-Signatur i_N=(i_p)_p; EABC-Bruecke M(n), mod-12-Kanalpartition, Prim-Stream; Hamming/smooth via Omega(N); Kepler-Givental methodische Parallele",
+      "metric_or_result": "[B]: ||i_N||_1=Omega(N), ||i_N||_inf=max i_p; [C]: externe Resonanz zu EABC, Dedekind-Idealen, HoTT, Renormalisierung — ohne Beweisanspruch",
+      "status": "dokumentiert",
+      "stability": "stable",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Prime Grid beweist nicht EABC, Dedekind-Hasse, HoTT, Renormalisierung, RH oder verwandte offene Programme."
     }
   ]
 }

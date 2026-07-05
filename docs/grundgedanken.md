@@ -93,6 +93,8 @@ R_v(n)=\frac{1+e(n)}{1-e(n)}
 n \longmapsto \mathcal H(n) \longmapsto \mathcal C(n) \longmapsto \kappa_{\mathrm{Kepler}}(n).
 \]
 
+Methodische Einordnung (Lift → Schnitt → Projektion; **kein** Identitätsclaim Quaternionen = Keplerellipsen): [`lift_projection_principle.md`](lift_projection_principle.md).
+
 Jede Zahl bestimmt damit:
 - eine orientierte Hurwitz-Signatur,
 - einen arithmetischen Kegelschnitt,

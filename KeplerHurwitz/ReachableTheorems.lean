@@ -9,6 +9,8 @@ import KeplerHurwitz.CollatzProofAttemptV22
 import KeplerHurwitz.CollatzProofAttemptV23
 import KeplerHurwitz.CollatzProofAttemptV24
 import KeplerHurwitz.CollatzProofAttemptV25
+import KeplerHurwitz.CollatzProofAttemptV26
+import KeplerHurwitz.CollatzProofAttemptV27
 import KeplerHurwitz.Representation.Invariant
 import KeplerHurwitz.Representation.EABCChronology
 import KeplerHurwitz.SchuettePtolemyCaeda
@@ -283,6 +285,85 @@ V2.5: Status-Buendel des Collatz-Beweisversuchs (lokal bewiesen, global offen).
 theorem reachable_collatz_proof_attempt_status :
     CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatus := by
   exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status
+
+/--
+V2.6: Zwei `collatzStep`-Schritte entsprechen einem `T_odd`-Schritt (ungerade Startwerte).
+-/
+theorem reachable_collatz_two_steps_eq_T_odd
+    {n : Nat}
+    (ho : n % 2 = 1) :
+    (collatzStep^[2]) n = CollatzAttemptV2.T_odd n := by
+  exact CollatzAttemptV2.CollatzBridge.collatz_two_steps_eq_T_odd ho
+
+/--
+V2.6: Aus `mod 4 = 3` erreicht eine endliche `collatzStep`-Iteration den Good-Branch `mod 4 = 1`.
+Lokal only — kein globaler Wertabstieg.
+-/
+theorem reachable_collatz_mod4_three_eventually_mod4_one
+    {n : Nat}
+    (hmod : n % 4 = 3) :
+    ∃ t, (collatzStep^[t]) n % 4 = 1 := by
+  exact CollatzAttemptV2.ProofAttempt.mod4_three_eventually_mod4_one hmod
+
+/--
+V2.6: Erweitertes Status-Buendel inkl. collatzStep-Bruecke (global weiterhin offen).
+-/
+theorem reachable_collatz_proof_attempt_status_v26 :
+    CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV26 := by
+  exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v26
+
+/--
+V2.7: Good-Branch `mod 4 = 1` liefert strikten `collatzStep`-Abstieg in drei Schritten.
+-/
+theorem reachable_collatz_good_branch_collatz_local_shrink
+    {n : Nat}
+    (hn : 1 < n)
+    (hmod : n % 4 = 1) :
+    (collatzStep^[3]) n < n := by
+  exact CollatzAttemptV2.CollatzNetDescent.good_branch_collatz_local_shrink hn hmod
+
+/--
+V2.7 `[A]`: Net-Descent-Zeuge liefert echten `collatzStep`-Abstieg fuer `mod 4 = 3`.
+-/
+theorem reachable_collatz_mod4_three_descends_from_net_descent_witness
+    {n : Nat}
+    (hmod : n % 4 = 3)
+    (w : CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentWitness n) :
+    ∃ t, (collatzStep^[t]) n < n := by
+  exact
+    CollatzAttemptV2.CollatzNetDescent.mod4_three_descends_from_net_descent_witness hmod w
+
+/--
+V2.7: V2.6-Good-Branch-Eintritt als Zeugenstruktur (ohne Netto-Shrink).
+-/
+theorem reachable_collatz_bad_run_good_branch_entry_of_mod4_three
+    {n : Nat}
+    (hmod : n % 4 = 3) :
+    Nonempty (CollatzAttemptV2.CollatzNetDescent.BadRunGoodBranchEntryWitness n) := by
+  exact ⟨CollatzAttemptV2.ProofAttempt.bad_run_good_branch_entry_of_mod4_three hmod⟩
+
+/--
+V2.7 `[A]`: Net-Descent-Zeugen schliessen den offenen `mod 4 = 3`-Abstieg.
+-/
+theorem reachable_collatz_mod4_three_eventually_descends_of_net_descent
+    (h : CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentStatement) :
+    CollatzAttemptV2.ProofAttempt.Mod4ThreeEventuallyDescendsStatement := by
+  exact CollatzAttemptV2.CollatzNetDescent.mod4_three_eventually_descends_of_net_descent h
+
+/--
+V2.7 `[A]`: Net-Descent-Zeugen schliessen `CollatzAttemptV2OpenCase`.
+-/
+theorem reachable_collatz_open_case_of_net_descent
+    (h : CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentStatement) :
+    CollatzAttemptV2OpenCase := by
+  exact CollatzAttemptV2.CollatzNetDescent.bad_run_net_descent_implies_collatz_open_case h
+
+/--
+V2.7: Erweitertes Status-Buendel inkl. Net-Descent-Kompositionsschicht.
+-/
+theorem reachable_collatz_proof_attempt_status_v27 :
+    CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV27 := by
+  exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v27
 
 /--
 Darstellungstheorie: Schnitt-Invarianz ist erreichbar.
