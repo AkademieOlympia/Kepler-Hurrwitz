@@ -1,8 +1,8 @@
 # Collatz — kanonische e³-Zerlegung (`n = e * a`)
 
-**Governance:** Algebraische Identität **`[A]`** (Lean) · Python-Diagnostic **`[B]`** · Collatz-Bridge **`[C]`** (spekulativ, offen)
+**Governance:** Algebraische Identität **`[A]`** (Lean) · Python-Diagnostic **`[B]`** · Collatz-Bridge / Physik-Analogie **`[C]`** (spekulativ, offen)
 
-**Lean:** `KeplerHurwitz/E3Decomposition.lean`  
+**Lean:** `KeplerHurwitz/E3Decomposition.lean` (Lemma 1 + Lemma 2)  
 **Python:** `src/kepler_hurwitz/e3_decomposition.py`  
 **Tests:** `tests/test_e3_decomposition.py`
 
@@ -29,8 +29,8 @@ Die Identität folgt allein aus `a = q * e² + r` und ist in Lean als `e3_decomp
 | Ebene | Inhalt | Status |
 |---|---|---|
 | **`[A]`** | `e3_decomposition_identity`: für alle `e > 0`, `a` gilt `e * a = (a/e²)*e³ + (a%e²)*e` | geschlossen in Lean |
-| **`[B]`** | `analyze_e3_decomposition`, Trajektorien-Stichproben, Restklassen-Histogramme | empirisch, kein Beweis |
-| **`[C]`** | Brücke zu Collatz nur unter Spezialfaktorisierung `n = e * a` mit EABC-Kanal `e` und „Prime“-Faktor `a` | **offen / spekulativ** |
+| **`[B]`** | `analyze_e3_decomposition`, `verify_abc_split`, Trajektorien-Stichproben | empirisch, kein Beweis |
+| **`[C]`** | Collatz-Bridge unter Spezialfaktorisierung; Fine-Structure-Analogie für `q*e³` / `b*c*e` | **offen / spekulativ / Lesesprache** |
 
 ---
 
@@ -86,3 +86,83 @@ Es gibt **keinen** bestehenden Lean-Satz, der die e³-Zerlegung mit `reachable_c
 | `e3_decomposition_identity` | `0 < e → e * a = (a/e²)*e³ + (a%e²)*e` |
 | `E3Decomposition` | Struktur mit Feldern `q`, `r`, `hdecomp` |
 | `e3DecompositionOfPos` | Konstruktor unter `0 < e` |
+
+---
+
+## Lemma 2 — Produktzerlegung des Restkanals (`r = b * c`)
+
+**Aus Lemma 1:** `n = e * a`, `a = q * e² + r` mit `q = a / e²`, `r = a % e²`, `0 ≤ r < e²`.
+
+**Wenn zusätzlich** `r = b * c` für natürliche `b`, `c`:
+
+| Form | Ausdruck |
+|---|---|
+| Zerlegung | `n = q * e³ + b * c * e` |
+| Schranke | `b * c < e²` (aus `r < e²`) |
+
+**Beispiel:** `a = 17`, `e = 3` → `q = 1`, `r = 8 = 2 * 4` (oder `1 * 8`) → `n = 51 = 1 * 27 + 2 * 4 * 3`.
+
+### Beweisskizze `[A]`
+
+1. Aus Lemma 1: `e * a = q * e³ + r * e`.
+2. Setze `r = b * c`: `e * a = q * e³ + b * c * e`. ∎
+3. Schranke: `r < e²` und `r = b * c` ⇒ `b * c < e²`. ∎
+
+```
+Lemma 1:  n = e*a = q*e³ + r*e     (r = a % e²)
+Lemma 2:  r = b*c  ──►  n = q*e³ + b*c*e     (b*c < e²)
+          │                    │
+          │                    └── Störterm / Restkanal-Produkt
+          └── q*e³ = Hauptterm (modulo e² auf a)
+```
+
+### Lean-Sätze (Lemma 2)
+
+| Name | Aussage |
+|---|---|
+| `e3_product_decomposition` | `a = q*e² + r`, `r = b*c` → `e*a = q*e³ + b*c*e` |
+| `e3_product_bound` | `r = b*c`, `r < e²` → `b*c < e²` |
+| `E3ProductSplit` | Struktur mit `q`, `b`, `c`, Identität und Schranke |
+| `e3ProductSplitOfPos` | Konstruktor unter `0 < e` und `a % e² = b*c` |
+
+### Python-Diagnostic `[B]`
+
+| Funktion | Rolle |
+|---|---|
+| `abc_split_decomposition` | Liefert Split-Form `n = q*e³ + b*c*e` |
+| `verify_abc_split` | Prüft `r = b*c`, gibt `n`, `q`, Validität zurück |
+| `analyze_e3_with_product_split` | Lemma 1 + Lemma 2 mit `case_type` |
+
+---
+
+## Physikalische Analogie — Fine Structure / Hyperfine `[C]`
+
+> **Governance (verbindlich):** Dies ist **Lesesprache / heuristic bridge `[C]`** — **keine** Physik-Identität, **kein** Collatz-Beweis, **kein** EABC-Physik-Claim. Es gelten die Repo-Grenzen aus [`physical_reference_analogies.md`](reports/physical_reference_analogies.md) (E-076) und [`meissner_analogy_assessment.md`](theory/meissner_analogy_assessment.md).
+
+| Leseterm | e³-Split | Analogie (nur `[C]`) |
+|---|---|---|
+| Hauptniveau | `q * e³` | Hauptterm / ungestörte Stufe |
+| Störterm | `b * c * e` | Feinstruktur- / Hyperfein-Aufspaltung des Restkanals |
+
+**EN governance box:** Fine-structure / hyperfine splitting is an **interpretive resonance anchor only**. It does **not** identify EABC with QED spectroscopy, does **not** prove Syracuse quantization, and does **not** imply Collatz termination.
+
+**Explizit nicht behauptet:**
+
+- Keine Identifikation `q*e³` ↔ Spektrallinie oder QED-Niveau
+- Keine Collatz-Termination oder Syracuse-Quantisierung aus `b*c`
+- Kein Upgrade zu `[A]`/`[B]` ohne operationalisierte Metrik und Nullmodell
+- Produkt-Split auf `r` ist **faktorisierungsabhängig** — nicht collatz-invariant
+
+---
+
+## Wirkung auf Collatz-Behauptungen (Lemma 2)
+
+**Kurzantwort:** Lemma 2 **ändert nichts** am Collatz-Beweisstatus — weder Lemma 1 noch die Produktzerlegung `r = b * c` liefern Abstieg, Invarianz oder einen Lean-Pfad zu `collatz_converges`.
+
+Zusätzlich zu den Lemma-1-Einschränkungen:
+
+- Die Wahl `(b, c)` mit `b * c = r` ist **nicht eindeutig** (z. B. `8 = 2*4 = 1*8 = 8*1`).
+- Kein Bezug zu `3n+1`, `ν₂(3n+1)` oder mod-8-Witnesses.
+- Die Fine-Structure-Analogie bleibt **`[C]`** und darf nicht als physikalische oder beweistechnische Stütze gelesen werden.
+
+**Fazit Lemma 2:** Orthogonale Notations-/Diagnostikschicht — **null Collatz-Konsequenz**.

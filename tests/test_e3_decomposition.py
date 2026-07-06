@@ -6,8 +6,12 @@ import pytest
 
 from kepler_hurwitz.e3_decomposition import (
     E3_DECOMPOSITION_TAG,
+    E3_PRODUCT_ANALOGY_TAG,
+    abc_split_decomposition,
     analyze_e3_decomposition,
+    analyze_e3_with_product_split,
     e3_decompose,
+    verify_abc_split,
     verify_e3_identity,
 )
 
@@ -66,3 +70,66 @@ class TestAnalyzeE3Decomposition:
         assert result["q"] == 0
         assert result["q_is_zero"] is True
         assert result["identity_holds"] is True
+
+
+class TestAbcProductSplit:
+    @pytest.mark.parametrize(
+        ("a", "e", "b", "c"),
+        [
+            (17, 3, 2, 4),
+            (17, 3, 1, 8),
+            (17, 3, 8, 1),
+        ],
+    )
+    def test_valid_split_examples(self, a: int, e: int, b: int, c: int) -> None:
+        q, r, n = e3_decompose(a, e)
+        assert r == b * c
+        result = verify_abc_split(a, e, b, c)
+        assert result["valid"] is True
+        assert result["q"] == q
+        assert result["n"] == n
+        assert result["rest_matches_product"] is True
+        assert result["split_holds"] is True
+        assert result["product_below_e2"] is True
+
+    def test_abc_split_decomposition_identity(self) -> None:
+        result = abc_split_decomposition(17, 3, 2, 4)
+        assert result["rest_matches_product"] is True
+        assert result["split_holds"] is True
+        assert result["n"] == 51
+        assert result["q"] == 1
+        assert result["product"] == 8
+        assert "1*27 + 2*4*3" in result["split_identity"]
+
+    def test_product_bound_below_e_squared(self) -> None:
+        a, e = 17, 3
+        e2 = e * e
+        for b, c in ((2, 4), (1, 8)):
+            result = verify_abc_split(a, e, b, c)
+            assert result["product"] < e2
+            assert result["product_below_e2"] is True
+
+    def test_invalid_when_rest_not_product(self) -> None:
+        result = verify_abc_split(17, 3, 3, 3)
+        assert result["valid"] is False
+        assert result["rest_matches_product"] is False
+        assert result["split_holds"] is False
+        assert result["product_below_e2"] is None
+
+    def test_analyze_with_product_split_valid(self) -> None:
+        result = analyze_e3_with_product_split(17, 3, 2, 4)
+        assert result["case_type"] == "valid_product_split"
+        assert result["split_holds"] is True
+        assert result["analogy_governance"] == E3_PRODUCT_ANALOGY_TAG
+        assert result["analogy_governance"] == "[C]"
+
+    def test_analyze_with_product_split_invalid(self) -> None:
+        result = analyze_e3_with_product_split(17, 3, 5, 5)
+        assert result["case_type"] == "invalid_rest_product"
+        assert result["rest_matches_product"] is False
+        assert result["split_holds"] is False
+
+    def test_governance_tags(self) -> None:
+        result = verify_abc_split(17, 3, 2, 4)
+        assert result["governance"] == E3_DECOMPOSITION_TAG
+        assert result["analogy_governance"] == "[C]"
