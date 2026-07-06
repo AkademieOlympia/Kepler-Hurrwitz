@@ -1,0 +1,14 @@
+{
+  "limit": 1000000,
+  "records": 166,
+  "cycles": 1,
+  "all_phase_closed": true,
+  "all_vortex_winding_one": true,
+  "all_trivial_winding_zero": true,
+  "all_encircles_defect": true,
+  "all_pop_threshold_four": true,
+  "elapsed_seconds": 0.02455529198050499,
+  "status": "B",
+  "claim": "combinatorial circulation diagnostic only",
+  "tag": "[B]"
+}

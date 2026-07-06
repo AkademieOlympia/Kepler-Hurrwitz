@@ -31,6 +31,7 @@ import KeplerHurwitz.Nu2Bounds
 import KeplerHurwitz.OddCore
 import KeplerHurwitz.OddCoreDynamics
 import KeplerHurwitz.OctonionicSlice
+import KeplerHurwitz.OnsagerGapRotorCertificate
 import KeplerHurwitz.PhotonModel
 import KeplerHurwitz.PhotonKeplerShift
 import KeplerHurwitz.DumasIntertwiningBridge
