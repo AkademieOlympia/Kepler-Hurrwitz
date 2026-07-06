@@ -115,6 +115,54 @@ theorem Mod4ThreeInputChannel.ofMod8_eq_ch7
   have hnot : n % 8 ≠ 3 := by omega
   simp [hnot, h8]
 
+/-!
+### Channel `3` arithmetic (`n % 8 = 3`)
+
+`T_odd n` is the minimal good-branch odd (`≡ 1 mod 4`) reachable in two `collatzStep`s.
+The canonical three-step good-branch shrink value `(3·T_odd n+1)/4` still exceeds `n` by `k+1`
+when `n = 8k+3`; net descent needs a longer `local_shrink_time`.
+-/
+
+/--
+`[A]` Input channel `n % 8 = 3`: the first Syracuse odd strictly exceeds the start.
+-/
+theorem T_odd_gt_of_mod8_eq_three
+    {n : Nat} (h8 : n % 8 = 3) :
+    n < T_odd n := by
+  rcases exists_eq_eight_mul_add_three_of_mod8_eq_three h8 with ⟨k, rfl⟩
+  rw [T_odd_of_eight_mul_add_three]
+  omega
+
+/--
+`[A]` Closed form for the canonical good-branch shrink value at `T_odd n`.
+-/
+theorem three_step_shrink_value_of_mod8_eq_three
+    {n : Nat} (h8 : n % 8 = 3) :
+    ∃ k, n = 8 * k + 3 ∧ (3 * T_odd n + 1) / 4 = 9 * k + 4 := by
+  rcases exists_eq_eight_mul_add_three_of_mod8_eq_three h8 with ⟨k, rfl⟩
+  refine ⟨k, rfl, ?_⟩
+  rw [T_odd_of_eight_mul_add_three]
+  omega
+
+/--
+`[A]` Canonical three-step good-branch shrink stays above the original start.
+Gap: `(3·T_odd n+1)/4 - n = k+1` when `n = 8k+3`.
+-/
+theorem three_step_shrink_gt_start_of_mod8_eq_three
+    {n : Nat} (h8 : n % 8 = 3) :
+    n < (3 * T_odd n + 1) / 4 := by
+  rcases three_step_shrink_value_of_mod8_eq_three h8 with ⟨k, rfl, hval⟩
+  rw [hval]
+  omega
+
+/--
+`[A]` Channel `3` always lands in the good `mod 4 = 1` branch after one `T_odd` step.
+-/
+theorem channel_three_T_odd_mod4_eq_one
+    {n : Nat} (h8 : n % 8 = 3) :
+    T_odd n % 4 = 1 :=
+  T_odd_mod4_eq_one_of_mod8_eq_three h8
+
 end CollatzNetDescentMod8
 end CollatzAttemptV2
 

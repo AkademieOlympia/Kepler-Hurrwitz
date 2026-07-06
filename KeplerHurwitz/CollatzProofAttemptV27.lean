@@ -166,6 +166,7 @@ namespace CollatzNetDescentMod8Witness
 open CollatzNetDescent
 open CollatzNetDescentMod8
 open CollatzBridge
+open ExitClasses
 
 /-!
 Mod-8 stratified packaging for `BadRunNetDescentWitness`.
@@ -193,7 +194,83 @@ def BadRunNetDescentWitnessMod8.toWitness
   w.toBadRunNetDescentWitness
 
 /--
+`[A]` Channel `3`: two `collatzStep`s reach the minimal good-branch odd `T_odd n`.
+-/
+theorem channel_three_minimal_good_branch_reach
+    {n : Nat} (h8 : n % 8 = 3) :
+    (collatzStep^[2]) n = T_odd n ∧ T_odd n % 4 = 1 := by
+  have ho : n % 2 = 1 := by omega
+  exact ⟨collatz_two_steps_eq_T_odd ho, channel_three_T_odd_mod4_eq_one h8⟩
+
+/--
+`[A]` Channel `3`: V2.6 good-branch entry witness at the minimal time `t_good = 2`.
+-/
+noncomputable def channel_three_good_branch_entry_witness
+    {n : Nat} (h8 : n % 8 = 3) :
+    BadRunGoodBranchEntryWitness n :=
+  BadRunGoodBranchEntryWitness.ofMod4Three 2 (T_odd n)
+    (collatz_two_steps_eq_T_odd (by omega : n % 2 = 1))
+    (channel_three_T_odd_mod4_eq_one h8)
+
+/--
+`[A]` Channel `3`: three `collatzStep`s on `T_odd n` equal the canonical good-branch shrink.
+-/
+theorem collatz_three_steps_at_channel_three_T_odd
+    {n : Nat} (h8 : n % 8 = 3) :
+    (collatzStep^[3]) (T_odd n) = (3 * T_odd n + 1) / 4 := by
+  have hgood := channel_three_T_odd_mod4_eq_one h8
+  have ho : (T_odd n) % 2 = 1 := by omega
+  rw [collatz_three_steps_eq_T_v2_mod4_one ho hgood]
+  simp [T_v2, hgood]
+
+/--
+`[A]` Channel `3`: canonical three-step local shrink below `T_odd n` (not yet below `n`).
+-/
+theorem channel_three_collatz_local_shrink_at_T_odd
+    {n : Nat} (hn : 1 < n) (h8 : n % 8 = 3) :
+    (collatzStep^[3]) (T_odd n) < T_odd n := by
+  have hgood := channel_three_T_odd_mod4_eq_one h8
+  have ho : (T_odd n) % 2 = 1 := by omega
+  have hlt : 1 < T_odd n := one_lt_T_odd_of_mod8_eq_three hn h8
+  rw [collatz_three_steps_eq_T_v2_mod4_one ho hgood]
+  simp [T_v2, hgood]
+  exact three_mul_add_one_quarter_lt_of_mod4_eq_one hlt hgood
+
+/--
+`[A]` Channel `3`: canonical three-step shrink does **not** yet beat the start value.
+Quantitative gap `k+1` when `n = 8k+3` (see `three_step_shrink_gt_start_of_mod8_eq_three`).
+-/
+theorem channel_three_canonical_local_shrink_fails_net
+    {n : Nat} (h8 : n % 8 = 3) :
+    n ≤ (collatzStep^[3]) (T_odd n) := by
+  have hgt := three_step_shrink_gt_start_of_mod8_eq_three h8
+  rw [collatz_three_steps_at_channel_three_T_odd h8]
+  exact le_of_lt hgt
+
+/--
+`[A]` Reduction: channel-`3` net-descent witness from any `local_shrink_time` beating `n`.
+-/
+noncomputable def bad_run_net_descent_witness_mod8_channel_three_of_local_shrink
+    {n : Nat} (h8 : n % 8 = 3)
+    (t_loc : Nat)
+    (hnet : (collatzStep^[t_loc]) (T_odd n) < n) :
+    BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3 where
+  toBadRunNetDescentWitness :=
+    BadRunNetDescentWitness.ofGoodBranchEntry
+      (channel_three_good_branch_entry_witness h8) t_loc hnet
+  input_mod8 := h8
+
+theorem bad_run_net_descent_witness_mod8_channel_three_of_local_shrink_nonempty
+    {n : Nat} (h8 : n % 8 = 3)
+    (t_loc : Nat)
+    (hnet : (collatzStep^[t_loc]) (T_odd n) < n) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3) :=
+  ⟨bad_run_net_descent_witness_mod8_channel_three_of_local_shrink h8 t_loc hnet⟩
+
+/--
 `[C]` Open core — input channel `n % 8 = 3` (good-branch entry at `T_odd n % 4 = 1`).
+Partial progress: minimal entry and canonical shrink are `[A]`; uniform `t_loc` with
+`(collatzStep^[t_loc]) (T_odd n) < n` remains open (canonical `t_loc = 3` fails by `k+1`).
 Intended proof: 2-adic budget contradiction for bad runs without net descent.
 -/
 theorem bad_run_net_descent_witness_mod8_channel_three

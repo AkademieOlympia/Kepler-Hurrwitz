@@ -84,6 +84,19 @@ Für `n ≡ 3 (mod 4)` mit `n = 4k+3`: `3n+1 = 2(6k+5)`, also **`ν₂(3n+1) = 1
 
 **Beweisachse (Zielbild, nicht behauptet):** Bad Run ohne Netto-Abstieg → inkompatible 2-adische Tiefenbudgets entlang der Tail-Kette → Widerspruch. Die mod-8-Kanäle trennen den Good-Branch-Einstieg (`% 8 = 3` ⇒ `T_odd % 4 = 1`) vom Bad-Run-Tail (`% 8 = 7` ⇒ `T_odd % 4 = 3`).
 
+### Kanal `3` — partieller Fortschritt (`[A]`)
+
+Für `n = 8k+3`:
+
+| Größe | Formel |
+|---|---|
+| `T_odd n` | `12k+5` (strikt über `n`, `T_odd_gt_of_mod8_eq_three`) |
+| Minimaler Good-Branch-Eintritt | `t_good = 2`, `m_good = T_odd n` (`channel_three_good_branch_entry_witness`) |
+| Kanonischer 3-Schritt-Shrink | `(collatzStep^[3]) (T_odd n) = 9k+4` |
+| Netto-Lücke bei `t_loc = 3` | `(collatzStep^[3]) (T_odd n) - n = k+1 > 0` — **kein** sofortiger Netto-Abstieg |
+
+**`[A]` Reduktion:** `bad_run_net_descent_witness_mod8_channel_three_of_local_shrink` — sobald ein uniformes `t_loc` mit `(collatzStep^[t_loc]) (T_odd n) < n` verfügbar ist, folgt der volle Witness. Offen bleibt die Existenz eines **uniformen** solchen `t_loc` (kanonisch `3` reicht nicht).
+
 ### Skeleton-Map `[A]` vs `[C]`
 
 | Name | Status |
@@ -95,7 +108,15 @@ Für `n ≡ 3 (mod 4)` mit `n = 4k+3`: `3n+1 = 2(6k+5)`, also **`ν₂(3n+1) = 1
 | `first_syracuse_mod8_subcases_of_mod4_eq_three` | **`[A]`** |
 | `T_odd_mod8_one_or_five_of_mod8_eq_three` | **`[A]`** |
 | `T_odd_mod8_three_or_seven_of_mod8_eq_seven` | **`[A]`** |
+| `T_odd_gt_of_mod8_eq_three` | **`[A]`** |
+| `three_step_shrink_value_of_mod8_eq_three` | **`[A]`** |
+| `three_step_shrink_gt_start_of_mod8_eq_three` | **`[A]`** |
+| `channel_three_T_odd_mod4_eq_one` | **`[A]`** |
 | `BadRunNetDescentWitnessMod8` | **`[A]`** Struktur |
+| `channel_three_good_branch_entry_witness` | **`[A]`** minimal `t_good = 2` |
+| `channel_three_collatz_local_shrink_at_T_odd` | **`[A]`** shrink `< T_odd n`, not `< n` |
+| `channel_three_canonical_local_shrink_fails_net` | **`[A]`** kanonischer 3-Schritt-Shrink `≥ n` |
+| `bad_run_net_descent_witness_mod8_channel_three_of_local_shrink` | **`[A]`** Reduktion auf `t_loc` |
 | `bad_run_net_descent_witness_of_mod8_channel` | **`[A]`** Assembly |
 | `bad_run_net_descent_statement_mod8_of_plain` / `_of_mod8` | **`[A]`** Äquivalenz-Reduktion |
 | `bad_run_net_descent_witness_mod8_channel_three` | **`[C]`** (`sorry`) |

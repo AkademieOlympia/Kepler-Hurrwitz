@@ -507,5 +507,21 @@ theorem reachable_first_syracuse_mod8_subcases_of_mod4_eq_three
         (CollatzAttemptV2.T_odd n % 8 = 3 ∨ CollatzAttemptV2.T_odd n % 8 = 7)) := by
   exact CollatzAttemptV2.CollatzNetDescentMod8.first_syracuse_mod8_subcases_of_mod4_eq_three ho hmod
 
+/--
+V2.7 mod-8 channel 3: first Syracuse odd strictly exceeds start.
+-/
+theorem reachable_T_odd_gt_of_mod8_eq_three
+    {n : Nat} (h8 : n % 8 = 3) :
+    n < CollatzAttemptV2.T_odd n := by
+  exact CollatzAttemptV2.CollatzNetDescentMod8.T_odd_gt_of_mod8_eq_three h8
+
+/--
+V2.7 mod-8 channel 3: canonical three-step shrink value `9k+4` when `n = 8k+3`.
+-/
+theorem reachable_three_step_shrink_gt_start_of_mod8_eq_three
+    {n : Nat} (h8 : n % 8 = 3) :
+    n < (3 * CollatzAttemptV2.T_odd n + 1) / 4 := by
+  exact CollatzAttemptV2.CollatzNetDescentMod8.three_step_shrink_gt_start_of_mod8_eq_three h8
+
 
 end KeplerHurwitz
