@@ -1,10 +1,12 @@
 # Tao-inspirierte Collatz-Diagnostics (Syracuse / First Passage)
 
-**Governance:** **`[B]`** — numerische Experimente, **kein** Collatz-Beweis, **keine** Formalisierung von Tao (2019).
-
 **Code:** `src/kepler_hurwitz/tao_collatz_diagnostics.py` · **Export:** `examples/run_tao_collatz_diagnostics_export.py`
 
 **Verwandt:** [`collatz_analytical_perspectives.md`](collatz_analytical_perspectives.md) · [`collatz_v2_evidence_chain.md`](collatz_v2_evidence_chain.md) (V2.7)
+
+> **Governance.** This module is **[B] numerical diagnostics only** — Syracuse valuation profiles, first-passage statistics, and Geom(2) marginal comparisons. It does **not** prove the Collatz conjecture, does **not** formalize Tao (2019), and does **not** establish IID Geom(2) structure, Tao-style stabilization, or class-specific density theorems.
+
+> **Governance.** Dieses Modul ist ausschließlich **[B] numerische Diagnostik** — Syracuse-Valuation-Profile, First-Passage-Statistik und Geom(2)-Marginalvergleiche. Es beweist **nicht** die Collatz-Vermutung, formalisiert **nicht** Tao (2019) und etabliert **weder** IID-Geom(2)-Struktur **noch** Tao-Stabilisierung **noch** klassenspezifische Dichtesätze.
 
 ---
 
@@ -52,13 +54,14 @@
 
 ## Tao-Notation (Lesesprache)
 
-Terence Tao (2019) arbeitet mit Collatz-Orbits und Dichte-Aussagen („almost all orbits attain almost bounded values"). Für die numerische Spiegelung in diesem Modul:
+Terence Tao (2019) arbeitet mit Collatz-Orbits und Dichte-Aussagen: Tao zeigt, dass **fast alle Orbits im Sinne der logarithmischen Dichte** irgendwann „fast beschränkte“ Werte erreichen — **logarithmisch fast alle** Startwerte, nicht für alle Startwerte und nicht im Sinne einer vollständigen natürlichen-Dichte- oder Einzelklassen-Aussage. Für die numerische Spiegelung in diesem Modul:
 
 | Symbol | Bedeutung (Modul) | V2.7-Analog |
 |---|---|---|
-| **Col_min** | Minimum der Syracuse-Orbit-Werte bis `max_steps` (`syracuse_orbit_min`) | lokaler Abstieg / Shrink unter Startwert |
-| **T_x** | Erste Passage-Zeit: Syracuse-Schritte bis `n ≤ threshold` (`first_passage_syracuse`) | Zeitschritt bis Witness-Abstieg sichtbar |
-| **Pass_x** | Indikator `hit` — ob Schwellwert innerhalb von `max_steps` erreicht wurde | Existenz eines endlichen Witness-Fensters |
+| **Col_min** | Truncated Col_min/Syr_min-Analog bis `max_steps` (`syracuse_orbit_min` / Export `orbit_min`) | lokaler Abstieg / Shrink unter Startwert (nur endliches Fenster) |
+| **T_x** | Erste Passage-Zeit: Syracuse-Schritte bis `S^t(n) ≤ threshold` (Export `time`) | Zeitschritt bis Witness-Abstieg sichtbar |
+| **Pass_x** | Orbit-Wert an der ersten Passage `S^{T_x(n)}(n)` (Export `location`) | Witness-Lage nach endlichem Abstieg |
+| **hit** | Ob Schwellwert innerhalb von `max_steps` erreicht wurde (Export `hit`) | Existenz eines endlichen Witness-Fensters |
 
 Diese Zuordnung ist **heuristisch** — sie strukturiert Experimente, ersetzt aber weder `BadRunNetDescentWitness` noch Tao's Beweis.
 
@@ -98,9 +101,9 @@ Für ungerades Start-\(n\) und Schritte \(j = 1,\ldots,J\):
 a_j = v_2\bigl(3 \cdot S^{j-1}(n) + 1\bigr)
 \]
 
-Unter der **IID-Heuristik** (nicht bewiesen, **`[C]`**-Lesesprache) verhalten sich die \(a_j\) wie unabhängige \(\mathrm{Geom}(2)\)-Ziehungen auf \(\{1,2,\ldots\}\) mit \(\mathbb{P}(a_j = k) = 2^{-k}\).
+Tao (2019) nutzt eine **Tao-nahe Valuation-Heuristik** für typisch große \(N\) und kurze Fenster \(J \ll \log N\): die \(a_j\) werden **als Referenz** wie \(\mathrm{Geom}(2)\)-Ziehungen auf \(\{1,2,\ldots\}\) mit \(\mathbb{P}(a_j = k) = 2^{-k}\) behandelt — **`[C]`**-Lesesprache, **kein** bewiesenes IID-Modell und **keine** Tao-Stabilisierung.
 
-**Diagnostik:** `geom2_profile_distance` misst die **tail-korrigierte** Total-Variation-Abweichung (L1 auf PMFs, mit `tail_mass = 2^{-max_k}`) eines empirischen Valuation-Histogramms von dieser Geom(2)-Referenz — nützlich zum Vergleich von **aggregierten Marginalen**, **kein** Tao-Theorem und **kein** IID-Nachweis. Für mod-8-Klassen liefert `geom2_collective_profile_distance` die Abweichung auf **gepoolten** Profilen; `positional_geom2_distances` vergleicht Marginalen pro Schrittindex `j`; `lag1_autocorrelation` misst sequenzielle Korrelation (ohne Unabhängigkeitsbeweis).
+**Diagnostik (endlich, `[B]`):** Das Modul misst **finite Marginalen** und einfache Korrelationstests — `geom2_profile_distance` (tail-korrigierte TV-Distanz zu Geom(2)), `positional_geom2_distances` (Marginalen pro Schrittindex `j`), `lag1_autocorrelation`, `pair_distribution_l1_deviation`. Das belegt **weder** IID-Struktur **noch** Tao-Stabilisierung; es vergleicht nur **aggregierte Marginalen** und sequenzielle Abweichungen. Für mod-8-Klassen liefert `geom2_collective_profile_distance` die Abweichung auf **gepoolten** Profilen.
 
 ### Heuristische Brücke zu V2.7 (`[C]`, kein Beweis)
 
@@ -140,8 +143,8 @@ Diese \(3/4\)-Lesart strukturiert den Vergleich mit V2.7 (`BadRunNetDescentWitne
 | `v2(n)` | 2-adische Valuation |
 | `syracuse(n)` | Syracuse-Schritt (ungerade) |
 | `syracuse_valuation_profile(n, steps)` | Profil \((a_j)\) |
-| `syracuse_orbit_min(n, max_steps)` | Col_min-Analog |
-| `first_passage_syracuse(n, threshold, max_steps)` | Pass_x / T_x |
+| `syracuse_orbit_min(n, max_steps)` | Truncated Col_min/Syr_min-Analog bis `max_steps` |
+| `first_passage_syracuse(n, threshold, max_steps)` | `hit`, `time` (= T_x), `location` (= Pass_x) |
 | `geom2_profile_distance(profile_or_counts, max_k=…)` | Tail-korrigierte TV-Distanz zu Geom(2) |
 | `geom2_collective_profile_distance(profiles, max_k=…)` | Gepoolte tail-korrigierte TV-Distanz |
 | `lag1_autocorrelation(values)` | Lag-1-Autokorrelation (Pearson) |
@@ -181,7 +184,7 @@ Collatz-Schritte.
 | Lean Klein | `IsKleinFourClass`, `eSchalenSprung`-Kanaltabelle | `[A]` Typisierung |
 | Lean V2.5 | `padicValNat 2 (n+1)` in Bad Runs (`mod 4 = 3`) | `[A]` Extraktion |
 | Tao-Modul | `v2(3n+1)`, Valuation-Profil, First Passage `T_x` | `[B]` Diagnostik |
-| Tao 2019 | „Almost all“ in **logarithmischer Dichte** | `[C]` extern |
+| Tao 2019 | Fast alle Orbits in **logarithmischer Dichte** („almost bounded“); nicht alle Startwerte, keine Einzelklassen-Aussage | `[C]` extern |
 
 ### Restklassen-Experimente: ja — Beweis pro Klasse: nein
 
@@ -190,10 +193,11 @@ Collatz-Schritte.
 Klasse `1, 3, 5, 7` und liefert Hit-Rate, mittlere Passage-Zeit `T_x` und
 Geom(2)-Profilabstand je Klasse.
 
-**Beweist Tao Collatz auf Klein-Klassen?** Nein. Tao zeigt, dass **fast alle** (im Sinne
-der logarithmischen natürlichen Dichte) Orbits irgendwann „fast beschränkt“ werden — das ist
-**kein** Satz für eine **einzelne** Restklasse, **kein** uniformes `Δ_net > 0` und **kein**
-Ersatz für `BadRunNetDescentWitness` (V2.7, **`[C]` offen**).
+**Beweist Tao Collatz auf Klein-Klassen?** Nein. Tao liefert im hier verwendeten Repo-Kontext
+**keinen separat formalisierten Satz pro einzelner mod-8-Klasse**. Eine stratifizierte
+Auswertung ist numerisch **`[B]`** möglich, aber daraus folgt **kein** klassenspezifischer
+Collatz-Beweis und **kein** uniformes `Δ_net > 0` — **kein** Ersatz für
+`BadRunNetDescentWitness` (V2.7, **`[C]` offen**).
 
 ### Verbindung zu V2.5 / V2.7
 
@@ -218,6 +222,8 @@ Die Klein-Vierergruppe liefert vier **Kanäle** mit fester `(3m+1) mod 8`-Tabell
 Das ist nützlich, um Tao-Diagnostics **stratifiziert** auszuwerten — **nicht**, um aus
 „vier gleichberechtigten Klassen“ einen Collatz-Beweis zu konstruieren. Der Beweiskern
 bleibt mod-4-getrieben (Good/Bad-Branch); mod-8 verfeinert die Schalenkanal-Typisierung.
+Optional: `klein_bifurcation_nullmodel.py` vergleicht **[B]** Klein-V₄-Nachbar-Bifurkation
+mit echten Syracuse-Label-Pfaden — ergänzende Nullmodell-Diagnostik, kein Beweisersatz.
 
 ### Governance-Boxen (Klein × Tao)
 
