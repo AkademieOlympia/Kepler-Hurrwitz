@@ -1566,6 +1566,43 @@
       "stability": "experimental",
       "last_reviewed": "2026-07-05",
       "defensive_scope": "Keine physikalische Identifikation; ergaenzt E-076 ohne gegenseitige Deduktion; Ising-Kritikalitaet ist keine ShellSeparationLoss-Behauptung; Onsager-Reversibilitaet beweist keine Dedekind-Symmetrie."
+    },
+    {
+      "id": "E-090",
+      "title": "Kanonische e3-Zerlegung n = q*e^3 + r*e (Lemma 1 + Lemma 2 Produkt-Split)",
+      "level": "A/B/C",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/E3Decomposition.lean, src/kepler_hurwitz/e3_decomposition.py, docs/collatz_e3_decomposition.md, tests/test_e3_decomposition.py",
+      "depends_on": [],
+      "supports": [
+        "docs/collatz_v2_evidence_chain.md"
+      ],
+      "scope": "[A] e3_decomposition_identity and e3_product_decomposition in Lean; [B] Python analyze/verify; [C] Collatz-bridge and fine-structure analogy in dossier only",
+      "metric_or_result": "Lemma 1 closed 0 sorry; Lemma 2 product split [A]; Collatz relevance explicitly [C] orthogonal to BadRunNetDescentWitness",
+      "status": "bewiesen (Lean algebra)",
+      "stability": "stable",
+      "last_reviewed": "2026-07-06",
+      "defensive_scope": "e3 layer does not prove Collatz, replace oddCore, or strengthen V2.7 net descent; Lemma 2 product split boundary marked [A]/[C] in collatz_e3_decomposition.md"
+    },
+    {
+      "id": "E-091",
+      "title": "Klein V4 bifurcation nullmodel (Syracuse label path vs neighbor tree)",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/klein_bifurcation_nullmodel.py, tests/test_klein_bifurcation_nullmodel.py",
+      "depends_on": [
+        "tao_collatz_diagnostics"
+      ],
+      "supports": [
+        "docs/collatz_v27_net_descent.md",
+        "docs/collatz_v2_evidence_chain.md"
+      ],
+      "scope": "Mod-8 Klein neighbor bifurcation tree compared to true Syracuse label paths; exploratory [B] only",
+      "metric_or_result": "pytest test_klein_bifurcation_nullmodel; does not prove Collatz",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-06",
+      "defensive_scope": "Nullmodel diagnostic only; complements CollatzNetDescentMod8 witness skeleton without Lean proof claim"
     }
   ]
 }
