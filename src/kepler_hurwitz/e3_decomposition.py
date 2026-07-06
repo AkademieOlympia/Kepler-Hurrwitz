@@ -19,7 +19,9 @@ E3_PRODUCT_ANALOGY_TAG = "[C]"
 
 CaseType = Literal[
     "valid_product_split",
+    "valid_commutative_multiplet",
     "invalid_rest_product",
+    "invalid_parity",
     "invalid_e",
 ]
 
@@ -27,9 +29,12 @@ __all__ = [
     "E3_DECOMPOSITION_TAG",
     "E3_PRODUCT_ANALOGY_TAG",
     "abc_split_decomposition",
+    "analyze_e3_commutative_multiplet",
     "analyze_e3_decomposition",
     "analyze_e3_with_product_split",
+    "commutation_check",
     "e3_decompose",
+    "symmetric_operators",
     "verify_abc_split",
     "verify_e3_identity",
 ]
@@ -177,5 +182,98 @@ def analyze_e3_with_product_split(a: int, e: int, b: int, c: int) -> dict[str, A
         "analogy_note": (
             "Fine-structure / hyperfine perturbation analogy is [C] heuristic "
             "bridge only — not physics identity, not Collatz proof."
+        ),
+    }
+
+
+def commutation_check(b: int, c: int) -> dict[str, Any]:
+    """
+    Check the Nat-ring commutator ``[b, c] = b*c - c*b``.
+
+    For integers this is always zero; the diagnostic records the identity for
+    downstream symmetric-operator analysis. Quaternion ``[b,c] = 2*(v_b x v_c)``
+    is **[C]** interpretive language only — not verified physics.
+    """
+    commutator = b * c - c * b
+    return {
+        "governance": E3_DECOMPOSITION_TAG,
+        "b": b,
+        "c": c,
+        "commutator": commutator,
+        "commutes": commutator == 0,
+        "analogy_governance": E3_PRODUCT_ANALOGY_TAG,
+        "quaternion_note": (
+            "In quaternion embedding, [b,c]=0 implies collinear vector parts "
+            "— [C] heuristic only, not physics identity."
+        ),
+    }
+
+
+def symmetric_operators(b: int, c: int) -> tuple[int, int]:
+    """
+    Return ``(S_+, S_-)`` with ``S_+ = (b+c)//2``, ``S_- = abs(b-c)//2``.
+
+    Requires equal parity (``(b+c) % 2 == 0``) for exact ``b*c = S_+^2 - S_-^2``.
+    """
+    if (b + c) % 2 != 0:
+        raise ValueError("b and c must have equal parity for exact symmetric split")
+    return (b + c) // 2, abs(b - c) // 2
+
+
+def analyze_e3_commutative_multiplet(a: int, e: int, b: int, c: int) -> dict[str, Any]:
+    """
+    Lemma 3 — commutative multiplet split when ``r = b*c`` and ``[b,c]=0``.
+
+    Under equal parity: ``a = q*e² + S_+² - S_-²`` and
+    ``n = q*e³ + S_+²*e - S_-²*e``. Zeeman/Stark analogy is **[C]** only.
+    """
+    _validate_positive_e(e)
+    base = analyze_e3_with_product_split(a, e, b, c)
+    comm = commutation_check(b, c)
+    e3 = e**3
+
+    if not comm["commutes"]:
+        case_type: CaseType = "invalid_parity"
+    elif (b + c) % 2 != 0:
+        case_type = "invalid_parity"
+    elif base["case_type"] != "valid_product_split":
+        case_type = base["case_type"]  # type: ignore[assignment]
+    else:
+        case_type = "valid_commutative_multiplet"
+
+    s_plus, s_minus = (0, 0)
+    s_plus_sq = 0
+    s_minus_sq = 0
+    multiplet_holds = False
+    multiplet_identity = ""
+
+    if case_type == "valid_commutative_multiplet":
+        s_plus, s_minus = symmetric_operators(b, c)
+        s_plus_sq = s_plus * s_plus
+        s_minus_sq = s_minus * s_minus
+        q = base["q"]
+        n = base["n"]
+        reconstructed = q * e3 + s_plus_sq * e - s_minus_sq * e
+        multiplet_holds = reconstructed == n
+        multiplet_identity = (
+            f"n = q*e³ + S_+²*e - S_-²*e = {q}*{e3} + {s_plus_sq}*{e} - {s_minus_sq}*{e} "
+            f"= {reconstructed}"
+        )
+
+    return {
+        **base,
+        "case_type": case_type,
+        "commutation": comm,
+        "s_plus": s_plus,
+        "s_minus": s_minus,
+        "s_plus_sq": s_plus_sq,
+        "s_minus_sq": s_minus_sq,
+        "a_split_form": f"q*e² + S_+² - S_-²" if case_type == "valid_commutative_multiplet" else None,
+        "multiplet_identity": multiplet_identity,
+        "multiplet_holds": multiplet_holds,
+        "zeeman_analogy_governance": E3_PRODUCT_ANALOGY_TAG,
+        "zeeman_analogy_note": (
+            "Zeeman/Stark multiplet analogy (q*e³, +S_+²*e, -S_-²*e) is [C] "
+            "interpretive bridge only — not physics identity, not Collatz proof."
         ),
     }

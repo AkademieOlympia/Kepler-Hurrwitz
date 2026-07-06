@@ -1569,7 +1569,7 @@
     },
     {
       "id": "E-090",
-      "title": "Kanonische e3-Zerlegung n = q*e^3 + r*e (Lemma 1 + Lemma 2 Produkt-Split)",
+      "title": "Kanonische e3-Zerlegung n = q*e^3 + r*e (Lemma 1-3: product split + S± multiplet)",
       "level": "A/B/C",
       "aclass": "A-T",
       "source": "KeplerHurwitz/E3Decomposition.lean, src/kepler_hurwitz/e3_decomposition.py, docs/collatz_e3_decomposition.md, tests/test_e3_decomposition.py",
@@ -1577,12 +1577,12 @@
       "supports": [
         "docs/collatz_v2_evidence_chain.md"
       ],
-      "scope": "[A] e3_decomposition_identity and e3_product_decomposition in Lean; [B] Python analyze/verify; [C] Collatz-bridge and fine-structure analogy in dossier only",
-      "metric_or_result": "Lemma 1 closed 0 sorry; Lemma 2 product split [A]; Collatz relevance explicitly [C] orthogonal to BadRunNetDescentWitness",
+      "scope": "[A] e3_decomposition_identity, e3_product_decomposition, e3_multiplet_identity in Lean; [B] Python analyze/verify including S± profile; [C] Collatz-bridge, fine-structure, Zeeman/Stark analogy in dossier only",
+      "metric_or_result": "Lemma 1-3 closed 0 sorry; S± diagnostic (s_plus_sq, s_minus_sq) [B]; Collatz relevance explicitly [C] orthogonal to BadRunNetDescentWitness",
       "status": "bewiesen (Lean algebra)",
       "stability": "stable",
       "last_reviewed": "2026-07-06",
-      "defensive_scope": "e3 layer does not prove Collatz, replace oddCore, or strengthen V2.7 net descent; Lemma 2 product split boundary marked [A]/[C] in collatz_e3_decomposition.md"
+      "defensive_scope": "e3 layer does not prove Collatz, replace oddCore, or strengthen V2.7 net descent; Zeeman/Stark and quaternion collinearity marked [C] in collatz_e3_decomposition.md"
     },
     {
       "id": "E-091",

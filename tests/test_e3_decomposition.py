@@ -8,9 +8,12 @@ from kepler_hurwitz.e3_decomposition import (
     E3_DECOMPOSITION_TAG,
     E3_PRODUCT_ANALOGY_TAG,
     abc_split_decomposition,
+    analyze_e3_commutative_multiplet,
     analyze_e3_decomposition,
     analyze_e3_with_product_split,
+    commutation_check,
     e3_decompose,
+    symmetric_operators,
     verify_abc_split,
     verify_e3_identity,
 )
@@ -133,3 +136,34 @@ class TestAbcProductSplit:
         result = verify_abc_split(17, 3, 2, 4)
         assert result["governance"] == E3_DECOMPOSITION_TAG
         assert result["analogy_governance"] == "[C]"
+
+
+class TestCommutativeMultiplet:
+    def test_commutation_check_always_commutes_for_ints(self) -> None:
+        result = commutation_check(2, 4)
+        assert result["commutes"] is True
+        assert result["commutator"] == 0
+
+    def test_symmetric_operators_example(self) -> None:
+        assert symmetric_operators(2, 4) == (3, 1)
+        assert 2 * 4 == 3 * 3 - 1 * 1
+
+    def test_symmetric_operators_parity_raises(self) -> None:
+        with pytest.raises(ValueError, match="equal parity"):
+            symmetric_operators(2, 3)
+
+    def test_commutative_multiplet_valid(self) -> None:
+        result = analyze_e3_commutative_multiplet(17, 3, 2, 4)
+        assert result["case_type"] == "valid_commutative_multiplet"
+        assert result["s_plus"] == 3
+        assert result["s_minus"] == 1
+        assert result["s_plus_sq"] == 9
+        assert result["s_minus_sq"] == 1
+        assert result["multiplet_holds"] is True
+        assert result["n"] == 51
+        assert result["zeeman_analogy_governance"] == "[C]"
+
+    def test_commutative_multiplet_invalid_product(self) -> None:
+        result = analyze_e3_commutative_multiplet(17, 3, 3, 3)
+        assert result["case_type"] == "invalid_rest_product"
+        assert result["multiplet_holds"] is False

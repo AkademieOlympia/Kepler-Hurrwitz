@@ -166,3 +166,68 @@ Zusätzlich zu den Lemma-1-Einschränkungen:
 - Die Fine-Structure-Analogie bleibt **`[C]`** und darf nicht als physikalische oder beweistechnische Stütze gelesen werden.
 
 **Fazit Lemma 2:** Orthogonale Notations-/Diagnostikschicht — **null Collatz-Konsequenz**.
+
+---
+
+## Lemma 3 — Kommutativer Multiplet-Split (`[b,c] = 0`, `S_±`)
+
+**Voraussetzung:** `r = b * c` (Lemma 2) und gleiche Parität `(b + c) % 2 = 0` (Nat-Ring: `[b,c] = bc - cb = 0`).
+
+Symmetrisierte Operatoren:
+
+| Symbol | Definition |
+|---|---|
+| `S_+` | `(b + c) / 2` |
+| `S_-` | `|b - c| / 2` |
+
+**Identitäten `[A]`:**
+
+- `b * c = S_+² - S_-²`
+- `a = q * e² + S_+² - S_-²`
+- `n = q * e³ + S_+² * e - S_-² * e`
+
+**Beispiel:** `a = 17`, `e = 3`, `b = 2`, `c = 4` → `S_+ = 3`, `S_- = 1` → `8 = 9 - 1` → `n = 51 = 27 + 27 - 3`.
+
+### Lean-Sätze (Lemma 3)
+
+| Name | Aussage |
+|---|---|
+| `e3SPlus` / `e3SMinus` | symmetrische Operatoren |
+| `e3_commutative_product_split` | gleiche Parität → `b*c = S_+² - S_-²` |
+| `e3_symmetric_rest_decomposition` | `r = b*c` → `r = S_+² - S_-²` |
+| `e3_multiplet_identity` | `n = q*e³ + S_+²*e - S_-²*e` |
+| `E3CommutativeMultiplet` | Struktur mit `sPlus`, `sMinus`, Beweisen |
+
+### Python-Diagnostic `[B]`
+
+| Funktion | Rolle |
+|---|---|
+| `commutation_check` | `[b,c]` im Nat-Ring (immer 0 für Int) |
+| `symmetric_operators` | `(S_+, S_-)` mit Paritätsguard |
+| `analyze_e3_commutative_multiplet` | Lemma 1–3 + Multiplet-Identität |
+
+**Diagnostischer Nutzen:** Statt abstraktem `r` können Profile `(S_+², S_-²)` mitführen. `S_-² → 0` bedeutet `b = c` (perfektes Quadrat im Restkanal) — nur **`[B]`** Resonanzsignal, kein Beweis.
+
+---
+
+## Physikalische Analogie — Zeeman / Stark / Quaternion `[C]`
+
+> **Governance (verbindlich):** Zeeman-/Stark-Aufspaltung und Quaternion-Kollinearität sind **Lesesprache `[C]`** — **keine** Physik-Identität, **kein** Collatz-Beweis, **kein** EABC-Physik-Claim.
+
+| Leseterm | Multiplet-Split | Analogie (nur `[C]`) |
+|---|---|---|
+| `q * e³` | ungestörtes Niveau | Hauptterm / Vakuumniveau |
+| `+ S_+² * e` | parallele Kopplung | angehobener Bindungszustand |
+| `- S_-² * e` | antiparallele Kopplung | Absenkungsterm / Defekt |
+
+**Quaternion `[C]`:** `[b,c] = bc - cb = 2·(v_b × v_c)` — Null-Kommutator ⇒ kollineare Vektorteile (maximale Kohärenz). Das ist **interpretive bridge**, nicht operationalisierte Quaternionen-Embedding im Lean-Kern.
+
+**EN governance box:** Zeeman/Stark multiplet language is an **interpretive resonance anchor only**. It does **not** identify EABC with atomic spectroscopy, does **not** prove Syracuse quantization, and does **not** imply Collatz termination.
+
+---
+
+## Wirkung auf Collatz-Behauptungen (Lemma 3)
+
+**Kurzantwort:** Lemma 3 **ändert nichts** am Collatz-Beweisstatus. Die Aufspaltung ist eine wohldefinierte, hochsymmetrische Eigenschaft der Darstellung `n = e * a` bei faktorisiertem Rest — sie erzwingt **keine** Trajektorien-Termination.
+
+**Fazit Lemma 3:** Orthogonale Notations-/Diagnostikschicht — **null Collatz-Konsequenz**; optional **`[B]`** Profilmetrik `(S_+², S_-²)`.
