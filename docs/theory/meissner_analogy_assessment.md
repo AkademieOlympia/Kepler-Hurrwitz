@@ -399,4 +399,4 @@ Der beste konkrete nächste Schritt wäre **nicht** ein großer Meissner-Claim, 
 | [`diagnostics_parameter_atlas.md`](../diagnostics_parameter_atlas.md) | Top-8-Atlas; geplante Meissner-Schicht |
 | [`eabc_renormalisierungsprogramm.md`](../energiedoku_exports/eabc_renormalisierungsprogramm.md) | Formaler $24I_3$-Kern |
 | [`dumas_orbit_experimental_protocol.md`](../reports/dumas_orbit_experimental_protocol.md) | Empirie — strikt getrennt von Physik |
-| [`nuclear_binding_multiscale_analogy.md`](nuclear_binding_multiscale_analogy.md) | Geschwister-`[C]` (E-092): Bulk-Hülle vs. Shell-Residual \(R(A)\) |
+| [`nuclear_binding_multiscale_analogy.md`](nuclear_binding_multiscale_analogy.md) | Geschwister-`[C]` (E-092): \(R(A,Z)\), \(I_{\mathrm{EABC}}\)-Residualtest, ORQ-092 |

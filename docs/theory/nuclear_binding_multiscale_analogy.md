@@ -56,20 +56,84 @@ Die Kurve ist **nicht** durch eine einzige Potenz \(A^\alpha\) beschreibbar; Reg
 
 ---
 
-## 2. Zerlegung: glatte Hülle plus Residuen
+## 2. Formale Residualstruktur \(R(A,Z)\)
 
-Standardbild in der Nuklearphysik:
+### Definition
+
+Sei \(B_{\mathrm{exp}}(A,Z)\) die experimentelle Bindungsenergie eines Kerns mit Massenzahl \(A\) und Protonenzahl \(Z\), und \(B_{\mathrm{smooth}}(A,Z)\) die glatte Referenzhülle aus der Semi-Empirischen Massenformel (Weizsäcker) oder einer äquivalenten tabellierten Hülle mit **fest vorab** dokumentierten Parametern:
 
 \[
-\frac{B}{A}(A) = B_{\mathrm{smooth}}(A) + R(A).
+\boxed{
+R(A,Z) = B_{\mathrm{exp}}(A,Z) - B_{\mathrm{smooth}}(A,Z).
+}
+\]
+
+Die pro-Nukleon-Residualkurve ist die Projektion
+
+\[
+r(A,Z) = \frac{B_{\mathrm{exp}}(A,Z)}{A} - \frac{B_{\mathrm{smooth}}(A,Z)}{A}
+= \frac{R(A,Z)}{A}.
+\]
+
+**Governance:** \(B_{\mathrm{smooth}}\) wird **nicht** für EABC optimiert. Parameterwahl und Fitfenster sind Teil des Protokolls, nicht des EABC-Vergleichs.
+
+### Zerlegung: glatte Hülle plus Residuen
+
+\[
+B_{\mathrm{exp}}(A,Z) = B_{\mathrm{smooth}}(A,Z) + R(A,Z).
 \]
 
 | Anteil | Inhalt | Skala |
 |---|---|---|
-| \(B_{\mathrm{smooth}}(A)\) | Volumen-, Oberflächen-, Coulomb-Trend der Weizsäcker-Hülle | glatt in \(A\) (ggf. \(\log A\)) |
-| \(R(A)\) | Schalenlücken, Magic Numbers, Paarung, lokale Anomalien | diskret / schmalbandig |
+| \(B_{\mathrm{smooth}}(A,Z)\) | Volumen-, Oberflächen-, Coulomb-, Asymmetrie-Trend der Weizsäcker-Hülle | glatt in \(A,Z\) (Potenzgesetze, ggf. \(\log A\)) |
+| \(R(A,Z)\) | Quantenstruktur, Schalen, Paarung, Deformation, kollektive Anregungen | diskret / schmalbandig / lokal |
 
-**Governance:** \(B_{\mathrm{smooth}}\) ist das **Bulk-/Hüllen-Analogon** (vergleichbar zur Meissner-Lesart „isotroper Trend“ in E-076). \(R(A)\) ist das **Shell-/Feinstruktur-Analogon** — dort, wo EABC-Vergleiche methodisch ansetzen sollen, nicht auf der Gesamtkurve.
+**Governance:** \(B_{\mathrm{smooth}}\) ist das **Bulk-/Hüllen-Analogon** (vergleichbar zur Meissner-Lesart „isotroper Trend“ in E-076). \(R(A,Z)\) ist das **Shell-/Feinstruktur-Analogon** — dort, wo EABC-Vergleiche methodisch ansetzen sollen, nicht auf der Gesamtkurve.
+
+---
+
+## 2a. Was in den Residuen steckt (Quanteninhalt)
+
+Weizsäcker erklärt typischerweise **95–99 %** der Bindungsenergie; der verbleibende Anteil \(R(A,Z)\) trägt den **quantenmechanischen Feinstruktur-Inhalt**:
+
+| Struktur | Erscheinung in \(R(A,Z)\) | Charakter |
+|---|---|---|
+| **Magic Numbers** | 2, 8, 20, 28, 50, 82, 126 — Schalenlücken, Plateaus in \(B/A\) | diskrete Stufen |
+| **Paarung** | Zigzag zwischen geraden/ungeraden \(Z,N\); \(\delta\)-Term in SEMF | alternierend, \(\pm 1\)–2 MeV |
+| **Deformation** | Abweichungen vom Kugelmodell (elliptische Kerne) | breitbandig, \(A \gtrsim 150\) |
+| **Kollektive Anregungen** | Rotations-/Schwingungsbandstruktur | schmalbandige Moden über Schalengrundzustand |
+
+\[
+\boxed{
+\text{Informationsgehalt: } \underbrace{B_{\mathrm{smooth}}}_{\sim 95\text{–}99\,\%} + \underbrace{R(A,Z)}_{\sim 1\text{–}0{,}1\,\% \text{ — aber gesamte Quantenphysik}}
+}
+\]
+
+Die **kleine relative Varianz** von \(R\) bedeutet nicht geringe physikalische Bedeutung: dort sitzen Schalen-, Paarungs- und Kollektivstruktur — analog zum Fehlerterm in anderen glatt-plus-Rest-Zerlegungen (siehe §2b).
+
+**EABC-Lesefrage `[C]`:** Erklärt ein EABC-Invariant \(I_{\mathrm{EABC}}\) einen **Teil** von \(R(A,Z)\) — nicht die volle Bindungskurve?
+
+---
+
+## 2b. Analogie: Primzählzählung \(\pi(x) = \mathrm{Li}(x) + E(x)\) `[C]`
+
+In der analytischen Zahlentheorie gilt das Standardbild
+
+\[
+\pi(x) = \mathrm{Li}(x) + E(x),
+\]
+
+wobei \(\mathrm{Li}(x)\) die glatte Hauptterm-Hülle ist und \(E(x)\) der oszillierende Fehlerterm (Riemann-Nullstellen, Primzahllücken).
+
+| Zerlegung | Glatte Hülle | Residuum / Fehler |
+|---|---|---|
+| Primzählzählung | \(\mathrm{Li}(x)\) | \(E(x)\) |
+| Kernbindung | \(B_{\mathrm{smooth}}(A,Z)\) (Weizsäcker) | \(R(A,Z)\) |
+| EABC (methodisch) | Trend / Detrend auf \(\log p\) | ABCE/CEAB-Bias, Spektralpeaks |
+
+**Gemeinsame Lesefrage `[C]`:** Liegt das interessante Signal in der **Fehler-/Residualschicht**, nicht in der glatten Hauptkurve?
+
+**Nicht behauptet:** \(R(A,Z)\) ist formal identisch mit \(E(x)\) oder mit EABC-Bias; die Analogie ist **methodisch** (glatt + Rest), nicht ontologisch.
 
 ---
 
@@ -113,7 +177,7 @@ Im Repo existiert eine **arithmetische** Weierstrass-Multiscale-Diagnostik (ABCE
 
 | Kontext | Glatte Hülle | Residuum / Feinstruktur |
 |---|---|---|
-| Kernbindung | Weizsäcker \(B_{\mathrm{smooth}}(A)\) | \(R(A)\): Magic Numbers, Paarung |
+| Kernbindung | Weizsäcker \(B_{\mathrm{smooth}}(A,Z)\) | \(R(A,Z)\): Magic, Paarung, Deformation |
 | EABC Weierstrass | Trend / Detrend von \(B(N)\) | Spektralpeaks, ABCE/CEAB-Bias |
 | EABC Renorm (E-053) | \(M_{\mathrm{eff}} \to 24I_3\) | Defekt an Shell / Rand (E-076 Meissner) |
 
@@ -121,31 +185,56 @@ Die Weierstrass-Exporte belegen **keine** Kernphysik und umgekehrt. Die Brücke 
 
 ---
 
-## 5. EABC-Residualhypothese `[C]`
+## 5. EABC-Residualhypothese und empirisches Testprotokoll `[C]`
 
 ### Was nicht verglichen werden soll
 
-Die volle Kurve \(B/A(A)\) mischt Bulk-Trend, Coulomb-Abfall und alle lokalen Effekte. Ein direkter EABC-fit auf \(B/A\) wäre **überdeterminiert** und governance-unsauber (Post-hoc-Analogie).
+Die volle Kurve \(B_{\mathrm{exp}}(A,Z)\) oder \(B/A\) mischt Bulk-Trend, Coulomb-Abfall und alle lokalen Quanteneffekte. Ein direkter EABC-Fit auf \(B_{\mathrm{exp}}\) wäre **überdeterminiert** und governance-unsauber (Post-hoc-Analogie).
 
 ### Was verglichen werden soll (wenn überhaupt)
 
 \[
-R(A) = \frac{B}{A}(A) - B_{\mathrm{smooth}}(A)
+R(A,Z) = B_{\mathrm{exp}}(A,Z) - B_{\mathrm{smooth}}(A,Z)
 \]
 
-mit einer **fest vorab** gewählten glatten Referenz (z. B. Weizsäcker-Fit oder tabellierte Hülle), und dann — hypothetisch — EABC-Invarianten auf derselben Indexachse (z. B. Primindex, Shell-Label, Kanalmetrik).
+gegen EABC-Invarianten \(I_{\mathrm{EABC}}\) auf einer **fest vorab** gewählten Indexachse (z. B. Primindex, Shell-Label, Kanalmetrik, \(\log A\)-Gitter).
 
-**Testfrage (offen, `[C]`):**
+**Kernfrage (ORQ-092, `[C]`):**
 
 \[
 \boxed{
-\text{Korrelieren EABC-Invarianten mit } R(A) \text{ über Nullmodelle hinaus?}
+\text{Erklärt } I_{\mathrm{EABC}} \text{ einen Teil von } R(A,Z) \text{ — besser als ein Nullmodell?}
 }
 \]
 
+### Protokoll: \(I_{\mathrm{EABC}}\) vs. \(R(A,Z)\) `[C]`
+
+| Schritt | Vorgabe | Governance |
+|---|---|---|
+| 1. Referenzhülle | Weizsäcker-Parameter oder AME/ENSDF-Tabellen; **präregistriert**, nicht EABC-optimiert | dokumentiert |
+| 2. Residuen-Export | \(R(A,Z)\) pro stabiler Kern; optional \(r(A,Z)=R/A\) auf \(\log A\)-Gitter | reproduzierbar |
+| 3. EABC-Invarianten | unabhängig von Hüllen-Fit; z. B. Shell-Label, Kanalentropie, Primvierling-Metrik | fest vorab |
+| 4. Korrelationsmetriken | Pearson \(r\), Spearman \(\rho\), gegenseitige Information \(\mathrm{MI}(I_{\mathrm{EABC}}, R)\) | alle reportieren |
+| 5. Mehrvariates Profil | PCA auf \((I_{\mathrm{EABC},k}, R)\)-Feature-Matrix; Fourier-/Wavelet-Spektren von \(R\) entlang \(\log A\) | explorativ, nicht cherry-picken |
+| 6. Nullmodelle | Permutation, Kanal-Shuffle, Varianz-Match — wie bei Weierstrass-/Dumas-Protokollen | **Pflicht** für `[B]` |
+| 7. Urteil | EABC erklärt Residuen **nur** wenn Effekt signifikant über Shuffle/Permutation hinaus | kein Post-hoc-Best-Fit |
+
 **Voraussetzung für Upgrade zu `[B]`:** reproduzierbarer Export, präregistrierte Hülle, Permutations-/Shuffle-Nullmodelle, keine Auswahl der „besten“ Korrelation post hoc.
 
-**Aktueller Stand:** Kein `nuclear_binding_residual` in `diagnostics.py` — E-092 bleibt **konzeptionell**.
+**Aktueller Stand:** Kein `nuclear_binding_residual` in `diagnostics.py` — E-092 bleibt **konzeptionell**; siehe §7b für `[B]`-Stub-Umriss.
+
+### `[B]`-Stub-Umriss (nicht implementiert)
+
+Zukünftiges Modul `nuclear_binding_residual` (Vorschlag, nicht im Repo):
+
+```python
+# src/kepler_hurwitz/nuclear_binding_residual.py  [B] — NOT IMPLEMENTED
+# build_residual_table(ame_source, weizsaecker_params) -> DataFrame[A,Z,R,r]
+# correlate_eabc_residuals(residual_df, eabc_invariants, metrics=[pearson, spearman, mi])
+# run_nullmodels(residual_df, eabc_invariants, modes=["permute_R", "shuffle_channel", "variance_match"])
+```
+
+Export-Skript analog: `examples/run_nuclear_binding_residual_export.py` → `docs/exports/nuclear_binding_residual_*.csv`.
 
 ---
 
@@ -153,7 +242,7 @@ mit einer **fest vorab** gewählten glatten Referenz (z. B. Weizsäcker-Fit od
 
 | Brücke | E-ID | Parallele Lesefrage |
 |---|---|---|
-| Meissner Bulk/Shell | E-076 | Defekt aus Bulk in Randschale — \(B_{\mathrm{smooth}}\) vs. \(R(A)\) |
+| Meissner Bulk/Shell | E-076 | Defekt aus Bulk in Randschale — \(B_{\mathrm{smooth}}\) vs. \(R(A,Z)\) |
 | Onsager / Hall | E-089 | Diskrete Stufen, Reziprozität — Magic Numbers als „Plateaus“? |
 | Weyl–Onsager | E-087, E-088 | Lokale Chiralität vs. globale Symmetrie — leichte vs. schwere Kerne |
 | Weierstrass (arithmetisch) | (Export, kein separates E-ID) | \(\log\)-Achse, Mehrskalen-Hülle + Rest |
@@ -170,11 +259,19 @@ Siehe [`meissner_analogy_assessment.md`](meissner_analogy_assessment.md) und [`p
 
 ## 7. Methodischer Fahrplan (Dokumentation only)
 
-1. **Referenzhülle fixieren** — Weizsäcker-Parameter oder externe Tabellen; dokumentieren, nicht optimieren für EABC.
-2. **Residuen \(R(A)\) extrahieren** — pro \(A\) oder auf \(\log A\)-Gitter.
-3. **EABC-Invarianten auf kompatible Achse** — unabhängig vom Fit der Hülle.
-4. **Nullmodelle** — Permutation, Kanal-Shuffle, gleiche Varianz wie bei Weierstrass-/Dumas-Protokollen.
-5. **Erst dann** — eventuell `[B]`-Diagnostik-Modul; kein Physik-Identity-Claim.
+1. **Referenzhülle fixieren** — Weizsäcker-Parameter oder AME/ENSDF-Tabellen; dokumentieren, nicht optimieren für EABC.
+2. **Residuen \(R(A,Z)\) extrahieren** — pro \((A,Z)\) oder auf \(\log A\)-Gitter; Export als CSV/JSON.
+3. **EABC-Invarianten \(I_{\mathrm{EABC}}\) auf kompatible Achse** — unabhängig vom Fit der Hülle.
+4. **Korrelationsbatterie** — Pearson, Spearman, MI, PCA, Fourier/Wavelet von \(R\) (§5).
+5. **Nullmodelle** — Permutation, Kanal-Shuffle, gleiche Varianz wie bei Weierstrass-/Dumas-Protokollen.
+6. **Erst dann** — eventuell `[B]`-Diagnostik-Modul (§5 Stub); kein Physik-Identity-Claim.
+
+---
+
+## 7b. Offene Forschungsfrage
+
+**ORQ-092:** Korrelieren EABC-Invarianten mit Kernbindungs-Residuen \(R(A,Z)\) über Nullmodelle hinaus?  
+→ [`../open_research_questions.md`](../open_research_questions.md) · Vollprotokoll §5 oben.
 
 ---
 
@@ -184,14 +281,15 @@ Siehe [`meissner_analogy_assessment.md`](meissner_analogy_assessment.md) und [`p
 |---|---|
 | Drei-Regime- und Hülle+Residual-Bild als **Lesesprache** | Ja — `[C]` |
 | Weizsäcker als Mehrskalen-Analogon zu \(\log\)-Skalen-Diagnostik | Ja — `[C]`, nicht Identität |
-| EABC soll **Residuen** \(R(A)\) treffen, nicht \(B/A\) | Ja — methodische Hypothese `[C]` |
+| EABC soll **Residuen** \(R(A,Z)\) treffen, nicht \(B_{\mathrm{exp}}\) | Ja — methodische Hypothese `[C]` |
 | EABC erklärt Kernbindung / Nukleonen | **Nein** |
 | Weierstrass-ABCE-Befund belegt Kernphysik | **Nein** |
-| Korrelation EABC–\(R(A)\) ohne Export | **Nein** — erst `[B]` mit Protokoll |
+| Korrelation EABC–\(R(A,Z)\) ohne Export und Nullmodell | **Nein** — erst `[B]` mit Protokoll |
+| \(\pi(x)=\mathrm{Li}(x)+E(x)\)-Analogie als Identität | **Nein** — nur methodische Lesesprache `[C]` |
 
 \[
 \boxed{
-\text{Kernbindung liefert Mehrskalen-Vokabular; EABC liefert Invarianten — die Brücke ist Residual-Vergleich, nicht Physik-Identität.}
+\text{Kernbindung liefert Mehrskalen-Vokabular; EABC liefert Invarianten — die Brücke ist Residual-Vergleich } I_{\mathrm{EABC}} \text{ vs. } R(A,Z)\text{, nicht Physik-Identität.}
 }
 \]
 
@@ -206,4 +304,5 @@ Siehe [`meissner_analogy_assessment.md`](meissner_analogy_assessment.md) und [`p
 | [`weyl_onsager_bridge_attack.md`](weyl_onsager_bridge_attack.md) | Weyl–Onsager `[C]`-Diagnostik |
 | [`eabc_weierstrass_multiscale_report.md`](../energiedoku_exports/eabc_weierstrass_multiscale_report.md) | Arithmetische Weierstrass-Mehrskalen-Exporte |
 | [`eabc_renormalisierungsprogramm.md`](../energiedoku_exports/eabc_renormalisierungsprogramm.md) | Formaler EABC-Renorm-Kern E-053 |
+| [`open_research_questions.md`](../open_research_questions.md) | ORQ-092: \(I_{\mathrm{EABC}}\) vs. \(R(A,Z)\) |
 | [`theory/README.md`](README.md) | Theory-Index |

@@ -57,6 +57,14 @@ Es enthält bewusst keine Behauptungen über bereits gesicherte Resultate.
 - **Abhängigkeiten:** ORQ-085 ($\Phi(v)=\gamma$), ORQ-083 (Holonomie); komplementär zu `norm_signature_defect` in `diagnostics.py`.
 - **Dossier:** [`theory/weyl_commutator_operator_bridge.md`](theory/weyl_commutator_operator_bridge.md)
 
+### ORQ-092: Nuclear Residual EABC Correlation
+
+- **Kontext:** Kernbindungs-Residuen \(R(A,Z)=B_{\mathrm{exp}}-B_{\mathrm{smooth}}\) (Weizsäcker-Hülle) tragen Schalen-, Paarungs- und Kollektivstruktur; EABC-Invarianten \(I_{\mathrm{EABC}}\) sind arithmetisch definiert — methodische Parallele zu glatt-plus-Fehler-Zerlegungen (\(\pi(x)=\mathrm{Li}(x)+E(x)\)).
+- **Kernfrage:** Erklärt \(I_{\mathrm{EABC}}\) einen Teil von \(R(A,Z)\) über Permutations-/Shuffle-Nullmodelle hinaus — nicht die volle Bindungskurve?
+- **Status:** `[C]` — `[B]`-Upgrade über präregistriertes Protokoll (Pearson, Spearman, MI, PCA, Fourier/Wavelet; Nullmodelle Pflicht).
+- **Abhängigkeiten:** E-076 (Bulk/Shell-Lesesprache), E-092; komplementär zu Weierstrass-Multiscale-Export.
+- **Dossier:** [`theory/nuclear_binding_multiscale_analogy.md`](theory/nuclear_binding_multiscale_analogy.md) §5
+
 ### ORQ-089: Onsager Quantization Bridge
 
 - **Kontext:** Lars Onsagers vier Grundbeiträge — Flussquantisierung ($\Phi_0=h/2e$), quantisierte Wirbel (Onsager–Feynman), exakte 2D-Ising-Lösung, Reziprozitätsbeziehungen — als Resonanzsprache für diskrete EABC-Strukturen.
@@ -94,6 +102,7 @@ Vollstaendige Statements, Governance-Tabelle und Durchbruchspfad: [`open_mathema
 | 9 | ORQ-086 | `shellPrimeMatchAtFirstLoss` | E-085 | `[C]` GATE INACTIVE / PRE-REGISTRATION NOT COMPLETE (→ Protokoll Pre-Registration Gate) |
 | 10 | ORQ-087 | Weyl-Commutator $\Delta_{\mathrm{LR}}$ | — | `[C]` → `[B]`-Ziel |
 | 11 | ORQ-089 | Onsager Quantization Bridge | E-089 | `[C]` |
+| 12 | ORQ-092 | Nuclear residual \(I_{\mathrm{EABC}}\) vs. \(R(A,Z)\) | E-092 | `[C]` → `[B]`-Ziel |
 
 **Shell-Separationsdiagnostik (E-077–E-079):** Mess-Schicht `[C]` — [`reports/shell_separation_diagnostics_protocol.md`](reports/shell_separation_diagnostics_protocol.md) · CSV via `scripts/shell_separation_diagnostics.py`
 

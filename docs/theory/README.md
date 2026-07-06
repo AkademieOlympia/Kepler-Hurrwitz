@@ -213,8 +213,8 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 **Datei:** [`nuclear_binding_multiscale_analogy.md`](nuclear_binding_multiscale_analogy.md)  
 **Status:** `[C]` konzeptionelle Brücke — keine Diagnostik implementiert  
 **Evidenz:** E-092 (ergänzt E-076)  
-**Zweck:** Drei Regime von \(B/A(A)\), Weizsäcker-Mehrskalen-Hülle plus Residuen \(R(A)\); methodische Positionierung: EABC-Vergleich über Residuen, nicht über die volle Bindungskurve.  
-**Claim-Grenze:** Keine Kernphysik-Identität, kein EABC-Nukleonen-Claim; Querverweis zur arithmetischen Weierstrass-Diagnostik (`eabc_weierstrass_multiscale_report.md`).
+**Zweck:** Formale Residuen \(R(A,Z)=B_{\mathrm{exp}}-B_{\mathrm{smooth}}\) (Weizsäcker); Quanteninhalt (Magic, Paarung, Deformation); 95–99 % vs. 1 % Informations-Split; \(\pi(x)=\mathrm{Li}(x)+E(x)\)-Analogie; präregistriertes \(I_{\mathrm{EABC}}\)-vs.-\(R\)-Testprotokoll (ORQ-092).  
+**Claim-Grenze:** Keine Kernphysik-Identität, kein EABC-Nukleonen-Claim; empirische Verifikation mit Nullmodellen Voraussetzung für `[B]`.
 
 ---
 
@@ -234,7 +234,7 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 | E-074 | [`arithmetic_vacuum_eabc_analogy.md`](arithmetic_vacuum_eabc_analogy.md) | Geschwister-`[C]` (Feinstruktur/Vakuum) |
 | E-076 | [`physical_reference_analogies.md`](../reports/physical_reference_analogies.md) | AB / Klitzing / Meissner |
 | E-076 | [`meissner_analogy_assessment.md`](meissner_analogy_assessment.md) | Urteil: Meissner `[C]` — Lesen ja, Durchbruch nein |
-| E-092 | [`nuclear_binding_multiscale_analogy.md`](nuclear_binding_multiscale_analogy.md) | Kernbindung Hülle+Residual; EABC über \(R(A)\) `[C]` |
+| E-092 | [`nuclear_binding_multiscale_analogy.md`](nuclear_binding_multiscale_analogy.md) | \(R(A,Z)\), ORQ-092 \(I_{\mathrm{EABC}}\)-Residualtest `[C]` |
 
 ---
 

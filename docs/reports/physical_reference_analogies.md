@@ -377,4 +377,4 @@ Die Begriffe **Meissner-Shell** und **Meissner-Randschale** bezeichnen die EABC-
 | [`theory/README.md`](../theory/README.md) | Theory-Index |
 | [`meissner_analogy_assessment.md`](../theory/meissner_analogy_assessment.md) | Urteil: Meissner `[C]` — Lesen ja, Durchbruch nein |
 | [`onsager_quantization_bridge.md`](../theory/onsager_quantization_bridge.md) | Geschwister-`[C]` (E-089): Onsager-Achsen |
-| [`nuclear_binding_multiscale_analogy.md`](../theory/nuclear_binding_multiscale_analogy.md) | Geschwister-`[C]` (E-092): Kernbindung Hülle+Residual, EABC über \(R(A)\) |
+| [`nuclear_binding_multiscale_analogy.md`](../theory/nuclear_binding_multiscale_analogy.md) | Geschwister-`[C]` (E-092): \(R(A,Z)\), \(I_{\mathrm{EABC}}\)-Testprotokoll, ORQ-092 |
