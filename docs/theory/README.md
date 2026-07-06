@@ -7,15 +7,16 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 ### Fixed-Locus / Riemann-Programm (L4)
 
 **Datei:** [`fixed_locus_riemann_program.md`](fixed_locus_riemann_program.md)  
-**Status:** `[L4 / programmatisch]` — ORQ-087  
+**Status:** `[L4 / programmatisch]` — ORQ-088  
 **Register-Abgrenzung:** E-034 (`[C]` refuted), E-035 (`[C]` open_hypothesis)  
+**Nummern-Abgrenzung:** **ORQ-088** = Fixed-Locus/Riemann-Programm `[L4]` · **E-088** = Onsager-Reziprozitätsdiagnostik im Weyl–Onsager-Kontext — gleiche Nummer, verschiedene Themen, **nicht** identisch (Register-Rename wäre invasiv; Abgrenzung hier dokumentiert).  
 **Claim-Grenze:** Symmetrie \(D(Z)=Z\) bekannt; Konfinierung \(\mathrm{Fix}(D\mid_Z)=Z\) offen — kein RH-Loss-Claim.
 
 ---
 
 ### Ideale, Dedekind-Hasse und quaternionische Primzahlpfade
 
-**Datei:** `docs/theory/ideal_dedekind_hasse_intro_abitur.md`  
+**Datei:** [`ideal_dedekind_hasse_intro_abitur.md`](ideal_dedekind_hasse_intro_abitur.md)  
 **Status:** `[C]` didaktische Modellbrücke  
 **Evidenz:** E-064  
 **Zweck:** Verständliche Einführung in Ideale, Einheiten, nichtkommutative Quaternionenordnungen und Dedekind-Hasse als Test für arithmetische Stabilität.  
@@ -34,7 +35,7 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ### Oppenheim–eabc: Stochastische Raumzeit als Stabilitätstest
 
-**Datei:** `docs/theory/oppenheim_eabc_stability_bridge.md`  
+**Datei:** [`oppenheim_eabc_stability_bridge.md`](oppenheim_eabc_stability_bridge.md)  
 **Status:** `[D]` konzeptionelle Brücke / externe Analogie  
 **Evidenz:** E-070  
 **Zweck:** Methodische Parallele zwischen Oppenheim post-quantum classical gravity (stochastische Metrik) und eabc-/quaternionischen Stabilitätstests — Perturbationsklassen für Invarianten, keine Physikbehauptung.  
@@ -42,9 +43,55 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ---
 
-### Offene Bridge Targets `[C]` (ORQ-077–ORQ-086)
+### Weyl–Onsager Komplettangriff (E-087, E-088)
 
-**Kanonischer Katalog:** [`../open_mathematical_bridge_targets.md`](../open_mathematical_bridge_targets.md) — Governance-Tabelle, Prioritaeten, Abhaengigkeiten, Durchbruchspfad  
+**Datei:** [`weyl_onsager_bridge_attack.md`](weyl_onsager_bridge_attack.md)  
+**Status:** `[C]` koordinierter End-of-Day-Angriff — Weyl-Chiralität + Onsager-Reziprozität  
+**Evidenz:** E-087 (Weyl), **E-088** (Onsager-Reziprozität — nicht ORQ-088); ergänzt E-089 und ORQ-087  
+**Zweck:** Lesesprache und Diagnostik-Scaffold für lokale Chiralität (Berry, Windung) und globale Kopplungssymmetrie (Hall/Klitzing, 24I₃) — ohne Beweis.  
+**Claim-Grenze:** koordinierter Diagnose- und Lesesprachangriff, nicht Abschlussbeweis; E-077 bleibt Priorität 1.  
+**Stub:** `src/kepler_hurwitz/weyl_onsager_diagnostics.py` · **Export:** `examples/run_weyl_onsager_attack.py`
+
+---
+
+### Onsager Quantization Bridge (ORQ-089)
+
+**Datei:** [`onsager_quantization_bridge.md`](onsager_quantization_bridge.md)  
+**Status:** `[C]` Physik-Analogie — vier Resonanzachsen (Flussquantisierung, quantisierte Wirbel, 2D-Ising, Reziprozität)  
+**Evidenz:** E-089  
+**Zweck:** Onsagers Beiträge als komplementäre Lesesprache für Diskretisierung, Umlauf, Kritikalität und Zeitumkehr in EABC — ohne physikalische Identifikation.  
+**Claim-Grenze:** Ergänzt E-076 als Lesesprache; keine Deduktion zwischen Onsager-Physik und Dumas-/EABC-Befunden, keine physikalische Identifikation.
+
+**Governance:** Externe Physik `[C]` · interne Zirkulationsmessung `[B]`
+
+**Diagnostik `[B]` (experimental):**
+
+| Artefakt | Pfad |
+|---|---|
+| Modul | `src/kepler_hurwitz/onsager_vortex_diagnostics.py` |
+| Export-Skript | `scripts/onsager_vortex_export.py` |
+| CSV | [`../exports/onsager_vortex_circulation_upto_1000000.csv`](../exports/onsager_vortex_circulation_upto_1000000.csv) |
+| Summary JSON | [`../exports/onsager_vortex_circulation_upto_1000000.summary.json`](../exports/onsager_vortex_circulation_upto_1000000.summary.json) |
+
+**Referenzlauf** (Primvierlinge `(p,p+2,p+6,p+8)` mit `p+8 ≤ 10^6`): **166** Quadrupel — Befund: `n_vortex=1`, `n_trivial=0`, Phasenabschluss positiv (`all_phase_closed: true`).  
+**Status:** `[B]` experimental diagnostic — kombinatorische Zirkulationsdiagnostik, kein Physikclaim.  
+**Nullmodelle (optional):** `--include-nullmodels shuffle,ceab` auf dem Export-Skript.
+
+---
+
+### Weyl-Commutator Operator Bridge (ORQ-087)
+
+**Datei:** [`weyl_commutator_operator_bridge.md`](weyl_commutator_operator_bridge.md) — inkl. didaktischer Einstieg *Why Weyl algebra?* / *Warum die Weyl-Algebra?* und EABC-`[C]`-Brücke
+**Status:** `[C]` Brückenhypothese — `[B]` über $\Delta_{\mathrm{LR}}(\gamma)$  
+**Abhängigkeiten:** ORQ-085 (Dedekind $\Phi$), ORQ-083 (Berry-Holonomie)  
+**Stub:** `src/kepler_hurwitz/weyl_commutator_diagnostics.py`  
+**Claim-Grenze:** Weyl-Lesart für L/R-Asymmetrie — kein Dedekind-Beweis, keine Berry-Identität.
+
+---
+
+### Offene Bridge Targets `[C]` (ORQ-077–ORQ-087)
+
+**Kanonischer Katalog:** [`../open_mathematical_bridge_targets.md`](../open_mathematical_bridge_targets.md) — Governance-Tabelle, Prioritäten, Abhängigkeiten, Durchbruchspfad  
 **ORQ-Kurzindex:** [`../open_research_questions.md`](../open_research_questions.md)  
 **Register:** E-077–E-085 (+ E-076 Physik-Dossier, E-053 Renorm-Stub) in [`EVIDENCE_REGISTER.md`](../../EVIDENCE_REGISTER.md)  
 **Research Map:** [`../research_map.md`](../research_map.md)
@@ -58,6 +105,9 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 | 6 | GeometryScaffold | ORQ-084 | E-084 |
 | 7–8 | Monopol / Windung | ORQ-080–082 | E-080–E-082 |
 | 9 | shellPrimeMatchAtFirstLoss | ORQ-086 | E-085 (gated on E-077) |
+| 10 | Weyl-Commutator $\Delta_{\mathrm{LR}}$ | ORQ-087 | — (`weyl_commutator_diagnostics.py`) |
+| 11 | Onsager Quantization Bridge | ORQ-089 | E-089 |
+| 12 | Weyl–Onsager Komplettangriff | — | E-087, E-088 |
 
 **Claim-Grenze:** Alle Eintraege sind `[C]` — keine physikalische Identifikation, kein Lean-Beweis ohne explizite Formalisierung. E-085 erst nach internem Nachweis von `MetricSeparationLossExists`. Meissner (E-076) nur als Lesesprache fuer E-077: [`meissner_analogy_assessment.md`](meissner_analogy_assessment.md).
 
@@ -67,7 +117,7 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ### Arithmetisches Vakuum–eabc: Externe arithmetische Feinstruktur-Analogie
 
-**Datei:** `docs/theory/arithmetic_vacuum_eabc_analogy.md`  
+**Datei:** [`arithmetic_vacuum_eabc_analogy.md`](arithmetic_vacuum_eabc_analogy.md)  
 **Status:** `[C]` externe arithmetische Feinstruktur-Analogie  
 **Evidenz:** E-073 (motivisch; keine Lean-Formalisation)  
 **Zweck:** Einordnung des Hassall-Papers (*Arithmetic Vacuum*) und Energiedoku-Skripte ($\alpha \approx 1/(4\pi\zeta(3)\cdot 3^2)$, Prim-Log-Gitter, Zeta-Jitter, Dirac-artige Ladungsquantisierung) als **externer Resonanzanker** — ohne Formal-Core-Beleg für EABC, Lean oder Dedekind–Hasse.  
@@ -78,7 +128,7 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 | ID | Datei | Rolle |
 |---|---|---|
 | E-053 | `docs/energiedoku_exports/eabc_renormalisierungsprogramm.md` | EABC-Renormierungskern |
-| E-064 | `docs/theory/ideal_dedekind_hasse_intro_abitur.md` | DH-QPID-Stabilitätstest |
+| E-064 | [`ideal_dedekind_hasse_intro_abitur.md`](ideal_dedekind_hasse_intro_abitur.md) | DH-QPID-Stabilitätstest |
 | E-067–E-069 | `docs/dedekind_ideal_layer.md` | Lean-Ideal-Schicht |
 | E-073 | `docs/hott_identity_layer.md` | HoTT Identity Layer (motivisch) |
 | E-075 | `docs/energiedoku_exports/e075_prime_grid_signaturgeometrie.md` | Prime Grid / Signaturgeometrie (`[B]`/`[C]`) |
@@ -87,7 +137,7 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ### Higgs-Blasen–eabc: Topologische Defektkollision als Renormierungstest
 
-**Datei:** `docs/theory/higgs_bubble_eabc_analogy.md`  
+**Datei:** [`higgs_bubble_eabc_analogy.md`](higgs_bubble_eabc_analogy.md)  
 **Status:** `[D]` konzeptionelle Brücke / externe Analogie  
 **Evidenz:** E-071  
 **Zweck:** Methodische Parallele zwischen DESY/Hamburg Higgs-Blasenkollisions-Baryogenese ($T=0$, nichtthermische Sphaleronen) und eabc-Renormierungs-/Invariantentests — Defektkollision, topologischer Sektorwechsel, globaler Bias, keine Physikbehauptung.  
@@ -98,8 +148,8 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 | ID | Datei | Rolle |
 |---|---|---|
 | E-053 | `docs/energiedoku_exports/eabc_renormalisierungsprogramm.md` | EABC-Renormierungskern |
-| E-070 | `docs/theory/oppenheim_eabc_stability_bridge.md` | Geschwister-[D]-Brücke (stochastische Perturbation) |
-| E-064 | `docs/theory/ideal_dedekind_hasse_intro_abitur.md` | DH-QPID-Stabilitätstest |
+| E-070 | [`oppenheim_eabc_stability_bridge.md`](oppenheim_eabc_stability_bridge.md) | Geschwister-[D]-Brücke (stochastische Perturbation) |
+| E-064 | [`ideal_dedekind_hasse_intro_abitur.md`](ideal_dedekind_hasse_intro_abitur.md) | DH-QPID-Stabilitätstest |
 
 ---
 
@@ -124,7 +174,7 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ### Lift-Projektions-Prinzip (Quaternionen ↔ Kepler/Givental)
 
-**Datei:** `docs/theory/kepler_quaternion_lift_projection.md`  
+**Datei:** [`kepler_quaternion_lift_projection.md`](kepler_quaternion_lift_projection.md)  
 **Status:** `[C]` methodische Brücke  
 **Evidenz:** E-075 (Givental-Parallele), E-067–E-069 (Dedekind-Ideal-Schicht)  
 **Zweck:** Kepler-Kegel und quaternionische Norm als **quadratische Lift-Strukturen** im gleichen Projektionsschema ($\mathcal{O}=\pi_K(C\cap\Pi)$, $H=\pi_Q(\mathcal{Q}_{\mathrm{arith}}\cap\mathcal{S})$) — gleiche Methode, nicht gleiche Objekte.  
@@ -151,6 +201,10 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 **Status:** `[A]` Witness ⇒ Abstieg; `[C]` uniforme Witness-Existenz  
 **Lean:** `KeplerHurwitz/CollatzProofAttemptV27.lean`  
 **Kette:** `docs/collatz_v2_evidence_chain.md`
+
+**Tao-inspirierte Syracuse-Diagnostics `[B]`:** [`../collatz_tao_diagnostics.md`](../collatz_tao_diagnostics.md)  
+**Modul:** `src/kepler_hurwitz/tao_collatz_diagnostics.py` · **Export:** `examples/run_tao_collatz_diagnostics_export.py`  
+**Claim-Grenze:** numerische First-Passage-/Valuation-Experimente nach Tao (2019) — kein Collatz-Beweis, keine Tao-Formalisierung.
 
 ---
 

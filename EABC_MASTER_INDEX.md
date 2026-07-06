@@ -67,3 +67,11 @@
   - **Dossier:** `docs/reports/physical_reference_analogies.md` · Didaktik: `docs/physics/meissner_effect.md`
   - **Trennung:** Dumas-Orbit-Protokoll bleibt empirisch — Physik-Analogien separat (siehe Protokoll §Governance)
   - **Register:** E-076
+
+- **Onsager Quantization Bridge [C]** — Flussquantisierung / Wirbel / Ising / Reziprozität
+  - **[C] Interpretation:** vier Onsager-Achsen als Resonanzsprache für Diskretisierung, Umlauf, Kritikalität, Zeitumkehr in EABC
+  - **Verwandte ORQs:** ORQ-080, ORQ-083, ORQ-087, ORQ-077–079
+  - **Dossier:** `docs/theory/onsager_quantization_bridge.md`
+  - **Stub `[B]`:** `src/kepler_hurwitz/onsager_vortex_diagnostics.py` (Gap-Rotor-Zirkulation, Holonomie, Defektkern)
+  - **Claim-Grenze:** Ergänzt E-076 — keine physikalische Identifikation, keine Deduktion aus Dumas-Empirie
+  - **Register:** E-089 (ORQ-089)

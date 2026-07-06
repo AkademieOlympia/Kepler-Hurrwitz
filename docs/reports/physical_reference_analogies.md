@@ -77,6 +77,10 @@ not_claimed:
 | **von Klitzing / QHE** | Robuste Hall-Quantisierung $R_H = h/(ne^2)$; topologisch geschützte Plateaus | mod-$12$-Kanalpartition, diskrete Bucket-Grenzen, **Kanal-/Topologieanker** | `[C]` |
 | **Meissner** | Magnetfeldverdrängung aus dem Bulk durch Randströme; $B \approx 0$ im Inneren | Anisotropie-Exklusion aus dem Bulk; Retraktion auf isotropen Fixpunkt $24I_3$ — **Defekt-Exklusionsanker** | `[C]` |
 
+**Geschwister-Dossier (E-089):** [`onsager_quantization_bridge.md`](../theory/onsager_quantization_bridge.md) — Onsager-Achsen (Flussquantisierung, Wirbel, Ising, Reziprozität) ergänzen die drei E-076-Achsen; strikt getrennt, keine gegenseitige Deduktion.
+
+**Komplettangriff (E-087/E-088):** [`weyl_onsager_bridge_attack.md`](../theory/weyl_onsager_bridge_attack.md) — koordinierte Weyl-Chiralitäts- und Onsager-Reziprozitäts-Lesesprache; Diagnostik-Stubs, kein Beweis; E-077 bleibt Priorität 1.
+
 Diese Tabelle ist **orientierend**. Sie definiert drei unabhängige Resonanzachsen, die nicht vermischt werden dürfen.
 
 ---
@@ -372,3 +376,4 @@ Die Begriffe **Meissner-Shell** und **Meissner-Randschale** bezeichnen die EABC-
 | [`EABC_MASTER_INDEX.md`](../../EABC_MASTER_INDEX.md) | Master-Index |
 | [`theory/README.md`](../theory/README.md) | Theory-Index |
 | [`meissner_analogy_assessment.md`](../theory/meissner_analogy_assessment.md) | Urteil: Meissner `[C]` — Lesen ja, Durchbruch nein |
+| [`onsager_quantization_bridge.md`](../theory/onsager_quantization_bridge.md) | Geschwister-`[C]` (E-089): Onsager-Achsen |

@@ -393,6 +393,7 @@ Der beste konkrete nächste Schritt wäre **nicht** ein großer Meissner-Claim, 
 |---|---|
 | [`open_mathematical_bridge_targets.md`](../open_mathematical_bridge_targets.md) | Kanonischer Bridge-Target-Katalog; Meissner hier **nur** als Lesesprache fuer `ShellSeparationLoss(n)` (E-077 / ORQ-077) |
 | [`physical_reference_analogies.md`](../reports/physical_reference_analogies.md) | E-076-Hauptdossier (AB / Klitzing / Meissner) |
+| [`weyl_onsager_bridge_attack.md`](weyl_onsager_bridge_attack.md) | Weyl–Onsager Komplettangriff E-087/E-088 — parallele `[C]`-Diagnostik, E-077 bleibt Priorität |
 | [`meissner_effect.md`](../physics/meissner_effect.md) | Didaktische Meissner-Referenz |
 | [`kepler_quaternion_lift_projection.md`](kepler_quaternion_lift_projection.md) | Geschwister-`[C]` Lift-Projektion (E-075) |
 | [`diagnostics_parameter_atlas.md`](../diagnostics_parameter_atlas.md) | Top-8-Atlas; geplante Meissner-Schicht |

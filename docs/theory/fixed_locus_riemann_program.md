@@ -4,7 +4,7 @@ Eine strukturelle Synthese der Riemannschen Zeta-Symmetrie im Kepler-Hurrwitz-Ra
 
 **Governance:** `[L4 / programmatisch]` — keine RH-Behauptung, kein Epistemologie-Upgrade aus Numerik oder Heuristik.
 
-**Register-Bezug:** E-034 (`[C]` refuted), E-035 (`[C]` open_hypothesis), ORQ-087 (Fixed-Locus-Konfinierung).
+**Register-Bezug:** E-034 (`[C]` refuted), E-035 (`[C]` open_hypothesis), ORQ-088 (Fixed-Locus-Konfinierung).
 
 ---
 
@@ -43,7 +43,7 @@ Da \(\mathrm{Fix}(D) = \{\sigma = \tfrac{1}{2}\}\), ist die Konfinierungs-Aussag
 [L4 / Programm]      Fixed-Locus, SDTC, HoTT-Univalenz, Primexponenten-Gitter
         │
         ▼  nur mit expliziter Brücke
-[C / offen]          Operator-Darstellung von ξ-Abweichungen; SBT-Domination (ORQ-087)
+[C / offen]          Operator-Darstellung von ξ-Abweichungen; SBT-Domination (ORQ-088)
         │
         ▼  numerisch geprüft, nicht upgraden
 [C / refuted]        E-034 Kosinus-Resonanz auf ΔM (Verdict: refuted)
@@ -101,7 +101,7 @@ liefern die notwendige arithmetische Kopplung (Anschluss: Primvierling, Hurwitz-
 |---|---|---|
 | **Formale Säule** | Lean-Stufen 1–5 (Symmetrie-Skelett → analytische Brücke) | Sukzessive Schließung Toy-Model ↔ Realität |
 | **Computergestützte Säule** | \(D\)-Orbit-Diagramme, Unified Notebooks | Rein heuristisch-didaktisch; kein post-hoc-Visualisierungsbeweis |
-| **Spektraltheoretische Säule** | SDTC (Self-Dual Trace Confinement), Operatortheorie | Konditional — siehe ORQ-087 |
+| **Spektraltheoretische Säule** | SDTC (Self-Dual Trace Confinement), Operatortheorie | Konditional — siehe ORQ-088 |
 
 ### SDTC (konditional)
 
@@ -123,7 +123,7 @@ Objektivität erfordert explizite Brückenhypothese (vgl. `CanonicalBridgeHypoth
 
 ## Verwandte Dokumente
 
-- [`../open_research_questions.md`](../open_research_questions.md) — ORQ-087
+- [`../open_research_questions.md`](../open_research_questions.md) — ORQ-088
 - [`../l4_reference_matrix.md`](../l4_reference_matrix.md) — L4-RL-009
 - [`../paper-outline.md`](../paper-outline.md) — Satzgruppen S5a/S5b (E-034/E-035)
 - [`../../EVIDENCE_REGISTER.md`](../../EVIDENCE_REGISTER.md)

@@ -1340,7 +1340,8 @@
       "supports": [
         "E-080",
         "E-081",
-        "E-083"
+        "E-083",
+        "E-089"
       ],
       "scope": "Aharonov-Bohm, von-Klitzing/QHE, Meissner als interpretative Resonanzanker fuer 24I_3, Retraktion, Shell-Stapel",
       "metric_or_result": "interpretativ; keine Lean-Formalisation der Analogien",
@@ -1508,6 +1509,63 @@
       "stability": "experimental",
       "last_reviewed": "2026-07-05",
       "defensive_scope": "Keine vorzeitige Prim-Prognose aus Diagnostics; E-072-Kanalpartition allein reicht nicht. Aktivierung erst nach blindem internem Instabilitaetsnachweis (E-077) aus gate-eligible primary track; Track B n_0=2 (energiedoku_full, [C]) darf nicht verwendet werden solange Track A primary bleibt; siehe docs/reports/shell_separation_diagnostics_protocol.md Dual-Track n0 Governance."
+    },
+    {
+      "id": "E-087",
+      "title": "WeylChiralBridgeHypothesis (Weyl-Punkte / Chiralitaet / Berry-Kruemmung auf Orbit-Parameterraum)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/weyl_onsager_bridge_attack.md, docs/theory/weyl_commutator_operator_bridge.md, docs/open_research_questions.md (ORQ-087)",
+      "depends_on": [
+        "E-076",
+        "E-080",
+        "E-083"
+      ],
+      "supports": [],
+      "scope": "Weyl-Semimetal-Lesesprache fuer lokale Chiralitaet, Berry-Holonomie und Hurwitz-Windung auf EABC-Kanalraendern",
+      "metric_or_result": "interpretativ; weyl_chirality_proxy und berry_holonomy_product als [B]-Stub",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Weyl-Gleichung ist Metapher fuer massless chiral modes — kein Beweis von EABC, Dedekind Phi oder Berry-Identitaet; kein physikalisches Weyl-Semimetall im Formal Core."
+    },
+    {
+      "id": "E-088",
+      "title": "OnsagerReciprocalBridgeHypothesis (Reziprozitaet / Hall-Klitzing / Isotropie-Defekt-Kompensation)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/weyl_onsager_bridge_attack.md, docs/theory/onsager_quantization_bridge.md, docs/open_mathematical_bridge_targets.md",
+      "depends_on": [
+        "E-076",
+        "E-089"
+      ],
+      "supports": [],
+      "scope": "Onsager L_ij=L_ji als globale Kopplungssymmetrie-Lesesprache; Hall/Klitzing-Resonanz und 24I3-Isotropie ohne physikalische Identifikation",
+      "metric_or_result": "interpretativ; onsager_reciprocity_residual als [B]-Stub",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Onsager-Reziprozitaet beweist keine Dedekind-Symmetrie, kein ShellSeparationLoss und kein Collatz; QHE ist Resonanzsprache, nicht Hurwitz-Primidentitaet."
+    },
+    {
+      "id": "E-089",
+      "title": "Onsager Quantization Bridge (Flussquantisierung / Wirbel / Ising / Reziprozitaet)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/onsager_quantization_bridge.md, docs/open_research_questions.md (ORQ-089), docs/open_mathematical_bridge_targets.md",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [
+        "E-080",
+        "E-083"
+      ],
+      "scope": "Vier Onsager-Achsen als Resonanzsprache fuer Diskretisierung, Umlauf, Kritikalitaet, Zeitumkehr in EABC",
+      "metric_or_result": "interpretativ; keine Lean-Formalisation; [B]-Diagnostik vorgeschlagen",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Keine physikalische Identifikation; ergaenzt E-076 ohne gegenseitige Deduktion; Ising-Kritikalitaet ist keine ShellSeparationLoss-Behauptung; Onsager-Reversibilitaet beweist keine Dedekind-Symmetrie."
     }
   ]
 }

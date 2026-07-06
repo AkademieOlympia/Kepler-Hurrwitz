@@ -2,6 +2,7 @@
 
 **Quelle:** `KeplerHurwitz/CollatzProofAttemptV2.lean` … `CollatzProofAttemptV27.lean`  
 **V2.7-Dossier:** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) (Net-Descent-Bridge, Governance `[A]`/`[C]`)  
+**Analytische Perspektiven (Python, Tao 2019, 2-adische Lesesprache):** [`collatz_analytical_perspectives.md`](collatz_analytical_perspectives.md) — **`[B]`/`[C]`**, kein Projektbeweis  
 **Register-Verweis:** `EVIDENCE_REGISTER.md` (Collatz-Kern, unabhaengig von Musketiere-Spur)
 
 Diese Kette dokumentiert den **lokalen** Beweisstand des Collatz-V2-Versuchs (ungerader Kern `T_odd`,
@@ -94,6 +95,9 @@ m_{\mathrm{good}} = \mathrm{collatzStep}^{[t_{\mathrm{good}}]}(n),
 Offen: uniform $\Delta_{\mathrm{net}} > 0$ für $n \equiv 3 \pmod 4$. Äquivalent: $\exists t_{\mathrm{loc}}$ mit
 $\mathrm{collatzStep}^{[t_{\mathrm{loc}}]} m_{\mathrm{good}} < n$. Python-Diagnostics:
 `kepler_hurwitz.diagnostics.net_descent_margin`, `bad_run_cost`, `shrink_efficiency`.
+Trajektorien und Stopping Times (explorativ, `[B]`): `kepler_hurwitz.collatz_analytics` —
+siehe [`collatz_analytical_perspectives.md`](collatz_analytical_perspectives.md).
+Tao-Syracuse-First-Passage und mod-8-stratifizierte Klein-Diagnostics: [`collatz_tao_diagnostics.md`](collatz_tao_diagnostics.md) (`tao_collatz_diagnostics.py`, **`[B]`**).
 
 Lokaler Good-Branch-Shrink `(collatzStep^[3]) m_good < m_good` ist bewiesen; die **Netto**-Bedingung
 (Bad-Run-Kosten $C_{\mathrm{bad}}=t_{\mathrm{good}}$ vs. Shrink) bleibt der nächste Angriffspunkt für `mod 4 = 3`.

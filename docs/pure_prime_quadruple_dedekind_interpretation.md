@@ -163,6 +163,8 @@ Ein reiner Primzahlvierling ist auf der **Komponentenebene** Dumas-symmetrisch (
 
 Chiralität ist keine Eigenschaft von \(M(n(v))\) oder \(M(P(v))\) allein, sondern der nichtkommutativen Idealpfade nach Einbettung \(\Phi\).
 
+**ORQ-087 (Weyl-Kommutator):** Die vorgeschlagene Diagnostik \(\Delta_{\mathrm{LR}}(\gamma)=\|\mathcal{H}\gamma-\gamma\mathcal{H}\|\) operationalisiert diese L/R-Asymmetrie als messbaren Kommutator-Defekt — siehe [`theory/weyl_commutator_operator_bridge.md`](theory/weyl_commutator_operator_bridge.md) (`[C]`/`[B]`).
+
 ---
 
 ## 4. Dedekind-Hasse-Defekte

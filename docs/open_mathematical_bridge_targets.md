@@ -14,7 +14,10 @@ evidence_ids:
   - E-083
   - E-084
   - E-085
-orq_range: ORQ-077–ORQ-086
+  - E-087
+  - E-088
+  - E-089
+orq_range: ORQ-077–ORQ-089
 claim_boundary: >-
   Physikalische Analogien sind Resonanzsprache [C], kein Beweisweg. Mathematische
   Existenzfragen werden erst hochgestuft, wenn formal definiert, testbar oder bewiesen.
@@ -50,6 +53,9 @@ Der entscheidende Punkt: Einige Punkte sind echte mathematische Ziele, andere si
 | **7** Hurwitz-Windungs-Korrespondenz (E-080 / ORQ-080) | nein | ja (nach Index-Def.) | ja | ja | E-076 |
 | **8** Dirac–Schwinger / Dipol–Oktupol (E-081, E-082) | nein | bedingt | ja | ja | E-076, E-080 |
 | **9** `shellPrimeMatchAtFirstLoss` (E-085 / ORQ-086) | ja | ja (nach Gate) | nein | nein | E-077 |
+| **10** Weyl-Kommutator $\Delta_{\mathrm{LR}}$ (ORQ-087) | ja | ja (Stub) | nein | teilweise | ORQ-085, ORQ-083 |
+| **11** Onsager Quantization Bridge (ORQ-089) | nein | bedingt | ja | ja | E-076, ORQ-080, ORQ-087 |
+| **12** Weyl–Onsager Komplettangriff (E-087, E-088) | nein | ja (Stub) | ja | ja | E-076, E-077, E-080, E-083, E-089 |
 
 \[
 \boxed{
@@ -423,6 +429,77 @@ Wir bestimmen die erste Instabilität blind/intern und testen danach die Kopplun
 
 ---
 
+## 10. Weyl-Kommutator-Operator-Brücke
+
+**Hypothese:** `WeylCommutatorOperatorBridge` · **ORQ-087**
+
+**Fragestellung:**
+
+Kann die Links/Rechts-Asymmetrie von Hurwitz-Idealpfaden als Kommutator-Defekt gemessen werden?
+
+**Formal:**
+
+$$[\mathcal{H}, \gamma] := \mathcal{H}\gamma - \gamma\mathcal{H}, \qquad
+\Delta_{\mathrm{LR}}(\gamma) := \|[\mathcal{H}, \gamma]\|.$$
+
+Die Weyl-Algebra $[A,B]=AB-BA=I$ liefert die kanonische Lesart: Reihenfolge zählt, Orbit-Pfade sind gerichtet, nichtkommutative Defekte sind strukturell — kein Störfall.
+
+**EABC/Hurwitz-Lesart:**
+
+| Weyl | Hurwitz/EABC |
+|---|---|
+| $AB \neq BA$ | $H\gamma \neq \gamma H$ |
+| Kommutator-Norm | $\Delta_{\mathrm{LR}}$ vs.\ $\delta_H$ (`norm_signature_defect`) |
+| Umlauf | CEAB-Orbit, Berry-Holonomie (ORQ-083) |
+
+**Status:** `[C]` — `[B]`-Upgrade über `weyl_commutator_diagnostics.py` mit Nullmodellen (CEAB, Kanal-Shuffle, Norm-Match).
+
+**Nicht behauptet wird:**
+
+- dass $\Delta_{\mathrm{LR}}$ bereits Berry-Holonomie misst,
+- dass die Hurwitz-Ordnung eine Weyl-Darstellung trägt,
+- dass Kommutator-Nullheit Idealpfad-Symmetrie beweist.
+
+**Minimalanforderungen für `[B]`:**
+
+1. $\mathcal{H}$ kanonisch dokumentieren (nicht nachträglich an Profile anpassen).
+2. Batch-Export $\Delta_{\mathrm{LR}}(v)$ für Primvierlinge mit fünf Nullmodellen.
+3. Trennschärfe vs.\ Nullmodelle berichten.
+4. Vergleich mit `norm_signature_defect` — komplementär, nicht redundant.
+
+**Hooks:** [`theory/weyl_commutator_operator_bridge.md`](theory/weyl_commutator_operator_bridge.md); `src/kepler_hurwitz/weyl_commutator_diagnostics.py`; [`pure_prime_quadruple_dedekind_interpretation.md`](pure_prime_quadruple_dedekind_interpretation.md) §3
+
+---
+
+## 11. Onsager Quantization Bridge
+
+**Hypothese:** `OnsagerQuantizationBridge` · **ORQ-089** · **E-089**
+
+**Fragestellung:**
+
+Lassen sich Lars Onsagers vier Grundbeiträge — Flussquantisierung, quantisierte Wirbel, exakte 2D-Ising-Lösung, Reziprozitätsbeziehungen — als komplementäre Resonanzachsen für diskrete EABC-Strukturen lesen?
+
+**Vier Achsen:**
+
+| Achse | Physik | EABC-Lesefrage |
+|---|---|---|
+| Flussquantisierung | $\Phi = n \Phi_0$, $\Phi_0 = h/2e$ | mod-$12$-Kanäle, diskrete Buckets (E-072) |
+| Quantisierte Wirbel | $\kappa = n h/m$ | Orbit-Windung (ORQ-080), Holonomie (ORQ-083) |
+| 2D-Ising | Phasenübergang bei $T_c$ | ShellSeparationLoss (ORQ-077), $\dim_B$ (ORQ-079) |
+| Reziprozität | $L_{ij} = L_{ji}$ | Idealpfad-Symmetrie, $\Delta_{\mathrm{LR}}$ (ORQ-087) |
+
+**Status:** `[C]` — ergänzt E-076 (AB/Klitzing/Meissner); `[B]`-Upgrade über vorgeschlagene Diagnostik mit Nullmodellen.
+
+**Nicht behauptet wird:**
+
+- dass EABC Suprafluidität, Supraleitung oder Ising-Kritikalität implementiert,
+- dass $\Phi_0$ im Hurwitz-Formalismus definiert ist,
+- dass Onsager-Reversibilität Dedekind-Symmetrie beweist.
+
+**Hooks:** [`theory/onsager_quantization_bridge.md`](theory/onsager_quantization_bridge.md); [`reports/physical_reference_analogies.md`](reports/physical_reference_analogies.md) (E-076); `src/kepler_hurwitz/onsager_vortex_diagnostics.py`
+
+---
+
 ## Prioritätsordnung
 
 Die offenen Ziele sollten nicht gleichrangig behandelt werden. Sinnvolle Priorität:
@@ -438,6 +515,8 @@ Die offenen Ziele sollten nicht gleichrangig behandelt werden. Sinnvolle Priorit
 | **7** | Hurwitz-Windungs-Korrespondenz | ORQ-080 | E-080 | interessant, aber physikalisch riskanter |
 | **8** | Dirac–Schwinger / Dipol–Oktupol | ORQ-081, ORQ-082 | E-081, E-082 | vorerst Resonanzachsen `[C]` |
 | **9** | `shellPrimeMatchAtFirstLoss` | ORQ-086 | E-085 | erst nach internem Instabilitätsnachweis aktivieren |
+| **10** | Weyl-Kommutator $\Delta_{\mathrm{LR}}$ | ORQ-087 | — | arithmetisch komplementär zu ORQ-085; `[B]`-Stub vorhanden |
+| **11** | Onsager Quantization Bridge | ORQ-089 | E-089 | interpretativ; ergänzt E-076; vier Resonanzachsen `[C]` |
 
 ---
 
@@ -492,6 +571,28 @@ Erst wenn eine interne Instabilität unabhängig gefunden wurde, darf ihre Koppl
 
 ---
 
+## 12. Weyl–Onsager Komplettangriff (E-087, E-088)
+
+**Hypothesen:** `WeylChiralBridgeHypothesis` (E-087) · `OnsagerReciprocalBridgeHypothesis` (E-088)  
+**Kanonisches Dossier:** [`theory/weyl_onsager_bridge_attack.md`](theory/weyl_onsager_bridge_attack.md)
+
+**Fragestellung:**
+
+Lassen sich Weyl-Chiralität (lokal) und Onsager-Reziprozität (global) als **koordinierte Lesesprache** auf EABC-Kanalstrukturen lesen — ohne physikalische Identifikation?
+
+| Achse | E-ID | Diagnostik-Stub | Abhängigkeit |
+|---|---|---|---|
+| Weyl / Chiral / Berry | E-087 | `weyl_chirality_proxy`, `berry_holonomy_product` | E-080, E-083, ORQ-087 |
+| Onsager / Reziprozität / Hall | E-088 | `onsager_reciprocity_residual` | E-076, E-089 |
+
+**Governance:** Komplettangriff = Lesesprache + Diagnostik, nicht Großsatz. E-077 bleibt Priorität 1; Weyl/Onsager-Deutung erst nach internem Shell-Loss **oder** als parallele `[B]`-Exports.
+
+**Nicht behaupten:** Weyl beweist EABC; Onsager beweist Collatz; Hall-Effekt = Hurwitz-Primzahlen.
+
+**Ordnungs-Defekt-Parallelismus:** ORQ-089 (Schleifen-Zirkulation) ↔ ORQ-087 (Operator-Kommutator); Claim-Status-Tabelle und See-also-Block in [`theory/weyl_onsager_bridge_attack.md`](theory/weyl_onsager_bridge_attack.md).
+
+---
+
 ## Meissner als ergänzende Sprache (Punkt 2)
 
 Die Meissner-Analogie passt gut als ergänzende Sprache für Punkt 2: $\mathrm{ShellSeparationLoss}(n)$.
@@ -522,6 +623,8 @@ Wenn man diesen Punkt sauber definiert und testet, könnte Meissner später helf
 | [`theory/meissner_analogy_assessment.md`](theory/meissner_analogy_assessment.md) | Meissner-Urteil: Lesesprache für ShellSeparationLoss, kein Hauptangriff |
 | [`energiedoku_exports/eabc_renormalisierungsprogramm.md`](energiedoku_exports/eabc_renormalisierungsprogramm.md) | Formaler Renorm-Kern E-053 |
 | [`reports/physical_reference_analogies.md`](reports/physical_reference_analogies.md) | AB / Klitzing / Meissner E-076 |
+| [`theory/onsager_quantization_bridge.md`](theory/onsager_quantization_bridge.md) | Onsager-Achsen E-089 |
+| [`theory/weyl_onsager_bridge_attack.md`](theory/weyl_onsager_bridge_attack.md) | Weyl–Onsager Komplettangriff E-087/E-088 |
 | [`diagnostics_parameter_atlas.md`](diagnostics_parameter_atlas.md) | E-077 Shell-Separationsdiagnostik `[B]`-Kandidat |
 | `src/kepler_hurwitz/shell_separation_diagnostics.py` | E-077 Operationalisierung (Diagnose only) |
 

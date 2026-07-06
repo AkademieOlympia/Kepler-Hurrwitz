@@ -641,6 +641,7 @@ Vollständiges Laufprotokoll — Regression vs. empirische Zusatzhypothesen vs. 
 
 ## Verwandte Dokumente
 
+- [`weyl_commutator_operator_bridge.md`](weyl_commutator_operator_bridge.md) — ORQ-087: $\Delta_{\mathrm{LR}}(\gamma)$ als Kommutator-Defekt für Idealpfade  
 - [`dumas_orbit_experimental_protocol.md`](../reports/dumas_orbit_experimental_protocol.md) — experimentelles Protokoll (§17.10)  
 - [`dumas_lemma.md`](../dumas_lemma.md) — formal Dumas dossier  
 - [`drei_musketiere_hypothese.md`](../drei_musketiere_hypothese.md) — Ikosaeder neighbour triples  

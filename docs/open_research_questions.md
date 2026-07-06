@@ -49,7 +49,23 @@ Es enthält bewusst keine Behauptungen über bereits gesicherte Resultate.
 
 ## Fixed-Locus / Riemann-Programm (L4)
 
-### ORQ-087: Fixed-Locus Nullstellen-Konfinierung via SDTC
+### ORQ-087: Weyl-Commutator Operator Bridge
+
+- **Kontext:** Weyl-Algebra \([A,B]=AB-BA=I\) als kanonischer nichtkommutativer Defekt; Anschluss an Dedekind-Idealpfade \(H\gamma\) vs.\ \(\gamma H\) (ORQ-085) und Berry-Holonomie (ORQ-083).
+- **Kernfrage:** Kann die Links/Rechts-Asymmetrie von Hurwitz-Idealpfaden als Kommutator-Defekt \(\Delta_{\mathrm{LR}}(\gamma)=\|\mathcal{H}\gamma-\gamma\mathcal{H}\|\) gemessen werden?
+- **Status:** `[C]` — `[B]`-Upgrade über `weyl_commutator_diagnostics.py` mit Nullmodellen (CEAB, Kanal-Shuffle, Norm-Match).
+- **Abhängigkeiten:** ORQ-085 ($\Phi(v)=\gamma$), ORQ-083 (Holonomie); komplementär zu `norm_signature_defect` in `diagnostics.py`.
+- **Dossier:** [`theory/weyl_commutator_operator_bridge.md`](theory/weyl_commutator_operator_bridge.md)
+
+### ORQ-089: Onsager Quantization Bridge
+
+- **Kontext:** Lars Onsagers vier Grundbeiträge — Flussquantisierung ($\Phi_0=h/2e$), quantisierte Wirbel (Onsager–Feynman), exakte 2D-Ising-Lösung, Reziprozitätsbeziehungen — als Resonanzsprache für diskrete EABC-Strukturen.
+- **Kernfrage:** Lassen sich Diskretisierung, Umlauf, Kritikalität und Zeitumkehr entlang der vier Onsager-Achsen operationalisieren, ohne physikalische Identifikation?
+- **Status:** `[C]` — `[B]`-Upgrade über vorgeschlagene Diagnostik (Diskretisierungs-Index, Zirkulations-Defekt, Separations-Kritikalitäts-Profil, Reversibilitäts-Asymmetrie).
+- **Abhängigkeiten:** Ergänzt E-076 (AB/Klitzing/Meissner); komplementär zu ORQ-080/083 (Wirbel/Holonomie), ORQ-087 (Reversibilität), ORQ-077–079 (Kritikalität).
+- **Dossier:** [`theory/onsager_quantization_bridge.md`](theory/onsager_quantization_bridge.md)
+
+### ORQ-088: Fixed-Locus Nullstellen-Konfinierung via SDTC
 
 - **Kontext:** Involutive Selbstdualität \(D(s)=1-\bar{s}\); Lokations-Aussage \(\sigma=\tfrac{1}{2}\) als Fixpunkt-Locus; programmatischer HoTT-Anschluss (Identitätstyp \(D(z)\equiv z\)).
 - **Kernfrage:** Lässt sich die Abweichung einer Nullstelle von der kritischen Linie als anti-invarianter spektraler Operator \(\mathcal{A}\) so darstellen, dass *Self-Dual Trace Confinement (SDTC)* eine spurlos gegen Null konvergierende Dominanz erzwingt?
@@ -76,6 +92,8 @@ Vollstaendige Statements, Governance-Tabelle und Durchbruchspfad: [`open_mathema
 | 8 | ORQ-081 | Dirac–Schwinger emergent | E-081 | `[C]` |
 | 8 | ORQ-082 | Dipol/Oktupol-Monopol | E-082 | `[C]` |
 | 9 | ORQ-086 | `shellPrimeMatchAtFirstLoss` | E-085 | `[C]` GATE INACTIVE / PRE-REGISTRATION NOT COMPLETE (→ Protokoll Pre-Registration Gate) |
+| 10 | ORQ-087 | Weyl-Commutator $\Delta_{\mathrm{LR}}$ | — | `[C]` → `[B]`-Ziel |
+| 11 | ORQ-089 | Onsager Quantization Bridge | E-089 | `[C]` |
 
 **Shell-Separationsdiagnostik (E-077–E-079):** Mess-Schicht `[C]` — [`reports/shell_separation_diagnostics_protocol.md`](reports/shell_separation_diagnostics_protocol.md) · CSV via `scripts/shell_separation_diagnostics.py`
 

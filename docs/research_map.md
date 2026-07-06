@@ -42,6 +42,9 @@ Beispiel:
 | 8 | Dirac–Schwinger emergent | ORQ-081 | E-081 | Interpretation / Hypothese |
 | 8 | Dipol/Oktupol-Monopol | ORQ-082 | E-082 | Interpretation / Hypothese |
 | 9 | shellPrimeMatchAtFirstLoss | ORQ-086 | E-085 | Hypothese (GATE INACTIVE / PRE-REGISTRATION NOT COMPLETE → Protokoll) |
+| 10 | Weyl-Commutator $\Delta_{\mathrm{LR}}$ | ORQ-087 | — | Hypothese → `[B]`-Ziel |
+| 11 | Onsager Quantization Bridge | ORQ-089 | E-089 | Interpretation / Hypothese |
+| 11 | Onsager Quantization Bridge | ORQ-089 | E-089 | Interpretation / Hypothese |
 
 **Shell-Separationsdiagnostik (E-077–E-079):** Kategorie `Numerik` (diagnostisch, `[C]`) — [`reports/shell_separation_diagnostics_protocol.md`](reports/shell_separation_diagnostics_protocol.md) · `scripts/shell_separation_diagnostics.py`
 
@@ -49,6 +52,6 @@ Beispiel:
 
 **Minimaler Durchbruchspfad:** Schale → Separation → erster Verlust → Dimension → Primindex-Test — siehe kanonisches Dokument.
 
-**Physik-Analogien (Interpretation, kein Theorem):** E-076 → Kategorie `Interpretation` / `[C]`-Dossier — siehe [`theory/README.md`](theory/README.md). Meissner nur als Lesesprache fuer E-077: [`theory/meissner_analogy_assessment.md`](theory/meissner_analogy_assessment.md).
+**Physik-Analogien (Interpretation, kein Theorem):** E-076 → Kategorie `Interpretation` / `[C]`-Dossier — siehe [`theory/README.md`](theory/README.md). E-089 (Onsager: Flussquantisierung, Wirbel, Ising, Reziprozität) ergänzt E-076 — [`theory/onsager_quantization_bridge.md`](theory/onsager_quantization_bridge.md). Meissner nur als Lesesprache fuer E-077: [`theory/meissner_analogy_assessment.md`](theory/meissner_analogy_assessment.md).
 
 **Metrische Vorlaeufer:** [`eabc_renormalisierungsprogramm.md`](energiedoku_exports/eabc_renormalisierungsprogramm.md) §8–9, §14 (E-053).

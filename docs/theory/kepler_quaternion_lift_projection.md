@@ -238,4 +238,5 @@ Lift-Räume (Kepler-Kegel, quaternionische Normschale, Hurwitz-Doppelkegel) trag
 | [`dedekind_hasse_eabc_bridge.md`](../energiedoku_exports/dedekind_hasse_eabc_bridge.md) | Dedekind–Hasse-Interface |
 | [`related-work.md`](../related-work.md) | externe Quellen (Givental, Kolossváry) |
 | [`distilled_parameters.md`](distilled_parameters.md) | Destillierte Parameter, JSON-Felder, Governance |
+| [`weyl_commutator_operator_bridge.md`](weyl_commutator_operator_bridge.md) | ORQ-087: $\Delta_{\mathrm{LR}}$, Weyl-Lesart für $H\gamma$ vs.\ $\gamma H$ |
 | [`ARCHITECTURE.md`](../../ARCHITECTURE.md) | Schichtenmodell, Bridge Interfaces `[C]` |
