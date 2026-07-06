@@ -64,6 +64,26 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=20260706)
     parser.add_argument("--max-steps", type=int, default=10_000)
     parser.add_argument("--profile-steps", type=int, default=64)
+    parser.add_argument(
+        "--steps-cap-log-n",
+        type=float,
+        default=None,
+        help=(
+            "If set (e.g. 1.0), cap profile steps per sample at "
+            "max(1, int(coefficient * log(n)))."
+        ),
+    )
+    parser.add_argument(
+        "--steps-cap-coefficient",
+        type=float,
+        default=0.25,
+        help="Coefficient c in min(profile_steps, max(1, int(c * log(n)))).",
+    )
+    parser.add_argument(
+        "--no-censor-at-one",
+        action="store_true",
+        help="Disable censoring valuation profiles at Syracuse fixed point 1.",
+    )
     parser.add_argument("--csv", type=Path, default=DEFAULT_CSV)
     parser.add_argument("--summary", type=Path, default=DEFAULT_SUMMARY)
     parser.add_argument("--mod8-summary", type=Path, default=DEFAULT_MOD8_SUMMARY)
@@ -152,6 +172,9 @@ def main() -> None:
             args.seed,
             max_steps=args.max_steps,
             profile_steps=args.profile_steps,
+            censor_at_one=not args.no_censor_at_one,
+            steps_cap_log_n=args.steps_cap_log_n,
+            steps_cap_coefficient=args.steps_cap_coefficient,
         )
         mod8_elapsed = time.perf_counter() - mod8_started
         mod8_summary_path = export_mod8_stratified_summary_json(
@@ -168,8 +191,9 @@ def main() -> None:
             class_summary = classes[residue]
             print(
                 f"  mod8={residue}: hit_rate={class_summary['hit_rate']:.4f}, "
-                f"tail_corrected_tv_mean={class_summary['tail_corrected_tv_mean']:.6f}, "
-                f"lag1_autocorr_mean={class_summary['lag1_autocorr_mean']:.4f}"
+                f"collective_geom2={class_summary['collective_geom2_distance']:.6f}, "
+                f"free_geom2={class_summary['free_geom2_distance_excluding_position_0']:.6f}, "
+                f"delta_start={class_summary['geom2_delta_start']:.6f}"
             )
         print(f"Elapsed (mod8): {mod8_elapsed:.3f}s")
         print(f"Wrote {mod8_summary_path}")

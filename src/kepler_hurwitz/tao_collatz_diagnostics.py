@@ -49,6 +49,9 @@ __all__ = [
     "export_first_passage_summary_json",
     "first_passage_syracuse",
     "Integer",
+    "active_sample_count_by_position",
+    "effective_profile_steps",
+    "free_geom2_distance_excluding_position_0",
     "geom2_collective_profile_distance",
     "geom2_profile_distance",
     "export_mod8_geom2_summary_json",
@@ -62,6 +65,7 @@ __all__ = [
     "syracuse",
     "syracuse_orbit_min",
     "syracuse_valuation_profile",
+    "syracuse_valuation_profile_censored",
     "v2",
 ]
 
@@ -93,9 +97,36 @@ def syracuse(n: int) -> int:
     return t >> v2(t)
 
 
-def syracuse_valuation_profile(n: int, steps: int) -> list[int]:
+def effective_profile_steps(
+    n: int,
+    profile_steps: int,
+    *,
+    steps_cap_log_n: float | None = None,
+    steps_cap_coefficient: float = 0.25,
+) -> int:
+    """
+    Optional Tao-nearer profile length: ``min(profile_steps, max(1, int(c * log(n))))``.
+
+    When ``steps_cap_log_n`` is ``None``, returns ``profile_steps`` unchanged.
+    """
+    if profile_steps < 0:
+        raise ValueError("profile_steps must be >= 0")
+    if n < 1:
+        raise ValueError("n must be >= 1")
+    if steps_cap_log_n is None:
+        return profile_steps
+    cap = max(1, int(steps_cap_coefficient * math.log(float(n))))
+    return min(profile_steps, cap)
+
+
+def syracuse_valuation_profile(
+    n: int, steps: int, *, censor_at_one: bool = False
+) -> list[int]:
     """
     Valuation profile ``a_j = v_2(3 * Syr^{j-1}(n) + 1)`` for ``j = 1..steps``.
+
+    When ``censor_at_one=True``, stop once the Syracuse iterate reaches the fixed
+    point ``1`` — do not collect the repeated ``v_2(4)=2`` tail after absorption.
 
     Requires odd positive ``n`` and ``steps >= 0``.
     """
@@ -109,10 +140,19 @@ def syracuse_valuation_profile(n: int, steps: int) -> list[int]:
     profile: list[int] = []
     current = n
     for _ in range(steps):
+        if censor_at_one and current == 1:
+            break
         t = 3 * current + 1
         profile.append(v2(t))
         current = t >> profile[-1]
+        if censor_at_one and current == 1:
+            break
     return profile
+
+
+def syracuse_valuation_profile_censored(n: int, steps: int) -> list[int]:
+    """Censored valuation profile: stop when Syracuse orbit hits fixed point ``1``."""
+    return syracuse_valuation_profile(n, steps, censor_at_one=True)
 
 
 def syracuse_orbit_min(n: int, max_steps: int) -> int:
@@ -194,6 +234,44 @@ def _profile_counts(
                 raise ValueError("valuation samples must be >= 1")
             counts[int(value)] = counts.get(int(value), 0) + 1
     return counts
+
+
+def active_sample_count_by_position(
+    profiles: Sequence[Sequence[int]],
+) -> dict[str, int]:
+    """
+    Count profiles that still contribute a valuation at each zero-based position ``j``.
+
+    Decreases as censored orbits absorb at Syracuse fixed point ``1``.
+    """
+    if not profiles:
+        return {}
+    profile_len = max(len(profile) for profile in profiles)
+    return {
+        str(j): sum(1 for profile in profiles if j < len(profile))
+        for j in range(profile_len)
+    }
+
+
+def free_geom2_distance_excluding_position_0(
+    profiles: Sequence[Sequence[int]],
+    *,
+    max_k: int | None = None,
+) -> float:
+    """
+    Tail-corrected Geom(2) TV on pooled valuations at positions ``1..`` only.
+
+    Position ``0`` is the deterministic mod-8 channel signature ``a_1 = v_2(3n+1)``
+    and is excluded from this **free** metric scope.
+    """
+    free_samples = [
+        profile[j] for profile in profiles for j in range(1, len(profile))
+    ]
+    if not free_samples:
+        return 2.0
+    if max_k is None:
+        max_k = max(free_samples)
+    return geom2_profile_distance(free_samples, max_k=max_k)
 
 
 def geom2_collective_profile_distance(
@@ -442,12 +520,18 @@ def _valuation_profile_metrics(
         if (value := lag1_autocorrelation(profile)) is not None
     ]
     positional = positional_geom2_distances(profiles, max_k=max_k)
+    delta_start = positional.get(0)
+    delta_free = free_geom2_distance_excluding_position_0(profiles, max_k=max_k)
     return {
         "max_k": max_k,
         "geom2_distances": geom2_distances,
         "collective_geom2_distance": geom2_collective_profile_distance(
             profiles, max_k=max_k
         ),
+        "free_geom2_distance_excluding_position_0": delta_free,
+        "geom2_delta_start": delta_start,
+        "geom2_delta_free": delta_free,
+        "active_sample_count_by_position": active_sample_count_by_position(profiles),
         "tail_corrected_tv_mean": (
             sum(geom2_distances) / len(geom2_distances) if geom2_distances else None
         ),
@@ -458,6 +542,24 @@ def _valuation_profile_metrics(
         ),
         "positional_geom2": {str(j): distance for j, distance in positional.items()},
         "pair_distribution_l1_deviation": pair_distribution_l1_deviation(profiles),
+    }
+
+
+def _geom2_interpretation_fields() -> dict[str, object]:
+    return {
+        "position_0_interpretation": "deterministic mod-8 channel signature",
+        "position_0_scope": (
+            "deterministic mod-8 channel signature, excluded from free Geom(2) metric"
+        ),
+        "geom2_free_metric_scope": "positions after 0 and before hitting 1",
+        "excluded_from_geom2_free_metric": [
+            "position_0",
+            "post_absorption_values_after_S(n)=1",
+        ],
+        "collective_geom2_scope_note": (
+            "collective_geom2_distance pools all positions and mixes start signature, "
+            "free tail, and late absorption artifacts"
+        ),
     }
 
 
@@ -674,6 +776,14 @@ def _first_passage_class_summary(
         metrics = _valuation_profile_metrics(profiles)
         summary["collective_geom2_distance"] = metrics["collective_geom2_distance"]
         summary["collective_valuation_samples"] = sum(len(p) for p in profiles)
+        summary["free_geom2_distance_excluding_position_0"] = metrics[
+            "free_geom2_distance_excluding_position_0"
+        ]
+        summary["geom2_delta_start"] = metrics["geom2_delta_start"]
+        summary["geom2_delta_free"] = metrics["geom2_delta_free"]
+        summary["active_sample_count_by_position"] = metrics[
+            "active_sample_count_by_position"
+        ]
         summary["tail_corrected_tv_mean"] = metrics["tail_corrected_tv_mean"]
         summary["tail_corrected_tv_min"] = metrics["tail_corrected_tv_min"]
         summary["tail_corrected_tv_max"] = metrics["tail_corrected_tv_max"]
@@ -682,6 +792,7 @@ def _first_passage_class_summary(
         summary["pair_distribution_l1_deviation"] = metrics[
             "pair_distribution_l1_deviation"
         ]
+        summary.update(_geom2_interpretation_fields())
     return summary
 
 
@@ -693,6 +804,9 @@ def batch_first_passage_by_mod8(
     *,
     max_steps: int = 10_000,
     profile_steps: int = 64,
+    censor_at_one: bool = True,
+    steps_cap_log_n: float | None = None,
+    steps_cap_coefficient: float = 0.25,
 ) -> dict[str, object]:
     """
     Log-uniform Syracuse first-passage experiment stratified by Klein mod-8 classes.
@@ -735,7 +849,15 @@ def batch_first_passage_by_mod8(
                 relative_net_descent_threshold(n) if use_relative else int(threshold)
             )
             passage = first_passage_syracuse(n, sample_threshold, max_steps)
-            profile = syracuse_valuation_profile(n, profile_steps)
+            steps = effective_profile_steps(
+                n,
+                profile_steps,
+                steps_cap_log_n=steps_cap_log_n,
+                steps_cap_coefficient=steps_cap_coefficient,
+            )
+            profile = syracuse_valuation_profile(
+                n, steps, censor_at_one=censor_at_one
+            )
             class_profiles.append(profile)
             row = TaoFirstPassageExportRow(
                 n=n,
@@ -768,6 +890,7 @@ def batch_first_passage_by_mod8(
 
     return {
         **_governance_summary_fields(first_passage_threshold=threshold_label),
+        **_geom2_interpretation_fields(),
         "limit": limit,
         "threshold_mode": "relative" if use_relative else "fixed",
         "threshold": None if use_relative else threshold,
@@ -775,6 +898,9 @@ def batch_first_passage_by_mod8(
         "seed": seed,
         "max_steps": max_steps,
         "profile_steps": profile_steps,
+        "censor_at_one": censor_at_one,
+        "steps_cap_log_n": steps_cap_log_n,
+        "steps_cap_coefficient": steps_cap_coefficient,
         "classes": by_class,
         "rows": all_rows,
     }
@@ -848,8 +974,16 @@ def export_mod8_geom2_summary_json(
                 by_mod8[str(residue)] = {
                     "mod8": summary.get("mod8", residue),
                     "collective_geom2_distance": summary.get("collective_geom2_distance"),
+                    "free_geom2_distance_excluding_position_0": summary.get(
+                        "free_geom2_distance_excluding_position_0"
+                    ),
+                    "geom2_delta_start": summary.get("geom2_delta_start"),
+                    "geom2_delta_free": summary.get("geom2_delta_free"),
                     "collective_valuation_samples": summary.get(
                         "collective_valuation_samples"
+                    ),
+                    "active_sample_count_by_position": summary.get(
+                        "active_sample_count_by_position"
                     ),
                     "mean_geom2_distance": summary.get("mean_geom2_distance"),
                     "min_geom2_distance": summary.get("min_geom2_distance"),
@@ -878,10 +1012,39 @@ def export_mod8_geom2_summary_json(
             "geom2_metric_scope",
             "aggregated marginal distribution only; iid independence not tested",
         ),
+        "position_0_interpretation": mod8_result.get(
+            "position_0_interpretation",
+            "deterministic mod-8 channel signature",
+        ),
+        "position_0_scope": mod8_result.get(
+            "position_0_scope",
+            (
+                "deterministic mod-8 channel signature, "
+                "excluded from free Geom(2) metric"
+            ),
+        ),
+        "geom2_free_metric_scope": mod8_result.get(
+            "geom2_free_metric_scope",
+            "positions after 0 and before hitting 1",
+        ),
+        "excluded_from_geom2_free_metric": mod8_result.get(
+            "excluded_from_geom2_free_metric",
+            ["position_0", "post_absorption_values_after_S(n)=1"],
+        ),
+        "collective_geom2_scope_note": mod8_result.get(
+            "collective_geom2_scope_note",
+            (
+                "collective_geom2_distance pools all positions and mixes start "
+                "signature, free tail, and late absorption artifacts"
+            ),
+        ),
         "limit": mod8_result.get("limit"),
         "samples_per_class": mod8_result.get("samples_per_class"),
         "seed": mod8_result.get("seed"),
         "profile_steps": mod8_result.get("profile_steps"),
+        "censor_at_one": mod8_result.get("censor_at_one", True),
+        "steps_cap_log_n": mod8_result.get("steps_cap_log_n"),
+        "steps_cap_coefficient": mod8_result.get("steps_cap_coefficient"),
         "by_mod8": by_mod8,
         "elapsed_seconds": elapsed_seconds,
     }

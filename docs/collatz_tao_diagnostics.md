@@ -103,7 +103,27 @@ a_j = v_2\bigl(3 \cdot S^{j-1}(n) + 1\bigr)
 
 Tao (2019) nutzt eine **Tao-nahe Valuation-Heuristik** für typisch große \(N\) und kurze Fenster \(J \ll \log N\): die \(a_j\) werden **als Referenz** wie \(\mathrm{Geom}(2)\)-Ziehungen auf \(\{1,2,\ldots\}\) mit \(\mathbb{P}(a_j = k) = 2^{-k}\) behandelt — **`[C]`**-Lesesprache, **kein** bewiesenes IID-Modell und **keine** Tao-Stabilisierung.
 
-**Diagnostik (endlich, `[B]`):** Das Modul misst **finite Marginalen** und einfache Korrelationstests — `geom2_profile_distance` (tail-korrigierte TV-Distanz zu Geom(2)), `positional_geom2_distances` (Marginalen pro Schrittindex `j`), `lag1_autocorrelation`, `pair_distribution_l1_deviation`. Das belegt **weder** IID-Struktur **noch** Tao-Stabilisierung; es vergleicht nur **aggregierte Marginalen** und sequenzielle Abweichungen. Für mod-8-Klassen liefert `geom2_collective_profile_distance` die Abweichung auf **gepoolten** Profilen.
+**Diagnostik (endlich, `[B]`):** Das Modul misst **finite Marginalen** und einfache Korrelationstests — `geom2_profile_distance` (tail-korrigierte TV-Distanz zu Geom(2)), `positional_geom2_distances` (Marginalen pro Schrittindex `j`), `lag1_autocorrelation`, `pair_distribution_l1_deviation`. Das belegt **weder** IID-Struktur **noch** Tao-Stabilisierung; es vergleicht nur **aggregierte Marginalen** und sequenzielle Abweichungen. Für mod-8-Klassen liefert `geom2_collective_profile_distance` die Abweichung auf **gepoolten** Profilen; `free_geom2_distance_excluding_position_0` schließt Position 0 und post-Absorption-Werte aus (siehe unten).
+
+### Interpretation of mod-8 stratified Geom(2) diagnostics
+
+**English (primary).** Mod-8 stratified exports compare Syracuse valuation histograms to the Geom(2) reference. Three scopes must not be conflated:
+
+| Metric | Scope | Interpretation |
+|---|---|---|
+| `geom2_delta_start` / positional `0` | First valuation `a_1 = v_2(3n+1)` only | **Deterministic Klein mod-8 channel signature** — fixed by start residue, not a free Geom(2) draw |
+| `geom2_delta_free` / `free_geom2_distance_excluding_position_0` | Positions `1..` before Syracuse hits fixed point `1` | **Free tail** — closest finite analogue to Tao's short-window IID heuristic |
+| `collective_geom2_distance` | All positions pooled | **Mixed** — combines start signature, free tail, and (without censoring) repeated `v_2(4)=2` after absorption |
+
+**Censoring at `S(n)=1`.** `syracuse_valuation_profile(..., censor_at_one=True)` stops when the Syracuse iterate reaches `1`. Without censoring, profiles continue with `v_2(3·1+1)=v_2(4)=2` forever — an **absorption artifact**, not IID Geom(2). Late-position TV growth in uncensored `positional_geom2` often reflects shrinking active sample size plus this fixed tail, not improved Tao alignment.
+
+**Active sample counts.** `active_sample_count_by_position` tracks how many censored profiles still contribute at index `j`. Counts decrease as orbits absorb at `1`; late positions compare fewer, longer-orbit survivors.
+
+**Governance.** Status **`[B]`** — numerical diagnostic only. This is **not** an IID Geom(2) test, **not** Tao stabilization, and **not** a Collatz proof.
+
+**Deutsch (Kurz).** Position 0 ist die **deterministische Klein-Kanal-Signatur** (mod 8). Späte positional-TV-Anstiege ohne Zensur sind oft **Absorptionsartefakte** bei `S(n)=1` (`v_2(4)=2`). `collective_geom2_distance` mischt Start-, freie und Absorptions-Effekte; für Tao-nahe Lesart `geom2_delta_free` und Zensur verwenden. Status **`[B]`**, kein IID-Test.
+
+**Optional step cap.** `effective_profile_steps(n, profile_steps, steps_cap_log_n=…)` caps length at `min(profile_steps, max(1, int(c·log n)))` — Tao-nearer short windows for large `n`.
 
 ### Heuristische Brücke zu V2.7 (`[C]`, kein Beweis)
 
@@ -142,7 +162,11 @@ Diese \(3/4\)-Lesart strukturiert den Vergleich mit V2.7 (`BadRunNetDescentWitne
 |---|---|
 | `v2(n)` | 2-adische Valuation |
 | `syracuse(n)` | Syracuse-Schritt (ungerade) |
-| `syracuse_valuation_profile(n, steps)` | Profil \((a_j)\) |
+| `syracuse_valuation_profile(n, steps, censor_at_one=False)` | Profil `(a_j)`; optional stop at `S(n)=1` |
+| `syracuse_valuation_profile_censored(n, steps)` | Profil mit Zensur bei Syracuse-Fixpunkt `1` |
+| `effective_profile_steps(n, profile_steps, steps_cap_log_n=…)` | Optional `min(profile_steps, int(c·log n))` |
+| `free_geom2_distance_excluding_position_0(profiles)` | Gepoolte TV ohne Position 0 |
+| `active_sample_count_by_position(profiles)` | Aktive Stichprobenzahl pro Profilindex |
 | `syracuse_orbit_min(n, max_steps)` | Truncated Col_min/Syr_min-Analog bis `max_steps` |
 | `first_passage_syracuse(n, threshold, max_steps)` | `hit`, `time` (= T_x), `location` (= Pass_x) |
 | `geom2_profile_distance(profile_or_counts, max_k=…)` | Tail-korrigierte TV-Distanz zu Geom(2) |

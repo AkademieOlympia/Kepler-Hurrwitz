@@ -7,11 +7,14 @@ import pytest
 from kepler_hurwitz.tao_collatz_diagnostics import (
     KLEIN_MOD8_CLASSES,
     Integer,
+    active_sample_count_by_position,
     batch_first_passage_by_mod8,
     batch_first_passage_experiment,
     batch_fixed_threshold_first_passage_summaries,
     discrete_log_odd_sample,
+    effective_profile_steps,
     first_passage_syracuse,
+    free_geom2_distance_excluding_position_0,
     geom2_collective_profile_distance,
     geom2_profile_distance,
     lag1_autocorrelation,
@@ -22,6 +25,7 @@ from kepler_hurwitz.tao_collatz_diagnostics import (
     relative_net_descent_threshold,
     syracuse,
     syracuse_valuation_profile,
+    syracuse_valuation_profile_censored,
     v2,
 )
 
@@ -60,6 +64,22 @@ class TestValuationProfile:
 
     def test_profile_zero_steps(self):
         assert syracuse_valuation_profile(7, 0) == []
+
+    def test_profile_censor_stops_at_syracuse_one(self):
+        # S(5)=1 in one step; uncensored would repeat v2(4)=2 forever.
+        assert syracuse_valuation_profile(5, 100, censor_at_one=True) == [4]
+        assert syracuse_valuation_profile_censored(5, 100) == [4]
+        uncensored = syracuse_valuation_profile(5, 5, censor_at_one=False)
+        assert len(uncensored) == 5
+        assert uncensored == [4, 2, 2, 2, 2]
+
+    def test_effective_profile_steps_cap(self):
+        assert effective_profile_steps(1000, 64, steps_cap_log_n=None) == 64
+        capped = effective_profile_steps(
+            1000, 64, steps_cap_log_n=1.0, steps_cap_coefficient=0.25
+        )
+        assert capped == max(1, int(0.25 * __import__("math").log(1000)))
+        assert capped < 64
 
 
 class TestFirstPassage:
@@ -106,6 +126,14 @@ class TestGeom2Distance:
             [1, 2, 1, 2], max_k=2
         )
 
+    def test_free_geom2_excludes_position_zero(self):
+        profiles = [[1, 2, 1], [3, 2, 2]]
+        free = free_geom2_distance_excluding_position_0(profiles, max_k=3)
+        pooled_tail = [2, 1, 2, 2]
+        assert free == geom2_profile_distance(pooled_tail, max_k=3)
+        collective = geom2_collective_profile_distance(profiles, max_k=3)
+        assert free != collective
+
 
 class TestAutocorrelationAndPositional:
     def test_lag1_autocorrelation_increasing_positive(self):
@@ -126,6 +154,21 @@ class TestAutocorrelationAndPositional:
     def test_pair_distribution_l1_deviation_independent_profile(self):
         profiles = [[1, 2], [1, 2]]
         assert pair_distribution_l1_deviation(profiles) == pytest.approx(0.0)
+
+    def test_active_sample_count_decreases_with_absorption(self):
+        profiles = [
+            syracuse_valuation_profile_censored(5, 64),
+            syracuse_valuation_profile_censored(7, 64),
+            syracuse_valuation_profile_censored(27, 64),
+        ]
+        counts = active_sample_count_by_position(profiles)
+        assert counts["0"] == 3
+        assert counts["1"] <= counts["0"]
+        assert counts[str(max(int(k) for k in counts))] <= counts["0"]
+        assert any(
+            counts[str(j)] < counts[str(j - 1)]
+            for j in range(1, max(int(k) for k in counts) + 1)
+        )
 
 
 class TestSamplingAndBatch:
@@ -191,13 +234,24 @@ class TestSamplingAndBatch:
         )
         assert set(result["classes"]) == set(KLEIN_MOD8_CLASSES)
         assert len(result["rows"]) == 8 * len(KLEIN_MOD8_CLASSES)
+        assert result["censor_at_one"] is True
         for residue in KLEIN_MOD8_CLASSES:
             summary = result["classes"][residue]
             assert summary["mod8"] == residue
             assert summary["samples"] == 8
             assert 0.0 <= summary["hit_rate"] <= 1.0
             assert "collective_geom2_distance" in summary
+            assert "free_geom2_distance_excluding_position_0" in summary
+            assert "geom2_delta_start" in summary
+            assert "geom2_delta_free" in summary
+            assert "active_sample_count_by_position" in summary
+            assert summary["position_0_interpretation"] == (
+                "deterministic mod-8 channel signature"
+            )
             assert "tail_corrected_tv_mean" in summary
             assert "lag1_autocorr_mean" in summary
             assert "positional_geom2" in summary
-            assert summary["collective_valuation_samples"] == 8 * 64
+            assert summary["collective_valuation_samples"] <= 8 * 64
+            counts = summary["active_sample_count_by_position"]
+            assert counts["0"] == 8
+            assert counts["1"] <= counts["0"]
