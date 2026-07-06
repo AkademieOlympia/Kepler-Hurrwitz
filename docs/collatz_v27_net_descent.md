@@ -70,6 +70,43 @@ Weitere geschlossene Reduktionen (ebenfalls **`[A]`**):
 
 ---
 
+## Mod-8-Stratifizierung (Witness-Skeleton)
+
+**Modul:** `KeplerHurwitz/CollatzNetDescentMod8.lean`  
+**Witness-Packaging:** `CollatzProofAttemptV27.lean` → Namespace `CollatzNetDescentMod8Witness`
+
+Für `n ≡ 3 (mod 4)` mit `n = 4k+3`: `3n+1 = 2(6k+5)`, also **`ν₂(3n+1) = 1`** exakt. Der erste Syracuse-ungerade-Schritt ist `T_odd n = 6k+5`.
+
+| Eingang `n % 8` | `[A]` Mikro-Lemma | nächster ungerader `T_odd n % 8` | Witness-Kanal |
+|---|---|---|---|
+| `3` | `nu2_three_mul_add_one_eq_one_of_mod4_eq_three` | `1` oder `5` | `bad_run_net_descent_witness_mod8_channel_three` **`[C]`** |
+| `7` | (dieselbe ν₂=1-Kette) | `3` oder `7` | `bad_run_net_descent_witness_mod8_channel_seven` **`[C]`** |
+
+**Beweisachse (Zielbild, nicht behauptet):** Bad Run ohne Netto-Abstieg → inkompatible 2-adische Tiefenbudgets entlang der Tail-Kette → Widerspruch. Die mod-8-Kanäle trennen den Good-Branch-Einstieg (`% 8 = 3` ⇒ `T_odd % 4 = 1`) vom Bad-Run-Tail (`% 8 = 7` ⇒ `T_odd % 4 = 3`).
+
+### Skeleton-Map `[A]` vs `[C]`
+
+| Name | Status |
+|---|---|
+| `mod4_eq_three_implies_mod8_three_or_seven` | **`[A]`** |
+| `nu2_three_mul_add_one_eq_one_of_mod4_eq_three` | **`[A]`** |
+| `eSchalenSprung_eq_one_of_mod4_eq_three` | **`[A]`** |
+| `T_odd_eq_oddCoreStep_of_mod4_eq_three` | **`[A]`** |
+| `first_syracuse_mod8_subcases_of_mod4_eq_three` | **`[A]`** |
+| `T_odd_mod8_one_or_five_of_mod8_eq_three` | **`[A]`** |
+| `T_odd_mod8_three_or_seven_of_mod8_eq_seven` | **`[A]`** |
+| `BadRunNetDescentWitnessMod8` | **`[A]`** Struktur |
+| `bad_run_net_descent_witness_of_mod8_channel` | **`[A]`** Assembly |
+| `bad_run_net_descent_statement_mod8_of_plain` / `_of_mod8` | **`[A]`** Äquivalenz-Reduktion |
+| `bad_run_net_descent_witness_mod8_channel_three` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_seven` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_of_mod4_three` | **`[C]`** (mod-8-Fallzerlegung, Kanal-`sorry`) |
+| `mod4_three_net_descent_reduction_converse` | **`[C]`** (`sorry`) |
+
+**Build:** `lake build KeplerHurwitz.CollatzNetDescentMod8`
+
+---
+
 ## Offener Kern (`[C]`)
 
 **Satz:** `bad_run_net_descent_witness_of_mod4_three` — uniforme Existenz von `BadRunNetDescentWitness` für alle \(n > 1\) mit \(n \equiv 3 \pmod 4\).
@@ -123,6 +160,7 @@ Weitere offene Schichten:
 | Datei | Inhalt |
 |---|---|
 | `KeplerHurwitz/CollatzProofAttemptV27.lean` | Zeugenstruktur, Net-Descent-Komposition, offener Kern |
+| `KeplerHurwitz/CollatzNetDescentMod8.lean` | Mod-8-Mikro-Lemmata + Witness-Skeleton-Kanäle |
 | `KeplerHurwitz/CollatzProofAttemptV26.lean` | Good-Branch-Eintritt (`mod 4 = 3` → eventually `mod 4 = 1`) |
 | `KeplerHurwitz/ReachableTheorems.lean` | `reachable_collatz_proof_attempt_status_v27` |
 | `KeplerHurwitz/Core.lean` | Modulbündel |

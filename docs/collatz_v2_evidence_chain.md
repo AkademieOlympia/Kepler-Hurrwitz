@@ -22,7 +22,9 @@ getrennt.
 | 5 | `CollatzProofAttemptStatus` | Buendel der vier geschlossenen lokalen Ziele | `[A]` geschlossen |
 | 6 | `Mod4ThreeEventuallyMod4OneStatement` | mod 4 = 3 ⇒ endliche `collatzStep`-Iteration erreicht mod 4 = 1 | `[A]` geschlossen (V2.6) |
 | 7a | `mod4_three_descends_from_net_descent_witness` | Syntaktische Net-Descent-Komposition: Witness ⇒ echter Abstieg unter `n` | **`[A]` geschlossen (V2.7, 0 sorry)** |
-| 7b | `bad_run_net_descent_witness_of_mod4_three` | Uniforme Existenz von `BadRunNetDescentWitness` fuer `mod 4 = 3` | **`[C]` offen (V2.7, sorry)** |
+| 7b | `bad_run_net_descent_witness_of_mod4_three` | Uniforme Existenz von `BadRunNetDescentWitness` fuer `mod 4 = 3` | **`[C]` offen (V2.7, mod-8-Kanal-`sorry`)** |
+| 7c | Mod-8-Mikro-Lemmata (`CollatzNetDescentMod8.lean`) | `ν₂(3n+1)=1`, Syracuse-mod-8-Subfaelle fuer `mod 4 = 3` | **`[A]` geschlossen** |
+| 7d | `bad_run_net_descent_witness_mod8_channel_three/seven` | Per-Kanal Net-Descent-Zeugen | **`[C]` offen (`sorry`)** |
 | 8 | `BadRunNetDescentStatement` | Fuer jedes `n ≡ 3 (mod 4)`, `n > 1`: Net-Descent-Zeuge existiert | **`[C]` offen** |
 | 9 | `Mod4ThreeEventuallyDescendsStatement` | Echter `collatzStep`-Abstieg unter Startwert fuer `mod 4 = 3` | **`[C]` offen**, reduziert auf Schritt 8 |
 | 10 | `CollatzGlobalTerminationStatement` | Globale Collatz-Termination | **offen** |
@@ -81,7 +83,7 @@ V2.7 beweist die syntaktische Netto-Abstiegsbrücke: Ein `BadRunNetDescentWitnes
 
 **Semantik vs. Beweis:** Im Kompositionssatz `mod4_three_descends_from_net_descent_witness` sind `n % 4 = 3` (`_hmod`) und `good_mod4` im Witness semantisch gebunden (Startwert im `mod 4 = 3`-Zweig, Good-Branch-Ziel), werden im Beweis aber nicht gebraucht — ok.
 
-**Offener Kern (`[C]`):** `bad_run_net_descent_witness_of_mod4_three` — die quantitative Ungleichung
+**Offener Kern (`[C]`):** `bad_run_net_descent_witness_of_mod4_three` — zerlegt in mod-8-Kanäle (`bad_run_net_descent_witness_mod8_channel_three` / `_seven`). Die quantitative Ungleichung
 
 \[
 m_{\mathrm{good}} = \mathrm{collatzStep}^{[t_{\mathrm{good}}]}(n),
@@ -97,7 +99,7 @@ $\mathrm{collatzStep}^{[t_{\mathrm{loc}}]} m_{\mathrm{good}} < n$. Python-Diagno
 `kepler_hurwitz.diagnostics.net_descent_margin`, `bad_run_cost`, `shrink_efficiency`.
 Trajektorien und Stopping Times (explorativ, `[B]`): `kepler_hurwitz.collatz_analytics` —
 siehe [`collatz_analytical_perspectives.md`](collatz_analytical_perspectives.md).
-Tao-Syracuse-First-Passage und mod-8-stratifizierte Klein-Diagnostics: [`collatz_tao_diagnostics.md`](collatz_tao_diagnostics.md) (`tao_collatz_diagnostics.py`, **`[B]`**).
+Tao-Syracuse-First-Passage und mod-8-stratifizierte Klein-Diagnostics: [`collatz_tao_diagnostics.md`](collatz_tao_diagnostics.md) (`tao_collatz_diagnostics.py`, **`[B]`**). Mod-8-Witness-Skeleton: [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) § Mod-8-Stratifizierung. e³-Zerlegung (orthogonal): [`collatz_e3_decomposition.md`](collatz_e3_decomposition.md) (**`E-090`**).
 
 Lokaler Good-Branch-Shrink `(collatzStep^[3]) m_good < m_good` ist bewiesen; die **Netto**-Bedingung
 (Bad-Run-Kosten $C_{\mathrm{bad}}=t_{\mathrm{good}}$ vs. Shrink) bleibt der nächste Angriffspunkt für `mod 4 = 3`.

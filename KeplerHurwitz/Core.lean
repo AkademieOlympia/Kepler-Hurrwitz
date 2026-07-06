@@ -17,6 +17,7 @@ import KeplerHurwitz.CollatzProofAttemptV24
 import KeplerHurwitz.CollatzProofAttemptV25
 import KeplerHurwitz.CollatzProofAttemptV26
 import KeplerHurwitz.CollatzProofAttemptV27
+import KeplerHurwitz.CollatzNetDescentMod8
 import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Collatz.CkA.OrbitSmoothBridge
 import KeplerHurwitz.CyclicWordOrbit

@@ -13,6 +13,7 @@ import KeplerHurwitz.DedekindHasseProofAttempt
 import KeplerHurwitz.DedekindIdealLayer
 import KeplerHurwitz.CollatzProofAttemptV26
 import KeplerHurwitz.CollatzProofAttemptV27
+import KeplerHurwitz.CollatzNetDescentMod8
 import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Representation.Invariant
 import KeplerHurwitz.Representation.EABCChronology
@@ -487,6 +488,24 @@ theorem reachable_collatz_net_descent_via_margin_iff :
     CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentViaMarginStatement ↔
       CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentStatement := by
   exact CollatzAttemptV2.CollatzNetDescent.bad_run_net_descent_via_margin_iff
+
+/--
+V2.7 mod-8: `n ≡ 3 (mod 4)` forces `ν₂(3n+1) = 1`.
+-/
+theorem reachable_nu2_one_of_mod4_eq_three
+    {n : Nat} (ho : n % 2 = 1) (hmod : n % 4 = 3) :
+    padicValNat 2 (3 * n + 1) = 1 := by
+  exact CollatzAttemptV2.CollatzNetDescentMod8.nu2_three_mul_add_one_eq_one_of_mod4_eq_three ho hmod
+
+/--
+V2.7 mod-8: first Syracuse step mod-8 subcases from `mod 4 = 3` inputs.
+-/
+theorem reachable_first_syracuse_mod8_subcases_of_mod4_eq_three
+    {n : Nat} (ho : n % 2 = 1) (hmod : n % 4 = 3) :
+    (n % 8 = 3 ∧ (CollatzAttemptV2.T_odd n % 8 = 1 ∨ CollatzAttemptV2.T_odd n % 8 = 5)) ∨
+      (n % 8 = 7 ∧
+        (CollatzAttemptV2.T_odd n % 8 = 3 ∨ CollatzAttemptV2.T_odd n % 8 = 7)) := by
+  exact CollatzAttemptV2.CollatzNetDescentMod8.first_syracuse_mod8_subcases_of_mod4_eq_three ho hmod
 
 
 end KeplerHurwitz
