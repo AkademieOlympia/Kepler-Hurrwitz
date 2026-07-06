@@ -1603,6 +1603,23 @@
       "stability": "experimental",
       "last_reviewed": "2026-07-06",
       "defensive_scope": "Nullmodel diagnostic only; complements CollatzNetDescentMod8 witness skeleton without Lean proof claim"
+    },
+    {
+      "id": "E-092",
+      "title": "Nuclear binding multiscale analogy (Weizsaecker envelope + residual R(A))",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/nuclear_binding_multiscale_analogy.md",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [],
+      "scope": "Three-regime B/A curve; smooth Weizsaecker multiscale envelope vs shell/magic/pairing residuals; EABC comparison targets R(A) not full binding curve",
+      "metric_or_result": "conceptual only; no nuclear_binding_residual diagnostic in diagnostics.py",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-06",
+      "defensive_scope": "No physics identity; no EABC nuclear claim; Weierstrass ABCE/CEAB export is arithmetic-only and does not establish nuclear analogy; [B] upgrade only via preregistered residual export and nullmodels"
     }
   ]
 }

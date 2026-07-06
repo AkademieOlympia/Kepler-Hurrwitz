@@ -208,6 +208,16 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ---
 
+### Kernbindung — Mehrskalen-Hülle und EABC-Residualhypothese (E-092)
+
+**Datei:** [`nuclear_binding_multiscale_analogy.md`](nuclear_binding_multiscale_analogy.md)  
+**Status:** `[C]` konzeptionelle Brücke — keine Diagnostik implementiert  
+**Evidenz:** E-092 (ergänzt E-076)  
+**Zweck:** Drei Regime von \(B/A(A)\), Weizsäcker-Mehrskalen-Hülle plus Residuen \(R(A)\); methodische Positionierung: EABC-Vergleich über Residuen, nicht über die volle Bindungskurve.  
+**Claim-Grenze:** Keine Kernphysik-Identität, kein EABC-Nukleonen-Claim; Querverweis zur arithmetischen Weierstrass-Diagnostik (`eabc_weierstrass_multiscale_report.md`).
+
+---
+
 ### Physical Analogies [C] — AB / Klitzing / Meissner (E-076)
 
 **Datei:** [`../reports/physical_reference_analogies.md`](../reports/physical_reference_analogies.md)  
@@ -224,6 +234,7 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 | E-074 | [`arithmetic_vacuum_eabc_analogy.md`](arithmetic_vacuum_eabc_analogy.md) | Geschwister-`[C]` (Feinstruktur/Vakuum) |
 | E-076 | [`physical_reference_analogies.md`](../reports/physical_reference_analogies.md) | AB / Klitzing / Meissner |
 | E-076 | [`meissner_analogy_assessment.md`](meissner_analogy_assessment.md) | Urteil: Meissner `[C]` — Lesen ja, Durchbruch nein |
+| E-092 | [`nuclear_binding_multiscale_analogy.md`](nuclear_binding_multiscale_analogy.md) | Kernbindung Hülle+Residual; EABC über \(R(A)\) `[C]` |
 
 ---
 
