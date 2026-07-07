@@ -9,68 +9,68 @@
     "orq_id": "ORQ-095",
     "related_theory": "docs/theory/riemann_zero_interference_analogy.md"
   },
-  "num_zeros": 50,
+  "num_zeros": 150,
   "wave": "sum cos(gamma_n * ln x)",
   "test_points": [
     {
       "x": 29,
-      "signal": -11.794442803153423,
+      "signal": -29.091054544416263,
       "is_prime": true,
       "is_bc_composite": false,
       "tag": "[C]"
     },
     {
       "x": 31,
-      "signal": -10.562567410875802,
+      "signal": -29.63593939491958,
       "is_prime": true,
       "is_bc_composite": false,
       "tag": "[C]"
     },
     {
       "x": 35,
-      "signal": 3.699231560140494,
+      "signal": 3.026136042417189,
       "is_prime": false,
       "is_bc_composite": true,
       "tag": "[C]"
     },
     {
       "x": 37,
-      "signal": -11.801774150080387,
+      "signal": -28.547579726200983,
       "is_prime": true,
       "is_bc_composite": false,
       "tag": "[C]"
     },
     {
       "x": 41,
-      "signal": -13.093245584610921,
+      "signal": -28.763445067913096,
       "is_prime": true,
       "is_bc_composite": false,
       "tag": "[C]"
     },
     {
       "x": 137,
-      "signal": -7.315292001199037,
+      "signal": -10.682235194255641,
       "is_prime": true,
       "is_bc_composite": false,
       "tag": "[C]"
     },
     {
       "x": 139,
-      "signal": -7.619640939072019,
+      "signal": -14.140151508963443,
       "is_prime": true,
       "is_bc_composite": false,
       "tag": "[C]"
     },
     {
       "x": 143,
-      "signal": 7.856064356862779,
+      "signal": 7.292415632600041,
       "is_prime": false,
       "is_bc_composite": true,
       "tag": "[C]"
     },
     {
       "x": 149,
-      "signal": -7.223995638226388,
+      "signal": -7.673898381968062,
       "is_prime": true,
       "is_bc_composite": false,
       "tag": "[C]"
