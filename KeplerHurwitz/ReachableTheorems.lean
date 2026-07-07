@@ -13,6 +13,7 @@ import KeplerHurwitz.DedekindHasseProofAttempt
 import KeplerHurwitz.DedekindIdealLayer
 import KeplerHurwitz.CollatzProofAttemptV26
 import KeplerHurwitz.CollatzProofAttemptV27
+import KeplerHurwitz.CollatzProofAttemptV28
 import KeplerHurwitz.CollatzNetDescentMod8
 import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Representation.Invariant
@@ -369,6 +370,33 @@ V2.7: Erweitertes Status-Buendel inkl. Net-Descent-Kompositionsschicht.
 theorem reachable_collatz_proof_attempt_status_v27 :
     CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV27 := by
   exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v27
+
+/--
+V2.8: Channel-`3` even-`k` (`T_odd % 8 = 5`) net descent at uniform `t_loc = 4`.
+-/
+theorem reachable_collatz_proof_attempt_status_v28 :
+    CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV28 := by
+  exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v28
+
+/--
+V2.8: channel `3` with `T_odd n % 8 = 5` yields a full net-descent witness at `t_loc = 4`.
+-/
+theorem reachable_bad_run_net_descent_witness_mod8_channel_three_mod8_five
+    {n : Nat} (hn : 1 < n) (h8 : n % 8 = 3) (hfive : CollatzAttemptV2.T_odd n % 8 = 5) :
+    Nonempty (CollatzAttemptV2.CollatzNetDescent.CollatzNetDescentMod8Witness.BadRunNetDescentWitnessMod8 n
+      CollatzAttemptV2.CollatzNetDescentMod8.Mod4ThreeInputChannel.ch3) := by
+  exact CollatzAttemptV2.CollatzNetDescentV28.bad_run_net_descent_witness_mod8_channel_three_mod8_five
+    hn h8 hfive
+
+/--
+V2.8: four `collatzStep`s from `T_odd n` descend below `n` when `k` is even (`n = 8k+3`).
+-/
+theorem reachable_channel_three_collatz_net_descent_mod8_five_at_four
+    {n : Nat} (hn : 1 < n) (h8 : n % 8 = 3)
+    (heven : ∃ k, n = 8 * k + 3 ∧ k % 2 = 0) :
+    (collatzStep^[4]) (CollatzAttemptV2.T_odd n) < n := by
+  exact CollatzAttemptV2.CollatzNetDescentMod8.channel_three_collatz_net_descent_mod8_five_at_four
+    hn h8 heven
 
 /--
 Darstellungstheorie: Schnitt-Invarianz ist erreichbar.

@@ -128,6 +128,41 @@ Für `n = 8k+3`:
 
 ---
 
+## V2.8 Angriffsversuch — Kanal-3-Halbfall + 2-adisches Budget
+
+**Modul:** `KeplerHurwitz/CollatzProofAttemptV28.lean`  
+**Erweiterung:** `KeplerHurwitz/CollatzNetDescentMod8.lean` (Paritäts-Split + 4-Schritt-Arithmetik)
+
+### Gewählter Angriffsvektor
+
+**Option A + C (partiell):** Kanal `3` nach `T_odd n % 8` zerlegen. Der Unterfall `mod 8 = 5` (äquivalent: `k` gerade bei `n = 8k+3`) schließt mit **uniformem `t_loc = 4`** — der kanonische 3-Schritt-Shrink (`t_loc = 3`) scheitert an der `k+1`-Lücke, aber `ν₂(3m+1) ≥ 3` bei `m % 8 = 5` erzwingt eine vierte Halbierung und liefert den Wert `(3m+1)/8 = 9j+2 < 16j+3 = n`.
+
+**Option B (Gerüst):** `badRunTwoAdicBudget n := ν₂(n+1)` benennt das V2.5-Tiefenbudget; `BadRunTwoAdicBudgetExhaustionStatement` markiert die intendierte Widerspruchsschablone für Kanal `7`.
+
+**Noch offen:** Kanal `3` mit `T_odd n % 8 = 1` (`k` ungerade) — `t_loc` ist `k`-abhängig ohne uniforme Schranke; Kanal `7` uniform.
+
+### V2.8 Lemma-Map `[A]` vs `[C]`
+
+| Name | Status |
+|---|---|
+| `T_odd_mod8_eq_five_iff_k_even_of_mod8_eq_three` | **`[A]`** |
+| `T_odd_mod8_eq_one_iff_k_odd_of_mod8_eq_three` | **`[A]`** |
+| `collatz_four_steps_mod8_five_eq_three_mul_add_one_div8` | **`[A]`** |
+| `channel_three_four_step_value_of_sixteen_mul_add_three` | **`[A]`** |
+| `channel_three_collatz_net_descent_mod8_five_at_four` | **`[A]`** |
+| `bad_run_net_descent_witness_mod8_channel_three_mod8_five` | **`[A]`** — voller Witness, `t_loc = 4` |
+| `bad_run_two_adic_budget_ge_two_of_mod4_eq_three` | **`[A]`** |
+| `channel_seven_T_odd_mod4_eq_three` | **`[A]`** |
+| `bad_run_net_descent_witness_mod8_channel_three_mod8_one` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_seven_v28` | **`[C]`** (`sorry`) |
+| `BadRunTwoAdicBudgetExhaustionStatement` | **`[C]`** (Platzhalter) |
+
+**Build:** `lake build KeplerHurwitz.CollatzProofAttemptV28`
+
+**Fortschritt gegenüber V2.7:** ~50 % der Kanal-`3`-Starts (gerades `k`) haben jetzt einen **`[A]`**-Zeugen; der uniforme Kern `bad_run_net_descent_witness_of_mod4_three` bleibt **`[C]`**.
+
+---
+
 ## Offener Kern (`[C]`)
 
 **Satz:** `bad_run_net_descent_witness_of_mod4_three` — uniforme Existenz von `BadRunNetDescentWitness` für alle \(n > 1\) mit \(n \equiv 3 \pmod 4\).

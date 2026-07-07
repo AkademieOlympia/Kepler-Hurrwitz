@@ -163,6 +163,115 @@ theorem channel_three_T_odd_mod4_eq_one
     T_odd n % 4 = 1 :=
   T_odd_mod4_eq_one_of_mod8_eq_three h8
 
+/-!
+### Channel `3` parity split (`T_odd n % 8 ∈ {1, 5}`)
+
+For `n = 8k+3`, the next odd lands in `mod 8 = 5` iff `k` is even, and in `mod 8 = 1` iff `k` is odd.
+V2.8 closes the even-`k` / `mod 8 = 5` subcase at `t_loc = 4`.
+-/
+
+/--
+`[A]` Parity split: `T_odd(8k+3) % 8 = 5` exactly when `k` is even.
+-/
+theorem T_odd_mod8_eq_five_iff_k_even_of_mod8_eq_three
+    {n k : Nat} (hk : n = 8 * k + 3) :
+    T_odd n % 8 = 5 ↔ k % 2 = 0 := by
+  rw [hk, T_odd_of_eight_mul_add_three]
+  constructor
+  · intro h
+    omega
+  · intro h
+    omega
+
+/--
+`[A]` Parity split: `T_odd(8k+3) % 8 = 1` exactly when `k` is odd.
+-/
+theorem T_odd_mod8_eq_one_iff_k_odd_of_mod8_eq_three
+    {n k : Nat} (hk : n = 8 * k + 3) :
+    T_odd n % 8 = 1 ↔ k % 2 = 1 := by
+  rw [hk, T_odd_of_eight_mul_add_three]
+  constructor
+  · intro h
+    omega
+  · intro h
+    omega
+
+/--
+`[A]` Even `k = 2j` reparametrisation for channel `3` inputs.
+-/
+theorem exists_eq_sixteen_mul_add_three_of_mod8_eq_three_and_k_even
+    {n k : Nat} (h8 : n % 8 = 3) (hk : n = 8 * k + 3) (heven : k % 2 = 0) :
+    ∃ j, n = 16 * j + 3 ∧ k = 2 * j := by
+  refine ⟨k / 2, ?_, ?_⟩
+  · have : 8 * k + 3 = 16 * (k / 2) + 3 := by omega
+    simpa [hk] using this
+  · omega
+
+private theorem collatz_step_odd {m : Nat} (ho : m % 2 = 1) :
+    collatzStep m = 3 * m + 1 := by
+  simp [collatzStep, show m % 2 ≠ 0 from by omega]
+
+private theorem collatz_step_even {m : Nat} (he : m % 2 = 0) :
+    collatzStep m = m / 2 := by
+  simp [collatzStep, he]
+
+/--
+`[A]` From an odd `mod 8 = 5` input, four `collatzStep`s equal `(3m+1)/8`.
+Uses `ν₂(3m+1) ≥ 3` and three forced halvings after the odd kick.
+-/
+theorem collatz_four_steps_mod8_five_eq_three_mul_add_one_div8
+    {m : Nat} (ho : m % 2 = 1) (h5 : m % 8 = 5) :
+    (collatzStep^[4]) m = (3 * m + 1) / 8 := by
+  have _he3 : 3 ≤ padicValNat 2 (3 * m + 1) :=
+    nu2_three_mul_add_one_ge_three_of_mod8_eq5 h5
+  have he1 : (3 * m + 1) % 2 = 0 := by omega
+  have he2 : ((3 * m + 1) / 2) % 2 = 0 := by omega
+  have he3' : ((3 * m + 1) / 4) % 2 = 0 := by omega
+  have hdiv2 : (3 * m + 1) / 2 / 2 = (3 * m + 1) / 4 := by omega
+  have hdiv4 : (3 * m + 1) / 4 / 2 = (3 * m + 1) / 8 := by omega
+  calc
+    (collatzStep^[4]) m
+        = (collatzStep^[3]) (collatzStep m) := by
+            simp [Function.iterate_succ_apply']
+    _ = (collatzStep^[3]) (3 * m + 1) := by rw [collatz_step_odd ho]
+    _ = (collatzStep^[2]) ((3 * m + 1) / 2) := by
+          simp [Function.iterate_succ_apply', collatz_step_even he1]
+    _ = (collatzStep^[1]) ((3 * m + 1) / 4) := by
+          simp [Function.iterate_succ_apply', collatz_step_even he2, hdiv2]
+    _ = (3 * m + 1) / 8 := by
+          simp [Function.iterate_succ_apply', collatz_step_even he3', hdiv4]
+
+/--
+`[A]` Four-step value at `T_odd(16j+3) = 24j+5` is exactly `9j+2`.
+-/
+theorem channel_three_four_step_value_of_sixteen_mul_add_three (j : Nat) :
+    (collatzStep^[4]) (T_odd (16 * j + 3)) = 9 * j + 2 := by
+  have hform : 16 * j + 3 = 8 * (2 * j) + 3 := by ring
+  have hm : T_odd (16 * j + 3) = 24 * j + 5 := by
+    calc
+      T_odd (16 * j + 3) = T_odd (8 * (2 * j) + 3) := by rw [hform]
+      _ = 12 * (2 * j) + 5 := T_odd_of_eight_mul_add_three (k := 2 * j)
+      _ = 24 * j + 5 := by ring
+  have ho : (24 * j + 5) % 2 = 1 := by omega
+  have h5 : (24 * j + 5) % 8 = 5 := by omega
+  rw [hm, collatz_four_steps_mod8_five_eq_three_mul_add_one_div8 ho h5]
+  have : 3 * (24 * j + 5) + 1 = 72 * j + 16 := by ring
+  rw [this]
+  omega
+
+/--
+`[A]` Channel-`3` even-`k` subcase: four steps from `T_odd n` descend strictly below `n`.
+-/
+theorem channel_three_collatz_net_descent_mod8_five_at_four
+    {n : Nat} (hn : 1 < n) (h8 : n % 8 = 3) (heven : ∃ k, n = 8 * k + 3 ∧ k % 2 = 0) :
+    (collatzStep^[4]) (T_odd n) < n := by
+  rcases heven with ⟨k, hk, hk_even⟩
+  rcases exists_eq_sixteen_mul_add_three_of_mod8_eq_three_and_k_even h8 hk hk_even with ⟨j, hnj, _⟩
+  rw [hnj, channel_three_four_step_value_of_sixteen_mul_add_three]
+  rcases j with _ | j
+  · norm_num
+  · omega
+
 end CollatzNetDescentMod8
 end CollatzAttemptV2
 
