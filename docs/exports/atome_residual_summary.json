@@ -1,0 +1,625 @@
+{
+  "correlations": [
+    {
+      "feature": "eabc_mass",
+      "mutual_information": 0.4150722958305214,
+      "pearson_r": -0.25060811612582595,
+      "spearman_rho": -0.2588656208208973
+    },
+    {
+      "feature": "eabc_spread",
+      "mutual_information": 0.33445835267398893,
+      "pearson_r": -0.15700697856293347,
+      "spearman_rho": -0.2267125964709535
+    },
+    {
+      "feature": "chiral_norm",
+      "mutual_information": 0.24279944467518857,
+      "pearson_r": 0.009860853340966827,
+      "spearman_rho": -0.11022141502711037
+    },
+    {
+      "feature": "proton_eabc_mass",
+      "mutual_information": 0.43689240375475796,
+      "pearson_r": -0.4257478428856037,
+      "spearman_rho": -0.5299560663696603
+    },
+    {
+      "feature": "channel_e",
+      "mutual_information": 0.1005134864870298,
+      "pearson_r": -0.09140528853745795,
+      "spearman_rho": -0.1846372364689991
+    },
+    {
+      "feature": "channel_a",
+      "mutual_information": 0.2564123574199128,
+      "pearson_r": -0.288264855843827,
+      "spearman_rho": -0.2752938671433007
+    },
+    {
+      "feature": "channel_b",
+      "mutual_information": 0.04194461231070372,
+      "pearson_r": 0.004507830516149798,
+      "spearman_rho": 0.017407765595569783
+    },
+    {
+      "feature": "channel_c",
+      "mutual_information": 0.0,
+      "pearson_r": null,
+      "spearman_rho": null
+    }
+  ],
+  "governance": "[C]",
+  "invariants": [
+    {
+      "a": 4,
+      "channel_a": 0,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 0.0,
+      "eabc_mass": 0,
+      "eabc_spread": 0,
+      "label": "He-4",
+      "proton_eabc_mass": 0,
+      "z": 2
+    },
+    {
+      "a": 6,
+      "channel_a": 0,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 0.0,
+      "eabc_mass": 0,
+      "eabc_spread": 0,
+      "label": "Li-6",
+      "proton_eabc_mass": 0,
+      "z": 3
+    },
+    {
+      "a": 7,
+      "channel_a": 0,
+      "channel_b": 1,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "Li-7",
+      "proton_eabc_mass": 0,
+      "z": 3
+    },
+    {
+      "a": 9,
+      "channel_a": 0,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 0.0,
+      "eabc_mass": 0,
+      "eabc_spread": 0,
+      "label": "Be-9",
+      "proton_eabc_mass": 0,
+      "z": 4
+    },
+    {
+      "a": 12,
+      "channel_a": 0,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 0.0,
+      "eabc_mass": 0,
+      "eabc_spread": 0,
+      "label": "C-12",
+      "proton_eabc_mass": 0,
+      "z": 6
+    },
+    {
+      "a": 14,
+      "channel_a": 0,
+      "channel_b": 1,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "N-14",
+      "proton_eabc_mass": 1,
+      "z": 7
+    },
+    {
+      "a": 16,
+      "channel_a": 0,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 0.0,
+      "eabc_mass": 0,
+      "eabc_spread": 0,
+      "label": "O-16",
+      "proton_eabc_mass": 0,
+      "z": 8
+    },
+    {
+      "a": 20,
+      "channel_a": 1,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "Ne-20",
+      "proton_eabc_mass": 1,
+      "z": 10
+    },
+    {
+      "a": 24,
+      "channel_a": 0,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 0.0,
+      "eabc_mass": 0,
+      "eabc_spread": 0,
+      "label": "Mg-24",
+      "proton_eabc_mass": 0,
+      "z": 12
+    },
+    {
+      "a": 28,
+      "channel_a": 0,
+      "channel_b": 1,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "Si-28",
+      "proton_eabc_mass": 1,
+      "z": 14
+    },
+    {
+      "a": 40,
+      "channel_a": 1,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "Ca-40",
+      "proton_eabc_mass": 1,
+      "z": 20
+    },
+    {
+      "a": 48,
+      "channel_a": 0,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 0.0,
+      "eabc_mass": 0,
+      "eabc_spread": 0,
+      "label": "Ti-48",
+      "proton_eabc_mass": 1,
+      "z": 22
+    },
+    {
+      "a": 56,
+      "channel_a": 0,
+      "channel_b": 1,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "Fe-56",
+      "proton_eabc_mass": 1,
+      "z": 26
+    },
+    {
+      "a": 58,
+      "channel_a": 1,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "Ni-58",
+      "proton_eabc_mass": 1,
+      "z": 28
+    },
+    {
+      "a": 64,
+      "channel_a": 0,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 0.0,
+      "eabc_mass": 0,
+      "eabc_spread": 0,
+      "label": "Zn-64",
+      "proton_eabc_mass": 1,
+      "z": 30
+    },
+    {
+      "a": 90,
+      "channel_a": 1,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "Zr-90",
+      "proton_eabc_mass": 1,
+      "z": 40
+    },
+    {
+      "a": 120,
+      "channel_a": 1,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "Sn-120",
+      "proton_eabc_mass": 2,
+      "z": 50
+    },
+    {
+      "a": 140,
+      "channel_a": 1,
+      "channel_b": 1,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 0.0,
+      "eabc_mass": 2,
+      "eabc_spread": 1,
+      "label": "Ce-140",
+      "proton_eabc_mass": 1,
+      "z": 60
+    },
+    {
+      "a": 180,
+      "channel_a": 1,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "Hf-180",
+      "proton_eabc_mass": 1,
+      "z": 74
+    },
+    {
+      "a": 208,
+      "channel_a": 0,
+      "channel_b": 0,
+      "channel_c": 0,
+      "channel_e": 1,
+      "chiral_norm": 1.4142135623730951,
+      "eabc_mass": 1,
+      "eabc_spread": 1,
+      "label": "Pb-208",
+      "proton_eabc_mass": 1,
+      "z": 82
+    },
+    {
+      "a": 238,
+      "channel_a": 1,
+      "channel_b": 1,
+      "channel_c": 0,
+      "channel_e": 0,
+      "chiral_norm": 0.0,
+      "eabc_mass": 2,
+      "eabc_spread": 1,
+      "label": "U-238",
+      "proton_eabc_mass": 1,
+      "z": 92
+    }
+  ],
+  "not_claimed": [
+    "EABC explains nuclear binding or replaces SEMF",
+    "R(A,Z) is identical to prime counting error E(x)",
+    "Correlation without nullmodel exceeds chance"
+  ],
+  "notes": [
+    "Weizs\u00e4cker hull is preregistered \u2014 not EABC-optimized.",
+    "Toy table / partial AME slice \u2014 not a physics claim.",
+    "Nullmodel significance required for [B] upgrade (ORQ-092)."
+  ],
+  "nuclide_count": 21,
+  "nullmodels": [
+    {
+      "feature": "eabc_mass",
+      "mode": "permute_R",
+      "null_pearson_mean": -0.005453884074210586,
+      "null_pearson_std": 0.2394106232407009,
+      "observed_pearson": -0.25060811612582595,
+      "trials": 200,
+      "z_score": -1.0239906180150575
+    },
+    {
+      "feature": "eabc_mass",
+      "mode": "shuffle_channel",
+      "null_pearson_mean": 0.007312857367884748,
+      "null_pearson_std": 0.221835946174704,
+      "observed_pearson": -0.25060811612582595,
+      "trials": 200,
+      "z_score": -1.1626653747566609
+    },
+    {
+      "feature": "eabc_mass",
+      "mode": "variance_match",
+      "null_pearson_mean": -0.01604817233936146,
+      "null_pearson_std": 0.22600335685231807,
+      "observed_pearson": -0.25060811612582595,
+      "trials": 200,
+      "z_score": -1.0378604417797994
+    }
+  ],
+  "pca": {
+    "explained_variance_ratio": [
+      0.9737354070172649,
+      0.018933150936601886,
+      0.004100805319196333
+    ],
+    "loadings": [
+      [
+        -0.022131893639280004,
+        -0.010829856324646503,
+        0.0006677647599339411,
+        -0.03253704232232494,
+        0.9988899755668027,
+        0.023507555704913016
+      ],
+      [
+        -0.4945282902891431,
+        -0.46796748366032376,
+        -0.6242433091799915,
+        -0.37808604842280136,
+        -0.029210530379150456,
+        0.05446264947039475
+      ],
+      [
+        0.729413613868541,
+        0.13106729936954173,
+        -0.6608323206084662,
+        -0.009463147450122198,
+        0.014954754972595095,
+        0.11732259425399207
+      ]
+    ]
+  },
+  "residuals": [
+    {
+      "a": 4,
+      "b_exp_mev": 28.296,
+      "b_smooth_mev": 23.94999533304552,
+      "label": "He-4",
+      "log_a": 1.3862943611198906,
+      "residual_mev": 4.346004666954478,
+      "residual_per_nucleon_mev": 1.0865011667386195,
+      "z": 2
+    },
+    {
+      "a": 6,
+      "b_exp_mev": 31.998,
+      "b_smooth_mev": 29.280578432495254,
+      "label": "Li-6",
+      "log_a": 1.791759469228055,
+      "residual_mev": 2.717421567504747,
+      "residual_per_nucleon_mev": 0.4529035945841245,
+      "z": 3
+    },
+    {
+      "a": 7,
+      "b_exp_mev": 39.245,
+      "b_smooth_mev": 40.3693921674077,
+      "label": "Li-7",
+      "log_a": 1.9459101490553132,
+      "residual_mev": -1.1243921674077058,
+      "residual_per_nucleon_mev": -0.16062745248681512,
+      "z": 3
+    },
+    {
+      "a": 9,
+      "b_exp_mev": 58.165,
+      "b_smooth_mev": 58.904426124140144,
+      "label": "Be-9",
+      "log_a": 2.1972245773362196,
+      "residual_mev": -0.7394261241401452,
+      "residual_per_nucleon_mev": -0.08215845823779391,
+      "z": 4
+    },
+    {
+      "a": 12,
+      "b_exp_mev": 92.162,
+      "b_smooth_mev": 90.79248423976534,
+      "label": "C-12",
+      "log_a": 2.4849066497880004,
+      "residual_mev": 1.3695157602346626,
+      "residual_per_nucleon_mev": 0.11412631335288854,
+      "z": 6
+    },
+    {
+      "a": 14,
+      "b_exp_mev": 104.659,
+      "b_smooth_mev": 102.47102136766935,
+      "label": "N-14",
+      "log_a": 2.6390573296152584,
+      "residual_mev": 2.1879786323306547,
+      "residual_per_nucleon_mev": 0.15628418802361818,
+      "z": 7
+    },
+    {
+      "a": 16,
+      "b_exp_mev": 127.619,
+      "b_smooth_mev": 127.15535449215625,
+      "label": "O-16",
+      "log_a": 2.772588722239781,
+      "residual_mev": 0.4636455078437507,
+      "residual_per_nucleon_mev": 0.02897784424023442,
+      "z": 8
+    },
+    {
+      "a": 20,
+      "b_exp_mev": 160.644,
+      "b_smooth_mev": 163.95425167283193,
+      "label": "Ne-20",
+      "log_a": 2.995732273553991,
+      "residual_mev": -3.3102516728319245,
+      "residual_per_nucleon_mev": -0.1655125836415962,
+      "z": 10
+    },
+    {
+      "a": 24,
+      "b_exp_mev": 189.984,
+      "b_smooth_mev": 200.81715469179662,
+      "label": "Mg-24",
+      "log_a": 3.1780538303479458,
+      "residual_mev": -10.833154691796608,
+      "residual_per_nucleon_mev": -0.4513814454915253,
+      "z": 12
+    },
+    {
+      "a": 28,
+      "b_exp_mev": 231.627,
+      "b_smooth_mev": 237.53673165856677,
+      "label": "Si-28",
+      "log_a": 3.332204510175204,
+      "residual_mev": -5.909731658566756,
+      "residual_per_nucleon_mev": -0.2110618449488127,
+      "z": 14
+    },
+    {
+      "a": 40,
+      "b_exp_mev": 341.523,
+      "b_smooth_mev": 345.77298096037276,
+      "label": "Ca-40",
+      "log_a": 3.6888794541139363,
+      "residual_mev": -4.2499809603727385,
+      "residual_per_nucleon_mev": -0.10624952400931846,
+      "z": 20
+    },
+    {
+      "a": 48,
+      "b_exp_mev": 416.001,
+      "b_smooth_mev": 425.18282151628483,
+      "label": "Ti-48",
+      "log_a": 3.871201010907891,
+      "residual_mev": -9.181821516284856,
+      "residual_per_nucleon_mev": -0.1912879482559345,
+      "z": 22
+    },
+    {
+      "a": 56,
+      "b_exp_mev": 492.254,
+      "b_smooth_mev": 496.37177098241654,
+      "label": "Fe-56",
+      "log_a": 4.02535169073515,
+      "residual_mev": -4.117770982416516,
+      "residual_per_nucleon_mev": -0.07353162468600923,
+      "z": 26
+    },
+    {
+      "a": 58,
+      "b_exp_mev": 508.449,
+      "b_smooth_mev": 508.934475784028,
+      "label": "Ni-58",
+      "log_a": 4.060443010546419,
+      "residual_mev": -0.4854757840279831,
+      "residual_per_nucleon_mev": -0.008370272138413501,
+      "z": 28
+    },
+    {
+      "a": 64,
+      "b_exp_mev": 545.39,
+      "b_smooth_mev": 565.1100000000001,
+      "label": "Zn-64",
+      "log_a": 4.1588830833596715,
+      "residual_mev": -19.72000000000014,
+      "residual_per_nucleon_mev": -0.3081250000000022,
+      "z": 30
+    },
+    {
+      "a": 90,
+      "b_exp_mev": 783.916,
+      "b_smooth_mev": 788.5203834972058,
+      "label": "Zr-90",
+      "log_a": 4.499809670330265,
+      "residual_mev": -4.604383497205731,
+      "residual_per_nucleon_mev": -0.051159816635619235,
+      "z": 40
+    },
+    {
+      "a": 120,
+      "b_exp_mev": 1020.533,
+      "b_smooth_mev": 1027.2545283072816,
+      "label": "Sn-120",
+      "log_a": 4.787491742782046,
+      "residual_mev": -6.721528307281574,
+      "residual_per_nucleon_mev": -0.056012735894013115,
+      "z": 50
+    },
+    {
+      "a": 140,
+      "b_exp_mev": 1171.89,
+      "b_smooth_mev": 1175.8611158057158,
+      "label": "Ce-140",
+      "log_a": 4.941642422609304,
+      "residual_mev": -3.9711158057157263,
+      "residual_per_nucleon_mev": -0.028365112897969474,
+      "z": 60
+    },
+    {
+      "a": 180,
+      "b_exp_mev": 1435.014,
+      "b_smooth_mev": 1456.8863668296108,
+      "label": "Hf-180",
+      "log_a": 5.19295685089021,
+      "residual_mev": -21.872366829610883,
+      "residual_per_nucleon_mev": -0.12151314905339379,
+      "z": 74
+    },
+    {
+      "a": 208,
+      "b_exp_mev": 1630.468,
+      "b_smooth_mev": 1638.8047800249358,
+      "label": "Pb-208",
+      "log_a": 5.337538079701318,
+      "residual_mev": -8.336780024935706,
+      "residual_per_nucleon_mev": -0.04008067319680628,
+      "z": 82
+    },
+    {
+      "a": 238,
+      "b_exp_mev": 1801.693,
+      "b_smooth_mev": 1820.7898068663126,
+      "label": "U-238",
+      "log_a": 5.472270673671475,
+      "residual_mev": -19.09680686631259,
+      "residual_per_nucleon_mev": -0.08023868431223778,
+      "z": 92
+    }
+  ],
+  "spectral": {
+    "fft_peak_frequency": 0.24091549355685915,
+    "fft_peak_power": 30405.915967065437,
+    "wavelet_dominant_scale": 4.085976312551584
+  },
+  "weizsaecker_params": {
+    "a_a": 23.29,
+    "a_c": 0.693,
+    "a_p": 12.0,
+    "a_s": 17.23,
+    "a_v": 15.56
+  }
+}

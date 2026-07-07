@@ -221,20 +221,21 @@ gegen EABC-Invarianten \(I_{\mathrm{EABC}}\) auf einer **fest vorab** gewählten
 
 **Voraussetzung für Upgrade zu `[B]`:** reproduzierbarer Export, präregistrierte Hülle, Permutations-/Shuffle-Nullmodelle, keine Auswahl der „besten“ Korrelation post hoc.
 
-**Aktueller Stand:** Kein `nuclear_binding_residual` in `diagnostics.py` — E-092 bleibt **konzeptionell**; siehe §7b für `[B]`-Stub-Umriss.
+**Aktueller Stand:** Projekt **„Atome“** — Diagnostik-Stub `nuclear_binding_residual.py` (`[C]`); Export über `examples/run_atome_residual_export.py` → `docs/exports/atome_residual_*`. Vollständiger AME-Schnitt und `[B]`-Nullmodell-Nachweis noch offen.
 
-### `[B]`-Stub-Umriss (nicht implementiert)
+### Implementierter Stub (Projekt „Atome“)
 
-Zukünftiges Modul `nuclear_binding_residual` (Vorschlag, nicht im Repo):
+| Artefakt | Pfad |
+|---|---|
+| Projekt-Dossier | [`../atome_hypothese.md`](../atome_hypothese.md) |
+| Diagnostik | `src/kepler_hurwitz/nuclear_binding_residual.py` |
+| Export | `examples/run_atome_residual_export.py` |
+| Toy-Daten | `data/atome/toy_nuclides.csv` |
 
-```python
-# src/kepler_hurwitz/nuclear_binding_residual.py  [B] — NOT IMPLEMENTED
-# build_residual_table(ame_source, weizsaecker_params) -> DataFrame[A,Z,R,r]
-# correlate_eabc_residuals(residual_df, eabc_invariants, metrics=[pearson, spearman, mi])
-# run_nullmodels(residual_df, eabc_invariants, modes=["permute_R", "shuffle_channel", "variance_match"])
+```bash
+PYTHONPATH=src python examples/run_atome_residual_export.py
+pytest tests/test_nuclear_binding_residual.py -q
 ```
-
-Export-Skript analog: `examples/run_nuclear_binding_residual_export.py` → `docs/exports/nuclear_binding_residual_*.csv`.
 
 ---
 

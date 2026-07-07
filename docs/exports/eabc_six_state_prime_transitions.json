@@ -1,0 +1,263 @@
+{
+  "tag": "[C]",
+  "limit": 100,
+  "mod6_table": {
+    "0": "c",
+    "1": "a",
+    "2": "ac",
+    "3": "ab",
+    "4": "b",
+    "5": "bc"
+  },
+  "governance": {
+    "status": "C interpretive scaffold with A/B residue facts",
+    "tag_interpretive": "[C]",
+    "not_claimed": "formal quaternion proof of twin-prime, cousin-prime, or sexy-prime conjectures; replacement of mod-12 E/A/B/C channel partition in signatures.py; identification of gap-as-rotation with physical spin or GWTC chi_p stratification",
+    "facts_ab": "p > 3 is prime iff p \u2261 \u00b11 (mod 6); mod-6 residue table maps 1\u2192a, 5\u2192bc; residues 0,2,3,4 are blocked for odd primes > 3",
+    "reading_c": "conjugate axis a\u2194bc; gap d\u22610 (mod 6) same axis; d\u22612,4 (mod 6) conjugate flip",
+    "sibling_register": "E-093",
+    "mod12_relationship": "mod-6 six-state projection is coarser than mod-12 channel map (1\u2192E, 5\u2192A, 7\u2192B, 11\u2192C in signatures.eabc_channel_from_mod12)"
+  },
+  "transitions": [
+    {
+      "p1": 2,
+      "p2": 3,
+      "gap": 1,
+      "state1": "ac",
+      "state2": "ab",
+      "gap_class": "other",
+      "axis_flip": false,
+      "tag": "[C]"
+    },
+    {
+      "p1": 3,
+      "p2": 5,
+      "gap": 2,
+      "state1": "ab",
+      "state2": "bc",
+      "gap_class": "conjugate_flip",
+      "axis_flip": false,
+      "tag": "[C]"
+    },
+    {
+      "p1": 5,
+      "p2": 7,
+      "gap": 2,
+      "state1": "bc",
+      "state2": "a",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 7,
+      "p2": 11,
+      "gap": 4,
+      "state1": "a",
+      "state2": "bc",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 11,
+      "p2": 13,
+      "gap": 2,
+      "state1": "bc",
+      "state2": "a",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 13,
+      "p2": 17,
+      "gap": 4,
+      "state1": "a",
+      "state2": "bc",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 17,
+      "p2": 19,
+      "gap": 2,
+      "state1": "bc",
+      "state2": "a",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 19,
+      "p2": 23,
+      "gap": 4,
+      "state1": "a",
+      "state2": "bc",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 23,
+      "p2": 29,
+      "gap": 6,
+      "state1": "bc",
+      "state2": "bc",
+      "gap_class": "same_axis",
+      "axis_flip": false,
+      "tag": "[C]"
+    },
+    {
+      "p1": 29,
+      "p2": 31,
+      "gap": 2,
+      "state1": "bc",
+      "state2": "a",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 31,
+      "p2": 37,
+      "gap": 6,
+      "state1": "a",
+      "state2": "a",
+      "gap_class": "same_axis",
+      "axis_flip": false,
+      "tag": "[C]"
+    },
+    {
+      "p1": 37,
+      "p2": 41,
+      "gap": 4,
+      "state1": "a",
+      "state2": "bc",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 41,
+      "p2": 43,
+      "gap": 2,
+      "state1": "bc",
+      "state2": "a",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 43,
+      "p2": 47,
+      "gap": 4,
+      "state1": "a",
+      "state2": "bc",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 47,
+      "p2": 53,
+      "gap": 6,
+      "state1": "bc",
+      "state2": "bc",
+      "gap_class": "same_axis",
+      "axis_flip": false,
+      "tag": "[C]"
+    },
+    {
+      "p1": 53,
+      "p2": 59,
+      "gap": 6,
+      "state1": "bc",
+      "state2": "bc",
+      "gap_class": "same_axis",
+      "axis_flip": false,
+      "tag": "[C]"
+    },
+    {
+      "p1": 59,
+      "p2": 61,
+      "gap": 2,
+      "state1": "bc",
+      "state2": "a",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 61,
+      "p2": 67,
+      "gap": 6,
+      "state1": "a",
+      "state2": "a",
+      "gap_class": "same_axis",
+      "axis_flip": false,
+      "tag": "[C]"
+    },
+    {
+      "p1": 67,
+      "p2": 71,
+      "gap": 4,
+      "state1": "a",
+      "state2": "bc",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 71,
+      "p2": 73,
+      "gap": 2,
+      "state1": "bc",
+      "state2": "a",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 73,
+      "p2": 79,
+      "gap": 6,
+      "state1": "a",
+      "state2": "a",
+      "gap_class": "same_axis",
+      "axis_flip": false,
+      "tag": "[C]"
+    },
+    {
+      "p1": 79,
+      "p2": 83,
+      "gap": 4,
+      "state1": "a",
+      "state2": "bc",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    },
+    {
+      "p1": 83,
+      "p2": 89,
+      "gap": 6,
+      "state1": "bc",
+      "state2": "bc",
+      "gap_class": "same_axis",
+      "axis_flip": false,
+      "tag": "[C]"
+    },
+    {
+      "p1": 89,
+      "p2": 97,
+      "gap": 8,
+      "state1": "bc",
+      "state2": "a",
+      "gap_class": "conjugate_flip",
+      "axis_flip": true,
+      "tag": "[C]"
+    }
+  ]
+}

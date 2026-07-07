@@ -1,0 +1,422 @@
+{
+  "claim_id": "PI-C-01",
+  "crosstalk": {
+    "claim_id": "PI-C-03",
+    "crosstalk_swap_report": {
+      "bx": 1.0,
+      "by": 0.7,
+      "cx": 2.0,
+      "cy": 0.9,
+      "delta_e": -0.96,
+      "delta_e_expanded": -0.9600000000000006,
+      "e_destroyed": 8.126900000000001,
+      "e_intact": 7.166900000000001,
+      "expanded_terms_destroyed": {
+        "bx^2*cx^2": 4.0,
+        "bx^2*cy^2": 3.24,
+        "by^2*cx^2": 0.48999999999999994,
+        "by^2*cy^2": 0.3969
+      },
+      "expanded_terms_intact": {
+        "bx^2*cx^2": 4.0,
+        "bx^2*cy^2": 0.81,
+        "by^2*cx^2": 1.9599999999999997,
+        "by^2*cy^2": 0.3969
+      },
+      "factored_form": "(bx^2 - cx^2)(cy^2 - by^2)",
+      "primality_preserved": false,
+      "tag": "[C]"
+    },
+    "governance": {
+      "claim_id": "PI-C-03",
+      "facts_ab": "All 15 local P_b \u2297 P_c leave E_bc = (bx^2+by^2)(cx^2+cy^2) invariant; partial cross-field swap bx\u2194cx yields \u0394E = bx^2*cy^2 + by^2*cx^2 - cx^2*cy^2 - bx^2*by^2; factored \u0394E = (bx^2 - cx^2)(cy^2 - by^2); \u0394E = 0 iff bx = cx or by = cy (orthogonal coupling preserved)",
+      "not_claimed": "that primes physically decohere under cross-talk; QM entanglement identity on Hilbert space; proof that \u0394E=0 characterizes prime pairs in number theory; replacement of [[5,1,3]] QEC grammar (E-044)",
+      "reading_c": "non-zero cross-talk \u0394E signals loss of primality / factorization on the bc bivector channel; local Pauli noise does not break E_bc \u2014 only entanglement errors between b and c fields do",
+      "related_scripts": "crosstalk_symmetry_break.sage, phaseninvarianz_tensor_invariants.py, phaseninvarianz_pauli_energy.py",
+      "sibling_register": "E-094",
+      "status": "C interpretive cross-talk symmetry-break scaffold with A/B \u0394E facts",
+      "tag_interpretive": "[C]"
+    },
+    "tensor_local_audit": {
+      "amplitudes": {
+        "bx": 1.0,
+        "by": 0.7,
+        "cx": 2.0,
+        "cy": 0.9
+      },
+      "bc_records": [
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "IX",
+          "op_b": "I",
+          "op_c": "X",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "IY",
+          "op_b": "I",
+          "op_c": "Y",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "IZ",
+          "op_b": "I",
+          "op_c": "Z",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "XI",
+          "op_b": "X",
+          "op_c": "I",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "XX",
+          "op_b": "X",
+          "op_c": "X",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "XY",
+          "op_b": "X",
+          "op_c": "Y",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "XZ",
+          "op_b": "X",
+          "op_c": "Z",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "YI",
+          "op_b": "Y",
+          "op_c": "I",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "YX",
+          "op_b": "Y",
+          "op_c": "X",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "YY",
+          "op_b": "Y",
+          "op_c": "Y",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "YZ",
+          "op_b": "Y",
+          "op_c": "Z",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "ZI",
+          "op_b": "Z",
+          "op_c": "I",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "ZX",
+          "op_b": "Z",
+          "op_c": "X",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "ZY",
+          "op_b": "Z",
+          "op_c": "Y",
+          "tag": "[C]"
+        },
+        {
+          "e_after": 7.166900000000001,
+          "e_before": 7.166900000000001,
+          "is_invariant": true,
+          "op": "ZZ",
+          "op_b": "Z",
+          "op_c": "Z",
+          "tag": "[C]"
+        }
+      ],
+      "claim_id": "PI-C-02",
+      "evidence_id": "E-094",
+      "governance": {
+        "claim_id": "PI-C-02",
+        "facts_ab": "E_pair = vx^2 + vy^2 invariant under Pauli I, X (swap), Z (vy -> -vy), Y (vx -> -vy, vy -> vx); therefore E_bc = E_b * E_c invariant under all 15 non-trivial tensor products P_b \u2297 P_c on separate b and c pairs",
+        "not_claimed": "QM Pauli operator identity on a 2-qubit Hilbert space; that primes are physically QEC-stabilized; that full 15/15 invariance replaces need for [[5,1,3]] on conjugate channels; confusion with partial bx<->cx swap error",
+        "reading_c": "bc quartic energy spans the full 15-dimensional Pauli tensor invariant subspace; eigenstate condition S(E_bc)=E_bc is algebraic squaring, not a QEC miracle; cross-field partial tensor-X errors remain vulnerable (PI-C-01)",
+        "related_scripts": "pauli_tensor_invariant_subspace.sage, phaseninvarianz_pauli_energy.py, eabc_energy_square_sum.py",
+        "sibling_register": "E-094",
+        "status": "A/B per-pair Pauli invariance on quartic bc energy; C eigenstate reading",
+        "tag_interpretive": "[C]"
+      },
+      "orq_id": "ORQ-094",
+      "summary": {
+        "algebraic_expectation": "15/15 under per-pair Pauli on b and c",
+        "all_bc_invariant": true,
+        "bc_invariant_count": 15,
+        "total_operators": 15
+      },
+      "symbolic_invariants": {
+        "IX": true,
+        "IY": true,
+        "IZ": true,
+        "XI": true,
+        "XX": true,
+        "XY": true,
+        "XZ": true,
+        "YI": true,
+        "YX": true,
+        "YY": true,
+        "YZ": true,
+        "ZI": true,
+        "ZX": true,
+        "ZY": true,
+        "ZZ": true
+      },
+      "tag": "[C]"
+    }
+  },
+  "evidence_id": "E-094",
+  "fermat_factorization": {
+    "cases": [
+      {
+        "bx": 3.0,
+        "by": 3.0,
+        "cx": 2.0,
+        "cy": 4.0,
+        "delta_e": 35.0,
+        "factor1": 5,
+        "factor2": 7,
+        "message": "reconstructed 5*7=35",
+        "n": 35,
+        "on_bc_axis": true,
+        "prime_factors": [
+          5,
+          7
+        ],
+        "reconstructed_product": 35.0,
+        "success": true,
+        "tag": "[C]"
+      },
+      {
+        "bx": 6.0,
+        "by": 6.0,
+        "cx": 5.0,
+        "cy": 7.0,
+        "delta_e": 143.0,
+        "factor1": 11,
+        "factor2": 13,
+        "message": "reconstructed 11*13=143",
+        "n": 143,
+        "on_bc_axis": true,
+        "prime_factors": [
+          11,
+          13
+        ],
+        "reconstructed_product": 143.0,
+        "success": true,
+        "tag": "[C]"
+      }
+    ],
+    "claim_id": "PI-C-04",
+    "governance": {
+      "claim_id": "PI-C-04",
+      "facts_ab": "\u0394E = (bx\u00b2-cx\u00b2)(cy\u00b2-by\u00b2) = (bx-cx)(bx+cx)(cy-by)(cy+by); fermat_split_difference_of_squares(x\u00b2,y\u00b2) = x\u00b2-y\u00b2; for odd factor f: bx=(f+1)/2, cx=(f-1)/2 gives bx\u00b2-cx\u00b2=f via unit Fermat split",
+      "not_claimed": "polynomial-time factorization of arbitrary integers; that all bc-axis composites admit unique amplitude geometry; number-theoretic proof of primality from \u0394E=0; replacement of classical Fermat or GNFS methods",
+      "reading_c": "factorization on bc-axis composites = degeneration of entangled bivector prime state under cross-talk symmetry break; amplitude quantization to integer/half-integer patterns reconstructs factors \u2014 constructive example, not a general factorization algorithm claim",
+      "related_scripts": "fermat_factorization_via_crosstalk.sage, phaseninvarianz_crosstalk.py, eabc_six_state_prime_axes.py",
+      "sibling_register": "E-094",
+      "status": "C interpretive Fermat bridge with A/B \u0394E / difference-of-squares facts",
+      "tag_interpretive": "[C]"
+    }
+  },
+  "governance": {
+    "claim_id": "PI-C-01",
+    "facts_ab": "E_a = ax^2 + ay^2 invariant under Pauli Z (ax -> -ax) and Pauli X (ax <-> ay); E_bc = (bx^2+by^2)(cx^2+cy^2) generally not invariant under partial tensor X (bx <-> cx)",
+    "not_claimed": "that primes are physically QEC-stabilized; QM Pauli operator identity on Hilbert space; proof that L(s,chi_{-3}) implements five-qubit code; that phase invariance alone explains twin-prime structure",
+    "reading_c": "6k+1 prime axis a enjoys phase/bit-flip protection on quadratic energy; bc bivector quartic channel is vulnerable to partial Pauli errors and requires full [[5,1,3]] QEC grammar (E-044, BH-C-09)",
+    "related_scripts": "pauli_energy_invariance.sage, eabc_energy_square_sum.py, five_qubit_bridge.sage, qec_bridge.py",
+    "sibling_register": "E-094",
+    "status": "C interpretive Pauli-QEC protection scaffold with A/B invariance facts",
+    "tag_interpretive": "[C]"
+  },
+  "orq_id": "ORQ-094",
+  "reports": [
+    {
+      "ax": 1.0,
+      "ay": 2.0,
+      "bc_cross_terms_after_tensor_x": {
+        "bx^2*cx^2": 36.0,
+        "bx^2*cy^2": 64.0,
+        "by^2*cx^2": 9.0,
+        "by^2*cy^2": 16.0
+      },
+      "bc_cross_terms_before": {
+        "bx^2*cx^2": 36.0,
+        "bx^2*cy^2": 144.0,
+        "by^2*cx^2": 4.0,
+        "by^2*cy^2": 16.0
+      },
+      "bx": 3.0,
+      "by": 1.0,
+      "cx": 2.0,
+      "cy": 4.0,
+      "e_a_after_x": 5.0,
+      "e_a_after_z": 5.0,
+      "e_a_before": 5.0,
+      "e_bc_after_tensor_x": 125.0,
+      "e_bc_before": 200.0,
+      "invariant_under_tensor_x": false,
+      "invariant_under_x": true,
+      "invariant_under_z": true,
+      "symmetric_tensor_x_special_case": false,
+      "tag": "[C]"
+    },
+    {
+      "ax": -1.5,
+      "ay": 2.5,
+      "bc_cross_terms_after_tensor_x": {
+        "bx^2*cx^2": 9.0,
+        "bx^2*cy^2": 36.0,
+        "by^2*cx^2": 0.25,
+        "by^2*cy^2": 1.0
+      },
+      "bc_cross_terms_before": {
+        "bx^2*cx^2": 9.0,
+        "bx^2*cy^2": 4.0,
+        "by^2*cx^2": 2.25,
+        "by^2*cy^2": 1.0
+      },
+      "bx": 1.0,
+      "by": 0.5,
+      "cx": 3.0,
+      "cy": 2.0,
+      "e_a_after_x": 8.5,
+      "e_a_after_z": 8.5,
+      "e_a_before": 8.5,
+      "e_bc_after_tensor_x": 46.25,
+      "e_bc_before": 16.25,
+      "invariant_under_tensor_x": false,
+      "invariant_under_x": true,
+      "invariant_under_z": true,
+      "symmetric_tensor_x_special_case": false,
+      "tag": "[C]"
+    },
+    {
+      "ax": 2.0,
+      "ay": 2.0,
+      "bc_cross_terms_after_tensor_x": {
+        "bx^2*cx^2": 1.0,
+        "bx^2*cy^2": 1.0,
+        "by^2*cx^2": 1.0,
+        "by^2*cy^2": 1.0
+      },
+      "bc_cross_terms_before": {
+        "bx^2*cx^2": 1.0,
+        "bx^2*cy^2": 1.0,
+        "by^2*cx^2": 1.0,
+        "by^2*cy^2": 1.0
+      },
+      "bx": 1.0,
+      "by": 1.0,
+      "cx": 1.0,
+      "cy": 1.0,
+      "e_a_after_x": 8.0,
+      "e_a_after_z": 8.0,
+      "e_a_before": 8.0,
+      "e_bc_after_tensor_x": 4.0,
+      "e_bc_before": 4.0,
+      "invariant_under_tensor_x": true,
+      "invariant_under_x": true,
+      "invariant_under_z": true,
+      "symmetric_tensor_x_special_case": true,
+      "tag": "[C]"
+    },
+    {
+      "ax": 0.0,
+      "ay": 3.0,
+      "bc_cross_terms_after_tensor_x": {
+        "bx^2*cx^2": 16.0,
+        "bx^2*cy^2": 16.0,
+        "by^2*cx^2": 16.0,
+        "by^2*cy^2": 16.0
+      },
+      "bc_cross_terms_before": {
+        "bx^2*cx^2": 16.0,
+        "bx^2*cy^2": 16.0,
+        "by^2*cx^2": 16.0,
+        "by^2*cy^2": 16.0
+      },
+      "bx": 2.0,
+      "by": 2.0,
+      "cx": 2.0,
+      "cy": 2.0,
+      "e_a_after_x": 9.0,
+      "e_a_after_z": 9.0,
+      "e_a_before": 9.0,
+      "e_bc_after_tensor_x": 64.0,
+      "e_bc_before": 64.0,
+      "invariant_under_tensor_x": true,
+      "invariant_under_x": true,
+      "invariant_under_z": true,
+      "symmetric_tensor_x_special_case": true,
+      "tag": "[C]"
+    }
+  ],
+  "summary": {
+    "all_a_invariant_under_x": true,
+    "all_a_invariant_under_z": true,
+    "any_bc_vulnerable": true,
+    "crosstalk_delta_e_sample": -0.96,
+    "crosstalk_primality_preserved_sample": false,
+    "fermat_n143_success": true,
+    "fermat_n35_success": true,
+    "local_pauli_15_of_15_invariant": true,
+    "symmetric_special_cases": 2
+  },
+  "tag": "[C]"
+}

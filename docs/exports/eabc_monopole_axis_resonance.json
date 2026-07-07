@@ -1,0 +1,138 @@
+{
+  "axis_a_count": 611,
+  "axis_bc_count": 616,
+  "delta_sign_changes": 7,
+  "governance": "[C]",
+  "governance_detail": {
+    "mathematical_note": "Clean axis split may require L(s, chi_{-3}) as conjugator; cosine partial sums here are exploratory [C] only",
+    "not_claimed": "proof of the Riemann Hypothesis; perfect monopole quantization of zeros; that zeta splits mod 6 without Dirichlet L(s, chi_{-3}); discovery-taugliche delta alternation without preregistration",
+    "related_scripts": "monopole_gap_test.sage, eabc_monopole_axis_resonance.sage",
+    "sibling_register": "E-093",
+    "status": "C interpretive resonance scaffold with B residue-axis facts",
+    "tag_interpretive": "[C]"
+  },
+  "prime_limit": 10000,
+  "records": [
+    {
+      "delta": 0.12357340590169907,
+      "dominant_axis": "a",
+      "gamma": 14.134725141734693,
+      "res_a": -1.3600719356249527,
+      "res_bc": -1.4836453415266517,
+      "tag": "[C]"
+    },
+    {
+      "delta": 0.3241876384085367,
+      "dominant_axis": "a",
+      "gamma": 21.022039638771552,
+      "res_a": -1.1533031185952298,
+      "res_bc": -1.4774907570037665,
+      "tag": "[C]"
+    },
+    {
+      "delta": 0.7933237341535233,
+      "dominant_axis": "a",
+      "gamma": 25.01085758014569,
+      "res_a": -0.6950922717996155,
+      "res_bc": -1.4884160059531388,
+      "tag": "[C]"
+    },
+    {
+      "delta": -0.3494962455859073,
+      "dominant_axis": "bc",
+      "gamma": 30.424876125859512,
+      "res_a": -1.0851476808784246,
+      "res_bc": -0.7356514352925173,
+      "tag": "[C]"
+    },
+    {
+      "delta": 0.5184958024701841,
+      "dominant_axis": "a",
+      "gamma": 32.93506158773919,
+      "res_a": -0.5391843962846804,
+      "res_bc": -1.0576801987548645,
+      "tag": "[C]"
+    },
+    {
+      "delta": -1.3384111751792866,
+      "dominant_axis": "bc",
+      "gamma": 37.58617815882567,
+      "res_a": -1.551344564237994,
+      "res_bc": -0.21293338905870732,
+      "tag": "[C]"
+    },
+    {
+      "delta": 0.24326219509252944,
+      "dominant_axis": "a",
+      "gamma": 40.9187190121475,
+      "res_a": -0.9483114516981871,
+      "res_bc": -1.1915736467907165,
+      "tag": "[C]"
+    },
+    {
+      "delta": 0.019526998319194022,
+      "dominant_axis": "a",
+      "gamma": 43.327073280914995,
+      "res_a": -0.8651821761160547,
+      "res_bc": -0.8847091744352488,
+      "tag": "[C]"
+    },
+    {
+      "delta": 0.817744141295679,
+      "dominant_axis": "a",
+      "gamma": 48.00515088116716,
+      "res_a": -0.2538314223494158,
+      "res_bc": -1.0715755636450948,
+      "tag": "[C]"
+    },
+    {
+      "delta": -0.08389195494068502,
+      "dominant_axis": "bc",
+      "gamma": 49.7738324776723,
+      "res_a": -0.8585445658440994,
+      "res_bc": -0.7746526109034144,
+      "tag": "[C]"
+    },
+    {
+      "delta": 0.739323590192184,
+      "dominant_axis": "a",
+      "gamma": 52.97032147771446,
+      "res_a": -0.7008503508251971,
+      "res_bc": -1.440173941017381,
+      "tag": "[C]"
+    },
+    {
+      "delta": 0.5849840621665274,
+      "dominant_axis": "a",
+      "gamma": 56.44624769706339,
+      "res_a": -0.9821172565583638,
+      "res_bc": -1.5671013187248912,
+      "tag": "[C]"
+    },
+    {
+      "delta": 0.3616064739306524,
+      "dominant_axis": "a",
+      "gamma": 59.34704400260235,
+      "res_a": -0.5825767813995104,
+      "res_bc": -0.9441832553301628,
+      "tag": "[C]"
+    },
+    {
+      "delta": 0.9229091507629849,
+      "dominant_axis": "a",
+      "gamma": 60.83177852460981,
+      "res_a": -0.29525542646806235,
+      "res_bc": -1.2181645772310472,
+      "tag": "[C]"
+    },
+    {
+      "delta": -0.8337239894774767,
+      "dominant_axis": "bc",
+      "gamma": 65.11254404808162,
+      "res_a": -1.1717238356657111,
+      "res_bc": -0.3379998461882344,
+      "tag": "[C]"
+    }
+  ],
+  "zero_count": 15
+}

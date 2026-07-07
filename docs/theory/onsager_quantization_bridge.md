@@ -351,6 +351,7 @@ Onsager-Sprache ist **interpretativ** und folgt dem Open-Core-Pfad:
 | [`weyl_onsager_bridge_attack.md`](weyl_onsager_bridge_attack.md) | ORQ-089 ↔ ORQ-087 Ordnungs-Defekt-Parallelismus |
 | [`open_mathematical_bridge_targets.md`](../open_mathematical_bridge_targets.md) | ORQ-077–087 Kanonischer Katalog |
 | [`dumas_cone_orbit_model.md`](dumas_cone_orbit_model.md) | Wirbel-/Orbit-Normalform |
+| [`greens_stokes_circulation_bridge.md`](greens_stokes_circulation_bridge.md) | Green/Stokes Rand↔Curl-Referenz; numerische Scheiben-Verifikation `[B]` |
 | [`distilled_parameters.md`](distilled_parameters.md) | Diagnostik-API |
 | [`l4_thermodynamic_structural_inspiration.md`](../l4_thermodynamic_structural_inspiration.md) | Thermodynamische Metasprache |
 | [`l4_reference_matrix.md`](../l4_reference_matrix.md) | L4-Strukturmatrix |

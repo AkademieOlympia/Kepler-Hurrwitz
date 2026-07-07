@@ -1,7 +1,7 @@
 {
   "claim": "Syracuse valuation and first-passage diagnostic only; no Collatz proof",
   "collective_geom2_distance": 0.43975976562499997,
-  "elapsed_seconds": 25.469572666974273,
+  "elapsed_seconds": 23.45626095897751,
   "first_passage_threshold": "relative threshold floor(N/2), not Tao fixed-x first passage",
   "geom2_metric_scope": "aggregated marginal distribution only; iid independence not tested",
   "hit_rate": 1.0,

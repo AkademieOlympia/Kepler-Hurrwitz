@@ -1,0 +1,323 @@
+{
+  "a_records": [
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "IX",
+      "op_b": "I",
+      "op_c": "X",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "IY",
+      "op_b": "I",
+      "op_c": "Y",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "IZ",
+      "op_b": "I",
+      "op_c": "Z",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "XI",
+      "op_b": "X",
+      "op_c": "I",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "XX",
+      "op_b": "X",
+      "op_c": "X",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "XY",
+      "op_b": "X",
+      "op_c": "Y",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "XZ",
+      "op_b": "X",
+      "op_c": "Z",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "YI",
+      "op_b": "Y",
+      "op_c": "I",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "YX",
+      "op_b": "Y",
+      "op_c": "X",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "YY",
+      "op_b": "Y",
+      "op_c": "Y",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "YZ",
+      "op_b": "Y",
+      "op_c": "Z",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "ZI",
+      "op_b": "Z",
+      "op_c": "I",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "ZX",
+      "op_b": "Z",
+      "op_c": "X",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "ZY",
+      "op_b": "Z",
+      "op_c": "Y",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 5.0,
+      "e_before": 5.0,
+      "is_invariant": true,
+      "op": "ZZ",
+      "op_b": "Z",
+      "op_c": "Z",
+      "tag": "[C]"
+    }
+  ],
+  "amplitudes": {
+    "ax": 1.0,
+    "ay": 2.0,
+    "bx": 3.0,
+    "by": 1.0,
+    "cx": 2.0,
+    "cy": 4.0
+  },
+  "bc_records": [
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "IX",
+      "op_b": "I",
+      "op_c": "X",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "IY",
+      "op_b": "I",
+      "op_c": "Y",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "IZ",
+      "op_b": "I",
+      "op_c": "Z",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "XI",
+      "op_b": "X",
+      "op_c": "I",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "XX",
+      "op_b": "X",
+      "op_c": "X",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "XY",
+      "op_b": "X",
+      "op_c": "Y",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "XZ",
+      "op_b": "X",
+      "op_c": "Z",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "YI",
+      "op_b": "Y",
+      "op_c": "I",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "YX",
+      "op_b": "Y",
+      "op_c": "X",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "YY",
+      "op_b": "Y",
+      "op_c": "Y",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "YZ",
+      "op_b": "Y",
+      "op_c": "Z",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "ZI",
+      "op_b": "Z",
+      "op_c": "I",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "ZX",
+      "op_b": "Z",
+      "op_c": "X",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "ZY",
+      "op_b": "Z",
+      "op_c": "Y",
+      "tag": "[C]"
+    },
+    {
+      "e_after": 200.0,
+      "e_before": 200.0,
+      "is_invariant": true,
+      "op": "ZZ",
+      "op_b": "Z",
+      "op_c": "Z",
+      "tag": "[C]"
+    }
+  ],
+  "claim_id": "PI-C-02",
+  "evidence_id": "E-094",
+  "governance": {
+    "claim_id": "PI-C-02",
+    "facts_ab": "E_pair = vx^2 + vy^2 invariant under Pauli I, X (swap), Z (vy -> -vy), Y (vx -> -vy, vy -> vx); therefore E_bc = E_b * E_c invariant under all 15 non-trivial tensor products P_b \u2297 P_c on separate b and c pairs",
+    "not_claimed": "QM Pauli operator identity on a 2-qubit Hilbert space; that primes are physically QEC-stabilized; that full 15/15 invariance replaces need for [[5,1,3]] on conjugate channels; confusion with partial bx<->cx swap error",
+    "reading_c": "bc quartic energy spans the full 15-dimensional Pauli tensor invariant subspace; eigenstate condition S(E_bc)=E_bc is algebraic squaring, not a QEC miracle; cross-field partial tensor-X errors remain vulnerable (PI-C-01)",
+    "related_scripts": "pauli_tensor_invariant_subspace.sage, phaseninvarianz_pauli_energy.py, eabc_energy_square_sum.py",
+    "sibling_register": "E-094",
+    "status": "A/B per-pair Pauli invariance on quartic bc energy; C eigenstate reading",
+    "tag_interpretive": "[C]"
+  },
+  "orq_id": "ORQ-094",
+  "summary": {
+    "a_invariant_count": 15,
+    "algebraic_expectation": "15/15 under per-pair Pauli on b and c",
+    "all_a_invariant": true,
+    "all_bc_invariant": true,
+    "bc_invariant_count": 15,
+    "total_operators": 15
+  },
+  "symbolic_invariants": {
+    "IX": true,
+    "IY": true,
+    "IZ": true,
+    "XI": true,
+    "XX": true,
+    "XY": true,
+    "XZ": true,
+    "YI": true,
+    "YX": true,
+    "YY": true,
+    "YZ": true,
+    "ZI": true,
+    "ZX": true,
+    "ZY": true,
+    "ZZ": true
+  },
+  "tag": "[C]"
+}
