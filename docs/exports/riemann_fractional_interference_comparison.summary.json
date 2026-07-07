@@ -1,0 +1,159 @@
+{
+  "tag": "[C]",
+  "governance": {
+    "status": "C interpretive analogy with B illustrative plot export",
+    "tag_interpretive": "[C]",
+    "plot_tag": "[B] illustrative diagnostic only",
+    "fractional_kernel": "fractional-weighted interference kernel Phi_R_alpha(x) = sum cos(gamma ln x) * x^(-alpha); NOT a Caputo derivative implementation",
+    "not_claimed": "proof that Riemann zeros cause EABC symmetry breaking; proof that zeros cause bivector collapse; physics identity between explicit-formula oscillations and Pauli stabilizers; discovery-taugliche prime-vs-composite separation without preregistration; proof that alpha=0.5 sharpens factorization detection at bc-axis nodes",
+    "sibling_register": "E-095",
+    "orq_id": "ORQ-095",
+    "related_theory": "docs/theory/riemann_zero_interference_analogy.md"
+  },
+  "num_zeros": 150,
+  "wave": "sum cos(gamma_n * ln x) * x^(-alpha)",
+  "alphas": [
+    0.0,
+    0.5
+  ],
+  "test_points": [
+    {
+      "x": 29,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "signals": {
+        "alpha_0": -29.091054544416263,
+        "alpha_0.5": -5.402073211552439
+      },
+      "tag": "[C]"
+    },
+    {
+      "x": 31,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "signals": {
+        "alpha_0": -29.63593939491958,
+        "alpha_0.5": -5.322771845871728
+      },
+      "tag": "[C]"
+    },
+    {
+      "x": 35,
+      "is_prime": false,
+      "is_bc_composite": true,
+      "signals": {
+        "alpha_0": 3.026136042417189,
+        "alpha_0.5": 0.5115103503272403
+      },
+      "tag": "[C]"
+    },
+    {
+      "x": 37,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "signals": {
+        "alpha_0": -28.547579726200983,
+        "alpha_0.5": -4.693193197006391
+      },
+      "tag": "[C]"
+    },
+    {
+      "x": 41,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "signals": {
+        "alpha_0": -28.763445067913096,
+        "alpha_0.5": -4.492095421132261
+      },
+      "tag": "[C]"
+    },
+    {
+      "x": 137,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "signals": {
+        "alpha_0": -10.682235194255641,
+        "alpha_0.5": -0.9126449439743799
+      },
+      "tag": "[C]"
+    },
+    {
+      "x": 139,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "signals": {
+        "alpha_0": -14.140151508963443,
+        "alpha_0.5": -1.1993519973900328
+      },
+      "tag": "[C]"
+    },
+    {
+      "x": 143,
+      "is_prime": false,
+      "is_bc_composite": true,
+      "signals": {
+        "alpha_0": 7.292415632600041,
+        "alpha_0.5": 0.6098224306412589
+      },
+      "tag": "[C]"
+    },
+    {
+      "x": 149,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "signals": {
+        "alpha_0": -7.673898381968062,
+        "alpha_0.5": -0.6286702509327652
+      },
+      "tag": "[C]"
+    }
+  ],
+  "separation_metrics": {
+    "x35_vs_31_alpha_0": {
+      "composite": 35,
+      "neighbor_prime": 31,
+      "alpha": 0.0,
+      "separation": 32.66207543733677,
+      "composite_signal": 3.026136042417189,
+      "neighbor_signal": -29.63593939491958
+    },
+    "x35_vs_31_alpha_0.5": {
+      "composite": 35,
+      "neighbor_prime": 31,
+      "alpha": 0.5,
+      "separation": 5.834282196198968,
+      "composite_signal": 0.5115103503272403,
+      "neighbor_signal": -5.322771845871728
+    },
+    "x143_vs_139_alpha_0": {
+      "composite": 143,
+      "neighbor_prime": 139,
+      "alpha": 0.0,
+      "separation": 21.432567141563485,
+      "composite_signal": 7.292415632600041,
+      "neighbor_signal": -14.140151508963443
+    },
+    "x143_vs_139_alpha_0.5": {
+      "composite": 143,
+      "neighbor_prime": 139,
+      "alpha": 0.5,
+      "separation": 1.8091744280312918,
+      "composite_signal": 0.6098224306412589,
+      "neighbor_signal": -1.1993519973900328
+    }
+  },
+  "plot_windows": [
+    {
+      "x_min": 25.0,
+      "x_max": 45.0,
+      "center": 35
+    },
+    {
+      "x_min": 130.0,
+      "x_max": 155.0,
+      "center": 143
+    }
+  ],
+  "alpha_0.5_improves_35_vs_31": false,
+  "alpha_0.5_improves_143_vs_139": false
+}

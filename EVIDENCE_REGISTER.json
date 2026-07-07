@@ -1678,8 +1678,8 @@
       "supports": [
         "docs/open_research_questions.md"
       ],
-      "scope": "Explicit-formula reading language: sum cos(gamma ln x) over first N zeta zeros at integer nodes; constructive at primes vs destructive at composites on bc-axis [C]; bridge to cross-talk DeltaE (PI-C-03) and nuclear residual oscillation analogy (E-092)",
-      "metric_or_result": "pytest test_riemann_interference_diagnostics; export riemann_zero_interference.json",
+      "scope": "Explicit-formula reading language: sum cos(gamma ln x) over first N zeta zeros at integer nodes; constructive at primes vs destructive at composites on bc-axis [C]; fractional-weighted kernel Phi_R_alpha = sum cos(gamma ln x) * x^(-alpha) PoC at alpha=0 vs 0.5 [C/B]; bridge to cross-talk DeltaE (PI-C-03) and nuclear residual oscillation analogy (E-092)",
+      "metric_or_result": "pytest test_riemann_interference_diagnostics; export riemann_zero_interference.json; fractional comparison riemann_fractional_interference_comparison.summary.json",
       "status": "dokumentiert",
       "stability": "experimental",
       "last_reviewed": "2026-07-07",

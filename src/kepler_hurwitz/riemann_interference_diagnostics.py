@@ -192,6 +192,8 @@ RIEMANN_INTERFERENCE_ZEROS: tuple[float, ...] = (
 )
 
 BC_AXIS_COMPOSITE_NODES: tuple[int, ...] = (35, 143)
+# Nearest lower prime neighbor for separation metrics at bc-axis composites.
+BC_AXIS_PRIME_NEIGHBORS: dict[int, int] = {35: 31, 143: 139}
 SYMMETRY_BREAKING_TEST_POINTS: tuple[int, ...] = (
     29,
     31,
@@ -209,15 +211,23 @@ DEFAULT_PLOT_WINDOWS: tuple[tuple[float, float, int], ...] = (
     (130.0, 155.0, 143),
 )
 
+FRACTIONAL_INTERFERENCE_TAG = "[C]"
+DEFAULT_FRACTIONAL_ALPHAS: tuple[float, ...] = (0.0, 0.5)
+
 GOVERNANCE: dict[str, str] = {
     "status": "C interpretive analogy with B illustrative plot export",
     "tag_interpretive": RIEMANN_INTERFERENCE_TAG,
     "plot_tag": "[B] illustrative diagnostic only",
+    "fractional_kernel": (
+        "fractional-weighted interference kernel Phi_R_alpha(x) = "
+        "sum cos(gamma ln x) * x^(-alpha); NOT a Caputo derivative implementation"
+    ),
     "not_claimed": (
         "proof that Riemann zeros cause EABC symmetry breaking; "
         "proof that zeros cause bivector collapse; "
         "physics identity between explicit-formula oscillations and Pauli stabilizers; "
-        "discovery-taugliche prime-vs-composite separation without preregistration"
+        "discovery-taugliche prime-vs-composite separation without preregistration; "
+        "proof that alpha=0.5 sharpens factorization detection at bc-axis nodes"
     ),
     "sibling_register": "E-095",
     "orq_id": "ORQ-095",
@@ -226,17 +236,25 @@ GOVERNANCE: dict[str, str] = {
 
 __all__ = [
     "BC_AXIS_COMPOSITE_NODES",
+    "DEFAULT_FRACTIONAL_ALPHAS",
     "DEFAULT_NUM_ZEROS",
     "DEFAULT_PLOT_WINDOWS",
+    "FRACTIONAL_INTERFERENCE_TAG",
     "GOVERNANCE",
     "RIEMANN_INTERFERENCE_TAG",
     "RIEMANN_INTERFERENCE_ZEROS",
     "SYMMETRY_BREAKING_TEST_POINTS",
+    "FractionalComparisonExport",
     "InterferenceNodeRecord",
     "PhaseCollapseExport",
     "calculate_interference_signal",
+    "compare_fractional_orders",
+    "export_fractional_comparison_bundle",
     "export_phase_collapse_bundle",
+    "fractional_interference_signal",
+    "fractional_symmetry_breaking_comparison",
     "is_prime",
+    "plot_fractional_comparison",
     "plot_phase_collapse",
     "primes_in_range",
     "select_zeros",
@@ -256,6 +274,29 @@ class InterferenceNodeRecord:
 
     def as_dict(self) -> dict[str, Any]:
         return asdict(self)
+
+
+@dataclass(frozen=True)
+class FractionalComparisonExport:
+    num_zeros: int
+    alphas: tuple[float, ...]
+    test_points: tuple[dict[str, Any], ...]
+    separation_metrics: dict[str, Any]
+    plot_windows: tuple[dict[str, float], ...]
+    governance: dict[str, str]
+    tag: str = FRACTIONAL_INTERFERENCE_TAG
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "tag": self.tag,
+            "governance": self.governance,
+            "num_zeros": self.num_zeros,
+            "wave": "sum cos(gamma_n * ln x) * x^(-alpha)",
+            "alphas": list(self.alphas),
+            "test_points": list(self.test_points),
+            "separation_metrics": self.separation_metrics,
+            "plot_windows": list(self.plot_windows),
+        }
 
 
 @dataclass(frozen=True)
@@ -334,6 +375,150 @@ def wave_function(x_values: Sequence[float], gammas: Sequence[float]):
     return np.cos(np.outer(gamma_arr, log_x)).sum(axis=0)
 
 
+def fractional_interference_signal(
+    x: float | Sequence[float],
+    gammas: Sequence[float],
+    *,
+    alpha: float = 0.5,
+) -> float | list[float]:
+    """
+    Fractional-weighted interference kernel [C]:
+
+        Phi_R_alpha(x) = sum_n cos(gamma_n * ln x) * x^(-alpha)
+
+    Heuristic memory filter — NOT a Caputo fractional derivative.
+    For alpha=0 this reduces to ``calculate_interference_signal``.
+    """
+    if alpha < 0:
+        raise ValueError("alpha must be non-negative.")
+
+    if isinstance(x, (int, float)):
+        if x <= 0:
+            raise ValueError("x must be positive.")
+        weight = float(x) ** (-alpha)
+        return calculate_interference_signal(float(x), gammas) * weight
+
+    x_values = [float(value) for value in x]
+    if any(value <= 0 for value in x_values):
+        raise ValueError("all x values must be positive.")
+    if np is None:
+        return [
+            calculate_interference_signal(value, gammas) * (value ** (-alpha))
+            for value in x_values
+        ]
+
+    x_arr = np.asarray(x_values, dtype=np.float64)
+    base = wave_function(x_arr, gammas)
+    return base * np.power(x_arr, -alpha)
+
+
+def compare_fractional_orders(
+    x_values: Sequence[float],
+    gammas: Sequence[float],
+    *,
+    alphas: Sequence[float] = DEFAULT_FRACTIONAL_ALPHAS,
+) -> dict[str, Any]:
+    """Compare fractional-weighted signals across alpha orders at given x values."""
+    points = [float(x) for x in x_values]
+    alpha_list = tuple(float(a) for a in alphas)
+    rows: list[dict[str, Any]] = []
+    for x in points:
+        signals: dict[str, float] = {}
+        for alpha in alpha_list:
+            value = fractional_interference_signal(x, gammas, alpha=alpha)
+            signals[f"alpha_{alpha:g}"] = float(value)  # type: ignore[arg-type]
+        rows.append({"x": x, "signals": signals})
+    return {
+        "alphas": list(alpha_list),
+        "wave": "sum cos(gamma_n * ln x) * x^(-alpha)",
+        "rows": rows,
+        "tag": FRACTIONAL_INTERFERENCE_TAG,
+    }
+
+
+def _nearest_prime_neighbor(x: int, candidates: Sequence[int]) -> int | None:
+    """Return the designated bc-axis prime neighbor if defined, else closest prime in candidates."""
+    if x in BC_AXIS_PRIME_NEIGHBORS:
+        neighbor = BC_AXIS_PRIME_NEIGHBORS[x]
+        if neighbor in candidates:
+            return neighbor
+    primes = [p for p in candidates if is_prime(p) and p != x]
+    if not primes:
+        return None
+    return min(primes, key=lambda p: abs(p - x))
+
+
+def fractional_symmetry_breaking_comparison(
+    gammas: Sequence[float],
+    test_points: Sequence[int] | None = None,
+    *,
+    alphas: Sequence[float] = DEFAULT_FRACTIONAL_ALPHAS,
+) -> dict[str, Any]:
+    """
+    Evaluate fractional-weighted signals at bc-axis test nodes for multiple alphas.
+
+    Returns per-point signals plus separation metrics at composite nodes 35 and 143
+    vs. their nearest prime neighbors in the test set.
+    """
+    points = (
+        SYMMETRY_BREAKING_TEST_POINTS if test_points is None else tuple(int(p) for p in test_points)
+    )
+    alpha_list = tuple(float(a) for a in alphas)
+    comparison = compare_fractional_orders(points, gammas, alphas=alpha_list)
+    rows: list[dict[str, Any]] = []
+    for row in comparison["rows"]:
+        x = int(row["x"])
+        rows.append(
+            {
+                "x": x,
+                "is_prime": is_prime(x),
+                "is_bc_composite": x in BC_AXIS_COMPOSITE_NODES,
+                "signals": row["signals"],
+                "tag": FRACTIONAL_INTERFERENCE_TAG,
+            }
+        )
+
+    separation_metrics: dict[str, Any] = {}
+    for composite in BC_AXIS_COMPOSITE_NODES:
+        if composite not in points:
+            continue
+        neighbor = _nearest_prime_neighbor(composite, points)
+        if neighbor is None:
+            continue
+        by_x = {int(r["x"]): r["signals"] for r in rows}
+        for alpha in alpha_list:
+            key = f"alpha_{alpha:g}"
+            sep = abs(by_x[composite][key] - by_x[neighbor][key])
+            separation_metrics[f"x{composite}_vs_{neighbor}_{key}"] = {
+                "composite": composite,
+                "neighbor_prime": neighbor,
+                "alpha": alpha,
+                "separation": sep,
+                "composite_signal": by_x[composite][key],
+                "neighbor_signal": by_x[neighbor][key],
+            }
+
+    improves_35: bool | None = None
+    improves_143: bool | None = None
+    sep0_35 = separation_metrics.get("x35_vs_31_alpha_0", {}).get("separation")
+    sep05_35 = separation_metrics.get("x35_vs_31_alpha_0.5", {}).get("separation")
+    if sep0_35 is not None and sep05_35 is not None:
+        improves_35 = sep05_35 > sep0_35
+    sep0_143 = separation_metrics.get("x143_vs_139_alpha_0", {}).get("separation")
+    sep05_143 = separation_metrics.get("x143_vs_139_alpha_0.5", {}).get("separation")
+    if sep0_143 is not None and sep05_143 is not None:
+        improves_143 = sep05_143 > sep0_143
+
+    return {
+        "tag": FRACTIONAL_INTERFERENCE_TAG,
+        "alphas": list(alpha_list),
+        "test_points": rows,
+        "separation_metrics": separation_metrics,
+        "alpha_0.5_improves_35_vs_31": improves_35,
+        "alpha_0.5_improves_143_vs_139": improves_143,
+    }
+
+
 def symmetry_breaking_node_table(
     gammas: Sequence[float],
     *,
@@ -357,6 +542,117 @@ def symmetry_breaking_node_table(
 
 # Public alias (avoid ``test_*`` name — pytest would collect it as a test).
 evaluate_symmetry_breaking_nodes = symmetry_breaking_node_table
+
+
+def plot_fractional_comparison(
+    gammas: Sequence[float],
+    output_path: str | Path,
+    *,
+    windows: Sequence[tuple[float, float, int]] | None = None,
+    alphas: Sequence[float] = DEFAULT_FRACTIONAL_ALPHAS,
+    num_samples: int = 800,
+) -> Path:
+    """Two-panel overlay of alpha=0 vs alpha=0.5 fractional-weighted interference [B]."""
+    if plt is None:
+        raise RuntimeError("matplotlib is required for plot_fractional_comparison.")
+
+    destination = Path(output_path)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    plot_windows = DEFAULT_PLOT_WINDOWS if windows is None else tuple(windows)
+    alpha_list = tuple(float(a) for a in alphas)
+    colors = {0.0: "#1f4e79", 0.5: "#e65100"}
+    labels = {
+        0.0: r"$\alpha=0$: $\sum\cos(\gamma_n\ln x)$",
+        0.5: r"$\alpha=0.5$: $\sum\cos(\gamma_n\ln x)\,x^{-1/2}$",
+    }
+
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.5), constrained_layout=True)
+    for ax, (x_min, x_max, center) in zip(axes, plot_windows, strict=True):
+        xs = np.linspace(x_min, x_max, num_samples) if np is not None else [
+            x_min + (x_max - x_min) * i / (num_samples - 1) for i in range(num_samples)
+        ]
+        for alpha in alpha_list:
+            ys = fractional_interference_signal(xs, gammas, alpha=alpha)
+            color = colors.get(alpha, "#455a64")
+            label = labels.get(alpha, rf"$\alpha={alpha:g}$")
+            ax.plot(xs, ys, color=color, linewidth=1.4, label=label)
+
+        for prime in primes_in_range(x_min, x_max):
+            ax.axvline(prime, color="#2e7d32", linestyle=":", linewidth=1.0, alpha=0.85)
+
+        for composite in BC_AXIS_COMPOSITE_NODES:
+            if x_min <= composite <= x_max:
+                ax.axvline(
+                    composite,
+                    color="#c62828",
+                    linestyle="--",
+                    linewidth=1.2,
+                    alpha=0.95,
+                )
+
+        ax.axvline(center, color="#6a1b9a", linestyle="-.", linewidth=0.9, alpha=0.6)
+        ax.set_title(f"x in [{x_min:g}, {x_max:g}] (center {center})")
+        ax.set_xlabel("x")
+        ax.set_ylabel(r"$\Phi_{R,\alpha}(x)$")
+        ax.grid(True, alpha=0.25)
+        ax.legend(loc="upper right", fontsize=8, frameon=False)
+
+    fig.suptitle(
+        "Fractional-weighted Riemann interference — alpha=0 vs 0.5 [B]",
+        fontsize=11,
+    )
+    fig.savefig(destination, dpi=160)
+    plt.close(fig)
+    return destination
+
+
+def build_fractional_comparison_export(
+    *,
+    gammas: Sequence[float] | None = None,
+    num_zeros: int = DEFAULT_NUM_ZEROS,
+    alphas: Sequence[float] = DEFAULT_FRACTIONAL_ALPHAS,
+) -> FractionalComparisonExport:
+    zeros = select_zeros(gammas, num_zeros=num_zeros)
+    alpha_list = tuple(float(a) for a in alphas)
+    comparison = fractional_symmetry_breaking_comparison(zeros, alphas=alpha_list)
+    return FractionalComparisonExport(
+        num_zeros=len(zeros),
+        alphas=alpha_list,
+        test_points=tuple(comparison["test_points"]),
+        separation_metrics=comparison["separation_metrics"],
+        plot_windows=tuple(
+            {"x_min": low, "x_max": high, "center": center}
+            for low, high, center in DEFAULT_PLOT_WINDOWS
+        ),
+        governance=dict(GOVERNANCE),
+    )
+
+
+def export_fractional_comparison_bundle(
+    output_dir: str | Path,
+    *,
+    gammas: Sequence[float] | None = None,
+    num_zeros: int = DEFAULT_NUM_ZEROS,
+    alphas: Sequence[float] = DEFAULT_FRACTIONAL_ALPHAS,
+    png_name: str = "riemann_fractional_interference_comparison.png",
+    json_name: str = "riemann_fractional_interference_comparison.summary.json",
+) -> dict[str, Path]:
+    """Write fractional alpha comparison PNG and summary JSON."""
+    destination = Path(output_dir)
+    destination.mkdir(parents=True, exist_ok=True)
+    zeros = select_zeros(gammas, num_zeros=num_zeros)
+    export = build_fractional_comparison_export(
+        gammas=zeros, num_zeros=len(zeros), alphas=alphas
+    )
+    comparison = fractional_symmetry_breaking_comparison(zeros, alphas=alphas)
+
+    png_path = plot_fractional_comparison(zeros, destination / png_name, alphas=alphas)
+    payload = export.as_dict()
+    payload["alpha_0.5_improves_35_vs_31"] = comparison["alpha_0.5_improves_35_vs_31"]
+    payload["alpha_0.5_improves_143_vs_139"] = comparison["alpha_0.5_improves_143_vs_139"]
+    json_path = destination / json_name
+    json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    return {"png": png_path, "summary_json": json_path}
 
 
 def plot_phase_collapse(

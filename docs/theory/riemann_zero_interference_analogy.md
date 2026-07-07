@@ -91,6 +91,38 @@ Markierungen:
 
 ---
 
+## Fractional-weighted Interferenz-Kernel `[C]`
+
+**Heuristik (Paper-Zitat `[C]`):** Eine fraktionale Ordnung \(\alpha=0.5\) wirkt als „Memory“-Filter auf das Interferenzsignal — **nicht** als implementierte Caputo-Ableitung, sondern als diskrete Gewichtung:
+
+\[
+\Phi_{R,\alpha}(x) = \sum_{n=1}^{N} \cos(\gamma_n \ln x)\, x^{-\alpha}.
+\]
+
+Für \(\alpha=0\) fällt der Kernel auf die Standard-Wellenfunktion \(f(x)\) zurück.
+
+**Implementierung:** `fractional_interference_signal`, `compare_fractional_orders`, `fractional_symmetry_breaking_comparison`.
+
+**Vergleich \(\alpha=0\) vs. \(\alpha=0.5\)** an bc-Achsen-Knoten 35 und 143 gegen nächste Prim-Nachbarn (31 bzw. 139):
+
+| Artefakt | Pfad |
+|---|---|
+| PNG (Overlay) | `docs/exports/riemann_fractional_interference_comparison.png` |
+| JSON | `docs/exports/riemann_fractional_interference_comparison.summary.json` |
+
+**Governance:**
+
+| Aussage | Status |
+|---|---|
+| \(x^{-\alpha}\)-Gewichtung als Memory-Analogie | heuristisch `[C]` |
+| Caputo-/Riemann-Liouville-Ableitung implementiert | **nein** — nur gewichteter Summenkernel |
+| \(\alpha=0.5\) schärft Faktorisierungs-Trigger | **nicht** behauptet; PoC-Vergleich `[B]` |
+| Verbesserte Trennung 35 vs. 31 durch \(\alpha=0.5\) | empirisch im Export dokumentiert, ohne Beweis |
+
+Der JSON-Export enthält `separation_metrics` (Betrag der Signal-Differenz Komposit vs. Prim-Nachbar) und die Flags `alpha_0.5_improves_35_vs_31` / `alpha_0.5_improves_143_vs_139`.
+
+---
+
 ## Abgrenzung zu E-034 / E-035
 
 `riemann_resonance_checker.py` (E-034/E-035) mittelt \(\cos(\gamma \Delta_M)\) bzw. \(\cos(\gamma \log(a/a_0))\) — **andere Metrik**, negative Evidenz für Resonanz bei großem \(N\). Dieses Modul summiert **ohne Mittelung** und dient der **visuellen** Phasen-Lesesprache, nicht dem Resonanz-Verdict.
@@ -105,4 +137,5 @@ Markierungen:
 | Konstruktiv bei Prim, destruktiv bei 35/143 | Hypothese `[C]` |
 | EABC-Bivektor / \(\Delta E\) Brücke | Lesesprache `[C]` |
 | Matplotlib-Export | illustrativ `[B]` |
+| Fractional-weighted Kernel \(\Phi_{R,\alpha}\) | heuristisch `[C]`, PoC `[B]` |
 | Beweis Symmetriebruch oder Physik-Identität | **nicht** behauptet |

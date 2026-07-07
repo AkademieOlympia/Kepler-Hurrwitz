@@ -4,7 +4,8 @@
     "status": "C interpretive analogy with B illustrative plot export",
     "tag_interpretive": "[C]",
     "plot_tag": "[B] illustrative diagnostic only",
-    "not_claimed": "proof that Riemann zeros cause EABC symmetry breaking; proof that zeros cause bivector collapse; physics identity between explicit-formula oscillations and Pauli stabilizers; discovery-taugliche prime-vs-composite separation without preregistration",
+    "fractional_kernel": "fractional-weighted interference kernel Phi_R_alpha(x) = sum cos(gamma ln x) * x^(-alpha); NOT a Caputo derivative implementation",
+    "not_claimed": "proof that Riemann zeros cause EABC symmetry breaking; proof that zeros cause bivector collapse; physics identity between explicit-formula oscillations and Pauli stabilizers; discovery-taugliche prime-vs-composite separation without preregistration; proof that alpha=0.5 sharpens factorization detection at bc-axis nodes",
     "sibling_register": "E-095",
     "orq_id": "ORQ-095",
     "related_theory": "docs/theory/riemann_zero_interference_analogy.md"
