@@ -1617,11 +1617,73 @@
         "docs/open_research_questions.md"
       ],
       "scope": "Formal R(A,Z)=B_exp-B_smooth; 95-99% smooth vs 1-0.1% quantum residual content; pi(x)=Li(x)+E(x) analogy; EABC comparison targets R(A,Z) via I_EABC with null-model requirement (ORQ-092)",
-      "metric_or_result": "conceptual only; preregistered test protocol documented; no nuclear_binding_residual diagnostic in diagnostics.py",
+      "metric_or_result": "pytest test_nuclear_binding_residual; nullmodel significance required for [B]",
       "status": "dokumentiert",
       "stability": "experimental",
       "last_reviewed": "2026-07-06",
       "defensive_scope": "No physics identity; no EABC nuclear binding claim; empirical verification required before [B]; Weierstrass ABCE/CEAB export is arithmetic-only"
+    },
+    {
+      "id": "E-093",
+      "title": "Black Hole Legendre-GWTC bridge (kappa quantization, chi_p stratification, Fisher test)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/black_hole_legendre_gwtc_bridge.md",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [
+        "docs/open_research_questions.md",
+        "docs/theory/riemann_zero_interference_analogy.md"
+      ],
+      "scope": "Legendre three-squares gaps [A/B]; kappa maps M_sun to discrete shells [C]; 1G/2G via chi_p [C]; Fisher exact test on mock GWTC scaffold; Riemann interference wave plot f(x)=sum cos(gamma_n ln x) around bc nodes 35/143 [B] illustrative",
+      "metric_or_result": "pytest test_black_hole_legendre_gwtc; test_riemann_interference_diagnostics; mock catalog only; kappa sweep exploratory; docs/exports/riemann_interference_phase_collapse.png",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-07",
+      "defensive_scope": "No EABC=GW identity; no kappa-minimum discovery without preregistration on real GWTC; Sage scripts are [C] reading language except Legendre core; interference plot does not prove symmetry breaking or EABC bivector collapse"
+    },
+    {
+      "id": "E-094",
+      "title": "Phaseninvarianz Pauli energy bridge (Z/X invariance on E_a, tensor-X vulnerability on E_bc)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/phaseninvarianz_pauli_energy_bridge.md",
+      "depends_on": [
+        "E-093",
+        "E-044"
+      ],
+      "supports": [
+        "docs/open_research_questions.md"
+      ],
+      "scope": "E_a = ax^2+ay^2 invariant under Pauli Z/X [A/B]; E_bc quartic cross terms restructured by partial tensor X [A/B]; QEC-protects-primes reading [C]",
+      "metric_or_result": "pytest test_phaseninvarianz_pauli_energy; pauli_invariance_report export JSON",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-07",
+      "defensive_scope": "No QM Pauli identity; no proof that primes are QEC-stabilized; Sage symbolic invariance is [A/B] algebra not physics"
+    },
+    {
+      "id": "E-095",
+      "title": "Riemann zero ln(x) interference (S(x;Gamma)=sum cos(gamma ln x); prime vs composite bc-axis nodes)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/riemann_zero_interference_analogy.md",
+      "depends_on": [
+        "E-034",
+        "E-035",
+        "E-092",
+        "E-094"
+      ],
+      "supports": [
+        "docs/open_research_questions.md"
+      ],
+      "scope": "Explicit-formula reading language: sum cos(gamma ln x) over first N zeta zeros at integer nodes; constructive at primes vs destructive at composites on bc-axis [C]; bridge to cross-talk DeltaE (PI-C-03) and nuclear residual oscillation analogy (E-092)",
+      "metric_or_result": "pytest test_riemann_interference_diagnostics; export riemann_zero_interference.json",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-07",
+      "defensive_scope": "Not proof that zeta zeros cause EABC symmetry break; not physics identity; distinct from E-034/E-035 mean-cos metrics; Mangoldt-weighted explicit formula not claimed"
     }
   ]
 }

@@ -77,6 +77,8 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 **Status:** `[B]` experimental diagnostic — kombinatorische Zirkulationsdiagnostik, kein Physikclaim.  
 **Nullmodelle (optional):** `--include-nullmodels shuffle,ceab` auf dem Export-Skript.
 
+**Referenz-Lesesprache (Green/Stokes):** [`greens_stokes_circulation_bridge.md`](greens_stokes_circulation_bridge.md) — Randintegral ↔ Curl-Fläche; numerische Scheiben-Verifikation `[B]` via `greens_stokes_verification.py`.
+
 ---
 
 ### Weyl-Commutator Operator Bridge (ORQ-087)
@@ -112,6 +114,25 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 **Claim-Grenze:** Alle Eintraege sind `[C]` — keine physikalische Identifikation, kein Lean-Beweis ohne explizite Formalisierung. E-085 erst nach internem Nachweis von `MetricSeparationLossExists`. Meissner (E-076) nur als Lesesprache fuer E-077: [`meissner_analogy_assessment.md`](meissner_analogy_assessment.md).
 
 **Shell-Separationsdiagnostik (E-077–E-079):** [`../reports/shell_separation_diagnostics_protocol.md`](../reports/shell_separation_diagnostics_protocol.md) · Implementierung `src/kepler_hurwitz/shell_separation_diagnostics.py` · CSV-Export `scripts/shell_separation_diagnostics.py`
+
+---
+
+### EABC Six-State / mod-6 Prime Axes (BH-C-08 Geschwister)
+
+**Datei:** [`eabc_six_state_prime_axes.md`](eabc_six_state_prime_axes.md) · Riemann-Erweiterung [`eabc_riemann_axis_monopole.md`](eabc_riemann_axis_monopole.md) · Interferenz [`riemann_zero_interference_analogy.md`](riemann_zero_interference_analogy.md)  
+**Status:** `[C]` interpretive Lesesprache; Residuenfakten `[A/B]`; Phasenkollaps-Plot `[B]` illustrativ  
+**Stub:** `src/kepler_hurwitz/eabc_six_state_prime_axes.py`, `src/kepler_hurwitz/eabc_monopole_axis_resonance.py`, `src/kepler_hurwitz/riemann_interference_diagnostics.py`  
+**Sage:** `scripts/black_hole/eabc_monopole_axis_resonance.sage` · Export `examples/run_eabc_monopole_axis_resonance.py`, `examples/run_riemann_interference_export.py`  
+**Claim-Grenze:** Kein RH-Beweis, kein Monopol ohne Präregistrierung; saubere Achsentrennung vermutlich via `L(s, χ_{-3})`; Interferenz-Plot beweist keinen EABC-Symmetriebruch.
+
+---
+
+### Crystal Prism (Brent & Hill 2026) — Crosswalk
+
+**Datei:** [`crystal_prism_crosswalk.md`](crystal_prism_crosswalk.md)  
+**Status:** `[D]` externe konzeptionelle Brücke / spekulative Physik-Analogie  
+**Zweck:** Kritische Zuordnung Crystal Prism ↔ E8/Hurwitz/A5/FCC; Governance `[A]`/`[B]`/`[C]`; „11/11“-Einzelprüfung; Abgrenzung zu E-074 und ORQ-088.  
+**Claim-Grenze:** Keine Konstantenableitung, kein SM-Claim, keine Fusion mit EABC Formal Core.
 
 ---
 
@@ -218,6 +239,87 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ---
 
+### Black Hole — Legendre-GWTC-Brücke (E-093)
+
+**Datei:** [`black_hole_legendre_gwtc_bridge.md`](black_hole_legendre_gwtc_bridge.md)  
+**Status:** `[C]` konzeptionelle Brücke mit `[B]`-Diagnostik-Stub  
+**Evidenz:** E-093 (ergänzt E-076, `GodelKerr.lean`)  
+**Zweck:** Legendre-Drei-Quadrate-Lücken; \(\kappa\)-Quantisierung \(M_\odot \to \mathbb{Z}\); 1G/2G via \(\chi_p\); Fisher-Test (Mock-GWTC).  
+**Claim-Grenze:** Keine EABC=GW-Identität; \(\kappa\)-Sweep explorativ bis Präregistrierung auf echtem GWTC.
+
+**Artefakte:** `src/kepler_hurwitz/black_hole_legendre_gwtc.py` · `scripts/black_hole/*.sage` · [`../black_hole/claim_register.md`](../black_hole/claim_register.md)
+
+---
+
+### EABC Sechs-Zustands- / Mod-6-Primachsen (E-093-Geschwister)
+
+**Datei:** [`eabc_six_state_prime_axes.md`](eabc_six_state_prime_axes.md)  
+**Status:** `[C]` Lesesprache mit `[A/B]`-Restklassen-Fakten  
+**Evidenz:** Geschwister zu E-093 — kein neues E-ID  
+**Zweck:** Imaginäre Basiszustände `{a,b,c,ab,ac,bc}` via $n \bmod 6$; Primachsen-Paar $(a, bc)$; Gap-Übergänge (Twin/Cousin/Sexy) als Konjugations-Rotation `[C]`.  
+**Claim-Grenze:** Kein Quaternionen-Beweis von Twin-Prime o. Ä.; mod-6-Projektion ersetzt nicht mod-12-Kanalpartition in `signatures.py`.
+
+**Artefakte:** `src/kepler_hurwitz/eabc_six_state_prime_axes.py` · `scripts/black_hole/eabc_prime_six_state.sage` · `examples/run_eabc_prime_six_state_export.py`
+
+---
+
+### EABC Symplektische L-Gap-Brücke — [[5,1,3]] (E-093-Geschwister)
+
+**Datei:** [`eabc_symplectic_l_gap_bridge.md`](eabc_symplectic_l_gap_bridge.md)  
+**Status:** `[C]` Lesesprache mit `[A/B]`-Pauli-/GF\((2)^4\)-Fakten  
+**Evidenz:** Geschwister zu E-093 — Claim **BH-C-09**  
+**Zweck:** Nachbarabstände \(\Delta\gamma\) von \(L(s,\chi_{-3})\)-Nullstellen als Phasenübergänge auf 15 symplektische Stabilisatoren des `[[5,1,3]]`-Codes projizieren; \(f_0=3{,}208\) als explorative Kalibrierung.  
+**Claim-Grenze:** Kein QEC-stabilisiert-Primzahl-Claim; keine Identifikation L-Nullstellen \(\equiv\) `[[5,1,3]]`-Code.
+
+**Artefakte:** `src/kepler_hurwitz/eabc_symplectic_stabilizer_bridge.py` · `scripts/black_hole/eabc_symplectic_stabilizer_bridge.sage` · `examples/run_eabc_symplectic_stabilizer_export.py`
+
+---
+
+### EABC Energetische Quadratsummen-Substitution (E-093-Geschwister)
+
+**Datei:** [`eabc_energy_square_sum_substitution.md`](eabc_energy_square_sum_substitution.md)  
+**Status:** `[C]` Lesesprache mit `[A/B]`-Quadratform-Definitheit  
+**Evidenz:** Geschwister zu E-093 — Claim **BH-C-11**  
+**Zweck:** Achse $a$ (und symmetrisch $b,c,ab,ac,bc$) als Energiedichte $a_x^2 + a_y^2$ statt fundamentaler Skalar; EEG-Skalierung; harmonischer-Oszillator-Analogie.  
+**Claim-Grenze:** Keine QM-Energie-Identität; Quaternionen-Multiplikation in `[A]`-Schicht bleibt unberührt.
+
+**Artefakte:** `src/kepler_hurwitz/eabc_energy_square_sum.py` · `scripts/black_hole/eabc_energy_square_sum.sage` · `examples/run_eabc_energy_square_sum_export.py`
+
+---
+
+### Phaseninvarianz — Pauli-Energie-Brücke (E-094)
+
+**Datei:** [`phaseninvarianz_pauli_energy_bridge.md`](phaseninvarianz_pauli_energy_bridge.md)  
+**Status:** `[C]` Lesesprache mit `[A/B]`-Invarianzfakten  
+**Evidenz:** E-094 (ergänzt E-093 BH-C-11, E-044 QEC)  
+**Zweck:** Pauli Z/X auf \(E_a = a_x^2 + a_y^2\) invariant; partielle Tensor-X auf \(E_{bc}\) restrukturiert Kreuzterme; QEC-Schutz-Lesesprache für 6k+1-Primachse.  
+**Claim-Grenze:** Keine QM-Identität; kein Primzahl-QEC-Beweis; Fehler-Injektionsprotokoll Voraussetzung für `[B]`.
+
+**Artefakte:** `src/kepler_hurwitz/phaseninvarianz_pauli_energy.py` · `scripts/phaseninvarianz/pauli_energy_invariance.sage` · `examples/run_phaseninvarianz_export.py` · [`../phaseninvarianz/claim_register.md`](../phaseninvarianz/claim_register.md)
+
+### Phaseninvarianz — Fermat-Faktorisierungsbrücke (E-094, PI-C-04)
+
+**Datei:** [`phaseninvarianz_fermat_factorization_bridge.md`](phaseninvarianz_fermat_factorization_bridge.md)  
+**Status:** `[C]` Lesesprache mit `[A/B]` Fermat-/ΔE-Algebra  
+**Zweck:** \(\Delta E = (b_x^2-c_x^2)(c_y^2-b_y^2)\) als Differenz von Quadraten; bc-Achsen-Semiprimzahlen rekonstruierbar aus Amplitudenmustern.  
+**Claim-Grenze:** Konstruktives Beispiel, kein allgemeiner Faktorisierungsalgorithmus.
+
+**Artefakte:** `src/kepler_hurwitz/phaseninvarianz_fermat_factorization.py` · `scripts/phaseninvarianz/fermat_factorization_via_crosstalk.sage`
+
+---
+
+### Riemann-Nullstellen-Interferenz — ln(x)-Knoten (E-095)
+
+**Datei:** [`riemann_zero_interference_analogy.md`](riemann_zero_interference_analogy.md)  
+**Status:** `[C]` Lesesprache mit `[B]`-Diagnostik-Stub  
+**Evidenz:** E-095 (ergänzt E-034/E-035 mean-cos-Abgrenzung, E-092 Residual, E-094 Cross-Talk)  
+**Zweck:** \(S(x;\Gamma)=\sum\cos(\gamma\ln x)\) an Prim/Komposit-Knoten; konstruktiv/destruktiv-Hypothese auf bc-Achse; Brücke zu \(\Delta E\neq 0\) (PI-C-03).  
+**Claim-Grenze:** Kein Nachweis, dass ζ-Nullstellen EABC-Symmetriebruch verursachen; keine Physik-Identität; nicht die Mangoldt-gewichtete explizite Formel.
+
+**Artefakte:** `src/kepler_hurwitz/riemann_interference_diagnostics.py` · `examples/run_riemann_interference_export.py` · `docs/exports/riemann_zero_interference.json`
+
+---
+
 ### Physical Analogies [C] — AB / Klitzing / Meissner (E-076)
 
 **Datei:** [`../reports/physical_reference_analogies.md`](../reports/physical_reference_analogies.md)  
@@ -235,6 +337,9 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 | E-076 | [`physical_reference_analogies.md`](../reports/physical_reference_analogies.md) | AB / Klitzing / Meissner |
 | E-076 | [`meissner_analogy_assessment.md`](meissner_analogy_assessment.md) | Urteil: Meissner `[C]` — Lesen ja, Durchbruch nein |
 | E-092 | [`nuclear_binding_multiscale_analogy.md`](nuclear_binding_multiscale_analogy.md) | \(R(A,Z)\), ORQ-092 \(I_{\mathrm{EABC}}\)-Residualtest `[C]` |
+| E-093 | [`black_hole_legendre_gwtc_bridge.md`](black_hole_legendre_gwtc_bridge.md) | Legendre-GWTC, ORQ-093 \(\kappa\)/\(\chi_p\) Fisher-Test `[C]` |
+| E-094 | [`phaseninvarianz_pauli_energy_bridge.md`](phaseninvarianz_pauli_energy_bridge.md) | Pauli Z/X-Invarianz auf \(E_a\), ORQ-094 `[C]` |
+| E-095 | [`riemann_zero_interference_analogy.md`](riemann_zero_interference_analogy.md) | \(\sum\cos(\gamma\ln x)\) an bc-Knoten, ORQ-095 `[C]` |
 
 ---
 

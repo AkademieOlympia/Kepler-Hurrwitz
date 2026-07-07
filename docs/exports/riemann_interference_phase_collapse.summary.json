@@ -1,0 +1,91 @@
+{
+  "tag": "[C]",
+  "governance": {
+    "status": "C interpretive analogy with B illustrative plot export",
+    "tag_interpretive": "[C]",
+    "plot_tag": "[B] illustrative diagnostic only",
+    "not_claimed": "proof that Riemann zeros cause EABC symmetry breaking; proof that zeros cause bivector collapse; physics identity between explicit-formula oscillations and Pauli stabilizers; discovery-taugliche prime-vs-composite separation without preregistration",
+    "sibling_register": "E-095",
+    "orq_id": "ORQ-095",
+    "related_theory": "docs/theory/riemann_zero_interference_analogy.md"
+  },
+  "num_zeros": 50,
+  "wave": "sum cos(gamma_n * ln x)",
+  "test_points": [
+    {
+      "x": 29,
+      "signal": -11.794442803153423,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 31,
+      "signal": -10.562567410875802,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 35,
+      "signal": 3.699231560140494,
+      "is_prime": false,
+      "is_bc_composite": true,
+      "tag": "[C]"
+    },
+    {
+      "x": 37,
+      "signal": -11.801774150080387,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 41,
+      "signal": -13.093245584610921,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 137,
+      "signal": -7.315292001199037,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 139,
+      "signal": -7.619640939072019,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 143,
+      "signal": 7.856064356862779,
+      "is_prime": false,
+      "is_bc_composite": true,
+      "tag": "[C]"
+    },
+    {
+      "x": 149,
+      "signal": -7.223995638226388,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    }
+  ],
+  "plot_windows": [
+    {
+      "x_min": 25.0,
+      "x_max": 45.0,
+      "center": 35
+    },
+    {
+      "x_min": 130.0,
+      "x_max": 155.0,
+      "center": 143
+    }
+  ]
+}
