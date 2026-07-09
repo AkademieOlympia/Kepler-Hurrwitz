@@ -440,6 +440,118 @@ theorem channel_three_collatz_net_descent_mod8_one_at_six_k_mod4_one
   · norm_num at hn ⊢
   · omega
 
+/-!
+### Channel `3` odd-`k` / `k % 4 = 3` — mod-128 refinement
+
+Within `n = 32j+27` (`k = 4j+3`), uniform small `t_loc` fails (`≤ 6` barriers above).
+Numerically `t_loc` is `j`-dependent; mod-128 subclass `n ≡ 59` (`j ≡ 1 mod 4`) closes at
+uniform `t_loc = 9`. Remaining subclasses `n ≡ {27, 91, 123} (mod 128)` stay open.
+-/
+
+/--
+`[A]` `k % 4 = 3` with `j % 4 = 1` iff `n = 128m + 59`.
+-/
+theorem exists_eq_one_hundred_twenty_eight_mul_add_fiftynine_of_mod8_eq_three_and_j_mod4_one
+    {n j : Nat} (hj : n = 32 * j + 27) (hj_one : j % 4 = 1) :
+    ∃ m, n = 128 * m + 59 ∧ j = 4 * m + 1 := by
+  refine ⟨j / 4, ?_, ?_⟩
+  · have : 32 * j + 27 = 128 * (j / 4) + 59 := by omega
+    simpa [hj] using this
+  · omega
+
+/--
+`[A]` `k % 4 = 3` with `j % 4 = r` determines `n % 128` among `{27, 59, 91, 123}`.
+-/
+theorem mod128_residue_of_thirty_two_mul_add_twentyseven_j_mod4
+    {j : Nat} :
+    (j % 4 = 0 → (32 * j + 27) % 128 = 27) ∧
+      (j % 4 = 1 → (32 * j + 27) % 128 = 59) ∧
+        (j % 4 = 2 → (32 * j + 27) % 128 = 91) ∧
+          (j % 4 = 3 → (32 * j + 27) % 128 = 123) := by
+  constructor
+  · intro h; omega
+  constructor
+  · intro h; omega
+  constructor
+  · intro h; omega
+  · intro h; omega
+
+/--
+`[A]` Six-step value at `T_odd(128m+59)` (`k = 16m+7`) is exactly `648m+304`.
+-/
+theorem channel_three_six_step_value_of_one_hundred_twenty_eight_mul_add_fiftynine (m : Nat) :
+    (collatzStep^[6]) (T_odd (128 * m + 59)) = 648 * m + 304 := by
+  have hform : 128 * m + 59 = 8 * (16 * m + 7) + 3 := by ring
+  have hk_odd : (16 * m + 7) % 2 = 1 := by omega
+  have h5 := channel_three_five_step_value_of_odd_k (16 * m + 7) hk_odd
+  have hval : (27 * (16 * m + 7) + 13) / 2 = 216 * m + 101 := by omega
+  have hodd : (216 * m + 101) % 2 = 1 := by omega
+  have hT : T_odd (128 * m + 59) = T_odd (8 * (16 * m + 7) + 3) := by rw [hform]
+  rw [hT, Function.iterate_succ_apply', h5, hval, collatz_step_odd hodd]
+  ring
+
+/--
+`[A]` Seven-step value at `T_odd(128m+59)` is exactly `324m+152`.
+-/
+theorem channel_three_seven_step_value_of_one_hundred_twenty_eight_mul_add_fiftynine (m : Nat) :
+    (collatzStep^[7]) (T_odd (128 * m + 59)) = 324 * m + 152 := by
+  have h6 := channel_three_six_step_value_of_one_hundred_twenty_eight_mul_add_fiftynine m
+  have he : (648 * m + 304) % 2 = 0 := by omega
+  rw [show (collatzStep^[7]) (T_odd (128 * m + 59)) =
+        collatzStep ((collatzStep^[6]) (T_odd (128 * m + 59))) from by
+        simp [Function.iterate_succ_apply']]
+  rw [h6, collatz_step_even he]
+  omega
+
+/--
+`[A]` Eight-step value at `T_odd(128m+59)` is exactly `162m+76` — still at or above `n`.
+-/
+theorem channel_three_eight_step_value_of_one_hundred_twenty_eight_mul_add_fiftynine (m : Nat) :
+    (collatzStep^[8]) (T_odd (128 * m + 59)) = 162 * m + 76 := by
+  have h7 := channel_three_seven_step_value_of_one_hundred_twenty_eight_mul_add_fiftynine m
+  have he : (324 * m + 152) % 2 = 0 := by omega
+  rw [show (collatzStep^[8]) (T_odd (128 * m + 59)) =
+        collatzStep ((collatzStep^[7]) (T_odd (128 * m + 59))) from by
+        simp [Function.iterate_succ_apply']]
+  rw [h7, collatz_step_even he]
+  omega
+
+/--
+`[A]` Nine-step value at `T_odd(128m+59)` is exactly `81m+38`.
+-/
+theorem channel_three_nine_step_value_of_one_hundred_twenty_eight_mul_add_fiftynine (m : Nat) :
+    (collatzStep^[9]) (T_odd (128 * m + 59)) = 81 * m + 38 := by
+  have h8 := channel_three_eight_step_value_of_one_hundred_twenty_eight_mul_add_fiftynine m
+  have he : (162 * m + 76) % 2 = 0 := by omega
+  rw [show (collatzStep^[9]) (T_odd (128 * m + 59)) =
+        collatzStep ((collatzStep^[8]) (T_odd (128 * m + 59))) from by
+        simp [Function.iterate_succ_apply']]
+  rw [h8, collatz_step_even he]
+  omega
+
+/--
+`[A]` Uniform `t_loc = 8` barrier on subclass `n ≡ 59 (mod 128)`: eight steps still do not beat `n`.
+-/
+theorem channel_three_eight_step_fails_net_mod128_fiftynine
+    {m : Nat} :
+    (128 * m + 59) ≤ (collatzStep^[8]) (T_odd (128 * m + 59)) := by
+  rw [channel_three_eight_step_value_of_one_hundred_twenty_eight_mul_add_fiftynine]
+  omega
+
+/--
+`[A]` Channel-`3` subclass `n ≡ 59 (mod 128)` (`j ≡ 1 mod 4` within `k % 4 = 3`):
+nine steps from `T_odd n` descend strictly below `n`.
+-/
+theorem channel_three_collatz_net_descent_mod128_fiftynine_at_nine
+    {n : Nat} (hn : 1 < n) (h8 : n % 8 = 3)
+    (h59 : ∃ m, n = 128 * m + 59) :
+    (collatzStep^[9]) (T_odd n) < n := by
+  rcases h59 with ⟨m, hn⟩
+  rw [hn, channel_three_nine_step_value_of_one_hundred_twenty_eight_mul_add_fiftynine]
+  rcases m with _ | m
+  · norm_num at hn ⊢
+  · omega
+
 end CollatzNetDescentMod8
 end CollatzAttemptV2
 
