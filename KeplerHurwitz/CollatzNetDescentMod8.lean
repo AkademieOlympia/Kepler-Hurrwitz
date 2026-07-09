@@ -272,6 +272,174 @@ theorem channel_three_collatz_net_descent_mod8_five_at_four
   · norm_num
   · omega
 
+/-!
+### Channel `3` odd-`k` / `T_odd n % 8 = 1` branch
+
+`ν₂(3m+1) = 2` at `m % 8 = 1`. Canonical three-step shrink lands at `9k+4`, still `k+1` above `n`.
+Uniform `t_loc ≤ 5` is impossible for any odd `k`; uniform `t_loc = 6` works iff `k % 4 = 1`.
+The subcase `k % 4 = 3` needs larger, `k`-dependent `t_loc` (e.g. `n = 27` ⇒ `t_loc = 94`).
+-/
+
+/--
+`[A]` From an odd `mod 8 = 1` input, three `collatzStep`s equal `(3m+1)/4`.
+Uses `ν₂(3m+1) = 2` and one forced halving after the odd kick.
+-/
+theorem collatz_three_steps_mod8_one_eq_three_mul_add_one_div4
+    {m : Nat} (ho : m % 2 = 1) (h1 : m % 8 = 1) :
+    (collatzStep^[3]) m = (3 * m + 1) / 4 := by
+  have _he2 : padicValNat 2 (3 * m + 1) = 2 :=
+    nu2_three_mul_add_one_eq_two_of_mod8_eq1 h1
+  have he1 : (3 * m + 1) % 2 = 0 := by omega
+  have he2 : ((3 * m + 1) / 2) % 2 = 0 := by omega
+  have hdiv2 : (3 * m + 1) / 2 / 2 = (3 * m + 1) / 4 := by omega
+  calc
+    (collatzStep^[3]) m
+        = (collatzStep^[2]) (collatzStep m) := by
+            simp [Function.iterate_succ_apply']
+    _ = (collatzStep^[2]) (3 * m + 1) := by rw [collatz_step_odd ho]
+    _ = (collatzStep^[1]) ((3 * m + 1) / 2) := by
+          simp [Function.iterate_succ_apply', collatz_step_even he1]
+    _ = (3 * m + 1) / 4 := by
+          simp [Function.iterate_succ_apply', collatz_step_even he2, hdiv2]
+
+/--
+`[A]` Four `collatzStep`s from `mod 8 = 1` equal `3·((3m+1)/4)+1`.
+-/
+theorem collatz_four_steps_mod8_one_eq_three_mul_quarter_plus_one
+    {m : Nat} (ho : m % 2 = 1) (h1 : m % 8 = 1) :
+    (collatzStep^[4]) m = 3 * ((3 * m + 1) / 4) + 1 := by
+  have hodd : ((3 * m + 1) / 4) % 2 = 1 := by omega
+  calc
+    (collatzStep^[4]) m
+        = collatzStep ((collatzStep^[3]) m) := by simp [Function.iterate_succ_apply']
+    _ = collatzStep ((3 * m + 1) / 4) := by
+          rw [collatz_three_steps_mod8_one_eq_three_mul_add_one_div4 ho h1]
+    _ = 3 * ((3 * m + 1) / 4) + 1 := collatz_step_odd hodd
+
+/--
+`[A]` Three-step value at `T_odd(8k+3)` with odd `k` is exactly `9k+4`.
+-/
+theorem channel_three_three_step_value_of_odd_k (k : Nat) (hk_odd : k % 2 = 1) :
+    (collatzStep^[3]) (T_odd (8 * k + 3)) = 9 * k + 4 := by
+  have hm : T_odd (8 * k + 3) = 12 * k + 5 := T_odd_of_eight_mul_add_three k
+  have ho : (12 * k + 5) % 2 = 1 := by omega
+  have h1 : (12 * k + 5) % 8 = 1 := by omega
+  rw [hm, collatz_three_steps_mod8_one_eq_three_mul_add_one_div4 ho h1]
+  have : 3 * (12 * k + 5) + 1 = 36 * k + 16 := by ring
+  rw [this]
+  omega
+
+/--
+`[A]` Four-step value at `T_odd(8k+3)` with odd `k` is exactly `27k+13`.
+-/
+theorem channel_three_four_step_value_of_odd_k (k : Nat) (hk_odd : k % 2 = 1) :
+    (collatzStep^[4]) (T_odd (8 * k + 3)) = 27 * k + 13 := by
+  have hm : T_odd (8 * k + 3) = 12 * k + 5 := T_odd_of_eight_mul_add_three k
+  have ho : (12 * k + 5) % 2 = 1 := by omega
+  have h1 : (12 * k + 5) % 8 = 1 := by omega
+  have h3 : (collatzStep^[3]) (12 * k + 5) = 9 * k + 4 := by
+    rw [← hm, channel_three_three_step_value_of_odd_k k hk_odd]
+  have hodd : (9 * k + 4) % 2 = 1 := by omega
+  rw [show (collatzStep^[4]) (T_odd (8 * k + 3)) =
+        collatzStep ((collatzStep^[3]) (T_odd (8 * k + 3))) from by
+        simp [Function.iterate_succ_apply']]
+  rw [show (collatzStep^[3]) (T_odd (8 * k + 3)) = 9 * k + 4 from by simpa [hm] using h3]
+  simp [collatz_step_odd hodd]
+  ring_nf
+
+/--
+`[A]` Five-step value at `T_odd(8k+3)` with odd `k` is exactly `(27k+13)/2`.
+-/
+theorem channel_three_five_step_value_of_odd_k (k : Nat) (hk_odd : k % 2 = 1) :
+    (collatzStep^[5]) (T_odd (8 * k + 3)) = (27 * k + 13) / 2 := by
+  have h4 := channel_three_four_step_value_of_odd_k k hk_odd
+  have he : (27 * k + 13) % 2 = 0 := by omega
+  rw [show (collatzStep^[5]) (T_odd (8 * k + 3)) =
+        collatzStep ((collatzStep^[4]) (T_odd (8 * k + 3))) from by
+        simp [Function.iterate_succ_apply']]
+  rw [h4, collatz_step_even he]
+
+/--
+`[A]` Odd `k` split: `k % 4 = 1` iff `n = 32j+11`.
+-/
+theorem exists_eq_thirty_two_mul_add_eleven_of_mod8_eq_three_and_k_mod4_one
+    {n k : Nat} (hk : n = 8 * k + 3) (hk_one : k % 4 = 1) :
+    ∃ j, n = 32 * j + 11 ∧ k = 4 * j + 1 := by
+  refine ⟨k / 4, ?_, ?_⟩
+  · have : 8 * k + 3 = 32 * (k / 4) + 11 := by omega
+    simpa [hk] using this
+  · omega
+
+/--
+`[A]` Odd `k` split: `k % 4 = 3` iff `n = 32j+27`.
+-/
+theorem exists_eq_thirty_two_mul_add_twentyseven_of_mod8_eq_three_and_k_mod4_three
+    {n k : Nat} (hk : n = 8 * k + 3) (hk_three : k % 4 = 3) :
+    ∃ j, n = 32 * j + 27 ∧ k = 4 * j + 3 := by
+  refine ⟨k / 4, ?_, ?_⟩
+  · have : 8 * k + 3 = 32 * (k / 4) + 27 := by omega
+    simpa [hk] using this
+  · omega
+
+/--
+`[A]` Six-step value at `T_odd(32j+11)` (`k = 4j+1`) is exactly `27j+10`.
+-/
+theorem channel_three_six_step_value_of_thirty_two_mul_add_eleven (j : Nat) :
+    (collatzStep^[6]) (T_odd (32 * j + 11)) = 27 * j + 10 := by
+  have hform : 32 * j + 11 = 8 * (4 * j + 1) + 3 := by ring
+  have hk_odd : (4 * j + 1) % 2 = 1 := by omega
+  have h5 := channel_three_five_step_value_of_odd_k (4 * j + 1) hk_odd
+  have hval : (27 * (4 * j + 1) + 13) / 2 = 54 * j + 20 := by omega
+  have he : (54 * j + 20) % 2 = 0 := by omega
+  have hT : T_odd (32 * j + 11) = T_odd (8 * (4 * j + 1) + 3) := by rw [hform]
+  rw [hT, Function.iterate_succ_apply', h5, hval, collatz_step_even he]
+  omega
+
+/--
+`[A]` Six-step value at `T_odd(32j+27)` (`k = 4j+3`) is exactly `162j+142` — still above `n`.
+-/
+theorem channel_three_six_step_value_of_thirty_two_mul_add_twentyseven (j : Nat) :
+    (collatzStep^[6]) (T_odd (32 * j + 27)) = 162 * j + 142 := by
+  have hform : 32 * j + 27 = 8 * (4 * j + 3) + 3 := by ring
+  have hk_odd : (4 * j + 3) % 2 = 1 := by omega
+  have h5 := channel_three_five_step_value_of_odd_k (4 * j + 3) hk_odd
+  have hval : (27 * (4 * j + 3) + 13) / 2 = 54 * j + 47 := by omega
+  have hodd : (54 * j + 47) % 2 = 1 := by omega
+  have hT : T_odd (32 * j + 27) = T_odd (8 * (4 * j + 3) + 3) := by rw [hform]
+  rw [hT, Function.iterate_succ_apply', h5, hval, collatz_step_odd hodd]
+  ring
+
+/--
+`[A]` Uniform `t_loc ≤ 5` barrier: five steps from `T_odd n` never descend below `n` when `k` is odd.
+-/
+theorem channel_three_uniform_five_step_fails_net_odd_k
+    {k : Nat} (hk_odd : k % 2 = 1) (hk_pos : 0 < k) :
+    (8 * k + 3) ≤ (collatzStep^[5]) (T_odd (8 * k + 3)) := by
+  rw [channel_three_five_step_value_of_odd_k k hk_odd]
+  omega
+
+/--
+`[A]` Uniform `t_loc = 6` barrier: at `k % 4 = 3` the six-step value still exceeds `n`.
+-/
+theorem channel_three_six_step_fails_net_k_mod4_three
+    {j : Nat} :
+    (32 * j + 27) ≤ (collatzStep^[6]) (T_odd (32 * j + 27)) := by
+  rw [channel_three_six_step_value_of_thirty_two_mul_add_twentyseven]
+  omega
+
+/--
+`[A]` Channel-`3` odd-`k` with `k % 4 = 1`: six steps from `T_odd n` descend strictly below `n`.
+-/
+theorem channel_three_collatz_net_descent_mod8_one_at_six_k_mod4_one
+    {n : Nat} (hn : 1 < n) (h8 : n % 8 = 3)
+    (hk1 : ∃ j, n = 32 * j + 11) :
+    (collatzStep^[6]) (T_odd n) < n := by
+  rcases hk1 with ⟨j, hnj⟩
+  rw [hnj, channel_three_six_step_value_of_thirty_two_mul_add_eleven]
+  rcases j with _ | j
+  · norm_num at hn ⊢
+  · omega
+
 end CollatzNetDescentMod8
 end CollatzAttemptV2
 

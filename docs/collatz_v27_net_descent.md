@@ -139,9 +139,9 @@ Für `n = 8k+3`:
 
 **Option B (Gerüst):** `badRunTwoAdicBudget n := ν₂(n+1)` benennt das V2.5-Tiefenbudget; `BadRunTwoAdicBudgetExhaustionStatement` markiert die intendierte Widerspruchsschablone für Kanal `7`.
 
-**Noch offen:** Kanal `3` mit `T_odd n % 8 = 1` (`k` ungerade) — `t_loc` ist `k`-abhängig ohne uniforme Schranke; Kanal `7` uniform.
+**Noch offen:** Kanal `3` mit `T_odd n % 8 = 1` und `k % 4 = 3` — `t_loc` ist `k`-abhängig (z. B. `n=27` ⇒ `t_loc=94`); Kanal `7` uniform.
 
-### V2.8 Lemma-Map `[A]` vs `[C]`
+### V2.8 Lemma-Map `[A]` vs `[C]` (aktualisiert)
 
 | Name | Status |
 |---|---|
@@ -151,15 +151,32 @@ Für `n = 8k+3`:
 | `channel_three_four_step_value_of_sixteen_mul_add_three` | **`[A]`** |
 | `channel_three_collatz_net_descent_mod8_five_at_four` | **`[A]`** |
 | `bad_run_net_descent_witness_mod8_channel_three_mod8_five` | **`[A]`** — voller Witness, `t_loc = 4` |
+| `collatz_three_steps_mod8_one_eq_three_mul_add_one_div4` | **`[A]`** — `ν₂=2` bei `m % 8 = 1` |
+| `channel_three_three/four/five_step_value_of_odd_k` | **`[A]`** — geschlossene Formeln `9k+4`, `27k+13`, `(27k+13)/2` |
+| `channel_three_uniform_five_step_fails_net_odd_k` | **`[A]`** — uniformes `t_loc ≤ 5` unmöglich |
+| `channel_three_six_step_value_of_thirty_two_mul_add_eleven` | **`[A]`** — `t_loc = 6` Wert `27j+10` |
+| `channel_three_collatz_net_descent_mod8_one_at_six_k_mod4_one` | **`[A]`** — Netto-Abstieg bei `k % 4 = 1` |
+| `bad_run_net_descent_witness_mod8_channel_three_mod8_one_k_mod4_one` | **`[A]`** — voller Witness, `t_loc = 6` |
+| `channel_three_six_step_fails_net_k_mod4_three` | **`[A]`** — uniformes `t_loc = 6` scheitert bei `k % 4 = 3` |
 | `bad_run_two_adic_budget_ge_two_of_mod4_eq_three` | **`[A]`** |
 | `channel_seven_T_odd_mod4_eq_three` | **`[A]`** |
-| `bad_run_net_descent_witness_mod8_channel_three_mod8_one` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_three_mod8_one_k_mod4_three` | **`[C]`** (`sorry`) |
 | `bad_run_net_descent_witness_mod8_channel_seven_v28` | **`[C]`** (`sorry`) |
 | `BadRunTwoAdicBudgetExhaustionStatement` | **`[C]`** (Platzhalter) |
 
 **Build:** `lake build KeplerHurwitz.CollatzProofAttemptV28`
 
-**Fortschritt gegenüber V2.7:** ~50 % der Kanal-`3`-Starts (gerades `k`) haben jetzt einen **`[A]`**-Zeugen; der uniforme Kern `bad_run_net_descent_witness_of_mod4_three` bleibt **`[C]`**.
+**Fortschritt gegenüber V2.7:** Kanal-`3`-Starts mit geradem `k` (`t_loc=4`) **und** mit ungeradem `k % 4 = 1` (`t_loc=6`) haben jetzt **`[A]`**-Zeugen; der Unterfall `k % 4 = 3` und Kanal `7` bleiben **`[C]`**.
+
+#### Beispiel `n = 27` (`k = 3`, `k % 4 = 3`)
+
+| Größe | Wert |
+|---|---|
+| `T_odd 27` | `41` (`% 8 = 1`) |
+| `(collatzStep^[3]) 41` | `31` (Lücke `+4` über `n`) |
+| `(collatzStep^[5]) 41` | `47` (uniforme `t_loc ≤ 5` scheitert — **`[A]`**) |
+| `(collatzStep^[6]) 41` | `142` (uniformes `t_loc = 6` scheitert — **`[A]`**) |
+| minimales `t_loc` (numerisch) | `94` → Wert `23 < 27` |
 
 ---
 

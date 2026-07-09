@@ -9,9 +9,10 @@ namespace CollatzAttemptV2
 ## V2.8 — mod-8 channel-3 half-case + 2-adic budget scaffold
 
 Attack vectors (see `docs/collatz_v27_net_descent.md`):
-- **Option A/C (partial):** channel `3` with `T_odd n % 8 = 5` (`k` even) closes at uniform `t_loc = 4`.
+- **Option A (partial):** channel `3` with `T_odd n % 8 = 5` (`k` even) closes at uniform `t_loc = 4`.
+- **Option A (partial):** channel `3` with `T_odd n % 8 = 1` and `k % 4 = 1` closes at uniform `t_loc = 6`.
 - **Option B (scaffold):** `badRunTwoAdicBudget = ν₂(n+1)` budgets bad-run chains; channel `7` reduction.
-- **Option A (open):** channel `3` with `T_odd n % 8 = 1` (`k` odd) — `t_loc` is `k`-dependent, no uniform bound yet.
+- **Option A (open):** channel `3` with `T_odd n % 8 = 1` and `k % 4 = 3` — `t_loc` is `k`-dependent (e.g. `n=27` ⇒ `t_loc=94`).
 - **Option D (open):** channel `7` uniform witness via depth budget consumption.
 -/
 
@@ -91,9 +92,55 @@ theorem bad_run_net_descent_witness_mod8_channel_three_even_k
     (T_odd_mod8_eq_five_iff_k_even_of_mod8_eq_three hk).mpr hk_even
   exact bad_run_net_descent_witness_mod8_channel_three_mod8_five hn h8 hfive
 
+/-!
+### Channel `3` — odd-`k` / `T_odd % 8 = 1` half-case (Option A/C, partial)
+
+Uniform `t_loc ≤ 5` is impossible (`channel_three_uniform_five_step_fails_net_odd_k`).
+Uniform `t_loc = 6` works iff `k % 4 = 1`; the subcase `k % 4 = 3` remains open.
+-/
+
 /--
-`[C]` Channel-`3` odd-`k` subcase (`T_odd n % 8 = 1`): `t_loc` is `k`-dependent.
-Diagnostics show minima in `{6, 9, 11, …}` with no closed form uniform bound yet.
+`[A]` Uniform five-step barrier for odd `k`: `(collatzStep^[5]) (T_odd n) ≥ n` whenever `k > 0`.
+-/
+theorem channel_three_uniform_five_step_fails_net
+    {k : Nat} (hk_odd : k % 2 = 1) (hk_pos : 0 < k) :
+    (8 * k + 3) ≤ (collatzStep^[5]) (T_odd (8 * k + 3)) :=
+  channel_three_uniform_five_step_fails_net_odd_k hk_odd hk_pos
+
+/--
+`[A]` Uniform six-step barrier at `k % 4 = 3`: six steps still do not beat `n`.
+-/
+theorem channel_three_uniform_six_step_fails_k_mod4_three
+    {j : Nat} :
+    (32 * j + 27) ≤ (collatzStep^[6]) (T_odd (32 * j + 27)) :=
+  channel_three_six_step_fails_net_k_mod4_three
+
+/--
+`[A]` Channel-`3` odd-`k` with `k % 4 = 1`: full witness at uniform `t_loc = 6`.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_three_mod8_one_k_mod4_one
+    {n : Nat}
+    (hn : 1 < n)
+    (h8 : n % 8 = 3)
+    (hk1 : ∃ j, n = 32 * j + 11) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3) := by
+  refine ⟨bad_run_net_descent_witness_mod8_channel_three_of_local_shrink h8 6 ?_⟩
+  exact channel_three_collatz_net_descent_mod8_one_at_six_k_mod4_one hn h8 hk1
+
+/--
+`[C]` Channel-`3` odd-`k` with `k % 4 = 3`: `t_loc` is `k`-dependent (e.g. `n = 27` needs `t_loc = 94`).
+-/
+theorem bad_run_net_descent_witness_mod8_channel_three_mod8_one_k_mod4_three
+    {n : Nat}
+    (hn : 1 < n)
+    (h8 : n % 8 = 3)
+    (hk3 : ∃ j, n = 32 * j + 27) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3) := by
+  sorry
+
+/--
+`[C]` Channel-`3` odd-`k` subcase (`T_odd n % 8 = 1`): `k % 4 = 1` closed at `t_loc = 6`;
+`k % 4 = 3` remains open.
 -/
 theorem bad_run_net_descent_witness_mod8_channel_three_mod8_one
     {n : Nat}
@@ -101,7 +148,18 @@ theorem bad_run_net_descent_witness_mod8_channel_three_mod8_one
     (h8 : n % 8 = 3)
     (hone : T_odd n % 8 = 1) :
     Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3) := by
-  sorry
+  rcases exists_eq_eight_mul_add_three_of_mod8_eq_three h8 with ⟨k, rfl⟩
+  have hk_odd : k % 2 = 1 :=
+    (T_odd_mod8_eq_one_iff_k_odd_of_mod8_eq_three rfl).mp hone
+  rcases (show k % 4 = 1 ∨ k % 4 = 3 from by omega) with hk1 | hk3
+  · have hk1' : k % 4 = 1 := hk1
+    rcases exists_eq_thirty_two_mul_add_eleven_of_mod8_eq_three_and_k_mod4_one rfl hk1' with
+      ⟨j, hnj, _⟩
+    exact bad_run_net_descent_witness_mod8_channel_three_mod8_one_k_mod4_one hn h8 ⟨j, hnj⟩
+  · have hk3' : k % 4 = 3 := hk3
+    rcases exists_eq_thirty_two_mul_add_twentyseven_of_mod8_eq_three_and_k_mod4_three rfl hk3' with
+      ⟨j, hnj, _⟩
+    exact bad_run_net_descent_witness_mod8_channel_three_mod8_one_k_mod4_three hn h8 ⟨j, hnj⟩
 
 /--
 `[C]` Channel `3` uniform witness: even-`k` case is `[A]`; odd-`k` subcase remains open.
@@ -170,13 +228,20 @@ open CollatzNetDescentMod8
 open CollatzNetDescentMod8Witness
 
 /--
-V2.8 status: channel-`3` even-`k` net descent at `t_loc = 4`; odd-`k` and channel `7` open.
+V2.8 status: channel-`3` even-`k` net descent at `t_loc = 4`; odd-`k` `k%4=1` at `t_loc = 6`;
+odd-`k` `k%4=3` and channel `7` open.
 -/
 structure CollatzProofAttemptStatusV28 : Prop where
   base_v27 : CollatzProofAttemptStatusV27
   channel_three_mod8_five_net_descent :
     ∀ {n : Nat}, 1 < n → n % 8 = 3 → T_odd n % 8 = 5 →
       Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3)
+  channel_three_mod8_one_k_mod4_one_net_descent :
+    ∀ {n : Nat}, 1 < n → n % 8 = 3 → (∃ j, n = 32 * j + 11) →
+      Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3)
+  channel_three_uniform_five_step_barrier :
+    ∀ {k : Nat}, k % 2 = 1 → 0 < k →
+      (8 * k + 3) ≤ (collatzStep^[5]) (T_odd (8 * k + 3))
   bad_run_two_adic_budget_ge_two :
     ∀ {n : Nat}, n % 4 = 3 → 2 ≤ badRunTwoAdicBudget n
 
@@ -184,6 +249,10 @@ theorem collatz_proof_attempt_status_v28 : CollatzProofAttemptStatusV28 where
   base_v27 := collatz_proof_attempt_status_v27
   channel_three_mod8_five_net_descent := fun hn h8 hfive =>
     bad_run_net_descent_witness_mod8_channel_three_mod8_five hn h8 hfive
+  channel_three_mod8_one_k_mod4_one_net_descent := fun hn h8 hk1 =>
+    bad_run_net_descent_witness_mod8_channel_three_mod8_one_k_mod4_one hn h8 hk1
+  channel_three_uniform_five_step_barrier := fun hk_odd hk_pos =>
+    channel_three_uniform_five_step_fails_net hk_odd hk_pos
   bad_run_two_adic_budget_ge_two := fun hmod =>
     bad_run_two_adic_budget_ge_two_of_mod4_eq_three hmod
 
