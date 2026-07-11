@@ -231,3 +231,17 @@ Symmetrisierte Operatoren:
 **Kurzantwort:** Lemma 3 **ändert nichts** am Collatz-Beweisstatus. Die Aufspaltung ist eine wohldefinierte, hochsymmetrische Eigenschaft der Darstellung `n = e * a` bei faktorisiertem Rest — sie erzwingt **keine** Trajektorien-Termination.
 
 **Fazit Lemma 3:** Orthogonale Notations-/Diagnostikschicht — **null Collatz-Konsequenz**; optional **`[B]`** Profilmetrik `(S_+², S_-²)`.
+
+---
+
+## Spektral-Diagnostic — ungerade e-Potenzen `[B]`
+
+Für Lemma-2-Split `n = q * e³ + b * c * e` bilden die Koeffizienten der **ungeraden** e-Potenzen den Vektor `(q, b*c, 1)`. Die Rang-1-Gram-Matrix `outer(t, t)` hat sortierte Eigenwerte `[0, 0, q² + (b*c)² + 1]` und Anisotropie-Lücke `λ_max - λ_min`.
+
+| Funktion | Rolle |
+|---|---|
+| `e3_spectral_diagnostic` | Eigenwerte, `anisotropy_gap`, Split-Validierung |
+
+**Beispiel:** `a = 17`, `e = 3`, `b = 2`, `c = 4` → `n = 51`, Koeffizienten `(1, 8, 1)` → `anisotropy_gap = 66`.
+
+**Governance:** Reine **[B]**-Profilmetrik auf der algebraischen Split-Form — **kein** EABC-Tensor-Claim, **kein** Collatz-Beweis, **kein** Ersatz für `oddCore`/Syracuse.

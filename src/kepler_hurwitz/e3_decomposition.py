@@ -34,6 +34,7 @@ __all__ = [
     "analyze_e3_with_product_split",
     "commutation_check",
     "e3_decompose",
+    "e3_spectral_diagnostic",
     "symmetric_operators",
     "verify_abc_split",
     "verify_e3_identity",
@@ -218,6 +219,38 @@ def symmetric_operators(b: int, c: int) -> tuple[int, int]:
     if (b + c) % 2 != 0:
         raise ValueError("b and c must have equal parity for exact symmetric split")
     return (b + c) // 2, abs(b - c) // 2
+
+
+def e3_spectral_diagnostic(a: int, e: int, b: int, c: int) -> dict[str, Any]:
+    """
+    Spectral **[B]** diagnostic for odd e-power coefficients in ``n = q*e³ + b*c*e``.
+
+    Builds the rank-1 Gram matrix from coefficient vector ``(q, b*c, 1)`` and
+    reports sorted eigenvalues plus anisotropy gap ``λ_max - λ_min``. Does not
+    prove Collatz, does not replace oddCore/Syracuse, and does not imply EABC
+    tensor physics.
+    """
+    _validate_positive_e(e)
+    q, r, n = e3_decompose(a, e)
+    split = abc_split_decomposition(a, e, b, c)
+    bc = b * c
+    norm_sq = float(q * q + bc * bc + 1)
+    evals = [0.0, 0.0, norm_sq]
+    return {
+        "governance": E3_DECOMPOSITION_TAG,
+        "a": a,
+        "e": e,
+        "b": b,
+        "c": c,
+        "q": q,
+        "r": r,
+        "n": n,
+        "coefficients_odd_e": {"e^3": q, "e^1": bc},
+        "gram_eigenvalues": evals,
+        "anisotropy_gap": evals[-1] - evals[0],
+        "split_valid": split["split_holds"],
+        "rest_matches_product": split["rest_matches_product"],
+    }
 
 
 def analyze_e3_commutative_multiplet(a: int, e: int, b: int, c: int) -> dict[str, Any]:

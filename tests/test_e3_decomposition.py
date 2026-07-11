@@ -13,6 +13,7 @@ from kepler_hurwitz.e3_decomposition import (
     analyze_e3_with_product_split,
     commutation_check,
     e3_decompose,
+    e3_spectral_diagnostic,
     symmetric_operators,
     verify_abc_split,
     verify_e3_identity,
@@ -167,3 +168,45 @@ class TestCommutativeMultiplet:
         result = analyze_e3_commutative_multiplet(17, 3, 3, 3)
         assert result["case_type"] == "invalid_rest_product"
         assert result["multiplet_holds"] is False
+
+
+class TestE3SpectralDiagnostic:
+    def test_governance_tag(self) -> None:
+        result = e3_spectral_diagnostic(17, 3, 2, 4)
+        assert result["governance"] == E3_DECOMPOSITION_TAG
+        assert result["governance"] == "[B]"
+
+    def test_canonical_example_n51(self) -> None:
+        result = e3_spectral_diagnostic(17, 3, 2, 4)
+        assert result["n"] == 51
+        assert result["q"] == 1
+        assert result["coefficients_odd_e"] == {"e^3": 1, "e^1": 8}
+        assert result["gram_eigenvalues"] == [0.0, 0.0, 66.0]
+        assert result["anisotropy_gap"] == 66.0
+        assert result["split_valid"] is True
+        assert result["rest_matches_product"] is True
+
+    def test_alternate_factorization_same_spectrum(self) -> None:
+        result = e3_spectral_diagnostic(17, 3, 1, 8)
+        assert result["coefficients_odd_e"] == {"e^3": 1, "e^1": 8}
+        assert result["anisotropy_gap"] == 66.0
+        assert result["split_valid"] is True
+
+    def test_invalid_split_still_reports_spectrum(self) -> None:
+        result = e3_spectral_diagnostic(17, 3, 3, 3)
+        assert result["split_valid"] is False
+        assert result["rest_matches_product"] is False
+        assert result["coefficients_odd_e"] == {"e^3": 1, "e^1": 9}
+        assert result["anisotropy_gap"] == 83.0
+
+    def test_zero_quotient_rank_one_gap(self) -> None:
+        result = e3_spectral_diagnostic(13, 5, 13, 1)
+        assert result["q"] == 0
+        assert result["n"] == 65
+        assert result["coefficients_odd_e"] == {"e^3": 0, "e^1": 13}
+        assert result["anisotropy_gap"] == 170.0
+        assert result["split_valid"] is True
+
+    def test_nonpositive_e_raises(self) -> None:
+        with pytest.raises(ValueError, match="e must be positive"):
+            e3_spectral_diagnostic(17, 0, 2, 4)
