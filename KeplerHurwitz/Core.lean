@@ -21,6 +21,7 @@ import KeplerHurwitz.CollatzProofAttemptV28
 import KeplerHurwitz.CollatzNetDescentMod8
 import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Collatz.CkA.OrbitSmoothBridge
+import KeplerHurwitz.Collatz.Octonion.Termination
 import KeplerHurwitz.CyclicWordOrbit
 import KeplerHurwitz.EABCLayer
 import KeplerHurwitz.EABCChannelPartition
