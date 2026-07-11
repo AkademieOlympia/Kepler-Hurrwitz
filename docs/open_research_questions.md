@@ -41,6 +41,20 @@ Es enthält bewusst keine Behauptungen über bereits gesicherte Resultate.
 - Lässt sich ein Bell-typisches Testfunktional als diskrete Operatorform definieren?
 - Welche Transfer-/Labelkanaele bewahren rekonstruktive Information?
 
+## Projekt „Nuclear Binding Residual Bridge“ (E-090 / ORQ-090)
+
+- Liefert \(I_{\mathrm{EABC}}(Z,N)=(Z\bmod 12,N\bmod 12)\) **zusätzliche** out-of-sample Information über SEMF-Residuen \(R_{\mathrm{no\,pair}}\), \(R_{\mathrm{pair}}\) über Paritätskontrolle und strukturtreue Nullmodelle hinaus?
+- Sind SEMF-Koeffizienten strikt auf Trainings-Splits geschätzt und Residuen auf gehaltenen Test-Splits bewertet (blockiert nach \(Z\), Isotopenketten, \(A\)-Bins)?
+- Besteht ein positiver \(\Delta\mathrm{MAE}_{\mathrm{CV}}\) robust über mehrere Nullmodelle (A-Bin, Paritätsklasse, Isotopenketten-Shift, strukturangepasst)?
+
+**Prüfmodus:**
+
+```bash
+pytest tests/test_nuclear_binding_residual_bridge.py -q
+```
+
+**Dossier:** [`reports/orq_090_nuclear_binding_residual_bridge.md`](reports/orq_090_nuclear_binding_residual_bridge.md)
+
 ## Projekt „Atome“ (E-092 / ORQ-092)
 
 - Korrelieren EABC-Invarianten \(I_{\mathrm{EABC}}(A,Z)\) mit Kernbindungs-Residuen \(R(A,Z)=B_{\mathrm{exp}}-B_{\mathrm{smooth}}\) über Nullmodelle hinaus?
@@ -134,6 +148,14 @@ pytest tests/test_riemann_interference_diagnostics.py -q
 - **Abhängigkeiten:** ORQ-085 ($\Phi(v)=\gamma$), ORQ-083 (Holonomie); komplementär zu `norm_signature_defect` in `diagnostics.py`.
 - **Dossier:** [`theory/weyl_commutator_operator_bridge.md`](theory/weyl_commutator_operator_bridge.md)
 
+### ORQ-090: Nuclear Binding Residual Bridge
+
+- **Kontext:** SEMF-Residuen \(R=B_{\mathrm{exp}}-B_{\mathrm{SEMF}}\) mit vorab definierter EABC-Klassifikation \((Z\bmod 12,N\bmod 12)\mapsto\{E,A,B,C,\mathrm{non\mbox{-}EABC}\}\); Kontrollhierarchie gegen \(A,Z,I_{\mathrm{parity}}\).
+- **Kernfrage:** Trägt \(I_{\mathrm{EABC}}\) **zusätzliche** statistische Information über Bindungsresiduen — nicht die volle Bindungskurve, kein physikalischer Mechanismus?
+- **Status:** `[C]` — Promotion-Ziel `[B0]` über `nuclear_binding_residual_bridge.py`; kein Upgrade zu Kernphysik-Claim.
+- **Abhängigkeiten:** Geschwister ORQ-092 (E-092); komplementär zur multiskaligen Korrelationsbatterie in `nuclear_binding_residual.py`.
+- **Dossier:** [`reports/orq_090_nuclear_binding_residual_bridge.md`](reports/orq_090_nuclear_binding_residual_bridge.md)
+
 ### ORQ-092: Nuclear Residual EABC Correlation
 
 - **Kontext:** Kernbindungs-Residuen \(R(A,Z)=B_{\mathrm{exp}}-B_{\mathrm{smooth}}\) (Weizsäcker-Hülle) tragen Schalen-, Paarungs- und Kollektivstruktur; EABC-Invarianten \(I_{\mathrm{EABC}}\) sind arithmetisch definiert — methodische Parallele zu glatt-plus-Fehler-Zerlegungen (\(\pi(x)=\mathrm{Li}(x)+E(x)\)).
@@ -179,10 +201,11 @@ Vollstaendige Statements, Governance-Tabelle und Durchbruchspfad: [`open_mathema
 | 9 | ORQ-086 | `shellPrimeMatchAtFirstLoss` | E-085 | `[C]` GATE INACTIVE / PRE-REGISTRATION NOT COMPLETE (→ Protokoll Pre-Registration Gate) |
 | 10 | ORQ-087 | Weyl-Commutator $\Delta_{\mathrm{LR}}$ | — | `[C]` → `[B]`-Ziel |
 | 11 | ORQ-089 | Onsager Quantization Bridge | E-089 | `[C]` |
-| 12 | ORQ-092 | Nuclear residual \(I_{\mathrm{EABC}}\) vs. \(R(A,Z)\) | E-092 | `[C]` → `[B]`-Ziel |
-| 13 | ORQ-093 | Legendre-GWTC mass-gap vs. \(\chi_p\) | E-093 | `[C]` → `[B]`-Ziel |
-| 14 | ORQ-094 | Pauli phase invariance on EABC energy | E-094 | `[C]` → `[B]`-Ziel |
-| 15 | ORQ-095 | Riemann zero interference at bc-axis nodes | E-095 | `[C]` → `[B]`-Ziel |
+| 12 | ORQ-090 | Nuclear binding residual bridge (SEMF + \(I_{\mathrm{EABC}}\)) | E-090 | `[C]` → `[B0]`-Ziel |
+| 13 | ORQ-092 | Nuclear residual \(I_{\mathrm{EABC}}\) vs. \(R(A,Z)\) | E-092 | `[C]` → `[B]`-Ziel |
+| 14 | ORQ-093 | Legendre-GWTC mass-gap vs. \(\chi_p\) | E-093 | `[C]` → `[B]`-Ziel |
+| 15 | ORQ-094 | Pauli phase invariance on EABC energy | E-094 | `[C]` → `[B]`-Ziel |
+| 16 | ORQ-095 | Riemann zero interference at bc-axis nodes | E-095 | `[C]` → `[B]`-Ziel |
 
 **Shell-Separationsdiagnostik (E-077–E-079):** Mess-Schicht `[C]` — [`reports/shell_separation_diagnostics_protocol.md`](reports/shell_separation_diagnostics_protocol.md) · CSV via `scripts/shell_separation_diagnostics.py`
 
