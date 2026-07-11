@@ -33,8 +33,9 @@ StatusLabel = Literal[
 
 CHANNEL_SEVEN_MODULUS = 128
 FORMAL_RESIDUES_MOD32: frozenset[int] = frozenset({23})
-CHANNEL_THREE_FROZEN_COVERAGE = "13/16"
-CHANNEL_THREE_DEEP_TAIL = (27, 91, 123)
+CHANNEL_THREE_FROZEN_COVERAGE = "28/32"
+CHANNEL_THREE_DEEP_TAIL_MOD128 = (27, 91, 123)
+CHANNEL_THREE_DEEP_TAIL_MOD256 = (27, 91, 155, 251)
 
 
 def _depth_label(t_loc: int | None, *, formal: bool) -> DepthLabel:
@@ -166,32 +167,52 @@ def summarize_channel_seven(records: list[WitnessClassRecord]) -> dict[str, Any]
     open_count = sum(1 for r in records if r.status == "open")
     deep_tail = sum(1 for r in records if r.status == "deep_tail")
     formal_t_locs = [r.t_loc for r in records if r.formally_closed and r.t_loc is not None]
-    numerical_t_locs = [
+    non_deep_t_locs = [
         r.t_loc for r in records
-        if r.t_loc is not None and not r.formally_closed
+        if r.t_loc is not None and r.status != "deep_tail"
     ]
+    observed_t_locs = [r.t_loc for r in records if r.t_loc is not None]
+    short_numerical = [
+        r.residue for r in records
+        if r.status == "numerically_supported" and r.depth_label == "closed_short"
+    ]
+    medium_numerical = [
+        r.residue for r in records
+        if r.status == "numerically_supported" and r.depth_label == "closed_medium"
+    ]
+    witness_found = sum(1 for r in records if r.t_loc is not None)
     closed_short = [r.residue for r in records if r.depth_label == "closed_short"]
     closed_medium = [r.residue for r in records if r.depth_label == "closed_medium"]
     closed_deep = [r.residue for r in records if r.depth_label == "closed_deep"]
+    non_deep = formal + numerical
     return {
         "channel": 7,
         "modulus": records[0].modulus if records else CHANNEL_SEVEN_MODULUS,
         "total_classes": total,
         "formally_closed_classes": formal,
+        "short_numerically_supported_classes": len(short_numerical),
+        "medium_numerically_supported_classes": len(medium_numerical),
         "numerically_supported_classes": numerical,
-        "open_classes": open_count,
         "deep_tail_classes": deep_tail,
-        "coverage_fraction": formal / total if total else 0.0,
-        "numerical_coverage_fraction": (formal + numerical) / total if total else 0.0,
+        "classes_with_numerical_witness": witness_found,
+        "unresolved_classes_within_max_t_loc_500": open_count,
+        "formal_coverage_fraction": formal / total if total else 0.0,
+        "formal_or_non_deep_fraction": non_deep / total if total else 0.0,
+        "numerical_witness_found_fraction": witness_found / total if total else 0.0,
+        "deep_tail_fraction": deep_tail / total if total else 0.0,
         "maximum_formal_t_loc": max(formal_t_locs) if formal_t_locs else None,
-        "maximum_numerical_t_loc": max(numerical_t_locs) if numerical_t_locs else None,
+        "maximum_non_deep_numerical_t_loc": max(non_deep_t_locs) if non_deep_t_locs else None,
+        "maximum_observed_t_loc": max(observed_t_locs) if observed_t_locs else None,
         "closed_short_residues": closed_short,
         "closed_medium_residues": closed_medium,
         "closed_deep_residues": closed_deep,
-        "open_residues": [r.residue for r in records if r.status == "open"],
+        "short_numerically_supported_residues": short_numerical,
+        "medium_numerically_supported_residues": medium_numerical,
+        "unresolved_residues": [r.residue for r in records if r.status == "open"],
         "deep_tail_residues": [r.residue for r in records if r.status == "deep_tail"],
         "channel_three_frozen_coverage": CHANNEL_THREE_FROZEN_COVERAGE,
-        "channel_three_deep_tail_mod128": list(CHANNEL_THREE_DEEP_TAIL),
+        "channel_three_deep_tail_mod128": list(CHANNEL_THREE_DEEP_TAIL_MOD128),
+        "channel_three_deep_tail_mod256": list(CHANNEL_THREE_DEEP_TAIL_MOD256),
         "governance": "[B] numerical scan — not formal proof",
     }
 

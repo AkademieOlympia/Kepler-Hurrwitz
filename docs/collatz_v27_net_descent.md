@@ -200,14 +200,17 @@ Für `n % 8 = 3` mit `n = 8k+3`:
 
 | Unterfall | Anteil | `t_loc` | Status |
 |---|---|---|---|
-| `k` gerade (`T_odd % 8 = 5`) | 1/2 | 4 | **`[A]`** |
-| `k` ungerade, `k % 4 = 1` (`n = 32j+11`) | 1/4 | 6 | **`[A]`** |
-| `k` ungerade, `k % 4 = 3`, `j % 4 = 1` (`n ≡ 59 mod 128`) | 1/16 | 9 | **`[A]`** |
+| `k` gerade (`T_odd % 8 = 5`) | 16/32 | 4 | **`[A]`** |
+| `k` ungerade, `k % 4 = 1` (`n = 32j+11`) | 8/32 | 6 | **`[A]`** |
+| `k` ungerade, `k % 4 = 3`, `j % 4 = 1` (`n ≡ 59 mod 128`) | 2/32 | 9 | **`[A]`** |
 | `k % 4 = 3`, `j % 8 = 3` (`n ≡ 123 mod 256`) | 1/32 | 11 | **`[A]`** |
 | `k % 4 = 3`, `j % 8 = 6` (`n ≡ 219 mod 256`) | 1/32 | 11 | **`[A]`** |
-| `k % 4 = 3`, `j % 8 ∈ {0,2,4,7}` | 4/32 = 1/8 | variabel | **`[C]`** |
+| `k % 4 = 3`, `j % 8 ∈ {0,2,4,7}` (`n ≡ {27,91,155,251} mod 256`) | 4/32 | variabel | **`[C]`** |
 
-**Kanal-3-Abdeckung gesamt: 14/16 = 87,5 %.**
+**Kanal-3-Abdeckung gesamt (mod 256, c9e2d74): 28/32 = 87,5 % formal.**
+
+> **Historischer V2.8-Stand (mod 128):** 13/16 = 81,25 %; offene Elternklassen `{27, 91, 123}`.
+> Die selektive mod-256-Verfeinerung (c9e2d74) schließt `{123, 219}`; verbleibende Deep-Tail-Frontier: `{27, 91, 155, 251}`.
 
 #### Kanal-7-Abdeckung (V2.8, partiell)
 
@@ -264,14 +267,30 @@ Für `n % 8 = 7` mit `n = 8k+7`:
 
 ---
 
-## Kanal-3-Freeze (V2.8, nicht weiter verfolgt)
+## Kanal-3-Freeze (V2.8 / c9e2d74, nicht weiter verfolgt)
 
-**Abdeckung eingefroren bei 13/16 ≈ 81,25 %.** Keine weitere Arbeit an Kanal `3`.
+**Aktueller Freeze-Stand: 28/32 = 87,5 % formal (mod 256).** Keine weitere Arbeit an Kanal `3`.
 
-| Status | mod-128-Restklassen | Anmerkung |
+### Historischer Stand (mod 128, V2.8)
+
+| Kennzahl | Wert |
+|---|---|
+| formale Abdeckung | 13/16 = 81,25 % |
+| offene Elternklassen | `{27, 91, 123}` (mod 128) |
+| Beispiel | `n = 27` benötigt numerisch `t_loc ≈ 94` |
+
+### Selektive mod-256-Verfeinerung (c9e2d74)
+
+| mod-128-Elternklasse | mod-256-Split | Status |
 |---|---|---|
-| **`[A]` geschlossen** | `{59, 123, 219}` (+ niedrigere Lifts) | siehe V2.8-Lemma-Map |
-| **`[C]` Deep-Tail-Frontier** | `{27, 91, 123}` | variabel großes `t_loc` (z. B. `n=27` ⇒ `t_loc=94`); nicht weiter angegriffen |
+| `27` | `{27, 155}` | **`[C]`** Deep-Tail |
+| `91` | `{91, 219}` | `219` **`[A]`** (`t_loc = 11`); `91` **`[C]`** Deep-Tail |
+| `123` | `{123, 251}` | `123` **`[A]`** (`t_loc = 11`); `251` **`[C]`** Deep-Tail |
+
+| Status | mod-256-Restklassen | Anmerkung |
+|---|---|---|
+| **`[A]` geschlossen** | siehe Abdeckungstabelle oben | inkl. `{123, 219}` bei `t_loc = 11` |
+| **`[C]` Deep-Tail-Frontier** | `{27, 91, 155, 251}` | variabel großes `t_loc`; nicht weiter angegriffen |
 
 > Kanal `3` bleibt dokumentiert in V2.8; der aktive Angriff ist **Kanal `7`**.
 
@@ -301,17 +320,28 @@ Für `n % 8 = 7` mit `n = 8k+7`:
 
 ### Abdeckung mod 128 (Stand)
 
-| Feld | Wert |
-|---|---|
-| `total_classes` | 16 |
-| `formally_closed_classes` | 4 (`{23, 55, 87, 119}` — Leiter `k % 4 = 2`) |
-| `numerically_supported_classes` | 6 (`{7, 15, 39, 79, 95, 127}`) |
-| `deep_tail_classes` | 6 (`{31, 47, 63, 71, 103, 111}`) |
-| `open_classes` | 0 (innerhalb `max_t_loc=500`) |
-| **`coverage_fraction` (formal)** | **4/16 = 25 %** |
-| `numerical_coverage_fraction` | 10/16 = 62,5 % |
-| `maximum_formal_t_loc` | 4 |
-| `maximum_numerical_t_loc` | 83 |
+| Metrik | Wert | Bedeutung |
+|---|---|---|
+| `total_classes` | 16 | mod-128-Repräsentanten |
+| `formally_closed_classes` | 4: `{23, 55, 87, 119}` | vollständig in Lean geschlossen (Leiter `k % 4 = 2`) |
+| `short_numerically_supported_classes` | 5: `{7, 15, 39, 79, 95}` | numerisch short (`t_loc ≤ 10`), nicht formal |
+| `medium_numerically_supported_classes` | 1: `{127}` | numerisch medium (`10 < t_loc ≤ 32`), nicht formal |
+| `deep_tail_classes` | 6: `{31, 47, 63, 71, 103, 111}` | Witness gefunden, strukturell tief, nicht formalisiert |
+| `classes_with_numerical_witness` | 16 | Witness innerhalb `max_t_loc = 500` |
+| `unresolved_classes_within_max_t_loc_500` | 0 | kein fehlender numerischer Witness |
+| **`formal_coverage_fraction`** | **4/16 = 25 %** | formal in Lean geschlossen |
+| **`formal_or_non_deep_fraction`** | **10/16 = 62,5 %** | formal **oder** numerisch short/medium (nicht deep) |
+| **`numerical_witness_found_fraction`** | **16/16 = 100 %** | Witness gefunden bis `max_t_loc = 500` |
+| **`deep_tail_fraction`** | **6/16 = 37,5 %** | deep-tail (numerisch tief, formal offen) |
+| `maximum_formal_t_loc` | 4 | |
+| `maximum_non_deep_numerical_t_loc` | 12 | |
+| `maximum_observed_t_loc` | 83 | |
+
+> **62,5 % ist nicht** bloße Existenz numerischer Witnesses — es ist der Anteil der Klassen, die entweder formal geschlossen **oder** numerisch als short/medium (nicht deep) klassifiziert sind.
+
+**Formulierung (stärkster dokumentierter Stand):**
+
+Für sämtliche untersuchten mod-128-Repräsentanten des Kanals 7 wurde innerhalb von `t_loc ≤ 83` ein lokaler Net-Descent-Witness gefunden. Formal uniformisiert ist bislang ausschließlich die Leiterklasse `k ≡ 2 (mod 4)`, entsprechend den Restklassen `{23, 55, 87, 119}` modulo 128. Eine uniforme Übertragung auf die übrigen Restklassen, insbesondere auf den sechs Klassen umfassenden Bad-Run-Deep-Tail, ist weiterhin offen.
 
 ### Ergebnistabelle mod 128
 
@@ -359,6 +389,23 @@ Für `n % 8 = 7` mit `n = 8k+7`:
 | `bad_run_net_descent_witness_mod8_channel_seven` (V2.7) | **`[C]`** (`sorry`) |
 
 **Build:** `lake build KeplerHurwitz.CollatzChannelSeven`
+
+---
+
+## Gesamtstand (nach Korrektur)
+
+| Kanal | Formal | Non-Deep | Numerisch gefunden | Status |
+|---|---|---|---|---|
+| **Kanal 3** | 28/32 = 87,5 % | — | — | **eingefroren** (c9e2d74) |
+| **Kanal 7** | 4/16 = 25 % | 10/16 = 62,5 % | 16/16 = 100 % | **aktiver Angriff** |
+
+**Offener mathematischer Kern (unverändert):** ∀ `n > 1`, `n ≡ 3 (mod 4)` ⟹ ∃ `BadRunNetDescentWitness(n)` — `bad_run_net_descent_witness_of_mod4_three` bleibt **`[C]`** (`sorry`).
+
+**Zu trennende Ebenen:**
+
+- Endliche Klassifikation der Repräsentanten ist numerisch/lokal (`[B]`).
+- Ein Witness für einen Repräsentanten beweist **nicht** automatisch ein uniformes Theorem für die gesamte Restklasse.
+- Die sechs Kanal-7-Deep-Tail-Klassen sind numerisch nicht offen, aber formal und strukturell offen.
 
 ---
 

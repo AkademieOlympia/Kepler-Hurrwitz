@@ -22,7 +22,11 @@ def test_channel_seven_formal_residue_mod32() -> None:
 
 def test_channel_three_frozen_in_summary() -> None:
     summary = summarize_channel_seven(scan_channel_seven())
-    assert summary["channel_three_frozen_coverage"] == "13/16"
+    assert summary["channel_three_frozen_coverage"] == "28/32"
     assert summary["channel_three_deep_tail_mod128"] == [27, 91, 123]
-    assert summary["coverage_fraction"] == 0.25
+    assert summary["channel_three_deep_tail_mod256"] == [27, 91, 155, 251]
+    assert summary["formal_coverage_fraction"] == 0.25
+    assert summary["formal_or_non_deep_fraction"] == 0.625
+    assert summary["numerical_witness_found_fraction"] == 1.0
+    assert summary["deep_tail_fraction"] == 0.375
     assert summary["formally_closed_classes"] == 4

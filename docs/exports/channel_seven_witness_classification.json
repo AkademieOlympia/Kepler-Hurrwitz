@@ -4,13 +4,19 @@
     "modulus": 128,
     "total_classes": 16,
     "formally_closed_classes": 4,
+    "short_numerically_supported_classes": 5,
+    "medium_numerically_supported_classes": 1,
     "numerically_supported_classes": 6,
-    "open_classes": 0,
     "deep_tail_classes": 6,
-    "coverage_fraction": 0.25,
-    "numerical_coverage_fraction": 0.625,
+    "classes_with_numerical_witness": 16,
+    "unresolved_classes_within_max_t_loc_500": 0,
+    "formal_coverage_fraction": 0.25,
+    "formal_or_non_deep_fraction": 0.625,
+    "numerical_witness_found_fraction": 1.0,
+    "deep_tail_fraction": 0.375,
     "maximum_formal_t_loc": 4,
-    "maximum_numerical_t_loc": 83,
+    "maximum_non_deep_numerical_t_loc": 12,
+    "maximum_observed_t_loc": 83,
     "closed_short_residues": [
       7,
       15,
@@ -33,7 +39,17 @@
       103,
       111
     ],
-    "open_residues": [],
+    "short_numerically_supported_residues": [
+      7,
+      15,
+      39,
+      79,
+      95
+    ],
+    "medium_numerically_supported_residues": [
+      127
+    ],
+    "unresolved_residues": [],
     "deep_tail_residues": [
       31,
       47,
@@ -42,11 +58,17 @@
       103,
       111
     ],
-    "channel_three_frozen_coverage": "13/16",
+    "channel_three_frozen_coverage": "28/32",
     "channel_three_deep_tail_mod128": [
       27,
       91,
       123
+    ],
+    "channel_three_deep_tail_mod256": [
+      27,
+      91,
+      155,
+      251
     ],
     "governance": "[B] numerical scan \u2014 not formal proof"
   },

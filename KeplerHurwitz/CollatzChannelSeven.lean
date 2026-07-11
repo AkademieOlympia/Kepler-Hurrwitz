@@ -10,7 +10,7 @@ namespace CollatzNetDescent
 /-!
 ## Channel `7` local witness classification (`n % 8 = 7`)
 
-Governance pivot from frozen channel `3` (81.25 % = 13/16 at mod 128).
+Governance pivot from frozen channel `3` (87.5 % = 28/32 at mod 256, c9e2d74).
 Channel `7` is the bad-run tail: `T_odd n % 4 = 3`, `eSchalenSprung = 1`.
 
 Methodology:
@@ -78,11 +78,14 @@ structure WitnessRecord where
   statusLabel : WitnessStatusLabel
   deriving Repr
 
-/-- Frozen channel-3 coverage reference (V2.8); no further channel-3 work. -/
-def channelThreeFrozenCoverage : String := "13/16"
+/-- Frozen channel-3 coverage reference (c9e2d74, mod 256); no further channel-3 work. -/
+def channelThreeFrozenCoverage : String := "28/32"
 
-/-- Channel-3 deep-tail frontier at mod 128 (not pursued). -/
+/-- Channel-3 deep-tail frontier at mod 128 (historical V2.8 parent classes). -/
 def channelThreeDeepTailMod128 : List ℕ := [27, 91, 123]
+
+/-- Channel-3 deep-tail frontier at mod 256 (current freeze stand). -/
+def channelThreeDeepTailMod256 : List ℕ := [27, 91, 155, 251]
 
 /-- Formally closed channel-7 mod-32 anchor (`k % 4 = 2`, `n = 32j+23`). -/
 def channelSevenFormalResidueMod32 : ℕ := 23
@@ -207,9 +210,11 @@ theorem bad_run_net_descent_witness_mod8_channel_seven_open_classes
 
 /-- Status bundle for the channel-7 classification pivot. -/
 structure ChannelSevenClassificationStatus : Prop where
-  channel_three_frozen : channelThreeFrozenCoverage = "13/16"
-  channel_three_deep_tail :
+  channel_three_frozen : channelThreeFrozenCoverage = "28/32"
+  channel_three_deep_tail_mod128 :
     channelThreeDeepTailMod128 = [27, 91, 123]
+  channel_three_deep_tail_mod256 :
+    channelThreeDeepTailMod256 = [27, 91, 155, 251]
   formal_mod128_residues :
     channelSevenFormalResiduesMod128 = [23, 55, 87, 119]
   formal_coverage_fraction :
@@ -225,7 +230,8 @@ structure ChannelSevenClassificationStatus : Prop where
 theorem channel_seven_classification_status :
     ChannelSevenClassificationStatus where
   channel_three_frozen := rfl
-  channel_three_deep_tail := rfl
+  channel_three_deep_tail_mod128 := rfl
+  channel_three_deep_tail_mod256 := rfl
   formal_mod128_residues := rfl
   formal_coverage_fraction := rfl
   k_mod4_two_local_witness := fun hn h7 hk2 =>
