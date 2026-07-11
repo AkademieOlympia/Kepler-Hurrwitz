@@ -1,0 +1,23 @@
+{
+  "start": 2,
+  "stop": 1000000,
+  "quadruplet_count": 166,
+  "row_count": 498,
+  "cycles": 1,
+  "include_nullmodels": [
+    "ceab",
+    "shuffle"
+  ],
+  "elapsed_seconds": 0.03874104097485542,
+  "canonical_phase_closure_ok": true,
+  "canonical_encircles_defect": true,
+  "canonical_vortex_winding_one": true,
+  "canonical_pop_threshold_four": true,
+  "canonical_defect_core_valid": true,
+  "nullmodel_contrast_count": 332,
+  "contrast_by_model_type": {
+    "ceab_shift": 166,
+    "channel_shuffle": 166
+  },
+  "tag": "[B]"
+}

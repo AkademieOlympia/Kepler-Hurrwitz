@@ -1,0 +1,10 @@
+n,prefix_index,canonical_x,canonical_y,canonical_z,diagnostic_lex_word,diagnostic_lex_x,diagnostic_lex_y,diagnostic_lex_z,diagnostic_lex_diff_l2,axis_label,axis_cardinal_x,axis_cardinal_y,axis_cardinal_z,axis_cardinal_diff_l2,nearest_word_n,nearest_word_x,nearest_word_y,nearest_word_z,nearest_word_diff_l2,coordinate_match_diagnostic,coordinate_match_nearest,bijection_status,notes
+1,0,-1.0,0.0,0.0,E,1.0,0.0,0.0,2.0,C,-1.0,0.0,0.0,0.0,C,-1.0,0.0,0.0,0.0,False,True,partial_no_global_bijection,diagnostic_lex_divergent; nearest_exact
+1,1,0.0,-1.0,0.0,A,0.0,1.0,0.0,2.0,-A,0.0,1.0,0.0,2.0,E,1.0,0.0,0.0,1.4142135623730951,False,False,partial_no_global_bijection,diagnostic_lex_divergent; canonical_axis_sign_flip_vs_cardinalDir
+2,0,-1.0,0.0,0.0,EE,0.0,0.0,0.0,1.0,C,-1.0,0.0,0.0,0.0,EE,0.0,0.0,0.0,1.0,False,False,partial_no_global_bijection,diagnostic_lex_divergent
+2,1,0.0,-1.0,0.0,EA,0.0,0.381966,0.0,1.381966,-A,0.0,1.0,0.0,2.0,EE,0.0,0.0,0.0,1.0,False,False,partial_no_global_bijection,diagnostic_lex_divergent; canonical_axis_sign_flip_vs_cardinalDir
+2,2,0.0,0.0,-1.0,EB,0.0,0.763932,0.0,1.2584085587057965,-B,0.0,0.0,1.0,2.0,EE,0.0,0.0,0.0,1.0,False,False,partial_no_global_bijection,diagnostic_lex_divergent; canonical_axis_sign_flip_vs_cardinalDir
+3,0,-1.0,0.0,0.0,EEE,0.0,0.0,0.0,1.0,C,-1.0,0.0,0.0,0.0,EEE,0.0,0.0,0.0,1.0,False,False,partial_no_global_bijection,diagnostic_lex_divergent
+3,1,0.0,-1.0,0.0,EEA,0.0,0.0,0.236068,1.027486301915505,-A,0.0,1.0,0.0,2.0,EEE,0.0,0.0,0.0,1.0,False,False,partial_no_global_bijection,diagnostic_lex_divergent; canonical_axis_sign_flip_vs_cardinalDir
+3,2,0.0,0.0,-1.0,EEB,0.0,0.0,0.472136,1.472136,-B,0.0,0.0,1.0,2.0,EEE,0.0,0.0,0.0,1.0,False,False,partial_no_global_bijection,diagnostic_lex_divergent; canonical_axis_sign_flip_vs_cardinalDir
+3,3,0.0,0.0,1.0,EEC,0.0,0.0,0.708204,0.29179600000000006,B,0.0,0.0,1.0,0.0,EEC,0.0,0.0,0.708204,0.29179600000000006,False,False,partial_no_global_bijection,diagnostic_lex_divergent

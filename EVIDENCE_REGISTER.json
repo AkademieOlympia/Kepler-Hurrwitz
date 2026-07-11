@@ -9,6 +9,7 @@
     "A": "formal bewiesen (Lean)",
     "B": "reproduzierbar numerisch/empirisch",
     "C": "offene mathematische Hypothese/Interface",
+    "D": "konzeptionelle Bruecke / externe Analogie",
     "L4": "programmatische Interpretation"
   },
   "a_subclasses": {
@@ -721,14 +722,15 @@
       "title": "Kepler-Zeit-Leiter: diskretes Delta-M-Linienspektrum auf Floquet-Attraktoren",
       "level": "B",
       "aclass": null,
-      "source": "src/kepler_hurwitz/kepler_time_bridge.py, examples/run_kepler_time_bridge.py, docs/plots/spectrum_*.dat",
+      "source": "src/kepler_hurwitz/kepler_time_bridge.py, src/kepler_hurwitz/kepler_eabc_atlas.py, examples/run_kepler_time_bridge.py, examples/run_kepler_eabc_floquet_annotation.py, docs/plots/spectrum_*.dat, docs/reports/E033_FLOQUET_CHANNEL_ALIGNMENT.md",
       "depends_on": [
         "discrete_time_flow.simulate_physical_flow",
-        "tests/test_kepler_time_bridge.py"
+        "tests/test_kepler_time_bridge.py",
+        "tests/test_kepler_eabc_atlas.py"
       ],
       "supports": [],
-      "scope": "500 Schritte, Tail=64, soft+ring2, 8 zyklische Operatoren",
-      "metric_or_result": "baseline unique_dM=2, M_period=8, Spektrum ±1.85619; pi/2 unique_dM=3; Stoerung unique_dM=1",
+      "scope": "500 Schritte, Tail=64, soft+ring2, 8 zyklische Operatoren; Floquet-Channel-Alignment [B/C] via summarize_annotated_delta_m; Reproducible numerical alignment diagnostics compare observed ΔM tails with the formal 2×4 χ-lift annotation. The report does not claim that ΔM values generate or determine the channel projection.",
+      "metric_or_result": "baseline unique_dM=2, M_period=8, Spektrum ±1.85619; pi/2 unique_dM=3; Stoerung unique_dM=1; baseline max lift-sheet abs diff ≈3.71",
       "status": "reproduzierbar",
       "stability": "stable",
       "last_reviewed": "2026-07-03"
@@ -985,6 +987,331 @@
       "defensive_scope": "No classification theorem; scalar E-044 negative result preserved; signed orbit classes do not separate N=4,6,8 under G_5-code."
     },
     {
+      "id": "E-049",
+      "title": "EABC/Floquet phase distribution for twin-prime candidates (n ≡ 11 mod 12)",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/twin_prime_eabc_phase_analysis.py, examples/run_twin_prime_eabc_phase_analysis.py, docs/energiedoku_exports/twin_prime_eabc_phase_analysis.json, docs/energiedoku_exports/twin_prime_eabc_phase_analysis_report.md, tests/test_twin_prime_eabc_phase_analysis.py",
+      "depends_on": [
+        "E-033"
+      ],
+      "supports": [],
+      "scope": "CE twin-prime candidate generation for n ≡ 11 mod 12; annotate candidates by fixed EABC/Floquet phase using candidate_index mod 8; small-sieve baseline and true twin-prime hit counting; hit-rate distributions by floquet step, channel, chi phase, and sheet; phase-shift null summaries and exploratory best-phase diagnostics; explicit non-predictive governance",
+      "metric_or_result": "9654 sieved candidates, 4122 twin hits at X=10^6, B=97; chi²=2.63, p=0.917, uniformity not rejected (α=0.05); max hit-rate spread 0.024 across 8 phases; exploratory max enrichment 1.03 at phase A (post-hoc [C])",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "not_claimed": "No proof of twin primes, no held-out confirmation of any phase rule, and no optimized selector"
+    },
+    {
+      "id": "E-051",
+      "title": "Structured controls for twin-prime EABC analysis",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/twin_prime_eabc_structured_controls.py, examples/run_twin_prime_eabc_structured_controls.py, docs/energiedoku_exports/twin_prime_eabc_structured_controls.json, docs/energiedoku_exports/twin_prime_eabc_structured_controls_report.md, tests/test_twin_prime_eabc_structured_controls.py",
+      "depends_on": [
+        "E-033",
+        "E-049",
+        "E-048"
+      ],
+      "supports": [],
+      "scope": "Residue-stratified CE/AB twin-prime controls; E-033 orientation-duality feature (binary signed dual pair match); leakage-safe Dumas right-wing features from n+6 and n+8; randomized labels within residue class and phase-shift null models; negative structured-control result",
+      "metric_or_result": "X=10^4, B=29: stage-1 CE vs AB enrichment ~1.01; orientation_dual constant in baseline_cyclic (non-discriminative); right_wing enrichment ~0.98-1.06 with null models similar; no stable EABC/Floquet signal beyond mod-12 controls",
+      "status": "negative structured-control result",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "not_claimed": "No deterministic prediction, no proof of twin-prime infinitude, and no evidence yet for EABC/Floquet-specific predictive power beyond residue-class controls"
+    },
+    {
+      "id": "E-052",
+      "title": "Scale robustness check for structured twin-prime controls",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/twin_prime_eabc_scale_sweep.py, examples/run_twin_prime_eabc_scale_sweep.py, docs/energiedoku_exports/twin_prime_eabc_scale_sweep.json, docs/energiedoku_exports/twin_prime_eabc_scale_sweep_report.md, tests/test_twin_prime_eabc_scale_sweep.py",
+      "depends_on": [
+        "E-051"
+      ],
+      "supports": [],
+      "scope": "The E-051 structured-control diagnostics were repeated across limits 10^4, 10^5, and 10^6 and sieve bounds 97 and 997. The sweep tests whether the negative E-051 result remains stable across scale and sieve strength; no new features",
+      "metric_or_result": "6-cell grid: orientation_dual delta vs null = 0 at all scales; right_wing features not scale-stable; negative E-051 result stable across tested limits and sieve bounds",
+      "status": "descriptive scale robustness check",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-03",
+      "not_claimed": "No proof of twin primes, no deterministic prediction, no optimized predictor, and no confirmation of EABC/Floquet-specific predictive power unless observed effects exceed residue-stratified nulls consistently across all tested scales"
+    },
+    {
+      "id": "E-053",
+      "title": "Dedekind-Hasse ↔ Dumas methodical interface (Cardoso-Machiavelo H_{1,7}, H_{7,13})",
+      "level": "C",
+      "aclass": null,
+      "source": "KeplerHurwitz/DedekindHasseDumasInterface.lean, docs/energiedoku_exports/eabc_renormalisierungsprogramm.md",
+      "depends_on": [
+        "E-048",
+        "E-032"
+      ],
+      "supports": [],
+      "scope": "[C] DedekindHasseCriterion, DedekindHasseLeftPID, CardosoMachiaveloFiniteness; open DedekindHasseDumasInterface; proved Dumas-side parallels via dumasReductionArchitecture and dedekindHasseDumasInterface_of_local; quatNorm CEAB invariance",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.DedekindHasseDumasInterface green (2026-07-04)",
+      "status": "methodical interface",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-053",
+      "not_claimed": "Dedekind-Hasse does not prove Dumas (E-048) or EABC renormalization; no explicit map Phi from EABC configurations to quaternion orders"
+    },
+    {
+      "id": "E-061",
+      "title": "Bounded DH Search and Rescue-Witness Protocol",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/dhqpid_prototype.py, examples/run_dhqpid_prototype.py, docs/theory/dhqpid_prototype_report.md",
+      "depends_on": [
+        "E-053",
+        "E-064"
+      ],
+      "supports": [
+        "E-062"
+      ],
+      "scope": "Cardoso-Machiavelo orders H_{1,7} and H_{7,13}; bounded search compares norm-Euclidean remainder (EUC) with Dedekind-Hasse witnesses (DH); documents search protocol and witness structure; rescue = EUC fail and DH success",
+      "metric_or_result": "H17 p<=13: 3192 candidates, 0 true EUC=0/DH=1 rescues; H713 p<=11: 2816 candidates, 0 rescues; manual DH witness p=2 verified but EUC already succeeds with rest norm 1/4",
+      "status": "numerical prototype",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "lean_label": null,
+      "not_claimed": "Does not prove PID globally, EABC structure, Cardoso-Machiavelo completeness, or that non-Euclidean rescues occur in the current bounded window"
+    },
+    {
+      "id": "E-062",
+      "title": "Dedekind-Hasse Correction Energy (alpha-norm budget)",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/dhqpid_prototype.py, docs/theory/dhqpid_prototype_H17.csv, docs/theory/dhqpid_prototype_H713.csv",
+      "depends_on": [
+        "E-061"
+      ],
+      "supports": [],
+      "scope": "Tracks alpha_norm_sq in DH witnesses as arithmetical correction cost, not physical energy",
+      "metric_or_result": "Prototype exports alpha_norm_sq column; max observed in bounded window documented in summary CSV",
+      "status": "numerical prototype",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "lean_label": null,
+      "not_claimed": "Not a physical energy measurement; bounded-search metric only"
+    },
+    {
+      "id": "E-063",
+      "title": "EABC Residue-Class DH Profile (future)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/ideal_dedekind_hasse_intro_abitur.md",
+      "depends_on": [
+        "E-061",
+        "E-062"
+      ],
+      "supports": [],
+      "scope": "Future stratification of alpha/delta profiles by residue classes 1,5,7,11 mod 12",
+      "metric_or_result": "Not implemented",
+      "status": "open",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-063",
+      "not_claimed": "No EABC claim until implemented and validated"
+    },
+    {
+      "id": "E-064",
+      "title": "Ideal-theoretic introduction to DH-QPID (didactic model bridge)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/ideal_dedekind_hasse_intro_abitur.md, KeplerHurwitz/DHQPID.lean, docs/theory/README.md",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [
+        "E-061",
+        "E-062",
+        "E-063"
+      ],
+      "scope": "Didactic introduction to ideals, units, left/right quaternionic ideals, and Dedekind-Hasse as stability test",
+      "metric_or_result": "E064_is_model_bridge in DHQPID.lean; claim boundary documented in markdown front matter",
+      "status": "didactic model bridge",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-064",
+      "not_claimed": "Does not prove EABC structure; EABC bridge remains testable model interpretation only"
+    },
+    {
+      "id": "E-067",
+      "title": "Dedekind ideal theory layer (LeftIdeal, RightIdeal, PID witnesses, DED-1/2/4)",
+      "level": "C",
+      "aclass": null,
+      "source": "KeplerHurwitz/DedekindIdealLayer.lean, docs/dedekind_ideal_layer.md, docs/energiedoku_exports/dedekind_ideal_eabc_layers.md",
+      "depends_on": [
+        "E-053",
+        "E-048",
+        "E-064"
+      ],
+      "supports": [
+        "E-068",
+        "E-069"
+      ],
+      "scope": "LeftIdeal, RightIdeal, PrincipalLeftIdeal, PrincipalRightIdeal, LeftPIDWitness, RightPIDWitness, DedekindHasseImpliesPID, DedekindTest_DED1 through DED4",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.DedekindIdealLayer green (2026-07-04)",
+      "status": "ideal layer interface",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-067",
+      "not_claimed": "Ideal theory does not prove EABC signature patterns; EabcInterpretationFromIdealPaths remains open",
+      "renumbered_from": "E-064"
+    },
+    {
+      "id": "E-068",
+      "title": "Left/right ideal path asymmetry (Cardoso-Machiavelo left-PID)",
+      "level": "B",
+      "aclass": null,
+      "source": "KeplerHurwitz/DedekindIdealLayer.lean",
+      "depends_on": [
+        "E-067",
+        "E-053"
+      ],
+      "supports": [],
+      "scope": "DedekindTest_DED3_LeftRightPathAsymmetry, LeftRightIdealPathAsymmetryStatement; right-PID not claimed for reference orders",
+      "metric_or_result": "DED-3 proved for H_1_7 and H_7_13; leftRightIdealPathAsymmetryStatement_holds",
+      "status": "documented asymmetry",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-068",
+      "not_claimed": "Right-PID for reference quaternion orders is not claimed; asymmetry is typological and documentary, not a numerical experiment",
+      "renumbered_from": "E-065"
+    },
+    {
+      "id": "E-069",
+      "title": "Non-PID ideal-class obstruction (DED-5)",
+      "level": "B",
+      "aclass": null,
+      "source": "KeplerHurwitz/DedekindIdealLayer.lean",
+      "depends_on": [
+        "E-067"
+      ],
+      "supports": [],
+      "scope": "IdealClassObstructsLeftPID, DedekindTest_DED5_NonPIDIdealClassObstruction, ReferenceOrdersNoIdealClassObstruction",
+      "metric_or_result": "Reference orders H_1_7 and H_7_13 carry no ideal-class obstruction; DED-5 negative for reference orders",
+      "status": "negative obstruction finding",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-069",
+      "not_claimed": "No claim that all quaternion orders are PID; obstruction test is an interface for non-reference orders only",
+      "renumbered_from": "E-066"
+    },
+    {
+      "id": "E-070",
+      "title": "Oppenheim-eabc stability bridge (stochastic spacetime as perturbation test)",
+      "level": "D",
+      "aclass": null,
+      "source": "docs/theory/oppenheim_eabc_stability_bridge.md, docs/theory/README.md",
+      "depends_on": [
+        "E-053",
+        "E-064"
+      ],
+      "supports": [],
+      "scope": "Methodological bridge: Oppenheim post-quantum classical gravity perturbation classes as external reference for eabc/DH invariant stability tests",
+      "metric_or_result": "Formal test protocol E[I(G_xi)] approx I(G_0) or Var(I(G_xi)) <= C epsilon^2; no implementation required",
+      "status": "conceptual bridge / external analogy",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "not_claimed": "No claim that quaternionic prime structure physically causes spacetime diffusion; no Oppenheim physics validation"
+    },
+    {
+      "id": "E-071",
+      "title": "Higgs bubble collision eabc analogy (topological defect production as renormalization test)",
+      "level": "D",
+      "aclass": null,
+      "source": "docs/theory/higgs_bubble_eabc_analogy.md, docs/theory/README.md",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [],
+      "scope": "Methodological bridge: DESY/Hamburg Higgs bubble collision baryogenesis (T=0 non-thermal sphalerons) as external analogy for eabc defect-collision, topological sector change, and renormalized global bias tests",
+      "metric_or_result": "Abstract test schema Omega_i, K_ij, N_top <-> I_eabc, measure Delta I_eabc(K_ij); five-step protocol in docs/theory/higgs_bubble_eabc_analogy.md section 8",
+      "status": "conceptual bridge / external analogy",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-04",
+      "not_claimed": "No claim that eabc or quaternionic prime structure explains baryogenesis or is physically identified with Higgs bubble dynamics; DESY does not prove eabc; primes do not generate baryons"
+    },
+    {
+      "id": "E-072",
+      "title": "EABC channel partition: bucket maximality (K = min_c |L_c|) and greedy upper bound",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/EABCChannelPartition.lean, docs/eabc_partition.md, src/kepler_hurwitz/eabc_rising_collection.py, examples/export_eabc_partition_quadruples.py, examples/export_eabc_partition_comparison.py, tests/test_eabc_rising_collection.py, tests/test_kepler_eabc_atlas.py",
+      "depends_on": [],
+      "supports": [],
+      "scope": "Combinatorial core independent of primes; bucket capacity K = min channel list length; greedy upper bound; channel quadruples are not prime quadruplets (p,p+2,p+6,p+8)",
+      "metric_or_result": "Reference n=2000: m=1998, K_bucket=486, K_greedy=310, coverage 97.3%; card_disjoint_eabc_quadruples_le_bucketCapacity, greedy_card_le_bucketCapacity; 0 sorry",
+      "status": "proved / reproducible",
+      "stability": "stable",
+      "last_reviewed": "2026-07-04",
+      "lean_label": "E-072"
+    },
+    {
+      "id": "E-073",
+      "title": "HoTT Identity Layer (unit migration path witness, ideal univalence target-picture marker, DH_Quat HIT sketch, mod 12 fundamental period modeling)",
+      "level": "C",
+      "aclass": null,
+      "source": "KeplerHurwitz/HoTTIdentityLayer.lean, docs/hott_identity_layer.md",
+      "depends_on": [
+        "E-053",
+        "E-067",
+        "E-068",
+        "E-069",
+        "E-072"
+      ],
+      "supports": [],
+      "scope": "Conceptual identity-layer interface [C] (Anschlussraum, not replacement for E-067–E-069): HoTT_EABC_Interface with explicit hypothesis fields (PathWitness/migration_path as path witness not identity collapse, period_equiv_zmod12 as fundamental period modeling not pi1 theorem, defect_repair_path); UnitMigrationPath markers; IdealUnivalenceHypothesis/IdealUnivalenceAxiom as optional target-picture markers (not Voevodsky postulate); DH_QuatPoint as HIT sketch; EabcMod12Pi1Hypothesis separate from period_equiv_zmod12; EabcMod12ChannelMapping (E-072) is finite channel check not homotopy claim",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.HoTTIdentityLayer green; hott_identity_layer_status (finite checks only, no HoTT theorems)",
+      "status": "foundational hypothesis / conceptual interface",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "lean_label": "E-073",
+      "not_claimed": "Lean 4 is not univalent HoTT (Coq-HoTT stronger for univalence/HITs); migration_path postulates path witnesses (strongest core, not derived HoTT theorem); period_equiv_zmod12 models fundamental period, not pi1 ≃ Z/12Z; EabcMod12Pi1Hypothesis is separate hypothesis interface not proved; EabcMod12ChannelMapping (E-072) is finite channel check not homotopy claim; IdealUnivalenceHypothesis/IdealUnivalenceAxiom document univalent target picture as optional markers, not Voevodsky axiom or Lean theorem; univalence is equivalence between identity and equivalence, not mere implication; HIT repair is model sketch not native HIT; no formal HoTT proofs in standard Lean; HoTT does not prove EABC, Dumas (E-048), or Dedekind PID (E-053); E-073 is Anschlussraum not replacement for E-067–E-069",
+      "references": [
+        {
+          "label": "HoTT Book",
+          "url": "https://homotopytypetheory.org/book/",
+          "note": "external reference frame for univalent foundations; not implemented in this repo"
+        },
+        {
+          "label": "HoTT Book (Introduction, Univalence)",
+          "url": "https://homotopytypetheory.org/book/",
+          "note": "Univalence Axiom (A = B) ≃ (A ≃ B): canonical idtoequiv map is an equivalence (Introduction Univalent foundations; §2.10); reference frame for IdealUnivalenceHypothesis, not Voevodsky postulate in repo"
+        },
+        {
+          "label": "Coq-HoTT",
+          "url": "https://github.com/HoTT/Coq-HoTT",
+          "note": "traditional univalence/HIT library; reference frame only, not used here"
+        },
+        {
+          "label": "Lean 2 HoTT",
+          "url": "https://github.com/leanprover/lean2/tree/master/hott",
+          "note": "historical Lean HoTT experiment; not Lean 4 basis"
+        },
+        {
+          "label": "nLab: Lean",
+          "url": "https://ncatlab.org/nlab/show/Lean",
+          "note": "documents Lean 4 is not univalent HoTT"
+        },
+        {
+          "label": "nLab: univalence axiom",
+          "url": "https://ncatlab.org/nlab/show/univalence+axiom",
+          "note": "conceptual frame for IdealUnivalenceHypothesis target-picture marker (not Voevodsky postulate)"
+        },
+        {
+          "label": "nLab: higher inductive type",
+          "url": "https://ncatlab.org/nlab/show/higher+inductive+type",
+          "note": "conceptual frame for DH_Quat HIT sketch; not native HIT"
+        }
+      ],
+      "renumbered_from": "E-067-HoTT"
+    },
+    {
       "id": "E-075",
       "title": "Prime Grid / Signaturgeometrie natuerlicher Zahlen",
       "level": "B/C",
@@ -1000,6 +1327,363 @@
       "stability": "stable",
       "last_reviewed": "2026-07-05",
       "defensive_scope": "Prime Grid beweist nicht EABC, Dedekind-Hasse, HoTT, Renormalisierung, RH oder verwandte offene Programme."
+    },
+    {
+      "id": "E-076",
+      "title": "Physik-Referenz-Analogien (AB / Klitzing / Meissner)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/reports/physical_reference_analogies.md, docs/theory/meissner_analogy_assessment.md",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [
+        "E-080",
+        "E-081",
+        "E-083",
+        "E-089"
+      ],
+      "scope": "Aharonov-Bohm, von-Klitzing/QHE, Meissner als interpretative Resonanzanker fuer 24I_3, Retraktion, Shell-Stapel",
+      "metric_or_result": "interpretativ; keine Lean-Formalisation der Analogien",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Analogie, nicht Identitaet; liefert keinen Beweisweg fuer Collatz V2.7, Dedekind-Hasse oder globale EABC-Renorm."
+    },
+    {
+      "id": "E-077",
+      "title": "MetricSeparationLossExistence / ShellSeparationLoss(n)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/energiedoku_exports/eabc_renormalisierungsprogramm.md, docs/open_research_questions.md (ORQ-077)",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [
+        "E-085"
+      ],
+      "scope": "metrischer Raum, Shell-Einbettung iota_n, erster kontrollierter Separationsverlust n_0",
+      "metric_or_result": "offen; kein Lean-Symbol MetricSeparationLossExists",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "[C→B] Zielstatus: Derzeit [C] im Register; [B]-Upgrade erst nach formaler Definition von ShellSeparationLoss(n), Metrik, Schwelle und reproduzierbarem Export. projection_loss in diagnostics.py ist Prime-Grid L_pi=Omega-M, nicht metrischer Shell-Separationsverlust. shell_separation_diagnostics.py ist Diagnose only — beweist nicht MetricSeparationLossExists. Meissner (E-076) ist Lesesprache fuer Separationsverlust, kein Hauptangriff; siehe docs/theory/meissner_analogy_assessment.md."
+    },
+    {
+      "id": "E-078",
+      "title": "Globale R3-Einbettung aller Shells (iota_n fuer alle n)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/energiedoku_exports/eabc_renormalisierungsprogramm.md, docs/open_research_questions.md (ORQ-078)",
+      "depends_on": [
+        "E-053"
+      ],
+      "supports": [
+        "E-079"
+      ],
+      "scope": "ShellVertex(n) -> R^3 fuer alle n mit uniformen Separations- und Ueberdeckungsabschaetzungen",
+      "metric_or_result": "offen; bisher nur n=1,2,3",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Minkowski-Bouligand-Dimension nicht ohne Grenzuebergang n->infty behauptet."
+    },
+    {
+      "id": "E-079",
+      "title": "Minkowski-Bouligand-Boxdimension aus Shell-Metrik",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/energiedoku_exports/eabc_renormalisierungsprogramm.md, docs/open_research_questions.md (ORQ-079)",
+      "depends_on": [
+        "E-078",
+        "E-053"
+      ],
+      "supports": [],
+      "scope": "echte Boxdimension in R^3 aus M_n^sep=4^n und kontrollierter Metrik",
+      "metric_or_result": "offen; ln(4)/ln(phi) allein nicht ausreichend",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Kombinatorische Skalierung ist noch kein metrischer Dimensionssatz."
+    },
+    {
+      "id": "E-080",
+      "title": "MonopoleHurwitzWindingHypothesis",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-080)",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [
+        "E-082"
+      ],
+      "scope": "effektive Monopolladung (Spin-Ice-[?]) als algebraischer Index auf Hurwitz-Orbits",
+      "metric_or_result": "offen; kein Code-Hook",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Kein physikalischer Beweis; Primideal ist nicht Monopol; Spin-Ice nicht etabliertes EABC-Modell."
+    },
+    {
+      "id": "E-081",
+      "title": "DiracSchwingerEmergentHypothesis",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-081)",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [],
+      "scope": "emergente Monopole und Dirac-Schwinger-artige Kopplung in EABC-Shell-Geometrie",
+      "metric_or_result": "offen",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Kein Schwinger-Monopol-Theorem; keine QED-Identifikation."
+    },
+    {
+      "id": "E-082",
+      "title": "DipoleOctupoleMonopoleChargeHypothesis",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-082)",
+      "depends_on": [
+        "E-080"
+      ],
+      "supports": [],
+      "scope": "Dipol-/Oktupol-Defekte vs. effektive Monopolladung auf EABC-Shells",
+      "metric_or_result": "offen",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Multipol-Expansion ist keine etablierte EABC-Observable."
+    },
+    {
+      "id": "E-083",
+      "title": "BerryHolonomyConnectionHypothesis",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-083)",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [],
+      "scope": "Berry-Holonomie als holonome Verbindung auf diskreten EABC-Orbiten",
+      "metric_or_result": "offen",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Berry-Phase ist keine gemessene Groesse im Formal Core."
+    },
+    {
+      "id": "E-084",
+      "title": "GeometryScaffold (Morley / Marion Walter / crossed Ptolemy / Ikosaeder-Ptolemy)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-084), KeplerHurwitz/SchuettePtolemyCaeda.lean",
+      "depends_on": [
+        "E-025"
+      ],
+      "supports": [],
+      "scope": "vier klassische euklidische Saetze als Scaffold; PtolemaicClosure noch abstrakt",
+      "metric_or_result": "offen; nicht euklidisch spezialisiert",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "PtolemaicClosure ist nicht identisch mit euklidischem Ptolemy; kein Beweis im EABC-Kern."
+    },
+    {
+      "id": "E-085",
+      "title": "shellPrimeMatchAtFirstLoss (gated on E-077)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/reports/shell_separation_diagnostics_protocol.md, docs/reports/shell_separation_preregistration.json, docs/reports/shell_n0_dual_track_decision.md, docs/open_mathematical_bridge_targets.md, docs/open_research_questions.md (ORQ-086)",
+      "depends_on": [
+        "E-077"
+      ],
+      "supports": [],
+      "scope": "Kopplung erster metrischer Separationsverlust an EABC-Primindex; nur nach MetricSeparationLossExists",
+      "metric_or_result": "GATE INACTIVE — Dual-Track: Track A primary n_0=NONE; Track B exploratory_n_0=2 gate_eligible=false",
+      "status": "offen",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Keine vorzeitige Prim-Prognose aus Diagnostics; E-072-Kanalpartition allein reicht nicht. Aktivierung erst nach blindem internem Instabilitaetsnachweis (E-077) aus gate-eligible primary track; Track B n_0=2 (energiedoku_full, [C]) darf nicht verwendet werden solange Track A primary bleibt; siehe docs/reports/shell_separation_diagnostics_protocol.md Dual-Track n0 Governance."
+    },
+    {
+      "id": "E-087",
+      "title": "WeylChiralBridgeHypothesis (Weyl-Punkte / Chiralitaet / Berry-Kruemmung auf Orbit-Parameterraum)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/weyl_onsager_bridge_attack.md, docs/theory/weyl_commutator_operator_bridge.md, docs/open_research_questions.md (ORQ-087)",
+      "depends_on": [
+        "E-076",
+        "E-080",
+        "E-083"
+      ],
+      "supports": [],
+      "scope": "Weyl-Semimetal-Lesesprache fuer lokale Chiralitaet, Berry-Holonomie und Hurwitz-Windung auf EABC-Kanalraendern",
+      "metric_or_result": "interpretativ; weyl_chirality_proxy und berry_holonomy_product als [B]-Stub",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Weyl-Gleichung ist Metapher fuer massless chiral modes — kein Beweis von EABC, Dedekind Phi oder Berry-Identitaet; kein physikalisches Weyl-Semimetall im Formal Core."
+    },
+    {
+      "id": "E-088",
+      "title": "OnsagerReciprocalBridgeHypothesis (Reziprozitaet / Hall-Klitzing / Isotropie-Defekt-Kompensation)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/weyl_onsager_bridge_attack.md, docs/theory/onsager_quantization_bridge.md, docs/open_mathematical_bridge_targets.md",
+      "depends_on": [
+        "E-076",
+        "E-089"
+      ],
+      "supports": [],
+      "scope": "Onsager L_ij=L_ji als globale Kopplungssymmetrie-Lesesprache; Hall/Klitzing-Resonanz und 24I3-Isotropie ohne physikalische Identifikation",
+      "metric_or_result": "interpretativ; onsager_reciprocity_residual als [B]-Stub",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Onsager-Reziprozitaet beweist keine Dedekind-Symmetrie, kein ShellSeparationLoss und kein Collatz; QHE ist Resonanzsprache, nicht Hurwitz-Primidentitaet."
+    },
+    {
+      "id": "E-089",
+      "title": "Onsager Quantization Bridge (Flussquantisierung / Wirbel / Ising / Reziprozitaet)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/onsager_quantization_bridge.md, docs/open_research_questions.md (ORQ-089), docs/open_mathematical_bridge_targets.md",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [
+        "E-080",
+        "E-083"
+      ],
+      "scope": "Vier Onsager-Achsen als Resonanzsprache fuer Diskretisierung, Umlauf, Kritikalitaet, Zeitumkehr in EABC",
+      "metric_or_result": "interpretativ; keine Lean-Formalisation; [B]-Diagnostik vorgeschlagen",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-05",
+      "defensive_scope": "Keine physikalische Identifikation; ergaenzt E-076 ohne gegenseitige Deduktion; Ising-Kritikalitaet ist keine ShellSeparationLoss-Behauptung; Onsager-Reversibilitaet beweist keine Dedekind-Symmetrie."
+    },
+    {
+      "id": "E-090",
+      "title": "Kanonische e3-Zerlegung n = q*e^3 + r*e (Lemma 1-3: product split + S± multiplet)",
+      "level": "A/B/C",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/E3Decomposition.lean, src/kepler_hurwitz/e3_decomposition.py, docs/collatz_e3_decomposition.md, tests/test_e3_decomposition.py",
+      "depends_on": [],
+      "supports": [
+        "docs/collatz_v2_evidence_chain.md"
+      ],
+      "scope": "[A] e3_decomposition_identity, e3_product_decomposition, e3_multiplet_identity in Lean; [B] Python analyze/verify including S± profile; [C] Collatz-bridge, fine-structure, Zeeman/Stark analogy in dossier only",
+      "metric_or_result": "Lemma 1-3 closed 0 sorry; S± diagnostic (s_plus_sq, s_minus_sq) [B]; Collatz relevance explicitly [C] orthogonal to BadRunNetDescentWitness",
+      "status": "bewiesen (Lean algebra)",
+      "stability": "stable",
+      "last_reviewed": "2026-07-06",
+      "defensive_scope": "e3 layer does not prove Collatz, replace oddCore, or strengthen V2.7 net descent; Zeeman/Stark and quaternion collinearity marked [C] in collatz_e3_decomposition.md"
+    },
+    {
+      "id": "E-091",
+      "title": "Klein V4 bifurcation nullmodel (Syracuse label path vs neighbor tree)",
+      "level": "B",
+      "aclass": null,
+      "source": "src/kepler_hurwitz/klein_bifurcation_nullmodel.py, tests/test_klein_bifurcation_nullmodel.py",
+      "depends_on": [
+        "tao_collatz_diagnostics"
+      ],
+      "supports": [
+        "docs/collatz_v27_net_descent.md",
+        "docs/collatz_v2_evidence_chain.md"
+      ],
+      "scope": "Mod-8 Klein neighbor bifurcation tree compared to true Syracuse label paths; exploratory [B] only",
+      "metric_or_result": "pytest test_klein_bifurcation_nullmodel; does not prove Collatz",
+      "status": "reproduzierbar",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-06",
+      "defensive_scope": "Nullmodel diagnostic only; complements CollatzNetDescentMod8 witness skeleton without Lean proof claim"
+    },
+    {
+      "id": "E-092",
+      "title": "Nuclear binding multiscale analogy (Weizsaecker envelope + residual R(A,Z); I_EABC test protocol)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/nuclear_binding_multiscale_analogy.md",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [
+        "docs/open_research_questions.md"
+      ],
+      "scope": "Formal R(A,Z)=B_exp-B_smooth; 95-99% smooth vs 1-0.1% quantum residual content; pi(x)=Li(x)+E(x) analogy; EABC comparison targets R(A,Z) via I_EABC with null-model requirement (ORQ-092)",
+      "metric_or_result": "pytest test_nuclear_binding_residual; nullmodel significance required for [B]",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-06",
+      "defensive_scope": "No physics identity; no EABC nuclear binding claim; empirical verification required before [B]; Weierstrass ABCE/CEAB export is arithmetic-only"
+    },
+    {
+      "id": "E-093",
+      "title": "Black Hole Legendre-GWTC bridge (kappa quantization, chi_p stratification, Fisher test)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/black_hole_legendre_gwtc_bridge.md",
+      "depends_on": [
+        "E-076"
+      ],
+      "supports": [
+        "docs/open_research_questions.md",
+        "docs/theory/riemann_zero_interference_analogy.md"
+      ],
+      "scope": "Legendre three-squares gaps [A/B]; kappa maps M_sun to discrete shells [C]; 1G/2G via chi_p [C]; Fisher exact test on mock GWTC scaffold; Riemann interference wave plot f(x)=sum cos(gamma_n ln x) around bc nodes 35/143 [B] illustrative",
+      "metric_or_result": "pytest test_black_hole_legendre_gwtc; test_riemann_interference_diagnostics; mock catalog only; kappa sweep exploratory; docs/exports/riemann_interference_phase_collapse.png",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-07",
+      "defensive_scope": "No EABC=GW identity; no kappa-minimum discovery without preregistration on real GWTC; Sage scripts are [C] reading language except Legendre core; interference plot does not prove symmetry breaking or EABC bivector collapse"
+    },
+    {
+      "id": "E-094",
+      "title": "Phaseninvarianz Pauli energy bridge (Z/X invariance on E_a, tensor-X vulnerability on E_bc)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/phaseninvarianz_pauli_energy_bridge.md",
+      "depends_on": [
+        "E-093",
+        "E-044"
+      ],
+      "supports": [
+        "docs/open_research_questions.md"
+      ],
+      "scope": "E_a = ax^2+ay^2 invariant under Pauli Z/X [A/B]; E_bc quartic cross terms restructured by partial tensor X [A/B]; QEC-protects-primes reading [C]",
+      "metric_or_result": "pytest test_phaseninvarianz_pauli_energy; pauli_invariance_report export JSON",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-07",
+      "defensive_scope": "No QM Pauli identity; no proof that primes are QEC-stabilized; Sage symbolic invariance is [A/B] algebra not physics"
+    },
+    {
+      "id": "E-095",
+      "title": "Riemann zero ln(x) interference (S(x;Gamma)=sum cos(gamma ln x); prime vs composite bc-axis nodes)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/riemann_zero_interference_analogy.md",
+      "depends_on": [
+        "E-034",
+        "E-035",
+        "E-092",
+        "E-094"
+      ],
+      "supports": [
+        "docs/open_research_questions.md"
+      ],
+      "scope": "Explicit-formula reading language: sum cos(gamma ln x) over first N zeta zeros at integer nodes; constructive at primes vs destructive at composites on bc-axis [C]; fractional-weighted kernel Phi_R_alpha = sum cos(gamma ln x) * x^(-alpha) PoC at alpha=0 vs 0.5 [C/B]; bridge to cross-talk DeltaE (PI-C-03) and nuclear residual oscillation analogy (E-092)",
+      "metric_or_result": "pytest test_riemann_interference_diagnostics; export riemann_zero_interference.json; fractional comparison riemann_fractional_interference_comparison.summary.json",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-07",
+      "defensive_scope": "Not proof that zeta zeros cause EABC symmetry break; not physics identity; distinct from E-034/E-035 mean-cos metrics; Mangoldt-weighted explicit formula not claimed"
     }
   ]
 }

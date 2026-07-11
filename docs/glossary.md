@@ -62,3 +62,9 @@ Es dient der Lesbarkeit, nicht der Evidenzklassifikation.
 | Entropie | Mass effektiver Zustandsvielfalt |
 | freie Energie | Konkurrenzgroesse von Energie- und Entropiebeitrag |
 | Korrelation | nichtlokale bzw. gekoppelte Strukturinformation |
+
+## Physik (Referenz, extern)
+
+| Begriff | Bedeutung |
+|---|---|
+| Meissner-Effekt | Verdrängung magnetischen Flusses aus dem Inneren eines Supraleiters beim Übergang unter T_c; siehe [`docs/physics/meissner_effect.md`](physics/meissner_effect.md) |

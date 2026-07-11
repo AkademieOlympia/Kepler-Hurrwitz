@@ -85,6 +85,8 @@ Relevanz fuer EABC:
 
 **Prime Grid ↔ EABC (E-075, `[B]`/`[C]`):** Kolossvárys Prime Grid identifiziert $N=\prod_p p^{i_p}$ mit der Signatur $\mathbf{i}_N=(i_p)_p$ und den Normen $\|\mathbf{i}_N\|_1=\Omega(N)$, $\|\mathbf{i}_N\|_\infty=\max_p i_p$. EABC komprimiert Priminformation auf vier mod-12-Kanäle $H(n)=(E,A,B,C)$ mit restriktiver $\ell^1$-Norm $M(n)=E+A+B+C$ (optional $Q(n)=\max\{E,A,B,C\}$). Number trail / $L_\infty$ und Givental-Kegel-Lift dienen als **methodische** Parallelen zu EABC-Streams und Signatur-Projektion — **ohne** Beweis von EABC, Dedekind–Hasse oder HoTT. Siehe [`e075_prime_grid_signaturgeometrie.md`](energiedoku_exports/e075_prime_grid_signaturgeometrie.md).
 
+**Lift-Projektions-Prinzip (Quaternionen ↔ Kepler/Givental, `[C]`):** Kanonische Formulierung — nicht „Quaternionen = Keplerellipsen“, sondern gemeinsames Schema Lift → Schnitt → Projektion ($\mathcal{O}=\pi_K(C\cap\Pi)$, $H=\pi_Q(\mathcal{Q}_{\mathrm{arith}}\cap\mathcal{S})$). Siehe [`kepler_quaternion_lift_projection.md`](theory/kepler_quaternion_lift_projection.md).
+
 ## Externe arithmetische Feinstruktur-Analogie `[C]`
 
 - Hassall, *Emergent Quantum Foundations and Charge in the Arithmetic Vacuum* (März 2026):

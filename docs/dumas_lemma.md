@@ -201,6 +201,27 @@ algebraische Eleganz — die Basis fuer die Lean-Formalisierung in
 
 ---
 
+## 4b. Abgrenzung: Chebyshev mod-4-Bias (E-050, `[C]`)
+
+Das Dumas-Lemma (E-048) ist **endliche Kombinatorik** auf einem Primvierling.
+Der **Chebyshev-Bias** (`π(x;4,3) − π(x;4,1)`) ist ein **globales Dirichlet-Rennen**
+— formal in `KeplerHurwitz/ChebyshevBiasInterface.lean` als `[C]`-Hypothesenschicht,
+getrennt von E-048. Es gibt **keinen Beweis** einer Bruecke `ChebyshevDumasInterface`.
+
+Siehe: [chebyshev_bias_interface.md](chebyshev_bias_interface.md)
+
+---
+
+## 4c. Abgrenzung: Dedekind-Idealtheorie (E-067–E-069)
+
+E-053 (Dedekind–Hasse) prüft **PID-Fähigkeit**; E-067 ff. beschreiben **Idealpfade**
+(`LeftIdeal`, `PrincipalLeftIdeal`, DED-1…DED-5). EABC-Signaturdeutung
+(`EabcInterpretationLayer`) ist **nicht** aus Idealen bewiesen.
+
+Siehe: [dedekind_ideal_layer.md](dedekind_ideal_layer.md)
+
+---
+
 ## 5. Lean-Symbolverzeichnis
 
 | Symbol | Datei | Bedeutung |

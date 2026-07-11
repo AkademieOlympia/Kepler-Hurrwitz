@@ -551,6 +551,12 @@ bleibt die Verbindung strukturell-methodisch; sie ist keine etablierte mathemati
 
 Kolossvárys **Prime Grid** stellt $N=\prod_p p^{i_p}$ als Exponenten-Signatur $\mathbf{i}_N=(i_p)_p$ dar; $\|\mathbf{i}_N\|_1=\Omega(N)$ und $\|\mathbf{i}_N\|_\infty=\max_p i_p$. EABC liest dieselbe Priminformation durch mod-12-Kompression $H(n)=(E,A,B,C)$ mit $M(n)=E+A+B+C$. Number trail / $L_\infty$ und der Givental-Kegel-Lift (Ebene → Kegel → Schnitt-Invarianten) sind **methodische** Parallelen zur Signatur-Projektion — dokumentiert in [`e075_prime_grid_signaturgeometrie.md`](e075_prime_grid_signaturgeometrie.md) (E-075, `[B]`/`[C]`). **Nicht behauptet:** Prime Grid beweist EABC oder die Retraktion $R^*$.
 
+### 13.2 Lift-Projektions-Prinzip (Quaternionen ↔ Kepler/Givental)
+
+Die kanonische Formulierung im Repo verbindet Givental-Kepler-Lift und EABC-/Quaternionen-Lift **methodisch**, nicht objektweise: $\mathcal{O}=\pi_K(C\cap\Pi)$ bei Kepler; $H=\pi_Q(\mathcal{Q}_{\mathrm{arith}}\cap\mathcal{S})$ bei EABC mit $\pi_Q:\mathcal{Q}_{\mathrm{arith}}\to\mathbb{N}^4$. Kepler-Kegel ($r^2-x^2-y^2=0$) und quaternionische Norm ($N(\gamma)=a^2+b^2+c^2+e^2$) sind **beide quadratische Lift-Strukturen** — nicht „Normschale = Kegel“. Governance: **Gleiche Methode, nicht gleiche Objekte** `[C]`.
+
+**Detail:** [`kepler_quaternion_lift_projection.md`](../theory/kepler_quaternion_lift_projection.md) · Givental-PDF: [`givental_kepler_laws_conic_sections.pdf`](../mathematische_texte/givental_kepler_laws_conic_sections.pdf)
+
 ---
 
 ## 14. Offene Probleme

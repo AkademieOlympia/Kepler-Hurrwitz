@@ -93,7 +93,7 @@ R_v(n)=\frac{1+e(n)}{1-e(n)}
 n \longmapsto \mathcal H(n) \longmapsto \mathcal C(n) \longmapsto \kappa_{\mathrm{Kepler}}(n).
 \]
 
-Methodische Einordnung (Lift → Schnitt → Projektion; **kein** Identitätsclaim Quaternionen = Keplerellipsen): [`lift_projection_principle.md`](lift_projection_principle.md).
+Methodische Einordnung (Lift → Schnitt → Projektion; **kein** Identitätsclaim Quaternionen = Keplerellipsen; Kepler-Kegel und quaternionische Norm als gemeinsame **quadratische Lift-Strukturen**, nicht als identische Gleichung; \(\mathcal{O}=\pi_K(C\cap\Pi)\), \(H=\pi_Q(\mathcal{Q}_{\mathrm{arith}}\cap\mathcal{S})\)): [`theory/kepler_quaternion_lift_projection.md`](theory/kepler_quaternion_lift_projection.md).
 
 Jede Zahl bestimmt damit:
 - eine orientierte Hurwitz-Signatur,

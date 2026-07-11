@@ -1,0 +1,4 @@
+n,shell_count,mode,sep,overlap_count_energiedoku_eps,overlap_count_mn_sep_eps,epsilon_energiedoku,epsilon_mn_sep,shell_separation_loss_energiedoku,shell_separation_loss_mn_sep,embedding_quality_energiedoku,embedding_quality_mn_sep,sep_equals_epsilon_boundary,first_loss_n_energiedoku,first_loss_n_mn_sep,notes
+1,4,full,1.4142135623730951,0,0,1.0,0.25,False,False,1.4142135623730951,5.656854249492381,False,2,,full_4_pow_1=4; source=theorematic_energiedoku_cardinal_lattice
+2,16,full,0.381966,24,0,0.38196601125010515,0.0625,True,False,0.9999999705468424,6.111456,False,2,,full_4_pow_2=16; source=theorematic_energiedoku_cardinal_lattice; n2_collinear_lattice_words_EE_EA_EB_share_min_sep_phi_inv_sq
+3,64,full,0.23606799999999994,0,0,0.23606797749978967,0.015625,False,False,1.0000000953124202,15.108351999999996,False,2,,full_4_pow_3=64; source=theorematic_energiedoku_cardinal_lattice

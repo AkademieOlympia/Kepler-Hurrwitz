@@ -1,0 +1,270 @@
+{
+  "collatz": [
+    {
+      "bad_run_cost": 2,
+      "m_good": 41,
+      "n": 27,
+      "net_descent_margin": -4,
+      "shrink_efficiency": -1.3333333333333333,
+      "t_good": 2,
+      "t_loc": 3
+    },
+    {
+      "bad_run_cost": 6,
+      "m_good": 53,
+      "n": 15,
+      "net_descent_margin": -25,
+      "shrink_efficiency": -3.5714285714285716,
+      "t_good": 6,
+      "t_loc": 3
+    }
+  ],
+  "governance": "Parameter destillieren ja; Identifikation behaupten nein. M != Omega, Q != ||i||_inf im Allgemeinen.",
+  "naturals": [
+    {
+      "channel_defect": 0,
+      "channel_eccentricity": 0.0,
+      "channel_entropy": 0.0,
+      "channel_variance": 0.0,
+      "mass_norm": 0,
+      "mass_product": null,
+      "max_channel": 0,
+      "min_channel": 0,
+      "norm": 6,
+      "norm_product_drift": null,
+      "prime_grid_compression": 0.0,
+      "prime_grid_infinity_ratio": 0.0,
+      "projection_loss": 2,
+      "signature_norm": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_product": null
+    },
+    {
+      "channel_defect": 0,
+      "channel_eccentricity": 0.0,
+      "channel_entropy": 0.0,
+      "channel_variance": 0.0,
+      "mass_norm": 0,
+      "mass_product": null,
+      "max_channel": 0,
+      "min_channel": 0,
+      "norm": 12,
+      "norm_product_drift": null,
+      "prime_grid_compression": 0.0,
+      "prime_grid_infinity_ratio": 0.0,
+      "projection_loss": 3,
+      "signature_norm": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signature_product": null
+    },
+    {
+      "channel_defect": 1,
+      "channel_eccentricity": 1.0,
+      "channel_entropy": 0.0,
+      "channel_variance": 0.1875,
+      "mass_norm": 1,
+      "mass_product": null,
+      "max_channel": 1,
+      "min_channel": 0,
+      "norm": 30,
+      "norm_product_drift": null,
+      "prime_grid_compression": 0.3333333333333333,
+      "prime_grid_infinity_ratio": 1.0,
+      "projection_loss": 2,
+      "signature_norm": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_product": null
+    },
+    {
+      "channel_defect": 1,
+      "channel_eccentricity": 1.0,
+      "channel_entropy": 0.0,
+      "channel_variance": 0.1875,
+      "mass_norm": 1,
+      "mass_product": null,
+      "max_channel": 1,
+      "min_channel": 0,
+      "norm": 60,
+      "norm_product_drift": null,
+      "prime_grid_compression": 0.25,
+      "prime_grid_infinity_ratio": 0.5,
+      "projection_loss": 3,
+      "signature_norm": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "signature_product": null
+    },
+    {
+      "channel_defect": 1,
+      "channel_eccentricity": 0.5,
+      "channel_entropy": 0.6931471805599453,
+      "channel_variance": 0.25,
+      "mass_norm": 2,
+      "mass_product": null,
+      "max_channel": 1,
+      "min_channel": 0,
+      "norm": 210,
+      "norm_product_drift": null,
+      "prime_grid_compression": 0.5,
+      "prime_grid_infinity_ratio": 1.0,
+      "projection_loss": 2,
+      "signature_norm": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "signature_product": null
+    }
+  ],
+  "primvierlinge": [
+    {
+      "channel_eccentricity_norm": 0.5,
+      "channel_eccentricity_product": 0.0,
+      "channel_entropy_norm": 0.6931471805599453,
+      "channel_entropy_product": 1.3862943611198906,
+      "channel_variance_norm": 0.25,
+      "channel_variance_product": 0.0,
+      "gamma_components": [
+        5,
+        7,
+        11,
+        13
+      ],
+      "norm": 364,
+      "norm_mass": 2,
+      "norm_product_drift": -2,
+      "norm_signature": [
+        1,
+        0,
+        1,
+        0
+      ],
+      "norm_signature_anisotropy": 1,
+      "norm_signature_defect": 2,
+      "p": 5,
+      "product": 5005,
+      "product_mass_is_four": true,
+      "product_signature": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "projection_loss": 2,
+      "quadruple": [
+        5,
+        7,
+        11,
+        13
+      ]
+    },
+    {
+      "channel_eccentricity_norm": 0.5,
+      "channel_eccentricity_product": 0.0,
+      "channel_entropy_norm": 0.6931471805599453,
+      "channel_entropy_product": 1.3862943611198906,
+      "channel_variance_norm": 0.25,
+      "channel_variance_product": 0.0,
+      "gamma_components": [
+        11,
+        13,
+        17,
+        19
+      ],
+      "norm": 940,
+      "norm_mass": 2,
+      "norm_product_drift": -2,
+      "norm_signature": [
+        0,
+        1,
+        0,
+        1
+      ],
+      "norm_signature_anisotropy": 1,
+      "norm_signature_defect": 2,
+      "p": 11,
+      "product": 46189,
+      "product_mass_is_four": true,
+      "product_signature": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "projection_loss": 2,
+      "quadruple": [
+        11,
+        13,
+        17,
+        19
+      ]
+    },
+    {
+      "channel_eccentricity_norm": 0.5,
+      "channel_eccentricity_product": 0.0,
+      "channel_entropy_norm": 0.6931471805599453,
+      "channel_entropy_product": 1.3862943611198906,
+      "channel_variance_norm": 0.25,
+      "channel_variance_product": 0.0,
+      "gamma_components": [
+        101,
+        103,
+        107,
+        109
+      ],
+      "norm": 44140,
+      "norm_mass": 2,
+      "norm_product_drift": -2,
+      "norm_signature": [
+        0,
+        1,
+        0,
+        1
+      ],
+      "norm_signature_anisotropy": 1,
+      "norm_signature_defect": 2,
+      "p": 101,
+      "product": 121330189,
+      "product_mass_is_four": true,
+      "product_signature": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "projection_loss": 2,
+      "quadruple": [
+        101,
+        103,
+        107,
+        109
+      ]
+    }
+  ],
+  "priority_parameters": [
+    "net_descent_margin",
+    "bad_run_cost",
+    "shrink_efficiency",
+    "channel_entropy",
+    "prime_grid_compression",
+    "norm_signature_defect",
+    "projection_loss",
+    "chirality_norm"
+  ]
+}

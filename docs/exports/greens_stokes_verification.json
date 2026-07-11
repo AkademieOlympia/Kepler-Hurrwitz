@@ -1,0 +1,20 @@
+{
+  "analytic": 6.283185307179586,
+  "curl_z": 2.0,
+  "field": "F = <-y, x, 0>",
+  "governance": "[B]",
+  "green_equals_stokes": true,
+  "greens_double_integral": 6.283185307179522,
+  "greens_relative_error": 1.0177774980683253e-14,
+  "greens_scalar_curl": 2.0,
+  "line_integral": 6.283185307179586,
+  "line_relative_error": 0.0,
+  "n_samples": 4096,
+  "not_claimed": [
+    "Green/Stokes proves EABC vortex circulation",
+    "Numerical disk example identifies Dumas Gap-Rotor loops"
+  ],
+  "radius": 1.0,
+  "stokes_relative_error": 1.0177774980683253e-14,
+  "stokes_surface_integral": 6.283185307179522
+}

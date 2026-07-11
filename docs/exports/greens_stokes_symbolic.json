@@ -1,0 +1,27 @@
+{
+  "governance": "[B]",
+  "green": {
+    "area_integral": "18.0*pi",
+    "formula": "2*pi*3.0^2",
+    "governance": "[B]",
+    "line_integral": "18.0*pi",
+    "radius": 3.0,
+    "theorem": "green",
+    "verified": true
+  },
+  "not_claimed": [
+    "Symbolic disk example proves EABC channel coupling",
+    "Green/Stokes identifies E-090 e3 multiplet structure"
+  ],
+  "radius": 3.0,
+  "stokes": {
+    "area_integral": "18.0*pi",
+    "formula": "2*pi*3.0^2",
+    "governance": "[B]",
+    "line_integral": "18.0*pi",
+    "radius": 3.0,
+    "theorem": "stokes",
+    "verified": true
+  },
+  "unified_stokes_form": "int_{d Omega} omega = int_Omega d omega"
+}

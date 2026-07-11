@@ -95,18 +95,11 @@ Im Prime Grid motiviert der **Number trail** (Pfad der Exponentenentwicklung) un
 
 ## Kepler–Givental: methodische Parallele
 
-Givental formuliert Keplersche Gesetze als **Kegelschnitt-Invarianten** — Übergang von Ebene (Ellipsen/Parabeln/Hyperbeln) zu **Kegel-Lift** und einfacher Schnittgeometrie.
+Givental formuliert Keplersche Gesetze als **Kegelschnitt-Invarianten** — Übergang von Ebene zu Kegel-Lift und Schnittgeometrie. Die **kanonische** Einordnung im Repo ist nicht „Quaternionen = Keplerellipsen“, sondern das gemeinsame **Lift-Projektions-Prinzip**: Kepler $\mathcal{O}=\pi_K(C\cap\Pi)$ mit $C=\{(x,y,r): r^2=x^2+y^2\}$; EABC $H=\pi_Q(\mathcal{Q}_{\mathrm{arith}}\cap\mathcal{S})$ mit $\pi_Q:\mathcal{Q}_{\mathrm{arith}}\to\mathbb{N}^4$. Kepler-Kegel und quaternionische Norm sind **beide quadratische Lift-Strukturen** ($r^2-x^2-y^2=0$ vs. $N(\gamma)=a^2+b^2+c^2+e^2$), nicht identisch.
 
-| Givental (Kepler/Kegel) | Prime Grid / EABC (Lesart) |
-|---|---|
-| Ebene: Bahn/Kepler-Orbit | Prime Grid: volle Exponentenachse |
-| Kegel-Lift | mod-12-Kompression → $H(n)$ |
-| Einfache Schnitt-Invarianten | $M(n)$, $Q(n)$, Shell-Tensoren |
-| Methodischer Nutzen | Geometrie-Rahmen für Signatur-Projektion |
+**Detail:** [`kepler_quaternion_lift_projection.md`](../theory/kepler_quaternion_lift_projection.md) · **PDF:** [`givental_kepler_laws_conic_sections.pdf`](../../mathematische_texte/givental_kepler_laws_conic_sections.pdf)
 
-**PDF:** [`givental_kepler_laws_conic_sections.pdf`](../../mathematische_texte/givental_kepler_laws_conic_sections.pdf)
-
-> **Governance `[C]`:** Kepler-Givental-Lift ist **kein** Beweis der EABC-Isotropierestauration oder der Dedekind–Hasse-Analogie in [`eabc_renormalisierungsprogramm.md`](eabc_renormalisierungsprogramm.md) §13.
+> **Governance `[C]`:** Gleiche Methode, nicht gleiche Objekte. Kepler-Givental-Lift ist **kein** Beweis der EABC-Isotropierestauration oder der Dedekind–Hasse-Analogie in [`eabc_renormalisierungsprogramm.md`](eabc_renormalisierungsprogramm.md) §13.
 
 ---
 
@@ -135,6 +128,7 @@ Givental formuliert Keplersche Gesetze als **Kegelschnitt-Invarianten** — Übe
 | Dedekind-Ideal-Schicht | [`../dedekind_ideal_layer.md`](../dedekind_ideal_layer.md) |
 | HoTT Identity Layer | [`../hott_identity_layer.md`](../hott_identity_layer.md) |
 | Related Work | [`../related-work.md`](../related-work.md) §6 |
+| Lift-Projektions-Prinzip | [`../theory/kepler_quaternion_lift_projection.md`](../theory/kepler_quaternion_lift_projection.md) |
 | Literatur | [`../literaturliste.md`](../literaturliste.md) |
 
 ---

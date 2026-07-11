@@ -114,3 +114,20 @@ Forschungslandkarte (Ideenkategorien): `docs/research_map.md`.
 Zentrale Aussagen und ihr Reifegrad werden im `EVIDENCE_REGISTER.md` gefuehrt.
 Die maschinenlesbare Spiegelung liegt in `EVIDENCE_REGISTER.json`.
 Strukturentscheidungen und ihre Begruendung stehen in `DECISIONS.md`.
+
+## Embedding Audit Pipeline
+
+Schalen-Einbettungen werden nicht an Rohkoordinaten, sondern an geometrischen Invarianten
+(sep, overlap, Distanz-/Gram-Spektrum, Procrustes) geprueft — siehe
+[`docs/reports/EMBEDDING_AUDIT_PIPELINE.md`](docs/reports/EMBEDDING_AUDIT_PIPELINE.md).
+
+| Schritt | Status |
+|---|---|
+| Detector-Controls | DONE |
+| Energiedoku-Koordinaten n=1,2,3 | DONE (CSV 84 rows) |
+| Embedding-Audit-Code + Audit run | DONE |
+| ι_n-Revision n≥2 | **NEXT** |
+| ε_n-Schaerfung | PENDING |
+
+Audit laeuft scharf gegen `docs/energiedoku_exports/shell_coordinates_energiedoku_n1_n3.csv`.
+Schnellstart: `PYTHONPATH=src python scripts/shell_embedding_geometry_audit.py --n-max 3`

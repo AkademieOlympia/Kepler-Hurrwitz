@@ -21,4 +21,5 @@ where = ["src"]
 testpaths = ["tests"]
 markers = [
     "slow: exhaustive lattice sieve (may take tens of seconds)",
+    "regression: Prüfmodul A — structural consistency (H1–H11), always green",
 ]

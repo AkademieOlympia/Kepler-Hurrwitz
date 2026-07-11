@@ -12,7 +12,16 @@ Sie ist rein orientierend und fuehrt keine Evidenzupgrades aus.
 | LQG (motivisch) | Diskrete Geometrie | Graphstruktur, Labels, lokale Operatoren | L4 |
 | Stringtheorie (motivisch) | Dualitaet, Kompaktifizierung | alternative Repräsentationen / Projektionen | L4 |
 | Thermodynamik | Spektrum, Zustandssumme | Entropie-/Freie-Energie-Organisation | L4 |
+| Onsager (motivisch) | Reziprozität, Flussquantisierung, Wirbel, Ising-Kritikalität | Diskretisierung, Umlauf, Phasenübergang, Zeitumkehr | L4 |
 | Riemann (motivisch) | Spektrale Struktur | offene Forschungsrichtung | L4 |
+
+## Riemann / Fixed-Locus Programm (L4-RL)
+
+| Layer | ID | Komponente | Mathematisches Fundament | Status / Lean-Target | Governance-Regel |
+|---|---|---|---|---|---|
+| **L4** | L4-RL-009 | `FixedLocusConfinement` | Involutive Selbstdualität \(D(s)=1-\bar{s}\), HoTT-Identitätstypen | `[C]` offen / Zielkorridor Stufe 4–5 | Numerik/Heuristik darf Strukturhypothese nicht upgraden; Objektivität erfordert explizite Brücke (vgl. E-032). |
+
+Dossier: [`theory/fixed_locus_riemann_program.md`](theory/fixed_locus_riemann_program.md) · ORQ-088 · Register E-034/E-035 (numerische Abgrenzung).
 
 ## Hinweise
 

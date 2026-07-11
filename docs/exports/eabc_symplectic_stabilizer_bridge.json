@@ -1,0 +1,171 @@
+{
+  "fundamental_freq": 3.208,
+  "gap_count": 9,
+  "governance": "[C]",
+  "governance_detail": {
+    "calibration": "fundamental_freq=3.208 is [C] exploratory calibration, not preregistered",
+    "claim_id": "BH-C-09",
+    "not_claimed": "that Riemann or Dirichlet L zeros implement [[5,1,3]]; that primes are QEC-stabilized; discovery-taugliche gap histograms without preregistration; proof of the Riemann Hypothesis",
+    "related_scripts": "five_qubit_bridge.sage, eabc_symplectic_stabilizer_bridge.sage, qec_bridge.py",
+    "sibling_register": "E-093",
+    "standard_math": "Pauli algebra is quaternion-isomorphic up to i; [[5,1,3]] has 2^4-1=15 non-trivial commuting stabilizers [A/B]",
+    "status": "C interpretive L-gap to symplectic stabilizer scaffold",
+    "tag_interpretive": "[C]"
+  },
+  "l_function": "L(s, chi_{-3})",
+  "records": [
+    {
+      "gamma_n": 8.0397,
+      "gamma_next": 11.2492,
+      "gap": 3.2095000000000002,
+      "stabilizer": {
+        "pauli_stabilizer": "XZZXI",
+        "phase": 0.00046758104738156385,
+        "state_idx": 1,
+        "symplectic_vector": "(00 | 01)",
+        "tag": "[C]",
+        "x_bits": "00",
+        "z_bits": "01"
+      },
+      "tag": "[C]"
+    },
+    {
+      "gamma_n": 11.2492,
+      "gamma_next": 15.7049,
+      "gap": 4.4557,
+      "stabilizer": {
+        "pauli_stabilizer": "XXYIY",
+        "phase": 0.38893391521197007,
+        "state_idx": 6,
+        "symplectic_vector": "(01 | 10)",
+        "tag": "[C]",
+        "x_bits": "01",
+        "z_bits": "10"
+      },
+      "tag": "[C]"
+    },
+    {
+      "gamma_n": 15.7049,
+      "gamma_next": 16.7369,
+      "gap": 1.0319999999999983,
+      "stabilizer": {
+        "pauli_stabilizer": "IZYYZ",
+        "phase": 0.3216957605985032,
+        "state_idx": 5,
+        "symplectic_vector": "(01 | 01)",
+        "tag": "[C]",
+        "x_bits": "01",
+        "z_bits": "01"
+      },
+      "tag": "[C]"
+    },
+    {
+      "gamma_n": 16.7369,
+      "gamma_next": 20.4559,
+      "gap": 3.719000000000001,
+      "stabilizer": {
+        "pauli_stabilizer": "XYIYX",
+        "phase": 0.15928927680798036,
+        "state_idx": 3,
+        "symplectic_vector": "(00 | 11)",
+        "tag": "[C]",
+        "x_bits": "00",
+        "z_bits": "11"
+      },
+      "tag": "[C]"
+    },
+    {
+      "gamma_n": 20.4559,
+      "gamma_next": 22.1952,
+      "gap": 1.7393,
+      "stabilizer": {
+        "pauli_stabilizer": "YYZIZ",
+        "phase": 0.5421758104738155,
+        "state_idx": 9,
+        "symplectic_vector": "(10 | 01)",
+        "tag": "[C]",
+        "x_bits": "10",
+        "z_bits": "01"
+      },
+      "tag": "[C]"
+    },
+    {
+      "gamma_n": 22.1952,
+      "gamma_next": 26.0645,
+      "gap": 3.869299999999999,
+      "stabilizer": {
+        "pauli_stabilizer": "XIXZZ",
+        "phase": 0.20614089775561062,
+        "state_idx": 4,
+        "symplectic_vector": "(01 | 00)",
+        "tag": "[C]",
+        "x_bits": "01",
+        "z_bits": "00"
+      },
+      "tag": "[C]"
+    },
+    {
+      "gamma_n": 26.0645,
+      "gamma_next": 27.6087,
+      "gap": 1.5442,
+      "stabilizer": {
+        "pauli_stabilizer": "ZXIXZ",
+        "phase": 0.481359102244389,
+        "state_idx": 8,
+        "symplectic_vector": "(10 | 00)",
+        "tag": "[C]",
+        "x_bits": "10",
+        "z_bits": "00"
+      },
+      "tag": "[C]"
+    },
+    {
+      "gamma_n": 27.6087,
+      "gamma_next": 31.0264,
+      "gap": 3.4177,
+      "stabilizer": {
+        "pauli_stabilizer": "XZZXI",
+        "phase": 0.06536783042394008,
+        "state_idx": 1,
+        "symplectic_vector": "(00 | 01)",
+        "tag": "[C]",
+        "x_bits": "00",
+        "z_bits": "01"
+      },
+      "tag": "[C]"
+    },
+    {
+      "gamma_n": 31.0264,
+      "gamma_next": 33.5135,
+      "gap": 2.4871000000000016,
+      "stabilizer": {
+        "pauli_stabilizer": "YXXYI",
+        "phase": 0.7752805486284294,
+        "state_idx": 12,
+        "symplectic_vector": "(11 | 00)",
+        "tag": "[C]",
+        "x_bits": "11",
+        "z_bits": "00"
+      },
+      "tag": "[C]"
+    }
+  ],
+  "stabilizer_histogram": {
+    "1": 2,
+    "10": 0,
+    "11": 0,
+    "12": 1,
+    "13": 0,
+    "14": 0,
+    "15": 0,
+    "2": 0,
+    "3": 1,
+    "4": 1,
+    "5": 1,
+    "6": 1,
+    "7": 0,
+    "8": 1,
+    "9": 1
+  },
+  "zero_count": 10
+}

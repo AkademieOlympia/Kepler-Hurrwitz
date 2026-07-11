@@ -1,0 +1,5 @@
+scale_n,quadruplet_count,abce_count,ceab_count,bias_b,abce_ceab_ratio,log10_scale
+10000,12,6,6,0,1.0,4.0
+100000,38,22,16,6,1.375,5.0
+1000000,166,84,82,2,1.02439,6.0
+10000000,899,450,449,1,1.002227,7.0

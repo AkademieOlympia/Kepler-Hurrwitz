@@ -1,0 +1,29 @@
+{
+  "governance": "Bounded DH-QPID prototype for Cardoso-Machiavelo orders. Does not prove EABC structure or PID globally.",
+  "summary": {
+    "H17": {
+      "alpha_pool": 620,
+      "beta_pool": 624,
+      "candidates": 3192,
+      "dh_failures": 0,
+      "dh_success": 3192,
+      "euc_success": 3192,
+      "max_alpha_norm_sq": 20,
+      "max_prime": 13,
+      "order": "H17",
+      "rescue_cases": 0
+    },
+    "H713": {
+      "alpha_pool": 424,
+      "beta_pool": 624,
+      "candidates": 2816,
+      "dh_failures": 0,
+      "dh_success": 2816,
+      "euc_success": 2816,
+      "max_alpha_norm_sq": 6,
+      "max_prime": 11,
+      "order": "H713",
+      "rescue_cases": 0
+    }
+  }
+}

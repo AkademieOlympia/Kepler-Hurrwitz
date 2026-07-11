@@ -1,0 +1,66 @@
+{
+  "governance": "Komplettangriff = Lesesprache + Diagnostik, nicht Gro\u00dfsatz.",
+  "records": [
+    {
+      "alpha": -1.0,
+      "berry_phase": 0.7853981633974483,
+      "beta": 1.0,
+      "gamma": 0.0,
+      "primvierling": [
+        11,
+        13,
+        17,
+        19
+      ],
+      "reciprocity_residual": 0.0,
+      "tag": "[C]",
+      "weyl_chirality": 1.4142135623730951
+    },
+    {
+      "alpha": 0.0,
+      "berry_phase": 0.7853981633974483,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "primvierling": [
+        13,
+        15,
+        19,
+        21
+      ],
+      "reciprocity_residual": 0.0,
+      "tag": "[C]",
+      "weyl_chirality": 0.0
+    },
+    {
+      "alpha": -1.0,
+      "berry_phase": 0.7853981633974483,
+      "beta": 1.0,
+      "gamma": 0.0,
+      "primvierling": [
+        17,
+        19,
+        23,
+        25
+      ],
+      "reciprocity_residual": 0.0,
+      "tag": "[C]",
+      "weyl_chirality": 1.4142135623730951
+    },
+    {
+      "alpha": 1.0,
+      "berry_phase": 0.7853981633974483,
+      "beta": -1.0,
+      "gamma": 0.0,
+      "primvierling": [
+        29,
+        31,
+        35,
+        37
+      ],
+      "reciprocity_residual": 0.0,
+      "tag": "[C]",
+      "weyl_chirality": 1.4142135623730951
+    }
+  ],
+  "tag": "[C]"
+}

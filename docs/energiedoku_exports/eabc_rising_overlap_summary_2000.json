@@ -1,0 +1,34 @@
+{
+  "K_bucket": 486,
+  "K_disjoint_subseq_no_reset": 1,
+  "K_disjoint_subseq_reset": 310,
+  "K_greedy_no_reset": 1995,
+  "K_greedy_reset": 310,
+  "build_count": 311,
+  "no_reset_consecutive_overlap_counts": {
+    "3": 1218,
+    "4": 776
+  },
+  "recorded_consecutive_overlap_counts": {
+    "0": 309
+  },
+  "recorded_consecutive_overlap_max": 0,
+  "recorded_pairwise_disjoint": true,
+  "transition_histogram": {
+    "0,1,0": 311,
+    "1,1,0": 38,
+    "1,2,1": 311,
+    "2,2,2": 159,
+    "2,3,2": 311,
+    "3,3,2": 241,
+    "3,3,3": 317,
+    "3,4,3": 310
+  },
+  "transition_overlap_counts": {
+    "0": 349,
+    "1": 311,
+    "2": 711,
+    "3": 627
+  },
+  "transition_step_count": 1998
+}

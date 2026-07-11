@@ -1,0 +1,4 @@
+scale_n,quadruplet_count,dumas_failures,natural_fill_failures,rotor_failures,kepler_failures,total_regression_failures,gap_kruskal_h,gap_kruskal_p,gap_anova_f,gap_anova_p,f1_permutation_p,entropy_primvierling_mean,entropy_structured_mean,entropy_random_mean,abce_count,ceab_count,abce_ceab_ratio,weight_corr_r,elapsed_s
+100000,38,0,0,0,0,0,2.616667,0.72973,0.965702,0.579484,0.449102,0.837219,1.046719,1.035789,22,16,1.375,0.0,0.17
+1000000,166,0,0,0,0,0,3.821087,0.852,1.367447,0.745308,0.293413,0.788675,0.898566,0.922626,84,82,1.0244,0.0,5.0
+10000000,899,0,0,0,0,0,4.641138,0.901782,1.338822,0.739582,0.255489,0.680019,0.772525,0.845636,450,449,1.0022,0.0,202.5

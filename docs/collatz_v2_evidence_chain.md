@@ -25,6 +25,9 @@ getrennt.
 | 7b | `bad_run_net_descent_witness_of_mod4_three` | Uniforme Existenz von `BadRunNetDescentWitness` fuer `mod 4 = 3` | **`[C]` offen (V2.7, mod-8-Kanal-`sorry`)** |
 | 7c | Mod-8-Mikro-Lemmata (`CollatzNetDescentMod8.lean`) | `ν₂(3n+1)=1`, Syracuse-mod-8-Subfaelle fuer `mod 4 = 3` | **`[A]` geschlossen** |
 | 7d | `bad_run_net_descent_witness_mod8_channel_three/seven` | Per-Kanal Net-Descent-Zeugen | **`[C]` offen (`sorry`)** |
+| 7e | V2.8 Kanal-`3` Halbfall `T_odd % 8 = 5` | Uniform `t_loc = 4`, voller Witness fuer gerades `k` | **`[A]` geschlossen (V2.8)** |
+| 7f | V2.8 Kanal-`3` Halbfall `T_odd % 8 = 1` | `k`-abhaengiges `t_loc`, kein uniformes Bound | **`[C]` offen (`sorry`)** |
+| 7g | V2.8 2-adisches Budget `badRunTwoAdicBudget` | `ν₂(n+1)`-Geruest + Kanal-`7`-Reduktion | **`[A]` def / `[C]` exhaustion** |
 | 8 | `BadRunNetDescentStatement` | Fuer jedes `n ≡ 3 (mod 4)`, `n > 1`: Net-Descent-Zeuge existiert | **`[C]` offen** |
 | 9 | `Mod4ThreeEventuallyDescendsStatement` | Echter `collatzStep`-Abstieg unter Startwert fuer `mod 4 = 3` | **`[C]` offen**, reduziert auf Schritt 8 |
 | 10 | `CollatzGlobalTerminationStatement` | Globale Collatz-Termination | **offen** |

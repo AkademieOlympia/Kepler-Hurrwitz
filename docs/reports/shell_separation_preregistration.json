@@ -1,0 +1,159 @@
+{
+  "artifact": "shell_separation_preregistration",
+  "date": "2026-07-05",
+  "evidence_id": "E-085",
+  "hypothesis": "shellPrimeMatchAtFirstLoss",
+  "gate_status": "INACTIVE",
+  "pre_registration_complete": false,
+  "protocol": "docs/reports/shell_separation_diagnostics_protocol.md#pre-registration-gate-shellprimematchatfirstloss",
+  "canonical_runs": {
+    "v1": {
+      "construction": "canonical_from_qec_bridge",
+      "epsilon_rule": "provisional_inverse_n",
+      "n_min": 1,
+      "n_max": 17,
+      "first_loss_n": null
+    },
+    "v2": {
+      "construction": "canonical_from_qec_bridge",
+      "epsilon_rule": "theorematic_energiedoku_v1",
+      "n_min": 1,
+      "n_max": 17,
+      "first_loss_n": null
+    },
+    "v3": {
+      "construction": "canonical_from_qec_bridge",
+      "epsilon_rule": "theorematic_mn_sep_v1",
+      "n_min": 1,
+      "n_max": 17,
+      "first_loss_n": null
+    }
+  },
+  "frozen_items": {
+    "1_shell_construction": {
+      "frozen": true,
+      "value": "canonical_from_qec_bridge",
+      "module": "src/kepler_hurwitz/canonical_shell_vertices.py",
+      "embedding": "hurwitz_projected_imaginary_xyz from build_shell_projection_bundle"
+    },
+    "2_shell_metric": {
+      "frozen": true,
+      "value": "euclidean_l2_r3",
+      "definition": "Euclidean L2 distance between shell centroids in R^3"
+    },
+    "3_threshold_rule_epsilon_n": {
+      "frozen": true,
+      "v1": {
+        "rule_name": "provisional_inverse_n",
+        "definition": "epsilon_n = 1/n"
+      },
+      "v2": {
+        "rule_name": "theorematic_energiedoku_v1",
+        "definition": "n=1: 1; n=2: phi^-2; n=3: phi^-3; n>3: phi^-3 [C] fallback"
+      },
+      "v3": {
+        "rule_name": "theorematic_mn_sep_v1",
+        "definition": "epsilon_n = 4^{-n} = 1/M_n^sep [C] convention; M_n^sep = 4^n (Energiedoku §7); no explicit theorem in §8"
+      }
+    },
+    "4_tested_range_of_n": {
+      "frozen": true,
+      "n_min": 1,
+      "n_max": 17,
+      "note": "max_renorm_level() approx 17"
+    },
+    "5_definition_of_sep_n": {
+      "frozen": true,
+      "function": "shell_sep",
+      "module": "src/kepler_hurwitz/shell_separation_diagnostics.py",
+      "definition": "Minimum pairwise Euclidean distance between shell centroids at level n"
+    },
+    "6_definition_of_shell_separation_loss_n": {
+      "frozen": true,
+      "function": "shell_separation_loss",
+      "module": "src/kepler_hurwitz/shell_separation_diagnostics.py",
+      "definition": "Boolean flag: sep(n) <= epsilon_n"
+    },
+    "7_rule_for_extracting_first_loss_index_n0": {
+      "definition_frozen": true,
+      "value_observed": null,
+      "function": "first_loss_n",
+      "module": "src/kepler_hurwitz/shell_separation_diagnostics.py",
+      "definition": "Smallest ascending n where shell_separation_loss(sep(n), epsilon_n) is true",
+      "awaiting": "Observed n_0 from canonical run with ShellSeparationLoss(n) = true"
+    }
+  },
+  "negative_rule": {
+    "en": "No prime index, EABC channel count, residue signal, or arithmetic feature may be used to choose the shell model, shell metric, threshold rule epsilon_n, search range, separation statistic, or first-loss index n_0.",
+    "de_merksaetze": [
+      "n_0 muss geometrisch blind entstehen.",
+      "Erst danach: Trifft n_0 einen EABC-Primindex?"
+    ]
+  },
+  "arithmetic_test": {
+    "shellPrimeMatchAtFirstLoss": "INACTIVE until n_0 fixed without prime-index reference"
+  },
+  "dual_track_governance": {
+    "decision_date": "2026-07-05",
+    "decision_memo": "docs/reports/shell_n0_dual_track_decision.md",
+    "protocol_section": "docs/reports/shell_separation_diagnostics_protocol.md#dual-track-n0-governance",
+    "negative_rule": "n_0 from Track B MUST NOT be used for shellPrimeMatchAtFirstLoss while Track A remains primary frozen construction",
+    "gate_active": false,
+    "primary_track_id": "track_a_canonical"
+  },
+  "tracks": {
+    "track_a_canonical": {
+      "role": "primary_pre_registration",
+      "construction": "canonical_from_qec_bridge",
+      "combinatorics": "n_plus_1",
+      "shell_count_rule": "|Shell(n)| = n + 1",
+      "epsilon_rules": [
+        "provisional_inverse_n",
+        "theorematic_energiedoku_v1",
+        "theorematic_mn_sep_v1"
+      ],
+      "n_min": 1,
+      "n_max": 17,
+      "n_0": null,
+      "first_loss_n": null,
+      "gate_eligible": true,
+      "gate_eligible_note": "Eligible only after observed n_0 under this frozen track; not yet satisfied",
+      "label": "primary frozen construction"
+    },
+    "track_b_energiedoku_full": {
+      "role": "theorematic_reference_exploratory",
+      "construction": "energiedoku_full",
+      "combinatorics": "four_to_the_n",
+      "shell_count_rule": "|ShellVertex(n)| = 4^n",
+      "epsilon_rule": "theorematic_energiedoku_v1",
+      "epsilon_rule_note": "theorematic_energiedoku_v1 ONLY; not theorematic_mn_sep_v1",
+      "n_min": 1,
+      "n_max": 3,
+      "exploratory_n_0": 2,
+      "first_loss_n": 2,
+      "first_loss_n_note": "Under theorematic_energiedoku_v1 only; sep(2) = phi^-2 = epsilon_2 (boundary equality)",
+      "gate_eligible": false,
+      "gate_eligible_note": "Does NOT activate E-085 while Track A remains primary",
+      "label": "[C] exploratory reference"
+    }
+  },
+  "upgrade_paths": {
+    "B1_track_switch": {
+      "exists_today": false,
+      "description": "New pre-registration freezing energiedoku_full as sole primary construction"
+    },
+    "B2_unified_bridge": {
+      "exists_today": true,
+      "status": "partial_interpretive_no_global_bijection",
+      "gate_eligible": false,
+      "module": "src/kepler_hurwitz/unified_shell_embedding.py",
+      "script": "scripts/unified_shell_embedding_bridge.py",
+      "export": "docs/energiedoku_exports/unified_embedding_bridge_n123.csv",
+      "description": "Documented interpretive ι_n for n<=3; prefix compatibility [A]; no global bijection"
+    },
+    "B3_track_a_loss": {
+      "exists_today": false,
+      "description": "Observed n_0 from Track A under frozen canonical pre-reg"
+    }
+  }
+}

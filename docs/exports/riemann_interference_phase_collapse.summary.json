@@ -1,0 +1,92 @@
+{
+  "tag": "[C]",
+  "governance": {
+    "status": "C interpretive analogy with B illustrative plot export",
+    "tag_interpretive": "[C]",
+    "plot_tag": "[B] illustrative diagnostic only",
+    "fractional_kernel": "fractional-weighted interference kernel Phi_R_alpha(x) = sum cos(gamma ln x) * x^(-alpha); NOT a Caputo derivative implementation",
+    "not_claimed": "proof that Riemann zeros cause EABC symmetry breaking; proof that zeros cause bivector collapse; physics identity between explicit-formula oscillations and Pauli stabilizers; discovery-taugliche prime-vs-composite separation without preregistration; proof that alpha=0.5 sharpens factorization detection at bc-axis nodes",
+    "sibling_register": "E-095",
+    "orq_id": "ORQ-095",
+    "related_theory": "docs/theory/riemann_zero_interference_analogy.md"
+  },
+  "num_zeros": 150,
+  "wave": "sum cos(gamma_n * ln x)",
+  "test_points": [
+    {
+      "x": 29,
+      "signal": -29.091054544416263,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 31,
+      "signal": -29.63593939491958,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 35,
+      "signal": 3.026136042417189,
+      "is_prime": false,
+      "is_bc_composite": true,
+      "tag": "[C]"
+    },
+    {
+      "x": 37,
+      "signal": -28.547579726200983,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 41,
+      "signal": -28.763445067913096,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 137,
+      "signal": -10.682235194255641,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 139,
+      "signal": -14.140151508963443,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    },
+    {
+      "x": 143,
+      "signal": 7.292415632600041,
+      "is_prime": false,
+      "is_bc_composite": true,
+      "tag": "[C]"
+    },
+    {
+      "x": 149,
+      "signal": -7.673898381968062,
+      "is_prime": true,
+      "is_bc_composite": false,
+      "tag": "[C]"
+    }
+  ],
+  "plot_windows": [
+    {
+      "x_min": 25.0,
+      "x_max": 45.0,
+      "center": 35
+    },
+    {
+      "x_min": 130.0,
+      "x_max": 155.0,
+      "center": 143
+    }
+  ]
+}
