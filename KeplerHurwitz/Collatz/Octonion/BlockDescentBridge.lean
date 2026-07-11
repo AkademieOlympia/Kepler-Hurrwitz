@@ -1,4 +1,5 @@
 import KeplerHurwitz.Collatz.Octonion.CompensatedEnergy
+import KeplerHurwitz.Collatz.Octonion.LongLowValuationRuns
 import KeplerHurwitz.Collatz.Octonion.OddCoreCocycle
 import KeplerHurwitz.CollatzProofAttemptV27
 
@@ -103,6 +104,19 @@ theorem mod8_net_descent_blocking_missing
     (_hmod : n % 4 = 3) :
     Mod8NetDescentBlockingInterface n := by
   sorry
+
+/--
+`[C]` Brücke-Stub: endlicher mod-12-Automat liefert keine uniforme Wartezeit-Schranke.
+Getrennt von `no_uniform_valuation_one_run_bound` (arithmetischer Witness, `[A]`).
+-/
+def FiniteAutomatonUniformWaittimePrinciple : Prop :=
+  UniformValuationOneRunBound → False
+
+theorem finite_automaton_uniform_waittime_principle
+    (hno : ¬ UniformValuationOneRunBound) :
+    FiniteAutomatonUniformWaittimePrinciple := by
+  intro hunif
+  exact hno hunif
 
 /--
 `[C]` Endliche mod-24-Übergangsstruktur: jede schlechte Restklasse landet in Kanal `A` oder `C`.

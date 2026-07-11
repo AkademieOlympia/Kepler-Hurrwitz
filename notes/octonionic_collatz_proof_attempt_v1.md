@@ -5,95 +5,61 @@
 - **Scope:** außerhalb `audit-freeze-2026`
 - **Branch:** `post-freeze/octonionic-collatz-proof-attempt`
 - **Frozen:** keine Änderung an `ι_n`, `ε_n`, frozen dossier
-- **Axiome:** `collatz_ergodic`, `collatz_log_average_negative` werden **nicht** geschlossen
 - **Status-Tags:** `[A]` bewiesen · `[B]` empirisch · `[C]` offen
 
-## Beweiskette (Ziel)
+## Witness-Beweiskette (O2, strikte Reihenfolge)
 
-Oktonionische/EABC-Struktur ⇒ deterministischer Odd-Core-Abstieg ⇒ klassische Collatz-Vermutung
+### 1. Definitionen `[A]` — `Definitions.lean`
 
-Bereits im Repo: `ClassicalCollatzConjecture ↔ OddCoreCollatzConjecture` (`CollatzNormShell.lean`)
-
-## Modul-Status
-
-| Modul | Datei | Status | Inhalt |
-|-------|-------|--------|--------|
-| O1 | `Collatz/Octonion/OddCoreCocycle.lean` | **[A]** | `oddCoreStep_log_ratio`, `oddCoreIterate_log_cocycle`, `oddCoreIterate_lt_iff_negative_log_ratio` |
-| O2 | `Collatz/Octonion/LongLowValuationRuns.lean` | **[C]/[A]** | `arbitrarily_long_valuation_one_runs` (Witness-Skizze); Mersenne-Form mit `m(L)` offen; No-Go für `C=0` **[A]** |
-| O3 | `Collatz/Octonion/Definitions.lean` | **[A/B]** | `mersenneOddExponent`, `collatzMod6U6`, `OctCollatzState`, `liftOdd`, `octOddStep`, `projectOdd`, `octOddStep_intertwines` |
-| O4 | `Collatz/Octonion/CompensatedEnergy.lean` | **[C]** | `Δ_comp = -16/3 + R(Q)`, Schranke `|R|≤C/q²` offen |
-| O5 | `Collatz/Octonion/BlockDescentBridge.lean` | **[C]** | `valuation_surplus_implies_block_descent`, `bad_class_maps_to_A_or_C`, `octonionic_energy_to_block_descent` → V2.7 Witness |
-| O6 | `Collatz/Octonion/Termination.lean` | **[C]** | Anbindung Odd-Core / V2.7 / klassisch |
-
-## O1 — Odd-Core-Log-Cocycle [A]
-
-Bewiesen:
-
-- `log(S(n)/n) = log 3 - ν₂(3n+1)·log 2 + log(1 + 1/(3n))` als `oddCoreStep_log_ratio`
-- k-Schritt-Cocycle `oddCoreIterate_log_cocycle`
-- Äquivalenz Abstieg ↔ negatives Log-Verhältnis `oddCoreIterate_lt_iff_negative_log_ratio`
-
-## O2 — Lange ν₂=1-Läufe & No-Go
-
-**Mod-6-Witness-Familie (Korrektur 2):**
-
-Robuste Parametrisierung `m(L) := L+1` (gerades `L`) bzw. `L+2` (ungerades `L`), Start `n₀ := 2^m(L) - 1`.
-Dann ist `m(L)` stets ungerade, `n₀ ≡ 1 (mod 6)`, `n₀ ∈ U_6`, mindestens `L` Schritte mit `ν₂ = 1`.
-Bahn: `n_j = 3^j · 2^{m(L)-j} - 1` für `0 ≤ j < m(L) - 1`.
-
-Lean-Ziel:
 ```lean
-theorem arbitrarily_long_valuation_one_runs (L : Nat) :
-  ∃ n : Nat, Nat.Coprime n 6 ∧ Odd n ∧
-    ∀ j < L, padicValNat 2 (3 * oddCoreIterate j n + 1) = 1
+def witnessExponent (L : ℕ) := 2 * L + 1
+def witnessStart (L : ℕ) := 2 ^ witnessExponent L - 1
+def closedWitnessValue (L j : ℕ) := 3 ^ j * 2 ^ (witnessExponent L - j) - 1
+abbrev tOdd := oddCoreStep
 ```
-Witness: ungerades `m > L`, `n := 2^m - 1` (implementiert via `mersenneOddExponent` / `mersenneOdd`).
 
-**Offen [C]:**
+- `[A]` `witnessExponent_odd`, `witnessExponent_gt`
+- Legacy: `mersenneOddExponent` / `mersenneOdd` (mod-6-robuste Verschiebung; deckt sich mit `witnessStart` nur für `L ∈ {0,1}`)
 
-- `oddCoreIterate_mersenneOdd_eq`: `S^j(2^m(L)-1) = 2^(m(L)-j)·3^j - 1`
-- `consecutive_valuation_one_run`: voller Lauf `j < L`
-- `arbitrarily_long_valuation_one_runs`: Witness-Skizze mit `sorry`
-- `consecutive_valuation_one_run_zero` **[A]**, `oddCoreStep_log_ratio_pos_mersenne`
+Kritischer Punkt `[A]`: `nu2_one_iff_mod4_eq_three` — für ungerade `n` gilt `ν₂(3n+1)=1 ⟺ n≡3 (mod 4)`.
 
-**No-Go [A] (Teilresultat):**
+### 2. Elementare Startwerte `[A]` (ohne Bahnformel)
 
-- `no_go_not_all_negative_compensated_drift`: Für `C = 0` kann keine Korrekturklasse **alle** ungeraden Starts mit strikt negativer kompensierter Drift liefern (Gegenbeispiel `R ≡ 0`, `n = 3`).
-- `no_go_zero_correction_positive_drift`: expliziter Zeuge `n = 3`.
+- `[A]` `three_not_dvd_two_pow_odd_sub_one`
+- `[A]` `witnessStart_odd`, `witnessStart_coprime_six`, `witnessStart_gt_one`
+- `[A]` `witnessStart_mod4_eq_three` (via Add-One-Trick)
 
-**Befund:** Eine beschränkte `O(1/q²)`-Korrektur mit **allgemeinem** `C` kann die universelle Ein-Schritt-Negativität nicht erzwingen; der arithmetische Kern (Mersenne-Läufe) blockiert eine globale Schranke — formal noch `[C]` für `C` beliebig und Lauf-Länge `L`.
+### 3. Geschlossene Bahnformel `[C]` (Blocker: `Nat`-Pow-Arithmetik)
 
-**Schutzsatz-Kern:** Keine uniforme Wartezeit — jede erfolgreiche O5-Strategie muss über den endlichen mod-12-Automaten hinausgehen.
+Ziel-Reihenfolge (kein Zirkelschluss):
 
-## O5 — Engpass
+1. `closedWitnessValue_add_one` `[A]`
+2. `three_mul_closedWitnessValue_add_one` → `closedWitnessValue_step` `[C] sorry`
+3. `oddCoreIterate_witnessStart_eq_closed` `[C] sorry`
+4. `witnessStart_iterate_closed_form_add_one` / `_closed_form` `[C] sorry`
 
-### Drei-Bausteine-Hierarchie
+Index: `j < witnessExponent L` (nicht `j ≤`; bei `j = m` bricht die Formel).
 
-| Baustein | Rolle |
-|---|---|
-| `bad_class_maps_to_A_or_C` | endliche mod-24-Übergangsstruktur |
-| `arbitrarily_long_valuation_one_runs` | No-Go für uniforme Wartezeit |
-| `valuation_surplus_implies_block_descent` | exakte O5-Schnittstelle (mit Korrekturterm) |
+### 4. Valuation `[A]` / `[C]`
 
-### Block-Schwelle (Korrektur 1: asymptotisch vs. exakt)
+- `[A]` `consecutive_valuation_one_run_zero` (Start `witnessStart L`, `L ≥ 1`)
+- `[C]` `witnessStart_valuation_one`, `consecutive_valuation_one_run` (abhängig von Bahnformel)
 
-**Asymptotischer Kernterm** (struktureller Hauptterm, nicht die vollständige endliche Schwelle):
-\[
-\frac1k\sum_{j<k}(\nu_2(3n_j+1)-1) > \log_2\frac32 \approx 0.5849625
-\]
+### 5. Existenz + No-Go (getrennte Props)
 
-**Exakte endliche Schwelle** mit O(1)-Korrekturterm; dann folgt `T^k(n₀) < n₀`:
-\[
-\frac1k\sum_{j<k}(\nu_2(3n_j+1)-1) > \log_2\frac32 + \frac1k\sum_{j<k}\log_2\left(1+\frac1{3n_j}\right)
-\]
+```lean
+def ArbitrarilyLongValuationOneRuns : Prop := ...
+def UniformValuationOneRunBound : Prop := ...
+theorem arbitrarily_long_runs_imply_no_uniform_bound : ...  -- [A]
+theorem no_uniform_valuation_one_run_bound : ...            -- [A] via Prop-Instanz
+```
 
-Lean-Schnittstelle: `valuationSurplusExceedsExactThreshold` ⇒ `oddCoreIterate k n < n` via `valuation_surplus_implies_block_descent`.
+- Witness für Länge `L`: `witnessStart (L + 1)` (`L = 0` leer)
+- `[C]` `arbitrarily_long_valuation_one_runs` (sorry — wartet auf Schritt 3–4)
+- **Keine** Identität `no_uniform_waittime_from_finite_automaton := …`
+- Brücke-Stub `[C]`: `FiniteAutomatonUniformWaittimePrinciple` in `BlockDescentBridge.lean`
 
-`octonionic_energy_implies_block_descent` / `octonionic_energy_implies_local_shrink` verlangen eine Brücke von kompensierter oktonionischer Energie zu `BadRunNetDescentWitness` (V2.7). Offene Kette:
-
-1. Explizites `C` aus EABC-Slice (`CompensatedEnergyResidualBound` ≠ trivial)
-2. Blockweise Drift `< 1` auf Odd-Core-Größe
-3. Einbindung in `CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentStatement`
+`valuationLogCorrectionAvg` (O5-Korrekturterm) unverändert.
 
 ## Build
 

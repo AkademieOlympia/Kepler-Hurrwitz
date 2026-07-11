@@ -20,17 +20,61 @@ open Real
 def oddCoreIterate (k : Nat) (n : Nat) : Nat :=
   oddCoreStep^[k] n
 
+/-!
+### Witness-Parametrisierung (arithmetisch transparent, Beweiskette O2)
+
+Primäre Familie für die geschlossene Bahnform und beliebig lange `ν₂ = 1`-Läufe:
+`m(L) = 2L + 1` (stets ungerade, `L < m(L)`).
+Start `n₀(L) = 2^m(L) - 1`; Bahn `3^j · 2^{m(L)-j} - 1`.
+
+Legacy-Parametrisierung `mersenneOddExponent` / `mersenneOdd` (mod-6-robuste Verschiebung)
+bleibt für ältere Skizzen erhalten; für die Witness-Kette wird `witnessStart` verwendet.
+-/
+
+/-- Ungerader Witness-Exponent `m(L) = 2L + 1`. -/
+def witnessExponent (L : Nat) : Nat := 2 * L + 1
+
+/-- Mersenne-artiger Witness-Start `2^m(L) - 1`. -/
+def witnessStart (L : Nat) : Nat := 2 ^ witnessExponent L - 1
+
+/-- Geschlossener Bahnwert `S^j(n₀(L)) = 3^j · 2^{m(L)-j} - 1`. -/
+def closedWitnessValue (L j : Nat) : Nat :=
+  3 ^ j * 2 ^ (witnessExponent L - j) - 1
+
+/-- Syracuse-Odd-Schritt (Alias für `oddCoreStep`). -/
+abbrev tOdd (n : Nat) : Nat := oddCoreStep n
+
+/-- `[A]` Der Witness-Exponent ist stets ungerade. -/
+theorem witnessExponent_odd (L : Nat) : witnessExponent L % 2 = 1 := by
+  dsimp [witnessExponent]
+  omega
+
+/-- `[A]` Lange Läufe brauchen strikt größeren Exponenten: `L < m(L)`. -/
+theorem witnessExponent_gt (L : Nat) : L < witnessExponent L := by
+  dsimp [witnessExponent]
+  omega
+
 /--
-Robuste mod-6-Witness-Exponentenfunktion `m(L)`:
-`m(L) = L+1` bei geradem `L`, sonst `L+2`. Dann ist `m(L)` stets ungerade,
-`2^m(L) - 1 ≡ 1 (mod 6)` und liegt in `U_6`.
+Robuste mod-6-Witness-Exponentenfunktion (Legacy):
+`m(L) = L+1` bei geradem `L`, sonst `L+2`. Stets ungerade, `2^m(L)-1 ≡ 1 (mod 6)`.
+Abweichend von `witnessExponent` bei geradem `L ≥ 2`; nur noch für mod-6-Skizzen.
 -/
 def mersenneOddExponent (L : Nat) : Nat :=
   if L % 2 = 0 then L + 1 else L + 2
 
-/-- Mersenne-artiger ungerader Start `2^m(L) - 1` mit garantierter `U_6`-Zugehörigkeit. -/
+/-- Legacy-Mersenne-Start `2^m(L) - 1` (mod-6-robust, siehe `witnessStart`). -/
 def mersenneOdd (L : Nat) : Nat :=
   2 ^ mersenneOddExponent L - 1
+
+theorem mersenneOdd_eq_witnessStart_zero (L : Nat) (hL : L = 0) :
+    mersenneOdd L = witnessStart L := by
+  subst hL
+  rfl
+
+theorem mersenneOdd_eq_witnessStart_one (L : Nat) (hL : L = 1) :
+    mersenneOdd L = witnessStart L := by
+  subst hL
+  rfl
 
 /-- Restklasse `U_6`: ungerade Starts mit `n ≡ 1 (mod 6)` (äquivalent `Nat.Coprime n 6`). -/
 def collatzMod6U6 (n : Nat) : Prop :=
