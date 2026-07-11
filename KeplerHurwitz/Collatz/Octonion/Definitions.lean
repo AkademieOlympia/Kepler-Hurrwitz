@@ -20,9 +20,21 @@ open Real
 def oddCoreIterate (k : Nat) (n : Nat) : Nat :=
   oddCoreStep^[k] n
 
-/-- Mersenne-artiger ungerader Start `2^(L+1) - 1`. -/
+/--
+Robuste mod-6-Witness-Exponentenfunktion `m(L)`:
+`m(L) = L+1` bei geradem `L`, sonst `L+2`. Dann ist `m(L)` stets ungerade,
+`2^m(L) - 1 ≡ 1 (mod 6)` und liegt in `U_6`.
+-/
+def mersenneOddExponent (L : Nat) : Nat :=
+  if L % 2 = 0 then L + 1 else L + 2
+
+/-- Mersenne-artiger ungerader Start `2^m(L) - 1` mit garantierter `U_6`-Zugehörigkeit. -/
 def mersenneOdd (L : Nat) : Nat :=
-  2 ^ (L + 1) - 1
+  2 ^ mersenneOddExponent L - 1
+
+/-- Restklasse `U_6`: ungerade Starts mit `n ≡ 1 (mod 6)` (äquivalent `Nat.Coprime n 6`). -/
+def collatzMod6U6 (n : Nat) : Prop :=
+  n % 6 = 1
 
 /-- Log-Verhältnis eines Odd-Core-Schritts: `log(S(n)/n)`. -/
 def oddCoreStepLogRatio (n : Nat) : ℝ :=
