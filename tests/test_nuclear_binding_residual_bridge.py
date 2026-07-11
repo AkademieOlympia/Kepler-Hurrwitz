@@ -9,11 +9,14 @@ import pandas as pd
 import pytest
 
 from kepler_hurwitz.nuclear_binding_residual_bridge import (
+    HYDROGEN_MASS_EXCESS_MEV,
+    NEUTRON_MASS_EXCESS_MEV,
     NON_EABC_CLASS,
     ORQ_090_TAG,
     SEMFParameters,
     assign_eabc_classes,
     build_residual_export_schema,
+    compute_binding_energy,
     compute_residuals,
     evaluate_incremental_signal,
     fit_semf,
@@ -34,9 +37,20 @@ def _synthetic_mass_frame(n_rows: int = 40, *, seed: int = 90) -> pd.DataFrame:
     binding = predict_semf(base, true_params, include_pairing=True)
     binding = binding + rng.normal(0.0, 0.5, size=n_rows)
     base["binding_exp_MeV"] = binding
-    base["mass_excess_keV"] = -binding * 1000.0
+    delta_mev = (
+        base["Z"] * HYDROGEN_MASS_EXCESS_MEV
+        + base["N"] * NEUTRON_MASS_EXCESS_MEV
+        - base["binding_exp_MeV"]
+    )
+    base["mass_excess_keV"] = delta_mev * 1000.0
     base["element"] = "X"
     return base
+
+
+def _write_csv(tmp_path: Path, rows: list[dict]) -> Path:
+    path = tmp_path / "mass_table.csv"
+    pd.DataFrame(rows).to_csv(path, index=False)
+    return path
 
 
 class TestGovernance:
@@ -152,6 +166,66 @@ class TestLoadMassTable:
     def test_missing_file_raises(self, tmp_path: Path):
         with pytest.raises(FileNotFoundError, match="nuclear mass table not found"):
             load_mass_table(tmp_path / "missing.csv")
+
+    def test_load_with_binding_exp_only(self, tmp_path: Path):
+        path = _write_csv(
+            tmp_path,
+            [{"A": 56, "Z": 26, "element": "Fe", "binding_exp_MeV": 492.0}],
+        )
+        df = load_mass_table(path)
+        assert df.loc[0, "N"] == 30
+        assert "binding_exp_MeV" in df.columns
+
+    def test_load_with_mass_excess_only(self, tmp_path: Path):
+        path = _write_csv(
+            tmp_path,
+            [{"A": 4, "Z": 2, "element": "He", "mass_excess_keV": 2424.916}],
+        )
+        df = load_mass_table(path)
+        out = compute_binding_energy(df)
+        assert "binding_exp_MeV" in out.columns
+        assert np.isfinite(out.loc[0, "binding_exp_MeV"])
+
+    def test_load_without_energy_column_raises(self, tmp_path: Path):
+        path = _write_csv(tmp_path, [{"A": 56, "Z": 26, "element": "Fe"}])
+        with pytest.raises(ValueError, match="binding_exp_MeV.*mass_excess_keV"):
+            load_mass_table(path)
+
+    def test_n_derived_when_absent(self, tmp_path: Path):
+        path = _write_csv(
+            tmp_path,
+            [{"A": 12, "Z": 6, "element": "C", "binding_exp_MeV": 92.0}],
+        )
+        df = load_mass_table(path)
+        assert df.loc[0, "N"] == 6
+
+    def test_inconsistent_n_raises(self, tmp_path: Path):
+        path = _write_csv(
+            tmp_path,
+            [{"A": 12, "Z": 6, "N": 5, "element": "C", "binding_exp_MeV": 92.0}],
+        )
+        with pytest.raises(ValueError, match="N.*inconsistent"):
+            load_mass_table(path)
+
+
+class TestComputeBindingEnergy:
+    def test_mass_excess_formula_on_synthetic_row(self):
+        z, n = 26, 30
+        binding = 492.0
+        delta_mev = (
+            z * HYDROGEN_MASS_EXCESS_MEV + n * NEUTRON_MASS_EXCESS_MEV - binding
+        )
+        df = pd.DataFrame(
+            {
+                "A": [56],
+                "Z": [z],
+                "N": [n],
+                "element": ["Fe"],
+                "mass_excess_keV": [delta_mev * 1000.0],
+            }
+        )
+        out = compute_binding_energy(df)
+        assert out.loc[0, "binding_exp_MeV"] == pytest.approx(binding, rel=1e-9)
 
 
 class TestPermutationStub:

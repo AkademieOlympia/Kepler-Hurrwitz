@@ -163,7 +163,9 @@ In-Sample-Diagnostik ohne explizite Kennzeichnung ist **nicht** `[B0]`-tauglich.
 
 ## CSV-Schema
 
-Spalten (Einheiten im Namen):
+**Eingabe** (`load_mass_table`): `A`, `Z`, `element` zwingend; `N` optional (ableitbar als `A − Z`, sonst Konsistenzprüfung). Mindestens eine Energiespalte: `binding_exp_MeV` **oder** atomarer `mass_excess_keV` (neutral-atomare AME-Konvention, Rekonstruktion mit \(m_H\) nicht \(m_p\)). Siehe [`data/external/README_nuclear_mass_data.md`](../../data/external/README_nuclear_mass_data.md).
+
+**Export** — Spalten (Einheiten im Namen):
 
 ```
 A, Z, N, element,

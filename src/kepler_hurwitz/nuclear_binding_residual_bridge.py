@@ -41,7 +41,13 @@ PermutationMode = Literal[
     "structure_matched",
 ]
 
-REQUIRED_MASS_COLUMNS: tuple[str, ...] = ("A", "Z", "mass_excess_keV")
+REQUIRED_IDENTITY_COLUMNS: tuple[str, ...] = ("A", "Z", "element")
+
+# Physical constants for atomic mass-excess binding reconstruction [C].
+# Values follow AME2020 neutral-atom convention (Δ in MeV); must be cited
+# in export metadata before promotion to [B0].
+HYDROGEN_MASS_EXCESS_MEV: float = 7.288970501  # Δ(¹H), neutral hydrogen atom
+NEUTRON_MASS_EXCESS_MEV: float = 8.07104082  # Δ(n)
 
 __all__ = [
     "ORQ_090_TAG",
@@ -49,6 +55,8 @@ __all__ = [
     "EABC_RESIDUE_CLASSES",
     "NON_EABC_CLASS",
     "NULLMODEL_MODES",
+    "HYDROGEN_MASS_EXCESS_MEV",
+    "NEUTRON_MASS_EXCESS_MEV",
     "SEMFParameters",
     "RESIDUAL_EXPORT_FIELDS",
     "assign_eabc_classes",
@@ -114,6 +122,35 @@ def _require_columns(df: pd.DataFrame, columns: tuple[str, ...]) -> None:
         raise ValueError(f"mass table missing required columns: {missing}")
 
 
+def _validate_nuclide_identity(df: pd.DataFrame) -> pd.DataFrame:
+    """Validate A/Z/N identity columns; derive N when absent."""
+    out = df.copy()
+    if (out["A"] <= 0).any():
+        raise ValueError("Column 'A' must be positive for all rows.")
+    if (out["Z"] < 0).any():
+        raise ValueError("Column 'Z' must be non-negative for all rows.")
+    if "N" not in out.columns:
+        out["N"] = out["A"] - out["Z"]
+    else:
+        inconsistent = out["N"] != out["A"] - out["Z"]
+        if inconsistent.any():
+            raise ValueError(
+                "Column 'N' is inconsistent with N = A - Z "
+                f"for {int(inconsistent.sum())} rows."
+            )
+    if (out["N"] < 0).any():
+        raise ValueError("Column 'N' must be non-negative for all rows.")
+    return out
+
+
+def _require_energy_column(df: pd.DataFrame) -> None:
+    if "binding_exp_MeV" not in df.columns and "mass_excess_keV" not in df.columns:
+        raise ValueError(
+            "Input must contain either 'binding_exp_MeV' "
+            "or atomic 'mass_excess_keV'."
+        )
+
+
 def load_mass_table(path: Path) -> pd.DataFrame:
     """Load an AME/NUBASE-style CSV. Raises if the file does not exist."""
     if not path.exists():
@@ -122,26 +159,65 @@ def load_mass_table(path: Path) -> pd.DataFrame:
             "See data/external/README_nuclear_mass_data.md for expected format."
         )
     df = pd.read_csv(path)
-    _require_columns(df, REQUIRED_MASS_COLUMNS)
-    if "N" not in df.columns:
-        df = df.copy()
-        df["N"] = df["A"] - df["Z"]
-    return df
+    _require_columns(df, REQUIRED_IDENTITY_COLUMNS)
+    _require_energy_column(df)
+    return _validate_nuclide_identity(df)
+
+
+def _binding_from_mass_excess(
+    z: pd.Series,
+    n: pd.Series,
+    mass_excess_keV: pd.Series,
+) -> pd.Series:
+    """
+    Reconstruct binding energy from neutral atomic mass excesses.
+
+    B_exp = Z Δ_H + N Δ_n − Δ(A,Z), with Δ(A,Z) converted from keV to MeV.
+    Uses hydrogen-atom mass excess (not bare proton mass); see README.
+    """
+    delta_mev = mass_excess_keV / 1000.0
+    return (
+        z * HYDROGEN_MASS_EXCESS_MEV
+        + n * NEUTRON_MASS_EXCESS_MEV
+        - delta_mev
+    )
 
 
 def compute_binding_energy(df: pd.DataFrame) -> pd.DataFrame:
     """
     Ensure binding_exp_MeV is present.
 
-    If binding_exp_MeV already exists, returns a copy unchanged.
-    Otherwise derives from mass_excess_keV via B = -Δ (MeV convention on tabulated excess).
+    Primary path: use supplied binding_exp_MeV when present.
+
+    Otherwise derive from atomic mass_excess_keV via
+    B_exp = Z Δ_H + N Δ_n − Δ(A,Z), equivalent to
+    B_exp = (Z m_H + N m_n − M_atom) c² with neutral hydrogen atom mass m_H.
+
+    When both columns are present, binding_exp_MeV is retained as primary and
+    binding_exp_from_mass_excess_MeV records the reconstruction for consistency
+    checks (see README).
     """
     out = df.copy()
-    if "binding_exp_MeV" in out.columns:
-        return out
-    _require_columns(out, ("mass_excess_keV",))
-    # Scaffold convention: binding energy magnitude from mass excess (MeV).
-    out["binding_exp_MeV"] = -out["mass_excess_keV"] / 1000.0
+    if "N" not in out.columns:
+        out["N"] = out["A"] - out["Z"]
+
+    has_binding = "binding_exp_MeV" in out.columns
+    has_excess = "mass_excess_keV" in out.columns
+
+    if not has_binding and not has_excess:
+        _require_energy_column(out)
+
+    if has_excess:
+        reconstructed = _binding_from_mass_excess(
+            out["Z"],
+            out["N"],
+            out["mass_excess_keV"],
+        )
+        if has_binding:
+            out["binding_exp_from_mass_excess_MeV"] = reconstructed
+        else:
+            out["binding_exp_MeV"] = reconstructed
+
     return out
 
 
