@@ -12,8 +12,10 @@ Attack vectors (see `docs/collatz_v27_net_descent.md`):
 - **Option A (partial):** channel `3` with `T_odd n % 8 = 5` (`k` even) closes at uniform `t_loc = 4`.
 - **Option A (partial):** channel `3` with `T_odd n % 8 = 1` and `k % 4 = 1` closes at uniform `t_loc = 6`.
 - **Option B (scaffold):** `badRunTwoAdicBudget = ν₂(n+1)` budgets bad-run chains; channel `7` reduction.
-- **Option A (open):** channel `3` with `T_odd n % 8 = 1` and `k % 4 = 3` — `t_loc` is `k`-dependent (e.g. `n=27` ⇒ `t_loc=94`); subclass `n ≡ 59 (mod 128)` closes at `t_loc = 9`.
-- **Option D (open):** channel `7` uniform witness via depth budget consumption.
+- **Option A (open):** channel `3` with `T_odd n % 8 = 1` and `k % 4 = 3` — mod-256 subclasses
+  `{27, 91, 155, 251}` remain open; `{123, 219}` close at uniform `t_loc = 11`.
+- **Option A (partial):** channel `7` with `k % 4 = 2` (`n = 32j+23`) closes at uniform `t_loc = 6`.
+- **Option D (open):** channel `7` other `k % 4` classes via depth-budget consumption.
 -/
 
 namespace CollatzNetDescentV28
@@ -140,8 +142,44 @@ theorem bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_mod4_one
   exact channel_three_collatz_net_descent_mod128_fiftynine_at_nine hn h8 h59
 
 /--
-`[C]` Channel-`3` odd-`k` with `k % 4 = 3` and `j % 4 ≠ 1`: `t_loc` is `j`-dependent
-(e.g. `n = 27` needs `t_loc ≈ 94`; subclasses `n ≡ {27, 91, 123} (mod 128)` remain open).
+`[A]` Channel-`3` odd-`k` with `k % 4 = 3` and `j % 8 = 3` (`n ≡ 123 mod 256`): full witness at `t_loc = 11`.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_three_j_mod8_three
+    {n : Nat}
+    (hn : 1 < n)
+    (h8 : n % 8 = 3)
+    (h123 : ∃ m, n = 256 * m + 123) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3) := by
+  refine ⟨bad_run_net_descent_witness_mod8_channel_three_of_local_shrink h8 11 ?_⟩
+  exact channel_three_collatz_net_descent_mod256_one_hundred_twenty_three_at_eleven hn h8 h123
+
+/--
+`[A]` Channel-`3` odd-`k` with `k % 4 = 3` and `j % 8 = 6` (`n ≡ 219 mod 256`): full witness at `t_loc = 11`.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_three_j_mod8_six
+    {n : Nat}
+    (hn : 1 < n)
+    (h8 : n % 8 = 3)
+    (h219 : ∃ m, n = 256 * m + 219) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3) := by
+  refine ⟨bad_run_net_descent_witness_mod8_channel_three_of_local_shrink h8 11 ?_⟩
+  exact channel_three_collatz_net_descent_mod256_two_hundred_nineteen_at_eleven hn h8 h219
+
+/--
+`[C]` Channel-`3` odd-`k` with `k % 4 = 3` and `j % 8 ∉ {1, 3, 6}`: mod-256 subclasses
+`n ≡ {27, 91, 155, 251} (mod 256)` remain open (e.g. `n = 27` needs `t_loc ≈ 94`).
+-/
+theorem bad_run_net_descent_witness_mod8_channel_three_j_mod8_open
+    {n : Nat}
+    (hn : 1 < n)
+    (h8 : n % 8 = 3)
+    (hj : ∃ j, n = 32 * j + 27 ∧ j % 8 ≠ 1 ∧ j % 8 ≠ 3 ∧ j % 8 ≠ 6) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3) := by
+  sorry
+
+/--
+`[C]` Channel-`3` odd-`k` with `k % 4 = 3`: `j % 8 = 1` at `t_loc = 9`, `{3,6}` at `t_loc = 11`;
+other mod-256 subclasses open.
 -/
 theorem bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_not_mod4_one
     {n : Nat}
@@ -149,7 +187,23 @@ theorem bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_not_mod4_o
     (h8 : n % 8 = 3)
     (hj : ∃ j, n = 32 * j + 27 ∧ j % 4 ≠ 1) :
     Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3) := by
-  sorry
+  rcases hj with ⟨j, hnj, hj1⟩
+  rcases (show j % 8 = 0 ∨ j % 8 = 2 ∨ j % 8 = 3 ∨ j % 8 = 4 ∨ j % 8 = 6 ∨ j % 8 = 7 from by omega) with
+      h0 | h2 | h3 | h4 | h6 | h7
+  · exact bad_run_net_descent_witness_mod8_channel_three_j_mod8_open
+      hn h8 ⟨j, hnj, by omega, by omega, by omega⟩
+  · exact bad_run_net_descent_witness_mod8_channel_three_j_mod8_open
+      hn h8 ⟨j, hnj, by omega, by omega, by omega⟩
+  · rcases exists_eq_two_hundred_fifty_six_mul_add_one_hundred_twenty_three_of_j_mod8_three
+      hnj h3 with ⟨m, hnm, _⟩
+    exact bad_run_net_descent_witness_mod8_channel_three_j_mod8_three hn h8 ⟨m, hnm⟩
+  · exact bad_run_net_descent_witness_mod8_channel_three_j_mod8_open
+      hn h8 ⟨j, hnj, by omega, by omega, by omega⟩
+  · rcases exists_eq_two_hundred_fifty_six_mul_add_two_hundred_nineteen_of_j_mod8_six
+      hnj h6 with ⟨m, hnm, _⟩
+    exact bad_run_net_descent_witness_mod8_channel_three_j_mod8_six hn h8 ⟨m, hnm⟩
+  · exact bad_run_net_descent_witness_mod8_channel_three_j_mod8_open
+      hn h8 ⟨j, hnj, by omega, by omega, by omega⟩
 
 /--
 `[C]` Channel-`3` odd-`k` with `k % 4 = 3`: `j % 4 = 1` closed at `t_loc = 9`; other mod-128 subclasses open.
@@ -229,15 +283,58 @@ theorem channel_seven_T_odd_mod4_eq_three
   T_odd_mod4_eq_three_of_mod8_eq_seven h7
 
 /--
-`[C]` Channel `7` uniform witness via depth-budget consumption + good-branch shrink.
-Requires `BadRunTwoAdicBudgetExhaustionStatement` or an explicit `t_loc` bound.
+`[A]` Channel `7` with `k % 4 = 2` (`n = 32j+23`): full witness at `t_good = 4`, `t_loc = 4`.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hk2 : ∃ j, n = 32 * j + 23) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7) := by
+  rcases channel_seven_net_descent_from_good_at_four_k_mod4_two hn h7 hk2 with
+    ⟨j, hnj, hnet⟩
+  refine ⟨{
+    toBadRunNetDescentWitness :=
+      BadRunNetDescentWitness.ofGoodBranchEntry
+        (BadRunGoodBranchEntryWitness.ofMod4Three 4 (72 * j + 53)
+          (by rw [hnj]; exact channel_seven_four_step_value_of_thirty_two_mul_add_twenty_three j)
+          (channel_seven_four_step_good_mod4_one_of_thirty_two_mul_add_twenty_three j))
+        4 hnet
+    input_mod8 := h7 }⟩
+
+/--
+`[C]` Channel `7` with `k % 4 ≠ 2`: uniform witness via depth-budget consumption.
+Requires `BadRunTwoAdicBudgetExhaustionStatement` or explicit `t_loc` bounds.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_seven_k_mod4_not_two
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hk : ∃ k, n = 8 * k + 7 ∧ k % 4 ≠ 2) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7) := by
+  sorry
+
+/--
+`[C]` Channel `7` uniform witness: `k % 4 = 2` subcase is `[A]`; other classes remain open.
 -/
 theorem bad_run_net_descent_witness_mod8_channel_seven_v28
     {n : Nat}
     (hn : 1 < n)
     (h7 : n % 8 = 7) :
     Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7) := by
-  sorry
+  rcases exists_eq_eight_mul_add_seven_of_mod8_eq_seven h7 with ⟨k, rfl⟩
+  rcases (show k % 4 = 0 ∨ k % 4 = 1 ∨ k % 4 = 2 ∨ k % 4 = 3 from by omega) with
+      h0 | h1 | h2 | h3
+  · exact bad_run_net_descent_witness_mod8_channel_seven_k_mod4_not_two
+      hn h7 ⟨k, rfl, by omega⟩
+  · exact bad_run_net_descent_witness_mod8_channel_seven_k_mod4_not_two
+      hn h7 ⟨k, rfl, by omega⟩
+  · have hk2 : k % 4 = 2 := h2
+    rcases exists_eq_thirty_two_mul_add_twenty_three_of_mod8_eq_seven_and_k_mod4_two rfl hk2 with
+      ⟨j, hnj, _⟩
+    exact bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two hn h7 ⟨j, hnj⟩
+  · exact bad_run_net_descent_witness_mod8_channel_seven_k_mod4_not_two
+      hn h7 ⟨k, rfl, by omega⟩
 
 /--
 `[C]` V2.8 assembly: channel `3` even-`k` subcase proved; odd-`k` and channel `7` remain open.
@@ -265,7 +362,8 @@ open CollatzNetDescentMod8Witness
 
 /--
 V2.8 status: channel-`3` even-`k` net descent at `t_loc = 4`; odd-`k` `k%4=1` at `t_loc = 6`;
-odd-`k` `k%4=3` with `j%4=1` at `t_loc = 9`; other `k%4=3` subclasses and channel `7` open.
+odd-`k` `k%4=3` with `j%4=1` at `t_loc = 9`; mod-256 `{123,219}` at `t_loc = 11`;
+channel `7` `k%4=2` at `t_good=4`, `t_loc=4`; remaining subclasses open.
 -/
 structure CollatzProofAttemptStatusV28 : Prop where
   base_v27 : CollatzProofAttemptStatusV27
@@ -278,11 +376,24 @@ structure CollatzProofAttemptStatusV28 : Prop where
   channel_three_k_mod4_three_j_mod4_one_net_descent :
     ∀ {n : Nat}, 1 < n → n % 8 = 3 → (∃ m, n = 128 * m + 59) →
       Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3)
+  channel_three_mod256_one_hundred_twenty_three_net_descent :
+    ∀ {n : Nat}, 1 < n → n % 8 = 3 → (∃ m, n = 256 * m + 123) →
+      Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3)
+  channel_three_mod256_two_hundred_nineteen_net_descent :
+    ∀ {n : Nat}, 1 < n → n % 8 = 3 → (∃ m, n = 256 * m + 219) →
+      Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch3)
+  channel_seven_k_mod4_two_net_descent :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ j, n = 32 * j + 23) →
+      Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7)
   channel_three_uniform_five_step_barrier :
     ∀ {k : Nat}, k % 2 = 1 → 0 < k →
       (8 * k + 3) ≤ (collatzStep^[5]) (T_odd (8 * k + 3))
-  channel_three_eight_step_fails_mod128_fiftynine :
-    ∀ {m : Nat}, (128 * m + 59) ≤ (collatzStep^[8]) (T_odd (128 * m + 59))
+  channel_three_ten_step_fails_mod256_one_hundred_twenty_three :
+    ∀ {m : Nat}, (256 * m + 123) ≤ (collatzStep^[10]) (T_odd (256 * m + 123))
+  channel_three_ten_step_fails_mod256_two_hundred_nineteen :
+    ∀ {m : Nat}, (256 * m + 219) ≤ (collatzStep^[10]) (T_odd (256 * m + 219))
+  channel_seven_five_step_fails_k_mod4_two :
+    ∀ {j : Nat}, (32 * j + 23) ≤ (collatzStep^[5]) (T_odd (32 * j + 23))
   bad_run_two_adic_budget_ge_two :
     ∀ {n : Nat}, n % 4 = 3 → 2 ≤ badRunTwoAdicBudget n
 
@@ -294,10 +405,20 @@ theorem collatz_proof_attempt_status_v28 : CollatzProofAttemptStatusV28 where
     bad_run_net_descent_witness_mod8_channel_three_mod8_one_k_mod4_one hn h8 hk1
   channel_three_k_mod4_three_j_mod4_one_net_descent := fun hn h8 h59 =>
     bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_mod4_one hn h8 h59
+  channel_three_mod256_one_hundred_twenty_three_net_descent := fun hn h8 h123 =>
+    bad_run_net_descent_witness_mod8_channel_three_j_mod8_three hn h8 h123
+  channel_three_mod256_two_hundred_nineteen_net_descent := fun hn h8 h219 =>
+    bad_run_net_descent_witness_mod8_channel_three_j_mod8_six hn h8 h219
+  channel_seven_k_mod4_two_net_descent := fun hn h7 hk2 =>
+    bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two hn h7 hk2
   channel_three_uniform_five_step_barrier := fun hk_odd hk_pos =>
     channel_three_uniform_five_step_fails_net hk_odd hk_pos
-  channel_three_eight_step_fails_mod128_fiftynine := fun {m} =>
-    channel_three_eight_step_fails_net_mod128_fiftynine (m := m)
+  channel_three_ten_step_fails_mod256_one_hundred_twenty_three := fun {m} =>
+    channel_three_ten_step_fails_net_mod256_one_hundred_twenty_three (m := m)
+  channel_three_ten_step_fails_mod256_two_hundred_nineteen := fun {m} =>
+    channel_three_ten_step_fails_net_mod256_two_hundred_nineteen (m := m)
+  channel_seven_five_step_fails_k_mod4_two := fun {j} =>
+    channel_seven_five_step_fails_net_k_mod4_two (j := j)
   bad_run_two_adic_budget_ge_two := fun hmod =>
     bad_run_two_adic_budget_ge_two_of_mod4_eq_three hmod
 

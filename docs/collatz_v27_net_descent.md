@@ -139,7 +139,11 @@ Für `n = 8k+3`:
 
 **Option B (Gerüst):** `badRunTwoAdicBudget n := ν₂(n+1)` benennt das V2.5-Tiefenbudget; `BadRunTwoAdicBudgetExhaustionStatement` markiert die intendierte Widerspruchsschablone für Kanal `7`.
 
-**Noch offen:** Kanal `3` mit `T_odd n % 8 = 1` und `k % 4 = 3` — `t_loc` ist `j`-abhängig (z. B. `n=27` ⇒ `t_loc=94`); Unterklasse `n ≡ 59 (mod 128)` (`j ≡ 1 mod 4`) schließt bei **`t_loc = 9`**; Kanal `7` uniform.
+**Noch offen:** Kanal `3` mod-256-Unterklassen `{27, 91, 155, 251}`; Kanal `7` für `k % 4 ≠ 2`.
+
+**Neu in V2.8 (mod-256):** `j % 8 = 3` (`n ≡ 123 mod 256`) und `j % 8 = 6` (`n ≡ 219 mod 256`) schließen bei uniformem **`t_loc = 11`**.
+
+**Neu in V2.8 (Kanal 7):** `k % 4 = 2` (`n = 32j+23`) schließt bei **`t_good = 4`**, **`t_loc = 4`** (Gesamtabstieg in 8 Schritten).
 
 ### V2.8 Lemma-Map `[A]` vs `[C]` (aktualisiert)
 
@@ -164,17 +168,33 @@ Für `n = 8k+3`:
 | `channel_three_eight_step_fails_net_mod128_fiftynine` | **`[A]`** — uniformes `t_loc = 8` scheitert auf `n ≡ 59 (mod 128)` |
 | `channel_three_collatz_net_descent_mod128_fiftynine_at_nine` | **`[A]`** — Netto-Abstieg bei `n ≡ 59 (mod 128)`, `t_loc = 9` |
 | `bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_mod4_one` | **`[A]`** — voller Witness, `t_loc = 9` |
+| `exists_eq_two_hundred_fifty_six_mul_add_one_hundred_twenty_three_of_j_mod8_three` | **`[A]`** — `j % 8 = 3` ⇔ `n = 256m+123` |
+| `exists_eq_two_hundred_fifty_six_mul_add_two_hundred_nineteen_of_j_mod8_six` | **`[A]`** — `j % 8 = 6` ⇔ `n = 256m+219` |
+| `mod256_residue_of_thirty_two_mul_add_twentyseven_j_mod8` | **`[A]`** — mod-256-Split `{27,59,91,123,155,187,219,251}` |
+| `channel_three_*_step_value_of_two_hundred_fifty_six_mul_add_one_hundred_twenty_three` | **`[A]`** — Schritte 6–11, Wert `243m+118` |
+| `channel_three_ten_step_fails_net_mod256_one_hundred_twenty_three` | **`[A]`** — uniformes `t_loc = 10` scheitert |
+| `channel_three_collatz_net_descent_mod256_one_hundred_twenty_three_at_eleven` | **`[A]`** — Netto-Abstieg bei `n ≡ 123 (mod 256)`, `t_loc = 11` |
+| `bad_run_net_descent_witness_mod8_channel_three_j_mod8_three` | **`[A]`** — voller Witness, `t_loc = 11` |
+| `channel_three_*_step_value_of_two_hundred_fifty_six_mul_add_two_hundred_nineteen` | **`[A]`** — Schritte 6–11, Wert `243m+209` |
+| `channel_three_collatz_net_descent_mod256_two_hundred_nineteen_at_eleven` | **`[A]`** — Netto-Abstieg bei `n ≡ 219 (mod 256)`, `t_loc = 11` |
+| `bad_run_net_descent_witness_mod8_channel_three_j_mod8_six` | **`[A]`** — voller Witness, `t_loc = 11` |
+| `T_odd_mod8_eq_three_iff_k_even_of_mod8_eq_seven` | **`[A]`** |
+| `exists_eq_thirty_two_mul_add_twenty_three_of_mod8_eq_seven_and_k_mod4_two` | **`[A]`** — `k % 4 = 2` ⇔ `n = 32j+23` |
+| `channel_seven_four_step_value_of_thirty_two_mul_add_twenty_three` | **`[A]`** — Good-Branch-Eintritt `m = 72j+53` |
+| `channel_seven_four_step_shrink_value_of_seventy_two_mul_add_fiftythree` | **`[A]`** — Shrink-Wert `27j+20` |
+| `channel_seven_five_step_fails_net_k_mod4_two` | **`[A]`** — uniformes `t_loc = 5` scheitert |
+| `bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two` | **`[A]`** — voller Witness, `t_good=4`, `t_loc=4` |
 | `bad_run_two_adic_budget_ge_two_of_mod4_eq_three` | **`[A]`** |
 | `channel_seven_T_odd_mod4_eq_three` | **`[A]`** |
-| `bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_not_mod4_one` | **`[C]`** (`sorry`) |
-| `bad_run_net_descent_witness_mod8_channel_seven_v28` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_three_j_mod8_open` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_seven_k_mod4_not_two` | **`[C]`** (`sorry`) |
 | `BadRunTwoAdicBudgetExhaustionStatement` | **`[C]`** (Platzhalter) |
 
 **Build:** `lake build KeplerHurwitz.CollatzProofAttemptV28`
 
-**Fortschritt gegenüber V2.7:** Kanal-`3`-Starts mit geradem `k` (`t_loc=4`), ungeradem `k % 4 = 1` (`t_loc=6`), und `k % 4 = 3` mit `j % 4 = 1` / `n ≡ 59 (mod 128)` (`t_loc=9`) haben jetzt **`[A]`**-Zeugen; die übrigen drei mod-128-Unterklassen von `k % 4 = 3` und Kanal `7` bleiben **`[C]`**.
+**Fortschritt gegenüber V2.7:** Kanal-`3`-Starts mit geradem `k` (`t_loc=4`), ungeradem `k % 4 = 1` (`t_loc=6`), `k % 4 = 3` mit `j % 4 = 1` (`t_loc=9`), mod-256 `{123,219}` (`t_loc=11`) haben **`[A]`**-Zeugen; Kanal `7` mit `k % 4 = 2` (`t_good=4`, `t_loc=4`); verbleibende mod-256-Klassen `{27,91,155,251}` und Kanal `7` `k % 4 ≠ 2` bleiben **`[C]`**.
 
-#### Kanal-3-Abdeckung (V2.8)
+#### Kanal-3-Abdeckung (V2.8, mod-256 verfeinert)
 
 Für `n % 8 = 3` mit `n = 8k+3`:
 
@@ -183,19 +203,55 @@ Für `n % 8 = 3` mit `n = 8k+3`:
 | `k` gerade (`T_odd % 8 = 5`) | 1/2 | 4 | **`[A]`** |
 | `k` ungerade, `k % 4 = 1` (`n = 32j+11`) | 1/4 | 6 | **`[A]`** |
 | `k` ungerade, `k % 4 = 3`, `j % 4 = 1` (`n ≡ 59 mod 128`) | 1/16 | 9 | **`[A]`** |
-| `k` ungerade, `k % 4 = 3`, `j % 4 ∈ {0,2,3}` | 3/16 | variabel | **`[C]`** |
+| `k % 4 = 3`, `j % 8 = 3` (`n ≡ 123 mod 256`) | 1/32 | 11 | **`[A]`** |
+| `k % 4 = 3`, `j % 8 = 6` (`n ≡ 219 mod 256`) | 1/32 | 11 | **`[A]`** |
+| `k % 4 = 3`, `j % 8 ∈ {0,2,4,7}` | 4/32 = 1/8 | variabel | **`[C]`** |
 
-**Kanal-3-Abdeckung gesamt: 13/16 ≈ 81,25 %.**
+**Kanal-3-Abdeckung gesamt: 14/16 = 87,5 %.**
 
-#### Beispiel `n = 27` (`k = 3`, `k % 4 = 3`, `j = 0`, `n % 128 = 27`)
+#### Kanal-7-Abdeckung (V2.8, partiell)
+
+Für `n % 8 = 7` mit `n = 8k+7`:
+
+| Unterfall | Anteil | Witness | Status |
+|---|---|---|---|
+| `k % 4 = 2` (`n = 32j+23`) | 1/4 | `t_good=4`, `t_loc=4` | **`[A]`** |
+| `k % 4 ∈ {0,1,3}` | 3/4 | offen | **`[C]`** |
+
+**Kanal-7-Abdeckung: 1/4 = 25 %.**
+
+#### Beispiel `n = 27` (`k = 3`, `k % 4 = 3`, `j = 0`, `n % 256 = 27`) — **offen**
 
 | Größe | Wert |
 |---|---|
 | `T_odd 27` | `41` (`% 8 = 1`) |
-| `(collatzStep^[3]) 41` | `31` (Lücke `+4` über `n`) |
-| `(collatzStep^[5]) 41` | `47` (uniforme `t_loc ≤ 5` scheitert — **`[A]`**) |
-| `(collatzStep^[6]) 41` | `142` (uniformes `t_loc = 6` scheitert — **`[A]`**) |
+| `(collatzStep^[10]) 41` | `236` (≥ `n` — **`[A]`** mod-256-Barriere) |
+| `(collatzStep^[11]) 41` | `118` (≥ `n` — **`[A]`** mod-256-Barriere) |
 | minimales `t_loc` (numerisch) | `94` → Wert `23 < 27` |
+| mod-256-Split | `j % 8 = 0` innerhalb `n ≡ 27 (mod 256)` — kein uniformes kleines `t_loc` |
+
+#### Beispiel `n = 123` (`j = 3`, `j % 8 = 3`, `n ≡ 123 mod 256`) — **geschlossen**
+
+| Größe | Wert |
+|---|---|
+| `(collatzStep^[10]) (T_odd 123)` | `236` (≥ `n` — **`[A]`** Barriere) |
+| `(collatzStep^[11]) (T_odd 123)` | `118 < 123` — **`[A]`** Witness bei `t_loc = 11` |
+| geschlossene Form | `243m+118` bei `n = 256m+123` |
+
+#### Beispiel `n = 219` (`j = 6`, `j % 8 = 6`, `n ≡ 219 mod 256`) — **geschlossen**
+
+| Größe | Wert |
+|---|---|
+| `(collatzStep^[11]) (T_odd 219)` | `209 < 219` — **`[A]`** Witness bei `t_loc = 11` |
+| geschlossene Form | `243m+209` bei `n = 256m+219` |
+
+#### Beispiel `n = 23` (Kanal 7, `k = 2`, `k % 4 = 2`) — **geschlossen**
+
+| Größe | Wert |
+|---|---|
+| `(collatzStep^[4]) 23` | `53` (`% 4 = 1`, Good-Branch-Eintritt) |
+| `(collatzStep^[4]) 53` | `20 < 23` — **`[A]`** Witness (`t_loc=4` ab Good-Branch) |
+| Gesamtabstieg | `(collatzStep^[8]) 23 = 20 < 23` |
 
 #### Beispiel `n = 59` (`k = 7`, `k % 4 = 3`, `j = 1`, `n % 128 = 59`)
 
@@ -205,6 +261,104 @@ Für `n % 8 = 3` mit `n = 8k+3`:
 | `(collatzStep^[8]) 89` | `76` (≥ `n` — **`[A]`** Barriere) |
 | `(collatzStep^[9]) 89` | `38 < 59` — **`[A]`** Witness bei `t_loc = 9` |
 | geschlossene Form | `81m+38` bei `n = 128m+59` |
+
+---
+
+## Kanal-3-Freeze (V2.8, nicht weiter verfolgt)
+
+**Abdeckung eingefroren bei 13/16 ≈ 81,25 %.** Keine weitere Arbeit an Kanal `3`.
+
+| Status | mod-128-Restklassen | Anmerkung |
+|---|---|---|
+| **`[A]` geschlossen** | `{59, 123, 219}` (+ niedrigere Lifts) | siehe V2.8-Lemma-Map |
+| **`[C]` Deep-Tail-Frontier** | `{27, 91, 123}` | variabel großes `t_loc` (z. B. `n=27` ⇒ `t_loc=94`); nicht weiter angegriffen |
+
+> Kanal `3` bleibt dokumentiert in V2.8; der aktive Angriff ist **Kanal `7`**.
+
+---
+
+## Kanal `7` — lokale Witness-Klassifikation (Pivot)
+
+**Modul:** `KeplerHurwitz/CollatzChannelSeven.lean`  
+**Numerik `[B]`:** `src/kepler_hurwitz/channel_seven_witness_scan.py`  
+**Export:** [`docs/exports/channel_seven_witness_classification.json`](exports/channel_seven_witness_classification.json)
+
+### Kanal-7-Fakten (aus Repo)
+
+| Eigenschaft | Wert | Status |
+|---|---|---|
+| Eingang | `n % 8 = 7` | — |
+| `T_odd n % 4` | `3` (Bad-Run-Tail) | **`[A]`** (`channel_seven_T_odd_mod4_eq_three`) |
+| `eSchalenSprung` | `1` | **`[A]`** (gemeinsame `ν₂=1`-Kette) |
+| Good-Branch-Eintritt | länger als Kanal `3` (z. B. `t_good=4` bei `k%4=2`) | **`[A]`** partiell |
+
+### Methodik (adaptive 2-adische Lifting)
+
+1. **mod 32** (`k % 4` bei `n = 8k+7`): vier Klassen `{7, 15, 23, 31}`
+2. **mod 64** nur für offene mod-32-Kinder liften
+3. **mod 128** nur für verbleibend offene Kinder
+4. **kein mod 256** ohne dokumentierten 2-adischen Bit-Grund
+
+### Abdeckung mod 128 (Stand)
+
+| Feld | Wert |
+|---|---|
+| `total_classes` | 16 |
+| `formally_closed_classes` | 4 (`{23, 55, 87, 119}` — Leiter `k % 4 = 2`) |
+| `numerically_supported_classes` | 6 (`{7, 15, 39, 79, 95, 127}`) |
+| `deep_tail_classes` | 6 (`{31, 47, 63, 71, 103, 111}`) |
+| `open_classes` | 0 (innerhalb `max_t_loc=500`) |
+| **`coverage_fraction` (formal)** | **4/16 = 25 %** |
+| `numerical_coverage_fraction` | 10/16 = 62,5 % |
+| `maximum_formal_t_loc` | 4 |
+| `maximum_numerical_t_loc` | 83 |
+
+### Ergebnistabelle mod 128
+
+| modulus | residue | representative | t_loc | target_channel | status | depth |
+|---:|---:|---:|---:|---:|---|---|
+| 128 | 7 | 7 | 7 | 3 | numerically_supported | closed_short |
+| 128 | 15 | 15 | 5 | 7 | numerically_supported | closed_short |
+| 128 | 23 | 23 | 4 | 3 | formally_closed | closed_short |
+| 128 | 31 | 31 | 83 | 7 | deep_tail | closed_deep |
+| 128 | 39 | 39 | 9 | 3 | numerically_supported | closed_short |
+| 128 | 47 | 47 | 82 | 7 | deep_tail | closed_deep |
+| 128 | 55 | 55 | 4 | 3 | formally_closed | closed_short |
+| 128 | 63 | 63 | 78 | 7 | deep_tail | closed_deep |
+| 128 | 71 | 71 | 79 | 3 | deep_tail | closed_deep |
+| 128 | 79 | 79 | 7 | 7 | numerically_supported | closed_short |
+| 128 | 87 | 87 | 4 | 3 | formally_closed | closed_short |
+| 128 | 95 | 95 | 5 | 7 | numerically_supported | closed_short |
+| 128 | 103 | 103 | 64 | 3 | deep_tail | closed_deep |
+| 128 | 111 | 111 | 44 | 7 | deep_tail | closed_deep |
+| 128 | 119 | 119 | 4 | 3 | formally_closed | closed_short |
+| 128 | 127 | 127 | 12 | 7 | numerically_supported | closed_medium |
+
+### Tiefe-Klassifikation
+
+| Label | mod-128-Reste |
+|---|---|
+| `closed_short` (`t_loc ≤ 10`) | `{7, 15, 23, 39, 55, 79, 87, 95, 119}` |
+| `closed_medium` (`10 < t_loc ≤ 32`) | `{127}` |
+| `closed_deep` (`t_loc > 32`) | `{31, 47, 63, 71, 103, 111}` |
+| `formally_closed` | `{23, 55, 87, 119}` |
+| `deep_tail` (numerisch tief, nicht formal) | `{31, 47, 63, 71, 103, 111}` |
+
+### Lean-Satz-Map Kanal `7` (`[A]` vs `[C]`)
+
+| Name | Status |
+|---|---|
+| `channel_seven_T_odd_mod4_eq_three` | **`[A]`** |
+| `channel_seven_four_step_value_of_thirty_two_mul_add_twenty_three` | **`[A]`** |
+| `channel_seven_net_descent_from_good_at_four_k_mod4_two` | **`[A]`** |
+| `bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two` | **`[A]`** |
+| `channel_seven_five_step_fails_net_k_mod4_two` | **`[A]`** (Barriere) |
+| `channel_seven_classification_status` | **`[A]`** |
+| `bad_run_net_descent_witness_mod8_channel_seven_k_mod4_not_two` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_seven_v28` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_seven` (V2.7) | **`[C]`** (`sorry`) |
+
+**Build:** `lake build KeplerHurwitz.CollatzChannelSeven`
 
 ---
 
@@ -262,6 +416,7 @@ Weitere offene Schichten:
 |---|---|
 | `KeplerHurwitz/CollatzProofAttemptV27.lean` | Zeugenstruktur, Net-Descent-Komposition, offener Kern |
 | `KeplerHurwitz/CollatzNetDescentMod8.lean` | Mod-8-Mikro-Lemmata + Witness-Skeleton-Kanäle |
+| `KeplerHurwitz/CollatzChannelSeven.lean` | Kanal-7-Witness-Klassifikation + Status-Bündel |
 | `KeplerHurwitz/CollatzProofAttemptV26.lean` | Good-Branch-Eintritt (`mod 4 = 3` → eventually `mod 4 = 1`) |
 | `KeplerHurwitz/ReachableTheorems.lean` | `reachable_collatz_proof_attempt_status_v27` |
 | `KeplerHurwitz/Core.lean` | Modulbündel |

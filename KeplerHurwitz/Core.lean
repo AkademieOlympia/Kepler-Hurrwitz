@@ -19,6 +19,7 @@ import KeplerHurwitz.CollatzProofAttemptV26
 import KeplerHurwitz.CollatzProofAttemptV27
 import KeplerHurwitz.CollatzProofAttemptV28
 import KeplerHurwitz.CollatzNetDescentMod8
+import KeplerHurwitz.CollatzChannelSeven
 import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Collatz.CkA.OrbitSmoothBridge
 import KeplerHurwitz.Collatz.Octonion.Termination
