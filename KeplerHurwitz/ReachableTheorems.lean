@@ -9,10 +9,15 @@ import KeplerHurwitz.CollatzProofAttemptV22
 import KeplerHurwitz.CollatzProofAttemptV23
 import KeplerHurwitz.CollatzProofAttemptV24
 import KeplerHurwitz.CollatzProofAttemptV25
+import KeplerHurwitz.DedekindHasseProofAttempt
+import KeplerHurwitz.DedekindIdealLayer
 import KeplerHurwitz.CollatzProofAttemptV26
 import KeplerHurwitz.CollatzProofAttemptV27
+import KeplerHurwitz.CollatzNetDescentMod8
+import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Representation.Invariant
 import KeplerHurwitz.Representation.EABCChronology
+import KeplerHurwitz.DistilledParameters
 import KeplerHurwitz.SchuettePtolemyCaeda
 import KeplerHurwitz.SymbolicResultants
 import KeplerHurwitz.HalesTaoIntegration
@@ -406,5 +411,117 @@ EABC-Chronologie: linksseitige Rotation entspricht rechtsseitiger inverser Rotat
 theorem reachable_phi_left_eq_right_inverse :
     JchiLeft Phi = JchiRightInv Phi := by
   exact Phi_left_rotation_eq_right_inverse_rotation
+
+/--
+Dedekind–Hasse ↔ EABC: DH-Kriterium-Schnittstelle ist dokumentiert (Cardoso–Machiavelo).
+-/
+theorem reachable_dedekindHasse_criterion_statement (order : ReferenceQuaternionOrder) :
+    DedekindHasseProofAttempt.DedekindHasseCriterionStatement order := by
+  exact DedekindHasseProofAttempt.dedekindHasse_criterion_holds order
+
+/--
+Dedekind–Hasse ↔ EABC: isotrope EABC-Signatur hat Exzentrizitaet null (Kepler-Projektion).
+-/
+theorem reachable_isotropic_eabc_signature_zero_eccentricity (h : EABCSignature4)
+    (hi : DedekindHasseProofAttempt.IsotropicEabcSignature h) :
+    h.eccentricity = 0 := by
+  exact DedekindHasseProofAttempt.isotropic_signature_eccentricity_zero h hi
+
+/--
+Dedekind–Hasse ↔ EABC: Status-Buendel (DH/Dumas lokal, EABC-Zertifikat extern, Φ offen).
+-/
+theorem reachable_dedekindHasse_proof_attempt_status :
+    DedekindHasseProofAttempt.DedekindHasseProofAttemptStatus := by
+  exact DedekindHasseProofAttempt.dedekindHasse_proof_attempt_status
+
+/--
+Dedekind-Ideal-Schicht: DH-Kriterium impliziert links-PID-Zeuge (E-067, Schnittstellenbeweis).
+-/
+theorem reachable_dedekind_hasse_implies_left_pid (order : ReferenceQuaternionOrder) :
+    DedekindHasseCriterion order → Nonempty (DedekindIdealLayer.LeftPIDWitness order) := by
+  exact DedekindIdealLayer.dedekind_hasse_implies_left_pid order
+
+/--
+Dedekind-Ideal-Schicht: Links-Rechts-Pfad-Asymmetrie fuer Referenzordnungen (E-068).
+-/
+theorem reachable_leftRightIdealPathAsymmetry :
+    DedekindIdealLayer.LeftRightIdealPathAsymmetryStatement := by
+  exact DedekindIdealLayer.leftRightIdealPathAsymmetryStatement_holds
+
+/--
+Dedekind-Ideal-Schicht: Referenzordnungen ohne Idealclassen-Obstruktion (E-069, negativer Befund).
+-/
+theorem reachable_referenceOrdersNoIdealClassObstruction :
+    DedekindIdealLayer.ReferenceOrdersNoIdealClassObstruction := by
+  exact DedekindIdealLayer.dedekind_reference_no_ideal_class_obstruction
+
+/--
+Dedekind-Ideal-Schicht: Chiralitaetsindikator σ(H·γ)−σ(γ·H) ≠ 0 fuer Referenzordnungen (E-068).
+-/
+theorem reachable_idealPathChiralityNonzero (order : ReferenceQuaternionOrder) (γ : Nat) :
+    DedekindIdealLayer.IdealPathChiralityNonzero order γ := by
+  exact DedekindIdealLayer.ideal_path_chirality_nonzero_reference order γ
+
+/--
+Destillierte Kanalparameter: Spread ist durch Kanalmass begrenzt.
+-/
+theorem reachable_channel_spread_le_mass (h : EABCSignature4) :
+    channelSpread_ofSignature h ≤ channelMass_ofSignature h := by
+  exact channelSpread_le_channelMass h
+
+/--
+V2.7 Diagnostics: positive net margin from good-branch entry yields net-descent witness.
+-/
+def reachable_collatz_bad_run_net_descent_witness_of_margin
+    {n : Nat}
+    (e : CollatzAttemptV2.CollatzNetDescent.BadRunGoodBranchEntryWitness n)
+    (t_loc : Nat)
+    (hmargin :
+      0 < CollatzAttemptV2.CollatzNetDescent.netDescentMargin n t_loc e.m_good) :
+    CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentWitness n :=
+  CollatzAttemptV2.CollatzNetDescent.bad_run_net_descent_witness_of_margin e t_loc hmargin
+
+/--
+V2.7 Diagnostics: uniform witness existence equals uniform positive net margin.
+-/
+theorem reachable_collatz_net_descent_via_margin_iff :
+    CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentViaMarginStatement ↔
+      CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentStatement := by
+  exact CollatzAttemptV2.CollatzNetDescent.bad_run_net_descent_via_margin_iff
+
+/--
+V2.7 mod-8: `n ≡ 3 (mod 4)` forces `ν₂(3n+1) = 1`.
+-/
+theorem reachable_nu2_one_of_mod4_eq_three
+    {n : Nat} (ho : n % 2 = 1) (hmod : n % 4 = 3) :
+    padicValNat 2 (3 * n + 1) = 1 := by
+  exact CollatzAttemptV2.CollatzNetDescentMod8.nu2_three_mul_add_one_eq_one_of_mod4_eq_three ho hmod
+
+/--
+V2.7 mod-8: first Syracuse step mod-8 subcases from `mod 4 = 3` inputs.
+-/
+theorem reachable_first_syracuse_mod8_subcases_of_mod4_eq_three
+    {n : Nat} (ho : n % 2 = 1) (hmod : n % 4 = 3) :
+    (n % 8 = 3 ∧ (CollatzAttemptV2.T_odd n % 8 = 1 ∨ CollatzAttemptV2.T_odd n % 8 = 5)) ∨
+      (n % 8 = 7 ∧
+        (CollatzAttemptV2.T_odd n % 8 = 3 ∨ CollatzAttemptV2.T_odd n % 8 = 7)) := by
+  exact CollatzAttemptV2.CollatzNetDescentMod8.first_syracuse_mod8_subcases_of_mod4_eq_three ho hmod
+
+/--
+V2.7 mod-8 channel 3: first Syracuse odd strictly exceeds start.
+-/
+theorem reachable_T_odd_gt_of_mod8_eq_three
+    {n : Nat} (h8 : n % 8 = 3) :
+    n < CollatzAttemptV2.T_odd n := by
+  exact CollatzAttemptV2.CollatzNetDescentMod8.T_odd_gt_of_mod8_eq_three h8
+
+/--
+V2.7 mod-8 channel 3: canonical three-step shrink value `9k+4` when `n = 8k+3`.
+-/
+theorem reachable_three_step_shrink_gt_start_of_mod8_eq_three
+    {n : Nat} (h8 : n % 8 = 3) :
+    n < (3 * CollatzAttemptV2.T_odd n + 1) / 4 := by
+  exact CollatzAttemptV2.CollatzNetDescentMod8.three_step_shrink_gt_start_of_mod8_eq_three h8
+
 
 end KeplerHurwitz
