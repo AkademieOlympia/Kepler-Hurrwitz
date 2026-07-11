@@ -12,6 +12,7 @@ physics identity, not Collatz proof, not EABC physical claim.
 
 from __future__ import annotations
 
+import math
 from typing import Any, Literal
 
 E3_DECOMPOSITION_TAG = "[B]"
@@ -25,16 +26,26 @@ CaseType = Literal[
     "invalid_e",
 ]
 
+EABC_GEOM_DIAGONAL = 24.0
+EABC_CHANNEL_WEIGHTS: dict[int, int] = {1: 1, 5: 5, 7: 7, 11: 11}
+
 __all__ = [
     "E3_DECOMPOSITION_TAG",
     "E3_PRODUCT_ANALOGY_TAG",
+    "EABC_CHANNEL_WEIGHTS",
+    "EABC_GEOM_DIAGONAL",
     "abc_split_decomposition",
     "analyze_e3_commutative_multiplet",
     "analyze_e3_decomposition",
     "analyze_e3_with_product_split",
     "commutation_check",
+    "compare_e3_eabc_anisotropy",
     "e3_decompose",
     "e3_spectral_diagnostic",
+    "eabc_channel_weight_from_factor",
+    "eabc_defect_tensor",
+    "eabc_retract_defect",
+    "eabc_tensor_spectral_summary",
     "symmetric_operators",
     "verify_abc_split",
     "verify_e3_identity",
@@ -219,6 +230,291 @@ def symmetric_operators(b: int, c: int) -> tuple[int, int]:
     if (b + c) % 2 != 0:
         raise ValueError("b and c must have equal parity for exact symmetric split")
     return (b + c) // 2, abs(b - c) // 2
+
+
+def eabc_channel_weight_from_factor(e: int) -> int | None:
+    """
+    Map the outer factor ``e`` in ``n = e * a`` to EABC defect weight ``w_p``.
+
+    Convention (E-053): invertible mod-12 residues ``1, 5, 7, 11`` map to
+    ``w_E=1``, ``w_A=5``, ``w_B=7``, ``w_C=11``. Factors ``e <= 3`` or other
+    residues return ``None`` (no EABC channel assignment).
+    """
+    if e <= 3:
+        return None
+    return EABC_CHANNEL_WEIGHTS.get(e % 12)
+
+
+def _coefficient_unit_direction(q: int, bc: int) -> tuple[float, float, float]:
+    """Unit direction for odd e-power coefficients ``(q, b*c, 1)``."""
+    norm = math.sqrt(float(q * q + bc * bc + 1))
+    return (q / norm, bc / norm, 1.0 / norm)
+
+
+def _outer_product(v: tuple[float, float, float]) -> list[list[float]]:
+    return [[v[i] * v[j] for j in range(3)] for i in range(3)]
+
+
+def eabc_defect_tensor(
+    w_p: float,
+    direction: tuple[float, float, float],
+    *,
+    geom_diagonal: float = EABC_GEOM_DIAGONAL,
+) -> list[list[float]]:
+    """
+    Build ``M_eff = geom_diagonal * I_3 + w_p * v v^T`` with unit ``v``.
+
+    Matches the rank-1 defect model in ``eabc_renormalisierungsprogramm.md``;
+    does not use the full 12-point shell sum ``M(σ)``.
+    """
+    outer = _outer_product(direction)
+    return [
+        [
+            geom_diagonal * (1 if i == j else 0) + w_p * outer[i][j]
+            for j in range(3)
+        ]
+        for i in range(3)
+    ]
+
+
+def eabc_retract_defect(
+    w_p: float,
+    direction: tuple[float, float, float],
+    *,
+    geom_diagonal: float = EABC_GEOM_DIAGONAL,
+) -> list[list[float]]:
+    """Projective retraction ``R*_EABC``: remove rank-1 defect, return ``geom_diagonal * I_3``."""
+    _ = (w_p, direction)
+    return [
+        [geom_diagonal if i == j else 0.0 for j in range(3)]
+        for i in range(3)
+    ]
+
+
+def eabc_tensor_spectral_summary(
+    matrix: list[list[float]],
+    *,
+    defect_rank: int | None = None,
+) -> dict[str, Any]:
+    """
+    Spectral summary for a symmetric 3×3 tensor.
+
+    Eigenvalues are sorted ascending (``λ_min`` first). For the closed-form
+    defect model ``24 I_3 + w_p v v^T`` with unit ``v``, callers may pass
+    ``defect_rank`` directly; otherwise rank is estimated from eigenvalue spread.
+    """
+    # Closed-form shortcut for isotropic base + rank-1 defect on diagonal scale.
+    diag = matrix[0][0]
+    if (
+        abs(matrix[0][0] - matrix[1][1]) < 1e-12
+        and abs(matrix[1][1] - matrix[2][2]) < 1e-12
+        and abs(matrix[0][1]) < 1e-12
+        and abs(matrix[0][2]) < 1e-12
+        and abs(matrix[1][2]) < 1e-12
+    ):
+        eigenvalues = [diag, diag, diag]
+    else:
+        # General symmetric 3×3 via characteristic polynomial (no numpy dependency).
+        a = matrix[0][0]
+        b = matrix[0][1]
+        c = matrix[0][2]
+        d = matrix[1][1]
+        e = matrix[1][2]
+        f = matrix[2][2]
+        m = a + d + f
+        p = a * d + a * f + d * f - b * b - c * c - e * e
+        q = (
+            a * d * f
+            + 2.0 * b * c * e
+            - a * e * e
+            - d * c * c
+            - f * b * b
+        )
+        # Cardano for depressed cubic x^3 + px + q = 0 with substitution t = x - m/3
+        p_depressed = p - m * m / 3.0
+        q_depressed = 2.0 * m * m * m / 27.0 - m * p / 3.0 + q
+        if abs(p_depressed) < 1e-12:
+            roots = [m / 3.0, m / 3.0, m / 3.0]
+        else:
+            half_q = q_depressed / 2.0
+            third_p = p_depressed / 3.0
+            discriminant = half_q * half_q + third_p * third_p * third_p
+            if discriminant >= 0.0:
+                sqrt_disc = math.sqrt(discriminant)
+                u = math.copysign(abs(-half_q + sqrt_disc) ** (1.0 / 3.0), -half_q + sqrt_disc)
+                v = math.copysign(abs(-half_q - sqrt_disc) ** (1.0 / 3.0), -half_q - sqrt_disc)
+                roots = [u + v - m / 3.0, -(u + v) / 2.0 - m / 3.0, -(u + v) / 2.0 - m / 3.0]
+            else:
+                r = math.sqrt(-third_p * third_p * third_p)
+                theta = math.acos(max(-1.0, min(1.0, -half_q / r)))
+                factor = 2.0 * math.sqrt(-third_p)
+                roots = [
+                    factor * math.cos(theta / 3.0) - m / 3.0,
+                    factor * math.cos((theta + 2.0 * math.pi) / 3.0) - m / 3.0,
+                    factor * math.cos((theta + 4.0 * math.pi) / 3.0) - m / 3.0,
+                ]
+        eigenvalues = sorted(roots)
+
+    trace = sum(matrix[i][i] for i in range(3))
+    frobenius_sq = sum(matrix[i][j] * matrix[i][j] for i in range(3) for j in range(3))
+    if defect_rank is None:
+        spread = eigenvalues[-1] - eigenvalues[0]
+        defect_rank = 0 if spread < 1e-12 else 1
+    return {
+        "eigenvalues": eigenvalues,
+        "lambda_min": eigenvalues[0],
+        "lambda_max": eigenvalues[-1],
+        "anisotropy": eigenvalues[-1] - eigenvalues[0],
+        "trace": trace,
+        "frobenius_norm": math.sqrt(frobenius_sq),
+        "defect_rank": defect_rank,
+    }
+
+
+def _rank_one_defect_spectrum(
+    w_p: float,
+    *,
+    geom_diagonal: float = EABC_GEOM_DIAGONAL,
+) -> dict[str, Any]:
+    """Closed-form spectrum for ``geom_diagonal * I_3 + w_p v v^T`` with ``||v||=1``."""
+    eigenvalues = [geom_diagonal, geom_diagonal, geom_diagonal + w_p]
+    trace = 3.0 * geom_diagonal + w_p
+    frobenius_sq = 3.0 * geom_diagonal * geom_diagonal + w_p * w_p + 2.0 * geom_diagonal * w_p
+    return {
+        "eigenvalues": eigenvalues,
+        "lambda_min": eigenvalues[0],
+        "lambda_max": eigenvalues[-1],
+        "anisotropy": float(w_p),
+        "trace": trace,
+        "frobenius_norm": math.sqrt(frobenius_sq),
+        "defect_rank": 0 if w_p == 0 else 1,
+    }
+
+
+def compare_e3_eabc_anisotropy(
+    a: int,
+    e: int,
+    b: int,
+    c: int,
+    *,
+    tol: float = 1e-9,
+) -> dict[str, Any]:
+    """
+    Compare e³ spectral data with the EABC rank-1 defect model at fixed ``n = e * a``.
+
+    **Bridging convention [B]:**
+
+    1. e³ odd-power coefficients ``(q, b*c, 1)`` define defect direction ``v``.
+    2. Outer factor ``e`` supplies EABC weight ``w_p`` when ``e % 12 ∈ {1,5,7,11}``.
+    3. Both sides use the same tensor ``M_eff = 24 I_3 + w_p v v^T`` (ascending
+       eigenvalues ``[24, 24, 24 + w_p]``, anisotropy ``Δ = w_p``).
+    4. Retraction ``R*_EABC`` removes the defect, yielding ``Δ = 0``.
+
+    The raw e³ Gram matrix ``outer(t,t)`` is reported separately; its anisotropy
+    ``‖t‖²`` is **not** identified with EABC ``Δ`` — that identification holds
+    only on the bridged ``24 I_3 + w_p v v^T`` model. Does not prove Collatz or
+    ``prime_norm_full_restoration``.
+    """
+    _validate_positive_e(e)
+    spectral = e3_spectral_diagnostic(a, e, b, c)
+    q = spectral["q"]
+    bc = spectral["coefficients_odd_e"]["e^1"]
+    n = spectral["n"]
+    w_p = eabc_channel_weight_from_factor(e)
+    direction = _coefficient_unit_direction(q, bc)
+
+    normalization = {
+        "index_convention": "row-major 3x3 symmetric tensor, Fin 3 style",
+        "eigenvalue_sort": "ascending (lambda_min first)",
+        "geom_fixpoint": f"{EABC_GEOM_DIAGONAL} * I_3",
+        "defect_direction": {"q": q, "bc": bc, "unit": 1, "normalized": direction},
+        "defect_weight_source": "eabc_channel_weight_from_factor(e)",
+    }
+
+    gram_payload = {
+        "gram_eigenvalues": spectral["gram_eigenvalues"],
+        "anisotropy_gap": spectral["anisotropy_gap"],
+        "split_valid": spectral["split_valid"],
+    }
+
+    if w_p is None:
+        return {
+            "governance": E3_DECOMPOSITION_TAG,
+            "n": n,
+            "a": a,
+            "e": e,
+            "b": b,
+            "c": c,
+            "normalization": normalization,
+            "e3": gram_payload,
+            "eabc": {"applicable": False, "reason": f"e={e} has no EABC channel weight"},
+            "comparison": {
+                "status": "skip",
+                "reason": "EABC bridge requires e > 3 with e % 12 in {1,5,7,11}",
+            },
+        }
+
+    w_p_float = float(w_p)
+    bridged = _rank_one_defect_spectrum(w_p_float)
+    retracted = _rank_one_defect_spectrum(0.0)
+
+    m_eff = eabc_defect_tensor(w_p_float, direction)
+    m_retracted = eabc_retract_defect(w_p_float, direction)
+    tensor_check = eabc_tensor_spectral_summary(m_eff, defect_rank=1)
+    retract_check = eabc_tensor_spectral_summary(m_retracted, defect_rank=0)
+
+    abs_error = abs(bridged["anisotropy"] - w_p_float)
+    rel_error = abs_error / w_p_float if w_p_float else 0.0
+    status = "pass" if abs_error <= tol and retracted["anisotropy"] <= tol else "fail"
+
+    return {
+        "governance": E3_DECOMPOSITION_TAG,
+        "n": n,
+        "a": a,
+        "e": e,
+        "b": b,
+        "c": c,
+        "normalization": normalization,
+        "e3": {
+            **gram_payload,
+            "bridged_tensor": bridged,
+            "lambda_min": bridged["lambda_min"],
+            "lambda_max": bridged["lambda_max"],
+            "anisotropy": bridged["anisotropy"],
+            "trace": bridged["trace"],
+            "frobenius_norm": bridged["frobenius_norm"],
+            "defect_rank": bridged["defect_rank"],
+            "tensor_matrix_check": tensor_check,
+        },
+        "eabc": {
+            "applicable": True,
+            "defect_weight_w_p": w_p,
+            "expected_anisotropy": w_p_float,
+            "lambda_min": bridged["lambda_min"],
+            "lambda_max": bridged["lambda_max"],
+            "trace": bridged["trace"],
+            "frobenius_norm": bridged["frobenius_norm"],
+            "defect_rank": bridged["defect_rank"],
+            "after_retraction": {
+                "anisotropy": retracted["anisotropy"],
+                "lambda_min": retracted["lambda_min"],
+                "lambda_max": retracted["lambda_max"],
+                "trace": retracted["trace"],
+                "frobenius_norm": retracted["frobenius_norm"],
+                "defect_rank": retracted["defect_rank"],
+                "tensor_matrix_check": retract_check,
+            },
+        },
+        "comparison": {
+            "abs_error": abs_error,
+            "rel_error": rel_error,
+            "status": status,
+            "bridge_note": (
+                "Bridged comparison equates e3 defect direction with EABC rank-1 "
+                "tensor; raw gram anisotropy_gap is not claimed equal to EABC Δ."
+            ),
+        },
+    }
 
 
 def e3_spectral_diagnostic(a: int, e: int, b: int, c: int) -> dict[str, Any]:

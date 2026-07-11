@@ -7,13 +7,19 @@ import pytest
 from kepler_hurwitz.e3_decomposition import (
     E3_DECOMPOSITION_TAG,
     E3_PRODUCT_ANALOGY_TAG,
+    EABC_GEOM_DIAGONAL,
     abc_split_decomposition,
     analyze_e3_commutative_multiplet,
     analyze_e3_decomposition,
     analyze_e3_with_product_split,
     commutation_check,
+    compare_e3_eabc_anisotropy,
     e3_decompose,
     e3_spectral_diagnostic,
+    eabc_channel_weight_from_factor,
+    eabc_defect_tensor,
+    eabc_retract_defect,
+    eabc_tensor_spectral_summary,
     symmetric_operators,
     verify_abc_split,
     verify_e3_identity,
@@ -210,3 +216,62 @@ class TestE3SpectralDiagnostic:
     def test_nonpositive_e_raises(self) -> None:
         with pytest.raises(ValueError, match="e must be positive"):
             e3_spectral_diagnostic(17, 0, 2, 4)
+
+
+class TestE3EabcAnisotropyComparison:
+    def test_governance_tag(self) -> None:
+        result = compare_e3_eabc_anisotropy(13, 5, 13, 1)
+        assert result["governance"] == E3_DECOMPOSITION_TAG
+
+    def test_n65_eabc_channel_passes(self) -> None:
+        """n=65=5*13, e=5 (A-channel, w_p=5) — documented zero-quotient example."""
+        result = compare_e3_eabc_anisotropy(13, 5, 13, 1)
+        assert result["n"] == 65
+        assert result["eabc"]["defect_weight_w_p"] == 5
+        assert result["eabc"]["expected_anisotropy"] == 5.0
+        assert result["e3"]["lambda_min"] == EABC_GEOM_DIAGONAL
+        assert result["e3"]["lambda_max"] == EABC_GEOM_DIAGONAL + 5.0
+        assert result["e3"]["anisotropy"] == 5.0
+        assert result["eabc"]["after_retraction"]["anisotropy"] == 0.0
+        assert result["comparison"]["status"] == "pass"
+        assert result["comparison"]["abs_error"] == 0.0
+
+    def test_n60_alternate_split_passes(self) -> None:
+        """n=60=5*12 with r=12=3*4 — both pipelines at fixed n."""
+        result = compare_e3_eabc_anisotropy(12, 5, 3, 4)
+        assert result["n"] == 60
+        assert result["eabc"]["expected_anisotropy"] == 5.0
+        assert result["comparison"]["status"] == "pass"
+
+    def test_n51_no_eabc_channel_skips(self) -> None:
+        """n=51=3*17: e=3 has no EABC weight — bridge not applicable."""
+        result = compare_e3_eabc_anisotropy(17, 3, 2, 4)
+        assert result["n"] == 51
+        assert result["eabc"]["applicable"] is False
+        assert result["comparison"]["status"] == "skip"
+
+    def test_raw_gram_differs_from_bridged_anisotropy(self) -> None:
+        result = compare_e3_eabc_anisotropy(13, 5, 13, 1)
+        assert result["e3"]["anisotropy_gap"] == 170.0
+        assert result["e3"]["anisotropy"] == 5.0
+
+    def test_tensor_matrix_check_matches_closed_form(self) -> None:
+        result = compare_e3_eabc_anisotropy(13, 5, 13, 1)
+        check = result["e3"]["tensor_matrix_check"]
+        assert check["anisotropy"] == pytest.approx(5.0)
+        assert check["defect_rank"] == 1
+        retract = result["eabc"]["after_retraction"]["tensor_matrix_check"]
+        assert retract["anisotropy"] == pytest.approx(0.0)
+        assert retract["defect_rank"] == 0
+
+    def test_eabc_channel_weight_mapping(self) -> None:
+        assert eabc_channel_weight_from_factor(5) == 5
+        assert eabc_channel_weight_from_factor(7) == 7
+        assert eabc_channel_weight_from_factor(3) is None
+
+    def test_retraction_returns_isotropic_core(self) -> None:
+        direction = (0.0, 0.0, 1.0)
+        retracted = eabc_retract_defect(5.0, direction)
+        summary = eabc_tensor_spectral_summary(retracted, defect_rank=0)
+        assert summary["anisotropy"] == 0.0
+        assert summary["lambda_min"] == EABC_GEOM_DIAGONAL

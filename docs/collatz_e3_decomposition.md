@@ -245,3 +245,36 @@ Für Lemma-2-Split `n = q * e³ + b * c * e` bilden die Koeffizienten der **unge
 **Beispiel:** `a = 17`, `e = 3`, `b = 2`, `c = 4` → `n = 51`, Koeffizienten `(1, 8, 1)` → `anisotropy_gap = 66`.
 
 **Governance:** Reine **[B]**-Profilmetrik auf der algebraischen Split-Form — **kein** EABC-Tensor-Claim, **kein** Collatz-Beweis, **kein** Ersatz für `oddCore`/Syracuse.
+
+---
+
+## E³ ↔ EABC Anisotropie-Vergleich `[B]`
+
+Für festes `n = e * a` mit gültigem Lemma-2-Split vergleicht `compare_e3_eabc_anisotropy` die e³-Koeffizienten mit dem EABC-Rang-1-Defektmodell aus [`eabc_renormalisierungsprogramm.md`](energiedoku_exports/eabc_renormalisierungsprogramm.md).
+
+### Brückenkonvention (explizit, nicht Äquivalenz-Claim)
+
+| Schritt | Konvention |
+|---|---|
+| Defektrichtung | `v = normalize(q, b*c, 1)` aus ungeraden e-Potenz-Koeffizienten |
+| Defektgewicht | `w_p` aus EABC-Kanal des Faktors `e` (`e % 12 ∈ {1,5,7,11}`) |
+| Tensor | `M_eff = 24 I_3 + w_p v v^T` (gleiche Normalisierung auf beiden Seiten) |
+| Eigenwerte | aufsteigend sortiert: `[24, 24, 24 + w_p]` |
+| Anisotropie | `Δ(M) = λ_max - λ_min = w_p` |
+| Retraktion `R*_EABC` | Entfernt Rang-1-Defekt → `Δ = 0` |
+
+**Nicht behauptet:** Die rohe Gram-Anisotropie `‖(q, b*c, 1)‖²` ist **nicht** gleich EABC-`Δ`; nur das gebrückte `24 I_3 + w_p v v^T`-Modell wird verglichen. Kein Claim zu `prime_norm_full_restoration` oder Collatz.
+
+### Beispiele
+
+| `n` | `e` | Status | Grund |
+|---|---|---|---|
+| `65` | `5` | `pass` | `w_p = 5`, `Δ = 5`, Retraktion `Δ = 0` |
+| `60` | `5` | `pass` | `a = 12`, `r = 12 = 3 * 4` |
+| `51` | `3` | `skip` | `e = 3` hat keinen EABC-Kanal |
+
+| Funktion | Rolle |
+|---|---|
+| `compare_e3_eabc_anisotropy` | Vergleichsdiagnostik mit `comparison.status` |
+| `eabc_defect_tensor` / `eabc_retract_defect` | Minimaler `M_eff` / `R*_EABC`-Hook |
+| `eabc_tensor_spectral_summary` | Eigenwerte, Spur, Frobenius-Norm, Defektrang |
