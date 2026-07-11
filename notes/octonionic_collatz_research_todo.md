@@ -122,7 +122,13 @@
 ### O5.0b `bad_class_maps_to_A_or_C`
 
 - Problemstatement: Endliche mod-24-Übergangsstruktur — schlechte Restklassen landen in EABC-Kanal `A` oder `C`.
-- Geplante Lean-Signatur: `theorem bad_class_maps_to_A_or_C : BadClassMapsToAOrCStatement`
+- Geplante Lean-Signaturen:
+  - `def Mod24TransitionSound : Prop`
+  - `def BadClassMapsToAOrCOneStepStatement : Prop`
+  - `def BadClassEventuallyMapsToAOrCStatement : Prop`
+  - `theorem bad_class_maps_to_A_or_C (hsound : Mod24TransitionSound) : BadClassMapsToAOrCOneStepStatement`
+- Governance: Quantoren explizit trennen (`ein Schritt` vs. `eventually`), nicht vermischen.
+- Governance: Endlichkeit der Tabelle allein impliziert keinen uniformen Bound; dafuer sind zusaetzliche Bedingungen (z.B. Bad-State-Azyklizitaet) noetig.
 - Gewuenschter Status: `[C]`.
 - Abnahmekriterium: Konkrete mod-24-Abbildung formalisiert; Build gruen.
 

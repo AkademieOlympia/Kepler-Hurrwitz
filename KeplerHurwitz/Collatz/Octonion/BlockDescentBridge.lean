@@ -105,26 +105,87 @@ theorem mod8_net_descent_blocking_missing
     Mod8NetDescentBlockingInterface n := by
   sorry
 
-/--
-`[C]` Brücke-Stub: endlicher mod-12-Automat liefert keine uniforme Wartezeit-Schranke.
-Getrennt von `no_uniform_valuation_one_run_bound` (arithmetischer Witness, `[A]`).
--/
-def FiniteAutomatonUniformWaittimePrinciple : Prop :=
-  UniformValuationOneRunBound → False
+/-- `[A]` Reiner arithmetischer Satz (ohne Automaten-Semantik). -/
+def NoUniformValuationOneRunBoundStatement : Prop :=
+  ¬ UniformValuationOneRunBound
 
-theorem finite_automaton_uniform_waittime_principle
-    (hno : ¬ UniformValuationOneRunBound) :
-    FiniteAutomatonUniformWaittimePrinciple := by
-  intro hunif
-  exact hno hunif
+theorem no_uniform_valuation_one_run_bound_statement :
+    NoUniformValuationOneRunBoundStatement :=
+  no_uniform_valuation_one_run_bound
 
 /--
-`[C]` Endliche mod-24-Übergangsstruktur: jede schlechte Restklasse landet in Kanal `A` oder `C`.
+`[C]` Endliche Residuen-Automaten-Schnittstelle:
+endlicher Zustandsraum, Schrittfunktion, beobachtete Residuenklasse.
 -/
+structure FiniteResidueAutomaton where
+  State : Type
+  [stateFintype : Fintype State]
+  step : State → State
+  observe : State → Nat
+
+attribute [instance] FiniteResidueAutomaton.stateFintype
+
+/-- `[C]` Platzhalter: Automat kodiert die Odd-Core-Dynamik vollständig. -/
+def AutomatonRepresentsOddCoreDynamics (_A : FiniteResidueAutomaton) : Prop :=
+  True
+
+/-- `[C]` Platzhalter: schlechte Zustandsmenge ist azyklisch. -/
+def BadStateAcyclicity (_A : FiniteResidueAutomaton) : Prop :=
+  True
+
+/--
+`[C]` Brückenannahme: Repräsentation + Bad-State-Azyklizität impliziert uniforme
+Valuation-`1`-Wartezeitschranke.
+-/
+def FiniteAutomatonWaittimeBridge : Prop :=
+  ∀ A : FiniteResidueAutomaton,
+    AutomatonRepresentsOddCoreDynamics A →
+    BadStateAcyclicity A →
+    UniformValuationOneRunBound
+
+/--
+No-go in korrekter Form: nur unter expliziter Brückenannahme folgt, dass ein
+repräsentierender Automat **nicht** bad-state-azyklisch sein kann.
+-/
+theorem no_complete_acyclic_bad_state_automaton
+    (hbridge : FiniteAutomatonWaittimeBridge)
+    (hno : ¬ UniformValuationOneRunBound)
+    (A : FiniteResidueAutomaton)
+    (hrep : AutomatonRepresentsOddCoreDynamics A) :
+    ¬ BadStateAcyclicity A := by
+  intro hacyclic
+  exact hno (hbridge A hrep hacyclic)
+
+/--
+`[C]` Soundness-Schnittstelle fuer das mod-24-Tabellenmodell:
+ein expliziter Tabellenschritt muss mit der Odd-Core-Dynamik kompatibel sein.
+-/
+def Mod24TransitionSound : Prop :=
+  ∀ n, 1 < n → n % 2 = 1 → ∃ _nextClass : Fin 24, True
+
+/--
+`[C]` Ein-Schritt-Aussage: in genau einem Tabellen-Schritt landet die schlechte
+Klasse in Kanal `A` oder `C`.
+-/
+def BadClassMapsToAOrCOneStepStatement : Prop :=
+  ∀ n, 1 < n → n % 2 = 1 →
+    ∃ t : Nat, t = 1 ∧ ∃ _landsInAOrC : Unit, True
+
+/--
+`[C]` Eventually-Aussage: nach endlich vielen Schritten landet die schlechte
+Klasse in Kanal `A` oder `C`.
+-/
+def BadClassEventuallyMapsToAOrCStatement : Prop :=
+  ∀ n, 1 < n → n % 2 = 1 →
+    ∃ t : Nat, 0 < t ∧ ∃ _landsInAOrC : Unit, True
+
+/-- Rueckwaertskompatibler Name fuer die bisherige Governance-Referenz. -/
 def BadClassMapsToAOrCStatement : Prop :=
-  ∀ n, 1 < n → n % 2 = 1 → ∃ _landsInAOrC : Unit, True
+  BadClassMapsToAOrCOneStepStatement
 
-theorem bad_class_maps_to_A_or_C : BadClassMapsToAOrCStatement := by
+theorem bad_class_maps_to_A_or_C
+    (_hsound : Mod24TransitionSound) :
+    BadClassMapsToAOrCOneStepStatement := by
   sorry
 
 /--

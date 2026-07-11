@@ -56,8 +56,12 @@ theorem no_uniform_valuation_one_run_bound : ...            -- [A] via Prop-Inst
 
 - Witness für Länge `L`: `witnessStart (L + 1)` (`L = 0` leer)
 - `[C]` `arbitrarily_long_valuation_one_runs` (sorry — wartet auf Schritt 3–4)
-- **Keine** Identität `no_uniform_waittime_from_finite_automaton := …`
-- Brücke-Stub `[C]`: `FiniteAutomatonUniformWaittimePrinciple` in `BlockDescentBridge.lean`
+- **[A]-Aussage:** `NoUniformValuationOneRunBoundStatement := ¬ UniformValuationOneRunBound`
+- **Keine** pauschale Aussage "kein endlicher Automat"
+- `[C]` nur als explizite Brücke: `FiniteAutomatonWaittimeBridge`
+  (`AutomatonRepresentsOddCoreDynamics` + `BadStateAcyclicity` -> `UniformValuationOneRunBound`)
+- No-go nur konditional: `(Bridge ∧ ¬UniformValuationOneRunBound) -> ¬ BadStateAcyclicity A`
+- Endlichkeit allein liefert keinen uniformen Bound (Zyklen im Automaten sind moeglich)
 
 `valuationLogCorrectionAvg` (O5-Korrekturterm) unverändert.
 
