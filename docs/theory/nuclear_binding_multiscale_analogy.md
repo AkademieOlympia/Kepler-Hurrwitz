@@ -179,7 +179,7 @@ Im Repo existiert eine **arithmetische** Weierstrass-Multiscale-Diagnostik (ABCE
 |---|---|---|
 | Kernbindung | Weizsäcker \(B_{\mathrm{smooth}}(A,Z)\) | \(R(A,Z)\): Magic, Paarung, Deformation |
 | EABC Weierstrass | Trend / Detrend von \(B(N)\) | Spektralpeaks, ABCE/CEAB-Bias |
-| EABC Renorm (E-053) | \(M_{\mathrm{eff}} \to 24I_3\) | Defekt an Shell / Rand (E-076 Meissner) |
+| EABC Renorm (E-053) | \(M_{\mathrm{eff}}(R^*(K^+)) = 24I_3\) als formale Zielgleichheit | Defekt an Shell / Rand (E-076 Meissner-Lesart `[C]`) |
 
 Die Weierstrass-Exporte belegen **keine** Kernphysik und umgekehrt. Die Brücke ist **methodisch**: erst Hülle/Residual trennen, dann Invarianten testen.
 

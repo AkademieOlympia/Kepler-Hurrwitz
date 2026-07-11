@@ -1,6 +1,6 @@
 # Meissner-Effekt
 
-> **EABC-Analogie (separat):** Für die interpretative Übertragung auf EABC (Defekt-Exklusionsanker, Meissner-Shell, Bulk–\(24I_3\)) siehe [`physical_reference_analogies.md`](../reports/physical_reference_analogies.md) — Status `[C]`, keine physikalische Identität. **Urteil:** [`meissner_analogy_assessment.md`](../theory/meissner_analogy_assessment.md).
+> **EABC-Analogie (separat):** Für die interpretative Übertragung auf EABC (Defekt-Exklusionsanker, repo-interne `[C]`-Terminologie „Meissner-Shell“, Bulk–\(24I_3\)) siehe [`physical_reference_analogies.md`](../reports/physical_reference_analogies.md) — Status `[C]`, keine physikalische Identität, keine etablierte physikalische Fachbezeichnung. **Urteil:** [`meissner_analogy_assessment.md`](../theory/meissner_analogy_assessment.md).
 
 Der Meissner-Effekt ist eine grundlegende Eigenschaft von Supraleitern. Er wurde 1933 von Walther Meissner und Robert Ochsenfeld entdeckt. Wenn bestimmte Materialien unter ihre kritische Temperatur T_c abgekühlt werden, gehen sie in den supraleitenden Zustand über. In diesem Zustand besitzen sie nicht nur keinen elektrischen Widerstand, sondern verdrängen auch Magnetfelder aus ihrem Inneren.
 

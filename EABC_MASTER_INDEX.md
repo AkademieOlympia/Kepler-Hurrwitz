@@ -61,9 +61,9 @@
   - **Ticket:** `docs/tickets/extract-energiedoku-shell-coordinates-n1-n3.md` (COMPLETE)
 
 - **Physical Analogies [C]** — AB / Klitzing / Meissner als Resonanzanker
-  - **[C] Interpretation:** Aharonov–Bohm → Orbit-/Phasenanker; von Klitzing/QHE → Kanal-/Topologieanker; Meissner → Defekt-Exklusionsanker (Meissner-Shell / Meissner-Randschale)
-  - **[C] Analogiekette (nicht Identität):** \(B \approx 0 \leadsto \Delta_{\mathrm{innen}} \approx 0 \leadsto M_{\mathrm{eff}} \to 24I_3\)
-  - **[B] Meissner-Diagnostik:** vorgeschlagene Metriken — operationalisiert in `diagnostics.py` erst dann `[B]`
+  - **[C] Interpretation:** Aharonov–Bohm → Orbit-/Umlaufsignatur-Anker; von Klitzing/QHE → Kanal-/Robustheitsanker; Meissner → Defekt-Exklusionsanker (repo-interne Taxonomie; Meissner-Shell / Meissner-Randschale)
+  - **[C] Analogiekette (nicht Identität):** \(B_{\mathrm{Bulk}}\approx 0 \leadsto \Delta_{\mathrm{innen}}\approx 0 \leadsto M_{\mathrm{eff}}(R^*(K^+)) = 24I_3\); keine direkte Schlussregel in beide Richtungen
+  - **[B] Shell-/Bulk-Diagnostik:** reproduzierbare Anisotropie-/Defektmasse-/Konzentrationsmessung; Meissner-Lesart und Benennung bleiben `[C]`
   - **Dossier:** `docs/reports/physical_reference_analogies.md` · Didaktik: `docs/physics/meissner_effect.md`
   - **Trennung:** Dumas-Orbit-Protokoll bleibt empirisch — Physik-Analogien separat (siehe Protokoll §Governance)
   - **Register:** E-076

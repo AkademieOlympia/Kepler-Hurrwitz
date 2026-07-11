@@ -11,9 +11,14 @@ evidence_id: E-076
 not_claimed:
   - EABC ist ein physikalisches Feldtheorie-Modell
   - Aharonov-Bohm-, Klitzing- oder Meissner-Identität im Formal Core
-  - B ≈ 0 beweist M_eff → 24I₃ oder umgekehrt
-  - Meissner-Diagnostik ersetzt Lean-Restaurationssatz prime_norm_full_restoration
+  - B_Bulk ≈ 0 beweist M_eff(R^*(K^+)) = 24I₃ oder umgekehrt
+  - Shell-/Bulk-Diagnostik ersetzt Lean-Restaurationssatz prime_norm_full_restoration
   - Dumas-Orbit-Hypothesen folgen aus Physik-Analogien
+  - Die mod-12-Kanalpartition definiert eine topologische Phase oder Chern-Zahl
+  - Randlokalisierung eines EABC-Defekts begründet Bulk-Rand-Korrespondenz
+  - Die Retraktion R* beschreibt einen zeitlichen oder thermodynamischen Prozess
+  - Reproduzierbare Shell-/Bulk-Diagnostik erhebt die Meissner-Lesart von [C] zu [B]
+  - Meissner-Shell ist eine etablierte physikalische Fachbezeichnung
 ---
 
 > **Evidence status:** `[C]` methodische Physik-Analogie  
@@ -39,13 +44,40 @@ not_claimed:
 
 | Kurzformel | Bedeutung |
 |---|---|
-| **`[A]` klassische Physik** | AB / Klitzing / Meissner als etablierte Phänomene — nur Referenzbild, kein EABC-Kern |
-| **`[C]` Interpretation / Analogie** | AB / Klitzing / Meissner sind Lesefragen, keine Lean-Theoreme |
-| **`[B]` Meissner-Diagnostik** | Nur wenn Metriken operationalisiert und reproduzierbar exportiert |
-| **Trennung Dumas ↔ Physik** | Dumas-Orbit-Protokoll bleibt empirisch `[B]`/`[B0]`; Physik-Analogien separat |
-| **Keine Identität** | $B \approx 0 \not\equiv \Delta_{\mathrm{innen}} \approx 0 \not\equiv M_{\mathrm{eff}} \to 24I_3$ |
+| **`[A]` etablierte Referenzphysik** | AB, QHE und Meissner sind etablierte physikalische Phänomene; `[A]` bezieht sich nur auf die Referenzbeschreibung, nicht auf eine EABC-Brücke |
+| **`[C]` Interpretation** | Referenzbilder, keine Lean-Theoreme und keine physikalischen Vorhersagen |
+| **`[B]` Shell-/Bulk-Diagnostik** | Reproduzierbare Messung von Anisotropie, Defektmasse und räumlicher Konzentration |
+| **`[C]` Meissner-Lesart** | Interpretation solcher Messdaten als Defekt-Exklusionsanker; bleibt `[C]` |
+| **Diskret ≠ topologisch** | Die mod-$12$-Partition definiert keine Chern-Zahl, keine topologische Phase und keine Bulk-Rand-Korrespondenz |
+| **Formal ≠ dynamisch** | $R^*$ ist definierte Abbildung, keine zeitliche, energetische oder thermodynamische Entwicklung |
+| **Trennung Dumas ↔ Physik** | Dumas-Orbit-Protokoll bleibt empirisch `[B]`/`[B0]`; Physik-Analogien separat `[C]` |
+| **Keine Identität** | Physikalische Referenzgrößen, numerische Diagnostik und formale EABC-Gleichheiten sind nicht äquivalent |
+| **Daten ≠ Physikmodell** | `[B]`-Daten + `[C]`-Analogie ergeben **kein** `[B]`-Physikmodell |
 
-**Kern-Satz:** Meissner ist **kein Beweis**, sondern **Bulk/Shell-Modell** für Defektverdrängung.
+**Kern-Satz:** Meissner ist kein Beweis, sondern ein `[C]`-Bulk/Shell-Lesemodell für die formale beziehungsweise diagnostische Trennung von Defektstruktur und isotropem Kern.
+
+> **Drei Nullbegriffe, drei Register**
+>
+> \[
+> \begin{aligned}
+> B_{\mathrm{Bulk}}\approx 0
+>   &\quad\text{physikalische Referenzaussage},\\
+> \Delta_{\mathrm{innen}}\approx 0
+>   &\quad\text{numerische/empirische Diagnostik},\\
+> M_{\mathrm{eff}}(R^*(K^+)) = 24I_3
+>   &\quad\text{formale EABC-Gleichheit}.
+> \end{aligned}
+> \]
+>
+> \[
+> B_{\mathrm{Bulk}}\approx 0
+> \not\Leftrightarrow
+> \Delta_{\mathrm{innen}}\approx 0
+> \not\Leftrightarrow
+> M_{\mathrm{eff}}(R^*(K^+))=24I_3.
+> \]
+>
+> **`[B]`/`[C]`-Governance:** `[B]`-Daten + `[C]`-Analogie ergeben **kein** `[B]`-Physikmodell. Positive Diagnostik kann eine Lesart stützen, hebt sie aber nicht aus Phase `[C]` heraus.
 
 **Verwandte Schichten:**
 
@@ -64,18 +96,20 @@ not_claimed:
 \[
 \boxed{
 \begin{aligned}
-\text{Aharonov–Bohm} &\;\leadsto\; \text{Orbit-/Phasenanker } [C] \\
-\text{von Klitzing / QHE} &\;\leadsto\; \text{Kanal-/Topologieanker } [C] \\
+\text{Aharonov–Bohm} &\;\leadsto\; \text{Orbit-/Umlaufsignatur-Anker } [C] \\
+\text{von Klitzing / QHE} &\;\leadsto\; \text{Kanal-/Robustheitsanker } [C] \\
 \text{Meissner} &\;\leadsto\; \text{Defekt-Exklusionsanker } [C]
 \end{aligned}
 }
 \]
 
+Die Begriffe **Orbit-/Umlaufsignatur-Anker**, **Kanal-/Robustheitsanker** und **Defekt-Exklusionsanker** bilden eine EABC-interne `[C]`-Taxonomie. Sie sind keine etablierten Physikbegriffe. Wo weiterhin von „Phase“ gesprochen wird, ist ausschließlich interpretative Umlaufsprache gemeint; im EABC-Formalismus ist keine U(1)-Phase und keine Eichholonomie definiert.
+
 | Analogie | Physikalisches Kernbild | EABC-Lesefrage | Tag |
 |---|---|---|---|
-| **Aharonov–Bohm (AB)** | Phase / Holonomie ohne lokales Feld entlang eines geschlossenen Pfades | Orbit-Invariante, Umlaufphase, CEAB-/Dumas-Orbit als **Phasenanker** — nicht als Feldstärke | `[C]` |
-| **von Klitzing / QHE** | Robuste Hall-Quantisierung $R_H = h/(ne^2)$; topologisch geschützte Plateaus | mod-$12$-Kanalpartition, diskrete Bucket-Grenzen, **Kanal-/Topologieanker** | `[C]` |
-| **Meissner** | Magnetfeldverdrängung aus dem Bulk durch Randströme; $B \approx 0$ im Inneren | Anisotropie-Exklusion aus dem Bulk; Retraktion auf isotropen Fixpunkt $24I_3$ — **Defekt-Exklusionsanker** | `[C]` |
+| **Aharonov–Bohm (AB)** | Eichholonomie / Interferenzphase bei abgeschirmtem magnetischem Fluss; keine lokale Lorentzkraft entlang idealisierter zugänglicher Pfade | Globale Orbit-/Umlaufsignatur, nicht rekonstruierbar aus lokalen Kanalhäufigkeiten allein | `[C]` |
+| **von Klitzing / QHE** | Quantisierte Hall-Leitfähigkeit $\sigma_{xy}=\nu e^2/h$ in stabilen Plateau-Regimen; $R_{xy}=h/(\nu e^2)$ nur unter idealen Plateau-Bedingungen mit verschwindendem longitudinalem Widerstand | mod-$12$-Kanalpartition und robuste Bucket-Grenzen als **Kanal-/Robustheitsanker**; Topologie nur als begrenzte Frage nach künftiger globaler Invariante | `[C]` |
+| **Meissner** | Magnetfeldverdrängung aus dem Volumen; Eindringen über London-Randzone und Typ-II-Flusswirbel im Mischzustand | Shell/Bulk-Unterscheidung für randlokalisierte Defektmasse und isotropen Kern — **Defekt-Exklusionsanker** | `[C]` |
 
 **Geschwister-Dossier (E-089):** [`onsager_quantization_bridge.md`](../theory/onsager_quantization_bridge.md) — Onsager-Achsen (Flussquantisierung, Wirbel, Ising, Reziprozität) ergänzen die drei E-076-Achsen; strikt getrennt, keine gegenseitige Deduktion.
 
@@ -92,104 +126,125 @@ $$\text{Dumas-Orbit-Protokoll (empirisch)} \;\neq\; \text{Physik-Referenz-Analog
 | Aspekt | Dumas-Orbit | Physik-Analogien |
 |---|---|---|
 | Status | `[A-T]`/`[B]`/`[B0]` — Regression, Nullmodelle, Skalen | `[C]` — Lesefragen, keine Prognose |
-| Objekt | Primvierling-Normalform, Gap-Rotor, Kepler-Kreis | AB-Phase, QHE-Plateau, Meissner-Bulk |
-| Falsifikation | H12–H15 vs. F1–F5 | Keine — nur Governance-Verletzung bei Identitätsclaim |
+| Objekt | Primvierling-Normalform, Gap-Rotor, Kepler-Kreis | AB-Holonomie, QHE-Plateau, Meissner-Bulk |
+| Prüfmodus | H12–H15 vs. F1–F5 | Keine physikalische Vorhersage; prüfbar sind strukturelle Tragfähigkeit, Erklärungsertrag und Claim-Grenzen |
 | Repo-Einstieg | [`dumas_orbit_experimental_protocol.md`](dumas_orbit_experimental_protocol.md) | dieses Dokument |
 
-**Regel:** Ein Dumas-Befund darf **nicht** post hoc als AB-/Klitzing-/Meissner-Bestätigung gelesen werden. Umgekehrt rechtfertigt eine Physik-Analogie **keine** Dumas-Hypothese.
-
-**Architektur-Hinweis:** [`dumas_orbit_experimental_protocol.md`](dumas_orbit_experimental_protocol.md) bleibt **empirisch** — Regression, Nullmodelle, Skalen; keine Physik-Importe.
+**Regel:** Ein Dumas-Befund darf **nicht** post hoc als AB-/Klitzing-/Meissner-Bestätigung gelesen werden. Umgekehrt rechtfertigt eine Physik-Analogie **keine** Dumas-Hypothese. Eine Analogie wird gestrichen oder zurückgestuft, wenn die gemeinsame Strukturrelation nicht explizit benannt werden kann, wenn sie lokale Messwerte mit globalen Invarianten verwechselt, wenn sie formale Gleichheiten dynamisch liest oder wenn sie trotz `[C]`-Tag als physikalische Vorhersage verwendet wird.
 
 ---
 
-## 4. Aharonov–Bohm — Orbit-/Phasenanker `[C]`
+## 4. Aharonov–Bohm — Orbit-/Umlaufsignatur-Anker [C]
 
 ### Physikalisches Referenzbild
 
-Im Aharonov–Bohm-Effekt ändert ein elektromagnetisches Potenzial entlang eines geschlossenen Pfades die **Interferenzphase**, obwohl das **lokale Feld** $\mathbf{B}$ auf dem Pfad verschwinden kann. Die beobachtbare Größe ist die **Holonomie** (Umlaufphase), nicht die Feldstärke im Bulk.
+Im idealisierten magnetischen Aharonov–Bohm-Aufbau verlaufen die zugänglichen Teilchenpfade durch einen feldfreien Bereich. Der magnetische Fluss ist in einem abgeschirmten, für die Teilchen nicht zugänglichen Bereich eingeschlossen. Obwohl entlang der Pfade keine lokale Lorentzkraft wirkt, kann die Eichholonomie beziehungsweise Interferenzphase vom eingeschlossenen Fluss abhängen:
+
+$$\Delta\varphi = \frac{q}{\hbar}\oint_\gamma \mathbf{A}\cdot d\mathbf{l} = \frac{q}{\hbar}\Phi_B.$$
 
 ### EABC-Lesefrage
 
 | Physik | EABC-Analog (nicht Identität) |
 |---|---|
-| Geschlossener Pfad / Schleife | CEAB-Orbit, Dumas-Gap-Rotor, Umlauf auf Kanalpartition |
-| Phase ohne lokales Feld | Orbit-Invariante, die **nicht** aus lokaler Kanalmasse allein folgt |
-| Holonomie | Phasenanker entlang einer zulässigen Orbit-Schleife — z. B. mod-$12$-Restklassenwechsel |
+| Zugänglicher feldfreier Pfad | CEAB-Orbit oder andere formal definierte geschlossene Kanalumlaufstruktur |
+| Eingeschlossener abgeschirmter Fluss | Globale Orbitinformation, die nicht aus lokalen Kanalhäufigkeiten allein rekonstruiert wird |
+| U(1)-Holonomie / Interferenzphase | Formal noch zu definierende Umlaufsignatur entlang einer zulässigen Orbit-Schleife |
 
 **Anschluss im Repo:** L4-Matrix (`docs/l4_reference_matrix.md`: „Holonomie → Orbit-/Umlaufinvariante“); Dumas Cone–Orbit §Kepler-Kreis; CEAB-Orbit in [`orbit_symmetry_guide.md`](../orbit_symmetry_guide.md).
 
-**Nicht behaupten:** EABC implementiert ein Eichfeld oder einen AB-Experiment-Nachweis.
+**EABC-Lesefrage:** Gibt es eine globale Orbit-/Umlaufsignatur, die nicht aus lokalen Kanalhäufigkeiten rekonstruiert werden kann?
+
+**Nicht behaupten:** EABC implementiert ein Eichfeld, eine U(1)-Phase oder einen AB-Experiment-Nachweis. „Orbit-/Umlaufsignatur-Anker“ ist repo-interne `[C]`-Taxonomie.
 
 ---
 
-## 5. von Klitzing / Quanten-Hall-Effekt — Kanal-/Topologieanker `[C]`
+## 5. von Klitzing / Quanten-Hall-Effekt — Kanal-/Robustheitsanker [C]
 
 ### Physikalisches Referenzbild
 
-Der Quanten-Hall-Effekt liefert **robuste Plateaus** des Hall-Widerstands bei ganzzahligen (oder fraktionierten) Vielfachen von $h/e^2$. Die Plateaus sind **topologisch geschützt**: Störungen verschieben Details, nicht die Plateau-Stufe.
+Der Quanten-Hall-Effekt liefert primär quantisierte Hall-Leitfähigkeit
+
+$$\sigma_{xy}=\nu\frac{e^2}{h}.$$
+
+Unter idealen Plateaubedingungen mit verschwindendem longitudinalem Widerstand gilt für den Hall-Widerstand
+
+$$R_{xy}=\frac{h}{\nu e^2}.$$
+
+Dabei ist $\nu$ beim ganzzahligen QHE ganzzahlig und beim fraktionierten QHE häufig rational. Die Robustheit gilt innerhalb einer stabilen gapped Phase; Plateau-Breite und Sichtbarkeit hängen von Unordnung, Lokalisierung, Temperatur, Geometrie und Füllung ab.
 
 ### EABC-Lesefrage
 
 | Physik | EABC-Analog (nicht Identität) |
 |---|---|
-| Quantisiertes Plateau | Diskrete mod-$12$-Kanäle $\{1,5,7,11\}$, kombinatorische Bucket-Grenzen (E-072) |
-| Topologische Robustheit | Kanalpartition bleibt unter zulässiger Retraktion stabil |
-| Rand vs. Bulk | Shell-Rand trägt „Randzustände“; Bulk trägt Fixpunktstruktur |
+| Quantisierte Hall-Leitfähigkeit | Diskrete mod-$12$-Kanäle $\{1,5,7,11\}$, kombinatorische Bucket-Grenzen (E-072); keine Aussage über Hall-Leitfähigkeit oder Hall-Widerstand |
+| Robustheit innerhalb einer gapped Phase | Frage nach künftiger robuster globaler Kanal-Invariante; die mod-$12$-Partition selbst ist keine Chern-Zahl und keine topologische Phase |
+| Chirale Randzustände / Bulk-Rand-Korrespondenz | Allenfalls randlokalisierte Defekt- oder Kanalstruktur analog als „Randzustand“; daraus folgt weder Chiralität noch Spektralfluss noch Bulk-Rand-Korrespondenz |
 
 **Anschluss im Repo:** EABC-Kanalpartition, `channel_entropy`, `prime_grid_compression` in [`distilled_parameters.md`](../theory/distilled_parameters.md).
 
-**Nicht behaupten:** EABC liefert einen Hall-Widerstand, eine Chern-Zahl oder ein QHE-Materialmodell.
+> **Diskret ≠ topologisch:** Eine diskrete Kanalpartition impliziert keine QH-Quantisierung und keine topologische Schutzklasse. Die mod-$12$-Partition definiert keine Chern-Zahl, keine topologische Phase und keine Bulk-Rand-Korrespondenz.
+
+**Nicht behaupten:** EABC liefert einen Hall-Widerstand, eine Chern-Zahl, topologische Schutzklasse, physikalische Randkanäle oder ein QHE-Materialmodell.
 
 ---
 
-## 6. Meissner-Effekt — Defekt-Exklusionsanker `[C]`
+## 6. Meissner-Effekt — Defekt-Exklusionsanker [C]
 
 ### Physikalisches Referenzbild
 
-Siehe [`meissner_effect.md`](../physics/meissner_effect.md). Kurz: Beim Übergang in den supraleitenden Zustand werden **Magnetfelder aus dem Inneren verdrängt** ($B \approx 0$ im Bulk). Die Kompensation erfolgt durch **Oberflächenströme** in einer dünnen **Randschale** (London-Eindringtiefe).
+Siehe [`meissner_effect.md`](../physics/meissner_effect.md). Kurz: Im Meissner-Zustand wird externes $\mathbf{B}$ aus dem Volumen eines hinreichend dicken Supraleiters weitgehend verdrängt; $\mathbf{B}$ dringt exponentiell über die London-Eindringtiefe $\lambda_L$ in die Randzone ein. Die London-Gleichung kann idealisiert als
+
+$$\nabla^2\mathbf{B}=\frac{1}{\lambda_L^2}\mathbf{B},\qquad B(x)=B(0)e^{-x/\lambda_L}$$
+
+geschrieben werden. Die Abschirmströme sind in einer endlichen Randzone von Größenordnung $\lambda_L$ konzentriert, nicht auf einer infinitesimalen Oberfläche. Bei Typ-II-Supraleitern treten im Mischzustand quantisierte Flusswirbel auf; oberhalb kritischer Felder bricht vollständige Verdrängung zusammen.
 
 ### EABC-Lesefrage
 
 | Physik | EABC-Analog (nicht Identität) |
 |---|---|
-| $B \approx 0$ im Bulk | $\Delta_{\mathrm{innen}} \approx 0$ — verschwindende Anisotropie im Inneren nach Retraktion |
-| Oberflächenströme | Defektmasse / Kanalrest konzentriert in **Meissner-Shell** (Rand-Schicht) |
-| Supraleitender Fixpunkt | Isotroper Referenztensor $M_{\mathrm{geom}} = 24I_3$ |
+| $B_{\mathrm{Bulk}}\approx 0$ im Bulk | $\Delta_{\mathrm{innen}}\approx 0$ — verschwindende Anisotropie im Inneren |
+| Abschirmströme in der London-Randzone | Defektmasse / Kanalrest randlokalisiert in repo-interner **Meissner-Shell** |
+| Feldarme Bulk-Region | Isotrope formale Zielstruktur $M_{\mathrm{geom}} = 24I_3$ |
 
-**Neue Begriffe (erlaubt, mit `[C]`-Tag):**
+**Neue Begriffe (repo-intern, erlaubt nur mit `[C]`-Tag):**
 
-- **Meissner-Shell** — Rand-Schicht, in der der anisotrope Defekt „eindringt“, bevor der Bulk isotrop wird
+- **Meissner-Shell** — repo-interne `[C]`-Bezeichnung für eine Rand-Schicht, in der anisotroper Defekt oder Kanalrest randlokalisiert bleibt, während der Bulk isotrop gelesen wird
 - **Meissner-Randschale** — Synonym; bevorzugt in deutschsprachigen Texten
+
+Diese Begriffe sind EABC-Terminologie, keine etablierten physikalischen Standardbegriffe und keine exakt definierte London-Schicht.
 
 ---
 
-## 7. Meissner-Bulk / Meissner-Shell
+## 7. Meissner-Bulk / repo-interne Meissner-Shell
 
 ### Strukturbild
 
 ```
-        ┌─────────────────────────────┐  ← Meissner-Shell (Randschale)
+        ┌─────────────────────────────┐  ← repo-interne Meissner-Shell (Randschale)
         │  Rand: Defekt / Kanalrest   │     Δ_shell > 0, Randströme-Analog
         ├─────────────────────────────┤
         │                             │
-        │   Bulk: isotroper Kern      │     Δ_innen ≈ 0  ↔  M_eff → 24I₃
+        │   Bulk: isotroper Kern      │     Δ_innen ≈ 0; formal: M_eff(R^*(K^+)) = 24I₃
         │                             │
         └─────────────────────────────┘
 ```
 
-| Zone | Physik-Analog | EABC-Lesefrage | Formaler Anker |
+| Strukturelement | Physikalisches Referenzbild | EABC-Lesefrage | Status |
 |---|---|---|---|
-| **Bulk** | Feldfreier Supraleiter-Kern | Isotroper Fixpunkt, $M_{\mathrm{eff}}(R^*(K^+)) = 24I_3$ | `prime_norm_full_restoration` `[A]` |
-| **Shell** | London-Eindringtiefe, Randströme | Anisotroper Rang-eins-Defekt $w_p vv^\top$ vor Retraktion | $\Delta(M) = w_p$ `[B]` Messzweig |
-| **Grenzfläche** | Phasenübergang normal ↔ supra | Retraktion $R^*$ als projektive Abbildung Defekt → Fixpunktklasse | EABC-Renorm `[A]`/`[B]` |
+| **Übergangsoperation** | Übergang in feldverdrängenden Zustand | $R^*$ als formale Projektion auf die isotrope Zielstruktur | `[C]`-Analogie, $R^*$ formal |
+| **Bulk** | Feldarmer Innenbereich | Exakte isotrope Zielstruktur nach $R^*$: $M_{\mathrm{eff}}(R^*(K^+))=24I_3$ | `[A]` |
+| **Shell** | Endliche elektromagnetische Eindringzone | Randlokalisierte Defekt- oder Kanalmasse vor/außerhalb formaler Projektion | `[B]` messbar, `[C]` gedeutet |
 
 ### Kern-Analogiekette (nicht Identität)
 
-$$B \approx 0 \;\;\leadsto\;\; \Delta_{\mathrm{innen}} \approx 0 \;\;\leadsto\;\; M_{\mathrm{eff}}(R^*(K^+)) = 24I_3$$
+$$B_{\mathrm{Bulk}}\approx 0 \;\;\leadsto\;\; \Delta_{\mathrm{innen}}\approx 0 \;\;\leadsto\;\; M_{\mathrm{eff}}(R^*(K^+)) = 24I_3$$
 
-- **Leserichtung:** Supraleitungs-Bulk ↔ isotroper EABC-Fixpunkt
+- **Leserichtung:** Supraleitungs-Bulk ↔ isotrope formale EABC-Zielstruktur
 - **Logische Trennung:** $\Delta(M) = w_p$ (Messzweig) ist **keine Voraussetzung** für Restauration (Renorm-Programm §5)
+- **Formale Abbildung:** $R^*$ beschreibt weder Zeitentwicklung noch Relaxation, Energieabsenkung, Temperaturabhängigkeit oder thermodynamischen Phasenübergang. Es ist eine formal definierte EABC-Abbildung.
 - **Shell-Stapel:** `all_shells_tensor_restored` globalisiert die lokale Restauration über Schalen
+
+Die drei Nullbegriffe sind bereits in §1 governance-relevant getrennt; dieser Abschnitt verwendet sie nur als Lesekette, nicht als logische Äquivalenz.
 
 ---
 
@@ -197,11 +252,11 @@ $$B \approx 0 \;\;\leadsto\;\; \Delta_{\mathrm{innen}} \approx 0 \;\;\leadsto\;\
 
 | | **Aharonov–Bohm** | **von Klitzing / QHE** | **Meissner** |
 |---|---|---|---|
-| **Observable** | Umlaufphase / Holonomie | Quantisiertes $R_H$-Plateau | $B \approx 0$ im Bulk |
-| **Robustheit** | Topologisch (Pfadabhängig) | Topologisch geschützte Stufe | Thermodynamisch stabiler supraleitender Zustand |
-| **Rand vs. Bulk** | Feldfreier Pfad, Potential am Rand | Randkanal-Zustände | Randströme in Shell, Bulk feldrei |
-| **EABC-Anker** | Orbit-/Phasenanker | Kanal-/Topologieanker | Defekt-Exklusionsanker |
-| **Repo-Objekt** | CEAB-/Dumas-Orbit, Gap-Rotor | mod-$12$-Kanäle, `channel_entropy` | $24I_3$, $\Delta(M)$, Shell-Retraktion |
+| **Observable** | Eichholonomie / Interferenzphase | $\sigma_{xy}=\nu e^2/h$; idealisiert $R_{xy}=h/(\nu e^2)$ | $B_{\mathrm{Bulk}}\approx 0$ im Meissner-Zustand |
+| **Robustheit** | Holonomie bei abgeschirmtem Fluss und feldfreien Pfaden | Quantisierte Leitfähigkeit in stabiler gapped QH-Phase | Thermodynamisch stabiler supraleitender Zustand, begrenzt durch kritische Felder |
+| **Rand vs. Bulk** | Feldfreier Pfad, eingeschlossener Fluss | Physikalische Randzustände nur bei Bulk-Rand-Korrespondenz | Abschirmströme in London-Randzone, Bulk weitgehend feldverdrängt |
+| **EABC-Anker** | Orbit-/Umlaufsignatur-Anker `[C]` | Kanal-/Robustheitsanker `[C]` | Defekt-Exklusionsanker `[C]` |
+| **Repo-Objekt** | CEAB-Orbit oder andere geschlossene Kanalumlaufstruktur | mod-$12$-Kanäle, `channel_entropy` | $24I_3$, $\Delta(M)$, Shell/Bulk-Diagnostik |
 | **Tag** | `[C]` | `[C]` | `[C]` (Diagnostik `[B]`) |
 | **Lean / Code** | — | E-072 Kanalpartition | `prime_norm_full_restoration`, `all_shells_tensor_restored` |
 
@@ -209,7 +264,7 @@ $$B \approx 0 \;\;\leadsto\;\; \Delta_{\mathrm{innen}} \approx 0 \;\;\leadsto\;\
 
 ## 9. EABC-Kernsatz
 
-Innerhalb der formal definierten EABC-Struktur wird eine zulässige primzahlinduzierte Defektkonfiguration $K^+$ durch die projektive Retraktion $R^*$ auf den isotropen Fixpunkttensor zurückgeführt:
+Innerhalb der formal definierten EABC-Struktur wird eine zulässige primzahlinduzierte Defektkonfiguration $K^+$ durch die projektive Retraktion $R^*$ auf die isotrope formale Zielstruktur zurückgeführt:
 
 $$M_{\mathrm{eff}}(R^*(K^+)) = 24I_3 = M_{\mathrm{geom}}.$$
 
@@ -217,7 +272,7 @@ $$M_{\mathrm{eff}}(R^*(K^+)) = 24I_3 = M_{\mathrm{geom}}.$$
 
 Die drei Referenzphänomene **erklären** diesen Satz nicht. Sie liefern **interpretative Metaphern** für drei Aspekte desselben Strukturprogramms:
 
-$$\text{Defekt} \;\longrightarrow\; \text{Retraktion} \;\longrightarrow\; \text{isotroper Fixpunkt}.$$
+$$\text{Defekt} \;\xrightarrow{\text{formal } R^*}\; \text{isotrope Zielstruktur } 24I_3.$$
 
 ---
 
@@ -236,11 +291,11 @@ $$\text{Defekt} \;\longrightarrow\; \text{Retraktion} \;\longrightarrow\; \text{
 
 | Physik | EABC-Analog |
 |---|---|
-| $B \to 0$ im Supraleiter-Bulk | $\Delta_{\mathrm{innen}} \to 0$ nach Retraktion |
-| Meissner-Zustand als Fixpunkt | $M_{\mathrm{eff}} \to 24I_3$ als isotroper Fixpunkt |
+| $B_{\mathrm{Bulk}}\approx 0$ im Supraleiter-Bulk | $\Delta_{\mathrm{innen}}\approx 0$ als numerische Bulk-Diagnostik |
+| Meissner-Zustand als feldarme Bulk-Referenz | $M_{\mathrm{eff}}(R^*(K^+)) = 24I_3$ als formale Gleichheit |
 | Eindringtiefe $\lambda_L$ | Shell-Dicke / Schalenindex im Shell-Stapel |
 
-**Warnung:** Die Pfeile $\leadsto$ sind **motivisch**. Ein numerisches $\Delta \approx 0$ beweist weder Supraleitung noch umgekehrt.
+**Warnung:** Die Pfeile $\leadsto$ sind **motivisch** und gehören nur ins Analogiebild beziehungsweise in Diagnostik. Ein numerisches $\Delta \approx 0$ beweist weder Supraleitung noch umgekehrt; der Formal-Core verwendet die Gleichheit $M_{\mathrm{eff}}(R^*(K^+)) = 24I_3$.
 
 ---
 
@@ -251,7 +306,7 @@ Collatz V2.7 und Dumas Cone–Orbit teilen **methodische** Parallelen (Orbit, Ab
 | Thema | Verbindung | Grenze |
 |---|---|---|
 | **Net-Descent / Collatz V2.7** | Orbit-Kosten, $\Delta_{\mathrm{net}}$ — dynamische Lesart neben statischer Meissner-Exklusion | Collatz-Witness `[C]`; kein AB-Feld |
-| **Dumas Normalform** | 12-Slot-Fill, Gap-Rotor — **Phasenanker**-Sprache analog zu AB | Dumas = Normalform `[B]`, nicht Generator |
+| **Dumas Normalform** | 12-Slot-Fill, Gap-Rotor — **Umlaufsignatur-Anker**-Sprache analog zu AB | Dumas = Normalform `[B]`, nicht Generator |
 | **Dumas-Orbit Protokoll** | Empirie H12–H15 — **separates** Protokoll | Kein Physik-Import; siehe §3 |
 
 **Erlaubt:** „Dumas-Orbit liefert einen empirischen Orbit-Anker; AB-Analogie ist interpretativ `[C]`.“  
@@ -299,7 +354,7 @@ def MeissnerLikeDefectExclusion (K : EabcDefectConfig) (Rstar : EabcDefectConfig
 
 - `DefectShellModel` trennt **Bulk** (isotroper Kern) und **Shell** (Rang-eins-Defekt)
 - `MeissnerLikeDefectExclusion` ist eine **Lesefrage**, keine Erweiterung von `prime_norm_full_restoration`
-- Operationalisierung von `interiorAnisotropyVanishes` → Meissner-Diagnostik `[B]` (§13)
+- Operationalisierung von `interiorAnisotropyVanishes` → Shell-/Bulk-Diagnostik `[B]` (§13)
 
 ---
 
@@ -314,12 +369,13 @@ Vorgeschlagene Metriken zur **messbaren** Annäherung an die Meissner-Analogie. 
 | **Projektionsverlust am Rand** | $L_\pi = \Omega(N) - M(N)$ | `projection_loss` | `[B]` |
 | **Kanal-Entropie Rand vs. Bulk** | $H_{\mathrm{shell}} - H_{\mathrm{bulk}}$ | `channel_entropy` stratifiziert | `[B]` vorgeschlagen |
 | **Restaurations-Abstand** | $\|M_{\mathrm{eff}}(R^*(K)) - 24I_3\|_F$ | Tensor-Norm nach Retraktion | `[B]` |
-| **Isotropie-Indikator** | $\iota = \Delta / \mathrm{tr}(M)$ | dimensionslos; $\iota \to 0$ ↔ Meissner-Bulk-Analog | `[B]` vorgeschlagen |
+| **Isotropie-Indikator** | $\iota = \Delta / \mathrm{tr}(M)$ | dimensionslos; kleines $\iota$ ↔ Meissner-Bulk-Analog | `[B]` vorgeschlagen |
 
 **Governance:**
 
 - Metriken **diagnostizieren** Nähe zum isotropen Fixpunkt — sie **ersetzen** nicht `prime_norm_full_restoration`
 - Export-Konvention: `docs/energiedoku_exports/` (wie Dumas-Orbit-Protokoll)
+- Reproduzierbare Shell-/Bulk-Messung ist `[B]`; die Meissner-Lesart, „Meissner-Shell“-Benennung und physikalische Analogie bleiben `[C]`
 - Bis Implementierung: **`[C]`-motiviert**, nicht `[B]`
 
 ---
@@ -328,14 +384,32 @@ Vorgeschlagene Metriken zur **messbaren** Annäherung an die Meissner-Analogie. 
 
 | Claim | Erlaubt? | Tag |
 |---|---|---|
-| AB-Phase erklärt Dumas-Gap-Rotor | Nein — nur interpretative Parallele | `[C]` |
+| AB-Holonomie erklärt Dumas-Gap-Rotor | Nein — nur interpretative Parallele | `[C]` |
 | QHE-Plateau = mod-$12$-Kanal | Nein — Analogie, nicht Identität | `[C]` |
 | Meissner-Bulk ↔ $24I_3$-Fixpunkt | Ja — als **Analogie** gekennzeichnet | `[C]` |
 | $\Delta_{\mathrm{innen}} \approx 0$ beweist Restauration | Nein — Messzweig ≠ Restaurationszweig | — |
 | `prime_norm_full_restoration` | Ja — formaler Satz | `[A]` |
-| Meissner-Diagnostik-Export | Ja — wenn reproduzierbar | `[B]` |
+| Shell-/Bulk-Diagnostik-Export | Ja — wenn reproduzierbar | `[B]` |
 | Dumas H12–H15 aus Meissner folgt | Nein — Protokoll bleibt empirisch getrennt | — |
 | Physik-Analogien in Lean `[A]` hochstufen | Nein | — |
+| Mod-$12$-Partition definiert Chern-Zahl/topologische Phase | Nein — diskret ist nicht topologisch | — |
+| Randlokalisierter Defekt begründet Bulk-Rand-Korrespondenz | Nein — keine Chiralität, kein Spektralfluss, keine Schutzklasse | — |
+| $R^*$ beschreibt Zeit-/Thermodynamik | Nein — formal definierte Abbildung | — |
+
+### Nicht-Schlussregeln
+
+| Beobachtung / Struktur | Folgt nicht daraus |
+|---|---|
+| geschlossener Orbit | AB-Holonomie |
+| diskrete Kanalwerte | QH-Quantisierung |
+| robuste Partition | topologische Schutzklasse |
+| randlokalisierter Defekt | physikalischer Randzustand |
+| isotroper Fixpunkt | Meissner-Zustand |
+| $R^*$ | thermodynamische oder zeitliche Dynamik |
+
+**Positive Regel:** Eine Analogie ist genau dann zulässig, wenn die gemeinsame Strukturrelation explizit benannt und die Nichtidentität dokumentiert ist.
+
+**Audit-Regel:** `[B]`-Daten plus `[C]`-Analogie sind kein `[B]`-Physikmodell. Zulässig sind Analogiekritik, Governance-Audit und Tests der strukturellen Tragfähigkeit; unzulässig ist ein Upgrade zur physikalischen Vorhersage ohne eigenständiges physikalisches Modell.
 
 ---
 
@@ -343,13 +417,15 @@ Vorgeschlagene Metriken zur **messbaren** Annäherung an die Meissner-Analogie. 
 
 Das EABC-Programm besitzt einen **mathematischen Kern**: primzahlinduzierte Defekte werden durch projektive Retraktion auf den isotropen Tensor $24I_3$ zurückgeführt. Die drei physikalischen Referenzphänomene — **Aharonov–Bohm**, **Quanten-Hall-Effekt**, **Meissner-Effekt** — liefern **keine Beweise** für diesen Kern, sondern **drei komplementäre Lesefragen** in Phase `[C]`:
 
-1. **Orbit / Phase** (AB) — Wo ist die Invariante ein Umlauf, nicht ein lokaler Kanalwert?
-2. **Kanal / Topologie** (Klitzing) — Wo sind die Stufen diskret und störungsrobust?
-3. **Defekt-Exklusion / Bulk–Shell** (Meissner) — Wo wird Anisotropie in die Randschale verdrängt und der Bulk isotrop?
+1. **AB:** Gibt es eine globale Umlaufsignatur?
+2. **QHE:** Gibt es robuste globale Kanal-Invarianten?
+3. **Meissner:** Lässt sich Defektmasse reproduzierbar zwischen Shell und Bulk trennen?
 
-Die Begriffe **Meissner-Shell** und **Meissner-Randschale** bezeichnen die EABC-Randschicht mit konzentriertem Defekt — analog zur London-Eindringtiefe, **ohne** supraleitende Identifikation. Die Kette $B \approx 0 \leadsto \Delta_{\mathrm{innen}} \approx 0 \leadsto M_{\mathrm{eff}} \to 24I_3$ ist **motivisch**, nicht logisch äquivalent.
+Nur die letzte Frage ist unmittelbar als `[B]`-Diagnostik operationalisierbar. Die physikalische Benennung bleibt auch bei positiver Shell-/Bulk-Messung `[C]`.
 
-**Dumas-Orbit** und **Physik-Analogien** bleiben **strikt getrennt**: empirische Dumas-Protokolle testen Normalform und Nullmodelle; Physik-Analogien strukturieren interpretative Sprache. Meissner-Diagnostik wird erst dann `[B]`, wenn Metriken operationalisiert und exportiert sind. Alles Weitere am EABC-Kern muss am Satz $\text{Defekt} \to \text{Retraktion} \to 24I_3$ gemessen werden — nicht an physikalischer Identität.
+Die Begriffe **Meissner-Shell** und **Meissner-Randschale** bezeichnen repo-intern die EABC-Randschicht mit konzentriertem Defekt — analog zur London-Eindringtiefe, **ohne** supraleitende Identifikation und ohne exakt definierte London-Schicht. Die Kette $B_{\mathrm{Bulk}}\approx 0 \leadsto \Delta_{\mathrm{innen}}\approx 0 \leadsto M_{\mathrm{eff}}(R^*(K^+)) = 24I_3$ ist **motivisch**, nicht logisch äquivalent.
+
+**Dumas-Orbit** und **Physik-Analogien** bleiben **strikt getrennt**: empirische Dumas-Protokolle testen Normalform und Nullmodelle; Physik-Analogien strukturieren interpretative Sprache. Shell-/Bulk-Diagnostik wird erst dann `[B]`, wenn Metriken operationalisiert und exportiert sind; die Meissner-Lesart bleibt `[C]`. Alles Weitere am EABC-Kern muss am Satz $\text{Defekt} \to \text{Retraktion} \to 24I_3$ gemessen werden — nicht an physikalischer Identität.
 
 ---
 
@@ -357,9 +433,11 @@ Die Begriffe **Meissner-Shell** und **Meissner-Randschale** bezeichnen die EABC-
 
 | Kategorie | Begriffe |
 |---|---|
-| **Erlaubt (`[C]` klar markiert)** | Orbit-/Phasenanker; Kanal-/Topologieanker; Defekt-Exklusionsanker; Meissner-Shell; Meissner-Randschale; Bulk–Shell-Zerlegung; isotroper Fixpunkt; Retraktion $R^*$; Holonomie-**Analogie** |
-| **Vorsichtig (nur mit Claim-Grenze)** | „Meissner-artig“, „QHE-artig“, „AB-Phase im EABC-Sinn“; $\Delta_{\mathrm{innen}}$; Shell-Konzentration; London-Eindringtiefe-**Analogie** |
+| **Erlaubt (`[C]` klar markiert)** | Orbit-/Umlaufsignatur-Anker; Kanal-/Robustheitsanker; Defekt-Exklusionsanker; repo-interne Meissner-Shell; repo-interne Meissner-Randschale; Bulk–Shell-Zerlegung; isotrope Zielstruktur; Retraktion $R^*$; Holonomie-**Analogie** |
+| **Vorsichtig (nur mit Claim-Grenze)** | „Meissner-artig“, „QHE-artig“, „AB-Umlaufsprache im EABC-Sinn“; $\Delta_{\mathrm{innen}}$; Shell-Konzentration; London-Eindringtiefe-**Analogie** |
 | **Nicht verwenden (ohne explizite `[C]`-Entwarnung)** | „EABC ist Supraleitung / QHE / AB-Experiment“; „Beweis durch Physik-Analogie“; „Meissner-Effekt in Primzahlen“; „Hall-Widerstand der Kanäle“; Identität von Dumas-Befund und Physik |
+
+**Taxonomie-Hinweis:** Orbit-/Umlaufsignatur-Anker, Kanal-/Robustheitsanker und Defekt-Exklusionsanker sind repo-interne `[C]`-Bezeichnungen, keine etablierten physikalischen Standardbegriffe.
 
 ---
 

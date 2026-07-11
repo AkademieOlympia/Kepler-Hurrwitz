@@ -191,7 +191,7 @@ Der Parameter-Atlas kann um eine **Bulk/Shell-Meissner-Schicht** erweitert werde
 | `isotropy_index` | $\iota = \Delta / \mathrm{tr}(M)$ |
 | `nullmodel_comparison` | Profil vs. Nullmodelle |
 
-**Governance:** Meissner-Diagnostik diagnostiziert Nähe zum isotropen Fixpunkt — **ersetzt nicht** `prime_norm_full_restoration`. Bis Implementierung: **`[C]`-motiviert**.
+**Governance:** Shell-/Bulk-Diagnostik misst Nähe zur isotropen Zielstruktur — **ersetzt nicht** `prime_norm_full_restoration`. Die Meissner-Lesart bleibt auch bei positiver Diagnostik `[C]`. Bis Implementierung: **`[C]`-motiviert**.
 
 ---
 

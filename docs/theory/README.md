@@ -325,8 +325,8 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 **Datei:** [`../reports/physical_reference_analogies.md`](../reports/physical_reference_analogies.md)  
 **Status:** `[C]` methodische Physik-Analogie  
 **Evidenz:** E-076 (interpretativ; keine Lean-Formalisation der Analogien)  
-**Zweck:** Drei Referenzphänomene als Resonanzanker — Aharonov–Bohm (Orbit/Phase), von Klitzing/QHE (Kanal/Topologie), Meissner (Defekt-Exklusion, Meissner-Shell) — für Lesefragen zu $24I_3$, Retraktion und Shell-Stapel.  
-**Claim-Grenze:** Analogie, nicht Identität; Dumas-Orbit-Protokoll bleibt empirisch getrennt.
+**Zweck:** Drei Referenzphänomene als Resonanzanker — Aharonov–Bohm (Orbit-/Umlaufsignatur), von Klitzing/QHE (Kanal-/Robustheit), Meissner (Defekt-Exklusion, repo-interne Meissner-Shell) — für Lesefragen zu $24I_3$, Retraktion und Shell-Stapel; die Ankerbegriffe sind repo-interne `[C]`-Taxonomie.  
+**Claim-Grenze:** Analogie, nicht Identität; mod-$12$ ist keine Chern-Zahl/topologische Phase, $R^*$ keine Zeit-/Thermodynamik, Dumas-Orbit-Protokoll bleibt empirisch getrennt.
 
 **Verwandte Schichten:**
 

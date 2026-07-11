@@ -179,7 +179,7 @@ Für Collatz bleibt der Durchbruch dort, wo er vorher war:
 
 nicht bei der Supraleitungsanalogie.
 
-`diagnostics.py` führt `net_descent_margin` als Atlas-Metrik `[B]` — das ist **Collatz-Diagnostik**, nicht Meissner-Diagnostik.
+`diagnostics.py` führt `net_descent_margin` als Atlas-Metrik `[B]` — das ist **Collatz-Diagnostik**, nicht Shell-/Bulk-Diagnostik für die Meissner-Lesart.
 
 **Lean:** `KeplerHurwitz/CollatzProofAttemptV27.lean` · **Kette:** [`collatz_v2_evidence_chain.md`](../collatz_v2_evidence_chain.md)
 
@@ -331,7 +331,7 @@ Dann hätte man `[B]`.
 | Stufe | Meissner-Status | Was fehlt für Upgrade |
 |---|---|---|
 | **`[C]` Interpretation** | aktiv (E-076-Dossier + dieses Memo) | — |
-| **`[B]` Meissner-Diagnostik** | vorgeschlagen (§7) | Metriken in `diagnostics.py` + Export |
+| **`[B]` Shell-/Bulk-Diagnostik** | vorgeschlagen (§7) | Metriken in `diagnostics.py` + Export; Meissner-Lesart bleibt `[C]` |
 | **`[A]` formaler Beweis** | **nein** — nicht vorgesehen | Meissner liefert keine Lean-Theoreme |
 
 ---
@@ -382,7 +382,7 @@ Der beste konkrete nächste Schritt wäre **nicht** ein großer Meissner-Claim, 
 | $\Delta_{\mathrm{innen}} \approx 0$ **beweist** Restauration | Nein |
 | Meissner erklärt Collatz-Witness-Existenz | Nein |
 | Dumas H12–H15 aus Meissner folgt | Nein |
-| Meissner-Diagnostik-Export | Ja — wenn reproduzierbar `[B]` |
+| Shell-/Bulk-Diagnostik-Export | Ja — wenn reproduzierbar `[B]`; Meissner-Lesart bleibt `[C]` |
 | „EABC ist Supraleitung“ | Nein |
 
 ---
