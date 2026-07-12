@@ -3,6 +3,7 @@
 **Identifier:** `collatz-channel-7-dynamics-v2.15`  
 **Vorgänger:** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) V2.14 (Ebene A versiegelt)  
 **Lean:** `KeplerHurwitz/Collatz/ChannelSevenDynamicsV215.lean`  
+**Schritt-6-Verzweigung:** `KeplerHurwitz/Collatz/ChannelSeven71Step6BranchingV215.lean`  
 **Assembly:** `KeplerHurwitz/CollatzProofAttemptV215.lean`
 
 ---
@@ -66,7 +67,7 @@ für nichttriviale Lift-Schalen `j`?
 | P1 | `channelSeven71_step5_eq_deepLiftFiber_j3` — V2.13-Zweig `k≡1(mod 4)` bei exakt `j=3` | V2.15 |
 | P1 | `deepLiftFiber_small_t_decide` — `t ∈ {0,1,2}` für `j ≤ 5` | V2.15 + `[B]` |
 | P2 | Uniforme `S^ℓ`-Form auf `\mathcal{F}_j` für kleines `\ell` | offen |
-| P2 | Valuationswort nach Terminalform (Schritt 6+) | offen |
+| P2 | Valuationswort nach Terminalform (Schritt 6+) | V2.15 Schritt-6-Verzweigung (`486u+103`) |
 
 ### H7 — Typenreduktion / Zustandsgraph auf affinen Familien
 
@@ -120,7 +121,7 @@ via bereits geschlossene `[A]`-Reduktion `bad_run_net_descent_witness_mod8_chann
 
 ### Kurzfristig (V2.16)
 
-5. Schritt-6-Zertifikat auf `\mathcal{F}_3` (Terminal `243t+103` aus `512t+199`-Faser)
+5. ~~Schritt-6-Zertifikat auf `\mathcal{F}_3`~~ — geschlossen in `ChannelSeven71Step6BranchingV215.lean` (`ν₂ ∈ {1,2,≥3}`)
 6. mod-128-Eintritt: wann landet `243t + c_j` in `{55,87,119}`?
 7. `{39}`, `{95}` mod-256: formalisieren numerische Witnesses aus `CollatzChannelSeven` (uncommitted)
 
@@ -157,6 +158,7 @@ BadRunNetDescentWitness (bestehende [A]-Reduktion)
 | `CollatzProofAttemptV28.lean` | 2 | Kanal-3/7 Rest |
 | `CollatzProofAttemptV29.lean` | 1 | Blocking-Interface |
 | `ChannelSevenDynamicsV215.lean` | 3 | Ebene B scaffold |
+| `ChannelSeven71Step6BranchingV215.lean` | 0 | Schritt-6-Verzweigung `486u+103` |
 | Kanal 3 | **FROZEN** | Deep-Tail `{27,91,155,251}` |
 
 ---
@@ -165,6 +167,7 @@ BadRunNetDescentWitness (bestehende [A]-Reduktion)
 
 ```bash
 lake build KeplerHurwitz.Collatz.ChannelSevenDynamicsV215
+lake build KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
 lake build KeplerHurwitz.CollatzProofAttemptV215
 ```
 

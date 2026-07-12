@@ -1079,6 +1079,7 @@ Die kombinatorische Wildheit des Deep-Tails ist damit auf **wohlgeformte unendli
 
 **Identifier:** `collatz-channel-7-dynamics-v2.15`  
 **Modul:** `KeplerHurwitz/Collatz/ChannelSevenDynamicsV215.lean`  
+**Schritt-6-Verzweigung:** `KeplerHurwitz/Collatz/ChannelSeven71Step6BranchingV215.lean`  
 **Roadmap:** [`docs/collatz_v214_level_b_roadmap.md`](collatz_v214_level_b_roadmap.md)  
 **Layer:** `[A]` Brücken; `[C]` Deszent / Witness
 
@@ -1100,6 +1101,41 @@ Fortsetzung unter `syracuseOddStep`.
 | `channelSeven71_step5_deepLiftFiber_j3_even_t` | V2.13 → V2.14 bei `j=3`, gerades `t` |
 | `channelSeven71_step5_deepLiftFiber_j3_t_zero` | Anker `S⁵(1735)=103` |
 
+### Schritt-6-Verzweigung (`486u+103`, `[A]`)
+
+**Modul:** `KeplerHurwitz/Collatz/ChannelSeven71Step6BranchingV215.lean`
+
+Governance:
+> Schritt-6-Verzweigung klassifiziert ≠ dynamischer Deszent bewiesen
+
+Parametrisierung `t = 2u` auf Schale `j=3`, `c₃=103` (`deepLiftConstant 3`):
+
+\[
+t \text{ gerade} \Rightarrow S^5 = 486u + 103 \Rightarrow \nu_2(3S^5+1) \in \{1, 2, \geq 3\}
+\]
+
+| Zweig | `ν₂` | Terminal `S⁶` |
+|---|---|---|
+| `u = 2v` (gerade) | `= 1` | `1458v + 155` |
+| `u = 2v+1`, `v` ungerade | `= 2` | `1458w + 1171` |
+| `u = 2v+1`, `v` gerade | `≥ 3` | `oddCore(729w + 221)` |
+
+Anker: `step5Terminal 0 = deepLiftConstant 3 = 103`.
+
+### Geschlossene Schritt-6-Verzweigung (`486u + 103`, `[A]`)
+
+Governance: **Schritt-6-Verzweigung klassifiziert ≠ dynamischer Deszent bewiesen**.
+
+| Satz | Rolle |
+|---|---|
+| `step5Terminal_odd` | Terminal `S⁵ = 486u + 103` ungerade |
+| `step6_kick_factorization` | `3S⁵+1 = 2(729u+155)` |
+| `step6_even_u_val_eq_one` | `u` gerade ⇒ `ν₂ = 1`, `S⁶ = 1458v + 155` |
+| `step6_odd_u_certificate` | `u` ungerade ⇒ `3S⁵+1 = 4(729v+442)` |
+| `step6_odd_u_odd_v_val_eq_two` | `v` ungerade ⇒ `ν₂ = 2`, `S⁶ = 1458w + 1171` |
+| `step6_odd_u_even_v_certificate` | `v` gerade ⇒ `ν₂ = 3`, `S⁶ = oddCore(729w+221)` |
+| `step6_nu2_trichotomy` | `ν₂(S⁶-Kick) ∈ {1, 2, ≥3}` |
+
 ### Offen (`[C]`, `sorry`)
 
 | Satz | Hypothese |
@@ -1108,7 +1144,12 @@ Fortsetzung unter `syracuseOddStep`.
 | `deepLiftFiber_net_descent_witness` | H8 Witness-Assembly |
 | `deepLiftFiber_wellFounded_rank` | H6 Rang (kein ε₀) |
 
-**Build:** `lake build KeplerHurwitz.CollatzProofAttemptV215`
+**Build:**
+
+```bash
+lake build KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
+lake build KeplerHurwitz.CollatzProofAttemptV215
+```
 
 **Python `[B]`:** `scan_deep_lift_fiber_dynamics` in `deep_lift_hensel_diagnostic.py`
 
