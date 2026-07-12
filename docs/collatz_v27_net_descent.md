@@ -888,6 +888,14 @@ Sämtliche Fallunterscheidungen und algebraischen Formen der **ersten Schritt-5-
 }
 \]
 
+\[
+\boxed{
+2^j \mid 243\rho_j + 95
+\;\;\text{(Generator-Invariante — nicht}\;
+\nu_2 = j\text{)}
+}
+\]
+
 | Ebene | Bezeichnung | Gegenstand | Collatz-Bezug |
 |---|---|---|---|
 | **A** | Algebraische Lift-Geometrie | \(243r + 95 \equiv 0 \pmod{2^j}\) | **keiner** — eigenständige lineare 2-adische Arithmetik |
@@ -935,15 +943,34 @@ deepLiftConstant j  -- c_j
 
 als **allgemeine Parameterisierung**: künftig ist `j` nur noch ein Argument, nicht ein neuer Datei-Fall.
 
-**Zieltheorem (Ebene A, für beliebiges `j`):**
+**Zieltheorem (Ebene A, für beliebiges `j`) — korrekte Spezifikation:**
+
+\[
+\rho_j < 2^j,\qquad 2^j \mid 243\rho_j + 95.
+\]
+
+**Kongruenz-Äquivalenz (bewiesen):** `deepLiftResidue_iff` — \(2^j \mid 243r + 95 \iff r \equiv \rho_j \pmod{2^j}\).
+
+**Bewertungscharakterisierung (Ziel, noch `sorry`):**
+
+\[
+\nu_2(243r + 95) \ge j
+\iff
+r \equiv \rho_j \pmod{2^j},
+\]
 
 \[
 \nu_2(243r + 95) = j
 \iff
-r \in \bigl(\rho_j + 2^j \mathbb{N}\bigr) \setminus \bigl(\rho_{j+1} + 2^{j+1} \mathbb{N}\bigr).
+r \equiv \rho_j \pmod{2^j}
+\;\text{und}\;
+r \not\equiv \rho_{j+1} \pmod{2^{j+1}}.
 \]
 
-**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert (`deepLiftResidue_spec_*`, `existsUnique_deepLiftResidue_*`). **H1 geschlossen:** `deepLiftResidue_spec` und `existsUnique_deepLiftResidue` per Induktion bewiesen (eindeutiger 2-adischer Lift). H2/H4 (`nu2_deepBranch_eq_iff`, `deepLift_terminal_affine`) bleiben `sorry`-Scaffold.
+**Wichtig:** Die Generator-Invariante ist **Teilbarkeit**, nicht `ν_2(243·ρ_j + 95) = j`.
+Plateau-Beispiel: `ρ_5 = 27`, aber `ν_2(243·27 + 95) = ν_2(6656) = 9`.
+
+**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert. **H1 geschlossen:** `deepLiftResidue_spec` (Bound + Teilbarkeit), `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue` per Induktion bewiesen. H2/H4 (`nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`, `deepLift_terminal_affine`) bleiben `sorry`-Scaffold.
 
 ### Angriffshypothesen (H1–H8)
 
@@ -951,8 +978,8 @@ r \in \bigl(\rho_j + 2^j \mathbb{N}\bigr) \setminus \bigl(\rho_{j+1} + 2^{j+1} \
 
 | ID | Aussage | Lean-Ziel |
 |---|---|---|
-| H1 | Eindeutige Lift-Kette \(\rho_{j+1} \equiv \rho_j \pmod{2^j}\) | `existsUnique_deepLiftResidue` (**bewiesen**); `existsUnique_deepLiftResidue_of_lt`; `deepLiftResidue_spec` (**bewiesen**) |
-| H2 | Exakte Bewertungsschalen (Charakterisierung oben) | `nu2_deepBranch_eq_iff` |
+| H1 | Eindeutige Lift-Kette \(\rho_{j+1} \equiv \rho_j \pmod{2^j}\); \(2^j \mid 243\rho_j + 95\) | `existsUnique_deepLiftResidue` (**bewiesen**); `deepLiftResidue_spec` (**bewiesen**: Bound + Teilbarkeit); `deepLiftResidue_unique`; `deepLiftResidue_iff` |
+| H2 | Bewertungsschalen (≥ und = mit Plateau-Ausschluss) | `nu2_deepBranch_ge_iff`; `nu2_deepBranch_eq_iff` |
 | H4 | Affine Terminalform \(243r + 95 = 2^j(243t + c_j)\) bei \(r = \rho_j + 2^j t\) | `deepLift_terminal_affine` |
 | H5 | Generator `deepLiftResidue` / `deepLiftConstant` | `ChannelSevenDeepLiftScaffold`; `deepBranchMultiplier_coprime_pow_two` |
 
@@ -977,30 +1004,31 @@ Die Folge der Restklassen entsteht als **eindeutiger 2-adischer Lift** der linea
 243r + 95 \equiv 0 \pmod{2^j},
 \]
 
-da \(243\) modulo jeder Zweierpotenz invertierbar ist. Rekursive Konstruktion im Generator:
+da \(243\) modulo jeder Zweierpotenz invertierbar ist. Rekursive Konstruktion im Generator (mit `q_j = (243·ρ_j + 95) / 2^j`, Lift-Bit `b ≡ q_j (mod 2)`):
 
 ```text
-ρ_{j+1} = ρ_j            falls  243·ρ_j + 95 ≡ 0 (mod 2^{j+1})
-ρ_{j+1} = ρ_j + 2^j      sonst
+ρ_{j+1} = ρ_j + b·2^j     b = 0 wenn q_j gerade, b = 1 wenn q_j ungerade
 c_j = (243·ρ_j + 95) / 2^j
 ```
 
+**Governance:** `2^j ∣ 243·ρ_j + 95` — **nicht** `ν_2(243·ρ_j + 95) = j`. Plateaus sind erlaubt.
+
 Erste Werte (`decide`-verifiziert, Stichprobe für den Generator):
 
-| `j` | `ρ_j` | `c_j` |
-|---|---|---|
-| 1 | 1 | 169 |
-| 2 | 3 | 206 |
-| 3 | 3 | 103 |
-| 4 | 11 | 173 |
-| 5 | 27 | 208 |
+| `j` | `ρ_j` | `c_j` | `ν_2(243·ρ_j + 95)` |
+|---|---|---|---|
+| 1 | 1 | 169 | 1 |
+| 2 | 3 | 206 | 3 |
+| 3 | 3 | 103 | 3 |
+| 4 | 11 | 173 | 4 |
+| 5 | 27 | 208 | **9** (Plateau bis `j = 9`) |
 
 **Lean-Bündel:** `ChannelSevenDeepLiftScaffold` / `channel_seven_deep_lift_scaffold`  
 **Build:** `lake build KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214`
 
 > **Status von V2.14**
 >
-> V2.14 etabliert die parameterische Lift-Infrastruktur für Ebene A im tiefen Zweig `k ≡ 1 (mod 4)`. Generator, Invertierbarkeit von `243` mod `2^j`, Eindeutigkeitslemma und Schalen `j ≤ 5` sind maschinell verifiziert. **H1 (`deepLiftResidue_spec`, `existsUnique_deepLiftResidue`) ist per Induktion geschlossen.** H2/H4 bleiben `sorry`. Ebene B (Dynamik nach `S⁵ = 243t + c_j`) bleibt ausdrücklich offen. Ein algebraischer Abschluss von Ebene A impliziert weder Kanal-7-Schließung noch globales Collatz.
+> V2.14 etabliert die parameterische Lift-Infrastruktur für Ebene A im tiefen Zweig `k ≡ 1 (mod 4)`. Generator, Invertierbarkeit von `243` mod `2^j`, Eindeutigkeitslemma und Schalen `j ≤ 5` sind maschinell verifiziert. **H1 (`deepLiftResidue_spec` mit `2^j ∣ 243ρ_j + 95`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue`) ist per Induktion geschlossen.** H2/H4 bleiben `sorry`. Ebene B (Dynamik nach `S⁵ = 243t + c_j`) bleibt ausdrücklich offen. Ein algebraischer Abschluss von Ebene A impliziert weder Kanal-7-Schließung noch globales Collatz.
 
 ---
 

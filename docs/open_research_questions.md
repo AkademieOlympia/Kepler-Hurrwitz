@@ -118,6 +118,65 @@ PYTHONPATH=src python examples/run_riemann_interference_export.py
 pytest tests/test_riemann_interference_diagnostics.py -q
 ```
 
+## Projekt „Oktonionischer Hurwitz-Jet-/Akkretionsphasenübergang“ (E-098 / ORQ-098)
+
+- Lässt sich die Triade \(X_{\mathrm{base}} \oplus X_{\mathrm{disk}} \oplus X_{\mathrm{jet}}\) auf Hurwitz-Koeffizienten **operational** projizieren — ohne SDSS- oder Sgr-A*-Identifikation?
+- Korreliert der Assoziativitätsdefekt \([X_{\mathrm{disk}}, X_{\mathrm{base}}, X_{\mathrm{disk}}]\) auf Hurwitz-Einheiten mit einem simulierten „Hurwitz-Lock-in“ gegen Fano-Nullmodelle?
+- Ist ein Jacobi-Defekt-Spektrum entlang \(\mathrm{span}\{e_5,e_6,e_7\}\) von zufälligen Fano-Orientierungen trennbar — **explizit getrennt** von QM-Spektralsprache?
+- Existiert ein dominantes Hurwitz-Prim \(\Pi\) als diskreter Stabilisator in oktonionischer Dynamik (Kristallisations-Metapher)?
+
+### ORQ-098: Octonionic Hurwitz Jet Phase Transition Framework
+
+- **Kontext:** Energiedoku-Lesesprache für 8D-Hurwitz-Oktonionen: Triaden-Split (2+3+3), Pre-Outburst-Stochastik auf Jet-Achsen, kritischer Übergang bei 20–30 % Eddington (Metapher), Jet-Zündung als Sprung zu Hurwitz-Prim \(\Pi\), Assoziativitätsdefekt als Disk→Jet-„EMF“, Jacobi-Defekt als quantisierte Flucht (nicht QM).
+- **Kernfrage:** Kann das Framework **algebraisch operationalisiert** werden (Triaden-Projektion, Defektmetriken, Hurwitz-Prim-Kandidaten, Nullmodelle) — ohne astrophysikalische Validierung?
+- **Status:** `[C]` — Layer-4-Dossier; **`[B]`-Kette eingefroren:** [`reports/octonionic_chiral_system_v3_freeze.md`](reports/octonionic_chiral_system_v3_freeze.md) (`octonionic-chiral-system-v3-freeze`, 75 Tests).
+- **Abhängigkeiten:** E-075 (Quaternion-Lift), E-033 (CEAB), E-053 (Renorm §12 Oktonionen), E-096 (konformes \(\mathbb{H}\)), E-097 (Okto-/E8-Ausblick); `discrete_time_flow`, `assioziator`, `octonionic_quadruplet_transition`.
+- **Dossier:** [`theory/octonionic_hurwitz_jet_phase_transition.md`](theory/octonionic_hurwitz_jet_phase_transition.md) · Export [`exports/octonionic_quadruplet_transition.json`](exports/octonionic_quadruplet_transition.json)
+
+**Prüfmodus (Primvierling-Fano):**
+
+```bash
+PYTHONPATH=src pytest tests/test_octonionic_quadruplet_transition.py -q
+PYTHONPATH=src python examples/run_octonionic_quadruplet_transition.py
+PYTHONPATH=src python examples/export_octonionic_transition_freeze_v1.py
+PYTHONPATH=src pytest tests/test_octonionic_chiral_diagnostic.py -q
+PYTHONPATH=src python examples/export_octonionic_chiral_v2_milestone.py
+PYTHONPATH=src python examples/export_octonionic_chiral_system_v3_freeze.py
+```
+
+## Projekt „CDCC–EABC strukturelle Parallele“ (E-097 / ORQ-097)
+
+- Existiert eine **explizite, präregistrierte** Abbildung \(\Phi\) von CDC-Flow-/VertexShift-Vektoren (GF(2)) auf EABC-Registerübergänge (Kanal mod 12, Hurwitz-Ideal, symplektisches Syndrom)?
+- Lässt sich die Snark-Metapher (Petersen als maximale Frustration) gegen EABC-Prim-/Restklassen-Stichproben **operationalisieren oder verwerfen** — mit Kanal-Shuffle-/CEAB-Nullmodellen?
+- Bleibt die Parität bei unabhängiger Replikation **getrennt** von unverifizierten externen CDCC-„Beweis“-Claims (OpenAI GPT-5.6 Sol Ultra, Ed-Pegg-372-Snark-Diagnostik)?
+
+### ORQ-097: CDCC Flow/Shift → EABC Register Transition Map
+
+- **Kontext:** Externe CDCC-Heuristik (OpenAI `cycleDoubleCoverData`, Flow \(\{0,1\}\) in \(\Gamma\) Char. 2, VertexShifts, lokale XOR-Parität, 372 Snarks); Ed-Pegg-Mathematica-Lauf = `[B]` **externe** algorithmische Diagnostik (`EveryEdgeTwice` etc.) — **kein** formaler Beweis, **kein** Repo-Befund; internes EABC-Quaternionenmodell (E-072 Kanäle, GF(2)-QEC E-038–E-044, Dedekind-Ideal-Schicht).
+- **Kernfrage:** Ist die strukturelle Parität CDCC↔EABC mehr als Metapher — messbar via \(\Phi\) und Nullmodellen?
+- **Status:** `[C]` — `[B]`-Upgrade nur nach §8 in [`theory/cdcc_eabc_structural_parallel.md`](theory/cdcc_eabc_structural_parallel.md); Ed-Pegg-372/372 **rechtfertigt kein** Upgrade.
+- **Abhängigkeiten:** E-072, E-038, E-039 (GF(2)-Grenze), E-076 (Frustrations-Lesesprache); **nicht** abhängig von externen CDCC-Beweis-Claims oder Ed-Pegg-Checks.
+- **Externe offene Fragen (nicht repo-geprüft):** Lemma 2.2 (lokale Orientierungen), Lean-Formalisation unzureichend — s. Dossier §5.
+- **Dossier:** [`theory/cdcc_eabc_structural_parallel.md`](theory/cdcc_eabc_structural_parallel.md)
+
+## Projekt „Quaternionische konforme Gravitation“ (E-096 / ORQ-096)
+
+**Runde 2 (2026-07-11):** Fueter-Operator als Default für \(\Delta_H^2=(\mathcal{D}\bar{\mathcal{D}})^2\); Primmaß \(\rho=\sum_p\delta(x-p)\) + Glättung \(\rho_\varepsilon=K_\varepsilon*\rho\); Leibniz \(dq=e^\sigma(dA+d\sigma\cdot A)\) statt \(d\sigma\wedge A\); Energietensor variational (\(\mathrm{Tr}\,T=0\) aus konform-invariantem \(L\)); \(\mathrm{Re}\,Q=0\)-Pfad **deprecated**.
+
+- Welche **Formenrolle** für \(A\) (0-Form vs. quaternionwertige 1-Form \(A_\mu dx^\mu\)) macht \(dq\,dq^*\) und Weyl-Kopplung konsistent?
+- Wie koppelt Fueter-\(\mathcal{D}\) an \(e^{2\sigma}\) (Axiom II + III)?
+- Ist \(\rho_\varepsilon = K_\varepsilon * \sum_p\delta(x-p)\) numerisch an \(\Delta_H^2\Phi\) anschlussfähig — ohne direkte \(\pi(x)\)-Konstruktion?
+- Existiert ein **konform-invariantes** quaternionisches \(L(Q,\mathcal{D}Q)\) mit nachweisbarer \(\mathrm{Tr}\,T=0\) (nicht \(\mathrm{Re}\,Q=0\))?
+- Linearisierung: schwaches Feld → biharmonisch + Mannheim-Kazanas `[A]` im Limit?
+
+### ORQ-096: Quaternionic Conformal Gravity Axiomatic Framework
+
+- **Kontext:** Fünf-Axiom-Gerüst (R2) mit fünfstufigem Forschungsplan: (1) quaternionische Diff.-Geo. \([A]\)-fähig, (2) Fueter/Δ₄ \([A]\), (3) Primmaß+Glättung \([C]/[A]\), (4) Variationsprinzip \([C]/[A]\), (5) Linearisierung \([A]\). Bach ≠ global \(\nabla^4\); Mannheim-Potential `[A]`.
+- **Kernfrage:** Können Axiome I–V operationalisiert werden (Formenrolle von \(A\), Fueter-\(\Delta_H^2\), \(\rho_\varepsilon\), konform-invariantes \(L\), asymptotischer Fit) — ohne EABC=Raumzeit-Identität?
+- **Status:** `[C]` — Dokumentation only; kein Python/Lean-Stub.
+- **Abhängigkeiten:** E-075 (Quaternion-Lift), E-053 (Renorm), E-092 (Residual-Analogie), E-095 (Riemann-Interferenz), E-074 (Vakuum-Lesesprache).
+- **Dossier:** [`theory/quaternionic_conformal_axiomatic_framework.md`](theory/quaternionic_conformal_axiomatic_framework.md)
+
 ## Projekt „Die drei Musketiere“ (E-026)
 
 - Existiert in jedem Bremensaal ein Nachbar-Dreier der drei uebrigen EABC-Familien?
@@ -161,6 +220,20 @@ pytest tests/test_riemann_interference_diagnostics.py -q
 
 ---
 
+---
+
+## Collatz Net-Descent — Faser `71 mod 128` (V2.13 / V2.14)
+
+**Zertifizierter Stand (V2.13):** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) — Abschnitt *V2.13* (Status-Kasten und *Wissenschaftlicher Ertrag*).
+
+**Lift-Geometrie (V2.14):** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) — Abschnitt *V2.14 — Algebraische Lift-Geometrie* (Ebene A / Ebene B); Lean: `ChannelSevenDeepLiftV214.lean`.
+
+**Ebene A (H1 geschlossen):** Invertierbarkeit `243` mod `2^j`; Eindeutigkeitslemma; `deepLiftResidue_spec j` (Bound + `2^j ∣ 243ρ_j + 95`), `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue j` per Induktion bewiesen. **Nicht** `ν_2(243ρ_j + 95) = j` — Plateaus möglich (`ρ_5 = 27`, `ν_2 = 9`). Offen: vollständige Bewertungsklassifikation (`nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`, H2/H4).
+
+**Ebene B (offen):** Dynamik nach `S⁵ = 243t + c_j` — Rang, Faserrückführung, Netto-Deszent (H6–H8). Folgt nicht aus dem 2-adischen Lift.
+
+---
+
 ## ORQ-Index: Bridge Targets (priorisiert)
 
 Vollstaendige Statements, Governance-Tabelle und Durchbruchspfad: [`open_mathematical_bridge_targets.md`](open_mathematical_bridge_targets.md).
@@ -183,6 +256,9 @@ Vollstaendige Statements, Governance-Tabelle und Durchbruchspfad: [`open_mathema
 | 13 | ORQ-093 | Legendre-GWTC mass-gap vs. \(\chi_p\) | E-093 | `[C]` → `[B]`-Ziel |
 | 14 | ORQ-094 | Pauli phase invariance on EABC energy | E-094 | `[C]` → `[B]`-Ziel |
 | 15 | ORQ-095 | Riemann zero interference at bc-axis nodes | E-095 | `[C]` → `[B]`-Ziel |
+| 16 | ORQ-096 | Quaternionic conformal gravity axioms (Fueter \(\Delta_H^2\), Primmaß \(\rho_\varepsilon\), variational \(T_{\mu\nu}\)) | E-096 | `[C]` |
+| 17 | ORQ-097 | CDCC flow/shift → EABC register transition map | E-097 | `[C]` → `[B]`-Ziel |
+| 18 | ORQ-098 | Octonionic Hurwitz jet/accretion phase transition (triad, Hurwitz-prime ignition, associator/Jacobi defect, Primvierling-Fano matrix) | E-098 | `[C]` Dossier · `[B]` Modul §8 |
 
 **Shell-Separationsdiagnostik (E-077–E-079):** Mess-Schicht `[C]` — [`reports/shell_separation_diagnostics_protocol.md`](reports/shell_separation_diagnostics_protocol.md) · CSV via `scripts/shell_separation_diagnostics.py`
 

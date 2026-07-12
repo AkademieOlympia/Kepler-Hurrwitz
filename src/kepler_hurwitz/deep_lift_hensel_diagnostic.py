@@ -7,7 +7,11 @@ Governance [B] only:
 - ``2-adische Struktur ≠ dynamischer Deszent``.
 
 Matches Lean generator in ``ChannelSevenDeepLiftV214.lean``:
-``ρ_{j+1} = ρ_j`` if ``243·ρ_j + 95 ≡ 0 (mod 2^{j+1})``, else ``ρ_{j+1} = ρ_j + 2^j``.
+``ρ_{j+1} = ρ_j + b·2^j`` with ``b = q_j mod 2`` and ``q_j = (243·ρ_j + 95) / 2^j``
+(``b = 0`` when ``q_j`` even, ``b = 1`` when odd — since ``243 ≡ 1 (mod 2)``).
+
+Governance: ``2^j ∣ 243·ρ_j + 95`` is the generator invariant — **not** ``ν_2 = j``.
+Plateaus occur (e.g. ``ρ_5 = … = ρ_9 = 27`` with ``ν_2(243·27 + 95) = 9``).
 """
 
 from __future__ import annotations
@@ -66,8 +70,8 @@ def deep_lift_residue(j: int) -> int:
         return 0
     rho = deep_lift_residue(j - 1)
     m = deep_lift_modulus(j - 1)
-    core = deep_branch_poly(rho)
-    if core % (2 * m) == 0:
+    q = deep_branch_poly(rho) // m
+    if q % 2 == 0:
         return rho
     return rho + m
 
@@ -97,7 +101,8 @@ def analyze_deep_lift_hensel_steps(j_max: int = 6) -> list[DeepLiftStepRow]:
 
     Index convention (Lean-aligned, 0-based ``j`` in generator):
     - at printed level ``j``, old residue is ``ρ_{j-1}``, new is ``ρ_j``
-    - increment is ``b · 2^{j-1}`` with ``b ∈ {0,1}`` (user/Sage 1-based formula)
+    - increment is ``b · 2^{j-1}`` with ``b = q_{j-1} mod 2`` and ``q_{j-1} = (243·ρ_{j-1}+95)/2^{j-1}``
+    - ``b = 0`` when ``q`` even, ``b = 1`` when ``q`` odd (not reversed)
     - ``delta = (core_new - core_old) / 2^{j-1}``
     """
     if j_max < 1:

@@ -33,3 +33,9 @@ def test_hensel_steps_j1_to_j6() -> None:
     assert rows[0].lift_bit in (0, 1)
     assert rows[4].rho_new == 27
     assert rows[5].c_j == deep_lift_constant(6)
+    # Plateau ρ_5 = … = ρ_9 = 27; ν_2(243·27 + 95) = 9 ≠ 5
+    assert deep_lift_residue(5) == 27
+    assert deep_lift_residue(9) == 27
+    from kepler_hurwitz.deep_lift_hensel_diagnostic import v2
+
+    assert v2(deep_branch_poly(27)) == 9
