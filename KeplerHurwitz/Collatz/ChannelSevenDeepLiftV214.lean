@@ -1,0 +1,288 @@
+import Mathlib
+import KeplerHurwitz.Collatz.ChannelSevenAttackV213
+
+/-!
+# Kanal-7 V2.14 — 2-adische Lift-Infrastruktur für `243r + 95`
+
+Governance: `[A]` Ebene A (Generator; Ziel: allgemeines `j`); `[C]` Ebene B (Dynamik nach `S⁵`).
+
+Leitformeln:
+
+`Bewertungskaskade vollständig klassifizieren ≠ dynamischen Lift-Baum schließen`
+
+`2-adische Struktur ≠ dynamischer Deszent`
+
+Ebene A: eindeutiger 2-adischer Lift der **linearen** Kongruenz `243r + 95 ≡ 0 (mod 2^j)`
+(243 invertierbar mod 2^j — präziser als allgemeiner Hensel-Lift).
+
+Kanal-7-Kontext: im Zweig `k ≡ 1 (mod 4)` gilt `S⁵ = oddCore(243r + 95)` mit Multiplikator
+`243 = 3⁵` und Konstante `95`; mod-256-Faser `{95}` nutzt dieselbe `243`-Skala in
+`CollatzNetDescentMod8`.
+-/
+
+namespace KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214
+
+open KeplerHurwitz.Collatz.ChannelSevenAttackV213
+
+/-- Kanal-7 Deep-Branch-Multiplikator: `243 = 3⁵`. -/
+def deepBranchMultiplier : Nat := 243
+
+/-- Kanal-7 Deep-Branch-Konstante im Zweig `k ≡ 1 (mod 4)`. -/
+def deepBranchConstant : Nat := 95
+
+/-- Modulus der `j`-ten Lift-Schale: `2^j`. -/
+def deepLiftModulus (j : Nat) : Nat :=
+  2 ^ j
+
+/-- Deep-branch polynomial am fünften Kick. -/
+def deepBranchPoly (r : Nat) : Nat :=
+  deepBranchMultiplier * r + deepBranchConstant
+
+theorem deepBranchPoly_eq (r : Nat) :
+    deepBranchPoly r = 243 * r + 95 := by
+  unfold deepBranchPoly deepBranchMultiplier deepBranchConstant
+  rfl
+
+/-!
+## Invertierbarkeit von `243` modulo `2^j` (Ebene A, ohne Dynamik)
+-/
+
+theorem deepBranchMultiplier_odd : deepBranchMultiplier % 2 = 1 := by decide
+
+theorem deepBranchMultiplier_coprime_two : Nat.Coprime deepBranchMultiplier 2 := by decide
+
+theorem deepBranchMultiplier_coprime_pow_two (j : Nat) :
+    Nat.Coprime deepBranchMultiplier (deepLiftModulus j) := by
+  cases j with
+  | zero => simp [deepLiftModulus, deepBranchMultiplier_coprime_two]
+  | succ j =>
+    rw [deepLiftModulus, Nat.coprime_pow_right_iff (Nat.succ_pos j)]
+    exact deepBranchMultiplier_coprime_two
+
+theorem deepBranchMultiplier_isUnit_zmod (j : Nat) :
+    IsUnit (deepBranchMultiplier : ZMod (deepLiftModulus j)) := by
+  rw [ZMod.isUnit_iff_coprime, deepBranchMultiplier, deepLiftModulus]
+  exact deepBranchMultiplier_coprime_pow_two j
+
+/-!
+## Lift-Generator (H5)
+
+Eindeutiger 2-adischer Lift der linearen Kongruenz `243r + 95 ≡ 0 (mod 2^j)`:
+`ρ_{j+1} = ρ_j`, falls die Kongruenz schon modulo `2^{j+1}` gilt, sonst `ρ_j + 2^j`.
+Der Parameter `j` ist der eigentliche Beitrag — nicht eine Fallliste.
+-/
+
+/-- Eindeutige Lift-Restklasse `ρ_j` modulo `2^j`. -/
+def deepLiftResidue : Nat → Nat
+  | 0 => 0
+  | j + 1 =>
+    let ρ := deepLiftResidue j
+    let m := deepLiftModulus j
+    if (deepBranchPoly ρ) % (2 * m) = 0 then ρ else ρ + m
+
+/-- Affine Quotientenkonstante `c_j = (243·ρ_j + 95) / 2^j`. -/
+def deepLiftConstant (j : Nat) : Nat :=
+  (deepBranchPoly (deepLiftResidue j)) / deepLiftModulus j
+
+/-- H1-Teilziel: Generator-Lösung für beliebiges `j` (Induktionsschritt noch offen). -/
+theorem deepLiftResidue_spec (j : Nat) :
+    deepBranchPoly (deepLiftResidue j) % deepLiftModulus j = 0 := by
+  sorry
+
+theorem deepLiftResidue_one : deepLiftResidue 1 = 1 := by decide
+theorem deepLiftResidue_two : deepLiftResidue 2 = 3 := by decide
+theorem deepLiftResidue_three : deepLiftResidue 3 = 3 := by decide
+theorem deepLiftResidue_four : deepLiftResidue 4 = 11 := by decide
+theorem deepLiftResidue_five : deepLiftResidue 5 = 27 := by decide
+
+theorem deepLiftConstant_one : deepLiftConstant 1 = 169 := by decide
+theorem deepLiftConstant_two : deepLiftConstant 2 = 206 := by decide
+theorem deepLiftConstant_three : deepLiftConstant 3 = 103 := by decide
+theorem deepLiftConstant_four : deepLiftConstant 4 = 173 := by decide
+theorem deepLiftConstant_five : deepLiftConstant 5 = 208 := by decide
+
+theorem deepLiftResidue_spec_one :
+    deepBranchPoly (deepLiftResidue 1) % deepLiftModulus 1 = 0 := by decide
+
+theorem deepLiftResidue_spec_two :
+    deepBranchPoly (deepLiftResidue 2) % deepLiftModulus 2 = 0 := by decide
+
+theorem deepLiftResidue_spec_three :
+    deepBranchPoly (deepLiftResidue 3) % deepLiftModulus 3 = 0 := by decide
+
+theorem deepLiftResidue_spec_four :
+    deepBranchPoly (deepLiftResidue 4) % deepLiftModulus 4 = 0 := by decide
+
+theorem deepLiftResidue_spec_five :
+    deepBranchPoly (deepLiftResidue 5) % deepLiftModulus 5 = 0 := by decide
+
+theorem deepLiftResidue_succ_compat_one :
+    deepLiftResidue 2 % deepLiftModulus 1 = deepLiftResidue 1 := by decide
+
+theorem deepLiftResidue_succ_compat_two :
+    deepLiftResidue 3 % deepLiftModulus 2 = deepLiftResidue 2 := by decide
+
+theorem deepLiftResidue_succ_compat_three :
+    deepLiftResidue 4 % deepLiftModulus 3 = deepLiftResidue 3 := by decide
+
+theorem deepLiftResidue_succ_compat_four :
+    deepLiftResidue 5 % deepLiftModulus 4 = deepLiftResidue 4 := by decide
+
+/-!
+## Eindeutigkeit der Lift-Restklasse (Ebene A)
+-/
+
+private theorem deepLiftResidue_unique_of_lt {j r₁ r₂ : Nat}
+    (hr₁ : r₁ < deepLiftModulus j) (hr₂ : r₂ < deepLiftModulus j)
+    (hs₁ : deepBranchPoly r₁ % deepLiftModulus j = 0)
+    (hs₂ : deepBranchPoly r₂ % deepLiftModulus j = 0) :
+    r₁ = r₂ := by
+  have h₁ : deepBranchPoly r₁ ≡ 0 [MOD deepLiftModulus j] := by
+    rwa [Nat.ModEq]
+  have h₂ : deepBranchPoly r₂ ≡ 0 [MOD deepLiftModulus j] := by
+    rwa [Nat.ModEq]
+  have hmul :
+      deepBranchMultiplier * r₁ ≡ deepBranchMultiplier * r₂ [MOD deepLiftModulus j] := by
+    simpa [deepBranchPoly] using
+      Nat.ModEq.add_right_cancel' deepBranchConstant (h₁.trans h₂.symm)
+  have hr : r₁ ≡ r₂ [MOD deepLiftModulus j] :=
+    Nat.ModEq.cancel_left_of_coprime
+      (by
+        rw [Nat.gcd_comm]
+        exact Nat.Coprime.gcd_eq_one (deepBranchMultiplier_coprime_pow_two j))
+      hmul
+  have hmod : r₁ % deepLiftModulus j = r₂ % deepLiftModulus j := hr
+  rw [Nat.mod_eq_of_lt hr₁, Nat.mod_eq_of_lt hr₂] at hmod
+  exact hmod
+
+def DeepLiftResidueUnique (j : Nat) : Prop :=
+  ∃! r : Nat, r < deepLiftModulus j ∧ deepBranchPoly r % deepLiftModulus j = 0
+
+theorem existsUnique_deepLiftResidue_of_lt {j r : Nat}
+    (hr : r < deepLiftModulus j)
+    (hspec : deepBranchPoly r % deepLiftModulus j = 0) :
+    DeepLiftResidueUnique j := by
+  refine ⟨r, ⟨hr, hspec⟩, ?_⟩
+  intro r' ⟨hr', hspec'⟩
+  exact deepLiftResidue_unique_of_lt hr' hr hspec' hspec
+
+/-- H1-Ziel: Eindeutigkeit der Lift-Restklasse für beliebiges `j`. -/
+theorem existsUnique_deepLiftResidue (j : Nat) : DeepLiftResidueUnique j := by
+  sorry
+
+theorem existsUnique_deepLiftResidue_one : DeepLiftResidueUnique 1 := by
+  refine ⟨1, ⟨by decide, by decide⟩, ?_⟩
+  intro r ⟨hr, hspec⟩
+  have hm : deepLiftModulus 1 = 2 := by decide
+  rw [hm] at hr hspec
+  have hr' : r ≤ 1 := by omega
+  interval_cases r <;> simp_all (config := {decide := true})
+
+theorem existsUnique_deepLiftResidue_two : DeepLiftResidueUnique 2 := by
+  refine ⟨3, ⟨by decide, by decide⟩, ?_⟩
+  intro r ⟨hr, hspec⟩
+  have hm : deepLiftModulus 2 = 4 := by decide
+  rw [hm] at hr hspec
+  have hr' : r ≤ 3 := by omega
+  interval_cases r <;> simp_all (config := {decide := true})
+
+theorem existsUnique_deepLiftResidue_three : DeepLiftResidueUnique 3 := by
+  refine ⟨3, ⟨by decide, by decide⟩, ?_⟩
+  intro r ⟨hr, hspec⟩
+  have hm : deepLiftModulus 3 = 8 := by decide
+  rw [hm] at hr hspec
+  have hr' : r ≤ 7 := by omega
+  interval_cases r <;> simp_all (config := {decide := true})
+
+theorem existsUnique_deepLiftResidue_four : DeepLiftResidueUnique 4 := by
+  refine ⟨11, ⟨by decide, by decide⟩, ?_⟩
+  intro r ⟨hr, hspec⟩
+  have hm : deepLiftModulus 4 = 16 := by decide
+  rw [hm] at hr hspec
+  have hr' : r ≤ 15 := by omega
+  interval_cases r <;> simp_all (config := {decide := true})
+
+theorem existsUnique_deepLiftResidue_five : DeepLiftResidueUnique 5 := by
+  refine ⟨27, ⟨by decide, by decide⟩, ?_⟩
+  intro r ⟨hr, hspec⟩
+  have hm : deepLiftModulus 5 = 32 := by decide
+  rw [hm] at hr hspec
+  have hr' : r ≤ 31 := by omega
+  interval_cases r <;> simp_all (config := {decide := true})
+
+/-!
+## Bewertungscharakterisierung und affine Terminalform (Ebene A — Ziele)
+-/
+
+/-- H2-Ziel: exakte Bewertungsschalen für beliebiges `j`. Noch offen. -/
+theorem nu2_deepBranch_eq_iff (j r : Nat) :
+    padicValNat 2 (deepBranchPoly r) = j ↔
+      r % deepLiftModulus (j + 1) = deepLiftResidue (j + 1) ∧
+        r % deepLiftModulus j ≠ deepLiftResidue j := by
+  sorry
+
+/-- H4-Ziel: affine Terminalform bei `r = ρ_j + 2^j t`. Noch offen für allgemeines `j`. -/
+theorem deepLift_terminal_affine (j t : Nat) :
+    deepBranchPoly (deepLiftResidue j + deepLiftModulus j * t) =
+      deepLiftModulus j * (deepBranchMultiplier * t + deepLiftConstant j) := by
+  sorry
+
+theorem channelSeven71_step5_certificate_link (r : Nat) :
+    3 * (162 * (4 * r + 1) + 91) + 1 = 2 ^ 3 * deepBranchPoly r :=
+  channelSeven71_step5_certificate_mod4_one r
+
+/-- Scaffold-Status: Generator + Ebene-A-Kern + verifizierte Anfangs-Schalen (`j ≤ 5`). -/
+structure ChannelSevenDeepLiftScaffold : Prop where
+  multiplier_invertible :
+    ∀ j : Nat, Nat.Coprime deepBranchMultiplier (deepLiftModulus j)
+  generator_values :
+    deepLiftResidue 1 = 1 ∧
+      deepLiftResidue 2 = 3 ∧
+        deepLiftResidue 3 = 3 ∧
+          deepLiftResidue 4 = 11 ∧
+            deepLiftResidue 5 = 27
+  constant_values :
+    deepLiftConstant 1 = 169 ∧
+      deepLiftConstant 2 = 206 ∧
+        deepLiftConstant 3 = 103 ∧
+          deepLiftConstant 4 = 173 ∧
+            deepLiftConstant 5 = 208
+  residue_specs :
+    deepBranchPoly (deepLiftResidue 1) % deepLiftModulus 1 = 0 ∧
+      deepBranchPoly (deepLiftResidue 2) % deepLiftModulus 2 = 0 ∧
+        deepBranchPoly (deepLiftResidue 3) % deepLiftModulus 3 = 0 ∧
+          deepBranchPoly (deepLiftResidue 4) % deepLiftModulus 4 = 0 ∧
+            deepBranchPoly (deepLiftResidue 5) % deepLiftModulus 5 = 0
+  compat_samples :
+    deepLiftResidue 2 % deepLiftModulus 1 = deepLiftResidue 1 ∧
+      deepLiftResidue 3 % deepLiftModulus 2 = deepLiftResidue 2 ∧
+        deepLiftResidue 4 % deepLiftModulus 3 = deepLiftResidue 3 ∧
+          deepLiftResidue 5 % deepLiftModulus 4 = deepLiftResidue 4
+  existsUnique_samples :
+    DeepLiftResidueUnique 1 ∧
+      DeepLiftResidueUnique 2 ∧
+        DeepLiftResidueUnique 3 ∧
+          DeepLiftResidueUnique 4 ∧
+            DeepLiftResidueUnique 5
+  step5_certificate :
+    ∀ r : Nat, 3 * (162 * (4 * r + 1) + 91) + 1 = 2 ^ 3 * deepBranchPoly r
+
+theorem channel_seven_deep_lift_scaffold : ChannelSevenDeepLiftScaffold where
+  multiplier_invertible := deepBranchMultiplier_coprime_pow_two
+  generator_values := ⟨deepLiftResidue_one, deepLiftResidue_two, deepLiftResidue_three,
+    deepLiftResidue_four, deepLiftResidue_five⟩
+  constant_values := ⟨deepLiftConstant_one, deepLiftConstant_two, deepLiftConstant_three,
+    deepLiftConstant_four, deepLiftConstant_five⟩
+  residue_specs := ⟨deepLiftResidue_spec_one, deepLiftResidue_spec_two, deepLiftResidue_spec_three,
+    deepLiftResidue_spec_four, deepLiftResidue_spec_five⟩
+  compat_samples := ⟨deepLiftResidue_succ_compat_one, deepLiftResidue_succ_compat_two,
+    deepLiftResidue_succ_compat_three, deepLiftResidue_succ_compat_four⟩
+  existsUnique_samples := ⟨
+    existsUnique_deepLiftResidue_one,
+    existsUnique_deepLiftResidue_two,
+    existsUnique_deepLiftResidue_three,
+    existsUnique_deepLiftResidue_four,
+    existsUnique_deepLiftResidue_five⟩
+  step5_certificate := channelSeven71_step5_certificate_link
+
+end KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214
