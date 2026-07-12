@@ -228,7 +228,7 @@ PYTHONPATH=src python examples/export_octonionic_chiral_system_v3_freeze.py
 
 **Lift-Geometrie (V2.14):** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) — Abschnitt *V2.14 — Algebraische Lift-Geometrie* (Ebene A / Ebene B); Lean: `ChannelSevenDeepLiftV214.lean`.
 
-**Ebene A (H1 geschlossen):** Invertierbarkeit `243` mod `2^j`; Eindeutigkeitslemma; `deepLiftResidue_spec j` (Bound + `2^j ∣ 243ρ_j + 95`), `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue j` per Induktion bewiesen. **Nicht** `ν_2(243ρ_j + 95) = j` — Plateaus möglich (`ρ_5 = 27`, `ν_2 = 9`). Offen: vollständige Bewertungsklassifikation (`nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`, H2/H4).
+**Ebene A (H1–H2/H4 geschlossen):** Invertierbarkeit `243` mod `2^j`; Eindeutigkeitslemma; `deepLiftResidue_spec j`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue j`; padicVal-Brücke `pow_dvd_iff_le_padicValNat`; Bewertungsklassifikation `nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`; affine Terminalform `deepLift_terminal_affine`, `deepLift_terminal_of_exactVal`. **Nicht** `ν_2(243ρ_j + 95) = j` am Generator — Plateaus möglich (`ρ_5 = 27`, `ν_2 = 9`).
 
 **Ebene B (offen):** Dynamik nach `S⁵ = 243t + c_j` — Rang, Faserrückführung, Netto-Deszent (H6–H8). Folgt nicht aus dem 2-adischen Lift.
 

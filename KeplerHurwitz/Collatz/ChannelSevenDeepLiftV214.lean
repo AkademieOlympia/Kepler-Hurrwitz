@@ -1,5 +1,6 @@
 import Mathlib
 import KeplerHurwitz.Collatz.ChannelSevenAttackV213
+import KeplerHurwitz.OddCore
 
 /-!
 # Kanal-7 V2.14 — 2-adische Lift-Infrastruktur für `243r + 95`
@@ -26,6 +27,7 @@ Kanal-7-Kontext: im Zweig `k ≡ 1 (mod 4)` gilt `S⁵ = oddCore(243r + 95)` mit
 
 namespace KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214
 
+open KeplerHurwitz
 open KeplerHurwitz.Collatz.ChannelSevenAttackV213
 
 /-- Kanal-7 Deep-Branch-Multiplikator: `243 = 3⁵`. -/
@@ -46,6 +48,36 @@ theorem deepBranchPoly_eq (r : Nat) :
     deepBranchPoly r = 243 * r + 95 := by
   unfold deepBranchPoly deepBranchMultiplier deepBranchConstant
   rfl
+
+theorem deepBranchPoly_pos (r : Nat) : 0 < deepBranchPoly r := by
+  unfold deepBranchPoly deepBranchMultiplier deepBranchConstant
+  omega
+
+theorem deepBranchPoly_ne_zero (r : Nat) : deepBranchPoly r ≠ 0 :=
+  deepBranchPoly_pos r |>.ne'
+
+/-!
+## padicValNat-Brücke (Ebene A — Bewertungsskala)
+
+Modular sieve `deepLiftResidue_iff` charakterisiert Teilbarkeit; diese Schicht
+übersetzt in die exakte Valuationssprache `ν_2`.
+-/
+
+/-- `p^j ∣ m ↔ j ≤ ν_p(m)` für `p` prim und `m ≠ 0`. -/
+theorem pow_dvd_iff_le_padicValNat {p m j : Nat} (hp : p.Prime) (hm : m ≠ 0) :
+    p ^ j ∣ m ↔ j ≤ padicValNat p m :=
+  padicValNat_dvd_iff_le_of_ne_one hp.ne_one hm
+
+private theorem two_pow_dvd_iff_le_padicValNat {m j : Nat} (hm : m ≠ 0) :
+    2 ^ j ∣ m ↔ j ≤ padicValNat 2 m := by
+  simpa using pow_dvd_iff_le_padicValNat (p := 2) (m := m) (j := j) Nat.prime_two hm
+
+private theorem two_pow_succ_not_dvd_of_padicValNat_eq {m j : Nat}
+    (hm : m ≠ 0) (heq : padicValNat 2 m = j) :
+    ¬ 2 ^ (j + 1) ∣ m := by
+  haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+  have h := pow_succ_padicValNat_not_dvd (p := 2) hm
+  rwa [← heq]
 
 /-!
 ## Invertierbarkeit von `243` modulo `2^j` (Ebene A, ohne Dynamik)
@@ -405,24 +437,95 @@ Korrekte Zielaussagen (keine falsche Identität `ν_2 = j` am Generator):
 Plateau-Beispiel: `ρ_5 = 27`, aber `ν_2(243·27 + 95) = ν_2(6656) = 9`.
 -/
 
-/-- H2-Ziel: Bewertungsuntergrenze. Noch offen für allgemeines `j`. -/
+/-- H2: Bewertungsuntergrenze — `ν_2(243r+95) ≥ j` iff modulares Sieb `ρ_j`. -/
 theorem nu2_deepBranch_ge_iff (j r : Nat) :
     j ≤ padicValNat 2 (deepBranchPoly r) ↔
       r % deepLiftModulus j = deepLiftResidue j := by
-  sorry
+  have hm := deepBranchPoly_ne_zero r
+  rw [← deepLiftResidue_iff, deepLiftModulus, two_pow_dvd_iff_le_padicValNat hm]
 
-/-- H2-Ziel: exakte Bewertungsschale (mit Plateau-Ausschluss). Noch offen. -/
+/-- H2: exakte Bewertungsschale — Plateau via fehlgeschlagenem Lift auf `j+1`. -/
 theorem nu2_deepBranch_eq_iff (j r : Nat) :
     padicValNat 2 (deepBranchPoly r) = j ↔
       r % deepLiftModulus j = deepLiftResidue j ∧
         r % deepLiftModulus (j + 1) ≠ deepLiftResidue (j + 1) := by
-  sorry
+  have hm := deepBranchPoly_ne_zero r
+  constructor
+  · intro heq
+    constructor
+    · exact (nu2_deepBranch_ge_iff j r).1 (le_of_eq heq.symm)
+    · intro hmod
+      have hdvd : deepLiftModulus (j + 1) ∣ deepBranchPoly r :=
+        (deepLiftResidue_iff (j + 1) r).2 hmod
+      have hge : j + 1 ≤ padicValNat 2 (deepBranchPoly r) := by
+        rw [deepLiftModulus] at hdvd
+        exact (two_pow_dvd_iff_le_padicValNat hm).1 hdvd
+      omega
+  · intro ⟨hmod_j, hnot_mod_succ⟩
+    have hj_le : j ≤ padicValNat 2 (deepBranchPoly r) :=
+      (nu2_deepBranch_ge_iff j r).2 hmod_j
+    have hnot_succ : ¬ j + 1 ≤ padicValNat 2 (deepBranchPoly r) := by
+      intro hge
+      have hdvd : 2 ^ (j + 1) ∣ deepBranchPoly r :=
+        (two_pow_dvd_iff_le_padicValNat hm).2 hge
+      have hmod : r % deepLiftModulus (j + 1) = deepLiftResidue (j + 1) := by
+        rw [deepLiftModulus]
+        exact (deepLiftResidue_iff (j + 1) r).1 hdvd
+      exact hnot_mod_succ hmod
+    omega
 
-/-- H4-Ziel: affine Terminalform bei `r = ρ_j + 2^j t`. Noch offen für allgemeines `j`. -/
+/-- H4: affine Terminalform bei `r = ρ_j + 2^j t`. -/
 theorem deepLift_terminal_affine (j t : Nat) :
     deepBranchPoly (deepLiftResidue j + deepLiftModulus j * t) =
       deepLiftModulus j * (deepBranchMultiplier * t + deepLiftConstant j) := by
-  sorry
+  set ρ := deepLiftResidue j
+  set m := deepLiftModulus j
+  set c := deepLiftConstant j
+  have hdvd : m ∣ deepBranchPoly ρ := (deepLiftResidue_spec j).2
+  have hc : deepBranchPoly ρ / m = c := rfl
+  have hq : deepBranchPoly ρ = m * c := by
+    rw [← hc, Nat.mul_div_cancel' hdvd]
+  calc
+    deepBranchPoly (ρ + m * t)
+        = deepBranchPoly ρ + deepBranchMultiplier * (m * t) := by
+            rw [deepBranchPoly_add_mod ρ (m * t)]
+    _ = m * c + deepBranchMultiplier * (m * t) := by rw [hq]
+    _ = m * (c + deepBranchMultiplier * t) := by ring
+    _ = m * (deepBranchMultiplier * t + c) := by ring
+
+private theorem deepLift_affine_quotient_odd_of_exactVal (j t : Nat)
+    (heq : padicValNat 2 (deepBranchPoly (deepLiftResidue j + deepLiftModulus j * t)) = j) :
+    Odd (deepBranchMultiplier * t + deepLiftConstant j) := by
+  set q := deepBranchMultiplier * t + deepLiftConstant j
+  set r := deepLiftResidue j + deepLiftModulus j * t
+  have hm := deepBranchPoly_ne_zero r
+  have hnot : ¬ 2 ^ (j + 1) ∣ deepBranchPoly r :=
+    two_pow_succ_not_dvd_of_padicValNat_eq hm heq
+  refine Nat.not_even_iff_odd.mp ?_
+  intro hEven
+  have h2 := Even.two_dvd hEven
+  rcases h2 with ⟨u, hu⟩
+  have haff := deepLift_terminal_affine j t
+  have hpow : 2 ^ (j + 1) ∣ deepBranchPoly (deepLiftResidue j + deepLiftModulus j * t) := by
+    rw [haff, show deepBranchMultiplier * t + deepLiftConstant j = q from rfl, hu,
+      deepLiftModulus, pow_succ]
+    exact ⟨u, by simp [mul_assoc, mul_comm, mul_left_comm]⟩
+  exact hnot (by simpa [r] using hpow)
+
+/-- H4 + oddCore: bei exakter Valuation `j` ist `oddCore(243r+95) = 243t + c_j`. -/
+theorem deepLift_terminal_of_exactVal (j r t : Nat)
+    (hr : r = deepLiftResidue j + deepLiftModulus j * t)
+    (heq : padicValNat 2 (deepBranchPoly r) = j) :
+    oddCore (deepBranchPoly r) = deepBranchMultiplier * t + deepLiftConstant j := by
+  rw [hr, deepLift_terminal_affine]
+  have hodd := deepLift_affine_quotient_odd_of_exactVal j t (by simpa [hr] using heq)
+  rw [deepLiftModulus, oddCore_two_pow_mul j _ hodd]
+
+/-- Exakte Valuation `j` ↔ fehlgeschlagener Lift auf Schale `j+1`. -/
+theorem deepLift_terminal_next_lift_fails (j r : Nat)
+    (heq : padicValNat 2 (deepBranchPoly r) = j) :
+    r % deepLiftModulus (j + 1) ≠ deepLiftResidue (j + 1) :=
+  (nu2_deepBranch_eq_iff j r).1 heq |>.2
 
 theorem channelSeven71_step5_certificate_link (r : Nat) :
     3 * (162 * (4 * r + 1) + 91) + 1 = 2 ^ 3 * deepBranchPoly r :=

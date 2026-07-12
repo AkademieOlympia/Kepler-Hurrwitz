@@ -951,7 +951,25 @@ als **allgemeine Parameterisierung**: künftig ist `j` nur noch ein Argument, ni
 
 **Kongruenz-Äquivalenz (bewiesen):** `deepLiftResidue_iff` — \(2^j \mid 243r + 95 \iff r \equiv \rho_j \pmod{2^j}\).
 
-**Bewertungscharakterisierung (Ziel, noch `sorry`):**
+**Schichtdiagramm (V2.14):**
+
+```text
+Ebene A — drei getrennte Schichten
+┌─────────────────────────────────────────────────────────────┐
+│ 1. Modular sieve   deepLiftResidue_iff                      │
+│    2^j | 243r+95  ↔  r ≡ ρ_j (mod 2^j)          [H1 DONE] │
+├─────────────────────────────────────────────────────────────┤
+│ 2. Valuation scale pow_dvd_iff_le_padicValNat               │
+│    2^j | m  ↔  j ≤ ν_2(m)                       [H2 DONE] │
+│    ν_2 = j  ↔  r ≡ ρ_j ∧ r ≢ ρ_{j+1} (mod 2^{j+1})         │
+├─────────────────────────────────────────────────────────────┤
+│ 3. Terminal oddCore (nur bei exakter Valuation j)           │
+│    oddCore(m) = 243t + c_j  wenn ν_2(m)=j         [H4 DONE] │
+│    Governance: oddCore erst nach affiner Faktorisierung     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Bewertungscharakterisierung (bewiesen):** `nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`.
 
 \[
 \nu_2(243r + 95) \ge j
@@ -970,7 +988,7 @@ r \not\equiv \rho_{j+1} \pmod{2^{j+1}}.
 **Wichtig:** Die Generator-Invariante ist **Teilbarkeit**, nicht `ν_2(243·ρ_j + 95) = j`.
 Plateau-Beispiel: `ρ_5 = 27`, aber `ν_2(243·27 + 95) = ν_2(6656) = 9`.
 
-**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert. **H1 geschlossen:** `deepLiftResidue_spec` (Bound + Teilbarkeit), `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue` per Induktion bewiesen. H2/H4 (`nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`, `deepLift_terminal_affine`) bleiben `sorry`-Scaffold.
+**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert. **H1 geschlossen:** `deepLiftResidue_spec`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue`. **H2/H4 geschlossen:** `pow_dvd_iff_le_padicValNat`, `nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`, `deepLift_terminal_affine`, `deepLift_terminal_of_exactVal`, `deepLift_terminal_next_lift_fails`. Python: `verify_padic_bridge_and_offsets`.
 
 ### Angriffshypothesen (H1–H8)
 
@@ -979,8 +997,8 @@ Plateau-Beispiel: `ρ_5 = 27`, aber `ν_2(243·27 + 95) = ν_2(6656) = 9`.
 | ID | Aussage | Lean-Ziel |
 |---|---|---|
 | H1 | Eindeutige Lift-Kette \(\rho_{j+1} \equiv \rho_j \pmod{2^j}\); \(2^j \mid 243\rho_j + 95\) | `existsUnique_deepLiftResidue` (**bewiesen**); `deepLiftResidue_spec` (**bewiesen**: Bound + Teilbarkeit); `deepLiftResidue_unique`; `deepLiftResidue_iff` |
-| H2 | Bewertungsschalen (≥ und = mit Plateau-Ausschluss) | `nu2_deepBranch_ge_iff`; `nu2_deepBranch_eq_iff` |
-| H4 | Affine Terminalform \(243r + 95 = 2^j(243t + c_j)\) bei \(r = \rho_j + 2^j t\) | `deepLift_terminal_affine` |
+| H2 | Bewertungsschalen (≥ und = mit Plateau-Ausschluss) | `nu2_deepBranch_ge_iff`; `nu2_deepBranch_eq_iff` (**bewiesen**) |
+| H4 | Affine Terminalform \(243r + 95 = 2^j(243t + c_j)\) bei \(r = \rho_j + 2^j t\); `oddCore` bei exakter Val | `deepLift_terminal_affine`; `deepLift_terminal_of_exactVal` (**bewiesen**) |
 | H5 | Generator `deepLiftResidue` / `deepLiftConstant` | `ChannelSevenDeepLiftScaffold`; `deepBranchMultiplier_coprime_pow_two` |
 
 **`[B]` — Ebene B, rechnerisch**
@@ -1028,7 +1046,7 @@ Erste Werte (`decide`-verifiziert, Stichprobe für den Generator):
 
 > **Status von V2.14**
 >
-> V2.14 etabliert die parameterische Lift-Infrastruktur für Ebene A im tiefen Zweig `k ≡ 1 (mod 4)`. Generator, Invertierbarkeit von `243` mod `2^j`, Eindeutigkeitslemma und Schalen `j ≤ 5` sind maschinell verifiziert. **H1 (`deepLiftResidue_spec` mit `2^j ∣ 243ρ_j + 95`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue`) ist per Induktion geschlossen.** H2/H4 bleiben `sorry`. Ebene B (Dynamik nach `S⁵ = 243t + c_j`) bleibt ausdrücklich offen. Ein algebraischer Abschluss von Ebene A impliziert weder Kanal-7-Schließung noch globales Collatz.
+> V2.14 etabliert die parameterische Lift-Infrastruktur für Ebene A im tiefen Zweig `k ≡ 1 (mod 4)`. Generator, Invertierbarkeit von `243` mod `2^j`, Eindeutigkeitslemma und Schalen `j ≤ 5` sind maschinell verifiziert. **H1–H2/H4 (modulares Sieb, padicVal-Brücke, affine Terminalform, oddCore bei exakter Valuation) sind geschlossen.** Ebene B (Dynamik nach `S⁵ = 243t + c_j`) bleibt ausdrücklich offen. Ein algebraischer Abschluss von Ebene A impliziert weder Kanal-7-Schließung noch globales Collatz.
 
 ---
 

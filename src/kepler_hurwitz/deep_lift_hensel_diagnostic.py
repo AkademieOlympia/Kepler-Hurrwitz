@@ -39,6 +39,9 @@ __all__ = [
     "deep_lift_modulus",
     "deep_lift_residue",
     "deep_lift_constant",
+    "odd_core",
+    "verify_padic_bridge_and_offsets",
+    "format_padic_bridge_report",
     "analyze_deep_lift_hensel_steps",
     "format_hensel_report",
     "Integer",
@@ -79,6 +82,158 @@ def deep_lift_residue(j: int) -> int:
 def deep_lift_constant(j: int) -> int:
     rho = deep_lift_residue(j)
     return deep_branch_poly(rho) // deep_lift_modulus(j)
+
+
+def odd_core(n: int) -> int:
+    """Lean-aligned ``oddCore n = n / 2^v2(n)`` for positive ``n``."""
+    if n <= 0:
+        raise ValueError("n must be positive")
+    return n >> v2(n)
+
+
+def verify_padic_bridge_and_offsets(
+    *,
+    test_values: Sequence[int] | None = None,
+    j_max: int = 6,
+) -> dict[str, object]:
+    """
+    Verify padicVal bridge, kick offset, affine quotient, and oddCore terminal layer.
+
+    Layers (governance):
+    1. Modular sieve: ``2^j | m ↔ r % 2^j = ρ_j`` (via generator residues)
+    2. Valuation scale: ``2^j | m ↔ j ≤ v2(m)``
+    3. Terminal oddCore only under exact valuation
+    """
+    if test_values is None:
+        test_values = [338, 6656, 14432, 824, 1696, 8, 24, 96]
+
+    padic_bridge: list[dict[str, object]] = []
+    for m in test_values:
+        if m <= 0:
+            continue
+        vm = v2(m)
+        for j in range(0, min(vm + 3, 12)):
+            mod = deep_lift_modulus(j)
+            lhs = m % mod == 0
+            rhs = j <= vm
+            padic_bridge.append(
+                {
+                    "m": m,
+                    "j": j,
+                    "v2_m": vm,
+                    "2^j|m": lhs,
+                    "j<=v2(m)": rhs,
+                    "ok": lhs == rhs,
+                }
+            )
+
+    kick_offset: list[dict[str, object]] = []
+    for m in test_values:
+        if m <= 0:
+            continue
+        kick_offset.append(
+            {
+                "m": m,
+                "v2_m": v2(m),
+                "v2_8m": v2(8 * m),
+                "expected": 3 + v2(m),
+                "ok": v2(8 * m) == 3 + v2(m),
+            }
+        )
+
+    affine_checks: list[dict[str, object]] = []
+    for j in range(1, j_max + 1):
+        rho = deep_lift_residue(j)
+        c_j = deep_lift_constant(j)
+        for t in (0, 1, 2, 5):
+            r = rho + deep_lift_modulus(j) * t
+            m = deep_branch_poly(r)
+            quotient = DEEP_BRANCH_MULTIPLIER * t + c_j
+            expected = deep_lift_modulus(j) * quotient
+            affine_checks.append(
+                {
+                    "j": j,
+                    "t": t,
+                    "r": r,
+                    "m": m,
+                    "quotient": quotient,
+                    "affine_ok": m == expected,
+                }
+            )
+
+    # Exact-valuation spot checks: s=0 (r=1, v2=1), s=1 (r=3, v2=3)
+    terminal_samples = (
+        {"s": 0, "j": 1, "r": 1, "t": 0, "expected_v2": 1},
+        {"s": 1, "j": 3, "r": 3, "t": 0, "expected_v2": 3},
+    )
+    terminal_checks: list[dict[str, object]] = []
+    for sample in terminal_samples:
+        j = int(sample["j"])
+        r = int(sample["r"])
+        t = int(sample["t"])
+        rho = deep_lift_residue(j)
+        m = deep_branch_poly(r)
+        vm = v2(m)
+        quotient = DEEP_BRANCH_MULTIPLIER * t + deep_lift_constant(j)
+        exact_val = vm == sample["expected_v2"]
+        odd_core_ok = (not exact_val) or (odd_core(m) == quotient)
+        next_lift_fails = r % deep_lift_modulus(j + 1) != deep_lift_residue(j + 1)
+        terminal_checks.append(
+            {
+                **sample,
+                "rho_j": rho,
+                "m": m,
+                "v2_m": vm,
+                "quotient": quotient,
+                "quotient_odd": quotient % 2 == 1,
+                "exact_val": exact_val,
+                "odd_core_m": odd_core(m),
+                "odd_core_ok": odd_core_ok,
+                "next_lift_fails": next_lift_fails,
+                "residue_ok": r % deep_lift_modulus(j) == rho,
+            }
+        )
+
+    all_padic_ok = all(bool(row["ok"]) for row in padic_bridge)
+    all_kick_ok = all(bool(row["ok"]) for row in kick_offset)
+    all_affine_ok = all(bool(row["affine_ok"]) for row in affine_checks)
+    all_terminal_ok = all(
+        bool(row["exact_val"])
+        and bool(row["odd_core_ok"])
+        and bool(row["next_lift_fails"])
+        and bool(row["residue_ok"])
+        for row in terminal_checks
+    )
+
+    return {
+        "padic_bridge": padic_bridge,
+        "kick_offset": kick_offset,
+        "affine_checks": affine_checks,
+        "terminal_checks": terminal_checks,
+        "all_ok": all_padic_ok and all_kick_ok and all_affine_ok and all_terminal_ok,
+    }
+
+
+def format_padic_bridge_report(result: dict[str, object]) -> str:
+    lines = [
+        "Deep-lift padicVal bridge + terminal oddCore diagnostic",
+        f"Governance: {DEEP_LIFT_TAG} — Ebene A only; oddCore under exact val.",
+        "",
+        f"padic bridge rows: {len(result['padic_bridge'])}  "
+        f"kick offset rows: {len(result['kick_offset'])}  "
+        f"affine rows: {len(result['affine_checks'])}  "
+        f"terminal rows: {len(result['terminal_checks'])}",
+        f"ALL OK: {result['all_ok']}",
+        "",
+        "Terminal samples (exact val → oddCore = 243t + c_j):",
+    ]
+    for row in result["terminal_checks"]:
+        lines.append(
+            f"  s={row['s']} j={row['j']} r={row['r']} v2={row['v2_m']} "
+            f"oddCore={row['odd_core_m']} quotient={row['quotient']} "
+            f"next_lift_fails={row['next_lift_fails']} ok={row['odd_core_ok']}"
+        )
+    return "\n".join(lines)
 
 
 @dataclass(frozen=True)
