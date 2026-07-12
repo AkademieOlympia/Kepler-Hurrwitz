@@ -872,13 +872,13 @@ Sämtliche Fallunterscheidungen und algebraischen Formen der **ersten Schritt-5-
 
 ---
 
-## V2.14 — Algebraische Lift-Geometrie (`243r + 95`)
+## V2.14 — Strukturprotokoll: Algebraische Lift-Geometrie (`243r + 95`)
 
 **Identifier:** `collatz-channel-7-deep-lift-v2.14`  
 **Modul:** `KeplerHurwitz/Collatz/ChannelSevenDeepLiftV214.lean`  
-**Layer:** `[A]` Ebene A (Generator, Ziel: allgemeine `j`); `[C]` Ebene B (Dynamik nach `S⁵`)
+**Layer:** `[A]` Ebene A (geschlossen); `[C]` Ebene B (offen)
 
-### Zwei Ebenen (strikt entkoppelt)
+### Governance (V2.14)
 
 \[
 \boxed{
@@ -890,33 +890,21 @@ Sämtliche Fallunterscheidungen und algebraischen Formen der **ersten Schritt-5-
 
 \[
 \boxed{
+\text{V2.14 versiegelt}
+\;=\;
+\text{Modulumfang abgeschlossen}
+\;\neq\;
+\text{Vermutung bewiesen}
+}
+\]
+
+\[
+\boxed{
 2^j \mid 243\rho_j + 95
 \;\;\text{(Generator-Invariante — nicht}\;
 \nu_2 = j\text{)}
 }
 \]
-
-| Ebene | Bezeichnung | Gegenstand | Collatz-Bezug |
-|---|---|---|---|
-| **A** | Algebraische Lift-Geometrie | \(243r + 95 \equiv 0 \pmod{2^j}\) | **keiner** — eigenständige lineare 2-adische Arithmetik |
-| **B** | Dynamische Iteration | Verhalten von \(S^5 = 243t + c_j\) und Folgeschritten | eigentliches Collatz-Problem |
-
-**Ebene A** umfasst insbesondere:
-
-- Existenz und Eindeutigkeit der Restklasse modulo \(2^j\)
-- Eindeutiger **2-adischer Lift** der linearen Kongruenz (nicht allgemeine Hensel-Geometrie: \(243r + 95\) ist **linear**, \(243\) ist modulo jeder Zweierpotenz invertierbar)
-- Explizite Lift-Residuen \(\rho_j\) und Quotienten \(c_j\)
-- Charakterisierung der Bewertungen \(\nu_2(243r + 95)\)
-
-**Ebene B** beginnt erst, wenn
-
-\[
-S^5 = 243t + c_j
-\]
-
-feststeht. Dann folgen Fragen zu Rang, Faserrückführung, Netto-Deszent und neuen tiefen Ästen — **ohne** Deduktion aus dem Lift allein.
-
-### Leitformel
 
 \[
 \boxed{
@@ -926,48 +914,46 @@ feststeht. Dann folgen Fragen zu Rang, Faserrückführung, Netto-Deszent und neu
 }
 \]
 
-Diese Formel verhindert den Fehlschluss
+| Ebene | Bezeichnung | Gegenstand | Collatz-Bezug | Status |
+|---|---|---|---|---|
+| **A** | Algebraische Liftstruktur | \(243r + 95 \equiv 0 \pmod{2^j}\) | **keiner** — isolierte arithmetische Struktur des Deep-Tails | **`[A]`** geschlossen |
+| **B** | Dynamische Iteration | Verhalten von \(S^5 = 243t + c_j\) und Folgeschritten | eigentliches Collatz-Problem im Kleinen | **`[C]`** offen |
 
-> vollständige 2-adische Analyse \(\Rightarrow\) Collatz gelöst.
+> **Globale Claim-Grenze:** V2.14 behauptet **nicht** globale Collatz-Terminierung (`CollatzGlobalTerminationStatement`). Ein algebraischer Abschluss von Ebene A impliziert weder Kanal-7-Schließung noch globales Collatz.
 
-Was algebraische Resultate **leisten**: Die **Bewertungskaskade** wird zu einem vollständig beschriebenen 2-adischen Objekt. Ob daraus der **dynamische Lift-Baum** kontrollierbar wird, ist die offene Forschungsfrage (H6–H8) und muss getrennt bewiesen werden.
+---
 
-### Kernbeitrag: H5-Generator (Parameter `j`)
+### Ebene A — Algebraische Liftstruktur (formal abgeschlossen im Rahmen der definierten Lift-Theorie)
 
-Der eigentliche Beitrag von V2.14 ist nicht eine Fallliste `j = 1, 2, 3, …`, sondern die Konstruktion
+Ebene A beschreibt die **isolierte arithmetische Struktur** des Deep-Tails — unabhängig von globaler Collatz-Dynamik. Die lineare Kongruenz \(243r + 95 \equiv 0 \pmod{2^j}\) ist **nicht** allgemeine Hensel-Geometrie: \(243\) ist modulo jeder Zweierpotenz invertierbar.
+
+#### Kanonik — Existenz und Eindeutigkeit der Lift-Residuen \(\rho_j\) für alle \(j \in \mathbb{N}\)
+
+Der eigentliche Beitrag von V2.14 ist nicht eine Fallliste `j = 1, 2, 3, …`, sondern die **allgemeine Parameterisierung** (Generator `j` als Argument, nicht als neuer Datei-Fall):
 
 ```lean
 deepLiftResidue j   -- ρ_j
 deepLiftConstant j  -- c_j
 ```
 
-als **allgemeine Parameterisierung**: künftig ist `j` nur noch ein Argument, nicht ein neuer Datei-Fall.
-
-**Zieltheorem (Ebene A, für beliebiges `j`) — korrekte Spezifikation:**
+**Zieltheorem (für beliebiges `j`):**
 
 \[
 \rho_j < 2^j,\qquad 2^j \mid 243\rho_j + 95.
 \]
 
-**Kongruenz-Äquivalenz (bewiesen):** `deepLiftResidue_iff` — \(2^j \mid 243r + 95 \iff r \equiv \rho_j \pmod{2^j}\).
-
-**Schichtdiagramm (V2.14):**
+Rekursive Konstruktion im Generator (mit `q_j = (243·ρ_j + 95) / 2^j`, Lift-Bit `b ≡ q_j (mod 2)`):
 
 ```text
-Ebene A — drei getrennte Schichten
-┌─────────────────────────────────────────────────────────────┐
-│ 1. Modular sieve   deepLiftResidue_iff                      │
-│    2^j | 243r+95  ↔  r ≡ ρ_j (mod 2^j)          [H1 DONE] │
-├─────────────────────────────────────────────────────────────┤
-│ 2. Valuation scale pow_dvd_iff_le_padicValNat, step5Kick_padicVal       │
-│    2^j | m  ↔  j ≤ ν_2(m)                       [H2 DONE] │
-│    ν_2 = j  ↔  r ≡ ρ_j ∧ r ≢ ρ_{j+1} (mod 2^{j+1})         │
-├─────────────────────────────────────────────────────────────┤
-│ 3. Terminal oddCore (nur bei exakter Valuation j)           │
-│    deepLift_affine_factorization; odd_of_exact_padicVal     │
-│    oddCore(m) = 243t + c_j  wenn ν_2(m)=j         [H4 DONE] │
-└─────────────────────────────────────────────────────────────┘
+ρ_{j+1} = ρ_j + b·2^j     b = 0 wenn q_j gerade, b = 1 wenn q_j ungerade
+c_j = (243·ρ_j + 95) / 2^j
 ```
+
+**Lean (geschlossen):** `deepLiftResidue_spec`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue`; `ChannelSevenDeepLiftScaffold`; `deepBranchMultiplier_coprime_pow_two`.
+
+#### Kongruenz — Charakterisierung der 2-adischen Bewertungsschwellen modulo \(2^j\)
+
+**Kongruenz-Äquivalenz (bewiesen):** `deepLiftResidue_iff` — \(2^j \mid 243r + 95 \iff r \equiv \rho_j \pmod{2^j}\).
 
 **Bewertungscharakterisierung (bewiesen):** `nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`.
 
@@ -985,51 +971,37 @@ r \equiv \rho_j \pmod{2^j}
 r \not\equiv \rho_{j+1} \pmod{2^{j+1}}.
 \]
 
-**Wichtig:** Die Generator-Invariante ist **Teilbarkeit**, nicht `ν_2(243·ρ_j + 95) = j`.
-Plateau-Beispiel: `ρ_5 = 27`, aber `ν_2(243·27 + 95) = ν_2(6656) = 9`.
+**Wichtig:** Die Generator-Invariante ist **Teilbarkeit**, nicht `ν_2(243·ρ_j + 95) = j`. Plateaus sind erlaubt — Beispiel: `ρ_5 = 27`, aber `ν_2(243·27 + 95) = ν_2(6656) = 9`.
 
-**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert. **H1 geschlossen:** `deepLiftResidue_spec`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue`. **H2/H4 geschlossen:** `pow_dvd_iff_le_padicValNat`, `step5Kick_padicVal`, `nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`, `deepLift_affine_factorization`, `odd_of_exact_padicVal`, `deepLift_terminal_of_exactVal`, `deepLift_terminal_next_lift_fails`. Python: `verify_padic_bridge_and_offsets`.
+#### Faktorisierung — Affine Form \(2^j \cdot (243t + c_j)\) und `oddCore`-Terminal bei exakter Valuation \(\nu_2 = j\)
 
-### Angriffshypothesen (H1–H8)
-
-**`[A]` — Ebene A, formal angreifbar**
-
-| ID | Aussage | Lean-Ziel |
-|---|---|---|
-| H1 | Eindeutige Lift-Kette \(\rho_{j+1} \equiv \rho_j \pmod{2^j}\); \(2^j \mid 243\rho_j + 95\) | `existsUnique_deepLiftResidue` (**bewiesen**); `deepLiftResidue_spec` (**bewiesen**: Bound + Teilbarkeit); `deepLiftResidue_unique`; `deepLiftResidue_iff` |
-| H2 | Bewertungsschalen (≥ und = mit Plateau-Ausschluss) | `nu2_deepBranch_ge_iff`; `nu2_deepBranch_eq_iff` (**bewiesen**) |
-| H4 | Affine Terminalform \(243r + 95 = 2^j(243t + c_j)\) bei \(r = \rho_j + 2^j t\); `oddCore` bei exakter Val | `deepLift_terminal_affine`; `deepLift_terminal_of_exactVal` (**bewiesen**) |
-| H5 | Generator `deepLiftResidue` / `deepLiftConstant` | `ChannelSevenDeepLiftScaffold`; `deepBranchMultiplier_coprime_pow_two` |
-
-**`[B]` — Ebene B, rechnerisch**
-
-- Restklassen von \(243t + c_j\) modulo \(3 \cdot 2^m\), \(12 \cdot 2^m\), \(128 \cdot 3\)
-- Rückkehrzeiten in bekannte Fasern \(\{55, 87, 119\}\)
-- Endlicher Zustandsgraph modulo \(M\)
-- \(\rho_j, c_j\) als Präfixe von \(\rho_\infty \in \mathbb{Z}_2\)
-
-**`[C]` — Ebene B, Forschungshypothesen**
-
-- Parametrischer Deszentszeugen pro Lift-Schale (H6)
-- Endliche Typenreduktion der Terminalfamilien (H7)
-- Geometrische Dünheit der Schalen \(\neq\) dynamische Irrelevanz (H3)
-
-### 2-adischer Lift (präzise Formulierung)
-
-Die Folge der Restklassen entsteht als **eindeutiger 2-adischer Lift** der linearen Kongruenz
+Bei \(r = \rho_j + 2^j t\) und exakter Valuation \(\nu_2(243r + 95) = j\):
 
 \[
-243r + 95 \equiv 0 \pmod{2^j},
+243r + 95 = 2^j(243t + c_j),
+\qquad
+\mathrm{oddCore}(243r + 95) = 243t + c_j.
 \]
 
-da \(243\) modulo jeder Zweierpotenz invertierbar ist. Rekursive Konstruktion im Generator (mit `q_j = (243·ρ_j + 95) / 2^j`, Lift-Bit `b ≡ q_j (mod 2)`):
+**Lean (geschlossen):** `deepLift_affine_factorization`, `odd_of_exact_padicVal`, `deepLift_terminal_of_exactVal`, `deepLift_terminal_next_lift_fails`; padicVal-Brücke `pow_dvd_iff_le_padicValNat`, `step5Kick_padicVal`.
+
+#### Schichtdiagramm (V2.14)
 
 ```text
-ρ_{j+1} = ρ_j + b·2^j     b = 0 wenn q_j gerade, b = 1 wenn q_j ungerade
-c_j = (243·ρ_j + 95) / 2^j
+Ebene A — drei getrennte Schichten
+┌─────────────────────────────────────────────────────────────┐
+│ 1. Modular sieve   deepLiftResidue_iff                      │
+│    2^j | 243r+95  ↔  r ≡ ρ_j (mod 2^j)          [H1 DONE] │
+├─────────────────────────────────────────────────────────────┤
+│ 2. Valuation scale pow_dvd_iff_le_padicValNat, step5Kick_padicVal       │
+│    2^j | m  ↔  j ≤ ν_2(m)                       [H2 DONE] │
+│    ν_2 = j  ↔  r ≡ ρ_j ∧ r ≢ ρ_{j+1} (mod 2^{j+1})         │
+├─────────────────────────────────────────────────────────────┤
+│ 3. Terminal oddCore (nur bei exakter Valuation j)           │
+│    deepLift_affine_factorization; odd_of_exact_padicVal     │
+│    oddCore(m) = 243t + c_j  wenn ν_2(m)=j         [H4 DONE] │
+└─────────────────────────────────────────────────────────────┘
 ```
-
-**Governance:** `2^j ∣ 243·ρ_j + 95` — **nicht** `ν_2(243·ρ_j + 95) = j`. Plateaus sind erlaubt.
 
 Erste Werte (`decide`-verifiziert, Stichprobe für den Generator):
 
@@ -1041,12 +1013,65 @@ Erste Werte (`decide`-verifiziert, Stichprobe für den Generator):
 | 4 | 11 | 173 | 4 |
 | 5 | 27 | 208 | **9** (Plateau bis `j = 9`) |
 
+**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert. Python: `verify_padic_bridge_and_offsets`.
+
+> Die allgemeine algebraische Liftstruktur ist durch die entsprechenden Lean-Theoreme formal beschrieben.
+
 **Lean-Bündel:** `ChannelSevenDeepLiftScaffold` / `channel_seven_deep_lift_scaffold`  
 **Build:** `lake build KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214`
 
+---
+
+### Ebene B — Dynamische Iteration (Offen)
+
+Ebene B beginnt erst, wenn
+
+\[
+S^5 = 243t + c_j
+\]
+
+feststeht. Dann folgen Fragen zu Rang, Faserrückführung, Netto-Deszent und neuen tiefen Ästen — **ohne** Deduktion aus dem Lift allein.
+
+Das **offene Collatz-Problem im Kleinen** betrifft die Dynamik nach der algebraischen Klassifikation: nicht die Beschreibung der 2-adischen Liftstruktur, sondern deren dynamische Konsequenzen.
+
+#### Forschungsfrage (geschärft)
+
+> Liefert die algebraische Klassifikation einen wohlfundierten dynamischen Rang?
+
+#### Forschungsprogramm
+
+Zeige eine Abbildung \(R : \mathbb{N} \to W\) in eine **wohlfundierte geordnete Menge** \(W\), sodass für nichttriviale Terminalfamilien nach \(\ell\) normalisierten Schritten gilt:
+
+\[
+R(S^\ell(n)) < R(n).
+\]
+
+Die kombinatorische Wildheit des Deep-Tails ist damit auf **wohlgeformte unendliche affine Familien** \(243t + c_j\) reduziert — nicht auf spekulative Ordinaltyp-Annahmen.
+
+**`[B]` — rechnerisch angreifbar:**
+
+- Restklassen von \(243t + c_j\) modulo \(3 \cdot 2^m\), \(12 \cdot 2^m\), \(128 \cdot 3\)
+- Rückkehrzeiten in bekannte Fasern \(\{55, 87, 119\}\)
+- Endlicher Zustandsgraph modulo \(M\)
+- \(\rho_j, c_j\) als Präfixe von \(\rho_\infty \in \mathbb{Z}_2\)
+
+**`[C]` — Forschungshypothesen (H6–H8):**
+
+| ID | Aussage |
+|---|---|
+| H6 | Parametrischer Deszentszeugen pro Lift-Schale |
+| H7 | Endliche Typenreduktion der Terminalfamilien |
+| H3 | Geometrische Dünheit der Schalen \(\neq\) dynamische Irrelevanz |
+
+---
+
+### Methodischer Status (Abschluss V2.14)
+
+> Die algebraische Analyse reduziert die lokale Verzweigungsstruktur auf explizit beschriebene affine Familien und trennt damit die arithmetische Klassifikation von der dynamischen Fragestellung. Das verbleibende Forschungsprogramm besteht nicht mehr in der Beschreibung der 2-adischen Liftstruktur, sondern im Nachweis, dass diese Struktur einen wohlfundierten dynamischen Rang oder eine äquivalente Deszentsstrategie trägt.
+
 > **Status von V2.14**
 >
-> V2.14 etabliert die parameterische Lift-Infrastruktur für Ebene A im tiefen Zweig `k ≡ 1 (mod 4)`. Generator, Invertierbarkeit von `243` mod `2^j`, Eindeutigkeitslemma und Schalen `j ≤ 5` sind maschinell verifiziert. **H1–H2/H4 (modulares Sieb, padicVal-Brücke, affine Terminalform, oddCore bei exakter Valuation) sind geschlossen.** Ebene B (Dynamik nach `S⁵ = 243t + c_j`) bleibt ausdrücklich offen. Ein algebraischer Abschluss von Ebene A impliziert weder Kanal-7-Schließung noch globales Collatz.
+> V2.14 **versiegelt** den Modulumfang der algebraischen Lift-Infrastruktur im tiefen Zweig `k ≡ 1 (mod 4)`. **Ebene A** (Kanonik, Kongruenz, Faktorisierung; H1–H2/H4) ist formal geschlossen. **Ebene B** (Dynamik nach `S⁵ = 243t + c_j`; wohlfundierter Rang \(R : \mathbb{N} \to W\)) bleibt ausdrücklich offen.
 
 ---
 

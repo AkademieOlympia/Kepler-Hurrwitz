@@ -226,11 +226,11 @@ PYTHONPATH=src python examples/export_octonionic_chiral_system_v3_freeze.py
 
 **Zertifizierter Stand (V2.13):** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) — Abschnitt *V2.13* (Status-Kasten und *Wissenschaftlicher Ertrag*).
 
-**Lift-Geometrie (V2.14):** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) — Abschnitt *V2.14 — Algebraische Lift-Geometrie* (Ebene A / Ebene B); Lean: `ChannelSevenDeepLiftV214.lean`.
+**Strukturprotokoll (V2.14):** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) — Abschnitt *V2.14 — Strukturprotokoll* (Ebene A geschlossen / Ebene B offen); Lean: `ChannelSevenDeepLiftV214.lean`.
 
-**Ebene A (H1–H2/H4 geschlossen):** Invertierbarkeit `243` mod `2^j`; Eindeutigkeitslemma; `deepLiftResidue_spec j`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue j`; padicVal-Brücke `pow_dvd_iff_le_padicValNat`; Bewertungsklassifikation `nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`; affine Terminalform `deepLift_terminal_affine`, `deepLift_terminal_of_exactVal`. **Nicht** `ν_2(243ρ_j + 95) = j` am Generator — Plateaus möglich (`ρ_5 = 27`, `ν_2 = 9`).
+**Ebene A — Algebraische Liftstruktur (`[A]`, geschlossen):** Isolierte arithmetische Struktur des Deep-Tails. Kanonik: allgemeine Existenz/Eindeutigkeit der Lift-Residuen \(\rho_j\) für alle \(j \in \mathbb{N}\) (`deepLiftResidue_spec`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue`). Kongruenz: Charakterisierung der 2-adischen Bewertungsschwellen modulo \(2^j\) (`nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`; padicVal-Brücke `pow_dvd_iff_le_padicValNat`). Faktorisierung: affine Form \(2^j \cdot (243t + c_j)\) und `oddCore`-Terminal bei exakter Valuation \(\nu_2 = j\) (`deepLift_affine_factorization`, `deepLift_terminal_of_exactVal`). **Nicht** `ν_2(243ρ_j + 95) = j` am Generator — Plateaus möglich (`ρ_5 = 27`, `ν_2 = 9`).
 
-**Ebene B (offen):** Dynamik nach `S⁵ = 243t + c_j` — Rang, Faserrückführung, Netto-Deszent (H6–H8). Folgt nicht aus dem 2-adischen Lift.
+**Ebene B — Dynamische Iteration (`[C]`, offen):** Offenes Collatz-Problem im Kleinen. Kernfrage: *Liefert die algebraische Klassifikation einen wohlfundierten dynamischen Rang?* Forschungsprogramm: Abbildung \(R : \mathbb{N} \to W\) in wohlfundierte geordnete Menge \(W\) mit \(R(S^\ell(n)) < R(n)\) für nichttriviale Terminalfamilien nach \(\ell\) normalisierten Schritten. Kombinatorische Wildheit reduziert auf wohlgeformte affine Familien \(243t + c_j\). Folgt **nicht** aus dem 2-adischen Lift. Keine globale Collatz-Terminierung behauptet.
 
 ---
 
