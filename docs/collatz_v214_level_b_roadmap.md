@@ -4,7 +4,8 @@
 **Vorgänger:** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) V2.14 (Ebene A versiegelt)  
 **Lean:** `KeplerHurwitz/Collatz/ChannelSevenDynamicsV215.lean`  
 **Schritt-6-Verzweigung:** `KeplerHurwitz/Collatz/ChannelSeven71Step6BranchingV215.lean`  
-**Assembly:** `KeplerHurwitz/CollatzProofAttemptV215.lean`
+**Assembly:** `KeplerHurwitz/CollatzProofAttemptV215.lean`  
+**Schritt-6-Status:** geschlossen (`[A]`, 0 `sorry` in `ChannelSeven71Step6BranchingV215.lean`); Ebene-B-Dynamik offen (`[C]`)
 
 ---
 
@@ -67,7 +68,7 @@ für nichttriviale Lift-Schalen `j`?
 | P1 | `channelSeven71_step5_eq_deepLiftFiber_j3` — V2.13-Zweig `k≡1(mod 4)` bei exakt `j=3` | V2.15 |
 | P1 | `deepLiftFiber_small_t_decide` — `t ∈ {0,1,2}` für `j ≤ 5` | V2.15 + `[B]` |
 | P2 | Uniforme `S^ℓ`-Form auf `\mathcal{F}_j` für kleines `\ell` | offen |
-| P2 | Valuationswort nach Terminalform (Schritt 6+) | V2.15 Schritt-6-Verzweigung (`486u+103`) |
+| P2 | Valuationswort nach Terminalform (Schritt 6+) | V2.15 Schritt-6-Verzweigung (`486u+103`) — **`[A]` geschlossen** |
 
 ### H7 — Typenreduktion / Zustandsgraph auf affinen Familien
 

@@ -1101,12 +1101,44 @@ Fortsetzung unter `syracuseOddStep`.
 | `channelSeven71_step5_deepLiftFiber_j3_even_t` | V2.13 → V2.14 bei `j=3`, gerades `t` |
 | `channelSeven71_step5_deepLiftFiber_j3_t_zero` | Anker `S⁵(1735)=103` |
 
-### Schritt-6-Verzweigung (`486u+103`, `[A]`)
+### Offen (`[C]`, `sorry`)
 
-**Modul:** `KeplerHurwitz/Collatz/ChannelSeven71Step6BranchingV215.lean`
+| Satz | Hypothese |
+|---|---|
+| `deepLiftFiber_mod128_entry` | H7 Typenreduktion |
+| `deepLiftFiber_net_descent_witness` | H8 Witness-Assembly |
+| `deepLiftFiber_wellFounded_rank` | H6 Rang (kein ε₀) |
 
-Governance:
-> Schritt-6-Verzweigung klassifiziert ≠ dynamischer Deszent bewiesen
+**Build:**
+
+```bash
+lake build KeplerHurwitz.Collatz.ChannelSevenDynamicsV215
+lake build KeplerHurwitz.CollatzProofAttemptV215
+```
+
+**Python `[B]`:** `scan_deep_lift_fiber_dynamics` in `deep_lift_hensel_diagnostic.py`
+
+---
+
+## V2.15 — Schritt-6-Verzweigung (`243t + 103`)
+
+**Identifier:** `collatz-channel-7-step6-branching-v2.15`  
+**Modul:** `KeplerHurwitz/Collatz/ChannelSeven71Step6BranchingV215.lean`  
+**Status:** Schritt-6-Verzweigung geschlossen (`[A]`, 0 `sorry`); Ebene-B-Dynamik offen (`[C]`)
+
+### Leitformel (Governance V2.15)
+
+\[
+\boxed{\text{Schritt-6-Verzweigung klassifiziert} \;\neq\; \text{dynamischer Deszent bewiesen}}
+\]
+
+### Status-Zusammenfassung (Modul V2.15)
+
+| [✓] Formal bewiesen (Lean-zertifiziert) | [➔] Offenes Forschungsprogramm (Dynamik) |
+| :--- | :--- |
+| • **Paritäts-Restriktion:** Zulässigkeit von \(S^5(n) = 486u + 103\) formal aus `Odd (S⁵)` abgeleitet. | • **Dynamischer Net-Descent:** Rang-Verringerungsnachweis für die geschlossenen Schalen \(\nu_2 = 1\) und \(\nu_2 = 2\). |
+| • **Schale ν₂ = 1:** Exakte Bewertung und Terminalform \(1458v + 155\) für gerades \(u\) gesichert. | • **Rekursive Verzweigung:** Fortsetzung der Hensel-Kaskade im tiefen, offenen Ast \(\nu_2 \ge 3\). |
+| • **Schale ν₂ = 2:** Exakte Bewertung und Terminalform \(1458w + 1171\) für ungerades \(u\) und ungerades \(v\) bewiesen. | • **Faserrückführung:** Abbildung der Terminalformen auf die globalen Reduktionskerne. |
 
 Parametrisierung `t = 2u` auf Schale `j=3`, `c₃=103` (`deepLiftConstant 3`):
 
@@ -1122,10 +1154,6 @@ t \text{ gerade} \Rightarrow S^5 = 486u + 103 \Rightarrow \nu_2(3S^5+1) \in \{1,
 
 Anker: `step5Terminal 0 = deepLiftConstant 3 = 103`.
 
-### Geschlossene Schritt-6-Verzweigung (`486u + 103`, `[A]`)
-
-Governance: **Schritt-6-Verzweigung klassifiziert ≠ dynamischer Deszent bewiesen**.
-
 | Satz | Rolle |
 |---|---|
 | `step5Terminal_odd` | Terminal `S⁵ = 486u + 103` ungerade |
@@ -1133,33 +1161,23 @@ Governance: **Schritt-6-Verzweigung klassifiziert ≠ dynamischer Deszent bewies
 | `step6_even_u_val_eq_one` | `u` gerade ⇒ `ν₂ = 1`, `S⁶ = 1458v + 155` |
 | `step6_odd_u_certificate` | `u` ungerade ⇒ `3S⁵+1 = 4(729v+442)` |
 | `step6_odd_u_odd_v_val_eq_two` | `v` ungerade ⇒ `ν₂ = 2`, `S⁶ = 1458w + 1171` |
-| `step6_odd_u_even_v_certificate` | `v` gerade ⇒ `ν₂ = 3`, `S⁶ = oddCore(729w+221)` |
+| `step6_odd_u_even_v_certificate` | `v` gerade ⇒ `ν₂ ≥ 3`, `S⁶ = oddCore(729w+221)` |
 | `step6_nu2_trichotomy` | `ν₂(S⁶-Kick) ∈ {1, 2, ≥3}` |
-
-### Offen (`[C]`, `sorry`)
-
-| Satz | Hypothese |
-|---|---|
-| `deepLiftFiber_mod128_entry` | H7 Typenreduktion |
-| `deepLiftFiber_net_descent_witness` | H8 Witness-Assembly |
-| `deepLiftFiber_wellFounded_rank` | H6 Rang (kein ε₀) |
+| `channel_seven71_step6_branching_v215_scaffold` | Scaffold-Bündel (22 Theoreme, 0 `sorry`) |
 
 **Build:**
 
 ```bash
 lake build KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
-lake build KeplerHurwitz.CollatzProofAttemptV215
 ```
-
-**Python `[B]`:** `scan_deep_lift_fiber_dynamics` in `deep_lift_hensel_diagnostic.py`
 
 ---
 
-## Kanal-7-Kern — `ChannelSevenKernel` (V2.10–V2.13 konsolidiert)
+## Kanal-7-Kern — `ChannelSevenKernel` (V2.10–V2.15 konsolidiert)
 
 **Identifier:** `collatz-channel-seven-kernel`  
 **Modul:** `KeplerHurwitz/Collatz/ChannelSevenKernel.lean`  
-**Status-Bündel:** `ChannelSevenKernelStatus` / `collatz_proof_attempt_status_v213`
+**Status-Bündel:** `ChannelSevenKernelStatus` · `collatz_proof_attempt_status_v215`
 
 ### Inhalt
 
@@ -1169,6 +1187,8 @@ lake build KeplerHurwitz.CollatzProofAttemptV215
 | Parametrisches Schema | `ParametricUniformDescentCertificate` | `[A]` |
 | Offene Faser `71` | Kurzpräfix `[1,1,2,2]`, Nicht-Abstieg bis Tiefe 4 | `[A]` |
 | mod-256-Split | `256q+71` / `256q+199` ab Schritt 5 | `[A]` |
+| V2.14 Ebene A | `deepLiftResidue`, `nu2_deepBranch_*`, H1–H4 | `[A]` |
+| V2.15 Ebene B | H6-Brücken, Schritt-6-Trichotomie `486u+103` | `[A]` scaffold; H7/H8 `[C]` |
 | Operator-Brücke | `syracuseOddStep = oddCoreStep` | `[A]` |
 | Schalenbrücke | `eSchalenSprung (128k+r) = 1` für `r % 8 = 7` | `[A]` |
 
@@ -1180,7 +1200,7 @@ lake build KeplerHurwitz.CollatzProofAttemptV215
 | Odd-Core-Dynamik | `OddCoreDynamics`, `Octonion/Definitions` | `syracuseOddStep = oddCoreStep`; Division `3m+1 = 2^ν · q` | `[A]` direkt |
 | mod-8-Restklassen | `ResidueFilters`, `HalesTaoIntegration` | Kanal-7-Fasern ⊆ Tao-Seed `odd_mod8_cases` | `[A]` direkt |
 | 2-adische Tiefenextraktion | V2.4–V2.5, `ChannelSevenAttackV213` | mod-256-Lift bei `71`; `ν₂`-Verzweigung Schritt 5 | `[A]` scaffold |
-| CEAB-Spiegel / Chiralität | `OctonionicChiralDiagnostic`, `PrimvierlingSymmetry` | Kanal 3↔7, strukturelle Spiegelung | `[B]`/`[C]` |
+| CEAB-Spiegel / Chiralität | `CeabMirrorBridge`, `OctonionicChiralDiagnostic`, `PrimvierlingSymmetry` | Kanal 3↔7, `mod8FiberSwap`; strukturelle Spiegelung | `[A]` algebraisch; Collatz-Deduktion `[C]` |
 | EABC mod-6 | `EabcSixStateMod6` | mod-6-Klassifikation schwächer als mod-8; keine Deduktion | `[C]` |
 | Dedekind-Ideal / Primvierling | `DedekindIdealLayer` | Chiralitäts-Parallelität, kein Collatz-Pfad | `[C]` |
 
@@ -1194,6 +1214,8 @@ lake build KeplerHurwitz.CollatzProofAttemptV215
 \boxed{\text{ParametricUniformDescentCertificate} = \text{wiederverwendbares Schema, kein universeller Algorithmus}}
 \]
 
-**Erreichbare Theoreme:** `reachable_channel_seven_kernel_status`, `reachable_channel_seven_mod256_split_71` in `ReachableTheorems.lean`.
+**Erreichbare Theoreme:** `reachable_channel_seven_kernel_status`, `reachable_channel_seven_deep_lift_level_a_status`, `reachable_channel_seven_dynamics_v215_scaffold`, `reachable_collatz_proof_attempt_status_v215` in `ReachableTheorems.lean`.
+
+**Begründungsprogramm (Oktanion/Hurwitz + Primvierling):** [`docs/theory/collatz_octonion_hurwitz_primvierling_program.md`](theory/collatz_octonion_hurwitz_primvierling_program.md)
 
 **Build (lokal):** `lake build KeplerHurwitz.Core` (8631 jobs, sorry-frei für `[A]`-Block)
