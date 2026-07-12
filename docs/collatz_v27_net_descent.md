@@ -943,7 +943,7 @@ als **allgemeine Parameterisierung**: künftig ist `j` nur noch ein Argument, ni
 r \in \bigl(\rho_j + 2^j \mathbb{N}\bigr) \setminus \bigl(\rho_{j+1} + 2^{j+1} \mathbb{N}\bigr).
 \]
 
-**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert (`deepLiftResidue_spec_*`, `existsUnique_deepLiftResidue_*`). Allgemeine Sätze (`deepLiftResidue_spec`, `existsUnique_deepLiftResidue`, `nu2_deepBranch_eq_iff`, `deepLift_terminal_affine`) sind dokumentierte Lean-Ziele mit `sorry`-Scaffold.
+**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert (`deepLiftResidue_spec_*`, `existsUnique_deepLiftResidue_*`). **H1 geschlossen:** `deepLiftResidue_spec` und `existsUnique_deepLiftResidue` per Induktion bewiesen (eindeutiger 2-adischer Lift). H2/H4 (`nu2_deepBranch_eq_iff`, `deepLift_terminal_affine`) bleiben `sorry`-Scaffold.
 
 ### Angriffshypothesen (H1–H8)
 
@@ -951,7 +951,7 @@ r \in \bigl(\rho_j + 2^j \mathbb{N}\bigr) \setminus \bigl(\rho_{j+1} + 2^{j+1} \
 
 | ID | Aussage | Lean-Ziel |
 |---|---|---|
-| H1 | Eindeutige Lift-Kette \(\rho_{j+1} \equiv \rho_j \pmod{2^j}\) | `existsUnique_deepLiftResidue` (sorry); `existsUnique_deepLiftResidue_of_lt` (bewiesen); `j≤5` per `interval_cases` |
+| H1 | Eindeutige Lift-Kette \(\rho_{j+1} \equiv \rho_j \pmod{2^j}\) | `existsUnique_deepLiftResidue` (**bewiesen**); `existsUnique_deepLiftResidue_of_lt`; `deepLiftResidue_spec` (**bewiesen**) |
 | H2 | Exakte Bewertungsschalen (Charakterisierung oben) | `nu2_deepBranch_eq_iff` |
 | H4 | Affine Terminalform \(243r + 95 = 2^j(243t + c_j)\) bei \(r = \rho_j + 2^j t\) | `deepLift_terminal_affine` |
 | H5 | Generator `deepLiftResidue` / `deepLiftConstant` | `ChannelSevenDeepLiftScaffold`; `deepBranchMultiplier_coprime_pow_two` |
@@ -1000,7 +1000,7 @@ Erste Werte (`decide`-verifiziert, Stichprobe für den Generator):
 
 > **Status von V2.14**
 >
-> V2.14 etabliert die parameterische Lift-Infrastruktur für Ebene A im tiefen Zweig `k ≡ 1 (mod 4)`. Generator, Invertierbarkeit von `243` mod `2^j`, Eindeutigkeitslemma und Schalen `j ≤ 5` sind maschinell verifiziert. Die induktive Generator-Spezifikation `deepLiftResidue_spec` für beliebiges `j` sowie H2/H4 bleiben `sorry`. Ebene B (Dynamik nach `S⁵ = 243t + c_j`) bleibt ausdrücklich offen. Ein algebraischer Abschluss von Ebene A impliziert weder Kanal-7-Schließung noch globales Collatz.
+> V2.14 etabliert die parameterische Lift-Infrastruktur für Ebene A im tiefen Zweig `k ≡ 1 (mod 4)`. Generator, Invertierbarkeit von `243` mod `2^j`, Eindeutigkeitslemma und Schalen `j ≤ 5` sind maschinell verifiziert. **H1 (`deepLiftResidue_spec`, `existsUnique_deepLiftResidue`) ist per Induktion geschlossen.** H2/H4 bleiben `sorry`. Ebene B (Dynamik nach `S⁵ = 243t + c_j`) bleibt ausdrücklich offen. Ein algebraischer Abschluss von Ebene A impliziert weder Kanal-7-Schließung noch globales Collatz.
 
 ---
 

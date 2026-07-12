@@ -84,10 +84,100 @@ def deepLiftResidue : Nat → Nat
 def deepLiftConstant (j : Nat) : Nat :=
   (deepBranchPoly (deepLiftResidue j)) / deepLiftModulus j
 
-/-- H1-Teilziel: Generator-Lösung für beliebiges `j` (Induktionsschritt noch offen). -/
+theorem deepLiftModulus_succ (j : Nat) :
+    deepLiftModulus (j + 1) = 2 * deepLiftModulus j := by
+  simp [deepLiftModulus, pow_succ, mul_comm]
+
+theorem deepLiftModulus_pos (j : Nat) : 0 < deepLiftModulus j := by
+  simp [deepLiftModulus, pow_pos]
+
+private theorem deepBranchPoly_add_mod (r m : Nat) :
+    deepBranchPoly (r + m) = deepBranchPoly r + deepBranchMultiplier * m := by
+  unfold deepBranchPoly deepBranchMultiplier
+  ring
+
+/-- Lift-Restklasse bleibt strikt unter dem Modulus `2^j`. -/
+theorem deepLiftResidue_lt (j : Nat) : deepLiftResidue j < deepLiftModulus j := by
+  induction j with
+  | zero => simp [deepLiftResidue, deepLiftModulus]
+  | succ j ih =>
+    dsimp [deepLiftResidue]
+    split_ifs with h
+    · have hlt : deepLiftModulus j < deepLiftModulus (j + 1) := by
+        rw [deepLiftModulus_succ]
+        have hmpos : 0 < deepLiftModulus j := deepLiftModulus_pos j
+        omega
+      exact lt_trans ih hlt
+    · have hm : deepLiftModulus j = 2 ^ j := rfl
+      have hρ : deepLiftResidue j < 2 ^ j := by simpa [hm] using ih
+      have htwo : deepLiftModulus (j + 1) = 2 * 2 ^ j := by
+        simp [deepLiftModulus, pow_succ, mul_comm]
+      rw [htwo]
+      omega
+
+private theorem mul_dvd_mod_zero (a b : Nat) : (a * b) % a = 0 :=
+  Nat.mul_mod_right a b
+
+private theorem m_two_mul_mod_zero (m q : Nat) : (m * (2 * q)) % (2 * m) = 0 := by
+  have h : 2 * m ∣ m * (2 * q) := ⟨q, by ring⟩
+  exact Nat.mod_eq_zero_of_dvd h
+
+private theorem two_q_mul_m_mod_zero (m q : Nat) : (2 * q * m) % (2 * m) = 0 := by
+  have h : 2 * m ∣ 2 * q * m := ⟨q, by ring⟩
+  exact Nat.mod_eq_zero_of_dvd h
+
+private theorem deepLiftResidue_spec_succ (j : Nat)
+    (ih : deepBranchPoly (deepLiftResidue j) % deepLiftModulus j = 0) :
+    deepBranchPoly (deepLiftResidue (j + 1)) % deepLiftModulus (j + 1) = 0 := by
+  dsimp [deepLiftResidue]
+  set ρ := deepLiftResidue j
+  set m := deepLiftModulus j
+  have hm : deepLiftModulus (j + 1) = 2 * m := by
+    dsimp [m]
+    exact deepLiftModulus_succ j
+  split_ifs with hdiv
+  · simpa [hm] using hdiv
+  · have hρm : deepBranchPoly ρ % m = 0 := by
+      dsimp [ρ, m] at ih ⊢
+      exact ih
+    have hadd :
+        deepBranchPoly (ρ + m) = deepBranchPoly ρ + deepBranchMultiplier * m :=
+      deepBranchPoly_add_mod ρ m
+    have hdvd : m ∣ deepBranchPoly ρ := Nat.dvd_of_mod_eq_zero hρm
+    rcases hdvd with ⟨c, hc⟩
+    have hcore : deepBranchPoly (ρ + m) = (c + deepBranchMultiplier) * m := by
+      rw [hadd, hc, add_mul, mul_comm m c, add_comm (c * m)]
+    have hc_odd : c % 2 = 1 := by
+      by_contra h
+      have hc_even : c % 2 = 0 := by omega
+      have : deepBranchPoly ρ % (2 * m) = 0 := by
+        rw [hc]
+        have : 2 ∣ c := Nat.dvd_of_mod_eq_zero hc_even
+        rcases this with ⟨q, hq⟩
+        rw [hq]
+        exact m_two_mul_mod_zero m q
+      exact hdiv this
+    have hsum_even : (c + deepBranchMultiplier) % 2 = 0 := by
+      have hm_odd : deepBranchMultiplier % 2 = 1 := deepBranchMultiplier_odd
+      omega
+    have hmod :
+        deepBranchPoly (ρ + m) % (2 * m) = 0 := by
+      rw [hcore]
+      have htwo : 2 ∣ c + deepBranchMultiplier :=
+        Nat.dvd_of_mod_eq_zero hsum_even
+      rcases htwo with ⟨q, hq⟩
+      rw [hq]
+      exact two_q_mul_m_mod_zero m q
+    simpa [hm] using hmod
+
+/-- H1: Generator-Lösung für beliebiges `j` — eindeutiger 2-adischer Lift (Induktion). -/
 theorem deepLiftResidue_spec (j : Nat) :
     deepBranchPoly (deepLiftResidue j) % deepLiftModulus j = 0 := by
-  sorry
+  induction j with
+  | zero =>
+    simp [deepLiftResidue, deepLiftModulus, deepBranchPoly, deepBranchConstant]
+  | succ j ih =>
+    exact deepLiftResidue_spec_succ j ih
 
 theorem deepLiftResidue_one : deepLiftResidue 1 = 1 := by decide
 theorem deepLiftResidue_two : deepLiftResidue 2 = 3 := by decide
@@ -166,9 +256,11 @@ theorem existsUnique_deepLiftResidue_of_lt {j r : Nat}
   intro r' ⟨hr', hspec'⟩
   exact deepLiftResidue_unique_of_lt hr' hr hspec' hspec
 
-/-- H1-Ziel: Eindeutigkeit der Lift-Restklasse für beliebiges `j`. -/
+/-- H1: Eindeutigkeit der Lift-Restklasse für beliebiges `j` (aus `deepLiftResidue_spec`). -/
 theorem existsUnique_deepLiftResidue (j : Nat) : DeepLiftResidueUnique j := by
-  sorry
+  refine ⟨deepLiftResidue j, ⟨deepLiftResidue_lt j, deepLiftResidue_spec j⟩, ?_⟩
+  intro r ⟨hr, hspec⟩
+  exact deepLiftResidue_unique_of_lt hr (deepLiftResidue_lt j) hspec (deepLiftResidue_spec j)
 
 theorem existsUnique_deepLiftResidue_one : DeepLiftResidueUnique 1 := by
   refine ⟨1, ⟨by decide, by decide⟩, ?_⟩
