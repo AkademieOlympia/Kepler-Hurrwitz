@@ -3,18 +3,18 @@
     "channel": 7,
     "modulus": 128,
     "total_classes": 16,
-    "formally_closed_classes": 4,
-    "short_numerically_supported_classes": 5,
+    "formally_closed_classes": 6,
+    "short_numerically_supported_classes": 3,
     "medium_numerically_supported_classes": 1,
-    "numerically_supported_classes": 6,
+    "numerically_supported_classes": 4,
     "deep_tail_classes": 6,
     "classes_with_numerical_witness": 16,
     "unresolved_classes_within_max_t_loc_500": 0,
-    "formal_coverage_fraction": 0.25,
+    "formal_coverage_fraction": 0.375,
     "formal_or_non_deep_fraction": 0.625,
     "numerical_witness_found_fraction": 1.0,
     "deep_tail_fraction": 0.375,
-    "maximum_formal_t_loc": 4,
+    "maximum_formal_t_loc": 7,
     "maximum_non_deep_numerical_t_loc": 12,
     "maximum_observed_t_loc": 83,
     "closed_short_residues": [
@@ -40,8 +40,6 @@
       111
     ],
     "short_numerically_supported_residues": [
-      7,
-      15,
       39,
       79,
       95
@@ -70,6 +68,16 @@
       155,
       251
     ],
+    "formal_mod256_residues": [
+      39,
+      79,
+      95
+    ],
+    "partial_formal_mod128_residues": [
+      39,
+      79,
+      95
+    ],
     "governance": "[B] numerical scan \u2014 not formal proof"
   },
   "classes": [
@@ -81,10 +89,10 @@
       "t_good": 4,
       "target_channel": 3,
       "depth_label": "closed_short",
-      "status": "numerically_supported",
-      "formally_closed": false,
-      "lift_stage": "mod128",
-      "notes": ""
+      "status": "formally_closed",
+      "formally_closed": true,
+      "lift_stage": "mod32",
+      "notes": "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_mod128_seven"
     },
     {
       "modulus": 128,
@@ -94,10 +102,10 @@
       "t_good": 6,
       "target_channel": 7,
       "depth_label": "closed_short",
-      "status": "numerically_supported",
-      "formally_closed": false,
-      "lift_stage": "mod128",
-      "notes": ""
+      "status": "formally_closed",
+      "formally_closed": true,
+      "lift_stage": "mod32",
+      "notes": "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_mod128_fifteen"
     },
     {
       "modulus": 128,
@@ -136,7 +144,7 @@
       "status": "numerically_supported",
       "formally_closed": false,
       "lift_stage": "mod128",
-      "notes": ""
+      "notes": "Lean [A] partial: bad_run_net_descent_witness_mod8_channel_seven_mod256_thirty_nine (n \u2261 39 mod 256 only; sibling n \u2261 167 mod 256 open)"
     },
     {
       "modulus": 128,
@@ -201,7 +209,7 @@
       "status": "numerically_supported",
       "formally_closed": false,
       "lift_stage": "mod64",
-      "notes": ""
+      "notes": "Lean [A] partial: bad_run_net_descent_witness_mod8_channel_seven_mod256_seventy_nine (n \u2261 79 mod 256 only; sibling n \u2261 207 mod 256 open)"
     },
     {
       "modulus": 128,
@@ -227,7 +235,7 @@
       "status": "numerically_supported",
       "formally_closed": false,
       "lift_stage": "mod64",
-      "notes": ""
+      "notes": "Lean [A] partial: bad_run_net_descent_witness_mod8_channel_seven_mod256_ninety_five (n \u2261 95 mod 256 only; sibling n \u2261 223 mod 256 open)"
     },
     {
       "modulus": 128,

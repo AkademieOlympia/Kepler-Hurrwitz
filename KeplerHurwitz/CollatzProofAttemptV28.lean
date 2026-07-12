@@ -303,6 +303,159 @@ theorem bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two
     input_mod8 := h7 }⟩
 
 /--
+`[A]` Channel `7` subclass `n ≡ 7 (mod 128)`: witness at `t_good = 4`, `t_loc = 7`.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_seven_mod128_seven
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 128 * m + 7) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7) := by
+  rcases hmod with ⟨m, hn⟩
+  have hreach :
+      (collatzStep^[4]) n = 288 * m + 17 := by
+    rw [hn]; exact channel_seven_four_step_value_of_one_hundred_twenty_eight_mul_add_seven m
+  have hgood : (288 * m + 17) % 4 = 1 :=
+    channel_seven_four_step_good_mod4_one_of_one_hundred_twenty_eight_mul_add_seven m
+  have hnet : (collatzStep^[7]) (288 * m + 17) < n := by
+    have hshrink :
+        (collatzStep^[7]) (288 * m + 17) = 81 * m + 5 :=
+      channel_seven_seven_step_shrink_value_of_two_hundred_eighty_eight_mul_add_seventeen m
+    rw [hshrink, hn]
+    rcases m with _ | m
+    · norm_num
+    · omega
+  exact ⟨{
+    toBadRunNetDescentWitness :=
+      BadRunNetDescentWitness.ofGoodBranchEntry
+        (BadRunGoodBranchEntryWitness.ofMod4Three 4 (288 * m + 17) hreach hgood)
+        7 hnet
+    input_mod8 := h7 }⟩
+
+/--
+`[A]` Channel `7` subclass `n ≡ 15 (mod 128)`: witness at `t_good = 6`, `t_loc = 5`.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_seven_mod128_fifteen
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 128 * m + 15) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7) := by
+  rcases hmod with ⟨m, hn⟩
+  have hreach :
+      (collatzStep^[6]) n = 432 * m + 53 := by
+    rw [hn]; exact channel_seven_six_step_value_of_one_hundred_twenty_eight_mul_add_fifteen m
+  have hgood : (432 * m + 53) % 4 = 1 :=
+    channel_seven_six_step_good_mod4_one_of_one_hundred_twenty_eight_mul_add_fifteen m
+  have hnet : (collatzStep^[5]) (432 * m + 53) < n := by
+    have hshrink :
+        (collatzStep^[5]) (432 * m + 53) = 81 * m + 10 :=
+      channel_seven_five_step_shrink_value_of_four_hundred_thirty_two_mul_add_fiftythree m
+    rw [hshrink, hn]
+    rcases m with _ | m
+    · norm_num
+    · omega
+  exact ⟨{
+    toBadRunNetDescentWitness :=
+      BadRunNetDescentWitness.ofGoodBranchEntry
+        (BadRunGoodBranchEntryWitness.ofMod4Three 6 (432 * m + 53) hreach hgood)
+        5 hnet
+    input_mod8 := h7 }⟩
+
+/--
+`[A]` Channel `7` subclass `n ≡ 79 (mod 256)` (`j % 8 = 2` within `k % 4 = 1`):
+witness at `t_good = 6`, `t_loc = 7`. Mod-128 class `79` requires this 2-adic split.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_seven_mod256_seventy_nine
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 256 * m + 79) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7) := by
+  rcases hmod with ⟨m, hn⟩
+  have hreach :
+      (collatzStep^[6]) n = 864 * m + 269 := by
+    rw [hn]; exact channel_seven_six_step_value_of_two_hundred_fifty_six_mul_add_seventy_nine m
+  have hgood : (864 * m + 269) % 4 = 1 :=
+    channel_seven_six_step_good_mod4_one_of_two_hundred_fifty_six_mul_add_seventy_nine m
+  have hnet : (collatzStep^[7]) (864 * m + 269) < n := by
+    have hshrink :
+        (collatzStep^[7]) (864 * m + 269) = 243 * m + 76 :=
+      channel_seven_seven_step_shrink_value_of_eight_hundred_sixty_four_mul_add_two_sixtynine m
+    rw [hshrink, hn]
+    rcases m with _ | m
+    · norm_num
+    · omega
+  exact ⟨{
+    toBadRunNetDescentWitness :=
+      BadRunNetDescentWitness.ofGoodBranchEntry
+        (BadRunGoodBranchEntryWitness.ofMod4Three 6 (864 * m + 269) hreach hgood)
+        7 hnet
+    input_mod8 := h7 }⟩
+
+/--
+`[A]` Channel `7` subclass `n ≡ 95 (mod 256)` (`j % 8 = 2` within `k % 4 = 3`):
+witness at `t_good = 8`, `t_loc = 5`. Mod-128 class `95` requires this 2-adic split.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_seven_mod256_ninety_five
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 256 * m + 95) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7) := by
+  rcases hmod with ⟨m, hn⟩
+  have hreach :
+      (collatzStep^[8]) n = 1296 * m + 485 := by
+    rw [hn]; exact channel_seven_eight_step_value_of_two_hundred_fifty_six_mul_add_ninety_five m
+  have hgood : (1296 * m + 485) % 4 = 1 :=
+    channel_seven_eight_step_good_mod4_one_of_two_hundred_fifty_six_mul_add_ninety_five m
+  have hnet : (collatzStep^[5]) (1296 * m + 485) < n := by
+    have hshrink :
+        (collatzStep^[5]) (1296 * m + 485) = 243 * m + 91 :=
+      channel_seven_five_step_shrink_value_of_twelve_hundred_ninety_six_mul_add_four_eightyfive m
+    rw [hshrink, hn]
+    rcases m with _ | m
+    · norm_num
+    · omega
+  exact ⟨{
+    toBadRunNetDescentWitness :=
+      BadRunNetDescentWitness.ofGoodBranchEntry
+        (BadRunGoodBranchEntryWitness.ofMod4Three 8 (1296 * m + 485) hreach hgood)
+        5 hnet
+    input_mod8 := h7 }⟩
+
+/--
+`[A]` Channel `7` subclass `n ≡ 39 (mod 256)` (`j % 8 = 1` within `k % 4 = 0`):
+witness at `t_good = 4`, `t_loc = 9`. Mod-128 class `39` requires this 2-adic split.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_seven_mod256_thirty_nine
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 256 * m + 39) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7) := by
+  rcases hmod with ⟨m, hn⟩
+  have hreach :
+      (collatzStep^[4]) n = 576 * m + 89 := by
+    rw [hn]; exact channel_seven_four_step_value_of_two_hundred_fifty_six_mul_add_thirty_nine m
+  have hgood : (576 * m + 89) % 4 = 1 :=
+    channel_seven_four_step_good_mod4_one_of_two_hundred_fifty_six_mul_add_thirty_nine m
+  have hnet : (collatzStep^[9]) (576 * m + 89) < n := by
+    have hshrink :
+        (collatzStep^[9]) (576 * m + 89) = 243 * m + 38 :=
+      channel_seven_nine_step_shrink_value_of_five_hundred_seventy_six_mul_add_eightynine m
+    rw [hshrink, hn]
+    rcases m with _ | m
+    · norm_num
+    · omega
+  exact ⟨{
+    toBadRunNetDescentWitness :=
+      BadRunNetDescentWitness.ofGoodBranchEntry
+        (BadRunGoodBranchEntryWitness.ofMod4Three 4 (576 * m + 89) hreach hgood)
+        9 hnet
+    input_mod8 := h7 }⟩
+
+/--
 `[C]` Channel `7` with `k % 4 ≠ 2`: uniform witness via depth-budget consumption.
 Requires `BadRunTwoAdicBudgetExhaustionStatement` or explicit `t_loc` bounds.
 -/
@@ -385,6 +538,15 @@ structure CollatzProofAttemptStatusV28 : Prop where
   channel_seven_k_mod4_two_net_descent :
     ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ j, n = 32 * j + 23) →
       Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7)
+  channel_seven_mod256_seventy_nine_net_descent :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 256 * m + 79) →
+      Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7)
+  channel_seven_mod256_ninety_five_net_descent :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 256 * m + 95) →
+      Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7)
+  channel_seven_mod256_thirty_nine_net_descent :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 256 * m + 39) →
+      Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7)
   channel_three_uniform_five_step_barrier :
     ∀ {k : Nat}, k % 2 = 1 → 0 < k →
       (8 * k + 3) ≤ (collatzStep^[5]) (T_odd (8 * k + 3))
@@ -411,6 +573,12 @@ theorem collatz_proof_attempt_status_v28 : CollatzProofAttemptStatusV28 where
     bad_run_net_descent_witness_mod8_channel_three_j_mod8_six hn h8 h219
   channel_seven_k_mod4_two_net_descent := fun hn h7 hk2 =>
     bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two hn h7 hk2
+  channel_seven_mod256_seventy_nine_net_descent := fun hn h7 hmod =>
+    bad_run_net_descent_witness_mod8_channel_seven_mod256_seventy_nine hn h7 hmod
+  channel_seven_mod256_ninety_five_net_descent := fun hn h7 hmod =>
+    bad_run_net_descent_witness_mod8_channel_seven_mod256_ninety_five hn h7 hmod
+  channel_seven_mod256_thirty_nine_net_descent := fun hn h7 hmod =>
+    bad_run_net_descent_witness_mod8_channel_seven_mod256_thirty_nine hn h7 hmod
   channel_three_uniform_five_step_barrier := fun hk_odd hk_pos =>
     channel_three_uniform_five_step_fails_net hk_odd hk_pos
   channel_three_ten_step_fails_mod256_one_hundred_twenty_three := fun {m} =>

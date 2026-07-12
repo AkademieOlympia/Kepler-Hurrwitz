@@ -32,7 +32,9 @@ StatusLabel = Literal[
 ]
 
 CHANNEL_SEVEN_MODULUS = 128
-FORMAL_RESIDUES_MOD32: frozenset[int] = frozenset({23})
+FORMAL_RESIDUES_MOD128: frozenset[int] = frozenset({7, 15, 23, 55, 87, 119})
+FORMAL_RESIDUES_MOD256: frozenset[int] = frozenset({39, 79, 95})
+PARTIAL_FORMAL_RESIDUES_MOD128: frozenset[int] = frozenset({39, 79, 95})
 CHANNEL_THREE_FROZEN_COVERAGE = "28/32"
 CHANNEL_THREE_DEEP_TAIL_MOD128 = (27, 91, 123)
 CHANNEL_THREE_DEEP_TAIL_MOD256 = (27, 91, 155, 251)
@@ -115,10 +117,15 @@ def scan_channel_seven_class(
     if residue % 8 != 7:
         raise ValueError(f"residue {residue} is not channel 7 (n % 8 = 7)")
     representative = residue if residue >= min_n else residue + modulus
-    formal = _mod32_class(residue) in FORMAL_RESIDUES_MOD32
+    formal = residue in FORMAL_RESIDUES_MOD128
+    partial_formal = residue in PARTIAL_FORMAL_RESIDUES_MOD128
     t_good, _m_good = steps_until_mod4_eq_one(representative)
-    t_loc = 4 if formal else first_positive_net_descent_t_loc(
-        representative, max_t_loc=max_t_loc
+    t_loc = (
+        4 if residue in {23, 55, 87, 119}
+        else 7 if residue == 7 or residue in {79}
+        else 5 if residue in {15, 95}
+        else 9 if residue == 39
+        else first_positive_net_descent_t_loc(representative, max_t_loc=max_t_loc)
     )
     depth = _depth_label(t_loc, formal=formal)
     deep_tail = (not formal) and depth == "closed_deep" and t_loc is not None and t_loc > 32
@@ -128,7 +135,28 @@ def scan_channel_seven_class(
     )
     notes = ""
     if formal:
-        notes = "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two"
+        if residue in {23, 55, 87, 119}:
+            notes = "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two"
+        elif residue == 7:
+            notes = "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_mod128_seven"
+        elif residue == 15:
+            notes = "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_mod128_fifteen"
+    elif partial_formal:
+        if residue == 79:
+            notes = (
+                "Lean [A] partial: bad_run_net_descent_witness_mod8_channel_seven_mod256_seventy_nine "
+                "(n ≡ 79 mod 256 only; sibling n ≡ 207 mod 256 open)"
+            )
+        elif residue == 95:
+            notes = (
+                "Lean [A] partial: bad_run_net_descent_witness_mod8_channel_seven_mod256_ninety_five "
+                "(n ≡ 95 mod 256 only; sibling n ≡ 223 mod 256 open)"
+            )
+        elif residue == 39:
+            notes = (
+                "Lean [A] partial: bad_run_net_descent_witness_mod8_channel_seven_mod256_thirty_nine "
+                "(n ≡ 39 mod 256 only; sibling n ≡ 167 mod 256 open)"
+            )
     elif t_loc is None:
         notes = f"no witness within max_t_loc={max_t_loc}"
     return WitnessClassRecord(
@@ -213,6 +241,8 @@ def summarize_channel_seven(records: list[WitnessClassRecord]) -> dict[str, Any]
         "channel_three_frozen_coverage": CHANNEL_THREE_FROZEN_COVERAGE,
         "channel_three_deep_tail_mod128": list(CHANNEL_THREE_DEEP_TAIL_MOD128),
         "channel_three_deep_tail_mod256": list(CHANNEL_THREE_DEEP_TAIL_MOD256),
+        "formal_mod256_residues": sorted(FORMAL_RESIDUES_MOD256),
+        "partial_formal_mod128_residues": sorted(PARTIAL_FORMAL_RESIDUES_MOD128),
         "governance": "[B] numerical scan — not formal proof",
     }
 

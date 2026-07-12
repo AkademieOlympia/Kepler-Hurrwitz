@@ -1,4 +1,7 @@
 import Mathlib
+import KeplerHurwitz.Collatz.ChannelSevenAttackV210
+import KeplerHurwitz.Collatz.ChannelSevenAttackV211
+import KeplerHurwitz.Collatz.ChannelSevenAttackV212
 import KeplerHurwitz.CollatzProofAttemptV28
 
 namespace KeplerHurwitz
@@ -27,6 +30,9 @@ open CollatzNetDescentMod8
 open CollatzNetDescentMod8Witness
 open CollatzNetDescentV28
 open CollatzBridge
+open KeplerHurwitz.Collatz.ChannelSevenAttackV210
+open KeplerHurwitz.Collatz.ChannelSevenAttackV211
+open KeplerHurwitz.Collatz.ChannelSevenAttackV212
 
 /-- Channel-7 residue guard: input Klein class `7` with positive modulus tag. -/
 def ChannelSevenResidue (r m : ℕ) : Prop :=
@@ -90,21 +96,26 @@ def channelThreeDeepTailMod256 : List ℕ := [27, 91, 155, 251]
 /-- Formally closed channel-7 mod-32 anchor (`k % 4 = 2`, `n = 32j+23`). -/
 def channelSevenFormalResidueMod32 : ℕ := 23
 
-/-- All mod-128 channel-7 residues formally closed in Lean (`k % 4 = 2` ladder). -/
-def channelSevenFormalResiduesMod128 : List ℕ := [23, 55, 87, 119]
+/-- All mod-128 channel-7 residues formally closed in Lean. -/
+def channelSevenFormalResiduesMod128 : List ℕ := [7, 15, 23, 55, 87, 119]
+
+/-- mod-256 channel-7 residues formally closed in Lean (2-adic lifts of open mod-128 children). -/
+def channelSevenFormalResiduesMod256 : List ℕ := [39, 79, 95]
+
+/-- mod-128 residues with partial mod-256 formal closure (not counted in mod-128 fraction). -/
+def channelSevenMod128PartialFormalResidues : List ℕ := [39, 79, 95]
 
 /-- mod-128 channel-7 deep-tail residues from numerical scan (`[B]`, not formal). -/
 def channelSevenDeepTailResiduesMod128 : List ℕ := [31, 47, 63, 71, 103, 111]
 
 /-- mod-128 channel-7 classes with numerical support only (`[B]`). -/
-def channelSevenNumericalResiduesMod128 : List ℕ :=
-  [7, 15, 39, 79, 95, 127]
+def channelSevenNumericalResiduesMod128 : List ℕ := [39, 95, 127]
 
 /-- Total mod-128 channel-7 classes. -/
 def channelSevenTotalClassesMod128 : ℕ := 16
 
-/-- Formal coverage fraction at mod 128: 4/16 = 1/4. -/
-def channelSevenFormalCoverageFraction : ℚ := 4 / 16
+/-- Formal coverage fraction at mod 128: 6/16 = 3/8. -/
+def channelSevenFormalCoverageFraction : ℚ := 6 / 16
 
 /--
 `[A]` Reduction: channel-7 net-descent witness from good-branch entry plus
@@ -157,7 +168,7 @@ theorem channel_seven_local_witness_k_mod4_two
   bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two hn h7 hk2
 
 /--
-`[A]` Alias: formal mod-128 class `23` (and ladder `{55,87,119}`) inherit
+`[A]` Alias: formal mod-128 class `23` (and siblings `{55,87,119}`) inherit
 `bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two`.
 -/
 theorem channel_seven_formal_witness_mod128_residue
@@ -167,6 +178,40 @@ theorem channel_seven_formal_witness_mod128_residue
     (hk2 : ∃ j, n = 32 * j + 23) :
     LocalWitnessStatementMod8 n :=
   bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two hn h7 hk2
+
+/--
+`[A]` Formal mod-128 class `7` (`k % 4 = 0`, `j % 4 = 0`): `t_good = 4`, `t_loc = 7`.
+-/
+theorem channel_seven_formal_witness_mod128_seven
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 128 * m + 7) :
+    LocalWitnessStatementMod8 n :=
+  bad_run_net_descent_witness_mod8_channel_seven_mod128_seven hn h7 hmod
+
+/--
+`[A]` Formal mod-128 class `15` (`k % 4 = 1`, `j % 4 = 0`): `t_good = 6`, `t_loc = 5`.
+-/
+theorem channel_seven_formal_witness_mod128_fifteen
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 128 * m + 15) :
+    LocalWitnessStatementMod8 n :=
+  bad_run_net_descent_witness_mod8_channel_seven_mod128_fifteen hn h7 hmod
+
+/--
+`[A]` Formal mod-256 subclass `79` (`k % 4 = 1`, `j % 8 = 2`): `t_good = 6`, `t_loc = 7`.
+Mod-128 class `79` is only partially closed — sibling `n ≡ 207 (mod 256)` remains open.
+-/
+theorem channel_seven_formal_witness_mod256_seventy_nine
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 256 * m + 79) :
+    LocalWitnessStatementMod8 n :=
+  bad_run_net_descent_witness_mod8_channel_seven_mod256_seventy_nine hn h7 hmod
 
 /--
 `[A]` Channel `7` starts in the bad tail (`T_odd n % 4 = 3`), unlike channel `3`.
@@ -184,6 +229,66 @@ theorem channel_seven_eSchalenSprung_eq_one
     eSchalenSprung n = 1 := by
   have := eSchalenSprung_eq_one_of_mod4_eq_three ho hmod
   simpa using this
+
+/--
+`[A]` Formal mod-256 subclass `95` (`k % 4 = 3`, `j % 8 = 2`): `t_good = 8`, `t_loc = 5`.
+Mod-128 class `95` is only partially closed — sibling `n ≡ 223 (mod 256)` remains open.
+-/
+theorem channel_seven_formal_witness_mod256_ninety_five
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 256 * m + 95) :
+    LocalWitnessStatementMod8 n :=
+  bad_run_net_descent_witness_mod8_channel_seven_mod256_ninety_five hn h7 hmod
+
+/--
+`[A]` Formal mod-256 subclass `39` (`k % 4 = 0`, `j % 8 = 1`): `t_good = 4`, `t_loc = 9`.
+Mod-128 class `39` is only partially closed — sibling `n ≡ 167 (mod 256)` remains open.
+-/
+theorem channel_seven_formal_witness_mod256_thirty_nine
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 256 * m + 39) :
+    LocalWitnessStatementMod8 n :=
+  bad_run_net_descent_witness_mod8_channel_seven_mod256_thirty_nine hn h7 hmod
+
+/--
+`[A]` Formal mod-128 class `55` (`k % 4 = 2`, `j % 4 = 1`): Drei-Schritt-Syracuse
+Zertifikat `[1,1,3]` via `ChannelSevenAttackV210`.
+-/
+theorem channel_seven_formal_witness_mod128_fifty_five
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 128 * m + 55) :
+    LocalWitnessStatementMod8 n :=
+  bad_run_net_descent_witness_mod8_channel_seven_mod128_fifty_five hn h7 hmod
+
+/--
+`[A]` Formal mod-128 class `87` (`k % 4 = 2`, `j % 4 = 2`): Drei-Schritt-Syracuse
+Zertifikat `[1,1,4]` via `ChannelSevenAttackV211`.
+-/
+theorem channel_seven_formal_witness_mod128_eighty_seven
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 128 * m + 87) :
+    LocalWitnessStatementMod8 n :=
+  bad_run_net_descent_witness_mod8_channel_seven_mod128_eighty_seven hn h7 hmod
+
+/--
+`[A]` Formal mod-128 class `119`: Drei-Schritt-Syracuse-Zertifikat `[1,1,3]`
+via `ChannelSevenAttackV212`.
+-/
+theorem channel_seven_formal_witness_mod128_one_nineteen
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 128 * m + 119) :
+    LocalWitnessStatementMod8 n :=
+  bad_run_net_descent_witness_mod8_channel_seven_mod128_one_nineteen hn h7 hmod
 
 /--
 `[C]` Uniform channel-7 witness — same open core as
@@ -216,11 +321,39 @@ structure ChannelSevenClassificationStatus : Prop where
   channel_three_deep_tail_mod256 :
     channelThreeDeepTailMod256 = [27, 91, 155, 251]
   formal_mod128_residues :
-    channelSevenFormalResiduesMod128 = [23, 55, 87, 119]
+    channelSevenFormalResiduesMod128 = [7, 15, 23, 55, 87, 119]
+  formal_mod256_residues :
+    channelSevenFormalResiduesMod256 = [39, 79, 95]
+  mod128_partial_formal_residues :
+    channelSevenMod128PartialFormalResidues = [39, 79, 95]
   formal_coverage_fraction :
-    channelSevenFormalCoverageFraction = 4 / 16
+    channelSevenFormalCoverageFraction = 6 / 16
   k_mod4_two_local_witness :
     ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ j, n = 32 * j + 23) →
+      LocalWitnessStatementMod8 n
+  mod128_seven_local_witness :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 128 * m + 7) →
+      LocalWitnessStatementMod8 n
+  mod128_fifteen_local_witness :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 128 * m + 15) →
+      LocalWitnessStatementMod8 n
+  mod256_seventy_nine_local_witness :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 256 * m + 79) →
+      LocalWitnessStatementMod8 n
+  mod256_ninety_five_local_witness :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 256 * m + 95) →
+      LocalWitnessStatementMod8 n
+  mod256_thirty_nine_local_witness :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 256 * m + 39) →
+      LocalWitnessStatementMod8 n
+  mod128_fifty_five_local_witness :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 128 * m + 55) →
+      LocalWitnessStatementMod8 n
+  mod128_eighty_seven_local_witness :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 128 * m + 87) →
+      LocalWitnessStatementMod8 n
+  mod128_one_nineteen_local_witness :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 128 * m + 119) →
       LocalWitnessStatementMod8 n
   T_odd_bad_tail :
     ∀ {n : Nat}, n % 8 = 7 → T_odd n % 4 = 3
@@ -233,9 +366,27 @@ theorem channel_seven_classification_status :
   channel_three_deep_tail_mod128 := rfl
   channel_three_deep_tail_mod256 := rfl
   formal_mod128_residues := rfl
+  formal_mod256_residues := rfl
+  mod128_partial_formal_residues := rfl
   formal_coverage_fraction := rfl
   k_mod4_two_local_witness := fun hn h7 hk2 =>
     channel_seven_formal_witness_mod128_residue hn h7 hk2
+  mod128_seven_local_witness := fun hn h7 hmod =>
+    channel_seven_formal_witness_mod128_seven hn h7 hmod
+  mod128_fifteen_local_witness := fun hn h7 hmod =>
+    channel_seven_formal_witness_mod128_fifteen hn h7 hmod
+  mod256_seventy_nine_local_witness := fun hn h7 hmod =>
+    channel_seven_formal_witness_mod256_seventy_nine hn h7 hmod
+  mod256_ninety_five_local_witness := fun hn h7 hmod =>
+    channel_seven_formal_witness_mod256_ninety_five hn h7 hmod
+  mod256_thirty_nine_local_witness := fun hn h7 hmod =>
+    channel_seven_formal_witness_mod256_thirty_nine hn h7 hmod
+  mod128_fifty_five_local_witness := fun hn h7 hmod =>
+    channel_seven_formal_witness_mod128_fifty_five hn h7 hmod
+  mod128_eighty_seven_local_witness := fun hn h7 hmod =>
+    channel_seven_formal_witness_mod128_eighty_seven hn h7 hmod
+  mod128_one_nineteen_local_witness := fun hn h7 hmod =>
+    channel_seven_formal_witness_mod128_one_nineteen hn h7 hmod
   T_odd_bad_tail := fun h7 => channel_seven_T_odd_mod4_eq_three h7
   five_step_barrier_k_mod4_two := fun {j} =>
     channel_seven_five_step_fails_net_k_mod4_two (j := j)
