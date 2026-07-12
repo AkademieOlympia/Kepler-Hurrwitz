@@ -63,3 +63,18 @@ def test_odd_core_matches_v2_quotient() -> None:
     for r in (1, 3, 11, 59):
         m = deep_branch_poly(r)
         assert odd_core(m) == m >> v2(m)
+
+
+def test_scan_deep_lift_fiber_dynamics_j3_t_zero() -> None:
+    from kepler_hurwitz.deep_lift_hensel_diagnostic import (
+        deep_lift_fiber,
+        scan_deep_lift_fiber_dynamics,
+        syracuse_odd_step,
+    )
+
+    assert deep_lift_fiber(3, 0) == 103
+    assert syracuse_odd_step(103) == odd_core(3 * 103 + 1)
+    result = scan_deep_lift_fiber_dynamics(j_max=3, t_max=4, depth=2)
+    assert result["total_rows"] == 15
+    j3_t0 = next(row for row in result["rows"] if row["j"] == 3 and row["t"] == 0)
+    assert j3_t0["start"] == 103

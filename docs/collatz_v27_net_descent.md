@@ -1075,6 +1075,45 @@ Die kombinatorische Wildheit des Deep-Tails ist damit auf **wohlgeformte unendli
 
 ---
 
+## V2.15 — Ebene B: Dynamik nach `S⁵ = 243t + c_j` (Offen)
+
+**Identifier:** `collatz-channel-7-dynamics-v2.15`  
+**Modul:** `KeplerHurwitz/Collatz/ChannelSevenDynamicsV215.lean`  
+**Roadmap:** [`docs/collatz_v214_level_b_roadmap.md`](collatz_v214_level_b_roadmap.md)  
+**Layer:** `[A]` Brücken; `[C]` Deszent / Witness
+
+### Governance (V2.15)
+
+\[
+\boxed{\text{2-adische Struktur} \;\neq\; \text{dynamischer Deszent}}
+\]
+
+Ebene B startet nach V2.14-Versiegelung: Terminalfamilien `243t + c_j` und ihre
+Fortsetzung unter `syracuseOddStep`.
+
+### Geschlossene Brücke (H6, `[A]`)
+
+| Satz | Rolle |
+|---|---|
+| `deepLiftFiber` / `deepBranchParam` | affine Faser-Definitionen |
+| `deepLiftFiber_residue_mod_three` | mod-3-Invariante |
+| `channelSeven71_step5_deepLiftFiber_j3_even_t` | V2.13 → V2.14 bei `j=3`, gerades `t` |
+| `channelSeven71_step5_deepLiftFiber_j3_t_zero` | Anker `S⁵(1735)=103` |
+
+### Offen (`[C]`, `sorry`)
+
+| Satz | Hypothese |
+|---|---|
+| `deepLiftFiber_mod128_entry` | H7 Typenreduktion |
+| `deepLiftFiber_net_descent_witness` | H8 Witness-Assembly |
+| `deepLiftFiber_wellFounded_rank` | H6 Rang (kein ε₀) |
+
+**Build:** `lake build KeplerHurwitz.CollatzProofAttemptV215`
+
+**Python `[B]`:** `scan_deep_lift_fiber_dynamics` in `deep_lift_hensel_diagnostic.py`
+
+---
+
 ## Kanal-7-Kern — `ChannelSevenKernel` (V2.10–V2.13 konsolidiert)
 
 **Identifier:** `collatz-channel-seven-kernel`  

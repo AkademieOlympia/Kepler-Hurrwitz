@@ -44,6 +44,10 @@ __all__ = [
     "format_padic_bridge_report",
     "analyze_deep_lift_hensel_steps",
     "format_hensel_report",
+    "syracuse_odd_step",
+    "deep_lift_fiber",
+    "scan_deep_lift_fiber_dynamics",
+    "export_deep_lift_fiber_dynamics_json",
     "Integer",
     "v2",
 ]
@@ -303,3 +307,74 @@ def format_hensel_report(rows: Sequence[DeepLiftStepRow]) -> str:
             f"{row.nu2_old:>14}  {row.nu2_new:>14}  {row.delta_quotient:>5}  {row.c_j:>5}"
         )
     return "\n".join(lines)
+
+
+def syracuse_odd_step(n: int) -> int:
+    """Normalized odd Syracuse step aligned with Lean ``oddCoreStep``."""
+    if n <= 0:
+        raise ValueError("n must be positive")
+    return odd_core(3 * n + 1)
+
+
+def deep_lift_fiber(j: int, t: int) -> int:
+    """Affine terminal family ``243t + c_j`` (V2.15 Ebene B)."""
+    return DEEP_BRANCH_MULTIPLIER * t + deep_lift_constant(j)
+
+
+def scan_deep_lift_fiber_dynamics(
+    *,
+    j_max: int = 5,
+    t_max: int = 20,
+    depth: int = 3,
+) -> dict[str, object]:
+    """
+    `[B]` Scan ``S^d`` on deep-lift fibers ``243t + c_j`` for small ``t``.
+
+    Governance: diagnostic only — does NOT prove Collatz or net descent.
+    """
+    rows: list[dict[str, object]] = []
+    closed_mod128 = {55, 87, 119}
+    for j in range(1, j_max + 1):
+        c_j = deep_lift_constant(j)
+        for t in range(0, t_max + 1):
+            n = deep_lift_fiber(j, t)
+            orbit = [n]
+            cur = n
+            for _ in range(depth):
+                cur = syracuse_odd_step(cur)
+                orbit.append(cur)
+            rows.append(
+                {
+                    "j": j,
+                    "t": t,
+                    "c_j": c_j,
+                    "start": n,
+                    "orbit": orbit,
+                    "mod128": [x % 128 for x in orbit],
+                    "hits_closed_mod128": any(x % 128 in closed_mod128 for x in orbit[1:]),
+                }
+            )
+    hits = sum(1 for row in rows if row["hits_closed_mod128"])
+    return {
+        "j_max": j_max,
+        "t_max": t_max,
+        "depth": depth,
+        "rows": rows,
+        "hits_closed_mod128": hits,
+        "total_rows": len(rows),
+    }
+
+
+def export_deep_lift_fiber_dynamics_json(
+    path: str = "docs/exports/deep_lift_fiber_dynamics_v215.json",
+    **kwargs: object,
+) -> dict[str, object]:
+    """Export scan results for V2.15 Level-B diagnostics."""
+    import json
+    from pathlib import Path
+
+    result = scan_deep_lift_fiber_dynamics(**kwargs)  # type: ignore[arg-type]
+    out = Path(path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    return result
