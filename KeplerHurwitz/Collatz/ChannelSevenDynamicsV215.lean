@@ -1,4 +1,5 @@
 import Mathlib
+import KeplerHurwitz.Collatz.ChannelSevenAffineMod128V215
 import KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214
 import KeplerHurwitz.Collatz.Octonion.Definitions
 import KeplerHurwitz.CollatzProofAttemptV27
@@ -22,6 +23,7 @@ Fortsetzung unter `syracuseOddStep` (= `oddCoreStep`) untersucht wird.
 namespace KeplerHurwitz.Collatz.ChannelSevenDynamicsV215
 
 open KeplerHurwitz
+open KeplerHurwitz.Collatz.ChannelSevenAffineMod128V215
 open KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214
 open KeplerHurwitz.Collatz.ChannelSevenAttackV213
 open KeplerHurwitz.Collatz.Octonion
@@ -36,6 +38,15 @@ abbrev syracuseOddStep (n : Nat) : Nat :=
 /-- Affine Terminalfamilie nach exakter Lift-Schale `j`: `243t + c_j`. -/
 def deepLiftFiber (j t : Nat) : Nat :=
   deepBranchMultiplier * t + deepLiftConstant j
+
+/-- H7-A-Alias: explizite affine Form `243t + c_j` (aligniert mit `deepLiftFiber`). -/
+def deepLiftAffine (j t : Nat) : Nat :=
+  243 * t + deepLiftConstant j
+
+theorem deepLiftAffine_eq (j t : Nat) :
+    deepLiftAffine j t = deepLiftFiber j t := by
+  unfold deepLiftAffine deepLiftFiber deepBranchMultiplier
+  rfl
 
 /-- Lift-Parameter `r = ρ_j + 2^j · t` in `243r + 95`. -/
 def deepBranchParam (j t : Nat) : Nat :=
@@ -242,71 +253,62 @@ theorem syracuseOdd_deepLiftFiber_j3_step6_anchor :
     syracuseOddStep (deepLiftFiber 3 0) = 155 := by
   simpa using syracuseOdd_deepLiftFiber_j3_step6_u_even 0 (by decide)
 
-/-- Step-6-Ziel `729u+155` modulo `128` am Anker `u = 0` (mod-128-Eintritt noch offen). -/
+/-- Step-6-Ziel `729u+155` modulo `128` am Anker `u = 0` (dynamischer mod-128-Eintritt: `[C]`). -/
 theorem deepLiftFiber_j3_step6_mod128_anchor :
     (729 * 0 + 155) % 128 = 27 := by decide
 
 /-!
-## H7 — Typenreduktion (Scaffold, `[C]`)
+## H7-A — mod-128 affine Brücke (`[A]`, importiert)
+
+Siehe `ChannelSevenAffineMod128V215` — sorry-frei.
+
+Governance:
+\[
+\boxed{\text{Zielfaser algebraisch parametrisiert} \neq \text{Zielfaser dynamisch erreicht}}
+\]
+
+Dynamische Erreichbarkeit kontrollierter Fasern: `ChannelSevenDynamicsHypothesesV215` (`[C]`).
 -/
 
-/-- Endlicher Zustandstyp für Deep-Lift-Fasern modulo `M`. -/
-structure DeepLiftFiberState (M : Nat) where
-  shell : Nat
-  offset : Nat
-  residue : Nat
-  hshell : shell < 6
-  hoffset : offset < M
+theorem deepLiftAffineZMod_eq (j t : ℕ) :
+    deepLiftFiberZMod j (t : mod128) = (deepLiftAffine j t : mod128) := by
+  dsimp [deepLiftFiberZMod, deepLiftAffine, deepLiftConstantZMod, deepBranchMultiplier]
+  push_cast
+  ring
 
-/-- `[C]` — mod-128-Eintritt einer Terminalfamilie in geschlossene Kanal-7-Fasern. -/
-theorem deepLiftFiber_mod128_entry (j t : Nat) :
-    deepLiftFiber j t % 128 = 55 ∨
-      deepLiftFiber j t % 128 = 87 ∨
-        deepLiftFiber j t % 128 = 119 ∨
-          True := by
-  right; right; right; trivial
+theorem deepLiftAffine_modEq128_iff (j t a : ℕ) :
+    Nat.ModEq 128 (deepLiftAffine j t) a ↔
+      Nat.ModEq 128 t (deepLiftAffine_target_parameter j (a : mod128)).val := by
+  constructor
+  · intro h
+    have hz : (deepLiftAffine j t : mod128) = (a : mod128) :=
+      (ZMod.natCast_eq_natCast_iff _ _ 128).mpr h
+    have huniq := deepLiftAffine_entry_unique j (a : mod128) (t : mod128)
+      (by simpa [deepLiftAffineZMod_eq] using hz)
+    have hv : t % 128 = (deepLiftAffine_target_parameter j (a : mod128)).val := by
+      simpa [ZMod.val_natCast] using congrArg ZMod.val huniq
+    rw [Nat.ModEq, hv, Nat.mod_eq_of_lt (ZMod.val_lt (deepLiftAffine_target_parameter j (a : mod128)))]
+  · intro h
+    have ht : (t : mod128) = deepLiftAffine_target_parameter j (a : mod128) := by
+      simpa [ZMod.natCast_val] using (ZMod.natCast_eq_natCast_iff _ _ 128).mpr h
+    have heq : (deepLiftAffine j t : mod128) = (a : mod128) := by
+      rw [← deepLiftAffineZMod_eq, ht, deepLiftAffine_entry_spec]
+    exact (ZMod.natCast_eq_natCast_iff _ _ 128).mp heq
+
+theorem deepLiftAffine_mod128_parameter (j a : ℕ) :
+    (deepLiftAffine j (deepLiftAffine_target_parameter j (a : mod128)).val) % 128 = a % 128 :=
+  (deepLiftAffine_modEq128_iff j (deepLiftAffine_target_parameter j (a : mod128)).val a).mpr
+    (Nat.ModEq.refl _)
 
 /-!
-## H8 — Deszentszeuge-Brücke (Scaffold, `[C]`)
--/
-
-/-- Zertifikat: Good-Branch-Eintritt + lokaler Netto-Shrink unter Startwert `n`. -/
-structure DeepLiftNetDescentCertificate where
-  shell : Nat
-  t_good : Nat
-  t_loc : Nat
-  hshell : shell < 6
-
-/--
-`[C]` — uniforme Existenz eines `BadRunNetDescentWitness` aus Deep-Lift-Schale.
-
-Governance: algebraische Liftstruktur ≠ dynamischer Deszent; dieser Satz ist
-explizit Ebene B und bleibt offen.
--/
-theorem deepLiftFiber_net_descent_witness (j : Nat) (n : Nat)
-    (_hn : 1 < n) (_hmod : n % 4 = 3) (_hseven : n % 8 = 7) :
-    Nonempty (
-      _root_.KeplerHurwitz.CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentWitness n) := by
-  sorry
-
-/--
-`[C]` — wohlfundierter dynamischer Rang auf Terminalfamilien.
-
-Research question V2.14 Ebene B; kein ε₀-Ordinal behauptet.
--/
-theorem deepLiftFiber_wellFounded_rank (j : Nat) :
-    ∃ (W : Type) (_ : WellFounded (α := W) fun _ _ => False),
-      True := by
-  sorry
-
-/-!
-## V2.15 Status-Bündel
+## V2.15 Status-Bündel (`[A]` sorry-frei; `[C]` in `ChannelSevenDynamicsHypothesesV215`)
 -/
 
 structure ChannelSevenDynamicsV215Scaffold : Prop where
   fiber_definitions :
     (∀ j t : Nat, deepLiftFiber j t = 243 * t + deepLiftConstant j) ∧
-      (∀ j t : Nat, deepBranchParam j t = deepLiftResidue j + deepLiftModulus j * t)
+      (∀ j t : Nat, deepLiftAffine j t = 243 * t + deepLiftConstant j) ∧
+        (∀ j t : Nat, deepBranchParam j t = deepLiftResidue j + deepLiftModulus j * t)
   mod_three_invariant :
     ∀ j t : Nat, deepLiftFiber j t % 3 = deepLiftConstant j % 3
   j3_step5_bridge :
@@ -336,13 +338,28 @@ structure ChannelSevenDynamicsV215Scaffold : Prop where
             deepLiftFiber 5 0 = 208
   level_a_import :
     ChannelSevenDeepLiftScaffold
-  open_h8 :
-    ∃ j n : Nat,
-      1 < n → n % 4 = 3 → n % 8 = 7 →
-        Nonempty (_root_.KeplerHurwitz.CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentWitness n)
+  h7_mod128_inverse :
+    (243 : mod128) * 59 = 1 ∧
+      (59 : mod128) * 243 = 1
+  h7_target_spec :
+    ∀ (j : ℕ) (a : mod128),
+      deepLiftFiberZMod j (deepLiftAffine_target_parameter j a) = a
+  h7_permutation :
+    ∀ (j : ℕ), Function.Bijective (deepLiftFiberPermutation j)
+  h7_target_unique :
+    ∀ (j : ℕ) (a t : mod128),
+      deepLiftFiberZMod j t = a → t = deepLiftAffine_target_parameter j a
+  h7_has_unique_parameter_type :
+    ∀ (j : ℕ) (a : mod128), ∃! t : mod128, deepLiftFiberZMod j t = a
+  h7_modEq128_iff :
+    ∀ (j t a : ℕ), Nat.ModEq 128 (deepLiftAffine j t) a ↔
+      Nat.ModEq 128 t (deepLiftAffine_target_parameter j (a : mod128)).val
+  h7_mod128_parameter :
+    ∀ (j a : ℕ),
+      (deepLiftAffine j (deepLiftAffine_target_parameter j (a : mod128)).val) % 128 = a % 128
 
 theorem channel_seven_dynamics_v215_scaffold : ChannelSevenDynamicsV215Scaffold where
-  fiber_definitions := ⟨deepLiftFiber_eq, deepBranchParam_eq⟩
+  fiber_definitions := ⟨deepLiftFiber_eq, deepLiftAffine_eq, deepBranchParam_eq⟩
   mod_three_invariant := deepLiftFiber_residue_mod_three
   j3_step5_bridge := channelSeven71_step5_deepLiftFiber_j3_even_t
   j3_step6_shell := deepLiftFiber_j3_odd_iff_t_even
@@ -355,6 +372,12 @@ theorem channel_seven_dynamics_v215_scaffold : ChannelSevenDynamicsV215Scaffold 
     deepLiftFiber_t_zero_one, deepLiftFiber_t_zero_two, deepLiftFiber_t_zero_three,
     deepLiftFiber_t_zero_four, deepLiftFiber_t_zero_five⟩
   level_a_import := channel_seven_deep_lift_scaffold
-  open_h8 := by sorry
+  h7_mod128_inverse := ⟨coeff243_mul_59_mod128, coeff59_mul_243_mod128⟩
+  h7_target_spec := deepLiftAffine_entry_spec
+  h7_permutation := fun j => (deepLiftFiberPermutation j).bijective
+  h7_target_unique := deepLiftAffine_entry_unique
+  h7_has_unique_parameter_type := deepLiftAffine_target_unique
+  h7_modEq128_iff := deepLiftAffine_modEq128_iff
+  h7_mod128_parameter := deepLiftAffine_mod128_parameter
 
 end KeplerHurwitz.Collatz.ChannelSevenDynamicsV215

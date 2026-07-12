@@ -2,10 +2,9 @@
 
 **Identifier:** `collatz-channel-7-dynamics-v2.15`  
 **Vorgänger:** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) V2.14 (Ebene A versiegelt)  
-**Lean:** `KeplerHurwitz/Collatz/ChannelSevenDynamicsV215.lean`  
-**Schritt-6-Verzweigung:** `KeplerHurwitz/Collatz/ChannelSeven71Step6BranchingV215.lean`  
-**Assembly:** `KeplerHurwitz/CollatzProofAttemptV215.lean`  
-**Schritt-6-Status:** geschlossen (`[A]`, 0 `sorry` in `ChannelSeven71Step6BranchingV215.lean`); Ebene-B-Dynamik offen (`[C]`)
+**Lean:** `KeplerHurwitz/Collatz/ChannelSevenAffineMod128V215.lean` (H7-A) · `ChannelSevenDynamicsV215.lean` · `ChannelSevenDynamicsHypothesesV215.lean` (H7-C) (`[A]`, H7-A sorry-frei)  
+**Dynamik-Hypothesen:** `KeplerHurwitz/Collatz/ChannelSevenDynamicsHypothesesV215.lean` (`[C]`)  
+**Witness `[B]`:** `src/kepler_hurwitz/h7_witness_matrix.py`
 
 ---
 
@@ -72,6 +71,15 @@ für nichttriviale Lift-Schalen `j`?
 
 ### H7 — Typenreduktion / Zustandsgraph auf affinen Familien
 
+**H7-A `[A]` geschlossen** in `ChannelSevenAffineMod128V215.lean` (mod-128 affine Bijektion,
+`deepLiftAffine_target_parameter`, `deepLiftAffine_entry_spec`, `deepLiftFiberPermutation`;
+Nat-Brücke in `ChannelSevenDynamicsV215.lean`).
+
+**Governance:** \(\boxed{\text{algebraisch parametrisiert} \neq \text{dynamisch erreicht}}\)
+
+**H7-C `[C]` offen** in `ChannelSevenDynamicsHypothesesV215.lean`
+(`DeepLiftFiberMod128EntryHypothesis`, kontrollierte Fasern `{39,79,95,103}`).
+
 **Aussage:** Endlicher Graph modulo `M` (z. B. `128`, `256`, `3·2^m`) klassifiziert Übergänge
 
 \[
@@ -84,9 +92,11 @@ oder Rückkehr in bekannte geschlossene Fasern `{55, 87, 119}`.
 
 | Prio | Lemma | Status |
 |---|---|---|
-| P1 | `DeepLiftFiberState` — endlicher Typ `(j, c_j, t mod M)` | scaffold |
-| P1 | `deepLiftFiber_mod128_classification` — Eintritt in Kanal-7-Faser | offen (`sorry`) |
-| P2 | Rückkehrzeit in `{55,87,119}` für `t ≤ T` | `[B]` numerisch |
+| P0 | `deepLiftAffine_mod128_equiv` — bijektive affine Permutation mod 128 | **V2.15 `[A]` geschlossen** |
+| P0 | `deepLiftAffine_modEq128_iff` / `deepLiftAffine_mod128_parameter` | **V2.15 `[A]` geschlossen** |
+| P1 | `DeepLiftFiberState` — endlicher Typ `(j, c_j, t mod M)` | Hypothesen-Scaffold |
+| P1 | `DeepLiftFiberMod128EntryHypothesis` — dynamischer Eintritt `{39,79,95,103}` | offen (`[C]`, Hypothesen) |
+| P2 | Rückkehrzeit in kontrollierten Fasern für `t ≤ T` | `[B]` numerisch (`generate_h7_witness_matrix`) |
 | P2 | Keine unbeschränkte Schleife auf `\mathcal{F}_j` ohne Rang | offen |
 
 ### H8 — Deszentszeuge → `BadRunNetDescentWitness`
@@ -158,7 +168,9 @@ BadRunNetDescentWitness (bestehende [A]-Reduktion)
 | `CollatzProofAttemptV27.lean` | 4 | globaler `[C]`-Kern |
 | `CollatzProofAttemptV28.lean` | 2 | Kanal-3/7 Rest |
 | `CollatzProofAttemptV29.lean` | 1 | Blocking-Interface |
-| `ChannelSevenDynamicsV215.lean` | 3 | Ebene B scaffold |
+| `ChannelSevenAffineMod128V215.lean` | **0** | H7-A mod-128 Permutation |
+| `ChannelSevenDynamicsV215.lean` | **0** | Ebene B Dynamik `[A]` |
+| `ChannelSevenDynamicsHypothesesV215.lean` | 4 | H7-C / H8 Hypothesen |
 | `ChannelSeven71Step6BranchingV215.lean` | 0 | Schritt-6-Verzweigung `486u+103` |
 | Kanal 3 | **FROZEN** | Deep-Tail `{27,91,155,251}` |
 
@@ -167,7 +179,9 @@ BadRunNetDescentWitness (bestehende [A]-Reduktion)
 ## Build
 
 ```bash
+lake build KeplerHurwitz.Collatz.ChannelSevenAffineMod128V215
 lake build KeplerHurwitz.Collatz.ChannelSevenDynamicsV215
+lake build KeplerHurwitz.Collatz.ChannelSevenDynamicsHypothesesV215
 lake build KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
 lake build KeplerHurwitz.CollatzProofAttemptV215
 ```
@@ -175,6 +189,7 @@ lake build KeplerHurwitz.CollatzProofAttemptV215
 **Python `[B]`:**
 
 ```bash
+python -m kepler_hurwitz.h7_witness_matrix  # H7-A witness matrix mod 128
 python -m kepler_hurwitz.deep_lift_hensel_diagnostic  # padic bridge
 pytest tests/test_deep_lift_hensel_diagnostic.py -q
 ```

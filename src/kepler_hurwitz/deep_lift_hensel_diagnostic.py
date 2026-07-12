@@ -29,16 +29,24 @@ Integer = _Integer
 DEEP_LIFT_TAG = "[B]"
 DEEP_BRANCH_MULTIPLIER = 243
 DEEP_BRANCH_CONSTANT = 95
+MOD128 = 128
+INV243_MOD128 = 59
+CONTROLLED_RESIDUES_MOD128 = frozenset({39, 79, 95, 103})
 
 __all__ = [
     "DEEP_LIFT_TAG",
     "DEEP_BRANCH_MULTIPLIER",
     "DEEP_BRANCH_CONSTANT",
+    "MOD128",
+    "INV243_MOD128",
+    "CONTROLLED_RESIDUES_MOD128",
     "DeepLiftStepRow",
     "deep_branch_poly",
     "deep_lift_modulus",
     "deep_lift_residue",
     "deep_lift_constant",
+    "deep_lift_affine_target_parameter",
+    "generate_h7_witness_matrix",
     "odd_core",
     "verify_padic_bridge_and_offsets",
     "format_padic_bridge_report",
@@ -322,6 +330,43 @@ def deep_lift_fiber(j: int, t: int) -> int:
     return DEEP_BRANCH_MULTIPLIER * t + deep_lift_constant(j)
 
 
+def deep_lift_affine_target_parameter(j: int, a: int) -> int:
+    """H7-A target parameter ``t ≡ 59(a - c_j) mod 128`` (Lean-aligned)."""
+    c_j = deep_lift_constant(j)
+    return (INV243_MOD128 * (a - c_j)) % MOD128
+
+
+def generate_h7_witness_matrix(j_max: int = 5) -> list[dict[str, object]]:
+    """
+    H7-A witness matrix for controlled residues ``{39, 79, 95, 103}``.
+
+    Uses the real V2.14 generator for ``c_j`` — no dummy ``ρ_j``.
+    Cross-checks ``243·t + c_j ≡ a (mod 128)`` for each controlled target ``a``.
+    """
+    if j_max < 1:
+        return []
+
+    matrix: list[dict[str, object]] = []
+    for j in range(1, j_max + 1):
+        c_j = deep_lift_constant(j)
+        residues: dict[int, dict[str, int]] = {}
+        for a in sorted(CONTROLLED_RESIDUES_MOD128):
+            t_param = deep_lift_affine_target_parameter(j, a)
+            fiber_mod128 = (DEEP_BRANCH_MULTIPLIER * t_param + c_j) % MOD128
+            if fiber_mod128 != a:
+                raise ValueError(
+                    f"H7 witness mismatch at j={j}, a={a}: "
+                    f"t={t_param}, fiber={fiber_mod128}"
+                )
+            residues[a] = {
+                "t_param": t_param,
+                "c_j": c_j,
+                "fiber_mod128": fiber_mod128,
+            }
+        matrix.append({"j": j, "c_j": c_j, "residues": residues})
+    return matrix
+
+
 def scan_j3_step6_kick(
     u_max: int = 20,
 ) -> dict[str, object]:
@@ -330,7 +375,7 @@ def scan_j3_step6_kick(
 
     Classifies ``ν₂(3m+1)`` for ``m = 486u + 103`` by parity of ``u``.
     """
-    closed_mod128 = {55, 87, 119}
+    closed_mod128 = CONTROLLED_RESIDUES_MOD128
     rows: list[dict[str, object]] = []
     for u in range(0, u_max + 1):
         t = 2 * u
@@ -375,7 +420,7 @@ def scan_deep_lift_fiber_dynamics(
     Governance: diagnostic only — does NOT prove Collatz or net descent.
     """
     rows: list[dict[str, object]] = []
-    closed_mod128 = {55, 87, 119}
+    closed_mod128 = CONTROLLED_RESIDUES_MOD128
     for j in range(1, j_max + 1):
         c_j = deep_lift_constant(j)
         for t in range(0, t_max + 1):

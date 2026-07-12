@@ -14,6 +14,16 @@ import KeplerHurwitz.DedekindIdealLayer
 import KeplerHurwitz.CollatzProofAttemptV26
 import KeplerHurwitz.CollatzProofAttemptV27
 import KeplerHurwitz.CollatzProofAttemptV28
+import KeplerHurwitz.CollatzProofAttemptV29
+import KeplerHurwitz.CollatzProofAttemptV210
+import KeplerHurwitz.CollatzProofAttemptV211
+import KeplerHurwitz.CollatzProofAttemptV212
+import KeplerHurwitz.CollatzProofAttemptV213
+import KeplerHurwitz.CollatzProofAttemptV215
+import KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214
+import KeplerHurwitz.Collatz.ChannelSevenDynamicsV215
+import KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
+import KeplerHurwitz.Collatz.ChannelSevenKernel
 import KeplerHurwitz.CollatzNetDescentMod8
 import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Representation.Invariant
@@ -22,6 +32,7 @@ import KeplerHurwitz.DistilledParameters
 import KeplerHurwitz.SchuettePtolemyCaeda
 import KeplerHurwitz.SymbolicResultants
 import KeplerHurwitz.HalesTaoIntegration
+import KeplerHurwitz.OctonionicChiralDiagnostic
 
 namespace KeplerHurwitz
 
@@ -379,6 +390,233 @@ theorem reachable_collatz_proof_attempt_status_v28 :
   exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v28
 
 /--
+V2.9: CEAB-Spiegelparitäts-Brücke (ORQ-098) + Blocking-Assembly; globaler Collatz-Satz
+explizit nicht behauptet.
+-/
+theorem reachable_collatz_proof_attempt_status_v29 :
+    CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV29 := by
+  exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v29
+
+/--
+V2.9: mod-8-Blocking-Interface liefert Net-Descent-Witness (Assembly-Schicht).
+-/
+theorem reachable_collatz_net_descent_from_mod8_blocking
+    {n : Nat}
+    (hn : 1 < n)
+    (hmod : n % 4 = 3)
+    (hblock : Collatz.Octonion.Mod8NetDescentBlockingInterface n) :
+    Nonempty (CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentWitness n) := by
+  exact CollatzAttemptV2.CollatzNetDescentV29.bad_run_net_descent_from_mod8_blocking
+    hn hmod hblock
+
+/--
+V2.10: Kanal-7 Restklasse `55 mod 128` — Drei-Schritt-Syracuse-Zertifikat `[1,1,3]`.
+-/
+theorem reachable_channel_seven55_syracuse_three_step_descent (k : Nat) :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV210.syracuseOddStep^[3]
+      (_root_.KeplerHurwitz.Collatz.ChannelSevenAttackV210.channelSeven55Fiber k) <
+      _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV210.channelSeven55Fiber k :=
+  CollatzAttemptV2.CollatzNetDescentV210.channel_seven55_syracuse_three_step_net_descent k
+
+/--
+V2.10: `55 mod 128` liefert mod-8-Net-Descent-Witness (Kanal 7).
+-/
+theorem reachable_bad_run_net_descent_mod128_channel_seven_fifty_five
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 128 * m + 55) :
+    Nonempty (CollatzAttemptV2.CollatzNetDescent.CollatzNetDescentMod8Witness.BadRunNetDescentWitnessMod8 n
+      CollatzAttemptV2.CollatzNetDescentMod8.Mod4ThreeInputChannel.ch7) := by
+  exact CollatzAttemptV2.CollatzNetDescentV210.bad_run_net_descent_mod128_channel_seven_fifty_five
+    hn h7 hmod
+
+/--
+V2.10: Status-Bündel inkl. geschlossener `55 mod 128`-Faser.
+-/
+theorem reachable_collatz_proof_attempt_status_v210 :
+    CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV210 := by
+  exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v210
+
+/--
+V2.11: Kanal-7 Restklasse `87 mod 128` — Drei-Schritt-Syracuse-Zertifikat `[1,1,4]`.
+-/
+theorem reachable_channel_seven87_syracuse_three_step_descent (k : Nat) :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV211.syracuseOddStep^[3]
+      (_root_.KeplerHurwitz.Collatz.ChannelSevenAttackV211.channelSeven87Fiber k) <
+      _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV211.channelSeven87Fiber k :=
+  CollatzAttemptV2.CollatzNetDescentV211.channel_seven87_syracuse_three_step_net_descent k
+
+/--
+V2.11: `87 mod 128` liefert mod-8-Net-Descent-Witness (Kanal 7).
+-/
+theorem reachable_bad_run_net_descent_mod128_channel_seven_eighty_seven
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 128 * m + 87) :
+    Nonempty (CollatzAttemptV2.CollatzNetDescent.CollatzNetDescentMod8Witness.BadRunNetDescentWitnessMod8 n
+      CollatzAttemptV2.CollatzNetDescentMod8.Mod4ThreeInputChannel.ch7) := by
+  exact CollatzAttemptV2.CollatzNetDescentV211.bad_run_net_descent_mod128_channel_seven_eighty_seven
+    hn h7 hmod
+
+/--
+V2.11: Status-Bündel inkl. geschlossener `87 mod 128`-Faser.
+-/
+theorem reachable_collatz_proof_attempt_status_v211 :
+    CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV211 := by
+  exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v211
+
+/--
+V2.12: Kanal-7 Restklasse `119 mod 128` — Drei-Schritt-Syracuse-Zertifikat `[1,1,3]`.
+-/
+theorem reachable_channel_seven119_syracuse_three_step_descent (k : Nat) :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV212.syracuseOddStep^[3]
+      (_root_.KeplerHurwitz.Collatz.ChannelSevenAttackV212.channelSeven119Fiber k) <
+      _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV212.channelSeven119Fiber k :=
+  CollatzAttemptV2.CollatzNetDescentV212.channel_seven119_syracuse_three_step_net_descent k
+
+/--
+V2.12: `119 mod 128` liefert mod-8-Net-Descent-Witness (Kanal 7).
+-/
+theorem reachable_bad_run_net_descent_mod128_channel_seven_one_nineteen
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ m, n = 128 * m + 119) :
+    Nonempty (CollatzAttemptV2.CollatzNetDescent.CollatzNetDescentMod8Witness.BadRunNetDescentWitnessMod8 n
+      CollatzAttemptV2.CollatzNetDescentMod8.Mod4ThreeInputChannel.ch7) := by
+  exact CollatzAttemptV2.CollatzNetDescentV212.bad_run_net_descent_mod128_channel_seven_one_nineteen
+    hn h7 hmod
+
+/--
+V2.12: Status-Bündel inkl. geschlossener `119 mod 128`-Faser.
+-/
+theorem reachable_collatz_proof_attempt_status_v212 :
+    CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV212 := by
+  exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v212
+
+/--
+V2.12: Drei geschlossene affine Progressionen `{55, 87, 119} mod 128`.
+-/
+theorem reachable_channel_seven_affine_block_v212_status :
+    CollatzAttemptV2.ProofAttempt.ChannelSevenAffineBlockV212Status := by
+  exact CollatzAttemptV2.ProofAttempt.channel_seven_affine_block_v212_status
+
+/--
+V2.13: offene Kanal-7-Progression `71 mod 128` — affine Zertifikate Tiefe 3/4.
+-/
+theorem reachable_channel_seven71_three_step_affine_form (k : Nat) :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV213.syracuseOddStep^[3]
+      (_root_.KeplerHurwitz.Collatz.ChannelSevenAttackV213.channelSeven71Fiber k) =
+      216 * k + 121 :=
+  CollatzAttemptV2.CollatzNetDescentV213.channel_seven71_three_step_affine_form k
+
+/--
+V2.13: uniformes Kurzpräfix-Nichtabstiegszertifikat bis Tiefe 4 für `71 mod 128`.
+-/
+theorem reachable_channel_seven71_short_prefix_strict_ascent
+    (k : Nat) (t : Nat) (ht : t = 1 ∨ t = 2 ∨ t = 3 ∨ t = 4) :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV213.channelSeven71Fiber k <
+      _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV213.syracuseOddStep^[t]
+        (_root_.KeplerHurwitz.Collatz.ChannelSevenAttackV213.channelSeven71Fiber k) :=
+  _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV213.channelSeven71_short_prefix_strict_ascent k t ht
+
+theorem reachable_channel_seven71_open_fiber_status :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV213.ChannelSeven71OpenFiberStatus := by
+  exact _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV213.channel_seven71_open_fiber_status
+
+/--
+V2.13-Kern: konsolidierter Kanal-7-Status inkl. Zahlentheorie-Brücken.
+-/
+theorem reachable_channel_seven_kernel_status :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenKernel.ChannelSevenKernelStatus := by
+  exact _root_.KeplerHurwitz.Collatz.ChannelSevenKernel.channel_seven_kernel_status
+
+theorem reachable_channel_seven_syracuse_eq_oddCore (n : Nat) :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV210.syracuseOddStep n = oddCoreStep n := by
+  rfl
+
+theorem reachable_channel_seven_mod512_step5_cascade :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenKernel.Mod512ChannelSevenStep5Cascade := by
+  exact _root_.KeplerHurwitz.Collatz.ChannelSevenKernel.mod512_channel_seven_step5_cascade
+
+theorem reachable_channel_seven71_step5_branching_cascade :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV213.ChannelSeven71Step5BranchingCascade := by
+  exact _root_.KeplerHurwitz.Collatz.ChannelSevenAttackV213.channel_seven71_step5_branching_cascade
+
+theorem reachable_channel_seven_mod256_split_71 :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenKernel.Mod256ChannelSevenSplit := by
+  exact _root_.KeplerHurwitz.Collatz.ChannelSevenKernel.mod256_channel_seven_split_71
+
+theorem reachable_collatz_proof_attempt_status_v213 :
+    CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV213 := by
+  exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v213
+
+/-!
+## V2.14–V2.15: Ebene A (Lift-Geometrie) und Ebene B (Dynamik-Scaffold)
+-/
+
+theorem reachable_channel_seven_deep_lift_level_a_status :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214.ChannelSevenDeepLiftLevelAStatus := by
+  exact _root_.KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214.channel_seven_deep_lift_level_a_status
+
+theorem reachable_channel_seven_deep_lift_scaffold :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214.ChannelSevenDeepLiftScaffold := by
+  exact _root_.KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214.channel_seven_deep_lift_scaffold
+
+theorem reachable_channel_seven_dynamics_v215_scaffold :
+    _root_.KeplerHurwitz.Collatz.ChannelSevenDynamicsV215.ChannelSevenDynamicsV215Scaffold := by
+  exact _root_.KeplerHurwitz.Collatz.ChannelSevenDynamicsV215.channel_seven_dynamics_v215_scaffold
+
+theorem reachable_deep_lift_fiber_h7_mod128_inverse :
+    (243 : Collatz.ChannelSevenAffineMod128V215.mod128) * 59 = 1 ∧
+      (59 : Collatz.ChannelSevenAffineMod128V215.mod128) * 243 = 1 := by
+  exact ⟨
+    Collatz.ChannelSevenAffineMod128V215.coeff243_mul_59_mod128,
+    Collatz.ChannelSevenAffineMod128V215.coeff59_mul_243_mod128⟩
+
+theorem reachable_deep_lift_affine_entry_spec
+    (j : ℕ) (a : Collatz.ChannelSevenAffineMod128V215.mod128) :
+    Collatz.ChannelSevenAffineMod128V215.deepLiftFiberZMod j
+      (Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_target_parameter j a) = a := by
+  exact Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_entry_spec j a
+
+theorem reachable_deep_lift_affine_entry_unique
+    (j : ℕ) (a t : Collatz.ChannelSevenAffineMod128V215.mod128)
+    (ht : Collatz.ChannelSevenAffineMod128V215.deepLiftFiberZMod j t = a) :
+    t = Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_target_parameter j a := by
+  exact Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_entry_unique j a t ht
+
+theorem reachable_deep_lift_affine_target_unique
+    (j : ℕ) (a : Collatz.ChannelSevenAffineMod128V215.mod128) :
+    ∃! t : Collatz.ChannelSevenAffineMod128V215.mod128,
+      Collatz.ChannelSevenAffineMod128V215.deepLiftFiberZMod j t = a := by
+  exact Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_target_unique j a
+
+theorem reachable_deep_lift_affine_modEq128_iff (j t a : ℕ) :
+    Nat.ModEq 128 (Collatz.ChannelSevenDynamicsV215.deepLiftAffine j t) a ↔
+      Nat.ModEq 128 t
+        (Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_target_parameter j
+          (a : Collatz.ChannelSevenAffineMod128V215.mod128)).val := by
+  exact Collatz.ChannelSevenDynamicsV215.deepLiftAffine_modEq128_iff j t a
+
+theorem reachable_deep_lift_affine_mod128_parameter (j a : ℕ) :
+    (Collatz.ChannelSevenDynamicsV215.deepLiftAffine j
+        (Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_target_parameter j
+          (a : Collatz.ChannelSevenAffineMod128V215.mod128)).val) % 128 =
+      a % 128 := by
+  exact Collatz.ChannelSevenDynamicsV215.deepLiftAffine_mod128_parameter j a
+
+theorem reachable_channel_seven71_step6_branching_v215_scaffold :
+    Collatz.ChannelSeven71Step6BranchingV215.ChannelSeven71Step6BranchingV215Scaffold := by
+  exact Collatz.ChannelSeven71Step6BranchingV215.channel_seven71_step6_branching_v215_scaffold
+
+theorem reachable_collatz_proof_attempt_status_v215 :
+    CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV215 := by
+  exact CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v215
+
+/--
 V2.8: channel `3` with `T_odd n % 8 = 5` yields a full net-descent witness at `t_loc = 4`.
 -/
 theorem reachable_bad_run_net_descent_witness_mod8_channel_three_mod8_five
@@ -577,6 +815,73 @@ theorem reachable_three_step_shrink_gt_start_of_mod8_eq_three
     {n : Nat} (h8 : n % 8 = 3) :
     n < (3 * CollatzAttemptV2.T_odd n + 1) / 4 := by
   exact CollatzAttemptV2.CollatzNetDescentMod8.three_step_shrink_gt_start_of_mod8_eq_three h8
+
+/-!
+## ORQ-098: Oktonionische Chiral-Diagnostik (System-Freeze V3)
+-/
+
+/--
+ORQ-098: Infrastruktur validiert impliziert nicht arithmetische Resonanz.
+-/
+theorem reachable_octonionic_infrastructure_not_resonance :
+    OctonionicChiralDiagnostic.InfrastructureValidated →
+      OctonionicChiralDiagnostic.ArithmeticResonanceConfirmed → False := by
+  exact OctonionicChiralDiagnostic.infrastructure_does_not_imply_resonance
+
+/--
+ORQ-098: CEAB-Spiegel `S² = id` auf Chiral-Kanalprojektionen.
+-/
+theorem reachable_chiral_mirror_involutive
+    (c : OctonionicChiralDiagnostic.ChiralChannelProjection) :
+    OctonionicChiralDiagnostic.mirrorChannelProjection
+      (OctonionicChiralDiagnostic.mirrorChannelProjection c) = c := by
+  exact OctonionicChiralDiagnostic.mirrorChannelProjection_involutive c
+
+/--
+ORQ-098: Chiralität `C_Δ` ist ungerade unter CEAB-Spiegelung.
+-/
+theorem reachable_chiral_delta_neg_under_mirror
+    (c : OctonionicChiralDiagnostic.ChiralChannelProjection) :
+    OctonionicChiralDiagnostic.chiralDelta
+      (OctonionicChiralDiagnostic.mirrorChannelProjection c) =
+      -OctonionicChiralDiagnostic.chiralDelta c := by
+  exact OctonionicChiralDiagnostic.chiralDelta_neg_under_mirror c
+
+/--
+ORQ-098: Paritätszerlegung — `A_sym` ist der reine spiegelgerade Anteil.
+-/
+theorem reachable_symmetrized_amplitude_eq_mirror_even_part
+    (c : OctonionicChiralDiagnostic.ChiralChannelProjection) :
+    OctonionicChiralDiagnostic.mirrorEvenPart
+      OctonionicChiralDiagnostic.symmetrizedAmplitude c =
+      OctonionicChiralDiagnostic.symmetrizedAmplitude c := by
+  exact OctonionicChiralDiagnostic.symmetrizedAmplitude_eq_mirrorEvenPart c
+
+/--
+ORQ-098: Paritätszerlegung — `C_Δ` ist der reine spiegelungerade Anteil.
+-/
+theorem reachable_chiral_delta_eq_mirror_odd_part
+    (c : OctonionicChiralDiagnostic.ChiralChannelProjection) :
+    OctonionicChiralDiagnostic.mirrorOddPart
+      OctonionicChiralDiagnostic.chiralDelta c =
+      OctonionicChiralDiagnostic.chiralDelta c := by
+  exact OctonionicChiralDiagnostic.chiralDelta_eq_mirrorOddPart c
+
+/--
+ORQ-098: Fano-Ebene hat 168 Kollineationen (V2.1 Fano-Audit).
+-/
+theorem reachable_fano_automorphism_count_eq_168 :
+    OctonionicChiralDiagnostic.fanoAutomorphisms.card = 168 := by
+  exact OctonionicChiralDiagnostic.fano_automorphism_count_eq_168
+
+/--
+ORQ-098: Primquadruplet-Offset-Geometrie `(0,2,6,8)`.
+-/
+theorem reachable_prime_quadruplet_canonical_offsets
+    (v : PrimeQuadruplet) :
+    [v.p, v.p + 2, v.p + 6, v.p + 8] =
+      OctonionicChiralDiagnostic.primeQuadrupletRelativeOffsets.map (fun d => v.p + d) := by
+  exact OctonionicChiralDiagnostic.PrimeQuadruplet.canonical_offsets v
 
 
 end KeplerHurwitz

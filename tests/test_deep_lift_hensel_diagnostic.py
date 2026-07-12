@@ -65,6 +65,29 @@ def test_odd_core_matches_v2_quotient() -> None:
         assert odd_core(m) == m >> v2(m)
 
 
+def test_generate_h7_witness_matrix_j1_to_j5() -> None:
+    from kepler_hurwitz.deep_lift_hensel_diagnostic import (
+        CONTROLLED_RESIDUES_MOD128,
+        deep_lift_affine_target_parameter,
+        deep_lift_constant,
+        generate_h7_witness_matrix,
+    )
+
+    matrix = generate_h7_witness_matrix(5)
+    assert len(matrix) == 5
+
+    lean_c_j = {1: 169, 2: 206, 3: 103, 4: 173, 5: 208}
+    for row in matrix:
+        j = int(row["j"])
+        assert row["c_j"] == lean_c_j[j]
+        residues = row["residues"]
+        assert set(residues.keys()) == CONTROLLED_RESIDUES_MOD128
+        for a, entry in residues.items():
+            assert entry["fiber_mod128"] == a
+            assert entry["t_param"] == deep_lift_affine_target_parameter(j, a)
+            assert entry["c_j"] == deep_lift_constant(j)
+
+
 def test_scan_deep_lift_fiber_dynamics_j3_t_zero() -> None:
     from kepler_hurwitz.deep_lift_hensel_diagnostic import (
         deep_lift_fiber,
