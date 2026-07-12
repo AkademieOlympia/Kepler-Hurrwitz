@@ -79,6 +79,18 @@ private theorem two_pow_succ_not_dvd_of_padicValNat_eq {m j : Nat}
   have h := pow_succ_padicValNat_not_dvd (p := 2) hm
   rwa [← heq]
 
+lemma padicValNat_eight : padicValNat 2 8 = 3 := by
+  haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+  rw [show (8 : Nat) = 2 ^ 3 from by decide, padicValNat.prime_pow]
+
+/-- Schritt-5-Kick: `ν_2(8 · (243r + 95)) = 3 + ν_2(243r + 95)`. -/
+theorem step5Kick_padicVal (r : Nat) :
+    padicValNat 2 (8 * (243 * r + 95)) = 3 + padicValNat 2 (243 * r + 95) := by
+  haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+  have h_pos : 243 * r + 95 ≠ 0 := by omega
+  have h_eight : 8 ≠ 0 := by decide
+  rw [padicValNat.mul h_eight h_pos, padicValNat_eight]
+
 /-!
 ## Invertierbarkeit von `243` modulo `2^j` (Ebene A, ohne Dynamik)
 -/
@@ -474,8 +486,8 @@ theorem nu2_deepBranch_eq_iff (j r : Nat) :
       exact hnot_mod_succ hmod
     omega
 
-/-- H4: affine Terminalform bei `r = ρ_j + 2^j t`. -/
-theorem deepLift_terminal_affine (j t : Nat) :
+/-- H4: affine Faktorisierung bei `r = ρ_j + 2^j t`. -/
+theorem deepLift_affine_factorization (j t : Nat) :
     deepBranchPoly (deepLiftResidue j + deepLiftModulus j * t) =
       deepLiftModulus j * (deepBranchMultiplier * t + deepLiftConstant j) := by
   set ρ := deepLiftResidue j
@@ -493,6 +505,11 @@ theorem deepLift_terminal_affine (j t : Nat) :
     _ = m * (c + deepBranchMultiplier * t) := by ring
     _ = m * (deepBranchMultiplier * t + c) := by ring
 
+theorem deepLift_terminal_affine (j t : Nat) :
+    deepBranchPoly (deepLiftResidue j + deepLiftModulus j * t) =
+      deepLiftModulus j * (deepBranchMultiplier * t + deepLiftConstant j) :=
+  deepLift_affine_factorization j t
+
 private theorem deepLift_affine_quotient_odd_of_exactVal (j t : Nat)
     (heq : padicValNat 2 (deepBranchPoly (deepLiftResidue j + deepLiftModulus j * t)) = j) :
     Odd (deepBranchMultiplier * t + deepLiftConstant j) := by
@@ -505,20 +522,26 @@ private theorem deepLift_affine_quotient_odd_of_exactVal (j t : Nat)
   intro hEven
   have h2 := Even.two_dvd hEven
   rcases h2 with ⟨u, hu⟩
-  have haff := deepLift_terminal_affine j t
+  have haff := deepLift_affine_factorization j t
   have hpow : 2 ^ (j + 1) ∣ deepBranchPoly (deepLiftResidue j + deepLiftModulus j * t) := by
     rw [haff, show deepBranchMultiplier * t + deepLiftConstant j = q from rfl, hu,
       deepLiftModulus, pow_succ]
     exact ⟨u, by simp [mul_assoc, mul_comm, mul_left_comm]⟩
   exact hnot (by simpa [r] using hpow)
 
+/-- Bei exakter Valuation `j` ist der affine Quotient `243t + c_j` ungerade. -/
+theorem odd_of_exact_padicVal (j t : Nat)
+    (heq : padicValNat 2 (deepBranchPoly (deepLiftResidue j + deepLiftModulus j * t)) = j) :
+    Odd (deepBranchMultiplier * t + deepLiftConstant j) :=
+  deepLift_affine_quotient_odd_of_exactVal j t heq
+
 /-- H4 + oddCore: bei exakter Valuation `j` ist `oddCore(243r+95) = 243t + c_j`. -/
 theorem deepLift_terminal_of_exactVal (j r t : Nat)
     (hr : r = deepLiftResidue j + deepLiftModulus j * t)
     (heq : padicValNat 2 (deepBranchPoly r) = j) :
     oddCore (deepBranchPoly r) = deepBranchMultiplier * t + deepLiftConstant j := by
-  rw [hr, deepLift_terminal_affine]
-  have hodd := deepLift_affine_quotient_odd_of_exactVal j t (by simpa [hr] using heq)
+  rw [hr, deepLift_affine_factorization]
+  have hodd := odd_of_exact_padicVal j t (by simpa [hr] using heq)
   rw [deepLiftModulus, oddCore_two_pow_mul j _ hodd]
 
 /-- Exakte Valuation `j` ↔ fehlgeschlagener Lift auf Schale `j+1`. -/

@@ -959,13 +959,13 @@ Ebene A — drei getrennte Schichten
 │ 1. Modular sieve   deepLiftResidue_iff                      │
 │    2^j | 243r+95  ↔  r ≡ ρ_j (mod 2^j)          [H1 DONE] │
 ├─────────────────────────────────────────────────────────────┤
-│ 2. Valuation scale pow_dvd_iff_le_padicValNat               │
+│ 2. Valuation scale pow_dvd_iff_le_padicValNat, step5Kick_padicVal       │
 │    2^j | m  ↔  j ≤ ν_2(m)                       [H2 DONE] │
 │    ν_2 = j  ↔  r ≡ ρ_j ∧ r ≢ ρ_{j+1} (mod 2^{j+1})         │
 ├─────────────────────────────────────────────────────────────┤
 │ 3. Terminal oddCore (nur bei exakter Valuation j)           │
+│    deepLift_affine_factorization; odd_of_exact_padicVal     │
 │    oddCore(m) = 243t + c_j  wenn ν_2(m)=j         [H4 DONE] │
-│    Governance: oddCore erst nach affiner Faktorisierung     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -988,7 +988,7 @@ r \not\equiv \rho_{j+1} \pmod{2^{j+1}}.
 **Wichtig:** Die Generator-Invariante ist **Teilbarkeit**, nicht `ν_2(243·ρ_j + 95) = j`.
 Plateau-Beispiel: `ρ_5 = 27`, aber `ν_2(243·27 + 95) = ν_2(6656) = 9`.
 
-**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert. **H1 geschlossen:** `deepLiftResidue_spec`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue`. **H2/H4 geschlossen:** `pow_dvd_iff_le_padicValNat`, `nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`, `deepLift_terminal_affine`, `deepLift_terminal_of_exactVal`, `deepLift_terminal_next_lift_fails`. Python: `verify_padic_bridge_and_offsets`.
+**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert. **H1 geschlossen:** `deepLiftResidue_spec`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue`. **H2/H4 geschlossen:** `pow_dvd_iff_le_padicValNat`, `step5Kick_padicVal`, `nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`, `deepLift_affine_factorization`, `odd_of_exact_padicVal`, `deepLift_terminal_of_exactVal`, `deepLift_terminal_next_lift_fails`. Python: `verify_padic_bridge_and_offsets`.
 
 ### Angriffshypothesen (H1–H8)
 
