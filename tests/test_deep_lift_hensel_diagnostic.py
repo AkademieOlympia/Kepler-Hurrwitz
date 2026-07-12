@@ -75,6 +75,17 @@ def test_scan_deep_lift_fiber_dynamics_j3_t_zero() -> None:
     assert deep_lift_fiber(3, 0) == 103
     assert syracuse_odd_step(103) == odd_core(3 * 103 + 1)
     result = scan_deep_lift_fiber_dynamics(j_max=3, t_max=4, depth=2)
-    assert result["total_rows"] == 15
+    assert result["total_rows"] == 13
     j3_t0 = next(row for row in result["rows"] if row["j"] == 3 and row["t"] == 0)
     assert j3_t0["start"] == 103
+
+
+def test_scan_j3_step6_kick_nu2_by_u_parity() -> None:
+    from kepler_hurwitz.deep_lift_hensel_diagnostic import scan_j3_step6_kick
+
+    result = scan_j3_step6_kick(u_max=8)
+    assert result["nu2_eq1_on_even_u"] == 5
+    assert result["nu2_ge2_on_odd_u"] == 4
+    u0 = next(row for row in result["rows"] if row["u"] == 0)
+    assert u0["step6"] == 155
+    assert u0["nu2_kick"] == 1

@@ -47,6 +47,7 @@ __all__ = [
     "syracuse_odd_step",
     "deep_lift_fiber",
     "scan_deep_lift_fiber_dynamics",
+    "scan_j3_step6_kick",
     "export_deep_lift_fiber_dynamics_json",
     "Integer",
     "v2",
@@ -321,6 +322,47 @@ def deep_lift_fiber(j: int, t: int) -> int:
     return DEEP_BRANCH_MULTIPLIER * t + deep_lift_constant(j)
 
 
+def scan_j3_step6_kick(
+    u_max: int = 20,
+) -> dict[str, object]:
+    """
+    `[B]` Step-6 kick on shell ``j=3`` with ``t=2u`` (even-t side condition).
+
+    Classifies ``ν₂(3m+1)`` for ``m = 486u + 103`` by parity of ``u``.
+    """
+    closed_mod128 = {55, 87, 119}
+    rows: list[dict[str, object]] = []
+    for u in range(0, u_max + 1):
+        t = 2 * u
+        m = deep_lift_fiber(3, t)
+        kick = 3 * m + 1
+        nu = v2(kick)
+        step = syracuse_odd_step(m)
+        rows.append(
+            {
+                "u": u,
+                "t": t,
+                "m": m,
+                "nu2_kick": nu,
+                "u_parity": "even" if u % 2 == 0 else "odd",
+                "step6": step,
+                "step6_mod128": step % 128,
+                "hits_closed_mod128": step % 128 in closed_mod128,
+            }
+        )
+    nu1_even_u = sum(1 for row in rows if row["u_parity"] == "even" and row["nu2_kick"] == 1)
+    nu_ge2_odd_u = sum(
+        1 for row in rows if row["u_parity"] == "odd" and row["nu2_kick"] >= 2
+    )
+    return {
+        "u_max": u_max,
+        "rows": rows,
+        "nu2_eq1_on_even_u": nu1_even_u,
+        "nu2_ge2_on_odd_u": nu_ge2_odd_u,
+        "total_rows": len(rows),
+    }
+
+
 def scan_deep_lift_fiber_dynamics(
     *,
     j_max: int = 5,
@@ -337,6 +379,8 @@ def scan_deep_lift_fiber_dynamics(
     for j in range(1, j_max + 1):
         c_j = deep_lift_constant(j)
         for t in range(0, t_max + 1):
+            if j == 3 and t % 2 == 1:
+                continue
             n = deep_lift_fiber(j, t)
             orbit = [n]
             cur = n

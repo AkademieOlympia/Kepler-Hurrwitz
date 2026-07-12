@@ -2,6 +2,7 @@ import Mathlib
 import KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214
 import KeplerHurwitz.Collatz.Octonion.Definitions
 import KeplerHurwitz.CollatzProofAttemptV27
+import KeplerHurwitz.Nu2Bounds
 
 /-!
 # Kanal-7 V2.15 — Ebene B: Dynamik nach `S⁵ = 243t + c_j`
@@ -150,6 +151,102 @@ theorem channelSeven71_step5_deepLiftFiber_j3_t_zero :
     channelSeven71_step5_deepLiftFiber_j3_even_t 0 (by decide)
 
 /-!
+## H6b — Step 6 auf Schale `j = 3`: `m = 243t + 103` mit geradem `t`
+
+H4-Seitenbedingung: Terminalfamilie ist ungerade genau wenn `t` gerade ist.
+Parameterisierung `t = 2u` liefert `m = 486u + 103` und `3m+1 = 2(729u+155)`.
+-/
+
+/-- H4: `243t + 103` ist ungerade genau für gerades `t` (exakte Schale `j = 3`). -/
+theorem deepLiftFiber_j3_odd_iff_t_even (t : Nat) :
+    Odd (deepLiftFiber 3 t) ↔ t % 2 = 0 := by
+  rw [deepLiftFiber_eq, deepLiftConstant_three, Nat.odd_iff]
+  omega
+
+theorem deepLiftFiber_j3_reparam_even (u : Nat) :
+    deepLiftFiber 3 (2 * u) = 486 * u + 103 := by
+  rw [deepLiftFiber_eq, deepLiftConstant_three]
+  ring
+
+theorem deepLiftFiber_j3_step6_certificate (u : Nat) :
+    3 * (486 * u + 103) + 1 = 2 * (729 * u + 155) := by
+  ring
+
+theorem deepLiftFiber_j3_step6_quotient_parity (u : Nat) :
+    (729 * u + 155) % 2 = (u + 1) % 2 := by
+  omega
+
+theorem deepLiftFiber_j3_step6_quotient_odd_u_even (u : Nat) (hu : u % 2 = 0) :
+    Odd (729 * u + 155) := by
+  have h1 : (729 * u + 155) % 2 = 1 := by omega
+  exact Nat.odd_iff.mpr h1
+
+theorem deepLiftFiber_j3_step6_quotient_even_u_odd (u : Nat) (hu : u % 2 = 1) :
+    (729 * u + 155) % 2 = 0 := by
+  omega
+
+theorem deepLiftFiber_j3_step6_mod8_u_even (u : Nat) (hu : u % 2 = 0) :
+    (486 * u + 103) % 8 = 3 ∨ (486 * u + 103) % 8 = 7 := by
+  omega
+
+theorem deepLiftFiber_j3_step6_mod8_u_odd (u : Nat) (hu : u % 2 = 1) :
+    (486 * u + 103) % 8 = 1 ∨ (486 * u + 103) % 8 = 5 := by
+  omega
+
+theorem deepLiftFiber_j3_step6_nu2_eq_one_u_even (u : Nat) (hu : u % 2 = 0) :
+    padicValNat 2 (3 * (486 * u + 103) + 1) = 1 := by
+  rcases deepLiftFiber_j3_step6_mod8_u_even u hu with h3 | h7
+  · exact nu2_three_mul_add_one_eq_one_of_mod8_eq3 h3
+  · exact nu2_three_mul_add_one_eq_one_of_mod8_eq7 h7
+
+theorem deepLiftFiber_j3_step6_nu2_u_odd (u : Nat) (hu : u % 2 = 1) :
+    padicValNat 2 (3 * (486 * u + 103) + 1) = 2 ∨
+      3 ≤ padicValNat 2 (3 * (486 * u + 103) + 1) := by
+  rcases deepLiftFiber_j3_step6_mod8_u_odd u hu with h1 | h5
+  · exact Or.inl (nu2_three_mul_add_one_eq_two_of_mod8_eq1 h1)
+  · exact Or.inr (nu2_three_mul_add_one_ge_three_of_mod8_eq5 h5)
+
+theorem syracuseOdd_deepLiftFiber_j3_step6_u_even (u : Nat) (hu : u % 2 = 0) :
+    syracuseOddStep (deepLiftFiber 3 (2 * u)) = 729 * u + 155 := by
+  rw [deepLiftFiber_j3_reparam_even]
+  exact oddCoreStep_eq_of_two_pow_mul_odd
+    (deepLiftFiber_j3_step6_certificate u)
+    (deepLiftFiber_j3_step6_quotient_odd_u_even u hu)
+    (deepLiftFiber_j3_step6_nu2_eq_one_u_even u hu)
+
+theorem syracuseOdd_deepLiftFiber_j3_step6_u_odd (u : Nat) (_hu : u % 2 = 1) :
+    syracuseOddStep (deepLiftFiber 3 (2 * u)) =
+      (3 * (486 * u + 103) + 1) /
+        2 ^ padicValNat 2 (3 * (486 * u + 103) + 1) := by
+  rw [deepLiftFiber_j3_reparam_even, syracuseOddStep, oddCoreStep_eq_div_padicVal]
+
+theorem syracuseOdd_deepLiftFiber_j3_step6 (t : Nat) (_ht : t % 2 = 0) :
+    let u := t / 2
+    t = 2 * u ∧
+      (u % 2 = 0 → syracuseOddStep (deepLiftFiber 3 t) = 729 * u + 155) ∧
+        (u % 2 = 1 →
+          syracuseOddStep (deepLiftFiber 3 t) =
+            (3 * (486 * u + 103) + 1) /
+              2 ^ padicValNat 2 (3 * (486 * u + 103) + 1)) := by
+  set u := t / 2
+  have hu : t = 2 * u := by omega
+  refine ⟨hu, ?_, ?_⟩
+  · intro h0
+    rw [show deepLiftFiber 3 t = deepLiftFiber 3 (2 * u) from by rw [hu]]
+    exact syracuseOdd_deepLiftFiber_j3_step6_u_even u h0
+  · intro h1
+    rw [show deepLiftFiber 3 t = deepLiftFiber 3 (2 * u) from by rw [hu]]
+    exact syracuseOdd_deepLiftFiber_j3_step6_u_odd u h1
+
+theorem syracuseOdd_deepLiftFiber_j3_step6_anchor :
+    syracuseOddStep (deepLiftFiber 3 0) = 155 := by
+  simpa using syracuseOdd_deepLiftFiber_j3_step6_u_even 0 (by decide)
+
+/-- Step-6-Ziel `729u+155` modulo `128` am Anker `u = 0` (mod-128-Eintritt noch offen). -/
+theorem deepLiftFiber_j3_step6_mod128_anchor :
+    (729 * 0 + 155) % 128 = 27 := by decide
+
+/-!
 ## H7 — Typenreduktion (Scaffold, `[C]`)
 -/
 
@@ -188,7 +285,8 @@ explizit Ebene B und bleibt offen.
 -/
 theorem deepLiftFiber_net_descent_witness (j : Nat) (n : Nat)
     (_hn : 1 < n) (_hmod : n % 4 = 3) (_hseven : n % 8 = 7) :
-    Nonempty (_root_.KeplerHurwitz.CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentWitness n) := by
+    Nonempty (
+      _root_.KeplerHurwitz.CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentWitness n) := by
   sorry
 
 /--
@@ -215,8 +313,21 @@ structure ChannelSevenDynamicsV215Scaffold : Prop where
     ∀ t : Nat, t % 2 = 0 →
       syracuseOddStep^[5] (channelSeven71Fiber (4 * (deepBranchParam 3 t) + 1)) =
         deepLiftFiber 3 t
+  j3_step6_shell :
+    ∀ t : Nat, Odd (deepLiftFiber 3 t) ↔ t % 2 = 0
+  j3_step6_kick :
+    ∀ u : Nat, u % 2 = 0 →
+      syracuseOddStep (deepLiftFiber 3 (2 * u)) = 729 * u + 155
+  j3_step6_nu2 :
+    ∀ u : Nat, u % 2 = 0 → padicValNat 2 (3 * (486 * u + 103) + 1) = 1
+  j3_step6_nu2_odd :
+    ∀ u : Nat, u % 2 = 1 →
+      padicValNat 2 (3 * (486 * u + 103) + 1) = 2 ∨
+        3 ≤ padicValNat 2 (3 * (486 * u + 103) + 1)
   anchor_t_zero :
     syracuseOddStep^[5] (channelSeven71Fiber 13) = 103
+  anchor_step6 :
+    syracuseOddStep (deepLiftFiber 3 0) = 155
   t_zero_values :
     deepLiftFiber 1 0 = 169 ∧
       deepLiftFiber 2 0 = 206 ∧
@@ -234,7 +345,12 @@ theorem channel_seven_dynamics_v215_scaffold : ChannelSevenDynamicsV215Scaffold 
   fiber_definitions := ⟨deepLiftFiber_eq, deepBranchParam_eq⟩
   mod_three_invariant := deepLiftFiber_residue_mod_three
   j3_step5_bridge := channelSeven71_step5_deepLiftFiber_j3_even_t
+  j3_step6_shell := deepLiftFiber_j3_odd_iff_t_even
+  j3_step6_kick := syracuseOdd_deepLiftFiber_j3_step6_u_even
+  j3_step6_nu2 := deepLiftFiber_j3_step6_nu2_eq_one_u_even
+  j3_step6_nu2_odd := deepLiftFiber_j3_step6_nu2_u_odd
   anchor_t_zero := channelSeven71_step5_deepLiftFiber_j3_t_zero
+  anchor_step6 := syracuseOdd_deepLiftFiber_j3_step6_anchor
   t_zero_values := ⟨
     deepLiftFiber_t_zero_one, deepLiftFiber_t_zero_two, deepLiftFiber_t_zero_three,
     deepLiftFiber_t_zero_four, deepLiftFiber_t_zero_five⟩
