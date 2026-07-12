@@ -139,7 +139,11 @@ Für `n = 8k+3`:
 
 **Option B (Gerüst):** `badRunTwoAdicBudget n := ν₂(n+1)` benennt das V2.5-Tiefenbudget; `BadRunTwoAdicBudgetExhaustionStatement` markiert die intendierte Widerspruchsschablone für Kanal `7`.
 
-**Noch offen:** Kanal `3` mit `T_odd n % 8 = 1` und `k % 4 = 3` — `t_loc` ist `j`-abhängig (z. B. `n=27` ⇒ `t_loc=94`); Unterklasse `n ≡ 59 (mod 128)` (`j ≡ 1 mod 4`) schließt bei **`t_loc = 9`**; Kanal `7` uniform.
+**Noch offen:** Kanal `3` mod-256-Unterklassen `{27, 91, 155, 251}`; Kanal `7` für `k % 4 ≠ 2`.
+
+**Neu in V2.8 (mod-256):** `j % 8 = 3` (`n ≡ 123 mod 256`) und `j % 8 = 6` (`n ≡ 219 mod 256`) schließen bei uniformem **`t_loc = 11`**.
+
+**Neu in V2.8 (Kanal 7):** `k % 4 = 2` (`n = 32j+23`) schließt bei **`t_good = 4`**, **`t_loc = 4`** (Gesamtabstieg in 8 Schritten).
 
 ### V2.8 Lemma-Map `[A]` vs `[C]` (aktualisiert)
 
@@ -164,38 +168,93 @@ Für `n = 8k+3`:
 | `channel_three_eight_step_fails_net_mod128_fiftynine` | **`[A]`** — uniformes `t_loc = 8` scheitert auf `n ≡ 59 (mod 128)` |
 | `channel_three_collatz_net_descent_mod128_fiftynine_at_nine` | **`[A]`** — Netto-Abstieg bei `n ≡ 59 (mod 128)`, `t_loc = 9` |
 | `bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_mod4_one` | **`[A]`** — voller Witness, `t_loc = 9` |
+| `exists_eq_two_hundred_fifty_six_mul_add_one_hundred_twenty_three_of_j_mod8_three` | **`[A]`** — `j % 8 = 3` ⇔ `n = 256m+123` |
+| `exists_eq_two_hundred_fifty_six_mul_add_two_hundred_nineteen_of_j_mod8_six` | **`[A]`** — `j % 8 = 6` ⇔ `n = 256m+219` |
+| `mod256_residue_of_thirty_two_mul_add_twentyseven_j_mod8` | **`[A]`** — mod-256-Split `{27,59,91,123,155,187,219,251}` |
+| `channel_three_*_step_value_of_two_hundred_fifty_six_mul_add_one_hundred_twenty_three` | **`[A]`** — Schritte 6–11, Wert `243m+118` |
+| `channel_three_ten_step_fails_net_mod256_one_hundred_twenty_three` | **`[A]`** — uniformes `t_loc = 10` scheitert |
+| `channel_three_collatz_net_descent_mod256_one_hundred_twenty_three_at_eleven` | **`[A]`** — Netto-Abstieg bei `n ≡ 123 (mod 256)`, `t_loc = 11` |
+| `bad_run_net_descent_witness_mod8_channel_three_j_mod8_three` | **`[A]`** — voller Witness, `t_loc = 11` |
+| `channel_three_*_step_value_of_two_hundred_fifty_six_mul_add_two_hundred_nineteen` | **`[A]`** — Schritte 6–11, Wert `243m+209` |
+| `channel_three_collatz_net_descent_mod256_two_hundred_nineteen_at_eleven` | **`[A]`** — Netto-Abstieg bei `n ≡ 219 (mod 256)`, `t_loc = 11` |
+| `bad_run_net_descent_witness_mod8_channel_three_j_mod8_six` | **`[A]`** — voller Witness, `t_loc = 11` |
+| `T_odd_mod8_eq_three_iff_k_even_of_mod8_eq_seven` | **`[A]`** |
+| `exists_eq_thirty_two_mul_add_twenty_three_of_mod8_eq_seven_and_k_mod4_two` | **`[A]`** — `k % 4 = 2` ⇔ `n = 32j+23` |
+| `channel_seven_four_step_value_of_thirty_two_mul_add_twenty_three` | **`[A]`** — Good-Branch-Eintritt `m = 72j+53` |
+| `channel_seven_four_step_shrink_value_of_seventy_two_mul_add_fiftythree` | **`[A]`** — Shrink-Wert `27j+20` |
+| `channel_seven_five_step_fails_net_k_mod4_two` | **`[A]`** — uniformes `t_loc = 5` scheitert |
+| `bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two` | **`[A]`** — voller Witness, `t_good=4`, `t_loc=4` |
 | `bad_run_two_adic_budget_ge_two_of_mod4_eq_three` | **`[A]`** |
 | `channel_seven_T_odd_mod4_eq_three` | **`[A]`** |
-| `bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_not_mod4_one` | **`[C]`** (`sorry`) |
-| `bad_run_net_descent_witness_mod8_channel_seven_v28` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_three_j_mod8_open` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_seven_k_mod4_not_two` | **`[C]`** (`sorry`) |
 | `BadRunTwoAdicBudgetExhaustionStatement` | **`[C]`** (Platzhalter) |
 
 **Build:** `lake build KeplerHurwitz.CollatzProofAttemptV28`
 
-**Fortschritt gegenüber V2.7:** Kanal-`3`-Starts mit geradem `k` (`t_loc=4`), ungeradem `k % 4 = 1` (`t_loc=6`), und `k % 4 = 3` mit `j % 4 = 1` / `n ≡ 59 (mod 128)` (`t_loc=9`) haben jetzt **`[A]`**-Zeugen; die übrigen drei mod-128-Unterklassen von `k % 4 = 3` und Kanal `7` bleiben **`[C]`**.
+**Fortschritt gegenüber V2.7:** Kanal-`3`-Starts mit geradem `k` (`t_loc=4`), ungeradem `k % 4 = 1` (`t_loc=6`), `k % 4 = 3` mit `j % 4 = 1` (`t_loc=9`), mod-256 `{123,219}` (`t_loc=11`) haben **`[A]`**-Zeugen; Kanal `7` mit `k % 4 = 2` (`t_good=4`, `t_loc=4`); verbleibende mod-256-Klassen `{27,91,155,251}` und Kanal `7` `k % 4 ≠ 2` bleiben **`[C]`**.
 
-#### Kanal-3-Abdeckung (V2.8)
+#### Kanal-3-Abdeckung (V2.8, mod-256 verfeinert)
 
 Für `n % 8 = 3` mit `n = 8k+3`:
 
 | Unterfall | Anteil | `t_loc` | Status |
 |---|---|---|---|
-| `k` gerade (`T_odd % 8 = 5`) | 1/2 | 4 | **`[A]`** |
-| `k` ungerade, `k % 4 = 1` (`n = 32j+11`) | 1/4 | 6 | **`[A]`** |
-| `k` ungerade, `k % 4 = 3`, `j % 4 = 1` (`n ≡ 59 mod 128`) | 1/16 | 9 | **`[A]`** |
-| `k` ungerade, `k % 4 = 3`, `j % 4 ∈ {0,2,3}` | 3/16 | variabel | **`[C]`** |
+| `k` gerade (`T_odd % 8 = 5`) | 16/32 | 4 | **`[A]`** |
+| `k` ungerade, `k % 4 = 1` (`n = 32j+11`) | 8/32 | 6 | **`[A]`** |
+| `k` ungerade, `k % 4 = 3`, `j % 4 = 1` (`n ≡ 59 mod 128`) | 2/32 | 9 | **`[A]`** |
+| `k % 4 = 3`, `j % 8 = 3` (`n ≡ 123 mod 256`) | 1/32 | 11 | **`[A]`** |
+| `k % 4 = 3`, `j % 8 = 6` (`n ≡ 219 mod 256`) | 1/32 | 11 | **`[A]`** |
+| `k % 4 = 3`, `j % 8 ∈ {0,2,4,7}` (`n ≡ {27,91,155,251} mod 256`) | 4/32 | variabel | **`[C]`** |
 
-**Kanal-3-Abdeckung gesamt: 13/16 ≈ 81,25 %.**
+**Kanal-3-Abdeckung gesamt (mod 256, c9e2d74): 28/32 = 87,5 % formal.**
 
-#### Beispiel `n = 27` (`k = 3`, `k % 4 = 3`, `j = 0`, `n % 128 = 27`)
+> **Historischer V2.8-Stand (mod 128):** 13/16 = 81,25 %; offene Elternklassen `{27, 91, 123}`.
+> Die selektive mod-256-Verfeinerung (c9e2d74) schließt `{123, 219}`; verbleibende Deep-Tail-Frontier: `{27, 91, 155, 251}`.
+
+#### Kanal-7-Abdeckung (V2.8, partiell)
+
+Für `n % 8 = 7` mit `n = 8k+7`:
+
+| Unterfall | Anteil | Witness | Status |
+|---|---|---|---|
+| `k % 4 = 2` (`n = 32j+23`) | 1/4 | `t_good=4`, `t_loc=4` | **`[A]`** |
+| `k % 4 ∈ {0,1,3}` | 3/4 | offen | **`[C]`** |
+
+**Kanal-7-Abdeckung: 1/4 = 25 %.**
+
+#### Beispiel `n = 27` (`k = 3`, `k % 4 = 3`, `j = 0`, `n % 256 = 27`) — **offen**
 
 | Größe | Wert |
 |---|---|
 | `T_odd 27` | `41` (`% 8 = 1`) |
-| `(collatzStep^[3]) 41` | `31` (Lücke `+4` über `n`) |
-| `(collatzStep^[5]) 41` | `47` (uniforme `t_loc ≤ 5` scheitert — **`[A]`**) |
-| `(collatzStep^[6]) 41` | `142` (uniformes `t_loc = 6` scheitert — **`[A]`**) |
+| `(collatzStep^[10]) 41` | `236` (≥ `n` — **`[A]`** mod-256-Barriere) |
+| `(collatzStep^[11]) 41` | `118` (≥ `n` — **`[A]`** mod-256-Barriere) |
 | minimales `t_loc` (numerisch) | `94` → Wert `23 < 27` |
+| mod-256-Split | `j % 8 = 0` innerhalb `n ≡ 27 (mod 256)` — kein uniformes kleines `t_loc` |
+
+#### Beispiel `n = 123` (`j = 3`, `j % 8 = 3`, `n ≡ 123 mod 256`) — **geschlossen**
+
+| Größe | Wert |
+|---|---|
+| `(collatzStep^[10]) (T_odd 123)` | `236` (≥ `n` — **`[A]`** Barriere) |
+| `(collatzStep^[11]) (T_odd 123)` | `118 < 123` — **`[A]`** Witness bei `t_loc = 11` |
+| geschlossene Form | `243m+118` bei `n = 256m+123` |
+
+#### Beispiel `n = 219` (`j = 6`, `j % 8 = 6`, `n ≡ 219 mod 256`) — **geschlossen**
+
+| Größe | Wert |
+|---|---|
+| `(collatzStep^[11]) (T_odd 219)` | `209 < 219` — **`[A]`** Witness bei `t_loc = 11` |
+| geschlossene Form | `243m+209` bei `n = 256m+219` |
+
+#### Beispiel `n = 23` (Kanal 7, `k = 2`, `k % 4 = 2`) — **geschlossen**
+
+| Größe | Wert |
+|---|---|
+| `(collatzStep^[4]) 23` | `53` (`% 4 = 1`, Good-Branch-Eintritt) |
+| `(collatzStep^[4]) 53` | `20 < 23` — **`[A]`** Witness (`t_loc=4` ab Good-Branch) |
+| Gesamtabstieg | `(collatzStep^[8]) 23 = 20 < 23` |
 
 #### Beispiel `n = 59` (`k = 7`, `k % 4 = 3`, `j = 1`, `n % 128 = 59`)
 
@@ -205,6 +264,159 @@ Für `n % 8 = 3` mit `n = 8k+3`:
 | `(collatzStep^[8]) 89` | `76` (≥ `n` — **`[A]`** Barriere) |
 | `(collatzStep^[9]) 89` | `38 < 59` — **`[A]`** Witness bei `t_loc = 9` |
 | geschlossene Form | `81m+38` bei `n = 128m+59` |
+
+---
+
+## Kanal-3-Freeze (V2.8 / c9e2d74, nicht weiter verfolgt)
+
+**Aktueller Freeze-Stand: 28/32 = 87,5 % formal (mod 256).** Keine weitere Arbeit an Kanal `3`.
+
+### Historischer Stand (mod 128, V2.8)
+
+| Kennzahl | Wert |
+|---|---|
+| formale Abdeckung | 13/16 = 81,25 % |
+| offene Elternklassen | `{27, 91, 123}` (mod 128) |
+| Beispiel | `n = 27` benötigt numerisch `t_loc ≈ 94` |
+
+### Selektive mod-256-Verfeinerung (c9e2d74)
+
+| mod-128-Elternklasse | mod-256-Split | Status |
+|---|---|---|
+| `27` | `{27, 155}` | **`[C]`** Deep-Tail |
+| `91` | `{91, 219}` | `219` **`[A]`** (`t_loc = 11`); `91` **`[C]`** Deep-Tail |
+| `123` | `{123, 251}` | `123` **`[A]`** (`t_loc = 11`); `251` **`[C]`** Deep-Tail |
+
+| Status | mod-256-Restklassen | Anmerkung |
+|---|---|---|
+| **`[A]` geschlossen** | siehe Abdeckungstabelle oben | inkl. `{123, 219}` bei `t_loc = 11` |
+| **`[C]` Deep-Tail-Frontier** | `{27, 91, 155, 251}` | variabel großes `t_loc`; nicht weiter angegriffen |
+
+> Kanal `3` bleibt dokumentiert in V2.8; der aktive Angriff ist **Kanal `7`**.
+
+---
+
+## Kanal `7` — lokale Witness-Klassifikation (Pivot)
+
+**Modul:** `KeplerHurwitz/CollatzChannelSeven.lean`  
+**Numerik `[B]`:** `src/kepler_hurwitz/channel_seven_witness_scan.py`  
+**Export:** [`docs/exports/channel_seven_witness_classification.json`](exports/channel_seven_witness_classification.json)
+
+### Kanal-7-Fakten (aus Repo)
+
+| Eigenschaft | Wert | Status |
+|---|---|---|
+| Eingang | `n % 8 = 7` | — |
+| `T_odd n % 4` | `3` (Bad-Run-Tail) | **`[A]`** (`channel_seven_T_odd_mod4_eq_three`) |
+| `eSchalenSprung` | `1` | **`[A]`** (gemeinsame `ν₂=1`-Kette) |
+| Good-Branch-Eintritt | länger als Kanal `3` (z. B. `t_good=4` bei `k%4=2`) | **`[A]`** partiell |
+
+### Methodik (adaptive 2-adische Lifting)
+
+1. **mod 32** (`k % 4` bei `n = 8k+7`): vier Klassen `{7, 15, 23, 31}`
+2. **mod 64** nur für offene mod-32-Kinder liften
+3. **mod 128** nur für verbleibend offene Kinder
+4. **kein mod 256** ohne dokumentierten 2-adischen Bit-Grund
+
+### Abdeckung mod 128 (Stand)
+
+| Metrik | Wert | Bedeutung |
+|---|---|---|
+| `total_classes` | 16 | mod-128-Repräsentanten |
+| `formally_closed_classes` | 6: `{7, 15, 23, 55, 87, 119}` | vollständig in Lean geschlossen (mod 128) |
+| `partially_formal_mod128_classes` | 1: `{79}` | mod-256-Teilklasse `n ≡ 79 (mod 256)` formal; Geschwister `n ≡ 207 (mod 256)` offen |
+| `formal_mod256_residues` | 1: `{79}` | mod-256-Lift (`j % 8 = 2`, `t_good=6`, `t_loc=7`) |
+| `short_numerically_supported_classes` | 2: `{39, 95}` | numerisch short (`t_loc ≤ 10`), nicht formal |
+| `medium_numerically_supported_classes` | 1: `{127}` | numerisch medium (`10 < t_loc ≤ 32`), nicht formal |
+| `deep_tail_classes` | 6: `{31, 47, 63, 71, 103, 111}` | Witness gefunden, strukturell tief, nicht formalisiert |
+| `classes_with_numerical_witness` | 16 | Witness innerhalb `max_t_loc = 500` |
+| `unresolved_classes_within_max_t_loc_500` | 0 | kein fehlender numerischer Witness |
+| **`formal_coverage_fraction`** | **6/16 = 37,5 %** | formal in Lean geschlossen (mod 128) |
+| **`partial_mod256_formal_fraction`** | **1/32 = 3,125 %** | zusätzliche mod-256-Teilklasse formal |
+| **`formal_or_non_deep_fraction`** | **10/16 = 62,5 %** | formal **oder** numerisch short/medium (nicht deep) |
+| **`numerical_witness_found_fraction`** | **16/16 = 100 %** | Witness gefunden bis `max_t_loc = 500` |
+| **`deep_tail_fraction`** | **6/16 = 37,5 %** | deep-tail (numerisch tief, formal offen) |
+| `maximum_formal_t_loc` | 7 | |
+| `maximum_non_deep_numerical_t_loc` | 12 | |
+| `maximum_observed_t_loc` | 83 | |
+
+> **62,5 % ist nicht** bloße Existenz numerischer Witnesses — es ist der Anteil der Klassen, die entweder formal geschlossen **oder** numerisch als short/medium (nicht deep) klassifiziert sind.
+
+**Formulierung (stärkster dokumentierter Stand):**
+
+Für sämtliche untersuchten mod-128-Repräsentanten des Kanals 7 wurde innerhalb von `t_loc ≤ 83` ein lokaler Net-Descent-Witness gefunden. Formal uniformisiert sind die Leiterklasse `k ≡ 2 (mod 4)` (`{23, 55, 87, 119}`) sowie zwei mod-128-Lifts: `n ≡ 7 (mod 128)` (`k ≡ 0 (mod 4)`, `j ≡ 0 (mod 4)`, `t_good=4`, `t_loc=7`) und `n ≡ 15 (mod 128)` (`k ≡ 1 (mod 4)`, `j ≡ 0 (mod 4)`, `t_good=6`, `t_loc=5`). Die mod-128-Klasse `{79}` ist **nicht** uniform schließbar; der dokumentierte 2-adische Split `j % 8` liefert die mod-256-Teilklasse `n ≡ 79 (mod 256)` formal bei `t_good=6`, `t_loc=7` — die Geschwisterklasse `n ≡ 207 (mod 256)` bleibt offen (nicht-uniformes `t_loc ∈ {10, 13, 15, …}`). Eine uniforme Übertragung auf die übrigen Restklassen, insbesondere auf den sechs Klassen umfassenden Bad-Run-Deep-Tail, ist weiterhin offen.
+
+### Ergebnistabelle mod 128
+
+| modulus | residue | representative | t_loc | target_channel | status | depth |
+|---:|---:|---:|---:|---:|---|---|
+| 128 | 7 | 7 | 7 | 3 | formally_closed | closed_short |
+| 128 | 15 | 15 | 5 | 7 | formally_closed | closed_short |
+| 128 | 23 | 23 | 4 | 3 | formally_closed | closed_short |
+| 128 | 31 | 31 | 83 | 7 | deep_tail | closed_deep |
+| 128 | 39 | 39 | 9 | 3 | numerically_supported | closed_short |
+| 128 | 47 | 47 | 82 | 7 | deep_tail | closed_deep |
+| 128 | 55 | 55 | 4 | 3 | formally_closed | closed_short |
+| 128 | 63 | 63 | 78 | 7 | deep_tail | closed_deep |
+| 128 | 71 | 71 | 79 | 3 | deep_tail | closed_deep |
+| 128 | 79 | 79 | 7 | 7 | partial_formal (mod 256) | closed_short |
+| 128 | 87 | 87 | 4 | 3 | formally_closed | closed_short |
+| 128 | 95 | 95 | 5 | 7 | numerically_supported | closed_short |
+| 128 | 103 | 103 | 64 | 3 | deep_tail | closed_deep |
+| 128 | 111 | 111 | 44 | 7 | deep_tail | closed_deep |
+| 128 | 119 | 119 | 4 | 3 | formally_closed | closed_short |
+| 128 | 127 | 127 | 12 | 7 | numerically_supported | closed_medium |
+
+### Tiefe-Klassifikation
+
+| Label | mod-128-Reste |
+|---|---|
+| `closed_short` (`t_loc ≤ 10`) | `{7, 15, 23, 39, 55, 79, 87, 95, 119}` |
+| `closed_medium` (`10 < t_loc ≤ 32`) | `{127}` |
+| `closed_deep` (`t_loc > 32`) | `{31, 47, 63, 71, 103, 111}` |
+| `formally_closed` | `{7, 15, 23, 55, 87, 119}` |
+| `partial_formal_mod128` | `{79}` (mod-256-Teilklasse `n ≡ 79 mod 256`) |
+| `deep_tail` (numerisch tief, nicht formal) | `{31, 47, 63, 71, 103, 111}` |
+
+### Lean-Satz-Map Kanal `7` (`[A]` vs `[C]`)
+
+| Name | Status |
+|---|---|
+| `channel_seven_T_odd_mod4_eq_three` | **`[A]`** |
+| `channel_seven_four_step_value_of_thirty_two_mul_add_twenty_three` | **`[A]`** |
+| `channel_seven_net_descent_from_good_at_four_k_mod4_two` | **`[A]`** |
+| `bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two` | **`[A]`** |
+| `bad_run_net_descent_witness_mod8_channel_seven_mod128_seven` | **`[A]`** (`n ≡ 7 mod 128`) |
+| `bad_run_net_descent_witness_mod8_channel_seven_mod128_fifteen` | **`[A]`** (`n ≡ 15 mod 128`) |
+| `bad_run_net_descent_witness_mod8_channel_seven_mod256_seventy_nine` | **`[A]`** (`n ≡ 79 mod 256`) |
+| `mod128_residue_of_thirty_two_mul_add_fifteen_j_mod4` | **`[A]`** |
+| `channel_seven_six_step_value_of_two_hundred_fifty_six_mul_add_seventy_nine` | **`[A]`** |
+| `channel_seven_seven_step_shrink_value_of_eight_hundred_sixty_four_mul_add_two_sixtynine` | **`[A]`** |
+| `channel_seven_net_descent_from_good_at_seven_mod256_seventy_nine` | **`[A]`** |
+| `channel_seven_five_step_fails_net_k_mod4_two` | **`[A]`** (Barriere) |
+| `channel_seven_classification_status` | **`[A]`** |
+| `bad_run_net_descent_witness_mod8_channel_seven_k_mod4_not_two` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_seven_v28` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_seven` (V2.7) | **`[C]`** (`sorry`) |
+
+**Build:** `lake build KeplerHurwitz.CollatzChannelSeven`
+
+---
+
+## Gesamtstand (nach Korrektur)
+
+| Kanal | Formal | Non-Deep | Numerisch gefunden | Status |
+|---|---|---|---|---|
+| **Kanal 3** | 28/32 = 87,5 % | — | — | **eingefroren** (c9e2d74) |
+| **Kanal 7** | 6/16 = 37,5 % | 10/16 = 62,5 % | 16/16 = 100 % | **aktiver Angriff** |
+
+**Offener mathematischer Kern (unverändert):** ∀ `n > 1`, `n ≡ 3 (mod 4)` ⟹ ∃ `BadRunNetDescentWitness(n)` — `bad_run_net_descent_witness_of_mod4_three` bleibt **`[C]`** (`sorry`).
+
+**Zu trennende Ebenen:**
+
+- Endliche Klassifikation der Repräsentanten ist numerisch/lokal (`[B]`).
+- Ein Witness für einen Repräsentanten beweist **nicht** automatisch ein uniformes Theorem für die gesamte Restklasse.
+- Die sechs Kanal-7-Deep-Tail-Klassen sind numerisch nicht offen, aber formal und strukturell offen.
 
 ---
 
@@ -262,7 +474,11 @@ Weitere offene Schichten:
 |---|---|
 | `KeplerHurwitz/CollatzProofAttemptV27.lean` | Zeugenstruktur, Net-Descent-Komposition, offener Kern |
 | `KeplerHurwitz/CollatzNetDescentMod8.lean` | Mod-8-Mikro-Lemmata + Witness-Skeleton-Kanäle |
+| `KeplerHurwitz/CollatzChannelSeven.lean` | Kanal-7-Witness-Klassifikation + Status-Bündel |
 | `KeplerHurwitz/CollatzProofAttemptV26.lean` | Good-Branch-Eintritt (`mod 4 = 3` → eventually `mod 4 = 1`) |
+| `KeplerHurwitz/CollatzProofAttemptV28.lean` | Kanal-3/7 Teilklassen, 2-adisches Budget |
+| `KeplerHurwitz/Collatz/CeabMirrorBridge.lean` | CEAB-Spiegelparität ↔ mod-8-Faser (ORQ-098) |
+| `KeplerHurwitz/CollatzProofAttemptV29.lean` | V2.9 Beweisversuch: Paritätsschicht + Blocking-Assembly |
 | `KeplerHurwitz/ReachableTheorems.lean` | `reachable_collatz_proof_attempt_status_v27` |
 | `KeplerHurwitz/Core.lean` | Modulbündel |
 
@@ -273,4 +489,733 @@ Weitere offene Schichten:
 | Dokument | Rolle |
 |---|---|
 | [`collatz_v2_evidence_chain.md`](collatz_v2_evidence_chain.md) | vollständige lokale Evidence Chain V2–V2.7 |
+| [`reports/octonionic_chiral_system_v3_freeze.md`](reports/octonionic_chiral_system_v3_freeze.md) | ORQ-098 Paritätsschicht (getrennt von Collatz-Kern) |
 | [`ARCHITECTURE.md`](../ARCHITECTURE.md) | Schichtenmodell `[A]`/`[B]`/`[C]`/`L4` |
+
+---
+
+## V2.9 — CEAB-Spiegelparitäts-Brücke (ORQ-098 → Collatz)
+
+**Modul:** `KeplerHurwitz/CollatzProofAttemptV29.lean`  
+**Brücke:** `KeplerHurwitz/Collatz/CeabMirrorBridge.lean`
+
+### Governance
+
+\[
+\text{Paritätsschicht validiert} \;\not\Rightarrow\; \text{Collatz-Vermutung bewiesen}
+\]
+
+Analog zum ORQ-098-Freeze: formale Spiegelparität auf Faser-Budgets sichert **nicht**
+automatisch den globalen Collatz-Satz.
+
+### Was V2.9 neu formalisiert (`[A]`)
+
+| Satz | Rolle |
+|---|---|
+| `mod8FiberSwap_involutive` | \(S^2=\mathrm{id}\) auf mod-8-Fasern `{8k+3, 8k+7}` |
+| `fiberBudget_chiral_eq_mirror_odd_part` | \(C_\Delta\) = ungerader Budget-Anteil |
+| `fiberBudget_symmetrized_eq_mirror_even_part` | \(A_{\mathrm{sym}}\) = gerader Budget-Anteil |
+| `net_descent_of_mod8_blocking` | Blocking-Interface ⇒ `BadRunNetDescentWitness` |
+| `collatz_proof_attempt_status_v29` | Status-Bündel inkl. Kanal-7-Klassifikation |
+
+### Offener Kern (`[C]`, unverändert)
+
+| Statement | Status |
+|---|---|
+| `mod8_blocking_interface_of_mod4_three` | `sorry` — äquivalent zu V2.7-Kern |
+| `bad_run_net_descent_witness_of_mod4_three` | Kanal-3 Deep-Tail + Kanal-7 Restklassen |
+| `CollatzGlobalTerminationStatement` | nicht behauptet |
+
+**Build:** `lake build KeplerHurwitz.CollatzProofAttemptV29`
+
+---
+
+## V2.10 — Kanal-7 Restklasse `55 mod 128` (`[A]`)
+
+**Modul:** `KeplerHurwitz/Collatz/ChannelSevenAttackV210.lean`  
+**Assembly:** `KeplerHurwitz/CollatzProofAttemptV210.lean`
+
+### Geschlossenes Drei-Schritt-Zertifikat
+
+Für `n = 128k + 55`:
+
+\[
+T_{\mathrm{odd}}^{\,3}(n) = 108k + 47 < 128k + 55
+\]
+
+| Metadatum | Wert |
+|---|---|
+| Odd-Core-Tiefe | `3` |
+| Valuationswort | `[1, 1, 3]` |
+| Terminale affine Form | `108k + 47` |
+| Uniformer Abstand | `20k + 8` |
+| Status | `[A]` (0 `sorry` in der Klasse) |
+
+Zentrale Lean-Sätze: `syracuseOdd_iterate_three_channelSeven55`,
+`channelSeven55_strict_descent`, `bad_run_net_descent_witness_mod8_channel_seven_mod128_fifty_five`.
+
+Brückenlemma: `oddCoreStep_eq_of_two_pow_mul_odd` in `Collatz/Octonion/Definitions.lean`.
+
+**Build:** `lake build KeplerHurwitz.CollatzProofAttemptV210`
+
+### Methodischer Abschluss (`collatz-channel-7-residue-55-v2.10`)
+
+| Feld | Wert |
+|---|---|
+| Layer | `[A]` |
+| Scope | Restklasse `55 mod 128` |
+| Operator | voll beschleunigter Odd-Syracuse-Schritt (`oddCoreStep`) |
+| Tiefe | `3` |
+| Valuationswort | `[1, 1, 3]` |
+| Terminale Form | `108k + 47` |
+| Abstiegsabstand | `20k + 8` |
+| Globale Implikation | keine |
+
+**Parametrischer Kern:** Für `n = mk + r` und `S^t(n) = ak + b` gilt uniform
+
+\[
+(m - a)\,k + (r - b) > 0 \quad (\forall k \in \mathbb{N}).
+\]
+
+Im Ankerfall: `S^3(128k+55) = 108k+47`, also `(128k+55)-(108k+47) = 20k+8 > 0`.
+Das ist **ein** Beweis über eine unendliche Restklassenfaser — kein Haufen bestätigter Einzeltrajektorien.
+
+**Präzise Trennung (dauerhaft):**
+
+\[
+\boxed{\text{endliche Enumeration} \neq \text{uniformer parametrischer Beweis}}
+\]
+
+Eine Enumeration kann Teil eines algebraischen Arguments sein; sie ersetzt aber keinen Satz über alle `k ∈ ℕ`.
+
+**Governance (unverrückbar):**
+
+\[
+\boxed{\text{Faser geschlossen} \neq \text{Kanal geschlossen} \neq \text{globale Terminierung}}
+\]
+
+\[
+\boxed{\text{algebraische Eleganz} \neq \text{empirische Evidenz} \neq \text{formaler globaler Satz}}
+\]
+
+**Referenzschema für weitere Angriffe:**
+
+Restklasse → Valuationswort → affine Iterationsform → Paritätszertifikate → uniforme Ungleichung → lokaler Satz.
+
+**Parallele Zweige:** Im oktonionischen Chiral-System wurde ein attraktiver Mechanismus bei ausbleibender statistischer Trennung korrekt als Nullbefund eingefroren (`[B]`/`[C]`); im Collatz-Zweig wurde eine konkrete unendliche Faser symbolisch geschlossen (`[A]`). Beide Ergebnisse werden exakt auf der Ebene verbucht, die sie tragen.
+
+---
+
+## V2.11 — Kanal-7 Restklasse `87 mod 128` (`[A]`)
+
+**Identifier:** `collatz-channel-7-residue-87-v2.11`  
+**Modul:** `KeplerHurwitz/Collatz/ChannelSevenAttackV211.lean`  
+**Assembly:** `KeplerHurwitz/CollatzProofAttemptV211.lean`
+
+Für alle `k ∈ ℕ` auf der Faser `n = 128k + 87` (keine Nebenbedingung):
+
+\[
+S^3(n) = 54k + 37 < 128k + 87
+\]
+
+Schritt 3: `3(288k+197)+1 = 864k+592 = 16(54k+37)` — der zusätzliche Zweierfaktor (`ν₂=4`)
+halbiert den Endkoeffizienten gegenüber V2.10 (`108 → 54`) und erzwingt den steileren Abstand `74k+50`.
+
+| Metadatum | Wert |
+|---|---|
+| Layer | `[A]` (lokaler Lean-Build + sorry-Audit) |
+| Odd-Core-Tiefe | `3` |
+| Valuationswort | `[1, 1, 4]` |
+| Terminale affine Form | `54k + 37` |
+| Uniformer Abstand | `74k + 50` |
+| Globale Implikation | keine |
+
+Zentrale Lean-Sätze: `syracuseOdd_iterate_three_channelSeven87`,
+`channelSeven87_strict_descent`, `bad_run_net_descent_witness_mod8_channel_seven_mod128_eighty_seven`.
+
+Neues Valuationslemma: `nu2_three_mul_add_one_eq_four_of_mod8_eq5_quotient_odd` in `Nu2Bounds.lean`.
+
+**Build (lokal):** `lake build KeplerHurwitz.CollatzProofAttemptV211`
+
+---
+
+## V2.12 — Kanal-7 Restklasse `119 mod 128` (`[A]`)
+
+**Identifier:** `collatz-channel-7-residue-119-v2.12`  
+**Modul:** `KeplerHurwitz/Collatz/ChannelSevenAttackV212.lean`  
+**Assembly:** `KeplerHurwitz/CollatzProofAttemptV212.lean`
+
+Für alle `k ∈ ℕ` auf der Faser `n = 128k + 119`:
+
+\[
+S^3(n) = 108k + 101 < 128k + 119
+\]
+
+Valuationswort `[1, 1, 3]`; Abstand `(128-108)k + (119-101) = 20k + 18 > 0`.
+
+| Metadatum | Wert |
+|---|---|
+| Layer | `[A]` |
+| Odd-Core-Tiefe | `3` |
+| Valuationswort | `[1, 1, 3]` |
+| Terminale affine Form | `108k + 101` |
+| Uniformer Abstand | `20k + 18` |
+| Globale Implikation | keine |
+
+Zentrale Lean-Sätze: `syracuseOdd_iterate_three_channelSeven119`,
+`channelSeven119_strict_descent`, `bad_run_net_descent_witness_mod8_channel_seven_mod128_one_nineteen`.
+
+**Build:** `lake build KeplerHurwitz.CollatzProofAttemptV212`
+
+---
+
+## V2.12 Block-Abschluss — `collatz-channel-7-affine-block-v2.12`
+
+### Topologisches und verfahrensmäßiges Korrektiv
+
+1. **Diskrete Progressionen, kein Kontinuum:** `ℕ` ist abzählbar unendlich und diskret. Die drei
+   parametrischen Sätze erfassen jeweils eine vollständige **unendliche arithmetische Progression**
+   `128k + r` mit einem einzigen symbolischen Beweis — nicht eine „Faser“ im kontinuierlichen Sinn.
+
+2. **Beweisverfahren, kein universeller Algorithmus:** Das Schema
+   (Restklasse → Valuationswort → affine Iteration → Paritätszertifikate → uniforme Ungleichung → lokaler Satz)
+   ist ein **stabil wiederverwendbares Beweisverfahren** für geeignete affine Progressionen. Es garantiert
+   weder Terminierung noch Erfolg für jede Restklasse; komplexere Strukturen können längere Valuationswörter,
+   Modulusverfeinerung oder verzweigte Lifts erfordern.
+
+```markdown
+Identifier:   collatz-channel-7-affine-block-v2.12
+Layer:        [A] für die drei einzelnen parametrischen Sätze
+              (lokale Systembehauptung: Lean-Build 8628 jobs)
+Closed:       55 mod 128, 87 mod 128, 119 mod 128
+Common depth: 3 fully accelerated odd Syracuse steps
+Open fibers:  31, 47, 63, 71, 103, 111 mod 128
+Channel 7:    not closed
+Global:       not established
+```
+
+### Uniforme Abstiegsmatrix (verifizierte Familie)
+
+Jeder Eintrag ist ein Satz über alle `k ∈ ℕ` auf der Progression `n = 128k + r`:
+
+| Startrest `r` | Endkoeff. `a` | Terminal `ak + b` | Abstand `(128−a)k + (r−b)` |
+|---|---|---|---|
+| **55** | 108 | `108k + 47` | `20k + 8 > 0` |
+| **87** | 54 | `54k + 37` | `74k + 50 > 0` |
+| **119** | 108 | `108k + 101` | `20k + 18 > 0` |
+
+### Epistemische Abgrenzung der offenen Fasern
+
+Für die sechs verbleibenden Klassen `[31, 47, 63, 71, 103, 111]` gilt: das Ausbleiben eines
+einfachen Drei-Schritt-Valuationsworts ist **kein** Unmöglichkeitsbeweis für einen parametrischen Satz.
+Offene Lösungsräume:
+
+\[
+\text{Längeres Valuationswort} \;\lor\; \text{Modulusverfeinerung } (256/512) \;\lor\; \text{Verzweigter Lift-Baum} \;\lor\; \text{Faser-Reduktion}
+\]
+
+**Governance-Hierarchie (V2.12):**
+
+\[
+\boxed{\text{drei Kurzfasern geschlossen} \neq \text{Kanal 7 geschlossen} \neq \text{globale Terminierung}}
+\]
+
+\[
+\boxed{\text{kurzer Einzelorbit fehlt} \not\Rightarrow \text{parametrischer Satz unmöglich}}
+\]
+
+\[
+\boxed{\text{endliche Enumeration} \neq \text{uniformer parametrischer Beweis}}
+\]
+
+**Lean-Bündel:** `CollatzProofAttemptStatusV212` / `channel_seven_affine_block_v212_status`
+in `KeplerHurwitz/CollatzProofAttemptV212.lean`.
+
+**Build (lokal):** `lake build KeplerHurwitz.CollatzProofAttemptV212`
+
+---
+
+## V2.13 — `collatz-channel-7-open-fiber-71-v2.13` (Freeze)
+
+**Identifier:** `collatz-channel-7-open-fiber-71-v2.13`  
+**Layer:** `[A]` (lokale Systembehauptung über Lean-Build)  
+**Modul:** `KeplerHurwitz/Collatz/ChannelSevenAttackV213.lean`
+
+### Uniform prefix
+
+`ω_val = [1, 1, 2, 2]` — strikte Invariante über ganz `ℕ` (Schritte 1–4).
+
+\[
+\boxed{\forall k \in \mathbb{N},\ \forall t \in \{1,2,3,4\}:\ S^t(128k+71) > 128k+71}
+\]
+
+| Tiefe `t` | `S^t(128k+71)` | Margin über Start |
+|---|---|---|
+| 1 | `192k + 107` | `64k + 36` |
+| 2 | `288k + 161` | `160k + 90` |
+| 3 | `216k + 121` | `88k + 50` |
+| 4 | `162k + 91` | `34k + 20` |
+
+### Zertifizierte Schritt-5-Verzweigung der Faser `128k + 71`
+
+Für die Restklasse
+
+\[
+n = 128k + 71
+\]
+
+ist das Valuationswort der ersten vier normalisierten Collatz-Schritte uniform:
+
+\[
+\omega = [1, 1, 2, 2].
+\]
+
+Für alle \(k \in \mathbb{N}\) liegen explizite Orbitformen für \(S^t(n)\), \(1 \le t \le 4\), sowie die strikten Ungleichungen
+
+\[
+S^t(n) > n
+\]
+
+vor.
+
+Die Uniformität endet im fünften Schritt. Dort zerfällt der Parameterraum vollständig und disjunkt nach \(k \bmod 4\):
+
+| Parameterzweig | \(\nu_2(3S^4(n)+1)\) am fünften Schritt | \(S^5(n)\) |
+|---|---|---|
+| \(k = 2q\) | \(= 1\) | \(486q + 137\) |
+| \(k = 4r + 3\) | \(= 2\) | \(486r + 433\) |
+| \(k = 4r + 1\) | \(\ge 3\) (siehe unten) | \(\mathrm{oddCore}(243r + 95)\) |
+
+#### Dritter Zweig (\(k = 4r + 1\)): Faktor \(2^3\), Bewertung und Terminalform getrennt
+
+Im Zweig \(k = 4r + 1\) gilt das **Eingangs-Zertifikat** für den garantierten Faktor \(2^3\):
+
+\[
+3 \cdot S^4(n) + 1 = 8(243r + 95).
+\]
+
+Daraus folgt zunächst nur
+
+\[
+\nu_2\!\left(3S^4(n)+1\right) = 3 + \nu_2(243r + 95) \ge 3.
+\]
+
+Das Zertifikat weist den **garantierten Faktor \(2^3\)** exakt nach — nicht bereits die gesamte Bewertung des dritten Zweigs. Die nächste Bruchkante ist damit unmittelbar sichtbar.
+
+Wegen
+
+\[
+243r + 95 \equiv r + 1 \pmod 2
+\]
+
+gilt genauer:
+
+- \(r \equiv 0 \pmod 2 \Longrightarrow \nu_2\!\left(3S^4(n)+1\right) = 3\);
+- \(r \equiv 1 \pmod 2 \Longrightarrow \nu_2\!\left(3S^4(n)+1\right) \ge 4\) — ein weiterer 2-adischer Lift ist nötig.
+
+Die **Terminalform** des normalisierten fünften Schritts ist
+
+\[
+S^5(n) = \mathrm{oddCore}(243r + 95).
+\]
+
+Hier ist \(S\) der normalisierte Odd-Core-Schritt (`syracuseOddStep` = `oddCoreStep` in Lean); \(\mathrm{oddCore}(m)\) bezeichnet die vollständige 2-adische Odd-Part-Reduktion von \(m\). Da \(\mathrm{oddCore}(8m) = \mathrm{oddCore}(m)\), bleiben Eingangsidentität und Terminalform logisch getrennt: das Zertifikat beschreibt die 2-adische Faktorisierung am Eingang des fünften normalisierten Schritts; die Terminalzeile beschreibt dessen Odd-Core-Ausgabe.
+
+Sämtliche Fallunterscheidungen und algebraischen Formen der **ersten Schritt-5-Verzweigung** sind in Lean ohne `sorry` verifiziert (`ChannelSeven71Step5BranchingCascade`). Das Resultat ist eine vollständige lokale Klassifikation nach dem uniformen Präfix. Es impliziert weder einen Deszentsatz für die gesamte Faser noch die Schließung des verbleibenden Lift-Baums — insbesondere nicht die vollständige Bewertungspartition im Zweig \(k \equiv 1 \pmod 4\) für ungerades \(r\).
+
+### Wissenschaftlicher Ertrag
+
+- **Formaler Ertrag:** Für die Faser \(128k + 71\) ist das uniforme Präfix \([1,1,2,2]\) einschließlich der ersten nicht-uniformen Verzweigung vollständig formalisiert.
+- **Struktureller Ertrag:** Die Zerlegung in Eingangszertifikat, Bewertungsidentität und Odd-Core-Ausgabe ist sauber getrennt; dadurch wird die 2-adische Struktur transparent und maschinell überprüfbar.
+- **Methodischer Ertrag:** Die Vorgehensweise liefert ein reproduzierbares Schema, das sich prinzipiell auch auf andere Restklassen anwenden lässt.
+- **Offener Teil:** Die rekursive Analyse des Astes mit \(\nu_2 \ge 4\) bleibt ein eigenständiges Forschungsproblem.
+
+> **Status von V2.13**
+>
+> V2.13 liefert eine vollständig formal verifizierte lokale Analyse der ersten Schritt-5-Verzweigung der Faser \(128k + 71\). Das uniforme Valuationspräfix, die erste Bewertungsaufspaltung und die zugehörigen Odd-Core-Formen sind in Lean zertifiziert. Die anschließende rekursive Auflösung des Astes \(\nu_2 \ge 4\) bleibt ausdrücklich Gegenstand weiterer Arbeit.
+
+**Nachweisgrenze:**
+
+**Established:**
+- Exact orbit prefix and strict non-descent through depth 4.
+- Termination of the globally uniform valuation word at step 5.
+- Complete disjoint step-5 partition by \(k \bmod 4\) with explicit algebraic forms.
+
+**Not established:**
+- Vollständige Bewertungspartition im Zweig \(k \equiv 1 \pmod 4\) für ungerades \(r\) (\(\nu_2 \ge 4\), weiterer Lift).
+- Closure of the branch \(k \equiv 1 \pmod 4\) on higher 2-adic lifts.
+- Parametric descent or finite reduction to already controlled fibers.
+- Closure of `71 mod 128` / Channel 7 / Global Core.
+
+### Governance (End-Governance)
+
+\[
+\boxed{\text{Verzweigungspunkt formalisiert} \neq \text{Faser geschlossen}}
+\]
+
+\[
+\boxed{\text{kein Kurzabstieg} \neq \text{kein späterer parametrischer Abstieg}}
+\]
+
+\[
+\boxed{\text{einzelne Fasern analysiert} \neq \text{Kanal 7 geschlossen} \neq \text{globale Terminierung}}
+\]
+
+\[
+\boxed{\text{exaktes Orbitpräfix bewiesen} \neq \text{lokaler Abstieg bewiesen}}
+\]
+
+**Lean-Bündel:** `ChannelSeven71OpenFiberStatus` / `ChannelSeven71Step5BranchingCascade`  
+**Erreichbar:** `reachable_channel_seven71_step5_branching_cascade`, `reachable_channel_seven_mod512_step5_cascade`
+
+**Build (lokal):** `lake build KeplerHurwitz.CollatzProofAttemptV213`
+
+---
+
+## V2.14 — Strukturprotokoll: Algebraische Lift-Geometrie (`243r + 95`)
+
+**Identifier:** `collatz-channel-7-deep-lift-v2.14`  
+**Modul:** `KeplerHurwitz/Collatz/ChannelSevenDeepLiftV214.lean`  
+**Layer:** `[A]` Ebene A (geschlossen); `[C]` Ebene B (offen)
+
+### Governance (V2.14)
+
+\[
+\boxed{
+\text{2-adische Struktur}
+\;\neq\;
+\text{dynamischer Deszent}
+}
+\]
+
+\[
+\boxed{
+\text{V2.14 versiegelt}
+\;=\;
+\text{Modulumfang abgeschlossen}
+\;\neq\;
+\text{Vermutung bewiesen}
+}
+\]
+
+\[
+\boxed{
+2^j \mid 243\rho_j + 95
+\;\;\text{(Generator-Invariante — nicht}\;
+\nu_2 = j\text{)}
+}
+\]
+
+\[
+\boxed{
+\text{Bewertungskaskade vollständig klassifizieren}
+\;\neq\;
+\text{dynamischen Lift-Baum schließen}
+}
+\]
+
+| Ebene | Bezeichnung | Gegenstand | Collatz-Bezug | Status |
+|---|---|---|---|---|
+| **A** | Algebraische Liftstruktur | \(243r + 95 \equiv 0 \pmod{2^j}\) | **keiner** — isolierte arithmetische Struktur des Deep-Tails | **`[A]`** geschlossen |
+| **B** | Dynamische Iteration | Verhalten von \(S^5 = 243t + c_j\) und Folgeschritten | eigentliches Collatz-Problem im Kleinen | **`[C]`** offen |
+
+> **Globale Claim-Grenze:** V2.14 behauptet **nicht** globale Collatz-Terminierung (`CollatzGlobalTerminationStatement`). Ein algebraischer Abschluss von Ebene A impliziert weder Kanal-7-Schließung noch globales Collatz.
+
+---
+
+### Ebene A — Algebraische Liftstruktur (formal abgeschlossen im Rahmen der definierten Lift-Theorie)
+
+Ebene A beschreibt die **isolierte arithmetische Struktur** des Deep-Tails — unabhängig von globaler Collatz-Dynamik. Die lineare Kongruenz \(243r + 95 \equiv 0 \pmod{2^j}\) ist **nicht** allgemeine Hensel-Geometrie: \(243\) ist modulo jeder Zweierpotenz invertierbar.
+
+#### Kanonik — Existenz und Eindeutigkeit der Lift-Residuen \(\rho_j\) für alle \(j \in \mathbb{N}\)
+
+Der eigentliche Beitrag von V2.14 ist nicht eine Fallliste `j = 1, 2, 3, …`, sondern die **allgemeine Parameterisierung** (Generator `j` als Argument, nicht als neuer Datei-Fall):
+
+```lean
+deepLiftResidue j   -- ρ_j
+deepLiftConstant j  -- c_j
+```
+
+**Zieltheorem (für beliebiges `j`):**
+
+\[
+\rho_j < 2^j,\qquad 2^j \mid 243\rho_j + 95.
+\]
+
+Rekursive Konstruktion im Generator (mit `q_j = (243·ρ_j + 95) / 2^j`, Lift-Bit `b ≡ q_j (mod 2)`):
+
+```text
+ρ_{j+1} = ρ_j + b·2^j     b = 0 wenn q_j gerade, b = 1 wenn q_j ungerade
+c_j = (243·ρ_j + 95) / 2^j
+```
+
+**Lean (geschlossen):** `deepLiftResidue_spec`, `deepLiftResidue_unique`, `deepLiftResidue_iff`, `existsUnique_deepLiftResidue`; `ChannelSevenDeepLiftScaffold`; `deepBranchMultiplier_coprime_pow_two`.
+
+#### Kongruenz — Charakterisierung der 2-adischen Bewertungsschwellen modulo \(2^j\)
+
+**Kongruenz-Äquivalenz (bewiesen):** `deepLiftResidue_iff` — \(2^j \mid 243r + 95 \iff r \equiv \rho_j \pmod{2^j}\).
+
+**Bewertungscharakterisierung (bewiesen):** `nu2_deepBranch_ge_iff`, `nu2_deepBranch_eq_iff`.
+
+\[
+\nu_2(243r + 95) \ge j
+\iff
+r \equiv \rho_j \pmod{2^j},
+\]
+
+\[
+\nu_2(243r + 95) = j
+\iff
+r \equiv \rho_j \pmod{2^j}
+\;\text{und}\;
+r \not\equiv \rho_{j+1} \pmod{2^{j+1}}.
+\]
+
+**Wichtig:** Die Generator-Invariante ist **Teilbarkeit**, nicht `ν_2(243·ρ_j + 95) = j`. Plateaus sind erlaubt — Beispiel: `ρ_5 = 27`, aber `ν_2(243·27 + 95) = ν_2(6656) = 9`.
+
+#### Faktorisierung — Affine Form \(2^j \cdot (243t + c_j)\) und `oddCore`-Terminal bei exakter Valuation \(\nu_2 = j\)
+
+Bei \(r = \rho_j + 2^j t\) und exakter Valuation \(\nu_2(243r + 95) = j\):
+
+\[
+243r + 95 = 2^j(243t + c_j),
+\qquad
+\mathrm{oddCore}(243r + 95) = 243t + c_j.
+\]
+
+**Lean (geschlossen):** `deepLift_affine_factorization`, `odd_of_exact_padicVal`, `deepLift_terminal_of_exactVal`, `deepLift_terminal_next_lift_fails`; padicVal-Brücke `pow_dvd_iff_le_padicValNat`, `step5Kick_padicVal`.
+
+#### Schichtdiagramm (V2.14)
+
+```text
+Ebene A — drei getrennte Schichten
+┌─────────────────────────────────────────────────────────────┐
+│ 1. Modular sieve   deepLiftResidue_iff                      │
+│    2^j | 243r+95  ↔  r ≡ ρ_j (mod 2^j)          [H1 DONE] │
+├─────────────────────────────────────────────────────────────┤
+│ 2. Valuation scale pow_dvd_iff_le_padicValNat, step5Kick_padicVal       │
+│    2^j | m  ↔  j ≤ ν_2(m)                       [H2 DONE] │
+│    ν_2 = j  ↔  r ≡ ρ_j ∧ r ≢ ρ_{j+1} (mod 2^{j+1})         │
+├─────────────────────────────────────────────────────────────┤
+│ 3. Terminal oddCore (nur bei exakter Valuation j)           │
+│    deepLift_affine_factorization; odd_of_exact_padicVal     │
+│    oddCore(m) = 243t + c_j  wenn ν_2(m)=j         [H4 DONE] │
+└─────────────────────────────────────────────────────────────┘
+```
+
+Erste Werte (`decide`-verifiziert, Stichprobe für den Generator):
+
+| `j` | `ρ_j` | `c_j` | `ν_2(243·ρ_j + 95)` |
+|---|---|---|---|
+| 1 | 1 | 169 | 1 |
+| 2 | 3 | 206 | 3 |
+| 3 | 3 | 103 | 3 |
+| 4 | 11 | 173 | 4 |
+| 5 | 27 | 208 | **9** (Plateau bis `j = 9`) |
+
+**Repository-Stand:** Generator implementiert; `243` invertierbar mod `2^j` maschinell verifiziert; Schalen `j = 1,…,5` per `decide`/`interval_cases` verifiziert. Python: `verify_padic_bridge_and_offsets`.
+
+> Die allgemeine algebraische Liftstruktur ist durch die entsprechenden Lean-Theoreme formal beschrieben.
+
+**Lean-Bündel:** `ChannelSevenDeepLiftScaffold` / `channel_seven_deep_lift_scaffold`  
+**Build:** `lake build KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214`
+
+---
+
+### Ebene B — Dynamische Iteration (Offen)
+
+Ebene B beginnt erst, wenn
+
+\[
+S^5 = 243t + c_j
+\]
+
+feststeht. Dann folgen Fragen zu Rang, Faserrückführung, Netto-Deszent und neuen tiefen Ästen — **ohne** Deduktion aus dem Lift allein.
+
+Das **offene Collatz-Problem im Kleinen** betrifft die Dynamik nach der algebraischen Klassifikation: nicht die Beschreibung der 2-adischen Liftstruktur, sondern deren dynamische Konsequenzen.
+
+#### Forschungsfrage (geschärft)
+
+> Liefert die algebraische Klassifikation einen wohlfundierten dynamischen Rang?
+
+#### Forschungsprogramm
+
+Zeige eine Abbildung \(R : \mathbb{N} \to W\) in eine **wohlfundierte geordnete Menge** \(W\), sodass für nichttriviale Terminalfamilien nach \(\ell\) normalisierten Schritten gilt:
+
+\[
+R(S^\ell(n)) < R(n).
+\]
+
+Die kombinatorische Wildheit des Deep-Tails ist damit auf **wohlgeformte unendliche affine Familien** \(243t + c_j\) reduziert — nicht auf spekulative Ordinaltyp-Annahmen.
+
+**`[B]` — rechnerisch angreifbar:**
+
+- Restklassen von \(243t + c_j\) modulo \(3 \cdot 2^m\), \(12 \cdot 2^m\), \(128 \cdot 3\)
+- Rückkehrzeiten in bekannte Fasern \(\{55, 87, 119\}\)
+- Endlicher Zustandsgraph modulo \(M\)
+- \(\rho_j, c_j\) als Präfixe von \(\rho_\infty \in \mathbb{Z}_2\)
+
+**`[C]` — Forschungshypothesen (H6–H8):**
+
+| ID | Aussage |
+|---|---|
+| H6 | Parametrischer Deszentszeugen pro Lift-Schale |
+| H7 | Endliche Typenreduktion der Terminalfamilien |
+| H3 | Geometrische Dünheit der Schalen \(\neq\) dynamische Irrelevanz |
+
+---
+
+### Methodischer Status (Abschluss V2.14)
+
+> Die algebraische Analyse reduziert die lokale Verzweigungsstruktur auf explizit beschriebene affine Familien und trennt damit die arithmetische Klassifikation von der dynamischen Fragestellung. Das verbleibende Forschungsprogramm besteht nicht mehr in der Beschreibung der 2-adischen Liftstruktur, sondern im Nachweis, dass diese Struktur einen wohlfundierten dynamischen Rang oder eine äquivalente Deszentsstrategie trägt.
+
+> **Status von V2.14**
+>
+> V2.14 **versiegelt** den Modulumfang der algebraischen Lift-Infrastruktur im tiefen Zweig `k ≡ 1 (mod 4)`. **Ebene A** (Kanonik, Kongruenz, Faktorisierung; H1–H2/H4) ist formal geschlossen. **Ebene B** (Dynamik nach `S⁵ = 243t + c_j`; wohlfundierter Rang \(R : \mathbb{N} \to W\)) bleibt ausdrücklich offen.
+
+---
+
+## V2.15 — Ebene B: Dynamik nach `S⁵ = 243t + c_j` (Offen)
+
+**Identifier:** `collatz-channel-7-dynamics-v2.15`  
+**Modul:** `KeplerHurwitz/Collatz/ChannelSevenDynamicsV215.lean`  
+**Schritt-6-Verzweigung:** `KeplerHurwitz/Collatz/ChannelSeven71Step6BranchingV215.lean`  
+**Roadmap:** [`docs/collatz_v214_level_b_roadmap.md`](collatz_v214_level_b_roadmap.md)  
+**Layer:** `[A]` Brücken; `[C]` Deszent / Witness
+
+### Governance (V2.15)
+
+\[
+\boxed{\text{2-adische Struktur} \;\neq\; \text{dynamischer Deszent}}
+\]
+
+Ebene B startet nach V2.14-Versiegelung: Terminalfamilien `243t + c_j` und ihre
+Fortsetzung unter `syracuseOddStep`.
+
+### Geschlossene Brücke (H6, `[A]`)
+
+| Satz | Rolle |
+|---|---|
+| `deepLiftFiber` / `deepBranchParam` | affine Faser-Definitionen |
+| `deepLiftFiber_residue_mod_three` | mod-3-Invariante |
+| `channelSeven71_step5_deepLiftFiber_j3_even_t` | V2.13 → V2.14 bei `j=3`, gerades `t` |
+| `channelSeven71_step5_deepLiftFiber_j3_t_zero` | Anker `S⁵(1735)=103` |
+
+### Offen (`[C]`, `sorry`)
+
+| Satz | Hypothese |
+|---|---|
+| `deepLiftFiber_mod128_entry` | H7 Typenreduktion |
+| `deepLiftFiber_net_descent_witness` | H8 Witness-Assembly |
+| `deepLiftFiber_wellFounded_rank` | H6 Rang (kein ε₀) |
+
+**Build:**
+
+```bash
+lake build KeplerHurwitz.Collatz.ChannelSevenDynamicsV215
+lake build KeplerHurwitz.CollatzProofAttemptV215
+```
+
+**Python `[B]`:** `scan_deep_lift_fiber_dynamics` in `deep_lift_hensel_diagnostic.py`
+
+---
+
+## V2.15 — Schritt-6-Verzweigung (`243t + 103`)
+
+**Identifier:** `collatz-channel-7-step6-branching-v2.15`  
+**Modul:** `KeplerHurwitz/Collatz/ChannelSeven71Step6BranchingV215.lean`  
+**Status:** Schritt-6-Verzweigung geschlossen (`[A]`, 0 `sorry`); Ebene-B-Dynamik offen (`[C]`)
+
+### Leitformel (Governance V2.15)
+
+\[
+\boxed{\text{Schritt-6-Verzweigung klassifiziert} \;\neq\; \text{dynamischer Deszent bewiesen}}
+\]
+
+### Status-Zusammenfassung (Modul V2.15)
+
+| [✓] Formal bewiesen (Lean-zertifiziert) | [➔] Offenes Forschungsprogramm (Dynamik) |
+| :--- | :--- |
+| • **Paritäts-Restriktion:** Zulässigkeit von \(S^5(n) = 486u + 103\) formal aus `Odd (S⁵)` abgeleitet. | • **Dynamischer Net-Descent:** Rang-Verringerungsnachweis für die geschlossenen Schalen \(\nu_2 = 1\) und \(\nu_2 = 2\). |
+| • **Schale ν₂ = 1:** Exakte Bewertung und Terminalform \(1458v + 155\) für gerades \(u\) gesichert. | • **Rekursive Verzweigung:** Fortsetzung der Hensel-Kaskade im tiefen, offenen Ast \(\nu_2 \ge 3\). |
+| • **Schale ν₂ = 2:** Exakte Bewertung und Terminalform \(1458w + 1171\) für ungerades \(u\) und ungerades \(v\) bewiesen. | • **Faserrückführung:** Abbildung der Terminalformen auf die globalen Reduktionskerne. |
+
+Parametrisierung `t = 2u` auf Schale `j=3`, `c₃=103` (`deepLiftConstant 3`):
+
+\[
+t \text{ gerade} \Rightarrow S^5 = 486u + 103 \Rightarrow \nu_2(3S^5+1) \in \{1, 2, \geq 3\}
+\]
+
+| Zweig | `ν₂` | Terminal `S⁶` |
+|---|---|---|
+| `u = 2v` (gerade) | `= 1` | `1458v + 155` |
+| `u = 2v+1`, `v` ungerade | `= 2` | `1458w + 1171` |
+| `u = 2v+1`, `v` gerade | `≥ 3` | `oddCore(729w + 221)` |
+
+Anker: `step5Terminal 0 = deepLiftConstant 3 = 103`.
+
+| Satz | Rolle |
+|---|---|
+| `step5Terminal_odd` | Terminal `S⁵ = 486u + 103` ungerade |
+| `step6_kick_factorization` | `3S⁵+1 = 2(729u+155)` |
+| `step6_even_u_val_eq_one` | `u` gerade ⇒ `ν₂ = 1`, `S⁶ = 1458v + 155` |
+| `step6_odd_u_certificate` | `u` ungerade ⇒ `3S⁵+1 = 4(729v+442)` |
+| `step6_odd_u_odd_v_val_eq_two` | `v` ungerade ⇒ `ν₂ = 2`, `S⁶ = 1458w + 1171` |
+| `step6_odd_u_even_v_certificate` | `v` gerade ⇒ `ν₂ ≥ 3`, `S⁶ = oddCore(729w+221)` |
+| `step6_nu2_trichotomy` | `ν₂(S⁶-Kick) ∈ {1, 2, ≥3}` |
+| `channel_seven71_step6_branching_v215_scaffold` | Scaffold-Bündel (22 Theoreme, 0 `sorry`) |
+
+**Build:**
+
+```bash
+lake build KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
+```
+
+---
+
+## Kanal-7-Kern — `ChannelSevenKernel` (V2.10–V2.15 konsolidiert)
+
+**Identifier:** `collatz-channel-seven-kernel`  
+**Modul:** `KeplerHurwitz/Collatz/ChannelSevenKernel.lean`  
+**Status-Bündel:** `ChannelSevenKernelStatus` · `collatz_proof_attempt_status_v215`
+
+### Inhalt
+
+| Komponente | Inhalt | Status |
+|---|---|---|
+| Affine Progressionen | `{55, 87, 119} mod 128`, Tiefe-3-Abstieg | `[A]` |
+| Parametrisches Schema | `ParametricUniformDescentCertificate` | `[A]` |
+| Offene Faser `71` | Kurzpräfix `[1,1,2,2]`, Nicht-Abstieg bis Tiefe 4 | `[A]` |
+| mod-256-Split | `256q+71` / `256q+199` ab Schritt 5 | `[A]` |
+| V2.14 Ebene A | `deepLiftResidue`, `nu2_deepBranch_*`, H1–H4 | `[A]` |
+| V2.15 Ebene B | H6-Brücken, Schritt-6-Trichotomie `486u+103` | `[A]` scaffold; H7/H8 `[C]` |
+| Operator-Brücke | `syracuseOddStep = oddCoreStep` | `[A]` |
+| Schalenbrücke | `eSchalenSprung (128k+r) = 1` für `r % 8 = 7` | `[A]` |
+
+### Anschlüsse an andere Zahlentheorie-Linien
+
+| Linie | Lean-Modul | Anschluss | Status |
+|---|---|---|---|
+| 2-adische Valuation | `Nu2Bounds`, `SchalenDynamik` | `eSchalenSprung m = ν₂(3m+1)`; Kanal-7-Eingang hat stets `ν₂=1` | `[A]` direkt |
+| Odd-Core-Dynamik | `OddCoreDynamics`, `Octonion/Definitions` | `syracuseOddStep = oddCoreStep`; Division `3m+1 = 2^ν · q` | `[A]` direkt |
+| mod-8-Restklassen | `ResidueFilters`, `HalesTaoIntegration` | Kanal-7-Fasern ⊆ Tao-Seed `odd_mod8_cases` | `[A]` direkt |
+| 2-adische Tiefenextraktion | V2.4–V2.5, `ChannelSevenAttackV213` | mod-256-Lift bei `71`; `ν₂`-Verzweigung Schritt 5 | `[A]` scaffold |
+| CEAB-Spiegel / Chiralität | `CeabMirrorBridge`, `OctonionicChiralDiagnostic`, `PrimvierlingSymmetry` | Kanal 3↔7, `mod8FiberSwap`; strukturelle Spiegelung | `[A]` algebraisch; Collatz-Deduktion `[C]` |
+| EABC mod-6 | `EabcSixStateMod6` | mod-6-Klassifikation schwächer als mod-8; keine Deduktion | `[C]` |
+| Dedekind-Ideal / Primvierling | `DedekindIdealLayer` | Chiralitäts-Parallelität, kein Collatz-Pfad | `[C]` |
+
+### Governance (Kern)
+
+\[
+\boxed{\text{geschlossene Progressionen } \{55,87,119\} \neq \text{offener Deep-Tail } 71 \neq \text{Kanal 7} \neq \text{global}}
+\]
+
+\[
+\boxed{\text{ParametricUniformDescentCertificate} = \text{wiederverwendbares Schema, kein universeller Algorithmus}}
+\]
+
+**Erreichbare Theoreme:** `reachable_channel_seven_kernel_status`, `reachable_channel_seven_deep_lift_level_a_status`, `reachable_channel_seven_dynamics_v215_scaffold`, `reachable_collatz_proof_attempt_status_v215` in `ReachableTheorems.lean`.
+
+**Begründungsprogramm (Oktanion/Hurwitz + Primvierling):** [`docs/theory/collatz_octonion_hurwitz_primvierling_program.md`](theory/collatz_octonion_hurwitz_primvierling_program.md)
+
+**Build (lokal):** `lake build KeplerHurwitz.Core` (8631 jobs, sorry-frei für `[A]`-Block)

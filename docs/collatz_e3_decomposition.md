@@ -231,3 +231,65 @@ Symmetrisierte Operatoren:
 **Kurzantwort:** Lemma 3 **ändert nichts** am Collatz-Beweisstatus. Die Aufspaltung ist eine wohldefinierte, hochsymmetrische Eigenschaft der Darstellung `n = e * a` bei faktorisiertem Rest — sie erzwingt **keine** Trajektorien-Termination.
 
 **Fazit Lemma 3:** Orthogonale Notations-/Diagnostikschicht — **null Collatz-Konsequenz**; optional **`[B]`** Profilmetrik `(S_+², S_-²)`.
+
+---
+
+## Spektral-Diagnostic — ungerade e-Potenzen `[B]`
+
+Für Lemma-2-Split `n = q * e³ + b * c * e` bilden die Koeffizienten der **ungeraden** e-Potenzen den Vektor `u = (q, b*c, 1)`. Die Rang-1-Gram-Matrix `outer(u, u)` hat sortierte Eigenwerte `[0, 0, q² + (b*c)² + 1]`.
+
+| Funktion | Rolle |
+|---|---|
+| `e3_spectral_diagnostic` | Eigenwerte, `e3_profile_norm_sq`, Split-Validierung |
+
+**Profilenergie:** `e3_profile_norm_sq = q² + (b*c)² + 1` — reine **[B]**-Profilmetrik. Das Legacy-Feld `anisotropy_gap` ist ein Alias dafür und **kein** spektraler Eigenwertabstand.
+
+**Beispiel:** `a = 17`, `e = 3`, `b = 2`, `c = 4` → `n = 51`, Koeffizienten `(1, 8, 1)` → `e3_profile_norm_sq = 66`.
+
+**Governance:** Reine **[B]**-Profilmetrik auf der algebraischen Split-Form — **kein** EABC-Tensor-Claim, **kein** Collatz-Beweis, **kein** Ersatz für `oddCore`/Syracuse.
+
+---
+
+## E³ ↔ EABC Anisotropie-Vergleich `[B]`
+
+Für festes `n = e * a` mit gültigem Lemma-2-Split vergleicht `compare_e3_eabc_anisotropy` die e³-Koeffizienten mit dem EABC-Rang-1-Defektmodell aus [`eabc_renormalisierungsprogramm.md`](energiedoku_exports/eabc_renormalisierungsprogramm.md).
+
+### Brückentabelle (explizit, nicht Äquivalenz-Claim)
+
+| Größe | Definition | Interpretation |
+|---|---|---|
+| E³-Rohprofil | `u = (q, bc, 1)` | algebraische Split-Koeffizienten |
+| Profilenergie | `‖u‖² = e3_profile_norm_sq` | reine **[B]**-Profilmetrik |
+| Defektrichtung | `v = u / ‖u‖` | normierte Brückenrichtung |
+| EABC-Gewicht | `w_p = channelWeight(e)` | nur aus EABC-Kanal (`w_p ≥ 0`) |
+| Effektiver Tensor | `M_eff = 24 I₃ + w_p v v^T` | diagnostisches Rang-1-Modell |
+| Spektrallücke | `Δ = \|w_p\|` (`w_p ≥ 0`: `Δ = w_p`) | Eigenwertabstand auf `M_eff` |
+| Retraktion | `R*_EABC(M_eff, v, w_p) = M_eff - w_p v v^T` | → `24 I₃`, `Δ = 0` |
+
+**Präzise Normalisierung:**
+
+- e³-Koeffizienten bestimmen **nur** die normierte Richtung `v = (q, bc, 1) / √(q² + (bc)² + 1)`.
+- Die Roh-Norm `‖u‖²` bestimmt **nicht** das Defektgewicht.
+- `w_p` kommt **ausschließlich** aus dem EABC-Kanal des Faktors `e`.
+
+**Governance (verbindlich):**
+
+> Der Vergleich konstruiert aus der E³-Split-Form eine normierte Richtung und kombiniert diese mit einem unabhängig vorgegebenen EABC-Kanalgewicht. Er prüft ausschließlich die interne Konsistenz dieses diagnostischen Rang-1-Modells. Daraus folgt weder eine Gleichheit der zugrunde liegenden Theorien noch eine Aussage über Collatz-Dynamik, oddCore, Syracuse oder `prime_norm_full_restoration`.
+
+**Nicht behauptet:** Die rohe Profilenergie `‖(q, b*c, 1)‖²` ist **nicht** gleich der spektralen EABC-Lücke `Δ`; nur das gebrückte `24 I_3 + w_p v v^T`-Modell wird verglichen.
+
+### Beispiele
+
+| `n` | `e` | Status | Grund |
+|---|---|---|---|
+| `65` | `5` | `pass` | `w_p = 5`, `Δ = 5`, Retraktion `Δ = 0` |
+| `60` | `5` | `pass` | `a = 12`, `r = 12 = 3 * 4` |
+| `51` | `3` | `skip` | `e = 3` hat keinen EABC-Kanal |
+
+| Funktion | Rolle |
+|---|---|
+| `compare_e3_eabc_anisotropy` | Vergleichsdiagnostik mit `comparison.status` |
+| `batch_e3_eabc_anisotropy_comparison` | Batch über `(a, e, b, c)`-Tupel |
+| `export_e3_eabc_anisotropy_comparison_json` | JSON-Export |
+| `eabc_defect_tensor` / `eabc_retract_defect` | `M_eff` / explizite Retraktion `M_eff - w_p v v^T` |
+| `eabc_tensor_spectral_summary` | Eigenwerte, Spur, Frobenius-Norm, Defektrang |

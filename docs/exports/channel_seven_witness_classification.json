@@ -1,0 +1,293 @@
+{
+  "summary": {
+    "channel": 7,
+    "modulus": 128,
+    "total_classes": 16,
+    "formally_closed_classes": 6,
+    "short_numerically_supported_classes": 3,
+    "medium_numerically_supported_classes": 1,
+    "numerically_supported_classes": 4,
+    "deep_tail_classes": 6,
+    "classes_with_numerical_witness": 16,
+    "unresolved_classes_within_max_t_loc_500": 0,
+    "formal_coverage_fraction": 0.375,
+    "formal_or_non_deep_fraction": 0.625,
+    "numerical_witness_found_fraction": 1.0,
+    "deep_tail_fraction": 0.375,
+    "maximum_formal_t_loc": 7,
+    "maximum_non_deep_numerical_t_loc": 12,
+    "maximum_observed_t_loc": 83,
+    "closed_short_residues": [
+      7,
+      15,
+      23,
+      39,
+      55,
+      79,
+      87,
+      95,
+      119
+    ],
+    "closed_medium_residues": [
+      127
+    ],
+    "closed_deep_residues": [
+      31,
+      47,
+      63,
+      71,
+      103,
+      111
+    ],
+    "short_numerically_supported_residues": [
+      39,
+      79,
+      95
+    ],
+    "medium_numerically_supported_residues": [
+      127
+    ],
+    "unresolved_residues": [],
+    "deep_tail_residues": [
+      31,
+      47,
+      63,
+      71,
+      103,
+      111
+    ],
+    "channel_three_frozen_coverage": "28/32",
+    "channel_three_deep_tail_mod128": [
+      27,
+      91,
+      123
+    ],
+    "channel_three_deep_tail_mod256": [
+      27,
+      91,
+      155,
+      251
+    ],
+    "formal_mod256_residues": [
+      39,
+      79,
+      95
+    ],
+    "partial_formal_mod128_residues": [
+      39,
+      79,
+      95
+    ],
+    "governance": "[B] numerical scan \u2014 not formal proof"
+  },
+  "classes": [
+    {
+      "modulus": 128,
+      "residue": 7,
+      "representative": 7,
+      "t_loc": 7,
+      "t_good": 4,
+      "target_channel": 3,
+      "depth_label": "closed_short",
+      "status": "formally_closed",
+      "formally_closed": true,
+      "lift_stage": "mod32",
+      "notes": "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_mod128_seven"
+    },
+    {
+      "modulus": 128,
+      "residue": 15,
+      "representative": 15,
+      "t_loc": 5,
+      "t_good": 6,
+      "target_channel": 7,
+      "depth_label": "closed_short",
+      "status": "formally_closed",
+      "formally_closed": true,
+      "lift_stage": "mod32",
+      "notes": "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_mod128_fifteen"
+    },
+    {
+      "modulus": 128,
+      "residue": 23,
+      "representative": 23,
+      "t_loc": 4,
+      "t_good": 4,
+      "target_channel": 3,
+      "depth_label": "closed_short",
+      "status": "formally_closed",
+      "formally_closed": true,
+      "lift_stage": "mod32",
+      "notes": "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two"
+    },
+    {
+      "modulus": 128,
+      "residue": 31,
+      "representative": 31,
+      "t_loc": 83,
+      "t_good": 8,
+      "target_channel": 7,
+      "depth_label": "closed_deep",
+      "status": "deep_tail",
+      "formally_closed": false,
+      "lift_stage": "mod128",
+      "notes": ""
+    },
+    {
+      "modulus": 128,
+      "residue": 39,
+      "representative": 39,
+      "t_loc": 9,
+      "t_good": 4,
+      "target_channel": 3,
+      "depth_label": "closed_short",
+      "status": "numerically_supported",
+      "formally_closed": false,
+      "lift_stage": "mod128",
+      "notes": "Lean [A] partial: bad_run_net_descent_witness_mod8_channel_seven_mod256_thirty_nine (n \u2261 39 mod 256 only; sibling n \u2261 167 mod 256 open)"
+    },
+    {
+      "modulus": 128,
+      "residue": 47,
+      "representative": 47,
+      "t_loc": 82,
+      "t_good": 6,
+      "target_channel": 7,
+      "depth_label": "closed_deep",
+      "status": "deep_tail",
+      "formally_closed": false,
+      "lift_stage": "mod128",
+      "notes": ""
+    },
+    {
+      "modulus": 128,
+      "residue": 55,
+      "representative": 55,
+      "t_loc": 4,
+      "t_good": 4,
+      "target_channel": 3,
+      "depth_label": "closed_short",
+      "status": "formally_closed",
+      "formally_closed": true,
+      "lift_stage": "mod32",
+      "notes": "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two"
+    },
+    {
+      "modulus": 128,
+      "residue": 63,
+      "representative": 63,
+      "t_loc": 78,
+      "t_good": 10,
+      "target_channel": 7,
+      "depth_label": "closed_deep",
+      "status": "deep_tail",
+      "formally_closed": false,
+      "lift_stage": "mod128",
+      "notes": ""
+    },
+    {
+      "modulus": 128,
+      "residue": 71,
+      "representative": 71,
+      "t_loc": 79,
+      "t_good": 4,
+      "target_channel": 3,
+      "depth_label": "closed_deep",
+      "status": "deep_tail",
+      "formally_closed": false,
+      "lift_stage": "mod64",
+      "notes": ""
+    },
+    {
+      "modulus": 128,
+      "residue": 79,
+      "representative": 79,
+      "t_loc": 7,
+      "t_good": 6,
+      "target_channel": 7,
+      "depth_label": "closed_short",
+      "status": "numerically_supported",
+      "formally_closed": false,
+      "lift_stage": "mod64",
+      "notes": "Lean [A] partial: bad_run_net_descent_witness_mod8_channel_seven_mod256_seventy_nine (n \u2261 79 mod 256 only; sibling n \u2261 207 mod 256 open)"
+    },
+    {
+      "modulus": 128,
+      "residue": 87,
+      "representative": 87,
+      "t_loc": 4,
+      "t_good": 4,
+      "target_channel": 3,
+      "depth_label": "closed_short",
+      "status": "formally_closed",
+      "formally_closed": true,
+      "lift_stage": "mod32",
+      "notes": "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two"
+    },
+    {
+      "modulus": 128,
+      "residue": 95,
+      "representative": 95,
+      "t_loc": 5,
+      "t_good": 8,
+      "target_channel": 7,
+      "depth_label": "closed_short",
+      "status": "numerically_supported",
+      "formally_closed": false,
+      "lift_stage": "mod64",
+      "notes": "Lean [A] partial: bad_run_net_descent_witness_mod8_channel_seven_mod256_ninety_five (n \u2261 95 mod 256 only; sibling n \u2261 223 mod 256 open)"
+    },
+    {
+      "modulus": 128,
+      "residue": 103,
+      "representative": 103,
+      "t_loc": 64,
+      "t_good": 4,
+      "target_channel": 3,
+      "depth_label": "closed_deep",
+      "status": "deep_tail",
+      "formally_closed": false,
+      "lift_stage": "mod64",
+      "notes": ""
+    },
+    {
+      "modulus": 128,
+      "residue": 111,
+      "representative": 111,
+      "t_loc": 44,
+      "t_good": 6,
+      "target_channel": 7,
+      "depth_label": "closed_deep",
+      "status": "deep_tail",
+      "formally_closed": false,
+      "lift_stage": "mod64",
+      "notes": ""
+    },
+    {
+      "modulus": 128,
+      "residue": 119,
+      "representative": 119,
+      "t_loc": 4,
+      "t_good": 4,
+      "target_channel": 3,
+      "depth_label": "closed_short",
+      "status": "formally_closed",
+      "formally_closed": true,
+      "lift_stage": "mod32",
+      "notes": "Lean [A]: bad_run_net_descent_witness_mod8_channel_seven_k_mod4_two"
+    },
+    {
+      "modulus": 128,
+      "residue": 127,
+      "representative": 127,
+      "t_loc": 12,
+      "t_good": 12,
+      "target_channel": 7,
+      "depth_label": "closed_medium",
+      "status": "numerically_supported",
+      "formally_closed": false,
+      "lift_stage": "mod64",
+      "notes": ""
+    }
+  ]
+}

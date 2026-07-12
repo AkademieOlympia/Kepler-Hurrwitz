@@ -1,0 +1,229 @@
+{
+  "cases": [
+    {
+      "a": 13,
+      "b": 13,
+      "c": 1,
+      "comparison": {
+        "abs_error": 0.0,
+        "bridge_note": "e3 coefficients supply v only; w_p from EABC channel only; e3_profile_norm_sq is not spectral \u0394.",
+        "rel_error": 0.0,
+        "status": "pass"
+      },
+      "e": 5,
+      "e3": {
+        "anisotropy": 5.0,
+        "anisotropy_gap": 170.0,
+        "anisotropy_gap_note": "Legacy alias for e3_profile_norm_sq; NOT the spectral eigenvalue gap.",
+        "bridged_tensor": {
+          "anisotropy": 5.0,
+          "defect_rank": 1,
+          "eigenvalues": [
+            24.0,
+            24.0,
+            29.0
+          ],
+          "frobenius_norm": 44.64302857109943,
+          "frobenius_sq": 1993.0,
+          "lambda_max": 29.0,
+          "lambda_min": 24.0,
+          "spectral_anisotropy_gap": 5.0,
+          "trace": 77.0
+        },
+        "defect_rank": 1,
+        "direction_norm": 0.9999999999999999,
+        "e3_profile_norm_sq": 170.0,
+        "effective_tensor": [
+          [
+            24.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            28.970588235294116,
+            0.38235294117647056
+          ],
+          [
+            0.0,
+            0.38235294117647056,
+            24.029411764705884
+          ]
+        ],
+        "frobenius_norm": 44.64302857109943,
+        "frobenius_sq": 1993.0,
+        "gram_eigenvalues": [
+          0.0,
+          0.0,
+          170.0
+        ],
+        "lambda_max": 29.0,
+        "lambda_min": 24.0,
+        "spectral_anisotropy_gap": 5.0,
+        "split_valid": true,
+        "tensor_matrix_check": {
+          "anisotropy": 5.0,
+          "defect_rank": 1,
+          "eigenvalues": [
+            24.0,
+            24.0,
+            29.0
+          ],
+          "frobenius_norm": 44.64302857109943,
+          "frobenius_sq": 1993.0,
+          "lambda_max": 29.0,
+          "lambda_min": 24.0,
+          "trace": 77.0
+        },
+        "tensor_symmetric": true,
+        "trace": 77.0
+      },
+      "eabc": {
+        "after_retraction": {
+          "anisotropy": 0.0,
+          "defect_rank": 0,
+          "frobenius_norm": 41.569219381653056,
+          "lambda_max": 24.0,
+          "lambda_min": 24.0,
+          "retracted_tensor": [
+            [
+              24.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              24.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              24.0
+            ]
+          ],
+          "spectral_anisotropy_gap": 0.0,
+          "tensor_matrix_check": {
+            "anisotropy": 0.0,
+            "defect_rank": 0,
+            "eigenvalues": [
+              24.0,
+              24.0,
+              24.0
+            ],
+            "frobenius_norm": 41.569219381653056,
+            "frobenius_sq": 1728.0,
+            "lambda_max": 24.0,
+            "lambda_min": 24.0,
+            "trace": 72.0
+          },
+          "trace": 72.0
+        },
+        "applicable": true,
+        "defect_rank": 1,
+        "defect_weight_w_p": 5,
+        "expected_anisotropy": 5.0,
+        "frobenius_norm": 44.64302857109943,
+        "frobenius_sq": 1993.0,
+        "lambda_max": 29.0,
+        "lambda_min": 24.0,
+        "retraction_formula": "R*_EABC(M_eff, v, w_p) = M_eff - w_p v v^T",
+        "trace": 77.0
+      },
+      "governance": {
+        "e3_eabc_bridge_note": "Der Vergleich konstruiert aus der E\u00b3-Split-Form eine normierte Richtung und kombiniert diese mit einem unabh\u00e4ngig vorgegebenen EABC-Kanalgewicht. Er pr\u00fcft ausschlie\u00dflich die interne Konsistenz dieses diagnostischen Rang-1-Modells. Daraus folgt weder eine Gleichheit der zugrunde liegenden Theorien noch eine Aussage \u00fcber Collatz-Dynamik, oddCore, Syracuse oder prime_norm_full_restoration.",
+        "tag": "[B]"
+      },
+      "n": 65,
+      "normalization": {
+        "defect_direction": {
+          "bc": 13,
+          "normalized": [
+            0.0,
+            0.9970544855015815,
+            0.07669649888473704
+          ],
+          "q": 0,
+          "unit": 1
+        },
+        "defect_weight_prerequisite": "w_p >= 0 for EABC channel table",
+        "defect_weight_source": "eabc_channel_weight_from_factor(e) only",
+        "direction_norm": 0.9999999999999999,
+        "e3_profile_norm_sq": 170.0,
+        "eigenvalue_sort": "ascending (lambda_min first)",
+        "geom_fixpoint": "24.0 * I_3",
+        "index_convention": "row-major 3x3 symmetric tensor, Fin 3 style",
+        "raw_profile": {
+          "bc": 13,
+          "q": 0,
+          "unit": 1
+        }
+      }
+    },
+    {
+      "a": 17,
+      "b": 2,
+      "c": 4,
+      "comparison": {
+        "reason": "EABC bridge requires e > 3 with e % 12 in {1,5,7,11}",
+        "status": "skip"
+      },
+      "e": 3,
+      "e3": {
+        "anisotropy_gap": 66.0,
+        "anisotropy_gap_note": "Legacy alias for e3_profile_norm_sq; NOT the spectral eigenvalue gap.",
+        "e3_profile_norm_sq": 66.0,
+        "gram_eigenvalues": [
+          0.0,
+          0.0,
+          66.0
+        ],
+        "split_valid": true
+      },
+      "eabc": {
+        "applicable": false,
+        "reason": "e=3 has no EABC channel weight"
+      },
+      "governance": {
+        "e3_eabc_bridge_note": "Der Vergleich konstruiert aus der E\u00b3-Split-Form eine normierte Richtung und kombiniert diese mit einem unabh\u00e4ngig vorgegebenen EABC-Kanalgewicht. Er pr\u00fcft ausschlie\u00dflich die interne Konsistenz dieses diagnostischen Rang-1-Modells. Daraus folgt weder eine Gleichheit der zugrunde liegenden Theorien noch eine Aussage \u00fcber Collatz-Dynamik, oddCore, Syracuse oder prime_norm_full_restoration.",
+        "tag": "[B]"
+      },
+      "n": 51,
+      "normalization": {
+        "defect_direction": {
+          "bc": 8,
+          "normalized": [
+            0.12309149097933272,
+            0.9847319278346618,
+            0.12309149097933272
+          ],
+          "q": 1,
+          "unit": 1
+        },
+        "defect_weight_prerequisite": "w_p >= 0 for EABC channel table",
+        "defect_weight_source": "eabc_channel_weight_from_factor(e) only",
+        "direction_norm": 0.9999999999999999,
+        "e3_profile_norm_sq": 66.0,
+        "eigenvalue_sort": "ascending (lambda_min first)",
+        "geom_fixpoint": "24.0 * I_3",
+        "index_convention": "row-major 3x3 symmetric tensor, Fin 3 style",
+        "raw_profile": {
+          "bc": 8,
+          "q": 1,
+          "unit": 1
+        }
+      }
+    }
+  ],
+  "governance": {
+    "e3_eabc_bridge_note": "Der Vergleich konstruiert aus der E\u00b3-Split-Form eine normierte Richtung und kombiniert diese mit einem unabh\u00e4ngig vorgegebenen EABC-Kanalgewicht. Er pr\u00fcft ausschlie\u00dflich die interne Konsistenz dieses diagnostischen Rang-1-Modells. Daraus folgt weder eine Gleichheit der zugrunde liegenden Theorien noch eine Aussage \u00fcber Collatz-Dynamik, oddCore, Syracuse oder prime_norm_full_restoration.",
+    "tag": "[B]"
+  },
+  "normalization": {
+    "case_format": "(a, e, b, c) with n = e * a and Lemma-2 split r = b * c",
+    "defect_weight_prerequisite": "w_p >= 0 for EABC channel table",
+    "eigenvalue_sort": "ascending (lambda_min first)",
+    "geom_fixpoint": "24.0 * I_3",
+    "index_convention": "row-major 3x3 symmetric tensor, Fin 3 style"
+  }
+}
