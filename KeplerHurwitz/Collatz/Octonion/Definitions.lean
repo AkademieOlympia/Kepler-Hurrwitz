@@ -95,6 +95,20 @@ theorem oddCoreStep_eq_div_padicVal (m : Nat) :
   unfold oddCoreStep oddCore
   simp only [Nat.factorization_def (3 * m + 1) Nat.prime_two]
 
+/--
+`[A]` Generische Brücke: exakte Faktorisierung `3n+1 = 2^a·q` mit ungeradem `q`
+und `a = ν₂(3n+1)` impliziert `oddCoreStep n = q`.
+-/
+theorem oddCoreStep_eq_of_two_pow_mul_odd
+    {n q a : Nat}
+    (hfactor : 3 * n + 1 = 2 ^ a * q)
+    (_hodd : Odd q)
+    (ha : padicValNat 2 (3 * n + 1) = a) :
+    oddCoreStep n = q := by
+  have hpow_pos : 0 < 2 ^ a := Nat.pow_pos (by decide : 0 < 2)
+  rw [oddCoreStep_eq_div_padicVal, ha, hfactor]
+  exact Nat.mul_div_cancel_left q hpow_pos
+
 /-- `[A]` Odd-Core-Schritt als Bruch `n ↦ (3n+1) / (2^ν₂ · n)` (für `n > 0`). -/
 theorem oddCoreStep_div_eq (n : Nat) (hn : 0 < n) :
     (oddCoreStep n : ℝ) / n =

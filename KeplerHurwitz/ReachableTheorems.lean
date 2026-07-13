@@ -579,34 +579,34 @@ theorem reachable_deep_lift_fiber_h7_mod128_inverse :
 theorem reachable_deep_lift_affine_entry_spec
     (j : ℕ) (a : Collatz.ChannelSevenAffineMod128V215.mod128) :
     Collatz.ChannelSevenAffineMod128V215.deepLiftFiberZMod j
-      (Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_target_parameter j a) = a := by
-  exact Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_entry_spec j a
+      (Collatz.ChannelSevenAffineMod128V215.entryParameterMod128 j a) = a := by
+  exact Collatz.ChannelSevenAffineMod128V215.deepLiftFiber_entry_spec j a
 
 theorem reachable_deep_lift_affine_entry_unique
     (j : ℕ) (a t : Collatz.ChannelSevenAffineMod128V215.mod128)
     (ht : Collatz.ChannelSevenAffineMod128V215.deepLiftFiberZMod j t = a) :
-    t = Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_target_parameter j a := by
-  exact Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_entry_unique j a t ht
+    t = Collatz.ChannelSevenAffineMod128V215.entryParameterMod128 j a := by
+  exact Collatz.ChannelSevenAffineMod128V215.deepLiftFiber_entry_unique j a t ht
 
 theorem reachable_deep_lift_affine_target_unique
     (j : ℕ) (a : Collatz.ChannelSevenAffineMod128V215.mod128) :
     ∃! t : Collatz.ChannelSevenAffineMod128V215.mod128,
       Collatz.ChannelSevenAffineMod128V215.deepLiftFiberZMod j t = a := by
-  exact Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_target_unique j a
+  exact Collatz.ChannelSevenAffineMod128V215.deepLiftFiber_has_unique_parameter_type j a
 
 theorem reachable_deep_lift_affine_modEq128_iff (j t a : ℕ) :
-    Nat.ModEq 128 (Collatz.ChannelSevenDynamicsV215.deepLiftAffine j t) a ↔
+    Nat.ModEq 128 (Collatz.ChannelSevenDynamicsV215.deepLiftFiber j t) a ↔
       Nat.ModEq 128 t
-        (Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_target_parameter j
+        (Collatz.ChannelSevenAffineMod128V215.entryParameterMod128 j
           (a : Collatz.ChannelSevenAffineMod128V215.mod128)).val := by
-  exact Collatz.ChannelSevenDynamicsV215.deepLiftAffine_modEq128_iff j t a
+  exact Collatz.ChannelSevenDynamicsV215.deepLiftFiber_modEq128_iff j t a
 
 theorem reachable_deep_lift_affine_mod128_parameter (j a : ℕ) :
-    (Collatz.ChannelSevenDynamicsV215.deepLiftAffine j
-        (Collatz.ChannelSevenAffineMod128V215.deepLiftAffine_target_parameter j
+    (Collatz.ChannelSevenDynamicsV215.deepLiftFiber j
+        (Collatz.ChannelSevenAffineMod128V215.entryParameterMod128 j
           (a : Collatz.ChannelSevenAffineMod128V215.mod128)).val) % 128 =
       a % 128 := by
-  exact Collatz.ChannelSevenDynamicsV215.deepLiftAffine_mod128_parameter j a
+  exact Collatz.ChannelSevenDynamicsV215.deepLiftFiber_mod128_parameter j a
 
 theorem reachable_channel_seven71_step6_branching_v215_scaffold :
     Collatz.ChannelSeven71Step6BranchingV215.ChannelSeven71Step6BranchingV215Scaffold := by

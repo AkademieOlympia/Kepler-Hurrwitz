@@ -39,8 +39,10 @@ def DeepLiftFiberMod128EntryHypothesis : Prop :=
     IsControlledFiber (Nat.iterate syracuseOddStep ℓ (deepLiftAffine j t))
 
 /-- `[C]` — dynamischer mod-128-Eintritt; Beweis offen. -/
-theorem deepLiftFiber_mod128_entry : DeepLiftFiberMod128EntryHypothesis := by
+theorem deepLiftFiber_mod128_dynamic_entry : DeepLiftFiberMod128EntryHypothesis := by
   sorry
+
+abbrev deepLiftFiber_mod128_entry := deepLiftFiber_mod128_dynamic_entry
 
 /-- Endlicher Zustandstyp für Deep-Lift-Fasern modulo `M`. -/
 structure DeepLiftFiberState (M : Nat) where

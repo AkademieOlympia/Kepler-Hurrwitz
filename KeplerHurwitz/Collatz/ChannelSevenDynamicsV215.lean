@@ -270,35 +270,47 @@ Governance:
 Dynamische Erreichbarkeit kontrollierter Fasern: `ChannelSevenDynamicsHypothesesV215` (`[C]`).
 -/
 
-theorem deepLiftAffineZMod_eq (j t : ℕ) :
-    deepLiftFiberZMod j (t : mod128) = (deepLiftAffine j t : mod128) := by
-  dsimp [deepLiftFiberZMod, deepLiftAffine, deepLiftConstantZMod, deepBranchMultiplier]
+theorem deepLiftFiberZMod_eq (j t : ℕ) :
+    deepLiftFiberZMod j (t : mod128) = (deepLiftFiber j t : mod128) := by
+  dsimp [deepLiftFiberZMod, deepLiftFiber, deepLiftAffineZMod, deepLiftAffine,
+    deepLiftConstantZMod, deepBranchMultiplier]
   push_cast
   ring
 
-theorem deepLiftAffine_modEq128_iff (j t a : ℕ) :
-    Nat.ModEq 128 (deepLiftAffine j t) a ↔
-      Nat.ModEq 128 t (deepLiftAffine_target_parameter j (a : mod128)).val := by
+theorem deepLiftAffineZMod_eq (j t : ℕ) :
+    deepLiftAffineZMod j (t : mod128) = (deepLiftAffine j t : mod128) := by
+  dsimp [deepLiftAffineZMod, deepLiftAffine, deepLiftConstantZMod, deepBranchMultiplier]
+  push_cast
+  ring
+
+theorem deepLiftFiber_modEq128_iff (j t a : ℕ) :
+    Nat.ModEq 128 (deepLiftFiber j t) a ↔
+      Nat.ModEq 128 t (entryParameterMod128 j (a : mod128)).val := by
   constructor
   · intro h
-    have hz : (deepLiftAffine j t : mod128) = (a : mod128) :=
+    have hz : (deepLiftFiber j t : mod128) = (a : mod128) :=
       (ZMod.natCast_eq_natCast_iff _ _ 128).mpr h
-    have huniq := deepLiftAffine_entry_unique j (a : mod128) (t : mod128)
-      (by simpa [deepLiftAffineZMod_eq] using hz)
-    have hv : t % 128 = (deepLiftAffine_target_parameter j (a : mod128)).val := by
+    have huniq := deepLiftFiber_entry_unique j (a : mod128) (t : mod128)
+      (by simpa [deepLiftFiberZMod_eq] using hz)
+    have hv : t % 128 = (entryParameterMod128 j (a : mod128)).val := by
       simpa [ZMod.val_natCast] using congrArg ZMod.val huniq
-    rw [Nat.ModEq, hv, Nat.mod_eq_of_lt (ZMod.val_lt (deepLiftAffine_target_parameter j (a : mod128)))]
+    rw [Nat.ModEq, hv, Nat.mod_eq_of_lt (ZMod.val_lt (entryParameterMod128 j (a : mod128)))]
   · intro h
-    have ht : (t : mod128) = deepLiftAffine_target_parameter j (a : mod128) := by
+    have ht : (t : mod128) = entryParameterMod128 j (a : mod128) := by
       simpa [ZMod.natCast_val] using (ZMod.natCast_eq_natCast_iff _ _ 128).mpr h
-    have heq : (deepLiftAffine j t : mod128) = (a : mod128) := by
-      rw [← deepLiftAffineZMod_eq, ht, deepLiftAffine_entry_spec]
+    have heq : (deepLiftFiber j t : mod128) = (a : mod128) := by
+      rw [← deepLiftFiberZMod_eq, ht]
+      show deepLiftAffineZMod j (entryParameterMod128 j (a : mod128)) = (a : mod128)
+      exact deepLiftFiber_entry_spec j (a : mod128)
     exact (ZMod.natCast_eq_natCast_iff _ _ 128).mp heq
 
-theorem deepLiftAffine_mod128_parameter (j a : ℕ) :
-    (deepLiftAffine j (deepLiftAffine_target_parameter j (a : mod128)).val) % 128 = a % 128 :=
-  (deepLiftAffine_modEq128_iff j (deepLiftAffine_target_parameter j (a : mod128)).val a).mpr
+theorem deepLiftFiber_mod128_parameter (j a : ℕ) :
+    (deepLiftFiber j (entryParameterMod128 j (a : mod128)).val) % 128 = a % 128 :=
+  (deepLiftFiber_modEq128_iff j (entryParameterMod128 j (a : mod128)).val a).mpr
     (Nat.ModEq.refl _)
+
+abbrev deepLiftAffine_modEq128_iff := deepLiftFiber_modEq128_iff
+abbrev deepLiftAffine_mod128_parameter := deepLiftFiber_mod128_parameter
 
 /-!
 ## V2.15 Status-Bündel (`[A]` sorry-frei; `[C]` in `ChannelSevenDynamicsHypothesesV215`)
@@ -341,22 +353,22 @@ structure ChannelSevenDynamicsV215Scaffold : Prop where
   h7_mod128_inverse :
     (243 : mod128) * 59 = 1 ∧
       (59 : mod128) * 243 = 1
-  h7_target_spec :
+  h7_entry_spec :
     ∀ (j : ℕ) (a : mod128),
-      deepLiftFiberZMod j (deepLiftAffine_target_parameter j a) = a
+      deepLiftFiberZMod j (entryParameterMod128 j a) = a
   h7_permutation :
     ∀ (j : ℕ), Function.Bijective (deepLiftFiberPermutation j)
-  h7_target_unique :
+  h7_entry_unique :
     ∀ (j : ℕ) (a t : mod128),
-      deepLiftFiberZMod j t = a → t = deepLiftAffine_target_parameter j a
+      deepLiftFiberZMod j t = a → t = entryParameterMod128 j a
   h7_has_unique_parameter_type :
     ∀ (j : ℕ) (a : mod128), ∃! t : mod128, deepLiftFiberZMod j t = a
   h7_modEq128_iff :
-    ∀ (j t a : ℕ), Nat.ModEq 128 (deepLiftAffine j t) a ↔
-      Nat.ModEq 128 t (deepLiftAffine_target_parameter j (a : mod128)).val
+    ∀ (j t a : ℕ), Nat.ModEq 128 (deepLiftFiber j t) a ↔
+      Nat.ModEq 128 t (entryParameterMod128 j (a : mod128)).val
   h7_mod128_parameter :
     ∀ (j a : ℕ),
-      (deepLiftAffine j (deepLiftAffine_target_parameter j (a : mod128)).val) % 128 = a % 128
+      (deepLiftFiber j (entryParameterMod128 j (a : mod128)).val) % 128 = a % 128
 
 theorem channel_seven_dynamics_v215_scaffold : ChannelSevenDynamicsV215Scaffold where
   fiber_definitions := ⟨deepLiftFiber_eq, deepLiftAffine_eq, deepBranchParam_eq⟩
@@ -373,11 +385,11 @@ theorem channel_seven_dynamics_v215_scaffold : ChannelSevenDynamicsV215Scaffold 
     deepLiftFiber_t_zero_four, deepLiftFiber_t_zero_five⟩
   level_a_import := channel_seven_deep_lift_scaffold
   h7_mod128_inverse := ⟨coeff243_mul_59_mod128, coeff59_mul_243_mod128⟩
-  h7_target_spec := deepLiftAffine_entry_spec
+  h7_entry_spec := deepLiftFiber_entry_spec
   h7_permutation := fun j => (deepLiftFiberPermutation j).bijective
-  h7_target_unique := deepLiftAffine_entry_unique
-  h7_has_unique_parameter_type := deepLiftAffine_target_unique
-  h7_modEq128_iff := deepLiftAffine_modEq128_iff
-  h7_mod128_parameter := deepLiftAffine_mod128_parameter
+  h7_entry_unique := deepLiftFiber_entry_unique
+  h7_has_unique_parameter_type := deepLiftFiber_has_unique_parameter_type
+  h7_modEq128_iff := deepLiftFiber_modEq128_iff
+  h7_mod128_parameter := deepLiftFiber_mod128_parameter
 
 end KeplerHurwitz.Collatz.ChannelSevenDynamicsV215

@@ -590,6 +590,23 @@ structure ChannelSevenDeepLiftScaffold : Prop where
   step5_certificate :
     ∀ r : Nat, 3 * (162 * (4 * r + 1) + 91) + 1 = 2 ^ 3 * deepBranchPoly r
 
+/-- V2.14 Ebene A: vollständig formalisierte Bewertungsklassifikation (H1–H4). -/
+structure ChannelSevenDeepLiftLevelAStatus : Prop where
+  existsUnique_residue : ∀ j : Nat, DeepLiftResidueUnique j
+  residue_iff :
+    ∀ j r : Nat, deepLiftModulus j ∣ deepBranchPoly r ↔ r % deepLiftModulus j = deepLiftResidue j
+  nu2_ge_iff :
+    ∀ j r : Nat, j ≤ padicValNat 2 (deepBranchPoly r) ↔ r % deepLiftModulus j = deepLiftResidue j
+  nu2_eq_iff :
+    ∀ j r : Nat,
+      padicValNat 2 (deepBranchPoly r) = j ↔
+        r % deepLiftModulus j = deepLiftResidue j ∧ r % deepLiftModulus (j + 1) ≠ deepLiftResidue (j + 1)
+  affine_factorization :
+    ∀ j t : Nat,
+      deepBranchPoly (deepLiftResidue j + deepLiftModulus j * t) =
+        deepLiftModulus j * (deepBranchMultiplier * t + deepLiftConstant j)
+  scaffold : ChannelSevenDeepLiftScaffold
+
 theorem channel_seven_deep_lift_scaffold : ChannelSevenDeepLiftScaffold where
   multiplier_invertible := deepBranchMultiplier_coprime_pow_two
   generator_values := ⟨deepLiftResidue_one, deepLiftResidue_two, deepLiftResidue_three,
@@ -607,5 +624,13 @@ theorem channel_seven_deep_lift_scaffold : ChannelSevenDeepLiftScaffold where
     existsUnique_deepLiftResidue_four,
     existsUnique_deepLiftResidue_five⟩
   step5_certificate := channelSeven71_step5_certificate_link
+
+theorem channel_seven_deep_lift_level_a_status : ChannelSevenDeepLiftLevelAStatus where
+  existsUnique_residue := existsUnique_deepLiftResidue
+  residue_iff := fun j r => (deepLiftResidue_iff j r)
+  nu2_ge_iff := fun j r => (nu2_deepBranch_ge_iff j r)
+  nu2_eq_iff := fun j r => (nu2_deepBranch_eq_iff j r)
+  affine_factorization := fun j t => (deepLift_affine_factorization j t)
+  scaffold := channel_seven_deep_lift_scaffold
 
 end KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214

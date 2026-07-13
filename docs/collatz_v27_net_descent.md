@@ -1101,11 +1101,21 @@ Fortsetzung unter `syracuseOddStep`.
 | `channelSeven71_step5_deepLiftFiber_j3_even_t` | V2.13 → V2.14 bei `j=3`, gerades `t` |
 | `channelSeven71_step5_deepLiftFiber_j3_t_zero` | Anker `S⁵(1735)=103` |
 
+### H7-A geschlossen (`[A]`, 0 `sorry`)
+
+| Satz | Modul |
+|---|---|
+| `coeff243_mul_59_mod128`, `entryParameterMod128`, `deepLiftFiberPermutation` | `ChannelSevenAffineMod128V215` |
+| `deepLiftFiber_entry_spec`, `deepLiftFiber_entry_unique`, `deepLiftFiber_has_unique_parameter_type` | `ChannelSevenAffineMod128V215` |
+| `deepLiftFiber_modEq128_iff`, `deepLiftFiber_mod128_parameter` | `ChannelSevenDynamicsV215` |
+
+Governance: algebraische Parametrisierung ≠ dynamische Erreichbarkeit.
+
 ### Offen (`[C]`, `sorry`)
 
 | Satz | Hypothese |
 |---|---|
-| `deepLiftFiber_mod128_entry` | H7 Typenreduktion |
+| `deepLiftFiber_mod128_dynamic_entry` / `deepLiftFiber_mod128_entry` | H7-C dynamischer Eintritt `{39,79,95,103}` |
 | `deepLiftFiber_net_descent_witness` | H8 Witness-Assembly |
 | `deepLiftFiber_wellFounded_rank` | H6 Rang (kein ε₀) |
 
@@ -1216,6 +1226,6 @@ lake build KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
 
 **Erreichbare Theoreme:** `reachable_channel_seven_kernel_status`, `reachable_channel_seven_deep_lift_level_a_status`, `reachable_channel_seven_dynamics_v215_scaffold`, `reachable_collatz_proof_attempt_status_v215` in `ReachableTheorems.lean`.
 
-**Begründungsprogramm (Oktanion/Hurwitz + Primvierling):** [`docs/theory/collatz_octonion_hurwitz_primvierling_program.md`](theory/collatz_octonion_hurwitz_primvierling_program.md)
+**Programm-Manifest:** [`theory/collatz_octonion_hurwitz_primvierling_program.md`](theory/collatz_octonion_hurwitz_primvierling_program.md) — epistemische Statustabelle `[A]`–`[D]`, Publikationsarchitektur, V2.15-Schritt-6-Disziplin; **kein** globaler Beweis.
 
 **Build (lokal):** `lake build KeplerHurwitz.Core` (8631 jobs, sorry-frei für `[A]`-Block)

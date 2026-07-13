@@ -72,8 +72,8 @@ für nichttriviale Lift-Schalen `j`?
 ### H7 — Typenreduktion / Zustandsgraph auf affinen Familien
 
 **H7-A `[A]` geschlossen** in `ChannelSevenAffineMod128V215.lean` (mod-128 affine Bijektion,
-`deepLiftAffine_target_parameter`, `deepLiftAffine_entry_spec`, `deepLiftFiberPermutation`;
-Nat-Brücke in `ChannelSevenDynamicsV215.lean`).
+`entryParameterMod128`, `deepLiftFiber_entry_spec`, `deepLiftFiberPermutation`;
+Nat-Brücke `deepLiftFiber_modEq128_iff` / `deepLiftFiber_mod128_parameter` in `ChannelSevenDynamicsV215.lean`).
 
 **Governance:** \(\boxed{\text{algebraisch parametrisiert} \neq \text{dynamisch erreicht}}\)
 
@@ -93,7 +93,7 @@ oder Rückkehr in bekannte geschlossene Fasern `{55, 87, 119}`.
 | Prio | Lemma | Status |
 |---|---|---|
 | P0 | `deepLiftAffine_mod128_equiv` — bijektive affine Permutation mod 128 | **V2.15 `[A]` geschlossen** |
-| P0 | `deepLiftAffine_modEq128_iff` / `deepLiftAffine_mod128_parameter` | **V2.15 `[A]` geschlossen** |
+| P0 | `deepLiftFiber_modEq128_iff` / `deepLiftFiber_mod128_parameter` | **V2.15 `[A]` geschlossen** |
 | P1 | `DeepLiftFiberState` — endlicher Typ `(j, c_j, t mod M)` | Hypothesen-Scaffold |
 | P1 | `DeepLiftFiberMod128EntryHypothesis` — dynamischer Eintritt `{39,79,95,103}` | offen (`[C]`, Hypothesen) |
 | P2 | Rückkehrzeit in kontrollierten Fasern für `t ≤ T` | `[B]` numerisch (`generate_h7_witness_matrix`) |
