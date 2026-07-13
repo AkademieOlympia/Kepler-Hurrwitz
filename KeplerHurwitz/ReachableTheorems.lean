@@ -23,6 +23,7 @@ import KeplerHurwitz.CollatzProofAttemptV215
 import KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214
 import KeplerHurwitz.Collatz.ChannelSevenDynamicsV215
 import KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
+import KeplerHurwitz.Collatz.ChannelSeven71Step7BranchingV215
 import KeplerHurwitz.Collatz.ChannelSevenKernel
 import KeplerHurwitz.CollatzNetDescentMod8
 import KeplerHurwitz.CollatzNetDescentDiagnostics
@@ -611,6 +612,10 @@ theorem reachable_deep_lift_affine_mod128_parameter (j a : ℕ) :
 theorem reachable_channel_seven71_step6_branching_v215_scaffold :
     Collatz.ChannelSeven71Step6BranchingV215.ChannelSeven71Step6BranchingV215Scaffold := by
   exact Collatz.ChannelSeven71Step6BranchingV215.channel_seven71_step6_branching_v215_scaffold
+
+theorem reachable_channel_seven71_step7_branching_v215_scaffold :
+    Collatz.ChannelSeven71Step7BranchingV215.ChannelSeven71Step7BranchingV215Scaffold := by
+  exact Collatz.ChannelSeven71Step7BranchingV215.channel_seven71_step7_branching_v215_scaffold
 
 theorem reachable_collatz_proof_attempt_status_v215 :
     CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV215 := by

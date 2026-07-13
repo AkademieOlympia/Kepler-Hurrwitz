@@ -56,6 +56,7 @@ __all__ = [
     "deep_lift_fiber",
     "scan_deep_lift_fiber_dynamics",
     "scan_j3_step6_kick",
+    "scan_step7_kick_on_nu1_terminal",
     "export_deep_lift_fiber_dynamics_json",
     "Integer",
     "v2",
@@ -404,6 +405,67 @@ def scan_j3_step6_kick(
         "rows": rows,
         "nu2_eq1_on_even_u": nu1_even_u,
         "nu2_ge2_on_odd_u": nu_ge2_odd_u,
+        "total_rows": len(rows),
+    }
+
+
+def scan_step7_kick_on_nu1_terminal(
+    v_max: int = 40,
+) -> dict[str, object]:
+    """
+    `[B]` Step-7 kick on the ``ν₂ = 1`` step-6 terminal family ``1458v + 155``.
+
+    Lean counterpart: ``ChannelSeven71Step7BranchingV215``. Expected classification:
+    - ``v = 2s``: ``ν₂ = 1``, terminal ``4374s + 233``
+    - ``v = 4w + 3``: ``ν₂ = 2``, terminal ``4374w + 3397``
+    - ``v = 4w + 1``: ``ν₂ ≥ 3``, terminal ``oddCore(2187w + 605)``
+
+    Governance: diagnostic only — does NOT prove Collatz or net descent.
+    """
+    closed_mod128 = CONTROLLED_RESIDUES_MOD128
+    rows: list[dict[str, object]] = []
+    histogram: dict[int, int] = {}
+    for v in range(0, v_max + 1):
+        m = 1458 * v + 155
+        kick = 3 * m + 1
+        nu = v2(kick)
+        step = syracuse_odd_step(m)
+        if v % 2 == 0:
+            branch = "even_v"
+            expected = 4374 * (v // 2) + 233
+            expected_nu: tuple[int, ...] = (1,)
+        elif v % 4 == 3:
+            branch = "odd_v_odd_s"
+            expected = 4374 * (v // 4) + 3397
+            expected_nu = (2,)
+        else:
+            branch = "odd_v_even_s"
+            expected = odd_core(2187 * (v // 4) + 605)
+            expected_nu = tuple(range(3, 64))
+        res128 = step % 128
+        histogram[res128] = histogram.get(res128, 0) + 1
+        rows.append(
+            {
+                "v": v,
+                "m": m,
+                "nu2_kick": nu,
+                "branch": branch,
+                "step7": step,
+                "expected_terminal": expected,
+                "terminal_ok": step == expected,
+                "nu2_ok": nu in expected_nu,
+                "step7_mod128": res128,
+                "hits_closed_mod128": res128 in closed_mod128,
+            }
+        )
+    all_terminal_ok = all(bool(row["terminal_ok"]) for row in rows)
+    all_nu2_ok = all(bool(row["nu2_ok"]) for row in rows)
+    return {
+        "v_max": v_max,
+        "rows": rows,
+        "all_terminal_ok": all_terminal_ok,
+        "all_nu2_ok": all_nu2_ok,
+        "terminal_mod128_histogram": dict(sorted(histogram.items())),
         "total_rows": len(rows),
     }
 

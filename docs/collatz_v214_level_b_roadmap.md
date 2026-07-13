@@ -68,6 +68,7 @@ für nichttriviale Lift-Schalen `j`?
 | P1 | `deepLiftFiber_small_t_decide` — `t ∈ {0,1,2}` für `j ≤ 5` | V2.15 + `[B]` |
 | P2 | Uniforme `S^ℓ`-Form auf `\mathcal{F}_j` für kleines `\ell` | offen |
 | P2 | Valuationswort nach Terminalform (Schritt 6+) | V2.15 Schritt-6-Verzweigung (`486u+103`) — **`[A]` geschlossen** |
+| P2 | Valuationswort Schritt 7 auf `ν₂=1`-Terminal | V2.15 Schritt-7-Verzweigung (`1458v+155`, `ChannelSeven71Step7BranchingV215`) — **`[A]` geschlossen** |
 
 ### H7 — Typenreduktion / Zustandsgraph auf affinen Familien
 
@@ -97,6 +98,7 @@ oder Rückkehr in bekannte geschlossene Fasern `{55, 87, 119}`.
 | P1 | `DeepLiftFiberState` — endlicher Typ `(j, c_j, t mod M)` | Hypothesen-Scaffold |
 | P1 | `DeepLiftFiberMod128EntryHypothesis` — dynamischer Eintritt `{39,79,95,103}` | offen (`[C]`, Hypothesen) |
 | P2 | Rückkehrzeit in kontrollierten Fasern für `t ≤ T` | `[B]` numerisch (`generate_h7_witness_matrix`) |
+| P2 | mod-128-Reduktion der Schritt-7-Terminalfamilien (`50v+27`, `22s+105`, `22w+69`) | **V2.15 `[A]` geschlossen** (`ChannelSeven71Step7BranchingV215`) + `[B]` Histogramm (`scan_step7_kick_on_nu1_terminal`) |
 | P2 | Keine unbeschränkte Schleife auf `\mathcal{F}_j` ohne Rang | offen |
 
 ### H8 — Deszentszeuge → `BadRunNetDescentWitness`

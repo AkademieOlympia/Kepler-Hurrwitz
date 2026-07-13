@@ -112,3 +112,36 @@ def test_scan_j3_step6_kick_nu2_by_u_parity() -> None:
     u0 = next(row for row in result["rows"] if row["u"] == 0)
     assert u0["step6"] == 155
     assert u0["nu2_kick"] == 1
+
+
+def test_scan_step7_kick_on_nu1_terminal_branches() -> None:
+    from kepler_hurwitz.deep_lift_hensel_diagnostic import (
+        scan_step7_kick_on_nu1_terminal,
+    )
+
+    result = scan_step7_kick_on_nu1_terminal(v_max=40)
+    assert result["all_terminal_ok"] is True
+    assert result["all_nu2_ok"] is True
+
+    rows = {row["v"]: row for row in result["rows"]}
+    # v = 0 (even): nu2 = 1, terminal 4374*0 + 233
+    assert rows[0]["nu2_kick"] == 1
+    assert rows[0]["step7"] == 233
+    # v = 3 (= 4*0 + 3): nu2 = 2, terminal 4374*0 + 3397
+    assert rows[3]["nu2_kick"] == 2
+    assert rows[3]["step7"] == 3397
+    # v = 1 (= 4*0 + 1): nu2 >= 3, terminal oddCore(605) = 605
+    assert rows[1]["nu2_kick"] >= 3
+    assert rows[1]["step7"] == odd_core(2187 * 0 + 605)
+    # v = 5 (= 4*1 + 1), w = 1 odd: nu2 >= 3 (not necessarily exactly 3)
+    assert rows[5]["nu2_kick"] >= 3
+    assert rows[5]["step7"] == odd_core(2187 * 1 + 605)
+
+    histogram = result["terminal_mod128_histogram"]
+    assert sum(histogram.values()) == result["total_rows"]
+    # Even-v terminals 4374s + 233 ≡ 22s + 105 (mod 128)
+    assert rows[0]["step7_mod128"] == 105
+    assert rows[2]["step7_mod128"] == (22 * 1 + 105) % 128
+    # Odd-v/odd-s terminals 4374w + 3397 ≡ 22w + 69 (mod 128)
+    assert rows[3]["step7_mod128"] == 69
+    assert rows[7]["step7_mod128"] == (22 * 1 + 69) % 128

@@ -1183,6 +1183,62 @@ lake build KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
 
 ---
 
+## V2.15 — Schritt-7-Verzweigung (`1458v + 155`)
+
+**Identifier:** `collatz-channel-7-step7-branching-v2.15`  
+**Modul:** `KeplerHurwitz/Collatz/ChannelSeven71Step7BranchingV215.lean`  
+**Status:** Schritt-7-Verzweigung geschlossen (`[A]`, 0 `sorry`); Ebene-B-Dynamik offen (`[C]`)
+
+### Leitformel (Governance V2.15)
+
+\[
+\boxed{\text{Schritt-7-Verzweigung klassifiziert} \;\neq\; \text{dynamischer Deszent bewiesen}}
+\]
+
+Eingang ist das Schritt-6-Terminal des `ν₂ = 1`-Zweigs (`u = 2v` in Schritt 6),
+formal angeschlossen über `step6Terminal_eq_step6_even_branch`:
+
+\[
+S^6 = 1458v + 155, \quad 3S^6 + 1 = 2\,(2187v + 233), \quad \nu_2(3S^6+1) \in \{1, 2, \geq 3\}
+\]
+
+| Zweig | `ν₂` | Terminal `S⁷` |
+|---|---|---|
+| `v = 2s` (gerade) | `= 1` | `4374s + 233` |
+| `v = 4w+3` (`s` ungerade) | `= 2` | `4374w + 3397` |
+| `v = 4w+1` (`s` gerade) | `≥ 3` (`= 3` bei geradem `w`) | `oddCore(2187w + 605)` |
+
+| Satz | Rolle |
+|---|---|
+| `step6Terminal_eq_step6_even_branch` | Anschluss an Schritt-6-Kaskade (`[A]`) |
+| `step6Terminal_odd` | Terminal `S⁶ = 1458v + 155` ungerade |
+| `step7_kick_factorization` | `3S⁶+1 = 2(2187v+233)` |
+| `step7_even_v_val_eq_one` / `step7_even_v_terminal` | `v` gerade ⇒ `ν₂ = 1`, `S⁷ = 4374s + 233` |
+| `step7_odd_v_certificate` | `v` ungerade ⇒ `3S⁶+1 = 4(2187s+1210)` |
+| `step7_odd_v_odd_s_val_eq_two` / `step7_odd_v_odd_s_terminal` | `s` ungerade ⇒ `ν₂ = 2`, `S⁷ = 4374w + 3397` |
+| `step7_odd_v_even_s_val_ge_three` / `step7_odd_v_even_s_terminal` | `s` gerade ⇒ `ν₂ ≥ 3`, `S⁷ = oddCore(2187w+605)` |
+| `step7_odd_v_even_s_w_even_val_eq_three` | `w` gerade ⇒ exakt `ν₂ = 3` |
+| `step7_nu2_trichotomy` | `ν₂(S⁷-Kick) ∈ {1, 2, ≥3}` |
+| `step6Terminal_mod128` u. a. | mod-128-Reduktion für H7-Zustandsgraph (`50v+27`, `22s+105`, `22w+69`) |
+| `channel_seven71_step7_branching_v215_scaffold` | Scaffold-Bündel (0 `sorry`) |
+
+H7-Anschluss (`[A]`, statisch): Die Familie `1458v + 155` durchläuft mod 128 die
+Restklassen `50v + 27`; die `ν₂=1`- und `ν₂=2`-Terminalfamilien reduzieren auf
+`22s + 105` bzw. `22w + 69` — Eingabedaten für den endlichen H7-Zustandsgraphen,
+**keine** dynamische Erreichbarkeitsaussage.
+
+**Build:**
+
+```bash
+lake build KeplerHurwitz.Collatz.ChannelSeven71Step7BranchingV215
+```
+
+**Python `[B]`:** `scan_step7_kick_on_nu1_terminal` in `deep_lift_hensel_diagnostic.py`
+(Zweigklassifikation + mod-128-Terminalhistogramm; Test in
+`tests/test_deep_lift_hensel_diagnostic.py`).
+
+---
+
 ## Kanal-7-Kern — `ChannelSevenKernel` (V2.10–V2.15 konsolidiert)
 
 **Identifier:** `collatz-channel-seven-kernel`  
@@ -1224,7 +1280,7 @@ lake build KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
 \boxed{\text{ParametricUniformDescentCertificate} = \text{wiederverwendbares Schema, kein universeller Algorithmus}}
 \]
 
-**Erreichbare Theoreme:** `reachable_channel_seven_kernel_status`, `reachable_channel_seven_deep_lift_level_a_status`, `reachable_channel_seven_dynamics_v215_scaffold`, `reachable_collatz_proof_attempt_status_v215` in `ReachableTheorems.lean`.
+**Erreichbare Theoreme:** `reachable_channel_seven_kernel_status`, `reachable_channel_seven_deep_lift_level_a_status`, `reachable_channel_seven_dynamics_v215_scaffold`, `reachable_channel_seven71_step7_branching_v215_scaffold`, `reachable_collatz_proof_attempt_status_v215` in `ReachableTheorems.lean`.
 
 **Programm-Manifest:** [`theory/collatz_octonion_hurwitz_primvierling_program.md`](theory/collatz_octonion_hurwitz_primvierling_program.md) — epistemische Statustabelle `[A]`–`[D]`, Publikationsarchitektur, V2.15-Schritt-6-Disziplin; **kein** globaler Beweis.
 
