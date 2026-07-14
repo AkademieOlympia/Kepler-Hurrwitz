@@ -304,11 +304,13 @@ theorem h7_deepLiftJ3StepU_no_outgoing {r : H7State} (hr : r.pos = .deepLiftJ3St
   rintro ⟨s, e⟩
   rcases h7_edge_cases e with ⟨hpos, -, -⟩ | ⟨hpos, -, -, -⟩ <;> rw [hr] at hpos <;> cases hpos
 
-/-- `[A]` Von einem geschlossenen `entryMod128`-Eintrittszustand bleibt **jeder**
-Pfad, unabhängig von seiner Länge, an genau diesem Zustand stehen (reine
-Selbstschleife, getragen vom Zertifikat aus Teil 3). -/
-theorem h7Path_of_closedEntry {r : H7State} (hr1 : r.pos = .entryMod128)
-    (_hr2 : r.residue.val ∈ h7ClosedResiduesMod128) :
+/-- `[A]` Von JEDEM `entryMod128`-Zustand bleibt **jeder** Pfad, unabhängig von
+seiner Länge, an genau diesem Zustand stehen — unabhängig davon, ob die
+Restklasse geschlossen ist: entweder ist sie es, dann ist die einzige Kante
+die Selbstschleife (getragen vom Zertifikat aus Teil 3); oder sie ist es
+nicht, dann existiert gar keine Kante und nur `j = 0` ist überhaupt möglich.
+Keine Restklassen-Annahme nötig, siehe `h7_edge_cases`. -/
+theorem h7Path_of_closedEntry {r : H7State} (hr1 : r.pos = .entryMod128) :
     ∀ {j : ℕ} {s : H7State}, H7Path j r s → s = r := by
   intro j
   induction j with
@@ -339,7 +341,7 @@ theorem h7Path_length_ge_two_iff {j : ℕ} {r s : H7State} (p : H7Path j r s)
   | cons e p' =>
     rcases h7_edge_cases e with ⟨hpos, hs1, hmem⟩ | ⟨-, hspos, -, -⟩
     · subst hs1
-      exact ⟨hpos, hmem, h7Path_of_closedEntry hpos hmem p'⟩
+      exact ⟨hpos, hmem, h7Path_of_closedEntry hpos p'⟩
     · exfalso
       cases p' with
       | cons e' _ => exact h7_deepLiftJ3StepU_no_outgoing hspos ⟨_, e'⟩
@@ -474,5 +476,67 @@ theorem h7DistanceToControlled_none_iff_unreachable (r : H7State) :
   rw [h7_reaches_controlled_iff_within_one, h7ReachesControlledWithin_one_iff]
   unfold h7DistanceToControlled H7ReachesControlledDecidable
   split_ifs with h1 h2 <;> simp_all
+
+/-! ## Teil 9: Pfad-Solidität (Komposition) -/
+
+/--
+`[A]` Zulässigkeitsbegriff für die Komposition, bewusst **nur** für die
+`entryMod128`-Position formuliert.
+
+Ein positionsunabhängiger Begriff (`n % 128 = r.residue.val` für JEDE Position)
+wäre für `deepLiftJ3EntryU` **falsch**: die dort gespeicherte Restklasse ist
+`u % 128` für den Deep-Lift-Indexparameter `u` aus `ChannelSevenDeepLiftV214`,
+und `u` ist im Allgemeinen **kein** Wert, der in der `oddCoreIterate`-Bahn von
+irgendeinem `n` auftritt (`486u+103 ≢ u`, `729u+155 ≢ u mod 128` im
+Allgemeinen). Für diese Familie ist die stärkste korrekte Aussage bereits in
+Teil 3 bewiesen (`h7_edge_deepLiftJ3EvenUStep_sound`), mit der EXAKTEN
+Grundierung `n = channelSeven71Fiber (64u+13)` statt einer bloßen mod-128-
+Kennzeichnung. `H7AdmissibleAt` deckt daher gezielt den Teilgraphen ab, auf dem
+eine positionsfreie mod-128-Zulässigkeit überhaupt sound ist.
+-/
+def H7AdmissibleAt (r : H7State) (n : ℕ) : Prop :=
+  r.pos = .entryMod128 ∧ n % 128 = r.residue.val
+
+/--
+`[A]` **Kompositionssatz für die `entryMod128`-Familie**: von einem zulässigen
+`n` aus bleibt entlang JEDES `H7Path` beliebiger Länge `j` sowohl der
+Zielzustand als auch die Restklasse von `n` unverändert (`s = r`), weil die
+einzige von `entryMod128` ausgehende Kante die Selbstschleife
+`closedNetDescentUnion` ist (`h7Path_of_closedEntry`) — und falls die
+Restklasse nicht einmal geschlossen ist, existiert gar keine Kante, also ist
+ohnehin nur `j = 0` möglich. In beiden Fällen liefert `K = 0`
+(`oddCoreIterate 0 n = n`) den geforderten Zeugen — dies ist die stärkste WAHRE
+Form der verlangten Aussage `∃ K, oddCoreIterate K n % 128 = s.residue.val` für
+diese Familie: der Zustand bewegt sich nie, also braucht die Bahn auch keinen
+einzigen Schritt.
+-/
+theorem h7_path_sound {j : ℕ} {r s : H7State} (hpath : H7Path j r s)
+    {n : ℕ} (hn : H7AdmissibleAt r n) :
+    s = r ∧ ∃ K : ℕ, oddCoreIterate K n % 128 = s.residue.val := by
+  obtain ⟨hr1, hr2⟩ := hn
+  have hsr : s = r := h7Path_of_closedEntry hr1 hpath
+  exact ⟨hsr, 0, hsr ▸ hr2⟩
+
+/--
+`[A]` **Punktweise Komposition für die `deepLiftJ3EvenUStep`-Familie**: dies ist
+die exakte Übersetzung des in Teil 3 bewiesenen `h7_edge_deepLiftJ3EvenUStep_sound`
+in die `H7Path`-Sprache. Jeder Pfad, der an einem `deepLiftJ3EntryU`-Zustand
+beginnt, hat (per `h7Path_length_ge_two_iff`) Länge `≤ 1`; für Länge `1` liefert
+genau dieses Lemma den `K = 6`-Zeugen relativ zur konkreten Grundierung
+`n = channelSeven71Fiber (64u+13)`.
+-/
+theorem h7_path_sound_deepLiftJ3EvenUStep {r s : H7State}
+    (hpath : H7Path 1 r s) (hr : r.pos = .deepLiftJ3EntryU) :
+    ∀ u : Nat, u % 128 = r.residue.val →
+      oddCoreIterate 6 (channelSeven71Fiber (64 * u + 13)) % 128 = s.residue.val := by
+  cases hpath with
+  | cons e p' =>
+    cases p' with
+    | nil =>
+      have he : H7FamilyEdge .deepLiftJ3EvenUStep r s := by
+        rcases h7_edge_cases e with ⟨hpos, -, -⟩ | h
+        · rw [hr] at hpos; cases hpos
+        · exact h
+      exact h7_edge_deepLiftJ3EvenUStep_sound he
 
 end KeplerHurwitz.Collatz.H7StateGraph
