@@ -66,6 +66,8 @@ open KeplerHurwitz.Collatz.ChannelSevenAttackV213
 open KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214
 open KeplerHurwitz.Collatz.ChannelSevenDynamicsV215
 open KeplerHurwitz.Collatz.Octonion (oddCoreIterate)
+open KeplerHurwitz.CollatzAttemptV2.CollatzNetDescent.ChannelSeven
+  (LocalWitnessStatementMod8 bad_run_net_descent_witness_mod128_channel_seven_formal_union)
 
 /-! ## Teil 2: Zustands- und Kantentyp -/
 
@@ -138,5 +140,111 @@ def H7EdgeMod128 (r s : H7State) : Prop := ∃ f : H7EdgeFamily, H7FamilyEdge f 
 
 instance : DecidableRel H7EdgeMod128 := fun _ _ =>
   Fintype.decidableExistsFintype
+
+/-! ## Teil 3: Solidität jeder Graphkante -/
+
+theorem h7ClosedResiduesMod128_iff (x : ℕ) :
+    x ∈ h7ClosedResiduesMod128 ↔
+      x = 7 ∨ x = 15 ∨ x = 23 ∨ x = 55 ∨ x = 87 ∨ x = 119 := by
+  simp [h7ClosedResiduesMod128]
+
+/--
+`[A]` Konkreter H7-Einstiegspunkt der `j = 3`-Schale: die channel-7-Faser
+`n = 8192·u + 1735` (`= channelSeven71Fiber (64u+13)`), für die
+`syracuseOddStep^[5]` exakt `486u + 103 = deepLiftFiber 3 (2u)` liefert.
+-/
+theorem h7_entry_shell_eq (u : Nat) :
+    4 * deepBranchParam 3 (2 * u) + 1 = 64 * u + 13 := by
+  have hm : deepLiftModulus 3 = 8 := by decide
+  rw [deepBranchParam_eq, deepLiftResidue_three, hm]
+  ring
+
+/-- `[A]` Fünf-Schritt-Brücke von der Kanal-7-Faser `71` zum `j=3`-Terminal `486u+103`. -/
+theorem h7_step5_to_486u103 (u : Nat) :
+    ChannelSevenAttackV213.syracuseOddStep^[5]
+        (channelSeven71Fiber (64 * u + 13)) = 486 * u + 103 := by
+  have ht : (2 * u) % 2 = 0 := by omega
+  have h := channelSeven71_step5_deepLiftFiber_j3_even_t (2 * u) ht
+  rw [h7_entry_shell_eq u] at h
+  rwa [deepLiftFiber_j3_reparam_even] at h
+
+/-- `[A]` Sechster Schritt: für gerades `u` ist das Terminal exakt `729u + 155`. -/
+theorem h7_oddCoreStep_486u103_even (u : Nat) (hu : u % 2 = 0) :
+    oddCoreStep (486 * u + 103) = 729 * u + 155 := by
+  have h := syracuseOdd_deepLiftFiber_j3_step6_u_even u hu
+  rwa [deepLiftFiber_j3_reparam_even] at h
+
+/-- `[A]` Komposition: sechs Syracuse-Odd-Schritte von der `71`-Faser zum geraden-`u`-Terminal. -/
+theorem h7_step6_to_729u155 (u : Nat) (hu : u % 2 = 0) :
+    oddCoreIterate 6 (channelSeven71Fiber (64 * u + 13)) = 729 * u + 155 := by
+  have h5 := h7_step5_to_486u103 u
+  have h1 := h7_oddCoreStep_486u103_even u hu
+  change oddCoreStep^[6] (channelSeven71Fiber (64 * u + 13)) = 729 * u + 155
+  rw [show (6 : Nat) = 5 + 1 from rfl, Function.iterate_succ_apply']
+  rw [h5, h1]
+
+/-- Elementares Restklassen-Lemma: affine `729u+155` reduziert mod `128` allein über `u % 128`. -/
+theorem h7_affine729_mod128 (u : Nat) :
+    (729 * u + 155) % 128 = (729 * (u % 128) + 155) % 128 :=
+  ((Nat.mod_modEq u 128).symm.mul_left 729).add_right 155
+
+/--
+`[A]` Solidität der `deepLiftJ3EvenUStep`-Kante: für JEDES `u` mit passender
+Restklasse und gerader Parität liefert der reale Kanal-7-Eintrittspunkt
+`n = 8192u + 1735` nach genau sechs `oddCore`-Schritten exakt die im Kantenziel
+behauptete Restklasse. Dies ist die zentrale Korrektheitsprüfung des gesamten
+Vorhabens (siehe Governance-Kommentar oben zur Präzisionsgrenze).
+-/
+theorem h7_edge_deepLiftJ3EvenUStep_sound {r s : H7State}
+    (he : H7FamilyEdge .deepLiftJ3EvenUStep r s) :
+    ∀ u : Nat, u % 128 = r.residue.val →
+      oddCoreIterate 6 (channelSeven71Fiber (64 * u + 13)) % 128 = s.residue.val := by
+  obtain ⟨_, _, hreven, hsval⟩ := he
+  intro u hu
+  have hueven : u % 2 = 0 := by omega
+  rw [h7_step6_to_729u155 u hueven, h7_affine729_mod128 u, hu, hsval]
+
+/--
+`[A]` Solidität der `closedNetDescentUnion`-Kante: jede der sechs Restklassen
+trägt bereits das (im `CollatzAttemptV2`-Framework via `collatzStep` formulierte)
+Netto-Abstiegs-Zertifikat aus
+`bad_run_net_descent_witness_mod128_channel_seven_formal_union`. Diese Kante
+behauptet **keine** neue mod-128-Restklasse; sie markiert nur, dass für diese
+Restklassen keine weitere H7-Verfolgung nötig ist.
+-/
+theorem h7_edge_closedNetDescentUnion_sound {r s : H7State}
+    (he : H7FamilyEdge .closedNetDescentUnion r s) :
+    ∀ n : Nat, 1 < n → n % 128 = r.residue.val →
+      LocalWitnessStatementMod8 n := by
+  obtain ⟨_, _, hmem⟩ := he
+  intro n hn hnmod
+  rw [h7ClosedResiduesMod128_iff] at hmem
+  have hres :
+      n % 128 = 7 ∨ n % 128 = 15 ∨ n % 128 = 23 ∨
+        n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119 := by
+    rw [hnmod]; exact hmem
+  exact bad_run_net_descent_witness_mod128_channel_seven_formal_union hn hres
+
+/--
+`[A]` Hindernis-Nachweis (`step6OddUBranchObstruction`): auf dem ungeraden-`u`-Zweig
+von `ChannelSeven71Step6BranchingV215` liefert dieselbe `u`-Restklasse mod 128
+(`u = 3` und `u = 131`, beide `≡ 3 mod 128`, beide ungerade) zwei
+**verschiedene** Ausgangsrestklassen mod 128 (`1171 % 128 = 19` vs.
+`47827 % 128 = 83`). Ein einwertiger `Fin 128 → Fin 128`-Kantenbegriff für
+diesen Zweig ist daher beweisbar unmöglich — exakt der im Kopf-Kommentar
+dokumentierte Präzisionsverlust, hier konkret bezeugt statt nur behauptet.
+-/
+theorem h7_step6_odd_u_branch_precision_obstruction :
+    (3 : Nat) % 128 = 131 % 128 ∧
+      ChannelSeven71Step6BranchingV215.syracuseOddStep
+          (ChannelSeven71Step6BranchingV215.step5Terminal 3) % 128 ≠
+        ChannelSeven71Step6BranchingV215.syracuseOddStep
+          (ChannelSeven71Step6BranchingV215.step5Terminal 131) % 128 := by
+  have h0 := ChannelSeven71Step6BranchingV215.step6_odd_u_odd_v_terminal 0
+  have h32 := ChannelSeven71Step6BranchingV215.step6_odd_u_odd_v_terminal 32
+  norm_num at h0 h32
+  refine ⟨by decide, ?_⟩
+  rw [h0, h32]
+  decide
 
 end KeplerHurwitz.Collatz.H7StateGraph
