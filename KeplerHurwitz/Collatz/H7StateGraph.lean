@@ -247,4 +247,232 @@ theorem h7_step6_odd_u_branch_precision_obstruction :
   rw [h0, h32]
   decide
 
+/-! ## Teil 4: Kontrollierte Fasern -/
+
+/-- Die vier kontrollierten Zielrestklassen `F_ctrl = {39, 79, 95, 103} mod 128`. -/
+def h7ControlledFibers : Finset ℕ := {39, 79, 95, 103}
+
+theorem mem_h7ControlledFibers_iff (x : ℕ) :
+    x ∈ h7ControlledFibers ↔ x = 39 ∨ x = 79 ∨ x = 95 ∨ x = 103 := by
+  simp [h7ControlledFibers]
+
+/-- Die geschlossene Selbstschleifen-Menge und `F_ctrl` sind disjunkt: kein
+`closedNetDescentUnion`-Zustand trägt bereits eine kontrollierte Restklasse. -/
+theorem h7_closed_disjoint_controlled :
+    h7ClosedResiduesMod128 ∩ h7ControlledFibers = ∅ := by decide
+
+/-! ## Teil 5: Pfade im H7-Graphen -/
+
+/-- Ein H7-Pfad der Länge `j` von `r` nach `s`, entlang `H7EdgeMod128`. -/
+inductive H7Path : ℕ → H7State → H7State → Prop
+  | nil (r : H7State) : H7Path 0 r r
+  | cons {j : ℕ} {r s t : H7State} (e : H7EdgeMod128 r s) (p : H7Path j s t) :
+      H7Path (j + 1) r t
+
+/-- `r` erreicht eine kontrollierte Faser innerhalb von höchstens `K` Schritten. -/
+def H7ReachesControlledWithin (K : ℕ) (r : H7State) : Prop :=
+  ∃ j ≤ K, ∃ s : H7State, H7Path j r s ∧ s.residue.val ∈ h7ControlledFibers
+
+/-- `[A]` Ein einzelner Kompositionsschritt reicht immer aus, um jeden Pfad um
+eine weitere Kante zu verlängern. -/
+theorem h7Path_succ_of_edge {j : ℕ} {r s t : H7State}
+    (e : H7EdgeMod128 r s) (p : H7Path j s t) : H7Path (j + 1) r t :=
+  .cons e p
+
+/-! ## Teil 6: Jede Kante gehört zu genau einer der zwei nichtleeren Familien -/
+
+/-- `[A]` Jede tatsächlich existierende Kante fällt in genau einen der zwei
+nichtleeren Konstruktoren von `H7EdgeFamily` (die beiden Hindernis-Konstruktoren
+sind beweisbar leer, siehe `H7FamilyEdge`). Dies ist die zentrale Fallunterscheidung
+für alle folgenden Erreichbarkeits- und Vollständigkeitsaussagen. -/
+theorem h7_edge_cases {r s : H7State} (e : H7EdgeMod128 r s) :
+    (r.pos = .entryMod128 ∧ s = r ∧ r.residue.val ∈ h7ClosedResiduesMod128) ∨
+      (r.pos = .deepLiftJ3EntryU ∧ s.pos = .deepLiftJ3StepU ∧
+        r.residue.val % 2 = 0 ∧ s.residue.val = (729 * r.residue.val + 155) % 128) := by
+  obtain ⟨f, hf⟩ := e
+  cases f with
+  | closedNetDescentUnion => exact Or.inl hf
+  | deepLiftJ3EvenUStep => exact Or.inr hf
+  | step6OddUBranchObstruction => exact hf.elim
+  | step7BranchObstruction => exact hf.elim
+
+/-- `[A]` Ein Zustand an Position `deepLiftJ3StepU` hat **keine** ausgehende Kante:
+weder `closedNetDescentUnion` (verlangt `entryMod128`) noch `deepLiftJ3EvenUStep`
+(verlangt `deepLiftJ3EntryU`) greift, die Hindernis-Familien sind ohnehin leer. -/
+theorem h7_deepLiftJ3StepU_no_outgoing {r : H7State} (hr : r.pos = .deepLiftJ3StepU) :
+    ¬ ∃ s, H7EdgeMod128 r s := by
+  rintro ⟨s, e⟩
+  rcases h7_edge_cases e with ⟨hpos, -, -⟩ | ⟨hpos, -, -, -⟩ <;> rw [hr] at hpos <;> cases hpos
+
+/-- `[A]` Von einem geschlossenen `entryMod128`-Eintrittszustand bleibt **jeder**
+Pfad, unabhängig von seiner Länge, an genau diesem Zustand stehen (reine
+Selbstschleife, getragen vom Zertifikat aus Teil 3). -/
+theorem h7Path_of_closedEntry {r : H7State} (hr1 : r.pos = .entryMod128)
+    (_hr2 : r.residue.val ∈ h7ClosedResiduesMod128) :
+    ∀ {j : ℕ} {s : H7State}, H7Path j r s → s = r := by
+  intro j
+  induction j with
+  | zero =>
+    intro s p
+    cases p with
+    | nil => rfl
+  | succ j ih =>
+    intro s p
+    cases p with
+    | cons e p' =>
+      rcases h7_edge_cases e with ⟨-, hs1, -⟩ | ⟨hpos, -, -, -⟩
+      · rw [hs1] at p'; exact ih p'
+      · exact absurd hr1 (hpos ▸ by decide)
+
+/-- `[A]` **Vollständigkeitsschranke**: jeder Pfad der Länge `≥ 2` startet
+notwendig an einem geschlossenen `entryMod128`-Zustand und bleibt (via der
+vorherigen Selbstschleifen-Invarianz) exakt an diesem Zustand stehen. Beweis
+durch Fallunterscheidung über die erste Kante: die einzige Familie, die eine
+Kette von Länge `≥ 2` überhaupt zulässt, ist `closedNetDescentUnion`, weil
+`deepLiftJ3EvenUStep` sofort in einen kantenlosen `deepLiftJ3StepU`-Zustand
+führt (`h7_deepLiftJ3StepU_no_outgoing`). -/
+theorem h7Path_length_ge_two_iff {j : ℕ} {r s : H7State} (p : H7Path j r s)
+    (hj : 2 ≤ j) :
+    r.pos = .entryMod128 ∧ r.residue.val ∈ h7ClosedResiduesMod128 ∧ s = r := by
+  obtain ⟨j', rfl⟩ : ∃ j', j = j' + 2 := ⟨j - 2, by omega⟩
+  cases p with
+  | cons e p' =>
+    rcases h7_edge_cases e with ⟨hpos, hs1, hmem⟩ | ⟨-, hspos, -, -⟩
+    · subst hs1
+      exact ⟨hpos, hmem, h7Path_of_closedEntry hpos hmem p'⟩
+    · exfalso
+      cases p' with
+      | cons e' _ => exact h7_deepLiftJ3StepU_no_outgoing hspos ⟨_, e'⟩
+
+/-- `[A]` Erreichbarkeit einer kontrollierten Faser über **irgendeinen** Pfad ist
+äquivalent zur Erreichbarkeit über einen Pfad der Länge `≤ 1`. Damit ist `K = 1`
+eine bewiesen vollständige Suchschranke für diesen Graphen (kein größeres `K`
+liefert zusätzliche erreichte Zustände). -/
+theorem h7_reaches_controlled_iff_within_one (r : H7State) :
+    (∃ j s, H7Path j r s ∧ s.residue.val ∈ h7ControlledFibers) ↔
+      H7ReachesControlledWithin 1 r := by
+  constructor
+  · rintro ⟨j, s, p, hs⟩
+    rcases Nat.lt_or_ge j 2 with hj | hj
+    · exact ⟨j, by omega, s, p, hs⟩
+    · exfalso
+      obtain ⟨-, hmem, hsr⟩ := h7Path_length_ge_two_iff p hj
+      rw [hsr] at hs
+      have hboth : r.residue.val ∈ h7ClosedResiduesMod128 ∩ h7ControlledFibers :=
+        Finset.mem_inter.mpr ⟨hmem, hs⟩
+      rw [h7_closed_disjoint_controlled] at hboth
+      exact absurd hboth (by simp)
+  · rintro ⟨j, -, s, p, hs⟩
+    exact ⟨j, s, p, hs⟩
+
+/-! ## Teil 7: Domäne und residuale Frontier -/
+
+/-- `[A]` Die exakte Vereinigung der beiden nichtleeren Kantenfamilien-Domänen
+(die Hindernis-Familien tragen keine Zustände bei, da beweisbar leer). -/
+def h7Domain : Finset H7State :=
+  (Finset.univ.filter
+      (fun r : H7State => r.pos = .entryMod128 ∧ r.residue.val ∈ h7ClosedResiduesMod128)) ∪
+    (Finset.univ.filter
+      (fun r : H7State => r.pos = .deepLiftJ3EntryU ∧ r.residue.val % 2 = 0))
+
+/-- `[A]` `h7Domain` erfasst genau die Zustände mit mindestens einer ausgehenden
+Kante — die Domäne ist also weder zu groß noch zu klein. -/
+theorem mem_h7Domain_iff (r : H7State) :
+    r ∈ h7Domain ↔ ∃ s, H7EdgeMod128 r s := by
+  simp only [h7Domain, Finset.mem_union, Finset.mem_filter, Finset.mem_univ, true_and]
+  constructor
+  · rintro (⟨h1, h2⟩ | ⟨h1, h2⟩)
+    · exact ⟨r, .closedNetDescentUnion, h1, rfl, h2⟩
+    · refine ⟨⟨⟨(729 * r.residue.val + 155) % 128, Nat.mod_lt _ (by norm_num)⟩,
+        .deepLiftJ3StepU⟩, .deepLiftJ3EvenUStep, h1, rfl, h2, rfl⟩
+  · rintro ⟨s, e⟩
+    rcases h7_edge_cases e with ⟨h1, -, h2⟩ | ⟨h1, -, h2, -⟩
+    · exact Or.inl ⟨h1, h2⟩
+    · exact Or.inr ⟨h1, h2⟩
+
+/-- `[A]` `h7Domain` hat exakt `6 + 64 = 70` Elemente (`6` geschlossene
+`entryMod128`-Zustände, `64` gerade `deepLiftJ3EntryU`-Zustände). -/
+theorem h7Domain_card : h7Domain.card = 70 := by
+  set_option maxRecDepth 4000 in decide
+
+/-- Endlich entscheidbares Kriterium für "erreicht `F_ctrl` innerhalb von
+höchstens einem Schritt" — reine `Fintype`/`Finset`-Aussage ohne `H7Path`,
+daher direkt `decide`-fähig. Wird unten via `h7ReachesControlledWithin_one_iff`
+mit der eigentlichen Pfad-Definition verbunden. -/
+def H7ReachesControlledDecidable (r : H7State) : Prop :=
+  r.residue.val ∈ h7ControlledFibers ∨ ∃ s, H7EdgeMod128 r s ∧ s.residue.val ∈ h7ControlledFibers
+
+instance H7ReachesControlledDecidable.decidable (r : H7State) :
+    Decidable (H7ReachesControlledDecidable r) := by
+  unfold H7ReachesControlledDecidable; infer_instance
+
+/-- `[A]` Die entscheidbare Ein-Schritt-Reichweite stimmt exakt mit
+`H7ReachesControlledWithin 1` überein (`j = 0`: `nil`; `j = 1`: `cons e nil`). -/
+theorem h7ReachesControlledWithin_one_iff (r : H7State) :
+    H7ReachesControlledWithin 1 r ↔ H7ReachesControlledDecidable r := by
+  constructor
+  · rintro ⟨j, hj, s, p, hs⟩
+    interval_cases j
+    · cases p with
+      | nil => exact Or.inl hs
+    · cases p with
+      | cons e p' =>
+        cases p' with
+        | nil => exact Or.inr ⟨_, e, hs⟩
+  · rintro (h | ⟨s, e, hs⟩)
+    · exact ⟨0, by omega, r, .nil r, h⟩
+    · exact ⟨1, by omega, s, .cons e (.nil s), hs⟩
+
+/-- `[A]` Residuale Frontier: Zustände, die (bewiesen, via die
+Vollständigkeitsschranke `K = 1`) **niemals** eine kontrollierte Faser
+erreichen — unabhängig davon, ob sie selbst noch eine ausgehende Kante haben. -/
+def h7ResidualFrontier : Finset H7State :=
+  Finset.univ.filter (fun r : H7State => ¬ H7ReachesControlledDecidable r)
+
+/-- `[A]` **Erschöpfende Dichotomie**: jeder Zustand erreicht eine kontrollierte
+Faser über irgendeinen `H7Path`, oder er liegt in der residualen Frontier — ein
+Drittes gibt es nicht. Dies kombiniert die Vollständigkeitsschranke
+(`h7_reaches_controlled_iff_within_one`) mit der `Fin`/`Finset`-Entscheidbarkeit
+(`h7ReachesControlledWithin_one_iff`). -/
+theorem h7_reaches_controlled_or_frontier (r : H7State) :
+    (∃ j s, H7Path j r s ∧ s.residue.val ∈ h7ControlledFibers) ∨ r ∈ h7ResidualFrontier := by
+  rw [h7_reaches_controlled_iff_within_one, h7ReachesControlledWithin_one_iff]
+  rcases Classical.em (H7ReachesControlledDecidable r) with h | h
+  · exact Or.inl h
+  · refine Or.inr ?_
+    simp only [h7ResidualFrontier, Finset.mem_filter, Finset.mem_univ, true_and]
+    exact h
+
+/-! ## Teil 8: Distanz zu einer kontrollierten Faser -/
+
+/-- `[A]` Minimaler Schrittabstand zu `F_ctrl`, oder `none`, falls unerreichbar
+(bewiesen vollständig für `K = 1`, siehe oben). -/
+noncomputable def h7DistanceToControlled (r : H7State) : Option ℕ :=
+  if r.residue.val ∈ h7ControlledFibers then some 0
+  else if ∃ s, H7EdgeMod128 r s ∧ s.residue.val ∈ h7ControlledFibers then some 1
+  else none
+
+/-- `[A]` Ist `h7DistanceToControlled r = some d`, existiert tatsächlich ein
+`H7Path d r s` mit `s.residue.val ∈ h7ControlledFibers` — Solidität der
+Distanzfunktion gegenüber der Pfad-Semantik. -/
+theorem h7DistanceToControlled_sound {r : H7State} {d : ℕ}
+    (hd : h7DistanceToControlled r = some d) :
+    ∃ s : H7State, H7Path d r s ∧ s.residue.val ∈ h7ControlledFibers := by
+  unfold h7DistanceToControlled at hd
+  split_ifs at hd with h1 h2
+  · exact ⟨r, (Option.some.injEq _ _ ▸ hd) ▸ .nil r, h1⟩
+  · obtain ⟨s, e, hs⟩ := h2
+    exact ⟨s, (Option.some.injEq _ _ ▸ hd) ▸ .cons e (.nil s), hs⟩
+
+/-- `[A]` **Minimalität**: `h7DistanceToControlled r = none` heißt bewiesen
+"unerreichbar über jeden Pfad", nicht nur "unerreichbar in `≤ 1` Schritten" —
+dies ist genau die Vollständigkeitsschranke aus Teil 6, angewandt in der
+Kontraposition. -/
+theorem h7DistanceToControlled_none_iff_unreachable (r : H7State) :
+    h7DistanceToControlled r = none ↔
+      ¬ ∃ j s, H7Path j r s ∧ s.residue.val ∈ h7ControlledFibers := by
+  rw [h7_reaches_controlled_iff_within_one, h7ReachesControlledWithin_one_iff]
+  unfold h7DistanceToControlled H7ReachesControlledDecidable
+  split_ifs with h1 h2 <;> simp_all
+
 end KeplerHurwitz.Collatz.H7StateGraph
