@@ -291,6 +291,73 @@ theorem channel_seven_formal_witness_mod128_one_nineteen
   bad_run_net_descent_witness_mod8_channel_seven_mod128_one_nineteen hn h7 hmod
 
 /--
+`[A]` Mechanical union of the six mod-128 channel-7 residues that carry an
+individually-proved, sorry-free `[A]` witness derivation
+(`{7, 15, 23, 55, 87, 119}` — exactly `channelSevenFormalResiduesMod128`).
+
+This is pure case-composition of the six theorems above, not new mathematics:
+no additional residue is covered and no claim is made about `k % 4 ≠ 2` classes,
+the mod-256 partial classes `{39, 79, 95}`, or the deep-tail `{31, 47, 63, 71, 103, 111}`.
+-/
+theorem bad_run_net_descent_witness_mod128_channel_seven_formal_union
+    {n : Nat}
+    (hn : 1 < n)
+    (hres :
+      n % 128 = 7 ∨ n % 128 = 15 ∨ n % 128 = 23 ∨
+        n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119) :
+    LocalWitnessStatementMod8 n := by
+  have h7 : n % 8 = 7 := by omega
+  rcases hres with h | h | h | h | h | h
+  · have hmod : ∃ m, n = 128 * m + 7 := by
+      have hdm := Nat.div_add_mod n 128
+      rw [h] at hdm
+      exact ⟨n / 128, hdm.symm⟩
+    exact channel_seven_formal_witness_mod128_seven hn h7 hmod
+  · have hmod : ∃ m, n = 128 * m + 15 := by
+      have hdm := Nat.div_add_mod n 128
+      rw [h] at hdm
+      exact ⟨n / 128, hdm.symm⟩
+    exact channel_seven_formal_witness_mod128_fifteen hn h7 hmod
+  · have hmod32 : ∃ j, n = 32 * j + 23 := by
+      have h32 : n % 32 = 23 := by omega
+      have hdm := Nat.div_add_mod n 32
+      rw [h32] at hdm
+      exact ⟨n / 32, hdm.symm⟩
+    exact channel_seven_formal_witness_mod128_residue hn h7 hmod32
+  · have hmod : ∃ m, n = 128 * m + 55 := by
+      have hdm := Nat.div_add_mod n 128
+      rw [h] at hdm
+      exact ⟨n / 128, hdm.symm⟩
+    exact channel_seven_formal_witness_mod128_fifty_five hn h7 hmod
+  · have hmod : ∃ m, n = 128 * m + 87 := by
+      have hdm := Nat.div_add_mod n 128
+      rw [h] at hdm
+      exact ⟨n / 128, hdm.symm⟩
+    exact channel_seven_formal_witness_mod128_eighty_seven hn h7 hmod
+  · have hmod : ∃ m, n = 128 * m + 119 := by
+      have hdm := Nat.div_add_mod n 128
+      rw [h] at hdm
+      exact ⟨n / 128, hdm.symm⟩
+    exact channel_seven_formal_witness_mod128_one_nineteen hn h7 hmod
+
+/--
+`[A]` Same union, phrased as membership in `channelSevenFormalResiduesMod128`,
+lifted to the plain `BadRunNetDescentWitness` (dropping the mod-8 channel tag).
+Precise domain: `n % 4 = 3`, `n % 128 ∈ {7, 15, 23, 55, 87, 119}` — exactly the
+6 of 16 mod-128 channel-7 classes that are formally closed, no more.
+-/
+theorem bad_run_net_descent_witness_of_mod4_three_channel_seven_formal_subclass
+    {n : Nat}
+    (hn : 1 < n)
+    (_hmod4 : n % 4 = 3)
+    (hres :
+      n % 128 = 7 ∨ n % 128 = 15 ∨ n % 128 = 23 ∨
+        n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119) :
+    Nonempty (BadRunNetDescentWitness n) :=
+  (bad_run_net_descent_witness_mod128_channel_seven_formal_union hn hres).map
+    (·.toBadRunNetDescentWitness)
+
+/--
 `[C]` Uniform channel-7 witness — same open core as
 `bad_run_net_descent_witness_mod8_channel_seven_v28` (`sorry` off the formal ladder).
 -/

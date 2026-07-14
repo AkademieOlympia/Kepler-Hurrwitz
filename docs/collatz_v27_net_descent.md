@@ -412,6 +412,12 @@ Für sämtliche untersuchten mod-128-Repräsentanten des Kanals 7 wurde innerhal
 
 **Offener mathematischer Kern (unverändert):** ∀ `n > 1`, `n ≡ 3 (mod 4)` ⟹ ∃ `BadRunNetDescentWitness(n)` — `bad_run_net_descent_witness_of_mod4_three` bleibt **`[C]`** (`sorry`).
 
+**V2.16-Zusatz:** für die Teilmenge `n % 128 ∈ {7,15,23,55,87,119}` (6/16 mod-128-Kanal-7-Klassen)
+existiert seit V2.16 ein **einzelner** mechanisch komponierter Einstiegspunkt
+(`bad_run_net_descent_witness_of_mod4_three_channel_seven_formal_subclass`, s. u.) —
+dies ist eine präzise benannte **Teilmengen**-Aussage, keine Erweiterung der geschlossenen
+Restklassen und keine Annäherung an eine globale Schließung.
+
 **Zu trennende Ebenen:**
 
 - Endliche Klassifikation der Repräsentanten ist numerisch/lokal (`[B]`).
@@ -527,6 +533,61 @@ automatisch den globalen Collatz-Satz.
 | `CollatzGlobalTerminationStatement` | nicht behauptet |
 
 **Build:** `lake build KeplerHurwitz.CollatzProofAttemptV29`
+
+---
+
+## V2.16 — H7-Zustandsgraph-Blocker & mechanische Restklassen-Vereinigung
+
+**Identifier:** `collatz-channel-7-h7-stategraph-blocker-v2.16`
+**Branch:** `pr/11-collatz-v27-net-descent`
+
+### Blocker: H7-Zustandsgraph nicht gelandet
+
+Ein vorheriger Agent (`9d8a4ff2`) sollte `KeplerHurwitz/Collatz/H7StateGraph.lean` und
+`H7StateGraphAudit.lean` formalisieren (mod-128-Zustandsgraph über die drei affinen
+Kanten-Familien `{55,87,119}`, kontrollierte Fasern `{39,79,95,103}`, endliche
+Erreichbarkeit + exakte residuale Restfront). **Weder die Dateien noch ein Commit mit der
+Botschaft „formalize H7 mod-128 state graph and controlled-fiber reachability" existieren
+im Repository** (`git log --all --grep`, Dateisystemsuche: beide leer). Dieser Auftrag wurde
+**nicht** neu von Grund auf wiederholt (Governance-Vorgabe); stattdessen wurde geprüft, was
+aus dem bereits vorhandenen `ChannelSevenKernel`/`ChannelSevenAttackV210–V212`-Material
+direkt nutzbar ist.
+
+### Was stattdessen mechanisch komponiert wurde (`[A]`, reine Fallvereinigung)
+
+Ohne den fehlenden Zustandsgraphen bleibt die residuale Restfront (Deep-Tail
+`{31,47,63,71,103,111}` mod 128) **unverändert offen** — es wurde **keine** neue
+Restklasse geschlossen. Was neu ist: die sechs bereits einzeln bewiesenen
+mod-128/mod-32-Zeugen (`{7,15,23,55,87,119}`, aus `CollatzProofAttemptV28`,
+`ChannelSevenAttackV210/V211/V212`) werden zu **einem** Einstiegspunkt zusammengeführt:
+
+| Satz | Modul | Domäne | Rolle |
+|---|---|---|---|
+| `bad_run_net_descent_witness_mod128_channel_seven_formal_union` | `CollatzChannelSeven.lean` | `n % 128 ∈ {7,15,23,55,87,119}` | `[A]` Fallvereinigung → `BadRunNetDescentWitnessMod8` |
+| `bad_run_net_descent_witness_of_mod4_three_channel_seven_formal_subclass` | `CollatzChannelSeven.lean` | `n % 4 = 3 ∧ n % 128 ∈ {7,15,23,55,87,119}` | `[A]` Lift auf `BadRunNetDescentWitness` (Tag entfernt) |
+| `bad_run_net_descent_witness_of_mod4_three_channel_seven_formal_subclass_v29` | `CollatzProofAttemptV29.lean` | identisch | `[A]` Re-Export im V2.9-Namensraum |
+
+**Wichtig — keine Überdehnung:** Dies ist **mechanische Komposition** der sechs bereits
+bewiesenen Einzelfälle (`by rcases ... exact ...`), **keine neue Mathematik**. Die Domäne
+ist exakt `{7,15,23,55,87,119}` — **nicht** ganz mod 8 = 7, **nicht** die mod-256-Teilklassen
+`{39,79,95}`, **nicht** der Deep-Tail. `bad_run_net_descent_witness_of_mod4_three` bleibt
+unverändert **`[C]`**.
+
+### Governance (unverrückbar)
+
+\[
+\boxed{\text{sechs Einzelzeugen zu einem Einstiegspunkt vereinigt} \neq \text{neue Restklasse geschlossen}}
+\]
+
+\[
+\boxed{\text{fehlender H7-Zustandsgraph} \neq \text{Deep-Tail-Frontier geschrumpft}}
+\]
+
+**Build:** `lake build KeplerHurwitz.CollatzChannelSeven KeplerHurwitz.CollatzProofAttemptV29 KeplerHurwitz.Core`
+
+**sorry-Bilanz:** unverändert — 0 neue `sorry`-Beweisverpflichtungen (Textsuche `sorry`
+inkl. Kommentare: 38 → 39, da ein neuer Docstring das Wort „sorry-free" enthält;
+tatsächliche `sorry`-Taktiken: 28 → 28, unverändert).
 
 ---
 

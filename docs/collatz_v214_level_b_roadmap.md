@@ -72,6 +72,18 @@ für nichttriviale Lift-Schalen `j`?
 
 ### H7 — Typenreduktion / Zustandsgraph auf affinen Familien
 
+> **Blocker (V2.16, `pr/11-collatz-v27-net-descent`):** Der geplante endliche H7-Zustandsgraph
+> (`KeplerHurwitz/Collatz/H7StateGraph.lean` / `H7StateGraphAudit.lean`, Auftrag an einen
+> vorherigen Agenten `9d8a4ff2`) ist **nicht** im Repository gelandet — weder als Datei noch
+> als Commit (`git log --all --grep="H7 mod-128 state graph"` liefert keinen Treffer). Die
+> geplante endliche Erreichbarkeit / exakte residuale Restfront über die kontrollierten Fasern
+> `{39,79,95,103}` wurde **nicht neu formalisiert** (kein Wiederholungsversuch von Grund auf).
+> Stattdessen wurde in V2.16 nur das bereits vorhandene Material (`ChannelSevenKernel`,
+> `ChannelSevenAttackV210–V212`) zu einem einzigen Einstiegspunkt für die sechs bekannten
+> mod-128-Klassen `{7,15,23,55,87,119}` zusammengeführt — reine `[A]`-Fallvereinigung, keine
+> neue Restklasse. Die H7-C/H8-Hypothesen unten (dynamischer Eintritt, Rang, Assembly) bleiben
+> **vollständig offen**; der H7-Zustandsgraph ist weiterhin das empfohlene nächste Ziel.
+
 **H7-A `[A]` geschlossen** in `ChannelSevenAffineMod128V215.lean` (mod-128 affine Bijektion,
 `entryParameterMod128`, `deepLiftFiber_entry_spec`, `deepLiftFiberPermutation`;
 Nat-Brücke `deepLiftFiber_modEq128_iff` / `deepLiftFiber_mod128_parameter` in `ChannelSevenDynamicsV215.lean`).
@@ -174,6 +186,8 @@ BadRunNetDescentWitness (bestehende [A]-Reduktion)
 | `ChannelSevenDynamicsV215.lean` | **0** | Ebene B Dynamik `[A]` |
 | `ChannelSevenDynamicsHypothesesV215.lean` | 4 | H7-C / H8 Hypothesen |
 | `ChannelSeven71Step6BranchingV215.lean` | 0 | Schritt-6-Verzweigung `486u+103` |
+| `CollatzChannelSeven.lean` | **0** (2 neue `[A]`-Sätze, V2.16 mechanische Vereinigung `{7,15,23,55,87,119}`) | Formal-Union-Einstiegspunkt |
+| `H7StateGraph.lean` / `H7StateGraphAudit.lean` | **fehlt** (nicht gelandet, V2.16-Blocker) | endlicher Zustandsgraph, exakte Restfront |
 | Kanal 3 | **FROZEN** | Deep-Tail `{27,91,155,251}` |
 
 ---
