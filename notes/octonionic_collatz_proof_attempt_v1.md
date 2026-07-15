@@ -7,6 +7,19 @@
 - **Frozen:** keine Änderung an `ι_n`, `ε_n`, frozen dossier
 - **Status-Tags:** `[A]` bewiesen · `[B]` empirisch · `[C]` offen
 
+## Modul O3 — Oktonionischer Lift (EABC/Fano-Zustand)
+
+Scaffold in `KeplerHurwitz/Collatz/Octonion/Definitions.lean`:
+
+- `EABCClass` (`E/A/B/C` via mod 12), `IntegralOctonion`, `OctCollatzState`
+- Felder: `value`, `is_odd`, `residue8 : Fin 4`, `residue12`, `valuation`, `shell`, `octDirection`
+- `[A]` `liftOdd_project`, `octOddStep_intertwines`, `octOddStep_intertwines_lift`
+- Fano-Richtung in `octOddStep`: Identitäts-Transport (echte Rotation = O4-Frontier)
+
+```bash
+lake build KeplerHurwitz.Collatz.Octonion.Definitions
+```
+
 ## Witness-Beweiskette (O2, strikte Reihenfolge)
 
 ### 1. Definitionen `[A]` — `Definitions.lean`

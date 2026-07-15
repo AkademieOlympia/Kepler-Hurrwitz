@@ -1,13 +1,15 @@
 import Mathlib
 import KeplerHurwitz.OddCore
 import KeplerHurwitz.OddCoreDynamics
-import KeplerHurwitz.OctonionicSlice
 
 /-!
 Post-freeze oktonionischer Collatz-Beweisversuch — Basisschicht.
 
 Governance: außerhalb `audit-freeze-2026`; keine Änderung an ι_n, ε_n oder frozen dossier.
 Status-Tags: `[A]` bewiesen, `[B]` empirisch, `[C]` offen.
+
+Modul O3 trägt den diskreten EABC/Fano-Zustandsraum; die echte oktonionische
+Rotationsdynamik der Fano-Knoten bleibt Frontier für O4/O5.
 -/
 
 namespace KeplerHurwitz.Collatz.Octonion
@@ -113,40 +115,119 @@ theorem oddCoreStep_div_eq (n : Nat) (hn : 0 < n) :
   · positivity
 
 /-!
-### Modul O3 — Oktonionischer Lift `[A/B]` scaffold
+### Modul O3 — Der Oktonionische Lift `[A/C]` scaffold
+
+Zustandsraum: zahlentheoretische Restklassen (Schicht 2–3) plus chirale
+Orientierung auf der Fano-Ebene (Schicht 4). Die Projektion `projectOdd`
+bildet ein kommutatives Diagramm mit `oddCoreStep`; die Fano-Rotation selbst
+ist vorerst Identitäts-Transport (O4).
 -/
 
-/-- Oktonionischer Collatz-Zustand: ungerader Kern plus Slice-Koordinaten `(μ, Q)`. -/
+/-- Die diskreten Modulo-12-Klassen des EABC-Modells. -/
+inductive EABCClass
+  | E  -- p ≡ 11 (mod 12)
+  | A  -- p ≡ 1  (mod 12)
+  | B  -- p ≡ 5  (mod 12)
+  | C  -- p ≡ 7  (mod 12) und übrige ungerade Reste
+  deriving DecidableEq, Repr
+
+/-- Dummy-Struktur für die ganzzahligen Hurwitz-Oktonionen (Fano-Schnittstelle). -/
+structure IntegralOctonion where
+  real : ℤ
+  imag : Fin 7 → ℤ
+  deriving Repr
+
+/-- Standard-Nulloktonion (keine ausgezeichnete Fano-Achse). -/
+def IntegralOctonion.zero : IntegralOctonion where
+  real := 0
+  imag := fun _ => 0
+
+/-- EABC-Klasse aus der Restklasse modulo 12. -/
+def eabcClassOf (n : Nat) : EABCClass :=
+  if n % 12 = 11 then EABCClass.E
+  else if n % 12 = 1 then EABCClass.A
+  else if n % 12 = 5 then EABCClass.B
+  else EABCClass.C
+
+/--
+Ungerade Zahlen `n` haben `n % 8 ∈ {1,3,5,7}`; die Abbildung `(n % 8) / 2`
+landet in `Fin 4` und steuert die 2-adische Verzweigung.
+-/
+def residue8OfOdd (n : Nat) (_h_odd : n % 2 = 1) : Fin 4 :=
+  ⟨(n % 8) / 2, by
+    have hlt : n % 8 < 8 := Nat.mod_lt n (by decide : 0 < 8)
+    exact Nat.div_lt_of_lt_mul hlt⟩
+
+/--
+Der vollständige, erweiterte Zustandsraum des Lifts.
+Er trägt sowohl die rein zahlentheoretischen Restklassen (Schicht 2–3)
+als auch die chirale Positionierung auf der Fano-Ebene (Schicht 4).
+-/
 structure OctCollatzState where
-  odd : Nat
-  mu : ℝ
-  Q : ℝ
+  value : Nat
+  is_odd : value % 2 = 1
+  residue8 : Fin 4             -- Verzweigungssteuerung via (n mod 8)/2
+  residue12 : EABCClass         -- EABC-Phase mod 12
+  valuation : Nat               -- padicValNat 2 (3*n + 1) am aktuellen Kern
+  shell : Nat                   -- lokaler Schalenindex im Gitter (n / 12)
+  octDirection : IntegralOctonion  -- Achsen-Orientierung auf der Fano-Ebene
+  deriving Repr
 
-/-- Hebt einen positiven ungeraden Kern in den Slice-Raum. -/
-def liftOdd (n : Nat) : OctCollatzState where
-  odd := n
-  mu := sliceTrace ((n : ℝ) / 3)
-  Q := Real.sqrt ((n : ℝ) / 3)
+/-- Einbettung einer ungeraden Zahl in den erweiterten oktonionischen Zustand. -/
+def liftOdd (n : Nat) (h_odd : n % 2 = 1)
+    (oct_init : IntegralOctonion := .zero) : OctCollatzState where
+  value := n
+  is_odd := h_odd
+  residue8 := residue8OfOdd n h_odd
+  residue12 := eabcClassOf n
+  valuation := padicValNat 2 (3 * n + 1)
+  shell := n / 12
+  octDirection := oct_init
 
-/-- Projektion auf den ungeraden Kern. -/
-def projectOdd (s : OctCollatzState) : Nat :=
-  s.odd
+/-- Projektion zurück auf die natürlichen Zahlen (ungerader Kern). -/
+def projectOdd (state : OctCollatzState) : Nat :=
+  state.value
 
-/-- Ein Odd-Core-Schritt im oktonionischen Zustandsraum. -/
-def octOddStep (s : OctCollatzState) : OctCollatzState :=
-  let n' := oddCoreStep s.odd
-  { odd := n'
-    mu := sliceTrace ((n' : ℝ) / 3)
-    Q := Real.sqrt ((n' : ℝ) / 3) }
+/--
+Oktonionische Zustands-Schrittfunktion.
+
+Arithmetischer Kern: voller `oddCoreStep` plus Restklassen- und Valuations-Refresh.
+Fano-Richtung: Identitäts-Transport — echte Multiplikationsregeln der sieben
+imaginären Einheiten e₁ … e₇ sind Modul-O4-Frontier.
+-/
+def octOddStep (state : OctCollatzState) : OctCollatzState :=
+  let n' := oddCoreStep state.value
+  let h' : n' % 2 = 1 := oddCoreStep_mod2_eq_one state.value
+  { value := n'
+    is_odd := h'
+    residue8 := residue8OfOdd n' h'
+    residue12 := eabcClassOf n'
+    valuation := padicValNat 2 (3 * n' + 1)
+    shell := n' / 12
+    octDirection := state.octDirection }
 
 /-- `[A]` Der Lift respektiert den ungeraden Kern. -/
-theorem liftOdd_project (n : Nat) :
-    projectOdd (liftOdd n) = n := by
+theorem liftOdd_project (n : Nat) (h_odd : n % 2 = 1)
+    (oct_init : IntegralOctonion := .zero) :
+    projectOdd (liftOdd n h_odd oct_init) = n := by
   rfl
 
-/-- `[A]` Oktonionischer Schritt fällt mit `oddCoreStep` zusammen. -/
-theorem octOddStep_intertwines (s : OctCollatzState) :
-    projectOdd (octOddStep s) = oddCoreStep (projectOdd s) := by
+/--
+`[A]` Theorem (`octOddStep_intertwines`):
+Der oktonionische Lift bildet ein kommutatives Diagramm mit dem Collatz-Fluss.
+Die Projektion des Lifts ist exakt der reine Odd-Core-Schritt.
+-/
+theorem octOddStep_intertwines (state : OctCollatzState) :
+    projectOdd (octOddStep state) = oddCoreStep (projectOdd state) := by
+  rfl
+
+/--
+`[A]` Spezialform: Lift eines ungeraden Kerns, ein oktonionischer Schritt,
+dann Projektion — identisch zu `oddCoreStep n`.
+-/
+theorem octOddStep_intertwines_lift (n : Nat) (h_odd : n % 2 = 1)
+    (oct_init : IntegralOctonion := .zero) :
+    projectOdd (octOddStep (liftOdd n h_odd oct_init)) = oddCoreStep n := by
   rfl
 
 end
