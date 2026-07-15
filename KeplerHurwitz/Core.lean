@@ -47,6 +47,7 @@ import KeplerHurwitz.PhotonKeplerShift
 import KeplerHurwitz.DumasIntertwiningBridge
 import KeplerHurwitz.DistilledParameters
 import KeplerHurwitz.PrimvierlingSymmetry
+import KeplerHurwitz.BambergQuadrupletAdmissibility
 import KeplerHurwitz.README_OrbitSymmetry
 import KeplerHurwitz.ReachableTheorems
 import KeplerHurwitz.Representation.DreiMusketiere
