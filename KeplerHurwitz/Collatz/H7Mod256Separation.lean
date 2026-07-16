@@ -126,11 +126,10 @@ theorem h7_mod128_obstruction_still_holds :
   h7_step6_odd_u_branch_precision_obstruction
 
 /-!
-## Empfohlener nächster Schritt (nicht in diesem Modul)
-Ein künftiger `H7StateGraph256` darf odd-`u`-Kanten nur dann als einwertige
-`Fin 256 → Fin 256`-Relation einführen, wenn die Einwertigkeit pro Kantenfamilie
-bewiesen ist. Dieses Modul liefert die notwendige Trennungsaussage für die
-dokumentierte Obstruktionsfamilie — **nicht** den Graphen selbst.
+## Empfohlener nächster Schritt
+Trennung ist notwendig, nicht hinreichend. Die Fin-256-Einwertigkeit der
+odd-`u`/odd-`v`-Familie wird in `H7Mod256SingleValued` **widerlegt**
+(Witness `u = 3` vs `u = 259`). Kein `H7StateGraph256` auf dieser Basis.
 -/
 
 end KeplerHurwitz.Collatz.H7Mod256Separation
