@@ -1,4 +1,4 @@
-# H7Mod256 — Trennung der mod-128-Kollisionspaare bei 8 Bit
+# H7Mod256 — Trennung und Einwertigkeit bei 8 Bit
 
 Separates Projekt vom versiegelten H7-mod-128-Zustandsgraphen.
 Branch: `pr/11-collatz-v27-net-descent`.
@@ -8,9 +8,10 @@ Branch: `pr/11-collatz-v27-net-descent`.
 | Box | Inhalt |
 |---|---|
 | Trennung | **Nicht** Teil von `H7StateGraph` / `H7StateGraphAudit`. Keine Umschreibung der leeren Kantenfamilien `step6OddUBranchObstruction` / `step7BranchObstruction`. |
-| `[B]` Scan | `src/kepler_hurwitz/h7_mod256_separation_scan.py` + Export `docs/exports/h7_mod256_separation_scan.json` — diagnostisch, **kein** Lean-Soliditätsbeweis für einen Fin-256-Graphen. |
-| `[A]` Lean | Nur gezielte Trennungslemmata (Milestone 2), **kein** `H7StateGraph256` in diesem Milestone. |
-| Scope | Kein globaler Collatz-Claim. Keine unbewiesene einwertige Fin-256-Kante. |
+| `[B]` Separation-Scan | `src/kepler_hurwitz/h7_mod256_separation_scan.py` — mod-128-Kollisionspaare splitten bei 256. |
+| `[B]` Einwertigkeits-Scan | `src/kepler_hurwitz/h7_mod256_single_valued_scan.py` — prüft `Fin 256 → Fin 256`-Kandidatur. |
+| `[A]` Lean | `H7Mod256Separation.lean` (Trennung) + `H7Mod256SingleValued.lean` (Mehrwertigkeit). |
+| Scope | Kein globaler Collatz-Claim. **Kein** unbewiesener Fin-256-Graph. Trennung ≠ Einwertigkeit. |
 
 ## Audited mod-128 obstruction (sealed)
 
@@ -27,40 +28,73 @@ Quelle: `KeplerHurwitz/Collatz/H7StateGraph.lean`,
 | Bilder mod 128 | `1171 % 128 = 19` vs `47827 % 128 = 83` |
 | Affine Familie | odd-`u`/odd-`v`: `u = 4w+3`, `S⁶ = 1458w + 1171` (`step6_odd_u_odd_v_terminal`) |
 
-## [B] Scan-Ergebnis
+## Milestone 1–2: Separation (erledigt)
 
 | Metrik | Wert |
 |---|---|
 | Dokumentiertes Paar mod 256 | `147` vs `211` — **getrennt** |
 | Affine Δ (w → w+32) mod 256 | `64` |
-| Step-6 Obstruktionspaare (odd `u≤255`, gleiche `u%128`, verschiedene Bilder mod 128) | 64 / 64 getrennt bei 256 |
-| Step-7 analog (odd `v`) | 64 / 64 getrennt bei 256 |
-| Odd-Restklassen, die mod 256 splitten (Step 6 / 7) | 64 / 64 |
-| Paare, die noch mod 256 kollidieren | **0** |
-| **Verdict** | **`separates_at_256`** |
+| Step-6 Obstruktionspaare (odd `u≤255`) | 64 / 64 getrennt bei 256 |
+| Step-7 analog | 64 / 64 getrennt bei 256 |
+| **Verdict Separation** | **`separates_at_256`** |
 
-Export: `docs/exports/h7_mod256_separation_scan.json`.
+Lean: `H7Mod256Separation.lean` — u.a.
+`step6_odd_u_odd_v_affine_separates_mod256`,
+`h7_step6_odd_u_pair_3_131_separates_mod256`.
 
-## Lean `[A]` (Milestone 2) — erledigt
+## Milestone 3: Single-valuedness Fin 256 → Fin 256
 
-Datei: `KeplerHurwitz/Collatz/H7Mod256Separation.lean` (in `Core.lean` registriert).
-Build: `lake build KeplerHurwitz.Collatz.H7Mod256Separation` grün.
+### [B] Scan-Ergebnis
+
+Export: `docs/exports/h7_mod256_single_valued_scan.json`.
+
+| Metrik | Wert |
+|---|---|
+| odd-`u`/odd-`v` Restklassen `r ≡ 3 (mod 4)` mod 256 | **0** einwertig / **64** mehrwertig |
+| alle odd-`u` Restklassen mod 256 | 0 / 128 mehrwertig |
+| Step-7 odd-`v` Restklassen mod 256 | 0 / 128 mehrwertig |
+| Dokumentierter Witness | `u=3` vs `u=259` (beide ≡ 3 mod 256) → Bilder **147** vs **19** |
+| Domain 512 → Bild mod 256 (odd-v-Schale) | 128 / 128 einwertig (empirisch) |
+| Fin 512 → Fin 512 (odd-v-Schale) | 0 / 128 — weiterhin mehrwertig |
+| **Verdict Einwertigkeit** | **`multi_valued_need_512`** |
+| Fin-256-Kante erlaubt? | **Nein** |
+| `H7StateGraph256`-Scaffold? | **Nein** (Governance) |
+
+### 2-adische Ursache
+
+`v₂(1458) = 1`. Für `u = 4w+3` und `Δu = 256` gilt `Δw = 64`, also
+`1458·64 ≡ 128 ≢ 0 (mod 256)`.
+Allgemein: `1458·2^{n-2} ≡ 2^{n-1} ≢ 0 (mod 2^n)` — gleiche Bitbreite Domain/Codomain
+scheitert für diese affine Familie. Ein Bit mehr im Domain (`Δu = 512` ⇒ `Δw = 128`)
+macht das Bild kongruent mod 256, aber **nicht** mod 512.
+
+### Lean `[A]` — erledigt
+
+Datei: `KeplerHurwitz/Collatz/H7Mod256SingleValued.lean`
+(in `Core.lean` registriert).
+Build: `lake build KeplerHurwitz.Collatz.H7Mod256SingleValued` grün.
 
 | Theorem | Aussage |
 |---|---|
-| `step6_odd_u_odd_v_affine_separates_mod256` | `(1458w+1171) ≢ (1458(w+32)+1171) (mod 256)` |
-| `step6_odd_u_odd_v_u_and_u_add128_separates_mod256` | für `u=4w+3`: Step-6-Bilder von `u` und `u+128` verschieden mod 256 |
-| `h7_step6_odd_u_pair_3_131_separates_mod256` | dokumentiertes Paar trennt bei 256 |
-| `h7_step6_odd_u_pair_3_131_images_mod256` | explizit `147` vs `211` |
-| `h7_mod128_obstruction_still_holds` | Pointer auf versiegelte Fin-128-Obstruktion |
+| `step6_odd_u_odd_v_affine_multi_valued_mod256` | `(1458w+1171) ≢ (1458(w+64)+1171) (mod 256)` |
+| `step6_odd_u_odd_v_u_and_u_add256_multi_valued_mod256` | für `u=4w+3`: Bilder von `u` und `u+256` verschieden mod 256 |
+| `h7_step6_odd_u_pair_3_259_multi_valued_mod256` | dokumentierter Mehrwertigkeits-Witness |
+| `h7_step6_odd_u_pair_3_259_images_mod256` | explizit `147` vs `19` |
+| `step6_odd_u_odd_v_not_single_valued_mod256` | Negation der Fin-256-Einwertigkeitsclaim |
+| `step6_odd_u_odd_v_affine_congruent_mod256_of_add128` | `w` und `w+128` kongruent im Bild mod 256 (Domain-512-Hinweis) |
 
-## Empfohlener nächster Lean-Schritt
+## Empfohlener nächster Schritt
 
-1. ~~`[A]` Trennungslemmata~~ (erledigt).
-2. **Später:** Entwurf eines `H7StateGraph256` nur für Familien mit bewiesener Einwertigkeit mod 256 — **nicht** in diesem Milestone gebaut. Zuerst Einwertigkeit der odd-`u`-Kante als `Fin 256 → Fin 256` formalisieren (Trennungslemma ist notwendig, nicht hinreichend).
-3. Keine Hochstufung des `[B]`-Scans zu Kanten-Solidität.
+1. ~~Trennung mod 128→256~~ (erledigt).
+2. ~~Einwertigkeit Fin 256→Fin 256~~ — **widerlegt**; kein Graph-Scaffold.
+3. **Optional:** separates Projekt „Domain mod 512 / Bild mod 256“ für die affine
+   odd-`v`-Schale formalisieren — **kein** automatischer `Fin 512 → Fin 512`-Graph
+   (Scan: Fin512→Fin512 weiterhin mehrwertig).
+4. Versiegelten mod-128-`H7StateGraph` unverändert lassen.
 
 ## Checkpoint
 
-1. `d52a193` — Python `[B]` Scan + Tests + Export + Notiz
-2. Lean-Trennungslemmata (dieses Commit)
+1. `d52a193` — Python `[B]` Separation-Scan
+2. `84202de` — Lean-Trennungslemmata
+3. Python `[B]` Single-valuedness-Scan (dieses Milestone)
+4. Lean Mehrwertigkeits-Obstruktion (dieses Milestone)
