@@ -1,0 +1,5326 @@
+{
+  "governance": "[B]",
+  "project": "H7Mod256",
+  "scope": "Diagnostic: whether mod-128 collision pairs for H7 step-6/7 odd branches already separate at 8 bits (mod 256). Not a Fin-256 graph proof.",
+  "sealed_mod128_pointer": {
+    "lean": "KeplerHurwitz/Collatz/H7StateGraph.lean",
+    "theorem": "h7_step6_odd_u_branch_precision_obstruction",
+    "edge_families": [
+      "H7EdgeFamily.step6OddUBranchObstruction",
+      "H7EdgeFamily.step7BranchObstruction"
+    ],
+    "notes": "notes/h7_mod128_state_graph.md",
+    "map": "syracuseOddStep(step5Terminal u) with step5Terminal u = 486u+103",
+    "documented_pair": {
+      "u_a": 3,
+      "u_b": 131,
+      "images_mod128": [
+        19,
+        83
+      ]
+    }
+  },
+  "u_max": 255,
+  "documented_pairs": [
+    {
+      "u_a": 3,
+      "u_b": 131,
+      "u_mod128": 3,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 1171,
+      "image_b": 47827,
+      "image_a_mod128": 19,
+      "image_b_mod128": 83,
+      "image_a_mod256": 147,
+      "image_b_mod256": 211,
+      "image_a_mod512": 147,
+      "image_b_mod512": 211,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    }
+  ],
+  "step6_mod128_image_collision_pairs": [
+    {
+      "u_a": 1,
+      "u_b": 129,
+      "u_mod128": 1,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 221,
+      "image_b": 23549,
+      "image_a_mod128": 93,
+      "image_b_mod128": 125,
+      "image_a_mod256": 221,
+      "image_b_mod256": 253,
+      "image_a_mod512": 221,
+      "image_b_mod512": 509,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 3,
+      "u_b": 131,
+      "u_mod128": 3,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 1171,
+      "image_b": 47827,
+      "image_a_mod128": 19,
+      "image_b_mod128": 83,
+      "image_a_mod256": 147,
+      "image_b_mod256": 211,
+      "image_a_mod512": 147,
+      "image_b_mod512": 211,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 5,
+      "u_b": 133,
+      "u_mod128": 5,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 475,
+      "image_b": 12139,
+      "image_a_mod128": 91,
+      "image_b_mod128": 107,
+      "image_a_mod256": 219,
+      "image_b_mod256": 107,
+      "image_a_mod512": 475,
+      "image_b_mod512": 363,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 7,
+      "u_b": 135,
+      "u_mod128": 7,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 2629,
+      "image_b": 49285,
+      "image_a_mod128": 69,
+      "image_b_mod128": 5,
+      "image_a_mod256": 69,
+      "image_b_mod256": 133,
+      "image_a_mod512": 69,
+      "image_b_mod512": 133,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 9,
+      "u_b": 137,
+      "u_mod128": 9,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 1679,
+      "image_b": 25007,
+      "image_a_mod128": 15,
+      "image_b_mod128": 47,
+      "image_a_mod256": 143,
+      "image_b_mod256": 175,
+      "image_a_mod512": 143,
+      "image_b_mod512": 431,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 11,
+      "u_b": 139,
+      "u_mod128": 11,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 4087,
+      "image_b": 50743,
+      "image_a_mod128": 119,
+      "image_b_mod128": 55,
+      "image_a_mod256": 247,
+      "image_b_mod256": 55,
+      "image_a_mod512": 503,
+      "image_b_mod512": 55,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 13,
+      "u_b": 141,
+      "u_mod128": 13,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 301,
+      "image_b": 3217,
+      "image_a_mod128": 45,
+      "image_b_mod128": 17,
+      "image_a_mod256": 45,
+      "image_b_mod256": 145,
+      "image_a_mod512": 301,
+      "image_b_mod512": 145,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 15,
+      "u_b": 143,
+      "u_mod128": 15,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 5545,
+      "image_b": 52201,
+      "image_a_mod128": 41,
+      "image_b_mod128": 105,
+      "image_a_mod256": 169,
+      "image_b_mod256": 233,
+      "image_a_mod512": 425,
+      "image_b_mod512": 489,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 17,
+      "u_b": 145,
+      "u_mod128": 17,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 3137,
+      "image_b": 26465,
+      "image_a_mod128": 65,
+      "image_b_mod128": 97,
+      "image_a_mod256": 65,
+      "image_b_mod256": 97,
+      "image_a_mod512": 65,
+      "image_b_mod512": 353,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 19,
+      "u_b": 147,
+      "u_mod128": 19,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 7003,
+      "image_b": 53659,
+      "image_a_mod128": 91,
+      "image_b_mod128": 27,
+      "image_a_mod256": 91,
+      "image_b_mod256": 155,
+      "image_a_mod512": 347,
+      "image_b_mod512": 411,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 21,
+      "u_b": 149,
+      "u_mod128": 21,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 1933,
+      "image_b": 13597,
+      "image_a_mod128": 13,
+      "image_b_mod128": 29,
+      "image_a_mod256": 141,
+      "image_b_mod256": 29,
+      "image_a_mod512": 397,
+      "image_b_mod512": 285,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 23,
+      "u_b": 151,
+      "u_mod128": 23,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 8461,
+      "image_b": 55117,
+      "image_a_mod128": 13,
+      "image_b_mod128": 77,
+      "image_a_mod256": 13,
+      "image_b_mod256": 77,
+      "image_a_mod512": 269,
+      "image_b_mod512": 333,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 25,
+      "u_b": 153,
+      "u_mod128": 25,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 4595,
+      "image_b": 27923,
+      "image_a_mod128": 115,
+      "image_b_mod128": 19,
+      "image_a_mod256": 243,
+      "image_b_mod256": 19,
+      "image_a_mod512": 499,
+      "image_b_mod512": 275,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 27,
+      "u_b": 155,
+      "u_mod128": 27,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 9919,
+      "image_b": 56575,
+      "image_a_mod128": 63,
+      "image_b_mod128": 127,
+      "image_a_mod256": 191,
+      "image_b_mod256": 255,
+      "image_a_mod512": 191,
+      "image_b_mod512": 255,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 29,
+      "u_b": 157,
+      "u_mod128": 29,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 1331,
+      "image_b": 7163,
+      "image_a_mod128": 51,
+      "image_b_mod128": 123,
+      "image_a_mod256": 51,
+      "image_b_mod256": 251,
+      "image_a_mod512": 307,
+      "image_b_mod512": 507,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 31,
+      "u_b": 159,
+      "u_mod128": 31,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 11377,
+      "image_b": 58033,
+      "image_a_mod128": 113,
+      "image_b_mod128": 49,
+      "image_a_mod256": 113,
+      "image_b_mod256": 177,
+      "image_a_mod512": 113,
+      "image_b_mod512": 177,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 33,
+      "u_b": 161,
+      "u_mod128": 33,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 6053,
+      "image_b": 29381,
+      "image_a_mod128": 37,
+      "image_b_mod128": 69,
+      "image_a_mod256": 165,
+      "image_b_mod256": 197,
+      "image_a_mod512": 421,
+      "image_b_mod512": 197,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 35,
+      "u_b": 163,
+      "u_mod128": 35,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 12835,
+      "image_b": 59491,
+      "image_a_mod128": 35,
+      "image_b_mod128": 99,
+      "image_a_mod256": 35,
+      "image_b_mod256": 99,
+      "image_a_mod512": 35,
+      "image_b_mod512": 99,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 37,
+      "u_b": 165,
+      "u_mod128": 37,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 3391,
+      "image_b": 15055,
+      "image_a_mod128": 63,
+      "image_b_mod128": 79,
+      "image_a_mod256": 63,
+      "image_b_mod256": 207,
+      "image_a_mod512": 319,
+      "image_b_mod512": 207,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 39,
+      "u_b": 167,
+      "u_mod128": 39,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 14293,
+      "image_b": 60949,
+      "image_a_mod128": 85,
+      "image_b_mod128": 21,
+      "image_a_mod256": 213,
+      "image_b_mod256": 21,
+      "image_a_mod512": 469,
+      "image_b_mod512": 21,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 41,
+      "u_b": 169,
+      "u_mod128": 41,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 7511,
+      "image_b": 30839,
+      "image_a_mod128": 87,
+      "image_b_mod128": 119,
+      "image_a_mod256": 87,
+      "image_b_mod256": 119,
+      "image_a_mod512": 343,
+      "image_b_mod512": 119,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 43,
+      "u_b": 171,
+      "u_mod128": 43,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 15751,
+      "image_b": 62407,
+      "image_a_mod128": 7,
+      "image_b_mod128": 71,
+      "image_a_mod256": 135,
+      "image_b_mod256": 199,
+      "image_a_mod512": 391,
+      "image_b_mod512": 455,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 45,
+      "u_b": 173,
+      "u_mod128": 45,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 515,
+      "image_b": 1973,
+      "image_a_mod128": 3,
+      "image_b_mod128": 53,
+      "image_a_mod256": 3,
+      "image_b_mod256": 181,
+      "image_a_mod512": 3,
+      "image_b_mod512": 437,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 47,
+      "u_b": 175,
+      "u_mod128": 47,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 17209,
+      "image_b": 63865,
+      "image_a_mod128": 57,
+      "image_b_mod128": 121,
+      "image_a_mod256": 57,
+      "image_b_mod256": 121,
+      "image_a_mod512": 313,
+      "image_b_mod512": 377,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 49,
+      "u_b": 177,
+      "u_mod128": 49,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 8969,
+      "image_b": 32297,
+      "image_a_mod128": 9,
+      "image_b_mod128": 41,
+      "image_a_mod256": 9,
+      "image_b_mod256": 41,
+      "image_a_mod512": 265,
+      "image_b_mod512": 41,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 51,
+      "u_b": 179,
+      "u_mod128": 51,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 18667,
+      "image_b": 65323,
+      "image_a_mod128": 107,
+      "image_b_mod128": 43,
+      "image_a_mod256": 235,
+      "image_b_mod256": 43,
+      "image_a_mod512": 235,
+      "image_b_mod512": 299,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 53,
+      "u_b": 181,
+      "u_mod128": 53,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 4849,
+      "image_b": 16513,
+      "image_a_mod128": 113,
+      "image_b_mod128": 1,
+      "image_a_mod256": 241,
+      "image_b_mod256": 129,
+      "image_a_mod512": 241,
+      "image_b_mod512": 129,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 55,
+      "u_b": 183,
+      "u_mod128": 55,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 20125,
+      "image_b": 66781,
+      "image_a_mod128": 29,
+      "image_b_mod128": 93,
+      "image_a_mod256": 157,
+      "image_b_mod256": 221,
+      "image_a_mod512": 157,
+      "image_b_mod512": 221,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 57,
+      "u_b": 185,
+      "u_mod128": 57,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 10427,
+      "image_b": 33755,
+      "image_a_mod128": 59,
+      "image_b_mod128": 91,
+      "image_a_mod256": 187,
+      "image_b_mod256": 219,
+      "image_a_mod512": 187,
+      "image_b_mod512": 475,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 59,
+      "u_b": 187,
+      "u_mod128": 59,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 21583,
+      "image_b": 68239,
+      "image_a_mod128": 79,
+      "image_b_mod128": 15,
+      "image_a_mod256": 79,
+      "image_b_mod256": 143,
+      "image_a_mod512": 79,
+      "image_b_mod512": 143,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 61,
+      "u_b": 189,
+      "u_mod128": 61,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 2789,
+      "image_b": 8621,
+      "image_a_mod128": 101,
+      "image_b_mod128": 45,
+      "image_a_mod256": 229,
+      "image_b_mod256": 173,
+      "image_a_mod512": 229,
+      "image_b_mod512": 429,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 63,
+      "u_b": 191,
+      "u_mod128": 63,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 23041,
+      "image_b": 69697,
+      "image_a_mod128": 1,
+      "image_b_mod128": 65,
+      "image_a_mod256": 1,
+      "image_b_mod256": 65,
+      "image_a_mod512": 1,
+      "image_b_mod512": 65,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 65,
+      "u_b": 193,
+      "u_mod128": 65,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 11885,
+      "image_b": 35213,
+      "image_a_mod128": 109,
+      "image_b_mod128": 13,
+      "image_a_mod256": 109,
+      "image_b_mod256": 141,
+      "image_a_mod512": 109,
+      "image_b_mod512": 397,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 67,
+      "u_b": 195,
+      "u_mod128": 67,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 24499,
+      "image_b": 71155,
+      "image_a_mod128": 51,
+      "image_b_mod128": 115,
+      "image_a_mod256": 179,
+      "image_b_mod256": 243,
+      "image_a_mod512": 435,
+      "image_b_mod512": 499,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 69,
+      "u_b": 197,
+      "u_mod128": 69,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 6307,
+      "image_b": 17971,
+      "image_a_mod128": 35,
+      "image_b_mod128": 51,
+      "image_a_mod256": 163,
+      "image_b_mod256": 51,
+      "image_a_mod512": 163,
+      "image_b_mod512": 51,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 71,
+      "u_b": 199,
+      "u_mod128": 71,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 25957,
+      "image_b": 72613,
+      "image_a_mod128": 101,
+      "image_b_mod128": 37,
+      "image_a_mod256": 101,
+      "image_b_mod256": 165,
+      "image_a_mod512": 357,
+      "image_b_mod512": 421,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 73,
+      "u_b": 201,
+      "u_mod128": 73,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 13343,
+      "image_b": 36671,
+      "image_a_mod128": 31,
+      "image_b_mod128": 63,
+      "image_a_mod256": 31,
+      "image_b_mod256": 63,
+      "image_a_mod512": 31,
+      "image_b_mod512": 319,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 75,
+      "u_b": 203,
+      "u_mod128": 75,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 27415,
+      "image_b": 74071,
+      "image_a_mod128": 23,
+      "image_b_mod128": 87,
+      "image_a_mod256": 23,
+      "image_b_mod256": 87,
+      "image_a_mod512": 279,
+      "image_b_mod512": 343,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 77,
+      "u_b": 205,
+      "u_mod128": 77,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 1759,
+      "image_b": 4675,
+      "image_a_mod128": 95,
+      "image_b_mod128": 67,
+      "image_a_mod256": 223,
+      "image_b_mod256": 67,
+      "image_a_mod512": 223,
+      "image_b_mod512": 67,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 79,
+      "u_b": 207,
+      "u_mod128": 79,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 28873,
+      "image_b": 75529,
+      "image_a_mod128": 73,
+      "image_b_mod128": 9,
+      "image_a_mod256": 201,
+      "image_b_mod256": 9,
+      "image_a_mod512": 201,
+      "image_b_mod512": 265,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 81,
+      "u_b": 209,
+      "u_mod128": 81,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 14801,
+      "image_b": 38129,
+      "image_a_mod128": 81,
+      "image_b_mod128": 113,
+      "image_a_mod256": 209,
+      "image_b_mod256": 241,
+      "image_a_mod512": 465,
+      "image_b_mod512": 241,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 83,
+      "u_b": 211,
+      "u_mod128": 83,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 30331,
+      "image_b": 76987,
+      "image_a_mod128": 123,
+      "image_b_mod128": 59,
+      "image_a_mod256": 123,
+      "image_b_mod256": 187,
+      "image_a_mod512": 123,
+      "image_b_mod512": 187,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 85,
+      "u_b": 213,
+      "u_mod128": 85,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 7765,
+      "image_b": 19429,
+      "image_a_mod128": 85,
+      "image_b_mod128": 101,
+      "image_a_mod256": 85,
+      "image_b_mod256": 229,
+      "image_a_mod512": 85,
+      "image_b_mod512": 485,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 87,
+      "u_b": 215,
+      "u_mod128": 87,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 31789,
+      "image_b": 78445,
+      "image_a_mod128": 45,
+      "image_b_mod128": 109,
+      "image_a_mod256": 45,
+      "image_b_mod256": 109,
+      "image_a_mod512": 45,
+      "image_b_mod512": 109,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 89,
+      "u_b": 217,
+      "u_mod128": 89,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 16259,
+      "image_b": 39587,
+      "image_a_mod128": 3,
+      "image_b_mod128": 35,
+      "image_a_mod256": 131,
+      "image_b_mod256": 163,
+      "image_a_mod512": 387,
+      "image_b_mod512": 163,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 91,
+      "u_b": 219,
+      "u_mod128": 91,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 33247,
+      "image_b": 79903,
+      "image_a_mod128": 95,
+      "image_b_mod128": 31,
+      "image_a_mod256": 223,
+      "image_b_mod256": 31,
+      "image_a_mod512": 479,
+      "image_b_mod512": 31,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 93,
+      "u_b": 221,
+      "u_mod128": 93,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 4247,
+      "image_b": 10079,
+      "image_a_mod128": 23,
+      "image_b_mod128": 95,
+      "image_a_mod256": 151,
+      "image_b_mod256": 95,
+      "image_a_mod512": 151,
+      "image_b_mod512": 351,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 95,
+      "u_b": 223,
+      "u_mod128": 95,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 34705,
+      "image_b": 81361,
+      "image_a_mod128": 17,
+      "image_b_mod128": 81,
+      "image_a_mod256": 145,
+      "image_b_mod256": 209,
+      "image_a_mod512": 401,
+      "image_b_mod512": 465,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 97,
+      "u_b": 225,
+      "u_mod128": 97,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 17717,
+      "image_b": 41045,
+      "image_a_mod128": 53,
+      "image_b_mod128": 85,
+      "image_a_mod256": 53,
+      "image_b_mod256": 85,
+      "image_a_mod512": 309,
+      "image_b_mod512": 85,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 99,
+      "u_b": 227,
+      "u_mod128": 99,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 36163,
+      "image_b": 82819,
+      "image_a_mod128": 67,
+      "image_b_mod128": 3,
+      "image_a_mod256": 67,
+      "image_b_mod256": 131,
+      "image_a_mod512": 323,
+      "image_b_mod512": 387,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 101,
+      "u_b": 229,
+      "u_mod128": 101,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 9223,
+      "image_b": 20887,
+      "image_a_mod128": 7,
+      "image_b_mod128": 23,
+      "image_a_mod256": 7,
+      "image_b_mod256": 151,
+      "image_a_mod512": 7,
+      "image_b_mod512": 407,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 103,
+      "u_b": 231,
+      "u_mod128": 103,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 37621,
+      "image_b": 84277,
+      "image_a_mod128": 117,
+      "image_b_mod128": 53,
+      "image_a_mod256": 245,
+      "image_b_mod256": 53,
+      "image_a_mod512": 245,
+      "image_b_mod512": 309,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 105,
+      "u_b": 233,
+      "u_mod128": 105,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 19175,
+      "image_b": 42503,
+      "image_a_mod128": 103,
+      "image_b_mod128": 7,
+      "image_a_mod256": 231,
+      "image_b_mod256": 7,
+      "image_a_mod512": 231,
+      "image_b_mod512": 7,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 107,
+      "u_b": 235,
+      "u_mod128": 107,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 39079,
+      "image_b": 85735,
+      "image_a_mod128": 39,
+      "image_b_mod128": 103,
+      "image_a_mod256": 167,
+      "image_b_mod256": 231,
+      "image_a_mod512": 167,
+      "image_b_mod512": 231,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 109,
+      "u_b": 237,
+      "u_mod128": 109,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 311,
+      "image_b": 1351,
+      "image_a_mod128": 55,
+      "image_b_mod128": 71,
+      "image_a_mod256": 55,
+      "image_b_mod256": 71,
+      "image_a_mod512": 311,
+      "image_b_mod512": 327,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 111,
+      "u_b": 239,
+      "u_mod128": 111,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 40537,
+      "image_b": 87193,
+      "image_a_mod128": 89,
+      "image_b_mod128": 25,
+      "image_a_mod256": 89,
+      "image_b_mod256": 153,
+      "image_a_mod512": 89,
+      "image_b_mod512": 153,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 113,
+      "u_b": 241,
+      "u_mod128": 113,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 20633,
+      "image_b": 43961,
+      "image_a_mod128": 25,
+      "image_b_mod128": 57,
+      "image_a_mod256": 153,
+      "image_b_mod256": 185,
+      "image_a_mod512": 153,
+      "image_b_mod512": 441,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 115,
+      "u_b": 243,
+      "u_mod128": 115,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 41995,
+      "image_b": 88651,
+      "image_a_mod128": 11,
+      "image_b_mod128": 75,
+      "image_a_mod256": 11,
+      "image_b_mod256": 75,
+      "image_a_mod512": 11,
+      "image_b_mod512": 75,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 117,
+      "u_b": 245,
+      "u_mod128": 117,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 10681,
+      "image_b": 22345,
+      "image_a_mod128": 57,
+      "image_b_mod128": 73,
+      "image_a_mod256": 185,
+      "image_b_mod256": 73,
+      "image_a_mod512": 441,
+      "image_b_mod512": 329,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 119,
+      "u_b": 247,
+      "u_mod128": 119,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 43453,
+      "image_b": 90109,
+      "image_a_mod128": 61,
+      "image_b_mod128": 125,
+      "image_a_mod256": 189,
+      "image_b_mod256": 253,
+      "image_a_mod512": 445,
+      "image_b_mod512": 509,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 121,
+      "u_b": 249,
+      "u_mod128": 121,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 22091,
+      "image_b": 45419,
+      "image_a_mod128": 75,
+      "image_b_mod128": 107,
+      "image_a_mod256": 75,
+      "image_b_mod256": 107,
+      "image_a_mod512": 75,
+      "image_b_mod512": 363,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 123,
+      "u_b": 251,
+      "u_mod128": 123,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 44911,
+      "image_b": 91567,
+      "image_a_mod128": 111,
+      "image_b_mod128": 47,
+      "image_a_mod256": 111,
+      "image_b_mod256": 175,
+      "image_a_mod512": 367,
+      "image_b_mod512": 431,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 125,
+      "u_b": 253,
+      "u_mod128": 125,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 5705,
+      "image_b": 11537,
+      "image_a_mod128": 73,
+      "image_b_mod128": 17,
+      "image_a_mod256": 73,
+      "image_b_mod256": 17,
+      "image_a_mod512": 73,
+      "image_b_mod512": 273,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 127,
+      "u_b": 255,
+      "u_mod128": 127,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "image_a": 46369,
+      "image_b": 93025,
+      "image_a_mod128": 33,
+      "image_b_mod128": 97,
+      "image_a_mod256": 33,
+      "image_b_mod256": 97,
+      "image_a_mod512": 289,
+      "image_b_mod512": 353,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    }
+  ],
+  "step7_mod128_image_collision_pairs": [
+    {
+      "u_a": 1,
+      "u_b": 129,
+      "u_mod128": 1,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 605,
+      "image_b": 70589,
+      "image_a_mod128": 93,
+      "image_b_mod128": 61,
+      "image_a_mod256": 93,
+      "image_b_mod256": 189,
+      "image_a_mod512": 93,
+      "image_b_mod512": 445,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 3,
+      "u_b": 131,
+      "u_mod128": 3,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 3397,
+      "image_b": 143365,
+      "image_a_mod128": 69,
+      "image_b_mod128": 5,
+      "image_a_mod256": 69,
+      "image_b_mod256": 5,
+      "image_a_mod512": 325,
+      "image_b_mod512": 5,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 5,
+      "u_b": 133,
+      "u_mod128": 5,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 349,
+      "image_b": 9097,
+      "image_a_mod128": 93,
+      "image_b_mod128": 9,
+      "image_a_mod256": 93,
+      "image_b_mod256": 137,
+      "image_a_mod512": 349,
+      "image_b_mod512": 393,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 7,
+      "u_b": 135,
+      "u_mod128": 7,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 7771,
+      "image_b": 147739,
+      "image_a_mod128": 91,
+      "image_b_mod128": 27,
+      "image_a_mod256": 91,
+      "image_b_mod256": 27,
+      "image_a_mod512": 91,
+      "image_b_mod512": 283,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 9,
+      "u_b": 137,
+      "u_mod128": 9,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 4979,
+      "image_b": 74963,
+      "image_a_mod128": 115,
+      "image_b_mod128": 83,
+      "image_a_mod256": 115,
+      "image_b_mod256": 211,
+      "image_a_mod512": 371,
+      "image_b_mod512": 211,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 11,
+      "u_b": 139,
+      "u_mod128": 11,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 12145,
+      "image_b": 152113,
+      "image_a_mod128": 113,
+      "image_b_mod128": 49,
+      "image_a_mod256": 113,
+      "image_b_mod256": 49,
+      "image_a_mod512": 369,
+      "image_b_mod512": 49,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 13,
+      "u_b": 141,
+      "u_mod128": 13,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 3583,
+      "image_b": 38575,
+      "image_a_mod128": 127,
+      "image_b_mod128": 47,
+      "image_a_mod256": 255,
+      "image_b_mod256": 175,
+      "image_a_mod512": 511,
+      "image_b_mod512": 175,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 15,
+      "u_b": 143,
+      "u_mod128": 15,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 16519,
+      "image_b": 156487,
+      "image_a_mod128": 7,
+      "image_b_mod128": 71,
+      "image_a_mod256": 135,
+      "image_b_mod256": 71,
+      "image_a_mod512": 135,
+      "image_b_mod512": 327,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 17,
+      "u_b": 145,
+      "u_mod128": 17,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 9353,
+      "image_b": 79337,
+      "image_a_mod128": 9,
+      "image_b_mod128": 105,
+      "image_a_mod256": 137,
+      "image_b_mod256": 233,
+      "image_a_mod512": 137,
+      "image_b_mod512": 489,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 19,
+      "u_b": 147,
+      "u_mod128": 19,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 20893,
+      "image_b": 160861,
+      "image_a_mod128": 29,
+      "image_b_mod128": 93,
+      "image_a_mod256": 157,
+      "image_b_mod256": 93,
+      "image_a_mod512": 413,
+      "image_b_mod512": 93,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 21,
+      "u_b": 149,
+      "u_mod128": 21,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 2885,
+      "image_b": 20381,
+      "image_a_mod128": 69,
+      "image_b_mod128": 29,
+      "image_a_mod256": 69,
+      "image_b_mod256": 157,
+      "image_a_mod512": 325,
+      "image_b_mod512": 413,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 23,
+      "u_b": 151,
+      "u_mod128": 23,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 25267,
+      "image_b": 165235,
+      "image_a_mod128": 51,
+      "image_b_mod128": 115,
+      "image_a_mod256": 179,
+      "image_b_mod256": 115,
+      "image_a_mod512": 179,
+      "image_b_mod512": 371,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 25,
+      "u_b": 153,
+      "u_mod128": 25,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 13727,
+      "image_b": 83711,
+      "image_a_mod128": 31,
+      "image_b_mod128": 127,
+      "image_a_mod256": 159,
+      "image_b_mod256": 255,
+      "image_a_mod512": 415,
+      "image_b_mod512": 255,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 27,
+      "u_b": 155,
+      "u_mod128": 27,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 29641,
+      "image_b": 169609,
+      "image_a_mod128": 73,
+      "image_b_mod128": 9,
+      "image_a_mod256": 201,
+      "image_b_mod256": 137,
+      "image_a_mod512": 457,
+      "image_b_mod512": 137,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 29,
+      "u_b": 157,
+      "u_mod128": 29,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 7957,
+      "image_b": 42949,
+      "image_a_mod128": 21,
+      "image_b_mod128": 69,
+      "image_a_mod256": 21,
+      "image_b_mod256": 197,
+      "image_a_mod512": 277,
+      "image_b_mod512": 453,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 31,
+      "u_b": 159,
+      "u_mod128": 31,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 34015,
+      "image_b": 173983,
+      "image_a_mod128": 95,
+      "image_b_mod128": 31,
+      "image_a_mod256": 223,
+      "image_b_mod256": 159,
+      "image_a_mod512": 223,
+      "image_b_mod512": 415,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 33,
+      "u_b": 161,
+      "u_mod128": 33,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 18101,
+      "image_b": 88085,
+      "image_a_mod128": 53,
+      "image_b_mod128": 21,
+      "image_a_mod256": 181,
+      "image_b_mod256": 21,
+      "image_a_mod512": 181,
+      "image_b_mod512": 21,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 35,
+      "u_b": 163,
+      "u_mod128": 35,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 38389,
+      "image_b": 178357,
+      "image_a_mod128": 117,
+      "image_b_mod128": 53,
+      "image_a_mod256": 245,
+      "image_b_mod256": 181,
+      "image_a_mod512": 501,
+      "image_b_mod512": 181,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 37,
+      "u_b": 165,
+      "u_mod128": 37,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 317,
+      "image_b": 2821,
+      "image_a_mod128": 61,
+      "image_b_mod128": 5,
+      "image_a_mod256": 61,
+      "image_b_mod256": 5,
+      "image_a_mod512": 317,
+      "image_b_mod512": 261,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 39,
+      "u_b": 167,
+      "u_mod128": 39,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 42763,
+      "image_b": 182731,
+      "image_a_mod128": 11,
+      "image_b_mod128": 75,
+      "image_a_mod256": 11,
+      "image_b_mod256": 203,
+      "image_a_mod512": 267,
+      "image_b_mod512": 459,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 41,
+      "u_b": 169,
+      "u_mod128": 41,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 22475,
+      "image_b": 92459,
+      "image_a_mod128": 75,
+      "image_b_mod128": 43,
+      "image_a_mod256": 203,
+      "image_b_mod256": 43,
+      "image_a_mod512": 459,
+      "image_b_mod512": 299,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 43,
+      "u_b": 171,
+      "u_mod128": 43,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 47137,
+      "image_b": 187105,
+      "image_a_mod128": 33,
+      "image_b_mod128": 97,
+      "image_a_mod256": 33,
+      "image_b_mod256": 225,
+      "image_a_mod512": 33,
+      "image_b_mod512": 225,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 45,
+      "u_b": 173,
+      "u_mod128": 45,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 12331,
+      "image_b": 47323,
+      "image_a_mod128": 43,
+      "image_b_mod128": 91,
+      "image_a_mod256": 43,
+      "image_b_mod256": 219,
+      "image_a_mod512": 43,
+      "image_b_mod512": 219,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 47,
+      "u_b": 175,
+      "u_mod128": 47,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 51511,
+      "image_b": 191479,
+      "image_a_mod128": 55,
+      "image_b_mod128": 119,
+      "image_a_mod256": 55,
+      "image_b_mod256": 247,
+      "image_a_mod512": 311,
+      "image_b_mod512": 503,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 49,
+      "u_b": 177,
+      "u_mod128": 49,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 26849,
+      "image_b": 96833,
+      "image_a_mod128": 97,
+      "image_b_mod128": 65,
+      "image_a_mod256": 225,
+      "image_b_mod256": 65,
+      "image_a_mod512": 225,
+      "image_b_mod512": 65,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 51,
+      "u_b": 179,
+      "u_mod128": 51,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 55885,
+      "image_b": 195853,
+      "image_a_mod128": 77,
+      "image_b_mod128": 13,
+      "image_a_mod256": 77,
+      "image_b_mod256": 13,
+      "image_a_mod512": 77,
+      "image_b_mod512": 269,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 53,
+      "u_b": 181,
+      "u_mod128": 53,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 7259,
+      "image_b": 24755,
+      "image_a_mod128": 91,
+      "image_b_mod128": 51,
+      "image_a_mod256": 91,
+      "image_b_mod256": 179,
+      "image_a_mod512": 91,
+      "image_b_mod512": 179,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 55,
+      "u_b": 183,
+      "u_mod128": 55,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 60259,
+      "image_b": 200227,
+      "image_a_mod128": 99,
+      "image_b_mod128": 35,
+      "image_a_mod256": 99,
+      "image_b_mod256": 35,
+      "image_a_mod512": 355,
+      "image_b_mod512": 35,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 57,
+      "u_b": 185,
+      "u_mod128": 57,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 31223,
+      "image_b": 101207,
+      "image_a_mod128": 119,
+      "image_b_mod128": 87,
+      "image_a_mod256": 247,
+      "image_b_mod256": 87,
+      "image_a_mod512": 503,
+      "image_b_mod512": 343,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 59,
+      "u_b": 187,
+      "u_mod128": 59,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 64633,
+      "image_b": 204601,
+      "image_a_mod128": 121,
+      "image_b_mod128": 57,
+      "image_a_mod256": 121,
+      "image_b_mod256": 57,
+      "image_a_mod512": 121,
+      "image_b_mod512": 313,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 61,
+      "u_b": 189,
+      "u_mod128": 61,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 16705,
+      "image_b": 51697,
+      "image_a_mod128": 65,
+      "image_b_mod128": 113,
+      "image_a_mod256": 65,
+      "image_b_mod256": 241,
+      "image_a_mod512": 321,
+      "image_b_mod512": 497,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 63,
+      "u_b": 191,
+      "u_mod128": 63,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 69007,
+      "image_b": 208975,
+      "image_a_mod128": 15,
+      "image_b_mod128": 79,
+      "image_a_mod256": 143,
+      "image_b_mod256": 79,
+      "image_a_mod512": 399,
+      "image_b_mod512": 79,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 65,
+      "u_b": 193,
+      "u_mod128": 65,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 35597,
+      "image_b": 105581,
+      "image_a_mod128": 13,
+      "image_b_mod128": 109,
+      "image_a_mod256": 13,
+      "image_b_mod256": 109,
+      "image_a_mod512": 269,
+      "image_b_mod512": 109,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 67,
+      "u_b": 195,
+      "u_mod128": 67,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 73381,
+      "image_b": 213349,
+      "image_a_mod128": 37,
+      "image_b_mod128": 101,
+      "image_a_mod256": 165,
+      "image_b_mod256": 101,
+      "image_a_mod512": 165,
+      "image_b_mod512": 357,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 69,
+      "u_b": 197,
+      "u_mod128": 69,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 4723,
+      "image_b": 13471,
+      "image_a_mod128": 115,
+      "image_b_mod128": 31,
+      "image_a_mod256": 115,
+      "image_b_mod256": 159,
+      "image_a_mod512": 115,
+      "image_b_mod512": 159,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 71,
+      "u_b": 199,
+      "u_mod128": 71,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 77755,
+      "image_b": 217723,
+      "image_a_mod128": 59,
+      "image_b_mod128": 123,
+      "image_a_mod256": 187,
+      "image_b_mod256": 123,
+      "image_a_mod512": 443,
+      "image_b_mod512": 123,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 73,
+      "u_b": 201,
+      "u_mod128": 73,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 39971,
+      "image_b": 109955,
+      "image_a_mod128": 35,
+      "image_b_mod128": 3,
+      "image_a_mod256": 35,
+      "image_b_mod256": 131,
+      "image_a_mod512": 35,
+      "image_b_mod512": 387,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 75,
+      "u_b": 203,
+      "u_mod128": 75,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 82129,
+      "image_b": 222097,
+      "image_a_mod128": 81,
+      "image_b_mod128": 17,
+      "image_a_mod256": 209,
+      "image_b_mod256": 145,
+      "image_a_mod512": 209,
+      "image_b_mod512": 401,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 77,
+      "u_b": 205,
+      "u_mod128": 77,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 21079,
+      "image_b": 56071,
+      "image_a_mod128": 87,
+      "image_b_mod128": 7,
+      "image_a_mod256": 87,
+      "image_b_mod256": 7,
+      "image_a_mod512": 87,
+      "image_b_mod512": 263,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 79,
+      "u_b": 207,
+      "u_mod128": 79,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 86503,
+      "image_b": 226471,
+      "image_a_mod128": 103,
+      "image_b_mod128": 39,
+      "image_a_mod256": 231,
+      "image_b_mod256": 167,
+      "image_a_mod512": 487,
+      "image_b_mod512": 167,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 81,
+      "u_b": 209,
+      "u_mod128": 81,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 44345,
+      "image_b": 114329,
+      "image_a_mod128": 57,
+      "image_b_mod128": 25,
+      "image_a_mod256": 57,
+      "image_b_mod256": 153,
+      "image_a_mod512": 313,
+      "image_b_mod512": 153,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 83,
+      "u_b": 211,
+      "u_mod128": 83,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 90877,
+      "image_b": 230845,
+      "image_a_mod128": 125,
+      "image_b_mod128": 61,
+      "image_a_mod256": 253,
+      "image_b_mod256": 189,
+      "image_a_mod512": 253,
+      "image_b_mod512": 445,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 85,
+      "u_b": 213,
+      "u_mod128": 85,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 11633,
+      "image_b": 29129,
+      "image_a_mod128": 113,
+      "image_b_mod128": 73,
+      "image_a_mod256": 113,
+      "image_b_mod256": 201,
+      "image_a_mod512": 369,
+      "image_b_mod512": 457,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 87,
+      "u_b": 215,
+      "u_mod128": 87,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 95251,
+      "image_b": 235219,
+      "image_a_mod128": 19,
+      "image_b_mod128": 83,
+      "image_a_mod256": 19,
+      "image_b_mod256": 211,
+      "image_a_mod512": 19,
+      "image_b_mod512": 211,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 89,
+      "u_b": 217,
+      "u_mod128": 89,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 48719,
+      "image_b": 118703,
+      "image_a_mod128": 79,
+      "image_b_mod128": 47,
+      "image_a_mod256": 79,
+      "image_b_mod256": 175,
+      "image_a_mod512": 79,
+      "image_b_mod512": 431,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 91,
+      "u_b": 219,
+      "u_mod128": 91,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 99625,
+      "image_b": 239593,
+      "image_a_mod128": 41,
+      "image_b_mod128": 105,
+      "image_a_mod256": 41,
+      "image_b_mod256": 233,
+      "image_a_mod512": 297,
+      "image_b_mod512": 489,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 93,
+      "u_b": 221,
+      "u_mod128": 93,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 25453,
+      "image_b": 60445,
+      "image_a_mod128": 109,
+      "image_b_mod128": 29,
+      "image_a_mod256": 109,
+      "image_b_mod256": 29,
+      "image_a_mod512": 365,
+      "image_b_mod512": 29,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 95,
+      "u_b": 223,
+      "u_mod128": 95,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 103999,
+      "image_b": 243967,
+      "image_a_mod128": 63,
+      "image_b_mod128": 127,
+      "image_a_mod256": 63,
+      "image_b_mod256": 255,
+      "image_a_mod512": 63,
+      "image_b_mod512": 255,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 97,
+      "u_b": 225,
+      "u_mod128": 97,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 53093,
+      "image_b": 123077,
+      "image_a_mod128": 101,
+      "image_b_mod128": 69,
+      "image_a_mod256": 101,
+      "image_b_mod256": 197,
+      "image_a_mod512": 357,
+      "image_b_mod512": 197,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 99,
+      "u_b": 227,
+      "u_mod128": 99,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 108373,
+      "image_b": 248341,
+      "image_a_mod128": 85,
+      "image_b_mod128": 21,
+      "image_a_mod256": 85,
+      "image_b_mod256": 21,
+      "image_a_mod512": 341,
+      "image_b_mod512": 21,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 101,
+      "u_b": 229,
+      "u_mod128": 101,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 3455,
+      "image_b": 7829,
+      "image_a_mod128": 127,
+      "image_b_mod128": 21,
+      "image_a_mod256": 127,
+      "image_b_mod256": 149,
+      "image_a_mod512": 383,
+      "image_b_mod512": 149,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 103,
+      "u_b": 231,
+      "u_mod128": 103,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 112747,
+      "image_b": 252715,
+      "image_a_mod128": 107,
+      "image_b_mod128": 43,
+      "image_a_mod256": 107,
+      "image_b_mod256": 43,
+      "image_a_mod512": 107,
+      "image_b_mod512": 299,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 105,
+      "u_b": 233,
+      "u_mod128": 105,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 57467,
+      "image_b": 127451,
+      "image_a_mod128": 123,
+      "image_b_mod128": 91,
+      "image_a_mod256": 123,
+      "image_b_mod256": 219,
+      "image_a_mod512": 123,
+      "image_b_mod512": 475,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 107,
+      "u_b": 235,
+      "u_mod128": 107,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 117121,
+      "image_b": 257089,
+      "image_a_mod128": 1,
+      "image_b_mod128": 65,
+      "image_a_mod256": 129,
+      "image_b_mod256": 65,
+      "image_a_mod512": 385,
+      "image_b_mod512": 65,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 109,
+      "u_b": 237,
+      "u_mod128": 109,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 29827,
+      "image_b": 64819,
+      "image_a_mod128": 3,
+      "image_b_mod128": 51,
+      "image_a_mod256": 131,
+      "image_b_mod256": 51,
+      "image_a_mod512": 131,
+      "image_b_mod512": 307,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 111,
+      "u_b": 239,
+      "u_mod128": 111,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 121495,
+      "image_b": 261463,
+      "image_a_mod128": 23,
+      "image_b_mod128": 87,
+      "image_a_mod256": 151,
+      "image_b_mod256": 87,
+      "image_a_mod512": 151,
+      "image_b_mod512": 343,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 113,
+      "u_b": 241,
+      "u_mod128": 113,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 61841,
+      "image_b": 131825,
+      "image_a_mod128": 17,
+      "image_b_mod128": 113,
+      "image_a_mod256": 145,
+      "image_b_mod256": 241,
+      "image_a_mod512": 401,
+      "image_b_mod512": 241,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 115,
+      "u_b": 243,
+      "u_mod128": 115,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 125869,
+      "image_b": 265837,
+      "image_a_mod128": 45,
+      "image_b_mod128": 109,
+      "image_a_mod256": 173,
+      "image_b_mod256": 109,
+      "image_a_mod512": 429,
+      "image_b_mod512": 109,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 117,
+      "u_b": 245,
+      "u_mod128": 117,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 16007,
+      "image_b": 33503,
+      "image_a_mod128": 7,
+      "image_b_mod128": 95,
+      "image_a_mod256": 135,
+      "image_b_mod256": 223,
+      "image_a_mod512": 135,
+      "image_b_mod512": 223,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 119,
+      "u_b": 247,
+      "u_mod128": 119,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 130243,
+      "image_b": 270211,
+      "image_a_mod128": 67,
+      "image_b_mod128": 3,
+      "image_a_mod256": 195,
+      "image_b_mod256": 131,
+      "image_a_mod512": 195,
+      "image_b_mod512": 387,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 121,
+      "u_b": 249,
+      "u_mod128": 121,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 66215,
+      "image_b": 136199,
+      "image_a_mod128": 39,
+      "image_b_mod128": 7,
+      "image_a_mod256": 167,
+      "image_b_mod256": 7,
+      "image_a_mod512": 167,
+      "image_b_mod512": 7,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 123,
+      "u_b": 251,
+      "u_mod128": 123,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 134617,
+      "image_b": 274585,
+      "image_a_mod128": 89,
+      "image_b_mod128": 25,
+      "image_a_mod256": 217,
+      "image_b_mod256": 153,
+      "image_a_mod512": 473,
+      "image_b_mod512": 153,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 125,
+      "u_b": 253,
+      "u_mod128": 125,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 34201,
+      "image_b": 69193,
+      "image_a_mod128": 25,
+      "image_b_mod128": 73,
+      "image_a_mod256": 153,
+      "image_b_mod256": 73,
+      "image_a_mod512": 409,
+      "image_b_mod512": 73,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    },
+    {
+      "u_a": 127,
+      "u_b": 255,
+      "u_mod128": 127,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "image_a": 138991,
+      "image_b": 278959,
+      "image_a_mod128": 111,
+      "image_b_mod128": 47,
+      "image_a_mod256": 239,
+      "image_b_mod256": 175,
+      "image_a_mod512": 239,
+      "image_b_mod512": 431,
+      "collide_mod128": true,
+      "separated_at_256": true,
+      "still_collide_mod_256": false,
+      "separated_at_512": true,
+      "status": "separated_at_256"
+    }
+  ],
+  "step6_residue_class_splits": [
+    {
+      "u_mod128": 1,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        1,
+        129
+      ],
+      "images_mod256": [
+        221,
+        253
+      ],
+      "unique_images_mod256": [
+        221,
+        253
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        221,
+        509
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 3,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        3,
+        131
+      ],
+      "images_mod256": [
+        147,
+        211
+      ],
+      "unique_images_mod256": [
+        147,
+        211
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        147,
+        211
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 5,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        5,
+        133
+      ],
+      "images_mod256": [
+        219,
+        107
+      ],
+      "unique_images_mod256": [
+        107,
+        219
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        363,
+        475
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 7,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        7,
+        135
+      ],
+      "images_mod256": [
+        69,
+        133
+      ],
+      "unique_images_mod256": [
+        69,
+        133
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        69,
+        133
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 9,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        9,
+        137
+      ],
+      "images_mod256": [
+        143,
+        175
+      ],
+      "unique_images_mod256": [
+        143,
+        175
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        143,
+        431
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 11,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        11,
+        139
+      ],
+      "images_mod256": [
+        247,
+        55
+      ],
+      "unique_images_mod256": [
+        55,
+        247
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        55,
+        503
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 13,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        13,
+        141
+      ],
+      "images_mod256": [
+        45,
+        145
+      ],
+      "unique_images_mod256": [
+        45,
+        145
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        145,
+        301
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 15,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        15,
+        143
+      ],
+      "images_mod256": [
+        169,
+        233
+      ],
+      "unique_images_mod256": [
+        169,
+        233
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        425,
+        489
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 17,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        17,
+        145
+      ],
+      "images_mod256": [
+        65,
+        97
+      ],
+      "unique_images_mod256": [
+        65,
+        97
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        65,
+        353
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 19,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        19,
+        147
+      ],
+      "images_mod256": [
+        91,
+        155
+      ],
+      "unique_images_mod256": [
+        91,
+        155
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        347,
+        411
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 21,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        21,
+        149
+      ],
+      "images_mod256": [
+        141,
+        29
+      ],
+      "unique_images_mod256": [
+        29,
+        141
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        285,
+        397
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 23,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        23,
+        151
+      ],
+      "images_mod256": [
+        13,
+        77
+      ],
+      "unique_images_mod256": [
+        13,
+        77
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        269,
+        333
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 25,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        25,
+        153
+      ],
+      "images_mod256": [
+        243,
+        19
+      ],
+      "unique_images_mod256": [
+        19,
+        243
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        275,
+        499
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 27,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        27,
+        155
+      ],
+      "images_mod256": [
+        191,
+        255
+      ],
+      "unique_images_mod256": [
+        191,
+        255
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        191,
+        255
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 29,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        29,
+        157
+      ],
+      "images_mod256": [
+        51,
+        251
+      ],
+      "unique_images_mod256": [
+        51,
+        251
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        307,
+        507
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 31,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        31,
+        159
+      ],
+      "images_mod256": [
+        113,
+        177
+      ],
+      "unique_images_mod256": [
+        113,
+        177
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        113,
+        177
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 33,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        33,
+        161
+      ],
+      "images_mod256": [
+        165,
+        197
+      ],
+      "unique_images_mod256": [
+        165,
+        197
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        197,
+        421
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 35,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        35,
+        163
+      ],
+      "images_mod256": [
+        35,
+        99
+      ],
+      "unique_images_mod256": [
+        35,
+        99
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        35,
+        99
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 37,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        37,
+        165
+      ],
+      "images_mod256": [
+        63,
+        207
+      ],
+      "unique_images_mod256": [
+        63,
+        207
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        207,
+        319
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 39,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        39,
+        167
+      ],
+      "images_mod256": [
+        213,
+        21
+      ],
+      "unique_images_mod256": [
+        21,
+        213
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        21,
+        469
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 41,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        41,
+        169
+      ],
+      "images_mod256": [
+        87,
+        119
+      ],
+      "unique_images_mod256": [
+        87,
+        119
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        119,
+        343
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 43,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        43,
+        171
+      ],
+      "images_mod256": [
+        135,
+        199
+      ],
+      "unique_images_mod256": [
+        135,
+        199
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        391,
+        455
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 45,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        45,
+        173
+      ],
+      "images_mod256": [
+        3,
+        181
+      ],
+      "unique_images_mod256": [
+        3,
+        181
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        3,
+        437
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 47,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        47,
+        175
+      ],
+      "images_mod256": [
+        57,
+        121
+      ],
+      "unique_images_mod256": [
+        57,
+        121
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        313,
+        377
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 49,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        49,
+        177
+      ],
+      "images_mod256": [
+        9,
+        41
+      ],
+      "unique_images_mod256": [
+        9,
+        41
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        41,
+        265
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 51,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        51,
+        179
+      ],
+      "images_mod256": [
+        235,
+        43
+      ],
+      "unique_images_mod256": [
+        43,
+        235
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        235,
+        299
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 53,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        53,
+        181
+      ],
+      "images_mod256": [
+        241,
+        129
+      ],
+      "unique_images_mod256": [
+        129,
+        241
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        129,
+        241
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 55,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        55,
+        183
+      ],
+      "images_mod256": [
+        157,
+        221
+      ],
+      "unique_images_mod256": [
+        157,
+        221
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        157,
+        221
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 57,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        57,
+        185
+      ],
+      "images_mod256": [
+        187,
+        219
+      ],
+      "unique_images_mod256": [
+        187,
+        219
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        187,
+        475
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 59,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        59,
+        187
+      ],
+      "images_mod256": [
+        79,
+        143
+      ],
+      "unique_images_mod256": [
+        79,
+        143
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        79,
+        143
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 61,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        61,
+        189
+      ],
+      "images_mod256": [
+        229,
+        173
+      ],
+      "unique_images_mod256": [
+        173,
+        229
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        229,
+        429
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 63,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        63,
+        191
+      ],
+      "images_mod256": [
+        1,
+        65
+      ],
+      "unique_images_mod256": [
+        1,
+        65
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        1,
+        65
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 65,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        65,
+        193
+      ],
+      "images_mod256": [
+        109,
+        141
+      ],
+      "unique_images_mod256": [
+        109,
+        141
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        109,
+        397
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 67,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        67,
+        195
+      ],
+      "images_mod256": [
+        179,
+        243
+      ],
+      "unique_images_mod256": [
+        179,
+        243
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        435,
+        499
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 69,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        69,
+        197
+      ],
+      "images_mod256": [
+        163,
+        51
+      ],
+      "unique_images_mod256": [
+        51,
+        163
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        51,
+        163
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 71,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        71,
+        199
+      ],
+      "images_mod256": [
+        101,
+        165
+      ],
+      "unique_images_mod256": [
+        101,
+        165
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        357,
+        421
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 73,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        73,
+        201
+      ],
+      "images_mod256": [
+        31,
+        63
+      ],
+      "unique_images_mod256": [
+        31,
+        63
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        31,
+        319
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 75,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        75,
+        203
+      ],
+      "images_mod256": [
+        23,
+        87
+      ],
+      "unique_images_mod256": [
+        23,
+        87
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        279,
+        343
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 77,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        77,
+        205
+      ],
+      "images_mod256": [
+        223,
+        67
+      ],
+      "unique_images_mod256": [
+        67,
+        223
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        67,
+        223
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 79,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        79,
+        207
+      ],
+      "images_mod256": [
+        201,
+        9
+      ],
+      "unique_images_mod256": [
+        9,
+        201
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        201,
+        265
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 81,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        81,
+        209
+      ],
+      "images_mod256": [
+        209,
+        241
+      ],
+      "unique_images_mod256": [
+        209,
+        241
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        241,
+        465
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 83,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        83,
+        211
+      ],
+      "images_mod256": [
+        123,
+        187
+      ],
+      "unique_images_mod256": [
+        123,
+        187
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        123,
+        187
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 85,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        85,
+        213
+      ],
+      "images_mod256": [
+        85,
+        229
+      ],
+      "unique_images_mod256": [
+        85,
+        229
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        85,
+        485
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 87,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        87,
+        215
+      ],
+      "images_mod256": [
+        45,
+        109
+      ],
+      "unique_images_mod256": [
+        45,
+        109
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        45,
+        109
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 89,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        89,
+        217
+      ],
+      "images_mod256": [
+        131,
+        163
+      ],
+      "unique_images_mod256": [
+        131,
+        163
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        163,
+        387
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 91,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        91,
+        219
+      ],
+      "images_mod256": [
+        223,
+        31
+      ],
+      "unique_images_mod256": [
+        31,
+        223
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        31,
+        479
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 93,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        93,
+        221
+      ],
+      "images_mod256": [
+        151,
+        95
+      ],
+      "unique_images_mod256": [
+        95,
+        151
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        151,
+        351
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 95,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        95,
+        223
+      ],
+      "images_mod256": [
+        145,
+        209
+      ],
+      "unique_images_mod256": [
+        145,
+        209
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        401,
+        465
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 97,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        97,
+        225
+      ],
+      "images_mod256": [
+        53,
+        85
+      ],
+      "unique_images_mod256": [
+        53,
+        85
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        85,
+        309
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 99,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        99,
+        227
+      ],
+      "images_mod256": [
+        67,
+        131
+      ],
+      "unique_images_mod256": [
+        67,
+        131
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        323,
+        387
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 101,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        101,
+        229
+      ],
+      "images_mod256": [
+        7,
+        151
+      ],
+      "unique_images_mod256": [
+        7,
+        151
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        7,
+        407
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 103,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        103,
+        231
+      ],
+      "images_mod256": [
+        245,
+        53
+      ],
+      "unique_images_mod256": [
+        53,
+        245
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        245,
+        309
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 105,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        105,
+        233
+      ],
+      "images_mod256": [
+        231,
+        7
+      ],
+      "unique_images_mod256": [
+        7,
+        231
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        7,
+        231
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 107,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        107,
+        235
+      ],
+      "images_mod256": [
+        167,
+        231
+      ],
+      "unique_images_mod256": [
+        167,
+        231
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        167,
+        231
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 109,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        109,
+        237
+      ],
+      "images_mod256": [
+        55,
+        71
+      ],
+      "unique_images_mod256": [
+        55,
+        71
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        311,
+        327
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 111,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        111,
+        239
+      ],
+      "images_mod256": [
+        89,
+        153
+      ],
+      "unique_images_mod256": [
+        89,
+        153
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        89,
+        153
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 113,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        113,
+        241
+      ],
+      "images_mod256": [
+        153,
+        185
+      ],
+      "unique_images_mod256": [
+        153,
+        185
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        153,
+        441
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 115,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        115,
+        243
+      ],
+      "images_mod256": [
+        11,
+        75
+      ],
+      "unique_images_mod256": [
+        11,
+        75
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        11,
+        75
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 117,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        117,
+        245
+      ],
+      "images_mod256": [
+        185,
+        73
+      ],
+      "unique_images_mod256": [
+        73,
+        185
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        329,
+        441
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 119,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        119,
+        247
+      ],
+      "images_mod256": [
+        189,
+        253
+      ],
+      "unique_images_mod256": [
+        189,
+        253
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        445,
+        509
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 121,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        121,
+        249
+      ],
+      "images_mod256": [
+        75,
+        107
+      ],
+      "unique_images_mod256": [
+        75,
+        107
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        75,
+        363
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 123,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        123,
+        251
+      ],
+      "images_mod256": [
+        111,
+        175
+      ],
+      "unique_images_mod256": [
+        111,
+        175
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        367,
+        431
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 125,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        125,
+        253
+      ],
+      "images_mod256": [
+        73,
+        17
+      ],
+      "unique_images_mod256": [
+        17,
+        73
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        73,
+        273
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 127,
+      "map_name": "step6_syracuse_odd_from_step5Terminal",
+      "representatives": [
+        127,
+        255
+      ],
+      "images_mod256": [
+        33,
+        97
+      ],
+      "unique_images_mod256": [
+        33,
+        97
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        289,
+        353
+      ],
+      "splits_mod512": true
+    }
+  ],
+  "step7_residue_class_splits": [
+    {
+      "u_mod128": 1,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        1,
+        129
+      ],
+      "images_mod256": [
+        93,
+        189
+      ],
+      "unique_images_mod256": [
+        93,
+        189
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        93,
+        445
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 3,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        3,
+        131
+      ],
+      "images_mod256": [
+        69,
+        5
+      ],
+      "unique_images_mod256": [
+        5,
+        69
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        5,
+        325
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 5,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        5,
+        133
+      ],
+      "images_mod256": [
+        93,
+        137
+      ],
+      "unique_images_mod256": [
+        93,
+        137
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        349,
+        393
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 7,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        7,
+        135
+      ],
+      "images_mod256": [
+        91,
+        27
+      ],
+      "unique_images_mod256": [
+        27,
+        91
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        91,
+        283
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 9,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        9,
+        137
+      ],
+      "images_mod256": [
+        115,
+        211
+      ],
+      "unique_images_mod256": [
+        115,
+        211
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        211,
+        371
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 11,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        11,
+        139
+      ],
+      "images_mod256": [
+        113,
+        49
+      ],
+      "unique_images_mod256": [
+        49,
+        113
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        49,
+        369
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 13,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        13,
+        141
+      ],
+      "images_mod256": [
+        255,
+        175
+      ],
+      "unique_images_mod256": [
+        175,
+        255
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        175,
+        511
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 15,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        15,
+        143
+      ],
+      "images_mod256": [
+        135,
+        71
+      ],
+      "unique_images_mod256": [
+        71,
+        135
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        135,
+        327
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 17,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        17,
+        145
+      ],
+      "images_mod256": [
+        137,
+        233
+      ],
+      "unique_images_mod256": [
+        137,
+        233
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        137,
+        489
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 19,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        19,
+        147
+      ],
+      "images_mod256": [
+        157,
+        93
+      ],
+      "unique_images_mod256": [
+        93,
+        157
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        93,
+        413
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 21,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        21,
+        149
+      ],
+      "images_mod256": [
+        69,
+        157
+      ],
+      "unique_images_mod256": [
+        69,
+        157
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        325,
+        413
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 23,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        23,
+        151
+      ],
+      "images_mod256": [
+        179,
+        115
+      ],
+      "unique_images_mod256": [
+        115,
+        179
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        179,
+        371
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 25,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        25,
+        153
+      ],
+      "images_mod256": [
+        159,
+        255
+      ],
+      "unique_images_mod256": [
+        159,
+        255
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        255,
+        415
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 27,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        27,
+        155
+      ],
+      "images_mod256": [
+        201,
+        137
+      ],
+      "unique_images_mod256": [
+        137,
+        201
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        137,
+        457
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 29,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        29,
+        157
+      ],
+      "images_mod256": [
+        21,
+        197
+      ],
+      "unique_images_mod256": [
+        21,
+        197
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        277,
+        453
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 31,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        31,
+        159
+      ],
+      "images_mod256": [
+        223,
+        159
+      ],
+      "unique_images_mod256": [
+        159,
+        223
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        223,
+        415
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 33,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        33,
+        161
+      ],
+      "images_mod256": [
+        181,
+        21
+      ],
+      "unique_images_mod256": [
+        21,
+        181
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        21,
+        181
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 35,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        35,
+        163
+      ],
+      "images_mod256": [
+        245,
+        181
+      ],
+      "unique_images_mod256": [
+        181,
+        245
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        181,
+        501
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 37,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        37,
+        165
+      ],
+      "images_mod256": [
+        61,
+        5
+      ],
+      "unique_images_mod256": [
+        5,
+        61
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        261,
+        317
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 39,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        39,
+        167
+      ],
+      "images_mod256": [
+        11,
+        203
+      ],
+      "unique_images_mod256": [
+        11,
+        203
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        267,
+        459
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 41,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        41,
+        169
+      ],
+      "images_mod256": [
+        203,
+        43
+      ],
+      "unique_images_mod256": [
+        43,
+        203
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        299,
+        459
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 43,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        43,
+        171
+      ],
+      "images_mod256": [
+        33,
+        225
+      ],
+      "unique_images_mod256": [
+        33,
+        225
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        33,
+        225
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 45,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        45,
+        173
+      ],
+      "images_mod256": [
+        43,
+        219
+      ],
+      "unique_images_mod256": [
+        43,
+        219
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        43,
+        219
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 47,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        47,
+        175
+      ],
+      "images_mod256": [
+        55,
+        247
+      ],
+      "unique_images_mod256": [
+        55,
+        247
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        311,
+        503
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 49,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        49,
+        177
+      ],
+      "images_mod256": [
+        225,
+        65
+      ],
+      "unique_images_mod256": [
+        65,
+        225
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        65,
+        225
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 51,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        51,
+        179
+      ],
+      "images_mod256": [
+        77,
+        13
+      ],
+      "unique_images_mod256": [
+        13,
+        77
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        77,
+        269
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 53,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        53,
+        181
+      ],
+      "images_mod256": [
+        91,
+        179
+      ],
+      "unique_images_mod256": [
+        91,
+        179
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        91,
+        179
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 55,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        55,
+        183
+      ],
+      "images_mod256": [
+        99,
+        35
+      ],
+      "unique_images_mod256": [
+        35,
+        99
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        35,
+        355
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 57,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        57,
+        185
+      ],
+      "images_mod256": [
+        247,
+        87
+      ],
+      "unique_images_mod256": [
+        87,
+        247
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        343,
+        503
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 59,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        59,
+        187
+      ],
+      "images_mod256": [
+        121,
+        57
+      ],
+      "unique_images_mod256": [
+        57,
+        121
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        121,
+        313
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 61,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        61,
+        189
+      ],
+      "images_mod256": [
+        65,
+        241
+      ],
+      "unique_images_mod256": [
+        65,
+        241
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        321,
+        497
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 63,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        63,
+        191
+      ],
+      "images_mod256": [
+        143,
+        79
+      ],
+      "unique_images_mod256": [
+        79,
+        143
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        79,
+        399
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 65,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        65,
+        193
+      ],
+      "images_mod256": [
+        13,
+        109
+      ],
+      "unique_images_mod256": [
+        13,
+        109
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        109,
+        269
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 67,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        67,
+        195
+      ],
+      "images_mod256": [
+        165,
+        101
+      ],
+      "unique_images_mod256": [
+        101,
+        165
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        165,
+        357
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 69,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        69,
+        197
+      ],
+      "images_mod256": [
+        115,
+        159
+      ],
+      "unique_images_mod256": [
+        115,
+        159
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        115,
+        159
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 71,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        71,
+        199
+      ],
+      "images_mod256": [
+        187,
+        123
+      ],
+      "unique_images_mod256": [
+        123,
+        187
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        123,
+        443
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 73,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        73,
+        201
+      ],
+      "images_mod256": [
+        35,
+        131
+      ],
+      "unique_images_mod256": [
+        35,
+        131
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        35,
+        387
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 75,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        75,
+        203
+      ],
+      "images_mod256": [
+        209,
+        145
+      ],
+      "unique_images_mod256": [
+        145,
+        209
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        209,
+        401
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 77,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        77,
+        205
+      ],
+      "images_mod256": [
+        87,
+        7
+      ],
+      "unique_images_mod256": [
+        7,
+        87
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        87,
+        263
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 79,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        79,
+        207
+      ],
+      "images_mod256": [
+        231,
+        167
+      ],
+      "unique_images_mod256": [
+        167,
+        231
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        167,
+        487
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 81,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        81,
+        209
+      ],
+      "images_mod256": [
+        57,
+        153
+      ],
+      "unique_images_mod256": [
+        57,
+        153
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        153,
+        313
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 83,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        83,
+        211
+      ],
+      "images_mod256": [
+        253,
+        189
+      ],
+      "unique_images_mod256": [
+        189,
+        253
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        253,
+        445
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 85,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        85,
+        213
+      ],
+      "images_mod256": [
+        113,
+        201
+      ],
+      "unique_images_mod256": [
+        113,
+        201
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        369,
+        457
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 87,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        87,
+        215
+      ],
+      "images_mod256": [
+        19,
+        211
+      ],
+      "unique_images_mod256": [
+        19,
+        211
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        19,
+        211
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 89,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        89,
+        217
+      ],
+      "images_mod256": [
+        79,
+        175
+      ],
+      "unique_images_mod256": [
+        79,
+        175
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        79,
+        431
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 91,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        91,
+        219
+      ],
+      "images_mod256": [
+        41,
+        233
+      ],
+      "unique_images_mod256": [
+        41,
+        233
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        297,
+        489
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 93,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        93,
+        221
+      ],
+      "images_mod256": [
+        109,
+        29
+      ],
+      "unique_images_mod256": [
+        29,
+        109
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        29,
+        365
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 95,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        95,
+        223
+      ],
+      "images_mod256": [
+        63,
+        255
+      ],
+      "unique_images_mod256": [
+        63,
+        255
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        63,
+        255
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 97,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        97,
+        225
+      ],
+      "images_mod256": [
+        101,
+        197
+      ],
+      "unique_images_mod256": [
+        101,
+        197
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        197,
+        357
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 99,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        99,
+        227
+      ],
+      "images_mod256": [
+        85,
+        21
+      ],
+      "unique_images_mod256": [
+        21,
+        85
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        21,
+        341
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 101,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        101,
+        229
+      ],
+      "images_mod256": [
+        127,
+        149
+      ],
+      "unique_images_mod256": [
+        127,
+        149
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        149,
+        383
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 103,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        103,
+        231
+      ],
+      "images_mod256": [
+        107,
+        43
+      ],
+      "unique_images_mod256": [
+        43,
+        107
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        107,
+        299
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 105,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        105,
+        233
+      ],
+      "images_mod256": [
+        123,
+        219
+      ],
+      "unique_images_mod256": [
+        123,
+        219
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        123,
+        475
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 107,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        107,
+        235
+      ],
+      "images_mod256": [
+        129,
+        65
+      ],
+      "unique_images_mod256": [
+        65,
+        129
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        65,
+        385
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 109,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        109,
+        237
+      ],
+      "images_mod256": [
+        131,
+        51
+      ],
+      "unique_images_mod256": [
+        51,
+        131
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        131,
+        307
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 111,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        111,
+        239
+      ],
+      "images_mod256": [
+        151,
+        87
+      ],
+      "unique_images_mod256": [
+        87,
+        151
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        151,
+        343
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 113,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        113,
+        241
+      ],
+      "images_mod256": [
+        145,
+        241
+      ],
+      "unique_images_mod256": [
+        145,
+        241
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        241,
+        401
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 115,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        115,
+        243
+      ],
+      "images_mod256": [
+        173,
+        109
+      ],
+      "unique_images_mod256": [
+        109,
+        173
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        109,
+        429
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 117,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        117,
+        245
+      ],
+      "images_mod256": [
+        135,
+        223
+      ],
+      "unique_images_mod256": [
+        135,
+        223
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        135,
+        223
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 119,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        119,
+        247
+      ],
+      "images_mod256": [
+        195,
+        131
+      ],
+      "unique_images_mod256": [
+        131,
+        195
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        195,
+        387
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 121,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        121,
+        249
+      ],
+      "images_mod256": [
+        167,
+        7
+      ],
+      "unique_images_mod256": [
+        7,
+        167
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        7,
+        167
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 123,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        123,
+        251
+      ],
+      "images_mod256": [
+        217,
+        153
+      ],
+      "unique_images_mod256": [
+        153,
+        217
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        153,
+        473
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 125,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        125,
+        253
+      ],
+      "images_mod256": [
+        153,
+        73
+      ],
+      "unique_images_mod256": [
+        73,
+        153
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        73,
+        409
+      ],
+      "splits_mod512": true
+    },
+    {
+      "u_mod128": 127,
+      "map_name": "step7_syracuse_odd_from_step6Terminal",
+      "representatives": [
+        127,
+        255
+      ],
+      "images_mod256": [
+        239,
+        175
+      ],
+      "unique_images_mod256": [
+        175,
+        239
+      ],
+      "splits_mod256": true,
+      "unique_images_mod512": [
+        239,
+        431
+      ],
+      "splits_mod512": true
+    }
+  ],
+  "affine_family_check_u_eq_4w_plus_3": [
+    {
+      "u_a": 3,
+      "u_b": 131,
+      "w_a": 0,
+      "w_b": 32,
+      "affine_match": true,
+      "affine_a_mod256": 147,
+      "affine_b_mod256": 211,
+      "delta_mod256": 64
+    }
+  ],
+  "summary": {
+    "documented_all_separated_at_256": true,
+    "step6_collision_pair_count": 64,
+    "step6_pairs_separated_at_256": 64,
+    "step6_pairs_still_collide_mod_256": 0,
+    "step7_collision_pair_count": 64,
+    "step7_pairs_separated_at_256": 64,
+    "step7_pairs_still_collide_mod_256": 0,
+    "step6_odd_residue_classes_that_split_mod256": 64,
+    "step7_odd_residue_classes_that_split_mod256": 64,
+    "verdict": "separates_at_256"
+  },
+  "recommended_next_step": "If verdict is separates_at_256: prove Lean lemmas for documented pairs (and odd-u-odd-v family) with distinct images mod 256; then consider a future Fin-256 H7StateGraph256. Do NOT build that graph in this milestone."
+}
