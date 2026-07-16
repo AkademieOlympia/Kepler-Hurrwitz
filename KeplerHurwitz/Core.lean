@@ -35,6 +35,7 @@ import KeplerHurwitz.CollatzNetDescentMod8
 import KeplerHurwitz.CollatzChannelSeven
 import KeplerHurwitz.Collatz.H7StateGraph
 import KeplerHurwitz.Collatz.H7StateGraphAudit
+import KeplerHurwitz.Collatz.H7Mod256Separation
 import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Collatz.CkA.OrbitSmoothBridge
 import KeplerHurwitz.Collatz.Octonion.Termination

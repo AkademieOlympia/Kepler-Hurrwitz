@@ -41,22 +41,26 @@ Quelle: `KeplerHurwitz/Collatz/H7StateGraph.lean`,
 
 Export: `docs/exports/h7_mod256_separation_scan.json`.
 
-## Lean (Milestone 2)
+## Lean `[A]` (Milestone 2) — erledigt
 
-Zieltheoreme (nach positivem `[B]`-Verdict):
+Datei: `KeplerHurwitz/Collatz/H7Mod256Separation.lean` (in `Core.lean` registriert).
+Build: `lake build KeplerHurwitz.Collatz.H7Mod256Separation` grün.
 
-- dokumentiertes Paar `3`/`131` hat verschiedene Bilder mod 256
-- uniforme Aussage für die Familie `u = 4w+3` vs `u+128` (Δ ≡ 64 mod 256)
-
-Datei (geplant): `KeplerHurwitz/Collatz/H7Mod256Separation.lean`.
+| Theorem | Aussage |
+|---|---|
+| `step6_odd_u_odd_v_affine_separates_mod256` | `(1458w+1171) ≢ (1458(w+32)+1171) (mod 256)` |
+| `step6_odd_u_odd_v_u_and_u_add128_separates_mod256` | für `u=4w+3`: Step-6-Bilder von `u` und `u+128` verschieden mod 256 |
+| `h7_step6_odd_u_pair_3_131_separates_mod256` | dokumentiertes Paar trennt bei 256 |
+| `h7_step6_odd_u_pair_3_131_images_mod256` | explizit `147` vs `211` |
+| `h7_mod128_obstruction_still_holds` | Pointer auf versiegelte Fin-128-Obstruktion |
 
 ## Empfohlener nächster Lean-Schritt
 
-1. `[A]` Trennungslemmata in `H7Mod256Separation.lean` (dieses Milestone).
-2. **Später:** Entwurf eines `H7StateGraph256` nur für Familien mit bewiesener Einwertigkeit mod 256 — **nicht** hier gebaut.
+1. ~~`[A]` Trennungslemmata~~ (erledigt).
+2. **Später:** Entwurf eines `H7StateGraph256` nur für Familien mit bewiesener Einwertigkeit mod 256 — **nicht** in diesem Milestone gebaut. Zuerst Einwertigkeit der odd-`u`-Kante als `Fin 256 → Fin 256` formalisieren (Trennungslemma ist notwendig, nicht hinreichend).
 3. Keine Hochstufung des `[B]`-Scans zu Kanten-Solidität.
 
 ## Checkpoint
 
-1. Python `[B]` Scan + Tests + Export + diese Notiz
-2. Lean-Trennungslemmata (falls Scan positiv — ja)
+1. `d52a193` — Python `[B]` Scan + Tests + Export + Notiz
+2. Lean-Trennungslemmata (dieses Commit)
