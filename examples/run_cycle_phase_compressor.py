@@ -38,7 +38,7 @@ sys.path.insert(0, str(SRC))
 
 from kepler_hurwitz.cycle_phase_compressor import (  # noqa: E402
     GOVERNANCE,
-    audit_phase_reconstruction,
+    audit_target_reconstruction,
     construct_cycle_phase,
 )
 from kepler_hurwitz.octonionic_collatz_freeze_diagnostic import (  # noqa: E402
@@ -89,23 +89,27 @@ def audit_features(
 ) -> list[dict[str, object]]:
     reports: list[dict[str, object]] = []
     for name, feat in feature_specs():
-        result = audit_phase_reconstruction(states, target, feat)  # type: ignore[arg-type]
+        result = audit_target_reconstruction(states, target, feat)  # type: ignore[arg-type]
         entry: dict[str, object] = {
             "feature": name,
             "target": target_name,
             "reconstructs_target": result["reconstructs_target"],
         }
         if result["reconstructs_target"]:
+            entry["state_count"] = result["state_count"]
             entry["distinct_feature_vectors"] = result["distinct_feature_vectors"]
             entry["target_classes_count"] = result["target_classes_count"]
+            entry["state_compression_ratio"] = result["state_compression_ratio"]
+            entry["minimal_for_target"] = result["minimal_for_target"]
         else:
             collision = result["collision"]
-            # Make JSON-safe (feature vectors may be ints/strs).
+            # Full witness pair; JSON-safe (feature vectors may be ints/strs).
             entry["collision"] = {
                 "feature_vector": collision["feature_vector"],
-                "first_stored_value": collision["first_stored_value"],
-                "colliding_state": collision["colliding_state"],
-                "colliding_value": collision["colliding_value"],
+                "first_state": collision["first_state"],
+                "first_value": collision["first_value"],
+                "second_state": collision["second_state"],
+                "second_value": collision["second_value"],
             }
         reports.append(entry)
     return reports
@@ -152,11 +156,19 @@ def main() -> int:
             f"max_depth={row['max_depth']}, states={row['state_count']} [{tag}]"
         )
         depth_hits = [
-            a["feature"]
+            a
             for a in row["depth_reconstruction"]  # type: ignore[union-attr]
             if a["reconstructs_target"]
         ]
-        print(f"       depth reconstructed by: {depth_hits}")
+        hit_names = [a["feature"] for a in depth_hits]
+        print(f"       depth reconstructed by: {hit_names}")
+        for a in depth_hits:
+            print(
+                f"         {a['feature']}: F={a['distinct_feature_vectors']}, "
+                f"Q={a['target_classes_count']}, "
+                f"minimal={a['minimal_for_target']}, "
+                f"F/N={a['state_compression_ratio']}"
+            )
 
     payload = {
         "status": "completed",
@@ -173,6 +185,14 @@ def main() -> int:
             "If cycle_length=1, φ is constantly 0 and "
             "φ(Tx)=φ(x)+1 mod 1 is vacuous. The interesting regime for φ "
             "is L>1. On these monoliths depth d is the live Lyapunov target."
+        ),
+        "phase_gauge": (
+            "Without canonical_key, the concrete phase representation is "
+            "gauge-dependent (global additive constant mod L). "
+            "Collision audits store full witness pairs "
+            "(first_state, first_value, second_state, second_value, feature_vector). "
+            "Success reports F=distinct_feature_vectors, Q=target_classes_count, "
+            "state_compression_ratio=F/N, and minimal_for_target=(F==Q)."
         ),
         "phase_c_lockout": (
             "Forward-closed nonempty subclasses of a finite monolith still "

@@ -152,3 +152,27 @@ Das weitere Suchprogramm wird in zwei getrennte Richtungen aufgespalten:
 2. **Lyapunov-artige Ränge (Abstieg):** Gesucht werden lokale arithmetische Merkmale, welche die global definierte Transiententiefe \(d(T_{\mathrm{odd}}x) \le d(x)\) abbilden, mit strikter Abnahme (\(d-1\)) außerhalb des Attraktors.
 
 **Ehrlichkeit (\(L=1\)):** Auf den Phase-A-Monolithen modulo 8…128 ist der Attraktorzyklus \(\{1\}\), also \(\ell = 1\). Dann ist \(\varphi\) konstant \(0\) und die Kovarianz modulo \(1\) trivial; die Kompressionsfrage für \(\varphi\) kollabiert. Die live Zielobservable ist die Tiefe \(d\). Implementierung: [`src/kepler_hurwitz/cycle_phase_compressor.py`](../../src/kepler_hurwitz/cycle_phase_compressor.py), Export [`../exports/oddcore_cycle_phase_compression.json`](../exports/oddcore_cycle_phase_compression.json).
+
+### 5.5.2 Kanonische Graphobservablen und arithmetische Rekonstruktion
+
+Für einen endlichen, schwach zusammenhängenden Funktionsgraphen mit eindeutigem Attraktorzyklus \(C\) wird die Attraktortiefe
+\[
+d(x) = \min\{n \ge 0 : T_{\mathrm{odd}}^n(x) \in C\}
+\]
+definiert. Sie erfüllt \(d(T_{\mathrm{odd}}x) = d(x) - 1\) für \(d(x) > 0\) und \(d(T_{\mathrm{odd}}x) = 0\) auf dem Attraktorzyklus. Damit ist \(d\) eine exakte graphentheoretische Lyapunov-Funktion.
+
+Die Verteilung der Zykluslänge \(\ell\) erzwingt eine strikte konditionale Fallunterscheidung:
+\[
+\begin{cases}
+\ell > 1: & \varphi(T_{\mathrm{odd}}x) = \varphi(x) + 1 \pmod \ell \text{ liefert eine nichttriviale Taktung}, \\[2mm]
+\ell = 1: & \varphi \text{ ist trivial; } d \text{ ist die primäre Graphobservable}.
+\end{cases}
+\]
+
+Die konkrete Wahl des Phasenursprungs ist bei \(\ell > 1\) nicht eindeutig. Zwei zulässige Phasen unterscheiden sich durch eine globale additive Konstante. Kanonisch ist daher zunächst die Phasenklasse modulo globaler Translation. Eine reproduzierbare konkrete Repräsentation verlangt eine ausdrücklich festgelegte Zyklusnormalisierung; ohne einen solchen expliziten strukturellen Anker ist die Darstellung *gauge-dependent*.
+
+Das anschließende Suchprogramm prüft, ob lokale arithmetische Merkmale \(M(x)\) die globalen Zielgrößen \(\varphi(x)\) oder \(d(x)\) bestimmen. Exakte Rekonstruierbarkeit bedeutet:
+\[
+M(x) = M(y) \implies G(x) = G(y),
+\]
+wobei \(G\) für \(\varphi\) oder \(d\) steht. Diese Implikation allein beweist noch keine nützliche Kompression. Zusätzlich werden die Anzahl unterschiedlicher Merkmalswerte, die Anzahl der Zielklassen, die Zustandsreduktion sowie die Berechnungskosten des Merkmals dokumentiert. Eine minimale exakte Zielkodierung liegt im endlichen Fall vor, wenn die Zahl der Merkmalsklassen der Zahl der Zielklassen entspricht (\(F = Q\)).

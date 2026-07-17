@@ -12,6 +12,7 @@ Governance
 - Depth: ``d(Tx) ≤ d(x)``, with strict ``d-1`` off the attractor
 - Honesty: if ``L = 1``, then φ ≡ 0 and the mod-1 covariance is trivial;
   the live compression target on such monoliths is the depth ``d``
+- Phase origin is gauge-dependent unless ``canonical_key`` anchors it
 - Local freeze only after run protocol + hash + commit
 
 Bezug: Arbeitsprogramm Phase B & C (kanonische Taktung & Kollisionsaudit).
@@ -38,6 +39,7 @@ __all__ = [
     "require",
     "CyclePhaseReport",
     "construct_cycle_phase",
+    "audit_target_reconstruction",
     "audit_phase_reconstruction",
 ]
 
@@ -65,8 +67,13 @@ class CyclePhaseReport:
 def construct_cycle_phase(
     states: Iterable[State],
     step: Callable[[State], State],
+    canonical_key: Callable[[State], object] | None = None,
 ) -> tuple[dict[State, int], dict[State, int], CyclePhaseReport]:
     """Construct canonical phase φ and depth d on a weakly connected digraph.
+
+    Phase normalization is **gauge-dependent** unless an explicit
+    ``canonical_key`` anchor is provided. With an anchor, the cycle is
+    rotated so ``min(cycle, key=canonical_key)`` is the phase origin.
 
     Verifies covariance and Lyapunov descent via hard ``require`` calls.
     """
@@ -117,9 +124,21 @@ def construct_cycle_phase(
         trajectory.append(current)
         current = next_node[current]
     cycle_start = trajectory_index[current]
-    cycle = tuple(trajectory[cycle_start:])
+    cycle = list(trajectory[cycle_start:])
     cycle_length = len(cycle)
     require(cycle_length > 0, "No directed cycle was found.")
+
+    # Optional: anchored phase normalization (otherwise gauge-dependent).
+    if canonical_key is not None:
+        try:
+            anchor_node = min(cycle, key=canonical_key)
+            anchor_idx = cycle.index(anchor_node)
+            cycle = cycle[anchor_idx:] + cycle[:anchor_idx]
+        except Exception as exc:  # noqa: BLE001 — surface as audit failure
+            raise RuntimeError(
+                f"Phase normalization anchor sorting failed: {exc}"
+            ) from exc
+
     cycle_index = {node: index for index, node in enumerate(cycle)}
 
     # Reverse BFS from the cycle to determine depth and entry nodes.
@@ -180,32 +199,74 @@ def construct_cycle_phase(
     return phase, depth, report
 
 
+def audit_target_reconstruction(
+    states: Iterable[State],
+    canonical_target: dict[State, int],
+    features: Callable[[State], Hashable],
+) -> dict[str, object]:
+    """Test whether the feature vector determines the target exactly.
+
+    Passing this audit proves reconstructibility, not by itself useful
+    compression or low computational cost. On collision, stores a full
+    witness pair ``(first_state, first_value, second_state, second_value)``
+    together with the colliding ``feature_vector``.
+    """
+    universe = tuple(states)
+    universe_set = set(universe)
+    require(bool(universe), "The audited state space is empty.")
+    require(
+        len(universe) == len(universe_set),
+        "The state iterable contains duplicate states.",
+    )
+    require(
+        set(canonical_target) == universe_set,
+        "The target map does not cover exactly the audited state space.",
+    )
+
+    buckets: dict[Hashable, tuple[State, int]] = {}
+    for x in universe:
+        key = features(x)
+        value = canonical_target[x]
+        if key in buckets:
+            first_state, first_value = buckets[key]
+            if first_value != value:
+                return {
+                    "reconstructs_target": False,
+                    "collision": {
+                        "feature_vector": key,
+                        "first_state": first_state,
+                        "first_value": first_value,
+                        "second_state": x,
+                        "second_value": value,
+                    },
+                }
+        else:
+            buckets[key] = (x, value)
+
+    state_count = len(universe)
+    feature_count = len(buckets)
+    target_count = len(set(canonical_target.values()))
+    require(
+        feature_count >= target_count,
+        "Internal counting contradiction: fewer features than target classes.",
+    )
+    return {
+        "reconstructs_target": True,
+        "state_count": state_count,
+        "distinct_feature_vectors": feature_count,
+        "target_classes_count": target_count,
+        "state_compression_ratio": feature_count / state_count,
+        "minimal_for_target": feature_count == target_count,
+    }
+
+
 def audit_phase_reconstruction(
     states: Iterable[State],
     canonical_target: dict[State, int],
     features: Callable[[State], Hashable],
 ) -> dict[str, object]:
-    """Exhaustive collision audit: do local features reconstruct the target?"""
-    buckets: dict[Hashable, int] = {}
-    for x in states:
-        key = features(x)
-        value = canonical_target[x]
-        if key in buckets and buckets[key] != value:
-            return {
-                "reconstructs_target": False,
-                "collision": {
-                    "feature_vector": key,
-                    "first_stored_value": buckets[key],
-                    "colliding_state": x,
-                    "colliding_value": value,
-                },
-            }
-        buckets[key] = value
-    return {
-        "reconstructs_target": True,
-        "distinct_feature_vectors": len(buckets),
-        "target_classes_count": len(set(canonical_target.values())),
-    }
+    """Thin back-compat alias for :func:`audit_target_reconstruction`."""
+    return audit_target_reconstruction(states, canonical_target, features)
 
 
 def _cli_odd_residues(m: int) -> tuple[int, ...]:
@@ -252,6 +313,9 @@ def main(argv: list[str] | None = None) -> int:
         "Honesty: L=1 ⇒ φ≡0 and mod-1 covariance is trivial; "
         "depth d remains the nontrivial Lyapunov observable."
     )
+    print(
+        "Gauge: phase origin is gauge-dependent unless canonical_key anchors it."
+    )
     print()
 
     for m in args.moduli:
@@ -282,6 +346,10 @@ def main(argv: list[str] | None = None) -> int:
             "honesty": (
                 "If cycle_length=1, φ is constantly 0 and "
                 "φ(Tx)=φ(x)+1 mod 1 is vacuous; compress d instead."
+            ),
+            "gauge": (
+                "Without canonical_key, the concrete phase representation "
+                "is gauge-dependent (global additive constant)."
             ),
         }
         args.json.parent.mkdir(parents=True, exist_ok=True)

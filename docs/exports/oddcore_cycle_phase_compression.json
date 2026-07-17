@@ -1,12 +1,13 @@
 {
   "status": "completed",
   "governance": "[B]",
-  "generated_at_utc": "2026-07-17T13:45:02Z",
+  "generated_at_utc": "2026-07-17T13:50:42Z",
   "branch": "post-freeze/octonionic-collatz-proof-attempt",
   "phase": "B/C compression",
   "map": "T_m(r)=oddCoreStep(r) mod m on canonical odd residues",
   "projection_caveat": "oddCoreStep on Nat does not always descend to Z/mZ; scan uses projected digraph as in Phase A",
   "honesty_L1": "If cycle_length=1, φ is constantly 0 and φ(Tx)=φ(x)+1 mod 1 is vacuous. The interesting regime for φ is L>1. On these monoliths depth d is the live Lyapunov target.",
+  "phase_gauge": "Without canonical_key, the concrete phase representation is gauge-dependent (global additive constant mod L). Collision audits store full witness pairs (first_state, first_value, second_state, second_value, feature_vector). Success reports F=distinct_feature_vectors, Q=target_classes_count, state_compression_ratio=F/N, and minimal_for_target=(F==Q).",
   "phase_c_lockout": "Forward-closed nonempty subclasses of a finite monolith still contain the unique attractor cycle ⇒ remain weakly connected; static subclass invariants are structurally locked out.",
   "moduli": [
     8,
@@ -37,57 +38,81 @@
           "feature": "residue_identity",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 4,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "disk_axis_parity_constant_1",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 1,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.25,
+          "minimal_for_target": true
         },
         {
           "feature": "constant_0",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 1,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.25,
+          "minimal_for_target": true
         },
         {
           "feature": "n_mod_8",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 4,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "channel_seven_flag",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 2,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.5,
+          "minimal_for_target": false
         },
         {
           "feature": "smoothness_channel_label",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 3,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.75,
+          "minimal_for_target": false
         },
         {
           "feature": "n_mod_16",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 4,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "v2_proxy_3n_plus_1_parity",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 2,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.5,
+          "minimal_for_target": false
         }
       ],
       "depth_reconstruction": [
@@ -95,8 +120,11 @@
           "feature": "residue_identity",
           "target": "depth",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 4,
-          "target_classes_count": 4
+          "target_classes_count": 4,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": true
         },
         {
           "feature": "disk_axis_parity_constant_1",
@@ -104,9 +132,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -115,17 +144,21 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
           "feature": "n_mod_8",
           "target": "depth",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 4,
-          "target_classes_count": 4
+          "target_classes_count": 4,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": true
         },
         {
           "feature": "channel_seven_flag",
@@ -133,9 +166,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -144,17 +178,21 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": "klein",
-            "first_stored_value": 2,
-            "colliding_state": 7,
-            "colliding_value": 3
+            "first_state": 3,
+            "first_value": 2,
+            "second_state": 7,
+            "second_value": 3
           }
         },
         {
           "feature": "n_mod_16",
           "target": "depth",
           "reconstructs_target": true,
+          "state_count": 4,
           "distinct_feature_vectors": 4,
-          "target_classes_count": 4
+          "target_classes_count": 4,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": true
         },
         {
           "feature": "v2_proxy_3n_plus_1_parity",
@@ -162,9 +200,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 5,
-            "colliding_value": 1
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 5,
+            "second_value": 1
           }
         }
       ]
@@ -190,57 +229,81 @@
           "feature": "residue_identity",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 8,
           "distinct_feature_vectors": 8,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "disk_axis_parity_constant_1",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 8,
           "distinct_feature_vectors": 1,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.125,
+          "minimal_for_target": true
         },
         {
           "feature": "constant_0",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 8,
           "distinct_feature_vectors": 1,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.125,
+          "minimal_for_target": true
         },
         {
           "feature": "n_mod_8",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 8,
           "distinct_feature_vectors": 4,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.5,
+          "minimal_for_target": false
         },
         {
           "feature": "channel_seven_flag",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 8,
           "distinct_feature_vectors": 2,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.25,
+          "minimal_for_target": false
         },
         {
           "feature": "smoothness_channel_label",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 8,
           "distinct_feature_vectors": 3,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.375,
+          "minimal_for_target": false
         },
         {
           "feature": "n_mod_16",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 8,
           "distinct_feature_vectors": 8,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "v2_proxy_3n_plus_1_parity",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 8,
           "distinct_feature_vectors": 2,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.25,
+          "minimal_for_target": false
         }
       ],
       "depth_reconstruction": [
@@ -248,8 +311,11 @@
           "feature": "residue_identity",
           "target": "depth",
           "reconstructs_target": true,
+          "state_count": 8,
           "distinct_feature_vectors": 8,
-          "target_classes_count": 4
+          "target_classes_count": 4,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "disk_axis_parity_constant_1",
@@ -257,9 +323,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -268,9 +335,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -279,9 +347,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 9,
-            "colliding_value": 3
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 9,
+            "second_value": 3
           }
         },
         {
@@ -290,9 +359,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -301,17 +371,21 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": "mittel",
-            "first_stored_value": 0,
-            "colliding_state": 9,
-            "colliding_value": 3
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 9,
+            "second_value": 3
           }
         },
         {
           "feature": "n_mod_16",
           "target": "depth",
           "reconstructs_target": true,
+          "state_count": 8,
           "distinct_feature_vectors": 8,
-          "target_classes_count": 4
+          "target_classes_count": 4,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "v2_proxy_3n_plus_1_parity",
@@ -319,9 +393,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 5,
-            "colliding_value": 1
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 5,
+            "second_value": 1
           }
         }
       ]
@@ -351,57 +426,81 @@
           "feature": "residue_identity",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 16,
           "distinct_feature_vectors": 16,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "disk_axis_parity_constant_1",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 16,
           "distinct_feature_vectors": 1,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.0625,
+          "minimal_for_target": true
         },
         {
           "feature": "constant_0",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 16,
           "distinct_feature_vectors": 1,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.0625,
+          "minimal_for_target": true
         },
         {
           "feature": "n_mod_8",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 16,
           "distinct_feature_vectors": 4,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.25,
+          "minimal_for_target": false
         },
         {
           "feature": "channel_seven_flag",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 16,
           "distinct_feature_vectors": 2,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.125,
+          "minimal_for_target": false
         },
         {
           "feature": "smoothness_channel_label",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 16,
           "distinct_feature_vectors": 3,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.1875,
+          "minimal_for_target": false
         },
         {
           "feature": "n_mod_16",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 16,
           "distinct_feature_vectors": 8,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.5,
+          "minimal_for_target": false
         },
         {
           "feature": "v2_proxy_3n_plus_1_parity",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 16,
           "distinct_feature_vectors": 2,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.125,
+          "minimal_for_target": false
         }
       ],
       "depth_reconstruction": [
@@ -409,8 +508,11 @@
           "feature": "residue_identity",
           "target": "depth",
           "reconstructs_target": true,
+          "state_count": 16,
           "distinct_feature_vectors": 16,
-          "target_classes_count": 8
+          "target_classes_count": 8,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "disk_axis_parity_constant_1",
@@ -418,9 +520,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -429,9 +532,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -440,9 +544,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 9,
-            "colliding_value": 6
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 9,
+            "second_value": 6
           }
         },
         {
@@ -451,9 +556,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -462,9 +568,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": "klein",
-            "first_stored_value": 2,
-            "colliding_state": 7,
-            "colliding_value": 5
+            "first_state": 3,
+            "first_value": 2,
+            "second_state": 7,
+            "second_value": 5
           }
         },
         {
@@ -473,9 +580,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 17,
-            "colliding_value": 3
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 17,
+            "second_value": 3
           }
         },
         {
@@ -484,9 +592,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 5,
-            "colliding_value": 1
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 5,
+            "second_value": 1
           }
         }
       ]
@@ -518,57 +627,81 @@
           "feature": "residue_identity",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 32,
           "distinct_feature_vectors": 32,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "disk_axis_parity_constant_1",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 32,
           "distinct_feature_vectors": 1,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.03125,
+          "minimal_for_target": true
         },
         {
           "feature": "constant_0",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 32,
           "distinct_feature_vectors": 1,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.03125,
+          "minimal_for_target": true
         },
         {
           "feature": "n_mod_8",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 32,
           "distinct_feature_vectors": 4,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.125,
+          "minimal_for_target": false
         },
         {
           "feature": "channel_seven_flag",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 32,
           "distinct_feature_vectors": 2,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.0625,
+          "minimal_for_target": false
         },
         {
           "feature": "smoothness_channel_label",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 32,
           "distinct_feature_vectors": 3,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.09375,
+          "minimal_for_target": false
         },
         {
           "feature": "n_mod_16",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 32,
           "distinct_feature_vectors": 8,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.25,
+          "minimal_for_target": false
         },
         {
           "feature": "v2_proxy_3n_plus_1_parity",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 32,
           "distinct_feature_vectors": 2,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.0625,
+          "minimal_for_target": false
         }
       ],
       "depth_reconstruction": [
@@ -576,8 +709,11 @@
           "feature": "residue_identity",
           "target": "depth",
           "reconstructs_target": true,
+          "state_count": 32,
           "distinct_feature_vectors": 32,
-          "target_classes_count": 10
+          "target_classes_count": 10,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "disk_axis_parity_constant_1",
@@ -585,9 +721,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -596,9 +733,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -607,9 +745,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 9,
-            "colliding_value": 6
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 9,
+            "second_value": 6
           }
         },
         {
@@ -618,9 +757,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -629,9 +769,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": "klein",
-            "first_stored_value": 2,
-            "colliding_state": 7,
-            "colliding_value": 5
+            "first_state": 3,
+            "first_value": 2,
+            "second_state": 7,
+            "second_value": 5
           }
         },
         {
@@ -640,9 +781,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 17,
-            "colliding_value": 3
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 17,
+            "second_value": 3
           }
         },
         {
@@ -651,9 +793,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 5,
-            "colliding_value": 1
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 5,
+            "second_value": 1
           }
         }
       ]
@@ -692,57 +835,81 @@
           "feature": "residue_identity",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 64,
           "distinct_feature_vectors": 64,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "disk_axis_parity_constant_1",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 64,
           "distinct_feature_vectors": 1,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.015625,
+          "minimal_for_target": true
         },
         {
           "feature": "constant_0",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 64,
           "distinct_feature_vectors": 1,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.015625,
+          "minimal_for_target": true
         },
         {
           "feature": "n_mod_8",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 64,
           "distinct_feature_vectors": 4,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.0625,
+          "minimal_for_target": false
         },
         {
           "feature": "channel_seven_flag",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 64,
           "distinct_feature_vectors": 2,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.03125,
+          "minimal_for_target": false
         },
         {
           "feature": "smoothness_channel_label",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 64,
           "distinct_feature_vectors": 3,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.046875,
+          "minimal_for_target": false
         },
         {
           "feature": "n_mod_16",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 64,
           "distinct_feature_vectors": 8,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.125,
+          "minimal_for_target": false
         },
         {
           "feature": "v2_proxy_3n_plus_1_parity",
           "target": "phase",
           "reconstructs_target": true,
+          "state_count": 64,
           "distinct_feature_vectors": 2,
-          "target_classes_count": 1
+          "target_classes_count": 1,
+          "state_compression_ratio": 0.03125,
+          "minimal_for_target": false
         }
       ],
       "depth_reconstruction": [
@@ -750,8 +917,11 @@
           "feature": "residue_identity",
           "target": "depth",
           "reconstructs_target": true,
+          "state_count": 64,
           "distinct_feature_vectors": 64,
-          "target_classes_count": 17
+          "target_classes_count": 17,
+          "state_compression_ratio": 1.0,
+          "minimal_for_target": false
         },
         {
           "feature": "disk_axis_parity_constant_1",
@@ -759,9 +929,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -770,9 +941,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -781,9 +953,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 9,
-            "colliding_value": 6
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 9,
+            "second_value": 6
           }
         },
         {
@@ -792,9 +965,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 3,
-            "colliding_value": 2
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 3,
+            "second_value": 2
           }
         },
         {
@@ -803,9 +977,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": "klein",
-            "first_stored_value": 2,
-            "colliding_state": 7,
-            "colliding_value": 5
+            "first_state": 3,
+            "first_value": 2,
+            "second_state": 7,
+            "second_value": 5
           }
         },
         {
@@ -814,9 +989,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 1,
-            "first_stored_value": 0,
-            "colliding_state": 17,
-            "colliding_value": 3
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 17,
+            "second_value": 3
           }
         },
         {
@@ -825,9 +1001,10 @@
           "reconstructs_target": false,
           "collision": {
             "feature_vector": 0,
-            "first_stored_value": 0,
-            "colliding_state": 5,
-            "colliding_value": 1
+            "first_state": 1,
+            "first_value": 0,
+            "second_state": 5,
+            "second_value": 1
           }
         }
       ]

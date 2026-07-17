@@ -7,6 +7,7 @@ import pytest
 from kepler_hurwitz.cycle_phase_compressor import (
     GOVERNANCE,
     audit_phase_reconstruction,
+    audit_target_reconstruction,
     construct_cycle_phase,
     require,
 )
@@ -59,24 +60,93 @@ class TestConstructCyclePhaseToy:
         with pytest.raises(RuntimeError, match="not weakly connected"):
             construct_cycle_phase(states, nxt.__getitem__)
 
+    def test_anchored_vs_unanchored_phase_differ_by_global_constant(self) -> None:
+        nxt = self._toy_step()
+        states = tuple(sorted(nxt))
+        phase_a, depth_a, report_a = construct_cycle_phase(
+            states, nxt.__getitem__, canonical_key=lambda x: x
+        )
+        phase_b, depth_b, report_b = construct_cycle_phase(
+            states, nxt.__getitem__, canonical_key=lambda x: -x
+        )
 
-class TestAuditPhaseReconstruction:
-    def test_identity_reconstructs_phase(self) -> None:
+        assert report_a.cycle_length == report_b.cycle_length == 3
+        assert depth_a == depth_b
+
+        # Different anchors ⇒ phases differ by a global additive constant mod L.
+        offsets = {(phase_a[x] - phase_b[x]) % 3 for x in states}
+        assert len(offsets) == 1
+        assert offsets != {0}  # distinct anchors yield distinct gauges
+
+        for x in states:
+            assert phase_a[nxt[x]] == (phase_a[x] + 1) % 3
+            assert phase_b[nxt[x]] == (phase_b[x] + 1) % 3
+
+        # Unanchored construction still covaries; may match one gauge.
+        phase_free, _, _ = construct_cycle_phase(states, nxt.__getitem__)
+        for x in states:
+            assert phase_free[nxt[x]] == (phase_free[x] + 1) % 3
+
+
+class TestAuditTargetReconstruction:
+    def test_identity_success_reports_f_q_minimal(self) -> None:
         nxt = {0: 1, 1: 2, 2: 0, 3: 0}
         states = (0, 1, 2, 3)
         phase, _depth, _report = construct_cycle_phase(states, nxt.__getitem__)
-        result = audit_phase_reconstruction(states, phase, lambda x: x)
+        result = audit_target_reconstruction(states, phase, lambda x: x)
         assert result["reconstructs_target"] is True
+        assert result["state_count"] == 4
         assert result["distinct_feature_vectors"] == 4
+        assert result["target_classes_count"] == 3  # phases 0,1,2
+        assert result["state_compression_ratio"] == pytest.approx(4 / 4)
+        assert result["minimal_for_target"] is False  # F=4 > Q=3
 
-    def test_constant_feature_collides_on_nontrivial_depth(self) -> None:
+    def test_depth_identity_is_minimal(self) -> None:
         nxt = {0: 1, 1: 2, 2: 0, 3: 0}
         states = (0, 1, 2, 3)
         _phase, depth, _report = construct_cycle_phase(states, nxt.__getitem__)
-        result = audit_phase_reconstruction(states, depth, lambda _x: 0)
-        # Depths include 0 (cycle) and 1 (node 3) ⇒ constant feature collides.
+        # Feature = depth value itself ⇒ F == Q.
+        result = audit_target_reconstruction(states, depth, lambda x: depth[x])
+        assert result["reconstructs_target"] is True
+        assert result["distinct_feature_vectors"] == result["target_classes_count"]
+        assert result["minimal_for_target"] is True
+
+    def test_collision_returns_full_witness_pair(self) -> None:
+        nxt = {0: 1, 1: 2, 2: 0, 3: 0}
+        states = (0, 1, 2, 3)
+        phase, depth, _report = construct_cycle_phase(states, nxt.__getitem__)
+        result = audit_target_reconstruction(states, depth, lambda _x: 0)
         assert result["reconstructs_target"] is False
-        assert "collision" in result
+        collision = result["collision"]
+        assert set(collision) == {
+            "feature_vector",
+            "first_state",
+            "first_value",
+            "second_state",
+            "second_value",
+        }
+        x = collision["first_state"]
+        y = collision["second_state"]
+        assert x != y
+        assert collision["feature_vector"] == 0
+        assert collision["first_value"] != collision["second_value"]
+        assert depth[x] == collision["first_value"]
+        assert depth[y] == collision["second_value"]
+        # Constant M: M(x)=M(y) but d(x)≠d(y); φ may coincide or differ.
+        assert depth[x] != depth[y]
+        assert isinstance(phase[x], int) and isinstance(phase[y], int)
+
+    def test_alias_matches_target_audit(self) -> None:
+        nxt = {0: 0, 1: 0}
+        states = (0, 1)
+        _phase, depth, _report = construct_cycle_phase(states, nxt.__getitem__)
+        a = audit_target_reconstruction(states, depth, lambda x: x)
+        b = audit_phase_reconstruction(states, depth, lambda x: x)
+        assert a == b
+
+    def test_target_must_cover_universe(self) -> None:
+        with pytest.raises(RuntimeError, match="does not cover exactly"):
+            audit_target_reconstruction((0, 1), {0: 0}, lambda x: x)
 
 
 class TestMonolithOddMod8:
@@ -93,10 +163,13 @@ class TestMonolithOddMod8:
         assert set(phase.values()) == {0}
         assert depth[1] == 0
         assert report.max_depth >= 0
-        # Residue identity reconstructs depth; constant feature generally does not
-        # unless all depths coincide (they do not for m=8).
-        id_audit = audit_phase_reconstruction(states, depth, lambda r: r)
+        id_audit = audit_target_reconstruction(states, depth, lambda r: r)
         assert id_audit["reconstructs_target"] is True
+        assert id_audit["state_count"] == len(states)
+        assert "minimal_for_target" in id_audit
         if report.max_depth > 0:
-            const_audit = audit_phase_reconstruction(states, depth, lambda _r: 0)
+            const_audit = audit_target_reconstruction(states, depth, lambda _r: 0)
             assert const_audit["reconstructs_target"] is False
+            coll = const_audit["collision"]
+            assert coll["first_state"] != coll["second_state"]
+            assert coll["first_value"] != coll["second_value"]
