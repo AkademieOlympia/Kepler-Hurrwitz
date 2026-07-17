@@ -41,11 +41,14 @@ from kepler_hurwitz.cycle_phase_compressor import (  # noqa: E402
     audit_target_reconstruction,
     construct_cycle_phase,
 )
+from kepler_hurwitz.odd_core_residue import (  # noqa: E402
+    odd_residues_mod,
+    projected_odd_core_step,
+)
 from kepler_hurwitz.octonionic_collatz_freeze_diagnostic import (  # noqa: E402
     channel_seven_residue,
     disk_axis_parity,
     is_channel_seven,
-    odd_core_step,
 )
 from kepler_hurwitz.smoothness_channel_scan import (  # noqa: E402
     channel_label,
@@ -54,19 +57,6 @@ from kepler_hurwitz.smoothness_channel_scan import (  # noqa: E402
 
 EXPORT_JSON = ROOT / "docs/exports/oddcore_cycle_phase_compression.json"
 DEFAULT_MODULI = (8, 16, 32, 64, 128)
-
-
-def odd_residues_mod(m: int) -> tuple[int, ...]:
-    if m < 2 or m % 2 != 0:
-        raise ValueError("m must be even and >= 2")
-    return tuple(r for r in range(1, m, 2))
-
-
-def projected_odd_core_step(m: int):
-    def step(r: int) -> int:
-        return odd_core_step(r) % m
-
-    return step
 
 
 def feature_specs() -> list[tuple[str, object]]:

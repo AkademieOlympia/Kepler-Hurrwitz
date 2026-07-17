@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+import subprocess
+import sys
+from pathlib import Path
+
 import pytest
 
 from kepler_hurwitz.cycle_phase_compressor import (
@@ -11,7 +15,18 @@ from kepler_hurwitz.cycle_phase_compressor import (
     construct_cycle_phase,
     require,
 )
+from kepler_hurwitz.odd_core_residue import (
+    odd_core_step_mod,
+    odd_residues_mod,
+    projected_odd_core_step,
+    require_power_of_two,
+)
 from kepler_hurwitz.octonionic_collatz_freeze_diagnostic import odd_core_step
+from kepler_hurwitz.smoothness_channel_scan import next_odd_core_after_kick
+
+PHASE_A_MODULI = (8, 16, 32, 64, 128)
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
 
 
 class TestRequire:
@@ -21,6 +36,25 @@ class TestRequire:
     def test_raises_on_false(self) -> None:
         with pytest.raises(RuntimeError, match="AUDIT FAILED"):
             require(False, "broken")
+
+
+class TestOddCoreResidueBinding:
+    """Production oddCoreStep binding — not a placeholder Collatz map."""
+
+    def test_matches_lean_odd_core_step(self) -> None:
+        for n in range(1, 200, 2):
+            assert odd_core_step(n) == next_odd_core_after_kick(n)
+
+    def test_mod_projection_matches_odd_core_step(self) -> None:
+        for m in PHASE_A_MODULI:
+            for r in odd_residues_mod(m):
+                assert odd_core_step_mod(r, m) == odd_core_step(r) % m
+
+    def test_rejects_non_power_of_two(self) -> None:
+        with pytest.raises(ValueError, match="power of two"):
+            require_power_of_two(12)
+        with pytest.raises(ValueError, match="power of two"):
+            odd_core_step_mod(1, 12)
 
 
 class TestConstructCyclePhaseToy:
@@ -193,20 +227,34 @@ class TestAuditTargetReconstruction:
             audit_target_reconstruction((0, 1), {0: 0}, lambda x: x)
 
 
-class TestMonolithOddMod8:
-    def test_l1_passes_requires(self) -> None:
-        m = 8
-        states = tuple(r for r in range(1, m, 2))
+class TestPhaseAOddCoreMonoliths:
+    """Phase-A fact: L=1 monoliths on m∈{8..128} via real odd_core_step_mod."""
 
-        def step(r: int) -> int:
-            return odd_core_step(r) % m
+    @pytest.mark.parametrize("modulus", PHASE_A_MODULI)
+    def test_monolith_phase_depth_cover(self, modulus: int) -> None:
+        states = odd_residues_mod(modulus)
+        step = projected_odd_core_step(modulus)
+        phase, depth, report = construct_cycle_phase(
+            states,
+            step,
+            canonical_key=lambda x: x,
+        )
 
-        phase, depth, report = construct_cycle_phase(states, step)
+        assert report.state_count == modulus // 2
         assert report.cycle_length == 1
         assert report.phase_trivial is True
         assert set(phase.values()) == {0}
-        assert depth[1] == 0
-        assert report.max_depth >= 0
+        assert set(phase) == set(states)
+        assert set(depth) == set(states)
+        assert depth[1] == 0  # unique attractor {1}
+        assert sum(report.phase_histogram.values()) == report.state_count
+        assert sum(report.depth_histogram.values()) == report.state_count
+
+        for r in states:
+            assert step(r) == odd_core_step_mod(r, modulus)
+            assert phase[step(r)] == (phase[r] + 1) % 1
+            assert depth[step(r)] <= depth[r]
+
         id_audit = audit_target_reconstruction(states, depth, lambda r: r)
         assert id_audit["reconstructs_target"] is True
         assert id_audit["state_count"] == len(states)
@@ -217,3 +265,43 @@ class TestMonolithOddMod8:
             coll = const_audit["collision"]
             assert coll["first_state"] != coll["second_state"]
             assert coll["first_value"] != coll["second_value"]
+
+
+class TestOptimizationFlagIndependence:
+    """``require`` and audit stdout must be identical under ``python -O``."""
+
+    def test_audit_runner_stdout_identical_under_dash_o(self, tmp_path: Path) -> None:
+        import os
+
+        moduli = ["8", "16"]
+        env = os.environ.copy()
+        env["PYTHONPATH"] = str(SRC)
+
+        log_a = tmp_path / "audit_normal.log"
+        log_b = tmp_path / "audit_opt.log"
+        cmd_base = [
+            "-m",
+            "kepler_hurwitz.run_cycle_phase_audit",
+            "--moduli",
+            *moduli,
+            "--out",
+        ]
+        r1 = subprocess.run(
+            [sys.executable, *cmd_base, str(log_a)],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=False,
+        )
+        r2 = subprocess.run(
+            [sys.executable, "-O", *cmd_base, str(log_b)],
+            capture_output=True,
+            text=True,
+            env=env,
+            check=False,
+        )
+        assert r1.returncode == 0, r1.stderr
+        assert r2.returncode == 0, r2.stderr
+        assert "CYCLE PHASE AUDIT: PASSED" in r1.stdout
+        assert r1.stdout == r2.stdout
+        assert log_a.read_text(encoding="utf-8") == log_b.read_text(encoding="utf-8")

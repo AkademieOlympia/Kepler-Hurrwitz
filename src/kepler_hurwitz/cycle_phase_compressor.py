@@ -21,14 +21,11 @@ Bezug: Arbeitsprogramm Phase B & C (Kollisions- und Kardinalitätsanalyse).
 
 from __future__ import annotations
 
-import argparse
-import json
 import sys
 from collections import defaultdict, deque
 from collections.abc import Callable, Hashable, Iterable
-from dataclasses import asdict, dataclass
-from pathlib import Path
-from typing import TypeVar
+from dataclasses import dataclass
+from typing import Any, TypeVar
 
 State = TypeVar("State", bound=Hashable)
 
@@ -67,7 +64,7 @@ class CyclePhaseReport:
 def construct_cycle_phase(
     states: Iterable[State],
     step: Callable[[State], State],
-    canonical_key: Callable[[State], object] | None = None,
+    canonical_key: Callable[[State], Any] | None = None,
 ) -> tuple[dict[State, int], dict[State, int], CyclePhaseReport]:
     """Construct canonical phase φ and depth d on a weakly connected digraph.
 
@@ -205,7 +202,7 @@ def audit_target_reconstruction(
     states: Iterable[State],
     canonical_target: dict[State, int],
     features: Callable[[State], Hashable],
-) -> dict[str, object]:
+) -> dict[str, Any]:
     """Test whether the feature vector determines the target exactly.
 
     Passing this audit proves reconstructibility, not by itself useful
@@ -267,102 +264,16 @@ def audit_phase_reconstruction(
     states: Iterable[State],
     canonical_target: dict[State, int],
     features: Callable[[State], Hashable],
-) -> dict[str, object]:
+) -> dict[str, Any]:
     """Thin back-compat alias for :func:`audit_target_reconstruction`."""
     return audit_target_reconstruction(states, canonical_target, features)
 
 
-def _cli_odd_residues(m: int) -> tuple[int, ...]:
-    if m < 2 or m % 2 != 0:
-        raise ValueError("m must be even and >= 2")
-    return tuple(r for r in range(1, m, 2))
-
-
-def _cli_projected_step(m: int) -> Callable[[int], int]:
-    from kepler_hurwitz.octonionic_collatz_freeze_diagnostic import odd_core_step
-
-    def step(r: int) -> int:
-        return odd_core_step(r) % m
-
-    return step
-
-
 def main(argv: list[str] | None = None) -> int:
-    """Optional moduli scan CLI for Phase-A odd-residue spaces."""
-    parser = argparse.ArgumentParser(
-        description=(
-            "Canonical cycle-phase compressor [B]: construct φ/d and "
-            "optionally audit feature reconstruction on odd residues mod m."
-        )
-    )
-    parser.add_argument(
-        "--moduli",
-        type=int,
-        nargs="+",
-        default=[8, 16, 32, 64, 128],
-        help="Even moduli for odd-residue T_m scans (default: 8 16 32 64 128)",
-    )
-    parser.add_argument(
-        "--json",
-        type=Path,
-        default=None,
-        help="Optional path to write a JSON summary",
-    )
-    args = parser.parse_args(argv)
+    """Delegate to the executable audit runner (production oddCoreStep binding)."""
+    from kepler_hurwitz.run_cycle_phase_audit import main as audit_main
 
-    rows: list[dict[str, object]] = []
-    print(f"Cycle-phase compressor [B]  governance={GOVERNANCE}")
-    print(
-        "Honesty: L=1 ⇒ φ≡0 and mod-1 covariance is trivial; "
-        "depth d remains the nontrivial Lyapunov observable."
-    )
-    print(
-        "Gauge: phase origin is gauge-dependent unless a unique "
-        "canonical_key anchors it."
-    )
-    print()
-
-    for m in args.moduli:
-        states = _cli_odd_residues(m)
-        phase, depth, report = construct_cycle_phase(states, _cli_projected_step(m))
-        row = {
-            "modulus": m,
-            "report": asdict(report),
-            "phase_trivial": report.phase_trivial,
-            "attractor_note": (
-                "L=1 monolith: φ constantly 0; live target is depth d"
-                if report.phase_trivial
-                else "L>1: nontrivial cycle-phase covariance available"
-            ),
-        }
-        rows.append(row)
-        print(
-            f"  m={m:>3}: L={report.cycle_length}, "
-            f"max_depth={report.max_depth}, "
-            f"states={report.state_count}"
-            + ("  [φ trivial]" if report.phase_trivial else "")
-        )
-
-    if args.json is not None:
-        payload = {
-            "governance": GOVERNANCE,
-            "scans": rows,
-            "honesty": (
-                "If cycle_length=1, φ is constantly 0 and "
-                "φ(Tx)=φ(x)+1 mod 1 is vacuous; compress d instead."
-            ),
-            "gauge": (
-                "Without a unique canonical_key, the concrete phase "
-                "representation is gauge-dependent (global additive constant)."
-            ),
-        }
-        args.json.parent.mkdir(parents=True, exist_ok=True)
-        args.json.write_text(
-            json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
-        )
-        print(f"\nWrote {args.json}")
-    return 0
+    return audit_main(argv)
 
 
 if __name__ == "__main__":

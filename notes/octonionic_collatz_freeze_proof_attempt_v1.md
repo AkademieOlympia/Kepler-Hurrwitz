@@ -148,7 +148,47 @@ Bewiesen u. a.:
 
 Implementierung: `src/kepler_hurwitz/graph_analyzer.py`, Scan `examples/run_oddcore_function_graph_scan.py`, Export `docs/exports/oddcore_function_graph_phase_a.json`. Satzschema D: [`docs/theory/bh_c11_scale_invariance_homogeneity.md`](../docs/theory/bh_c11_scale_invariance_homogeneity.md) §5.5 / §5.5.1.
 
-Phasen-Kompressor: `src/kepler_hurwitz/cycle_phase_compressor.py`, Scan `examples/run_cycle_phase_compressor.py`, Export `docs/exports/oddcore_cycle_phase_compression.json`.
+Phasen-Kompressor: `src/kepler_hurwitz/cycle_phase_compressor.py`.  
+**Ausführbarer Audit-Runner (oddCoreStep-Bindung):**  
+`src/kepler_hurwitz/run_cycle_phase_audit.py` / `src/kepler_hurwitz/odd_core_residue.py`  
+Feature-Scan: `examples/run_cycle_phase_compressor.py`, Export `docs/exports/oddcore_cycle_phase_compression.json`.  
+Protokoll-Export: `docs/exports/cycle_phase_audit_protocol.json`.
+
+### Ausführbarer Cycle-Phase-Audit (Verifikationsprotokoll)
+
+Bindung: `odd_core_step_mod(r, m)` → `odd_core_step` → `next_odd_core_after_kick`  
+(= Lean `oddCoreStep` / Syracuse-Odd-Schritt). Moduli müssen Potenzen von 2 sein.
+
+```bash
+# Runner (bevorzugt)
+PYTHONPATH=src python -m kepler_hurwitz.run_cycle_phase_audit \
+  --out docs/exports/cycle_phase_audit_protocol.json
+
+# Alias
+PYTHONPATH=src python examples/run_cycle_phase_audit.py \
+  --out docs/exports/cycle_phase_audit_protocol.json
+
+# Suite + -O-Unabhängigkeit (stdout/logfile-Diff in pytest)
+PYTHONPATH=src pytest tests/test_cycle_phase_compressor.py -q
+
+# Protokoll-Hash
+shasum -a 256 docs/exports/cycle_phase_audit_protocol.json
+```
+
+Erwartete Runner-Ausgabe beginnt mit `CYCLE PHASE AUDIT: PASSED`, gefolgt von
+deterministischem JSON (`sort_keys`). `-O`-Unabhängigkeit: identische stdout-
+und Logfile-Inhalte unter `python` und `python -O` (pytest erzwingt Diff).
+
+**Lokale Attestierung:** erst nach (1) realem Runner-Lauf, (2) sha256 des
+Protokolls, (3) Commit auf diesem Branch. Ohne diese drei Schritte ist der
+Status **nicht** lokal eingefroren — Bibliothek allein ist Staging.
+
+| Feld | Wert |
+|---|---|
+| Protokoll | `docs/exports/cycle_phase_audit_protocol.json` |
+| sha256 | `da5fee9fda8233d7940287c21c22cb0cbb540c92c858cc5c6477679691a72127` |
+| Commit | `7fe76636291f9d4cfbab3aa9d10ddaefda4e546d` |
+| Status | lokal attestiert nach Runner-Lauf + Hash + Commit (kein Collatz-Beweis) |
 
 ### Freeze-Kandidat-Status (Phase-A/B-Monolithen)
 
@@ -162,7 +202,7 @@ $$
 \text{Rekonstruktionsaudit:}\quad& \text{liefert vollständige Kollisions-Witnesses}, \\
 \text{Bedingung } F=Q:\quad& \text{kardinalitätsminimale exakte Zielkodierung}, \\
 \text{echte Kompression:}\quad& \text{erst nach Kosten-, Bitlängen- oder Entropieanalyse}, \\
-\text{lokaler Freeze:}\quad& \text{noch nicht durch Laufprotokoll, Hash und Commit belegt}.
+\text{lokaler Freeze:}\quad& \text{nach Runner-Lauf + sha256 + Commit lokal attestierbar}.
 \end{aligned}}
 $$
 
@@ -190,4 +230,7 @@ $$
 ```bash
 lake build KeplerHurwitz.Collatz.Octonion.FreezeProofAttemptV1
 PYTHONPATH=src pytest tests/test_octonionic_collatz_freeze_diagnostic.py -q
+PYTHONPATH=src pytest tests/test_cycle_phase_compressor.py -q
+PYTHONPATH=src python -m kepler_hurwitz.run_cycle_phase_audit \
+  --out docs/exports/cycle_phase_audit_protocol.json
 ```
