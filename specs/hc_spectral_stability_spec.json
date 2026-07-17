@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "spec_id": "hc_spectral_stability",
+  "claim_boundary": "A/B normative operator algebra; C for empirical freeze numerics",
+  "governance": {
+    "status": "normative single source of truth for Hc spectral stability",
+    "basis_order": ["rest_0", "channel_5", "channel_11", "rest_3"],
+    "basis_note": "verbindliche Slot-Ordnung (Restklassen-Logik 0, 5, 11, rest) auf dem C4-Orbit",
+    "values": "exact rational (JSON strings parsed as fractions.Fraction)",
+    "not_claimed": [
+      "identification of alpha_B or lambda_min with fundamental constants",
+      "self-adjointness of a physical Hamiltonian beyond the model matrices",
+      "that Cov(psi) alone recovers Bamberg structure"
+    ],
+    "related": [
+      "Bamberg_Modell_Kern.lean",
+      "2026-07-17-STABLE-SPECTRAL",
+      "hc_operator_falsifikation.py"
+    ]
+  },
+  "matrices": {
+    "L_C4": [
+      ["2", "-1", "0", "-1"],
+      ["-1", "2", "-1", "0"],
+      ["0", "-1", "2", "-1"],
+      ["-1", "0", "-1", "2"]
+    ],
+    "V": [
+      ["0", "0", "0", "0"],
+      ["0", "0", "1", "0"],
+      ["0", "1", "0", "0"],
+      ["0", "0", "0", "0"]
+    ],
+    "N_II_edge": [
+      ["0", "1", "0", "-1"],
+      ["1", "0", "0", "0"],
+      ["0", "0", "0", "1"],
+      ["-1", "0", "1", "0"]
+    ],
+    "N_II_diag": [
+      ["1", "0", "0", "0"],
+      ["0", "1/2", "0", "0"],
+      ["0", "0", "1/5", "0"],
+      ["0", "0", "0", "1/10"]
+    ],
+    "N_II_channel": [
+      ["0", "0", "0", "0"],
+      ["0", "0", "1", "0"],
+      ["0", "1", "0", "0"],
+      ["0", "0", "0", "0"]
+    ]
+  },
+  "operators": {
+    "H_LC4_V": {
+      "formula": "L_C4 + V",
+      "role": "primary structural candidate with explicit Bamberg coupling edge"
+    },
+    "H_noise_edge": {
+      "formula": "L_C4 + eps * N_II_edge",
+      "role": "noise class II edge perturbation"
+    },
+    "H_noise_diag": {
+      "formula": "L_C4 + eps * N_II_diag",
+      "role": "noise class II diagonal perturbation"
+    },
+    "H_noise_channel": {
+      "formula": "L_C4 + eps * N_II_channel",
+      "role": "channel-mimic noise (same support as V)"
+    }
+  },
+  "analytical_checks": {
+    "hermitian_keys": ["L_C4", "V", "N_II_edge", "N_II_diag", "N_II_channel"],
+    "L_C4_row_sums_zero": true,
+    "V_support": [[1, 2], [2, 1]],
+    "bamberg_mode": ["0", "1", "-1", "0"],
+    "bamberg_mode_note": "unnormalized u=(0,1,-1,0) on basis order; Rayleigh = (u^T M u)/(u^T u)",
+    "expected": {
+      "rayleigh_V_on_mode_e1_minus_e2": "-1",
+      "rayleigh_L_C4_on_mode_e1_minus_e2": "3",
+      "rayleigh_H_LC4_V_on_mode_e1_minus_e2": "2",
+      "trace_L_C4": "8",
+      "trace_V": "0"
+    }
+  },
+  "numerical_freeze": {
+    "status": "pending",
+    "epsilon_star": null,
+    "noise_classes": ["N_II_edge", "N_II_diag", "N_II_channel"],
+    "stability_statistic": "rayleigh_bamberg_mode",
+    "pass_criterion": "structure_signal_z_ge_3_against_each_noise_class"
+  }
+}
