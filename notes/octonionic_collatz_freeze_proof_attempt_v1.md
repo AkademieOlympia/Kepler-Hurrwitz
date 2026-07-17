@@ -134,9 +134,25 @@ Bewiesen u. a.:
 
 ---
 
+## Suchprogramm Phase A / B / C (bindend)
+
+**Entscheidung:** Keine nichtkonstante Invariante durch Unterklassen-Cherry-Picking erzwingen. Ist der Funktionsgraph von \(T\) auf einem endlichen Raum schwach zusammenhängend (ein Attraktorzyklus + Basin), existiert **keine** nichtkonstante Invariante \(J\circ T=J\).
+
+| Phase | Ziel | Status |
+|---|---|---|
+| **A** | Nackte Graphentopologie von `oddCoreStep` auf endlichen Odd-Restklassen — keine geometrischen Schranken, keine Fano-Strukturen a priori | Scanner + Export |
+| **B** | Kandidaten-Observablen: exakte Invarianz vs. zyklische Kovarianz \(J(Tx)=\sigma(J(x))\), \(\sigma^k=\mathrm{id}\), \(\sigma\neq\mathrm{id}\) | Quotienten-Audit |
+| **C** | Erst nach Phase-A-Befund: Fano-/Charakter-Hypothesen nur auf Räumen mit `weak_components_count > 1` oder als echte Kovarianz | ausstehend |
+
+**Disk-Parität konstant `1`:** Symptom von Zusammenhang (triviale Invariante), kein differenzieller Lock-in. Auf schwach zusammenhängenden Räumen ist das erwartete Kollabieren jeder nichtkonstanten Projektion.
+
+Implementierung: `src/kepler_hurwitz/graph_analyzer.py`, Scan `examples/run_oddcore_function_graph_scan.py`, Export `docs/exports/oddcore_function_graph_phase_a.json`. Satzschema D: [`docs/theory/bh_c11_scale_invariance_homogeneity.md`](../docs/theory/bh_c11_scale_invariance_homogeneity.md) §5.5.
+
+---
+
 ## Nächste konkrete Lean-Ziele
 
-1. Nichtkonstante endlichwertige Invariante auf einer **echten** abgeschlossenen Odd-Core-Unterklasse (falls die Embed-Familie verfeinert wird)
+1. **Nach Phase A:** Nur wenn `weak_components_count > 1` (oder echte Kovarianz \(\sigma\neq\mathrm{id}\)): nichtkonstante endlichwertige Invariante / Kovariante formalisieren — keine Cherry-Pick-Unterklasse
 2. Halbganzzahliger Hurwitz-Coset in `IsIntegerHurwitz` / `IsHurwitz` vereinheitlichen
 3. Optional: Brücke zu `OctCollatzState.octDirection` (O3), sobald Fano-Rotation O4 existiert
 
