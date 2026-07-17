@@ -200,11 +200,16 @@ wobei \(G\) für \(\varphi\) oder \(d\) steht. Diese Implikation allein beweist 
 **Status (Schicht B2):**
 
 ```yaml
-status: "Vollständig spezifizierter Entwurf; physische Materialisierung 
-         im Workspace und reale Terminal-Evidenz weiterhin ausstehend."
+status: "Schicht B2 vollständig spezifiziert; Git-Verankerung und materielle
+         Beglaubigung ausstehend. Ein ununterbrochener, automatisierter B1-Sanity-Check
+         über ein Here-Doc-Muster wurde erfolgreich definiert. Schicht B3 bleibt blockiert."
 ```
 
-Spezifikation ≠ Agenten-Behauptung ≠ revisionssicheres Artefakt. Nur der **unedierte Bamberg-Terminal-Paste** der Attestationskette in [`../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md`](../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md) zählt als Beglaubigung; Agenten-IDs sind keine Commits. **Kein** Collatz-Beweis. **Schicht B3 (Fano-/Inzidenz-Kopplung) bleibt blockiert**, bis B2 physisch geschlossen ist.
+\[
+\boxed{\text{B1\_SANITY deklariert} \quad \neq \quad \text{B2 auf HEAD verankert} \quad \neq \quad \text{B2 ausgeführt und beglaubigt}}
+\]
+
+Das kopierbare B1-Here-Doc (`<<'PY'`) und der optionale Gatekeeper [`scripts/b1_cylinder_sanity.py`](../../scripts/b1_cylinder_sanity.py) sind in [`../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md`](../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md) archiviert; sie ersetzen **nicht** die B2-Beglaubigung. Spezifikation ≠ Agenten-Behauptung ≠ revisionssicheres Artefakt. Nur der **unedierte Bamberg-Terminal-Paste** der Attestationskette zählt; Agenten-IDs sind keine Commits. **Kein** Collatz-Beweis. **Schicht B3 (Fano-/Inzidenz-Kopplung) bleibt blockiert**, bis B2 physisch geschlossen ist.
 
 Epistemische Staffelung:
 \[
