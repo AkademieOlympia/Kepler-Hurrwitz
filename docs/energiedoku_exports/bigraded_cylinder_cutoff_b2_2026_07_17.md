@@ -49,6 +49,7 @@ $$
 |---|---|
 | `git remote get-url origin` | `https://github.com/AkademieOlympia/Kepler-Hurrwitz.git` |
 | `git rev-parse HEAD` (Pre-Seal, Quellstand vor diesem Commit) | `09ec89ac6f477280eb6c482f55e8dc3f2ddfd881` |
+| Seal-Commit (B2 Auditor + Protokollartefakte) | `a637bdb74da4fb96d1bd7aa820f3389a170bb2aa` |
 | `git tag --points-at HEAD` | **kein Tag** |
 
 ### 2. Arbeitsbaum
