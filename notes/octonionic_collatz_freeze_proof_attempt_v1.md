@@ -187,7 +187,7 @@ Status **nicht** lokal eingefroren — Bibliothek allein ist Staging.
 |---|---|
 | Protokoll | `docs/exports/cycle_phase_audit_protocol.json` |
 | sha256 | `da5fee9fda8233d7940287c21c22cb0cbb540c92c858cc5c6477679691a72127` |
-| Commit | `7fe76636291f9d4cfbab3aa9d10ddaefda4e546d` |
+| Commit | `9a6ced110f55c778192dcd4b8a7e04ff4f4dfb81` |
 | Status | lokal attestiert nach Runner-Lauf + Hash + Commit (kein Collatz-Beweis) |
 
 ### Freeze-Kandidat-Status (Phase-A/B-Monolithen)
