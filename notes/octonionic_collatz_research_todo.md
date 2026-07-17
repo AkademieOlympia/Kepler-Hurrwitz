@@ -1,5 +1,7 @@
 # Post-freeze Research TODO: Oktonionischer Collatz-Strang (O2/O5/O6)
 
+Populärwissenschaftliche Darstellung (Spektrum-Stil): [`docs/reports/spektrum_octonionic_collatz_proof_attempt.md`](../docs/reports/spektrum_octonionic_collatz_proof_attempt.md).
+
 ## 1) Kurzkontext / Governance
 
 - Geltungsbereich: nur post-freeze-Arbeit am oktonionischen Strang O2/O5/O6.
@@ -189,11 +191,26 @@
   - `lake build KeplerHurwitz.Collatz.Octonion.Termination` gruen.
 - Risiko/Blocker: Abhaengigkeit von externer V2.7-API-Stabilitaet und passender Statement-Instanziierung.
 
+## 3b) Freeze-Strang (Einfrierung im nicht-assoziativen Raum) — parallel zu O2/O5/O6
+
+Siehe [`notes/octonionic_collatz_freeze_proof_attempt_v1.md`](octonionic_collatz_freeze_proof_attempt_v1.md).
+
+- Lean: `KeplerHurwitz/Collatz/Octonion/FreezeProofAttemptV1.lean` (`FreezePredicate`, Fano-Witness `[A]`)
+- Python `[B]/[C]`: `src/kepler_hurwitz/octonionic_collatz_freeze_diagnostic.py`
+- **Nicht** geschlossen: `bad_run_net_descent_witness_of_mod4_three`
+- Nächstes Lean-Ziel: endliche Restklassen-Invariante unter Odd-Core für `collatzOctEmbed` (ohne Net-Descent-Claim)
+
+```bash
+lake build KeplerHurwitz.Collatz.Octonion.FreezeProofAttemptV1
+PYTHONPATH=src pytest tests/test_octonionic_collatz_freeze_diagnostic.py -q
+```
+
 ## 4) Milestones
 
 - **M1 (O2):** Arithmetische Kernluecken schliessen (`oddCoreIterate_mersenneOdd_eq`, `consecutive_valuation_one_run`, `consecutive_valuation_one_run_zero`, `oddCoreStep_log_ratio_pos_mersenne`) mit modularem Build-Erfolg.
 - **M2 (O5):** Brueckenpfad O4/O5 stabilisieren; Annahmen (insb. explizites `C`) sichtbar machen und O5-Theoreme buildbar machen.
 - **M3 (O6):** End-to-End-Terminationsschnittstelle O5->O6 konsolidieren; keine globalen Claims, nur formale Route und Build-Stabilitaet.
+- **M0-Freeze:** Algebraische Einfrierung als Scaffold; Brücken-Hypothesen bleiben `[C]` / unclaimed.
 
 ## 5) Test-/Build-Checkliste
 
