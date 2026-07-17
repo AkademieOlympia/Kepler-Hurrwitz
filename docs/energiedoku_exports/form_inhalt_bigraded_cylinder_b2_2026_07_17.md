@@ -1,8 +1,9 @@
 ---
 title: Form-Inhalt-Programm und Charakteräquivalenz im EABC-Modell
 date: 2026-07-17
-status: "Vollständig spezifizierter und ausführbarer Freeze-Kandidat; 
-         lokale Ausführung und Revisionsartefakte weiterhin ausstehend."
+status: "Vollständig spezifizierter und ausführbarer Freeze-Kandidat;
+         Quelltexte physisch unter src/kepler_hurwitz/ (nicht mathdictate/);
+         Bamberg-physische Attestations-Anerkennung weiterhin ausstehend."
 governance: "[B] diagnostic cutoff audit; Z_<=P; kein Collatz-Beweis; B3 blocked"
 canonical: true
 ---
@@ -29,6 +30,50 @@ PYTHONPATH=src python -m kepler_hurwitz.run_bigraded_cylinder_audit \
 
 ---
 
+## Physische Quellpfade (kein `mathdictate/`)
+
+**Falsche Erwartung:** `mathdictate/bigraded_cylinder_graph.py`  
+**Tatsächliches Paket in diesem Repo:** `src/kepler_hurwitz/` (kein `mathdictate/`-Baum).
+
+| Rolle | Pfad | Zustand |
+| --- | --- | --- |
+| Bibliothek | `src/kepler_hurwitz/bigraded_cylinder_graph.py` | physisch + in `HEAD` |
+| Runner (Modul) | `src/kepler_hurwitz/run_bigraded_cylinder_audit.py` | physisch + in `HEAD` |
+| Tests | `tests/test_bigraded_cylinder_graph.py` | physisch + in `HEAD` |
+| Thin example | `examples/run_bigraded_cylinder_audit.py` | physisch + in `HEAD` |
+| Chat-Pfad | `mathdictate/bigraded_cylinder_graph.py` | **fehlt** (absichtlich; falscher Namespace) |
+
+**Korrektur zur Statusbox:** „müssen materialisiert werden“ gilt **nicht** für fehlende Quelltexte unter `src/kepler_hurwitz/` — die existieren seit Feature-Commit `a637bdb` und waren bereits unter dem zitierten Stand `237869f` im Tree. Offen bleibt nur die **Bamberg-physische Attestations-Anerkennung**, nicht die Materialisierung der Dateien.
+
+### Forensischer Kurzbeleg (Agentenlauf 2026-07-17; kein Status-Lift)
+
+```text
+$ ls -la src/kepler_hurwitz/bigraded_cylinder_graph.py \
+         src/kepler_hurwitz/run_bigraded_cylinder_audit.py \
+         tests/test_bigraded_cylinder_graph.py \
+         examples/run_bigraded_cylinder_audit.py
+# alle vier: vorhanden (9481 / 2915 / 5503 / 474 Bytes)
+
+$ ls -la mathdictate/bigraded_cylinder_graph.py
+# No such file or directory
+
+$ git ls-tree -r HEAD --name-only | rg 'bigraded_cylinder|run_bigraded_cylinder|test_bigraded_cylinder'
+examples/run_bigraded_cylinder_audit.py
+src/kepler_hurwitz/bigraded_cylinder_graph.py
+src/kepler_hurwitz/run_bigraded_cylinder_audit.py
+tests/test_bigraded_cylinder_graph.py
+# plus Energiedoku-/JSON-Begleitdateien
+
+$ git ls-tree -r 237869f07ac6fe3d613433ab60f66e4e87b5bba3 --name-only | rg bigraded
+# dieselben vier Quellpfade bereits enthalten
+
+$ git merge-base --is-ancestor a637bdb74da4fb96d1bd7aa820f3389a170bb2aa HEAD; echo $?
+# 0  → a637bdb ist Vorfahre von HEAD
+```
+
+Paste-fähiger Laufnachweis (pytest / `diff` / sha256):  
+[`bigraded_cylinder_b2_agent_run_appendix_2026_07_17.md`](bigraded_cylinder_b2_agent_run_appendix_2026_07_17.md) — **kein** Bamberg-Vollzug, **kein** revisionssicherer Freeze.
+
 ## Epistemische Grenze
 
 $$
@@ -52,11 +97,12 @@ $$
 ## Bindender Status (Schicht B2)
 
 ```yaml
-status: "Vollständig spezifizierter und ausführbarer Freeze-Kandidat; 
-         lokale Ausführung und Revisionsartefakte weiterhin ausstehend."
+status: "Vollständig spezifizierter und ausführbarer Freeze-Kandidat;
+         Quelltexte physisch unter src/kepler_hurwitz/ (nicht mathdictate/);
+         Bamberg-physische Attestations-Anerkennung weiterhin ausstehend."
 ```
 
-Das mathematische und kombinatorische Skelett von Schicht B2 ist als **vollständige Spezifikation** und ausführbarer Freeze-Kandidat fixiert — noch **ohne** anerkannten physischen Bamberg-Vollzug und **ohne** revisionssichere Freeze-Attestation. Automatisierte Agentenmeldungen gelten **nicht** als Beglaubigung.
+Das mathematische und kombinatorische Skelett von Schicht B2 ist als **vollständige Spezifikation** und ausführbarer Freeze-Kandidat fixiert; die vier Quelltexte liegen **physisch** unter `src/kepler_hurwitz/` / `tests/` / `examples/` (Feature-Commit `a637bdb`, bereits in `237869f`). Offen bleiben **anerkannter physischer Bamberg-Vollzug** und **revisionssichere Freeze-Attestation**. Automatisierte Agentenmeldungen gelten **nicht** als Beglaubigung. **Kein** Collatz-Beweis.
 
 ---
 
