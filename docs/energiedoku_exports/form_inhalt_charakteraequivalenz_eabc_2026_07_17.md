@@ -1,9 +1,10 @@
 ---
 title: Form-Inhalt-Programm und Charakteräquivalenz im EABC-Modell
 date: 2026-07-17
-status: "Inhaltlich ausgearbeiteter und lokal ausführbarer Freeze-Kandidat.
-         Erfolgreicher Vollzug wurde berichtet, ist durch die bislang vorliegenden
-         Artefakte jedoch nicht extern verifiziert."
+status: "Lokal reproduziert und gehasht am 2026-07-17 auf Seal-Commit
+         b252198c758ebeb2a14807bc1786bb78e6bb1d33; Arbeitsbaum enthielt
+         unbezogene Dirty-Dateien außerhalb dieses Seals; externe
+         Verifikation offen; kein Collatz-Beweis."
 governance: "[B] diagnostic audit; Phase-A moduli 8..128; kein Collatz-Beweis"
 ---
 
@@ -80,8 +81,8 @@ Lauf gegen Quell-/Runner-Stand auf Parent-HEAD (vor Seal-Commit der Archivartefa
 |---|---|
 | `git remote get-url origin` | `https://github.com/AkademieOlympia/Kepler-Hurrwitz.git` |
 | `git rev-parse HEAD` (Pre-Seal, Quellstand) | `2494be0ac6c80f09519f622b358094c1f36add70` |
-| Seal-Commit (Archiv + Attestationsartefakte) | *(nach Commit 1 eingetragen)* |
-| Status-Bump-Commit | *(nach Commit 2 eingetragen, falls nötig)* |
+| Seal-Commit (Archiv + Attestationsartefakte) | `b252198c758ebeb2a14807bc1786bb78e6bb1d33` |
+| Status-Bump-Commit (dieser Status-/Hash-Eintrag) | siehe `git rev-parse HEAD` nach Push dieses Docs-only Follow-ups |
 
 ### 2. Arbeitsbaum und Tags
 
