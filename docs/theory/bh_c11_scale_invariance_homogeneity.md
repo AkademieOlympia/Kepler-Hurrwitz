@@ -197,11 +197,18 @@ wobei \(G\) für \(\varphi\) oder \(d\) steht. Diese Implikation allein beweist 
 
 ### 5.6 Exhaustiver 2-adischer Zylinder-Cutoff (Schicht B1–B2)
 
-**Status (Schicht B2):** Vollständig spezifizierter und ausführbarer Freeze-Kandidat; lokale Ausführung und Revisionsartefakte weiterhin ausstehend. Agenten *berichtete* Läufe gelten **nicht** als physischer Bamberg-Vollzug und **nicht** als revisionssichere Beglaubigung. Details: [`../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md`](../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md). **Kein** Collatz-Beweis. **Schicht B3 (Fano-/Inzidenz-Kopplung) bleibt blockiert**, bis B2 physisch geschlossen ist.
+**Status (Schicht B2):**
+
+```yaml
+status: "Vollständig spezifizierter Entwurf; physische Materialisierung 
+         im Workspace und reale Terminal-Evidenz weiterhin ausstehend."
+```
+
+Spezifikation ≠ Agenten-Behauptung ≠ revisionssicheres Artefakt. Nur der **unedierte Bamberg-Terminal-Paste** der Attestationskette in [`../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md`](../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md) zählt als Beglaubigung; Agenten-IDs sind keine Commits. **Kein** Collatz-Beweis. **Schicht B3 (Fano-/Inzidenz-Kopplung) bleibt blockiert**, bis B2 physisch geschlossen ist.
 
 Epistemische Staffelung:
 \[
-\boxed{\text{Automatisierte Meldung} \;\neq\; \text{physischer Vollzug} \;\neq\; \text{revisionssicher beglaubigtes Artefakt}}
+\boxed{\text{Spezifikation} \;\neq\; \text{Agenten-Behauptung} \;\neq\; \text{revisionssicheres Artefakt}}
 \]
 \[
 \boxed{\text{vollständige Spezifikation} \quad \neq \quad \text{lokale Ausführung} \quad \neq \quad \text{revisionssicher beglaubigter Freeze}}
@@ -215,6 +222,6 @@ Innerhalb des geschlossenen Cutoffs gilt für alle Dynamikkanten \(E_{\mathrm{dy
 \]
 Dieser Zustand unterliegt dem *Singular-Lift-Split-Lemma*: Seine beiden unmittelbaren Nachfolger auf Ebene \(p+1\) nehmen zwingend die Bewertungen \(\{p, p+1\}\) an. Dadurch wird der fortlaufend unverzweigte, singuläre 2-adische Pfadpräfix \(s_1 \rightsquigarrow s_2 \rightsquigarrow \dots \rightsquigarrow s_P\) nach \(-\frac{1}{3} \in \mathbb{Z}_2\) als exakt lift-verbundene Kette isoliert und maschinell serialisiert.
 
-Implementierung: [`src/kepler_hurwitz/bigraded_cylinder_graph.py`](../../src/kepler_hurwitz/bigraded_cylinder_graph.py), Runner [`python -m kepler_hurwitz.run_bigraded_cylinder_audit`](../../src/kepler_hurwitz/run_bigraded_cylinder_audit.py), kanonische Exporte [`../exports/audit-cylinder-normal.json`](../exports/audit-cylinder-normal.json) / [`../exports/audit-cylinder-optimized.json`](../exports/audit-cylinder-optimized.json) (Alias: [`../exports/bigraded_cylinder_cutoff_protocol.json`](../exports/bigraded_cylinder_cutoff_protocol.json)).
+Implementierung (Attestationspfad): [`mathdictate/bigraded_cylinder_graph.py`](../../mathdictate/bigraded_cylinder_graph.py), Runner [`python -m mathdictate.run_bigraded_cylinder_audit`](../../mathdictate/run_bigraded_cylinder_audit.py) mit `--max-precisions`. Kompatibilität: `src/kepler_hurwitz/` re-exportiert aus `mathdictate`. Lokale Root-JSONs `audit-cylinder-*.json` sind gitignored und ohne Bamberg-Paste **nicht** attestierend.
 
 **Governance:** **[B]** diagnostischer Cutoff-Audit — **kein** Collatz-Beweis.

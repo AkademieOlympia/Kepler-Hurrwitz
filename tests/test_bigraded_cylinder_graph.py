@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import sys
@@ -9,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from kepler_hurwitz.bigraded_cylinder_graph import (
+from mathdictate.bigraded_cylinder_graph import (
     GOVERNANCE,
     Cylinder,
     audit_cylinder_cutoff,
@@ -20,7 +21,6 @@ from kepler_hurwitz.bigraded_cylinder_graph import (
 
 PRECISIONS = (3, 4, 6, 8)
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "src"
 
 
 class TestRequire:
@@ -120,29 +120,26 @@ class TestCompleteCutoffAudit:
 class TestOptimizationFlagIndependence:
     """``require`` and audit stdout must be identical under ``python -O``."""
 
-    def test_audit_runner_stdout_identical_under_dash_o(self, tmp_path: Path) -> None:
+    def test_audit_runner_stdout_identical_under_dash_o(self) -> None:
         precisions = ["4", "6"]
         env = os.environ.copy()
-        env["PYTHONPATH"] = str(SRC)
+        env["PYTHONPATH"] = str(ROOT)
 
-        log_a = tmp_path / "audit_normal.log"
-        log_b = tmp_path / "audit_opt.log"
         cmd_base = [
             "-m",
-            "kepler_hurwitz.run_bigraded_cylinder_audit",
-            "--precisions",
+            "mathdictate.run_bigraded_cylinder_audit",
+            "--max-precisions",
             *precisions,
-            "--out",
         ]
         r1 = subprocess.run(
-            [sys.executable, *cmd_base, str(log_a)],
+            [sys.executable, *cmd_base],
             capture_output=True,
             text=True,
             env=env,
             check=False,
         )
         r2 = subprocess.run(
-            [sys.executable, "-O", *cmd_base, str(log_b)],
+            [sys.executable, "-O", *cmd_base],
             capture_output=True,
             text=True,
             env=env,
@@ -150,6 +147,7 @@ class TestOptimizationFlagIndependence:
         )
         assert r1.returncode == 0, r1.stderr
         assert r2.returncode == 0, r2.stderr
-        assert "BIGRADED CYLINDER AUDIT: PASSED" in r1.stdout
+        assert "BIGRADED CYLINDER AUDIT: PASSED" in r1.stderr
         assert r1.stdout == r2.stdout
-        assert log_a.read_text(encoding="utf-8") == log_b.read_text(encoding="utf-8")
+        # stdout must be valid JSON (redirect-safe)
+        json.loads(r1.stdout)
