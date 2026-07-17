@@ -83,10 +83,14 @@
     }
   },
   "numerical_freeze": {
-    "status": "pending",
-    "epsilon_star": null,
+    "status": "frozen",
+    "epsilon_star": "0.75",
+    "threshold_gap": "1/4",
     "noise_classes": ["N_II_edge", "N_II_diag", "N_II_channel"],
     "stability_statistic": "rayleigh_bamberg_mode",
-    "pass_criterion": "structure_signal_z_ge_3_against_each_noise_class"
+    "pass_criterion": "abs_rayleigh_gap_ge_1/4_contiguous_from_zero",
+    "limiting_noise_class": "N_II_channel",
+    "report": "specs/hc_numerical_freeze_report.json",
+    "metadata": "specs/hc_numerical_freeze_metadata.md"
   }
 }
