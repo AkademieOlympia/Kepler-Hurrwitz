@@ -197,9 +197,12 @@ wobei \(G\) für \(\varphi\) oder \(d\) steht. Diese Implikation allein beweist 
 
 ### 5.6 Exhaustiver 2-adischer Zylinder-Cutoff (Schicht B1–B2)
 
-**Status (Schicht B2):** Lokal reproduziert und gehasht (pytest 12 passed; `python`/`python -O` JSON-identisch; Protokoll-sha256 `9c78601a…`); Arbeitsbaum enthielt unbezogene Dirty-Dateien außerhalb des Seals; **externe Verifikation offen**. Details: [`../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md`](../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md). **Kein** Collatz-Beweis. **Schicht B3 (Fano-/Inzidenz-Kopplung) bleibt blockiert**, bis B2 geschlossen ist.
+**Status (Schicht B2):** Vollständig spezifizierter und ausführbarer Freeze-Kandidat; lokale Ausführung und Revisionsartefakte weiterhin ausstehend. Agenten *berichtete* Läufe gelten **nicht** als physischer Bamberg-Vollzug und **nicht** als revisionssichere Beglaubigung. Details: [`../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md`](../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md). **Kein** Collatz-Beweis. **Schicht B3 (Fano-/Inzidenz-Kopplung) bleibt blockiert**, bis B2 physisch geschlossen ist.
 
 Epistemische Staffelung:
+\[
+\boxed{\text{Automatisierte Meldung} \;\neq\; \text{physischer Vollzug} \;\neq\; \text{revisionssicher beglaubigtes Artefakt}}
+\]
 \[
 \boxed{\text{vollständige Spezifikation} \quad \neq \quad \text{lokale Ausführung} \quad \neq \quad \text{revisionssicher beglaubigter Freeze}}
 \]
