@@ -82,7 +82,7 @@ Lauf gegen Quell-/Runner-Stand auf Parent-HEAD (vor Seal-Commit der Archivartefa
 | `git remote get-url origin` | `https://github.com/AkademieOlympia/Kepler-Hurrwitz.git` |
 | `git rev-parse HEAD` (Pre-Seal, Quellstand) | `2494be0ac6c80f09519f622b358094c1f36add70` |
 | Seal-Commit (Archiv + Attestationsartefakte) | `b252198c758ebeb2a14807bc1786bb78e6bb1d33` |
-| Status-Bump-Commit (dieser Status-/Hash-Eintrag) | siehe `git rev-parse HEAD` nach Push dieses Docs-only Follow-ups |
+| Status-Bump-Commit (dieser Status-/Hash-Eintrag) | `80596689eb29ee3e0ce760df0ad10f5579c15b80` |
 
 ### 2. Arbeitsbaum und Tags
 
