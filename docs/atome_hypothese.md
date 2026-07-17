@@ -4,7 +4,8 @@ Strategisches Ziel: Prüfen, ob **EABC-Invarianten** \(I_{\mathrm{EABC}}(A,Z)\) 
 
 Evidenzstatus zum Anlegen: `[C]` (offene Hypothese) mit `[B]`-Diagnostik-Stub; Upgrade zu `[B]` erst nach präregistriertem Export und signifikantem Nullmodell-Nachweis.
 
-**Register:** E-092 · **ORQ:** ORQ-092 · **Dossier:** [`theory/nuclear_binding_multiscale_analogy.md`](theory/nuclear_binding_multiscale_analogy.md)
+**Register:** E-092 · **ORQ:** ORQ-092 · **Dossier:** [`theory/nuclear_binding_multiscale_analogy.md`](theory/nuclear_binding_multiscale_analogy.md)  
+**Demarkation:** [`theory/eabc_constellation_eigenenergy.md`](theory/eabc_constellation_eigenenergy.md) — \(E_{\mathrm{eigen}}\) (intrinsisch) vs. Kopplung an \(R(A,Z)\) (ORQ-092); Toy-Nullbefund widerlegt nicht die Algebra.
 
 ---
 
@@ -55,7 +56,9 @@ Für jedes Nuklid \((A,Z)\):
 | Export-Skript | `examples/run_atome_residual_export.py` |
 | Tests | `tests/test_nuclear_binding_residual.py` |
 | Toy-Nuklidtabelle | `data/atome/toy_nuclides.csv` |
-| Export-Ziel | `docs/exports/atome_residual_*.json` |
+| Export-Ziel | `docs/exports/atome_residual_*.{json,csv}` |
+
+Nullmodelle (`permute_R`, `shuffle_channel`, `variance_match`) laufen für **alle** \(I_{\mathrm{EABC}}\)-Features (`eabc_mass`, `eabc_spread`, `chiral_norm`, `proton_eabc_mass`, `channel_e/a/b/c`) — Export: `atome_residual_nullmodels.csv`.
 
 ```bash
 PYTHONPATH=src python examples/run_atome_residual_export.py

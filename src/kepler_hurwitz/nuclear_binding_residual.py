@@ -32,8 +32,27 @@ DEFAULT_WEIZSAECKER_PARAMS: dict[str, float] = {
     "a_p": 12.0,
 }
 
+DEFAULT_EABC_FEATURES: tuple[str, ...] = (
+    "eabc_mass",
+    "eabc_spread",
+    "chiral_norm",
+    "proton_eabc_mass",
+    "channel_e",
+    "channel_a",
+    "channel_b",
+    "channel_c",
+)
+
+DEFAULT_NULLMODEL_MODES: tuple[str, ...] = (
+    "permute_R",
+    "shuffle_channel",
+    "variance_match",
+)
+
 __all__ = [
     "ATOME_TAG",
+    "DEFAULT_EABC_FEATURES",
+    "DEFAULT_NULLMODEL_MODES",
     "DEFAULT_WEIZSAECKER_PARAMS",
     "AtomeAnalysis",
     "CorrelationMetric",
@@ -50,6 +69,7 @@ __all__ = [
     "load_nuclides_csv",
     "pearson_correlation",
     "run_nullmodels",
+    "run_nullmodels_all_features",
     "spearman_correlation",
     "toy_nuclides",
     "weizsaecker_binding",
@@ -187,7 +207,7 @@ def eabc_invariants(a: int, z: int, *, label: str = "") -> EabcInvariantRecord:
     Build I_EABC(A,Z) from mass number A and proton number Z.
 
     Governance [C]: H(A) and H(Z) are independent of the Weizsäcker hull fit.
-  """
+    """
     sig_a = signature_from_nat(a)
     sig_z = signature_from_nat(z) if z >= 1 else EABCSignature4(0, 0, 0, 0)
     return EabcInvariantRecord(
@@ -330,16 +350,7 @@ def correlate_eabc_residuals(
 ) -> list[CorrelationMetric]:
     if len(residuals) != len(invariants):
         raise ValueError("residuals and invariants must have equal length")
-    feature_names = list(features or (
-        "eabc_mass",
-        "eabc_spread",
-        "chiral_norm",
-        "proton_eabc_mass",
-        "channel_e",
-        "channel_a",
-        "channel_b",
-        "channel_c",
-    ))
+    feature_names = list(features or DEFAULT_EABC_FEATURES)
     r_values = [row.residual_mev for row in residuals]
     inv_by_a = {row.a: row for row in invariants}
     metrics: list[CorrelationMetric] = []
@@ -391,14 +402,17 @@ def run_nullmodels(
     invariants: Sequence[EabcInvariantRecord],
     *,
     feature: str = "eabc_mass",
-    modes: Sequence[str] = ("permute_R", "shuffle_channel", "variance_match"),
+    modes: Sequence[str] = DEFAULT_NULLMODEL_MODES,
     trials: int = 200,
     seed: int = 92,
 ) -> list[NullModelResult]:
+    """Run null models for a single I_EABC feature against R(A,Z)."""
     if len(residuals) != len(invariants):
         raise ValueError("residuals and invariants must have equal length")
     if trials < 1:
         raise ValueError("trials must be >= 1")
+    if not hasattr(invariants[0], feature):
+        raise ValueError(f"unknown invariant feature: {feature!r}")
 
     r_values = [row.residual_mev for row in residuals]
     x_values = [float(getattr(inv, feature)) for inv in invariants]
@@ -408,7 +422,7 @@ def run_nullmodels(
     for mode in modes:
         null_correlations: list[float] = []
         for trial in range(trials):
-            rng = random.Random(seed + trial + hash(mode) % 10_000)
+            rng = random.Random(seed + trial + hash((mode, feature)) % 10_000)
             if mode == "permute_R":
                 shuffled_r = r_values[:]
                 rng.shuffle(shuffled_r)
@@ -454,6 +468,37 @@ def run_nullmodels(
                 null_pearson_std=null_std,
                 z_score=z_score,
                 trials=trials,
+            )
+        )
+    return results
+
+
+def run_nullmodels_all_features(
+    residuals: Sequence[ResidualRecord],
+    invariants: Sequence[EabcInvariantRecord],
+    *,
+    features: Sequence[str] | None = None,
+    modes: Sequence[str] = DEFAULT_NULLMODEL_MODES,
+    trials: int = 200,
+    seed: int = 92,
+) -> list[NullModelResult]:
+    """
+    Run permute_R / shuffle_channel / variance_match for every I_EABC feature.
+
+    Returns one NullModelResult per (feature, mode) pair — required for ORQ-092
+    before any feature-wise significance claim.
+    """
+    feature_names = list(features or DEFAULT_EABC_FEATURES)
+    results: list[NullModelResult] = []
+    for feature in feature_names:
+        results.extend(
+            run_nullmodels(
+                residuals,
+                invariants,
+                feature=feature,
+                modes=modes,
+                trials=trials,
+                seed=seed,
             )
         )
     return results
@@ -570,16 +615,21 @@ def build_atome_analysis(
     params: WeizsaeckerParams | None = None,
     nullmodel_trials: int = 200,
     seed: int = 92,
+    features: Sequence[str] | None = None,
 ) -> AtomeAnalysis:
+    feature_names = tuple(features or DEFAULT_EABC_FEATURES)
     residuals = build_residual_table(nuclides, params=params)
     invariants = tuple(
         eabc_invariants(nuclide.a, nuclide.z, label=nuclide.label) for nuclide in nuclides
     )
-    correlations = tuple(correlate_eabc_residuals(residuals, invariants))
+    correlations = tuple(
+        correlate_eabc_residuals(residuals, invariants, features=feature_names)
+    )
     nullmodels = tuple(
-        run_nullmodels(
+        run_nullmodels_all_features(
             residuals,
             invariants,
+            features=feature_names,
             trials=nullmodel_trials,
             seed=seed,
         )
@@ -587,7 +637,7 @@ def build_atome_analysis(
     notes = (
         "Weizsäcker hull is preregistered — not EABC-optimized.",
         "Toy table / partial AME slice — not a physics claim.",
-        "Nullmodel significance required for [B] upgrade (ORQ-092).",
+        "Nullmodels run for all I_EABC features (ORQ-092); significance required for [B].",
     )
     return AtomeAnalysis(
         governance=ATOME_TAG,
@@ -633,6 +683,7 @@ def export_atome_bundle(
     summary_path = output_dir / f"{stem}_summary.json"
     residual_csv = output_dir / f"{stem}_table.csv"
     correlation_csv = output_dir / f"{stem}_correlations.csv"
+    nullmodel_csv = output_dir / f"{stem}_nullmodels.csv"
 
     summary_path.write_text(
         json.dumps(_analysis_to_json_dict(analysis), indent=2, sort_keys=True) + "\n",
@@ -673,8 +724,26 @@ def export_atome_bundle(
         for row in analysis.correlations:
             writer.writerow(asdict(row))
 
+    with nullmodel_csv.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=[
+                "feature",
+                "mode",
+                "observed_pearson",
+                "null_pearson_mean",
+                "null_pearson_std",
+                "z_score",
+                "trials",
+            ],
+        )
+        writer.writeheader()
+        for row in analysis.nullmodels:
+            writer.writerow(asdict(row))
+
     return {
         "summary_json": summary_path,
         "residual_csv": residual_csv,
         "correlation_csv": correlation_csv,
+        "nullmodel_csv": nullmodel_csv,
     }

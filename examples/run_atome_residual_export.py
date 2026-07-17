@@ -69,14 +69,21 @@ def main() -> None:
     print(f"Tag: {ATOME_TAG}")
     print("Governance: I_EABC vs. R(A,Z), nicht vs. B_exp; Nullmodelle Pflicht für [B].")
     print(f"Nuklide: {analysis.nuclide_count}")
-    for metric in analysis.correlations[:4]:
+    for metric in analysis.correlations:
         print(
             f"  {metric.feature}: r={metric.pearson_r}, "
             f"rho={metric.spearman_rho}, MI={metric.mutual_information}"
         )
+    print(f"Nullmodels: {len(analysis.nullmodels)} (feature × mode)")
+    significant = [
+        n for n in analysis.nullmodels
+        if n.z_score is not None and abs(n.z_score) >= 2.0
+    ]
+    print(f"  |z|≥2: {len(significant)}/{len(analysis.nullmodels)}")
     print(f"Wrote {paths['summary_json']}")
     print(f"Wrote {paths['residual_csv']}")
     print(f"Wrote {paths['correlation_csv']}")
+    print(f"Wrote {paths['nullmodel_csv']}")
 
 
 if __name__ == "__main__":

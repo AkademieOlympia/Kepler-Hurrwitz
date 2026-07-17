@@ -24,7 +24,7 @@ c_claims:
 ---
 
 > **Evidence status:** `[C]` Paradigmenwechsel-Lesesprache · `[A/B]` für Quadratform-Definitheit  
-> **Geschwister:** [`eabc_six_state_prime_axes.md`](eabc_six_state_prime_axes.md) (BH-C-07), [`eabc_dirichlet_chi_minus3_conjugator.md`](eabc_dirichlet_chi_minus3_conjugator.md) (BH-C-10)  
+> **Geschwister:** [`eabc_six_state_prime_axes.md`](eabc_six_state_prime_axes.md) (BH-C-07), [`eabc_dirichlet_chi_minus3_conjugator.md`](eabc_dirichlet_chi_minus3_conjugator.md) (BH-C-10), [`eabc_constellation_eigenenergy.md`](eabc_constellation_eigenenergy.md) (Konstellation vs. Fremd-Kopplung)  
 > **Modul:** `src/kepler_hurwitz/eabc_energy_square_sum.py`  
 > **Sage:** `scripts/black_hole/eabc_energy_square_sum.sage`
 
