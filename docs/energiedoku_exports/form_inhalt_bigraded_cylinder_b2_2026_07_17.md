@@ -101,7 +101,7 @@ Lauf gegen Quell-/Runner-Stand auf Parent-HEAD (vor Seal-Commit dieses Archivs).
 |---|---|
 | `git remote get-url origin` | `https://github.com/AkademieOlympia/Kepler-Hurrwitz.git` |
 | `git rev-parse HEAD` (Pre-Seal, Quellstand vor diesem Commit) | `0b05411bb0c2c4bb8928b3a2b36bc22961b34c17` |
-| Seal-Commit (B2 Archiv + kanonische Protokollartefakte) | *(wird im Folge-Commit eingetragen)* |
+| Seal-Commit (B2 Archiv + kanonische Protokollartefakte) | `d99a0f8bab2dc375497111c50987411c626a8d53` |
 | `git tag --points-at HEAD` | **kein Tag** |
 
 ### 2. Arbeitsbaum und Diff-Check
