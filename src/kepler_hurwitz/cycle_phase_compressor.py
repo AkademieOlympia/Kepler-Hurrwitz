@@ -12,10 +12,11 @@ Governance
 - Depth: ``d(Tx) ≤ d(x)``, with strict ``d-1`` off the attractor
 - Honesty: if ``L = 1``, then φ ≡ 0 and the mod-1 covariance is trivial;
   the live compression target on such monoliths is the depth ``d``
-- Phase origin is gauge-dependent unless ``canonical_key`` anchors it
+- Phase origin is gauge-dependent unless a *unique* ``canonical_key``
+  anchor is provided; ambiguous minima raise ``AUDIT FAILED``
 - Local freeze only after run protocol + hash + commit
 
-Bezug: Arbeitsprogramm Phase B & C (kanonische Taktung & Kollisionsaudit).
+Bezug: Arbeitsprogramm Phase B & C (Kollisions- und Kardinalitätsanalyse).
 """
 
 from __future__ import annotations
@@ -30,7 +31,6 @@ from pathlib import Path
 from typing import TypeVar
 
 State = TypeVar("State", bound=Hashable)
-Value = TypeVar("Value", bound=Hashable)
 
 GOVERNANCE = "[B]"
 
@@ -71,11 +71,10 @@ def construct_cycle_phase(
 ) -> tuple[dict[State, int], dict[State, int], CyclePhaseReport]:
     """Construct canonical phase φ and depth d on a weakly connected digraph.
 
-    Phase normalization is **gauge-dependent** unless an explicit
-    ``canonical_key`` anchor is provided. With an anchor, the cycle is
-    rotated so ``min(cycle, key=canonical_key)`` is the phase origin.
-
-    Verifies covariance and Lyapunov descent via hard ``require`` calls.
+    Phase normalization enforces strict uniqueness on the structural anchor.
+    With ``canonical_key``, the cycle is rotated so the unique minimal-key
+    cycle node is the phase origin. If several cycle nodes share the
+    minimum key, the construction raises ``AUDIT FAILED``.
     """
     universe = tuple(states)
     universe_set = set(universe)
@@ -128,16 +127,19 @@ def construct_cycle_phase(
     cycle_length = len(cycle)
     require(cycle_length > 0, "No directed cycle was found.")
 
-    # Optional: anchored phase normalization (otherwise gauge-dependent).
+    # Ambiguity-free anchored phase normalization (otherwise gauge-dependent).
     if canonical_key is not None:
-        try:
-            anchor_node = min(cycle, key=canonical_key)
-            anchor_idx = cycle.index(anchor_node)
-            cycle = cycle[anchor_idx:] + cycle[:anchor_idx]
-        except Exception as exc:  # noqa: BLE001 — surface as audit failure
+        keyed_cycle = [(canonical_key(node), node) for node in cycle]
+        minimum_key = min(key for key, _ in keyed_cycle)
+        anchors = [node for key, node in keyed_cycle if key == minimum_key]
+        if len(anchors) != 1:
             raise RuntimeError(
-                f"Phase normalization anchor sorting failed: {exc}"
-            ) from exc
+                "AUDIT FAILED: Phase normalization is ambiguous: canonical_key "
+                f"has {len(anchors)} minimal cycle nodes."
+            )
+        anchor_node = anchors[0]
+        anchor_idx = cycle.index(anchor_node)
+        cycle = cycle[anchor_idx:] + cycle[:anchor_idx]
 
     cycle_index = {node: index for index, node in enumerate(cycle)}
 
@@ -209,7 +211,8 @@ def audit_target_reconstruction(
     Passing this audit proves reconstructibility, not by itself useful
     compression or low computational cost. On collision, stores a full
     witness pair ``(first_state, first_value, second_state, second_value)``
-    together with the colliding ``feature_vector``.
+    together with the colliding ``feature_vector``. Success reports
+    ``F=Q`` via ``minimal_for_target`` (cardinality-minimal exact encoding).
     """
     universe = tuple(states)
     universe_set = set(universe)
@@ -314,7 +317,8 @@ def main(argv: list[str] | None = None) -> int:
         "depth d remains the nontrivial Lyapunov observable."
     )
     print(
-        "Gauge: phase origin is gauge-dependent unless canonical_key anchors it."
+        "Gauge: phase origin is gauge-dependent unless a unique "
+        "canonical_key anchors it."
     )
     print()
 
@@ -348,8 +352,8 @@ def main(argv: list[str] | None = None) -> int:
                 "φ(Tx)=φ(x)+1 mod 1 is vacuous; compress d instead."
             ),
             "gauge": (
-                "Without canonical_key, the concrete phase representation "
-                "is gauge-dependent (global additive constant)."
+                "Without a unique canonical_key, the concrete phase "
+                "representation is gauge-dependent (global additive constant)."
             ),
         }
         args.json.parent.mkdir(parents=True, exist_ok=True)

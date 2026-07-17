@@ -154,24 +154,26 @@ Phasen-Kompressor: `src/kepler_hurwitz/cycle_phase_compressor.py`, Scan `example
 
 $$
 \boxed{\begin{aligned}
-\text{Restklassen mod 8..128:}\quad& \text{schwach zusammenhängend (Monolith-Topologie)}, \\
-\text{Phase-C-Invarianzsperre:}\quad& \text{mathematisch bewiesen absolut wirksam}, \\
-\text{Zyklus-Taktung:}\quad& \text{konditional hergeleitet; Ursprung ist gauge-dependent}, \\
-\text{Zyklus-Abstieg:}\quad& d(T_{\mathrm{odd}}x) \le d(x) \text{ als exakte Lyapunov-Funktion}, \\
-\text{Audit-Typ:}\quad& \text{Kollisionsanalyse liefert volles Witness-Paar}, \\
-\text{Kompressions-Prüfung:}\quad& \text{über Kardinalitätsabgleich } F=Q \text{ operationalisiert}, \\
-\text{Systemstatus:}\quad& \text{mathematisch und implementierungstechnisch freeze-fähig, lokal noch nicht beglaubigt}.
+\text{Monolith-Topologie:}\quad& \text{nach berichtetem Graphscan für mod } 8 \text{ bis } 128, \\
+\text{statische Invarianten:}\quad& \text{auf den vollständigen Monolithen ausgeschlossen}, \\
+\text{Phasenfaktor:}\quad& \varphi(Tx)=\varphi(x)+1\pmod\ell, \\
+\text{Phasennormalisierung:}\quad& \text{nur bei eindeutigem strukturellen Anker reproduzierbar}, \\
+\text{Attraktortiefe:}\quad& d(Tx)\le d(x) \text{ mit striktem Abstieg außerhalb des Zyklus}, \\
+\text{Rekonstruktionsaudit:}\quad& \text{liefert vollständige Kollisions-Witnesses}, \\
+\text{Bedingung } F=Q:\quad& \text{kardinalitätsminimale exakte Zielkodierung}, \\
+\text{echte Kompression:}\quad& \text{erst nach Kosten-, Bitlängen- oder Entropieanalyse}, \\
+\text{lokaler Freeze:}\quad& \text{noch nicht durch Laufprotokoll, Hash und Commit belegt}.
 \end{aligned}}
 $$
 
 **Suchschema (arretiert):**
 $$
-\boxed{\text{Graph bestimmt Zielobservable} \;\longrightarrow\; \text{Merkmalstest prüft Rekonstruktion} \;\longrightarrow\; \text{Kosten- und Kardinalitätsanalyse prüft echte Kompression}}
+\boxed{\text{Graphobservable} \;\longrightarrow\; \text{Rekonstruierbarkeit} \;\longrightarrow\; \text{kardinalitätsminimale Kodierung} \;\longrightarrow\; \text{erst danach echte Kompressionsbewertung}}
 $$
 
-**Ehrlichkeit:** Auf diesen Räumen ist \(\ell=1\) (Attraktor \(\{1\}\)). Dann ist \(\varphi\) konstant \(0\) und die Mod-1-Kovarianz trivial — die Kompressionsfrage für \(\varphi\) kollabiert. Die live Zielobservable ist die Transiententiefe \(d\). Nichttriviales \(\varphi\) erfordert \(\ell>1\); der Phasenursprung bleibt ohne expliziten Anker *gauge-dependent*.
+**Ehrlichkeit:** Auf diesen Räumen ist \(\ell=1\) (Attraktor \(\{1\}\)). Dann ist \(\varphi\) konstant \(0\) und die Mod-1-Kovarianz trivial — die Kompressionsfrage für \(\varphi\) kollabiert. Die live Zielobservable ist die Transiententiefe \(d\). Nichttriviales \(\varphi\) erfordert \(\ell>1\); der Phasenursprung bleibt ohne *eindeutigen* strukturellen Anker *gauge-dependent*. \(F=Q\) ist kardinalitätsminimale exakte Zielkodierung, nicht bereits echte Kompression.
 
-**Forschungfrage (Kompression):** Welche lokalen arithmetischen Merkmale rekonstruieren \(\varphi\) (bei \(\ell>1\)) und \(d\) ohne Kollision (volles Witness-Paar bei Fehlschlag), und wann gilt \(F=Q\)?
+**Forschungfrage (Kompression):** Welche lokalen arithmetischen Merkmale rekonstruieren \(\varphi\) (bei \(\ell>1\)) und \(d\) ohne Kollision (volles Witness-Paar bei Fehlschlag), wann gilt \(F=Q\), und wann sinken Kosten/Bitlänge/Entropie unter die globale Graphobservable?
 
 ---
 

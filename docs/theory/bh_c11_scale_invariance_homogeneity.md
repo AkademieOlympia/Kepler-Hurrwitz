@@ -161,7 +161,7 @@ d(x) = \min\{n \ge 0 : T_{\mathrm{odd}}^n(x) \in C\}
 \]
 definiert. Sie erfüllt \(d(T_{\mathrm{odd}}x) = d(x) - 1\) für \(d(x) > 0\) und \(d(T_{\mathrm{odd}}x) = 0\) auf dem Attraktorzyklus. Damit ist \(d\) eine exakte graphentheoretische Lyapunov-Funktion.
 
-Die Verteilung der Zykluslänge \(\ell\) erzwingt eine strikte konditionale Fallunterscheidung:
+Der Wert der Zykluslänge \(\ell\) erzwingt eine strikte konditionale Fallunterscheidung:
 \[
 \begin{cases}
 \ell > 1: & \varphi(T_{\mathrm{odd}}x) = \varphi(x) + 1 \pmod \ell \text{ liefert eine nichttriviale Taktung}, \\[2mm]
@@ -169,10 +169,28 @@ Die Verteilung der Zykluslänge \(\ell\) erzwingt eine strikte konditionale Fall
 \end{cases}
 \]
 
-Die konkrete Wahl des Phasenursprungs ist bei \(\ell > 1\) nicht eindeutig. Zwei zulässige Phasen unterscheiden sich durch eine globale additive Konstante. Kanonisch ist daher zunächst die Phasenklasse modulo globaler Translation. Eine reproduzierbare konkrete Repräsentation verlangt eine ausdrücklich festgelegte Zyklusnormalisierung; ohne einen solchen expliziten strukturellen Anker ist die Darstellung *gauge-dependent*.
+Die konkrete Wahl des Phasenursprungs ist bei \(\ell > 1\) nicht eindeutig. Zwei zulässige Phasen unterscheiden sich durch eine globale additive Konstante. Kanonisch ist daher zunächst die Phasenklasse modulo globaler Translation. Eine reproduzierbare konkrete Repräsentation verlangt eine ausdrücklich festgelegte Zyklusnormalisierung; ohne einen solchen eindeutigen strukturellen Anker ist die Darstellung *gauge-dependent*.
 
 Das anschließende Suchprogramm prüft, ob lokale arithmetische Merkmale \(M(x)\) die globalen Zielgrößen \(\varphi(x)\) oder \(d(x)\) bestimmen. Exakte Rekonstruierbarkeit bedeutet:
 \[
 M(x) = M(y) \implies G(x) = G(y),
 \]
-wobei \(G\) für \(\varphi\) oder \(d\) steht. Diese Implikation allein beweist noch keine nützliche Kompression. Zusätzlich werden die Anzahl unterschiedlicher Merkmalswerte, die Anzahl der Zielklassen, die Zustandsreduktion sowie die Berechnungskosten des Merkmals dokumentiert. Eine minimale exakte Zielkodierung liegt im endlichen Fall vor, wenn die Zahl der Merkmalsklassen der Zahl der Zielklassen entspricht (\(F = Q\)).
+wobei \(G\) für \(\varphi\) oder \(d\) steht. Diese Implikation allein beweist noch keine nützliche Kompression. Zusätzlich werden die Anzahl unterschiedlicher Merkmalswerte, die Anzahl der Zielklassen, die Zustandsreduktion sowie die Berechnungskosten des Merkmals dokumentiert. Eine kardinalitätsminimale exakte Zielkodierung liegt im endlichen Fall vor, wenn die Zahl der Merkmalsklassen der Zahl der Zielklassen entspricht (\(F = Q\)). Eine weitergehende Aussage über eine echte Kompression verlangt den expliziten Nachweis reduzierter Beschreibungslängen oder Berechnungskosten im Vergleich zur globalen Graphobservablen.
+
+**Freeze-Kandidat-Status (bindend, lokal noch nicht beglaubigt):**
+\[
+\boxed{\begin{aligned}
+\text{Monolith-Topologie:}\quad& \text{nach berichtetem Graphscan für mod } 8 \text{ bis } 128, \\
+\text{statische Invarianten:}\quad& \text{auf den vollständigen Monolithen ausgeschlossen}, \\
+\text{Phasenfaktor:}\quad& \varphi(Tx)=\varphi(x)+1\pmod\ell, \\
+\text{Phasennormalisierung:}\quad& \text{nur bei eindeutigem strukturellen Anker reproduzierbar}, \\
+\text{Attraktortiefe:}\quad& d(Tx)\le d(x) \text{ mit striktem Abstieg außerhalb des Zyklus}, \\
+\text{Rekonstruktionsaudit:}\quad& \text{liefert vollständige Kollisions-Witnesses}, \\
+\text{Bedingung } F=Q:\quad& \text{kardinalitätsminimale exakte Zielkodierung}, \\
+\text{echte Kompression:}\quad& \text{erst nach Kosten-, Bitlängen- oder Entropieanalyse}, \\
+\text{lokaler Freeze:}\quad& \text{noch nicht durch Laufprotokoll, Hash und Commit belegt}.
+\end{aligned}}
+\]
+\[
+\boxed{\text{Graphobservable} \;\longrightarrow\; \text{Rekonstruierbarkeit} \;\longrightarrow\; \text{kardinalitätsminimale Kodierung} \;\longrightarrow\; \text{erst danach echte Kompressionsbewertung}}
+\]

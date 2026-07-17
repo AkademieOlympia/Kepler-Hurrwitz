@@ -87,6 +87,50 @@ class TestConstructCyclePhaseToy:
         for x in states:
             assert phase_free[nxt[x]] == (phase_free[x] + 1) % 3
 
+    def test_unique_anchor_works_on_l_gt_1_toy(self) -> None:
+        nxt = self._toy_step()
+        states = tuple(sorted(nxt))
+        phase, depth, report = construct_cycle_phase(
+            states, nxt.__getitem__, canonical_key=lambda x: x
+        )
+        assert report.cycle_length == 3
+        assert report.phase_trivial is False
+        # Unique min key on cycle {0,1,2} is 0 ⇒ phase origin at 0.
+        assert phase[0] == 0
+        assert depth[0] == 0
+        for x in states:
+            assert phase[nxt[x]] == (phase[x] + 1) % 3
+
+    def test_ambiguous_canonical_key_raises_audit_failed(self) -> None:
+        nxt = self._toy_step()
+        states = tuple(sorted(nxt))
+        # Constant key makes every cycle node a minimum ⇒ N=3.
+        with pytest.raises(
+            RuntimeError,
+            match=(
+                r"AUDIT FAILED: Phase normalization is ambiguous: "
+                r"canonical_key has 3 minimal cycle nodes\."
+            ),
+        ):
+            construct_cycle_phase(
+                states, nxt.__getitem__, canonical_key=lambda _x: 0
+            )
+
+        # Two cycle nodes share the same min key; third is larger.
+        def two_minima(x: int) -> int:
+            return 0 if x in (0, 1) else 1
+
+        with pytest.raises(
+            RuntimeError,
+            match=(
+                r"AUDIT FAILED: Phase normalization is ambiguous: "
+                r"canonical_key has 2 minimal cycle nodes\."
+            ),
+        ):
+            construct_cycle_phase(
+                states, nxt.__getitem__, canonical_key=two_minima
+            )
+
 
 class TestAuditTargetReconstruction:
     def test_identity_success_reports_f_q_minimal(self) -> None:

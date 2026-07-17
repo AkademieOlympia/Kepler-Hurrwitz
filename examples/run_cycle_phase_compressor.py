@@ -187,13 +187,16 @@ def main() -> int:
             "is L>1. On these monoliths depth d is the live Lyapunov target."
         ),
         "phase_gauge": (
-            "Without canonical_key, the concrete phase representation is "
-            "gauge-dependent (global additive constant mod L). "
-            "Collision audits store full witness pairs "
-            "(first_state, first_value, second_state, second_value, feature_vector). "
-            "Success reports F=distinct_feature_vectors, Q=target_classes_count, "
-            "state_compression_ratio=F/N, and minimal_for_target=(F==Q)."
+            "Without a unique canonical_key, the concrete phase representation "
+            "is gauge-dependent (global additive constant mod L). Ambiguous "
+            "minima raise AUDIT FAILED. Collision audits store full witness "
+            "pairs (first_state, first_value, second_state, second_value, "
+            "feature_vector). Success reports F=distinct_feature_vectors, "
+            "Q=target_classes_count, state_compression_ratio=F/N, and "
+            "minimal_for_target=(F==Q) as cardinality-minimal exact encoding "
+            "(not by itself true compression)."
         ),
+
         "phase_c_lockout": (
             "Forward-closed nonempty subclasses of a finite monolith still "
             "contain the unique attractor cycle ⇒ remain weakly connected; "

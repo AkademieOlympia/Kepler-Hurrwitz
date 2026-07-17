@@ -1,13 +1,13 @@
 {
   "status": "completed",
   "governance": "[B]",
-  "generated_at_utc": "2026-07-17T13:50:42Z",
+  "generated_at_utc": "2026-07-17T13:54:28Z",
   "branch": "post-freeze/octonionic-collatz-proof-attempt",
   "phase": "B/C compression",
   "map": "T_m(r)=oddCoreStep(r) mod m on canonical odd residues",
   "projection_caveat": "oddCoreStep on Nat does not always descend to Z/mZ; scan uses projected digraph as in Phase A",
   "honesty_L1": "If cycle_length=1, φ is constantly 0 and φ(Tx)=φ(x)+1 mod 1 is vacuous. The interesting regime for φ is L>1. On these monoliths depth d is the live Lyapunov target.",
-  "phase_gauge": "Without canonical_key, the concrete phase representation is gauge-dependent (global additive constant mod L). Collision audits store full witness pairs (first_state, first_value, second_state, second_value, feature_vector). Success reports F=distinct_feature_vectors, Q=target_classes_count, state_compression_ratio=F/N, and minimal_for_target=(F==Q).",
+  "phase_gauge": "Without a unique canonical_key, the concrete phase representation is gauge-dependent (global additive constant mod L). Ambiguous minima raise AUDIT FAILED. Collision audits store full witness pairs (first_state, first_value, second_state, second_value, feature_vector). Success reports F=distinct_feature_vectors, Q=target_classes_count, state_compression_ratio=F/N, and minimal_for_target=(F==Q) as cardinality-minimal exact encoding (not by itself true compression).",
   "phase_c_lockout": "Forward-closed nonempty subclasses of a finite monolith still contain the unique attractor cycle ⇒ remain weakly connected; static subclass invariants are structurally locked out.",
   "moduli": [
     8,
