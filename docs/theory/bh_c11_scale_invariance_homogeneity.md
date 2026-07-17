@@ -197,7 +197,12 @@ wobei \(G\) für \(\varphi\) oder \(d\) steht. Diese Implikation allein beweist 
 
 ### 5.6 Exhaustiver 2-adischer Zylinder-Cutoff (Schicht B1–B2)
 
-**Status (Schicht B2):** Lokal reproduziert (pytest 12 passed; `python`/`python -O` JSON-identisch; Protokoll-sha256 `9c78601a…`); Details in [`../energiedoku_exports/bigraded_cylinder_cutoff_b2_2026_07_17.md`](../energiedoku_exports/bigraded_cylinder_cutoff_b2_2026_07_17.md). **Kein** Collatz-Beweis.
+**Status (Schicht B2):** Lokal reproduziert und gehasht (pytest 12 passed; `python`/`python -O` JSON-identisch; Protokoll-sha256 `9c78601a…`); Arbeitsbaum enthielt unbezogene Dirty-Dateien außerhalb des Seals; **externe Verifikation offen**. Details: [`../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md`](../energiedoku_exports/form_inhalt_bigraded_cylinder_b2_2026_07_17.md). **Kein** Collatz-Beweis. **Schicht B3 (Fano-/Inzidenz-Kopplung) bleibt blockiert**, bis B2 geschlossen ist.
+
+Epistemische Staffelung:
+\[
+\boxed{\text{vollständige Spezifikation} \quad \neq \quad \text{lokale Ausführung} \quad \neq \quad \text{revisionssicher beglaubigter Freeze}}
+\]
 
 Zur Beseitigung unvollständiger Zustandsschätzungen wird das System zwingend über dem kanonischen, ebenenvollständigen Cutoff \(\mathcal{Z}_{\le P} = \{(r,p) : 1 \le p \le P, \ 1 \le r < 2^p, \ r \text{ ungerade}\}\) mit exakt \(2^P - 1\) Zuständen definiert. Der beschleunigte Schritt operiert unter Reduktion der ableitbaren Ausgangsbeschränkung (Bestimmtheitsverlust) um \(j\) Bits.
 
@@ -207,6 +212,6 @@ Innerhalb des geschlossenen Cutoffs gilt für alle Dynamikkanten \(E_{\mathrm{dy
 \]
 Dieser Zustand unterliegt dem *Singular-Lift-Split-Lemma*: Seine beiden unmittelbaren Nachfolger auf Ebene \(p+1\) nehmen zwingend die Bewertungen \(\{p, p+1\}\) an. Dadurch wird der fortlaufend unverzweigte, singuläre 2-adische Pfadpräfix \(s_1 \rightsquigarrow s_2 \rightsquigarrow \dots \rightsquigarrow s_P\) nach \(-\frac{1}{3} \in \mathbb{Z}_2\) als exakt lift-verbundene Kette isoliert und maschinell serialisiert.
 
-Implementierung: [`src/kepler_hurwitz/bigraded_cylinder_graph.py`](../../src/kepler_hurwitz/bigraded_cylinder_graph.py), Runner [`python -m kepler_hurwitz.run_bigraded_cylinder_audit`](../../src/kepler_hurwitz/run_bigraded_cylinder_audit.py), Export [`../exports/bigraded_cylinder_cutoff_protocol.json`](../exports/bigraded_cylinder_cutoff_protocol.json).
+Implementierung: [`src/kepler_hurwitz/bigraded_cylinder_graph.py`](../../src/kepler_hurwitz/bigraded_cylinder_graph.py), Runner [`python -m kepler_hurwitz.run_bigraded_cylinder_audit`](../../src/kepler_hurwitz/run_bigraded_cylinder_audit.py), kanonische Exporte [`../exports/audit-cylinder-normal.json`](../exports/audit-cylinder-normal.json) / [`../exports/audit-cylinder-optimized.json`](../exports/audit-cylinder-optimized.json) (Alias: [`../exports/bigraded_cylinder_cutoff_protocol.json`](../exports/bigraded_cylinder_cutoff_protocol.json)).
 
 **Governance:** **[B]** diagnostischer Cutoff-Audit — **kein** Collatz-Beweis.
