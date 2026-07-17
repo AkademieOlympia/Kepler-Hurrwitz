@@ -216,6 +216,133 @@ theorem freeze_zero : FreezePredicate (fun _ => 0) := by
   native_decide
 
 /-!
+## Endliche Restklassen-Invariante unter `oddCoreStep` `[A]`
+
+`P(collatzOctEmbed n) = P(collatzOctEmbed (oddCoreStep n))` für ungerade `n`,
+mit endlichwertigem `P`. **Kein** Net-Descent-Claim.
+
+Gescheiterte Kandidaten (numerisch / strukturell, siehe Notes):
+- Parität der vollen Koordinatensumme (Hurwitz-Parität) — nicht invariant
+- Jet- bzw. chi7-Parität und Kanal-7-Rest selbst — nicht invariant
+- Assoziator-Norm auf skaliertem Fano-Tripel (e1,e2,e7) — nicht invariant
+- FreezePredicate ↔ Kanal-7 — nur Korrelation `[B]`, keine Identität
+-/
+
+/-- Endlichwertige Disk-Achsen-Parität `x₂ mod 2` (Triaden-Disk-Rest). -/
+def diskAxisParity (x : OctZ) : ℤ :=
+  x 2 % 2
+
+/-- Endlichwertige Basis-Triaden-Parität `(x₀ + x₁) mod 2`. -/
+def triadBaseParity (x : OctZ) : ℤ :=
+  (x 0 + x 1) % 2
+
+/-- `[A]` Disk-Koeffizient der Embed-Map ist `n % 12`. -/
+theorem collatzOctEmbed_disk_coeff (n : Nat) :
+    collatzOctEmbed n 2 = (n % 12 : ℤ) := by
+  simp [collatzOctEmbed]
+
+/-- `[A]` Ungerade `n` bleiben ungerade modulo 12. -/
+theorem odd_mod12_odd {n : Nat} (h : n % 2 = 1) : (n % 12) % 2 = 1 := by
+  have hdiv : 2 ∣ 12 := by decide
+  simpa [Nat.mod_mod_of_dvd n hdiv] using h
+
+/-- `[A]` Für ungerade `n` ist die Disk-Achsen-Parität der Embed-Map stets `1`. -/
+theorem diskAxisParity_collatzOctEmbed_of_odd {n : Nat} (h : n % 2 = 1) :
+    diskAxisParity (collatzOctEmbed n) = 1 := by
+  rw [diskAxisParity, collatzOctEmbed_disk_coeff]
+  have h1 : (n % 12) % 2 = 1 := odd_mod12_odd h
+  exact_mod_cast h1
+
+/--
+`[A]` **Hauptinvariante:** Disk-Achsen-Parität von `collatzOctEmbed` ist
+invariant unter einem `oddCoreStep` für ungerade Stationen.
+
+Beide Seiten sind `1`, weil `oddCoreStep` die Ungeradheit erhält und
+`e₂ = n mod 12` für ungerade `n` ungerade ist.
+-/
+theorem diskAxisParity_collatzOctEmbed_oddCoreStep
+    (n : Nat) (h : n % 2 = 1) :
+    diskAxisParity (collatzOctEmbed n) =
+      diskAxisParity (collatzOctEmbed (oddCoreStep n)) := by
+  have h' : oddCoreStep n % 2 = 1 := oddCoreStep_mod2_eq_one n
+  rw [diskAxisParity_collatzOctEmbed_of_odd h, diskAxisParity_collatzOctEmbed_of_odd h']
+
+/-- `[A]` Für ungerade `n` ist `e₀ + e₂` gerade (Teilstruktur von Kandidat 1). -/
+theorem collatzOctEmbed_e0_add_e2_even_of_odd {n : Nat} (h : n % 2 = 1) :
+    Even (collatzOctEmbed n 0 + collatzOctEmbed n 2) := by
+  have h0 : collatzOctEmbed n 0 = (n : ℤ) := by simp [collatzOctEmbed]
+  have h2 : collatzOctEmbed n 2 = (n % 12 : ℤ) := collatzOctEmbed_disk_coeff n
+  rw [h0, h2]
+  have hn : n % 2 = 1 := h
+  have h12 : (n % 12) % 2 = 1 := odd_mod12_odd h
+  refine Int.even_iff.mpr ?_
+  -- `(n + n%12) % 2 = 0` weil beide ungerade
+  have : ((n : ℤ) + (n % 12 : ℤ)) % 2 = 0 := by
+    have hnZ : (n : ℤ) % 2 = 1 := by exact_mod_cast hn
+    have h12Z : (n % 12 : ℤ) % 2 = 1 := by exact_mod_cast h12
+    omega
+  exact this
+
+/--
+`[A]` Parität von `e₀ + e₂` ist unter `oddCoreStep` invariant (beide Seiten `0`).
+Schwächer / spezieller als volle Koordinatensumme — letztere ist **nicht** invariant.
+-/
+theorem e0_add_e2_parity_collatzOctEmbed_oddCoreStep
+    (n : Nat) (h : n % 2 = 1) :
+    (collatzOctEmbed n 0 + collatzOctEmbed n 2) % 2 =
+      (collatzOctEmbed (oddCoreStep n) 0 + collatzOctEmbed (oddCoreStep n) 2) % 2 := by
+  have h' : oddCoreStep n % 2 = 1 := oddCoreStep_mod2_eq_one n
+  have he : Even (collatzOctEmbed n 0 + collatzOctEmbed n 2) :=
+    collatzOctEmbed_e0_add_e2_even_of_odd h
+  have he' : Even (collatzOctEmbed (oddCoreStep n) 0 + collatzOctEmbed (oddCoreStep n) 2) :=
+    collatzOctEmbed_e0_add_e2_even_of_odd h'
+  have h0 : (collatzOctEmbed n 0 + collatzOctEmbed n 2) % 2 = 0 := Int.even_iff.mp he
+  have h1 : (collatzOctEmbed (oddCoreStep n) 0 + collatzOctEmbed (oddCoreStep n) 2) % 2 = 0 :=
+    Int.even_iff.mp he'
+  rw [h0, h1]
+
+/-- `[A]` Basis-Triaden-Parität verschwindet auf `n ≡ 3 (mod 8)`. -/
+theorem triadBaseParity_collatzOctEmbed_of_mod8_eq3 {n : Nat} (h : n % 8 = 3) :
+    triadBaseParity (collatzOctEmbed n) = 0 := by
+  simp [triadBaseParity, collatzOctEmbed]
+  have hn : (n : ℤ) % 2 = 1 := by
+    have : n % 2 = 1 := by omega
+    exact_mod_cast this
+  have h8 : n % 8 = 3 := h
+  omega
+
+/-- `[A]` Basis-Triaden-Parität verschwindet auf Kanal-7 (`n ≡ 7 (mod 8)`). -/
+theorem triadBaseParity_collatzOctEmbed_of_mod8_eq7 {n : Nat} (h : n % 8 = 7) :
+    triadBaseParity (collatzOctEmbed n) = 0 := by
+  simp [triadBaseParity, collatzOctEmbed]
+  have hn : (n : ℤ) % 2 = 1 := by
+    have : n % 2 = 1 := by omega
+    exact_mod_cast this
+  have h8 : n % 8 = 7 := h
+  omega
+
+/-- `[A]` Aus Kanal-7 landet `oddCoreStep` wieder in `{3,7} (mod 8)`. -/
+theorem oddCoreStep_mod8_eq3_or_eq7_of_mod8_eq7 {n : Nat} (h : n % 8 = 7) :
+    oddCoreStep n % 8 = 3 ∨ oddCoreStep n % 8 = 7 := by
+  rw [oddCoreStep_eq_div2_of_mod8_eq7 h]
+  omega
+
+/--
+`[A]` **Scoped subclass:** auf Kanal-7 (`n ≡ 7 (mod 8)`) ist die
+Basis-Triaden-Parität unter `oddCoreStep` invariant (beide Seiten `0`).
+-/
+theorem triadBaseParity_collatzOctEmbed_channelSeven_oddCoreStep
+    (n : Nat) (h : n % 8 = 7) :
+    triadBaseParity (collatzOctEmbed n) =
+      triadBaseParity (collatzOctEmbed (oddCoreStep n)) := by
+  have hL : triadBaseParity (collatzOctEmbed n) = 0 :=
+    triadBaseParity_collatzOctEmbed_of_mod8_eq7 h
+  rw [hL]
+  rcases oddCoreStep_mod8_eq3_or_eq7_of_mod8_eq7 h with h3 | h7
+  · rw [triadBaseParity_collatzOctEmbed_of_mod8_eq3 h3]
+  · rw [triadBaseParity_collatzOctEmbed_of_mod8_eq7 h7]
+
+/-!
 ## Offene [C]-Hypothesen (nur Prop, kein Fake-Beweis)
 
 Muster analog Channel-Seven / H9-Hypothesen-Gerüsten:

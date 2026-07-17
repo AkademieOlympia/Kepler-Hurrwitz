@@ -34,6 +34,7 @@ from kepler_hurwitz.octonionic_jet_diagnostic import (
     split_triad_coefficients,
     triad_projection,
 )
+from kepler_hurwitz.smoothness_channel_scan import next_odd_core_after_kick
 
 OCTONIONIC_COLLATZ_FREEZE_TAG = "[B]/[C]"
 
@@ -59,6 +60,14 @@ __all__ = [
     "collatz_oct_embed",
     "channel_seven_residue",
     "is_channel_seven",
+    "odd_core_step",
+    "disk_axis_parity",
+    "triad_base_parity",
+    "coord_sum_parity",
+    "e0_add_e2_parity",
+    "check_disk_axis_parity_invariant",
+    "check_triad_base_parity_channel_seven_invariant",
+    "scan_odd_core_invariants",
     "imaginary_unit",
     "associator_norm_sq_on_triple",
     "fano_line_associator_profile",
@@ -117,6 +126,163 @@ def collatz_oct_embed(n: int) -> Octonion:
         0.0,
         chi7,
     )
+
+
+def odd_core_step(n: int) -> int:
+    """Lean ``oddCoreStep`` / Syracuse-Odd-Schritt: ``oddCore(3n+1)``."""
+    return next_odd_core_after_kick(n)
+
+
+def disk_axis_parity(n: int) -> int:
+    """Lean ``diskAxisParity (collatzOctEmbed n)`` — Parität von ``e₂ = n mod 12``."""
+    return int(collatz_oct_embed(n)[2]) % 2
+
+
+def triad_base_parity(n: int) -> int:
+    """Lean ``triadBaseParity (collatzOctEmbed n)`` — Parität von ``e₀ + e₁``."""
+    coords = collatz_oct_embed(n)
+    return int(coords[0] + coords[1]) % 2
+
+
+def coord_sum_parity(n: int) -> int:
+    """Parität der vollen Koordinatensumme (Hurwitz-Parität) — *nicht* invariant."""
+    return int(sum(collatz_oct_embed(n))) % 2
+
+
+def e0_add_e2_parity(n: int) -> int:
+    """Parität von ``e₀ + e₂`` — Lean ``collatzOctEmbed_e0_add_e2_even_of_odd``."""
+    coords = collatz_oct_embed(n)
+    return int(coords[0] + coords[2]) % 2
+
+
+def check_disk_axis_parity_invariant(
+    values: Sequence[int] | None = None,
+    *,
+    limit: int = 200,
+) -> dict[str, object]:
+    """Prüft ``disk_axis_parity(n) = disk_axis_parity(odd_core_step(n))`` für ungerade ``n``."""
+    if values is None:
+        odds = [n for n in range(1, 2 * limit + 1, 2)]
+    else:
+        odds = [int(n) for n in values if int(n) % 2 == 1]
+    failures: list[dict[str, int]] = []
+    for n in odds:
+        nxt = odd_core_step(n)
+        a, b = disk_axis_parity(n), disk_axis_parity(nxt)
+        if a != b:
+            failures.append({"n": n, "parity": a, "next": nxt, "next_parity": b})
+    return {
+        "invariant": "diskAxisParity ∘ collatzOctEmbed",
+        "lean_theorem": "diskAxisParity_collatzOctEmbed_oddCoreStep",
+        "status": "[A]",
+        "sample_count": len(odds),
+        "failure_count": len(failures),
+        "holds": len(failures) == 0,
+        "expected_parity_for_odd": 1,
+        "failures": failures[:10],
+        "not_claimed": "finite residue lock-in ≠ Collatz / ≠ BadRunNetDescent",
+    }
+
+
+def check_triad_base_parity_channel_seven_invariant(
+    values: Sequence[int] | None = None,
+    *,
+    limit: int = 200,
+) -> dict[str, object]:
+    """Scoped: Basis-Triaden-Parität invariant auf Kanal-7 (`n ≡ 7 (mod 8)`)."""
+    if values is None:
+        odds = [n for n in range(1, 2 * limit + 1, 2) if n % 8 == 7]
+    else:
+        odds = [int(n) for n in values if int(n) % 8 == 7]
+    failures: list[dict[str, int]] = []
+    for n in odds:
+        nxt = odd_core_step(n)
+        a, b = triad_base_parity(n), triad_base_parity(nxt)
+        if a != b:
+            failures.append({"n": n, "parity": a, "next": nxt, "next_parity": b})
+    return {
+        "invariant": "triadBaseParity ∘ collatzOctEmbed on channel-7",
+        "lean_theorem": "triadBaseParity_collatzOctEmbed_channelSeven_oddCoreStep",
+        "status": "[A]",
+        "scope": "n ≡ 7 (mod 8)",
+        "sample_count": len(odds),
+        "failure_count": len(failures),
+        "holds": len(failures) == 0,
+        "expected_parity": 0,
+        "failures": failures[:10],
+        "not_claimed": "scoped algebraic lock-in ≠ net descent",
+    }
+
+
+def scan_odd_core_invariants(
+    values: Sequence[int] | None = None,
+    *,
+    limit: int = 200,
+) -> dict[str, object]:
+    """Aggregiert bestätigte und gescheiterte Invarianten unter ``oddCoreStep``."""
+    if values is None:
+        odds = [n for n in range(1, 2 * limit + 1, 2)]
+    else:
+        odds = [int(n) for n in values if int(n) % 2 == 1]
+
+    def _fails(pred) -> list[int]:
+        out: list[int] = []
+        for n in odds:
+            if pred(n) != pred(odd_core_step(n)):
+                out.append(n)
+                if len(out) >= 8:
+                    break
+        return out
+
+    coord_sum_fails = _fails(coord_sum_parity)
+    chi7_fails = _fails(lambda n: int(collatz_oct_embed(n)[7]))
+    jet_parity_fails = chi7_fails  # jet = χ₇ bei dieser Embed-Map
+    freeze_vs_ch7 = {
+        "agree": sum(
+            1
+            for n in odds
+            if freeze_indicators(n).freeze_predicate_heuristic
+            == freeze_indicators(n).channel_seven
+        ),
+        "disagree": sum(
+            1
+            for n in odds
+            if freeze_indicators(n).freeze_predicate_heuristic
+            != freeze_indicators(n).channel_seven
+        ),
+        "note": "correlation [B] only — not an identity",
+    }
+
+    return {
+        "governance": {
+            "algebraic_lock_in_neq_collatz_proof": True,
+            "no_upgrade_to_BadRunNetDescent": True,
+        },
+        "proved_or_confirmed": {
+            "disk_axis_parity": check_disk_axis_parity_invariant(odds),
+            "e0_add_e2_parity": {
+                "status": "[A]/[B]",
+                "holds": all(e0_add_e2_parity(n) == e0_add_e2_parity(odd_core_step(n)) for n in odds),
+                "expected_parity_for_odd": 0,
+                "lean_theorem": "e0_add_e2_parity_collatzOctEmbed_oddCoreStep",
+            },
+            "triad_base_parity_channel_seven": check_triad_base_parity_channel_seven_invariant(
+                [n for n in odds if n % 8 == 7]
+            ),
+        },
+        "failed_candidates": {
+            "full_coord_sum_parity": {
+                "holds": len(coord_sum_fails) == 0,
+                "example_failures": coord_sum_fails,
+                "note": "Hurwitz integer parity is not oddCore-invariant",
+            },
+            "chi7_jet_parity": {
+                "holds": len(jet_parity_fails) == 0,
+                "example_failures": jet_parity_fails,
+            },
+            "freeze_iff_channel_seven": freeze_vs_ch7,
+        },
+    }
 
 
 def imaginary_unit(index: int) -> Octonion:
@@ -207,6 +373,7 @@ def run_collatz_freeze_diagnostic(
     samples = scan_odd_stations(sample_odds)
     channel7 = [r for r in samples if r.channel_seven]
     frozen = [r for r in samples if r.freeze_predicate_heuristic]
+    invariant_scan = scan_odd_core_invariants(sample_odds)
     return {
         "governance": GOVERNANCE,
         "triad_axes": {
@@ -221,6 +388,7 @@ def run_collatz_freeze_diagnostic(
             "formula": "n*e0 + ((n mod 8)//2)*e1 + (n mod 12)*e2 + chi7*e7",
             "lean_anchor": "KeplerHurwitz.Collatz.Octonion.Freeze.collatzOctEmbed",
         },
+        "odd_core_invariants": invariant_scan,
         "sample_count": len(samples),
         "channel_seven_count": len(channel7),
         "freeze_heuristic_count": len(frozen),
@@ -229,6 +397,7 @@ def run_collatz_freeze_diagnostic(
         "not_claimed": [
             "does_not_close_bad_run_net_descent_witness_of_mod4_three",
             "freeze_predicate_heuristic_is_not_a_Collatz_proof",
+            "disk_axis_parity_invariant_is_not_net_descent",
         ],
     }
 

@@ -16,6 +16,9 @@ Einfrierung im nicht-assoziativen Raum
 Assoziator-Defekt ≠ dynamischer Net-Descent
 Kristallisationspfad ≠ Hurwitz-Prim-Zündung (E-098)
 Keine Astrophysik, keine Identität Primzahlen = Jets
+
+Endliche Restklassen-Invariante von collatzOctEmbed
+  ≠ Net-Descent, ≠ BadRunNetDescentWitness
 ```
 
 ---
@@ -39,6 +42,59 @@ Das ist **kein** Ersatz für `BadRunNetDescentWitness` und **schließt nicht**
 
 ---
 
+## Embed-Map und Odd-Core
+
+**`collatzOctEmbed n`** (Lean + Python `collatz_oct_embed`):
+
+\[
+n\cdot e_0 + \Big\lfloor\frac{n \bmod 8}{2}\Big\rfloor\cdot e_1 + (n \bmod 12)\cdot e_2 + \chi_7\cdot e_7
+\]
+
+mit \(\chi_7 = 1\) genau für Kanal-7 (`n ≡ 7 (mod 8)`).
+
+**`oddCoreStep n`** = `oddCore(3n+1)` (Syracuse-Odd-Schritt; Python: `odd_core_step`).
+
+---
+
+## Endliche Restklassen-Invariante `[A]`
+
+### Bewiesen (Hauptaussage)
+
+Für ungerade `n`:
+
+```text
+diskAxisParity (collatzOctEmbed n)
+  = diskAxisParity (collatzOctEmbed (oddCoreStep n))
+```
+
+mit `diskAxisParity x := x₂ % 2` (Triaden-Disk / `e₂`-Parität).
+
+Beide Seiten sind `1`: ungerade `n` ⇒ `n mod 12` ungerade, und `oddCoreStep` erhält Ungeradheit.
+
+Lean: `diskAxisParity_collatzOctEmbed_oddCoreStep`.
+
+### Zusatz `[A]`
+
+| Aussage | Lean |
+|---|---|
+| `e₀ + e₂` gerade für ungerade `n` (⇒ Parität invariant, beide `0`) | `e0_add_e2_parity_collatzOctEmbed_oddCoreStep` |
+| Auf Kanal-7: `triadBaseParity` invariant unter `oddCoreStep` (beide `0`) | `triadBaseParity_collatzOctEmbed_channelSeven_oddCoreStep` |
+
+### Gescheiterte Kandidaten (ehrlich)
+
+| Kandidat | Befund |
+|---|---|
+| Parität der **vollen** Koordinatensumme | **nicht** invariant (z. B. `3→5`, `7→11`) |
+| Jet-/χ₇-Parität, Kanal-7-Rest selbst | **nicht** invariant |
+| Hurwitz-Gitter-Mitgliedschaft unter Odd-Core | **nicht** erhalten (~50 % der ungeraden Stationen) |
+| Assoziator-Norm auf skaliertem `(e₁,e₂,e₇)` | **nicht** invariant |
+| `FreezePredicate` ⇔ Kanal-7 | nur Korrelation `[B]`, keine Identität |
+| Nichtkonstante Funktion von `n mod m` (m≤48) für *alle* ungeraden `n` | Transitionsgraph zusammenhängend ⇒ nur Konstanten |
+
+Die Disk-Parität ist endlichwertig und wahr, aber auf allen ungeraden Stationen konstant `1`. Das ist ein echter Lock-in der Embed-Triade, **kein** dynamischer Abstieg.
+
+---
+
 ## Schichten `[A]` / `[B]` / `[C]`
 
 ### `[A]` Lean — `KeplerHurwitz/Collatz/Octonion/FreezeProofAttemptV1.lean`
@@ -50,11 +106,14 @@ Bewiesen u. a.:
 - `fano_line_e1_e2_e3_associator_eq_zero` (Fano-Linie assoziativ)
 - `fano_witness_e2_e3_e4_associator_ne_zero` und `…_normSq = 4`
 - `freeze_zero`
+- `diskAxisParity_collatzOctEmbed_oddCoreStep` (**Hauptinvariante**)
+- `e0_add_e2_parity_collatzOctEmbed_oddCoreStep`
+- `triadBaseParity_collatzOctEmbed_channelSeven_oddCoreStep` (scoped)
 
-### `[B]/[C]` Python — `src/kepler_hurwitz/octonionic_collatz_freeze_diagnostic.py`
+### `[B]`/`[C]` Python — `src/kepler_hurwitz/octonionic_collatz_freeze_diagnostic.py`
 
 - Heuristische Embed-Map `collatz_oct_embed` (mit Lean-Anker `collatzOctEmbed`)
-- Freeze-Indikatoren: Hurwitz-Check, Triaden-Normen, kontrollierter Assoziator, Fano-Witness
+- Freeze-Indikatoren + **Odd-Core-Invarianten-Scan** (`scan_odd_core_invariants`)
 - Export: `docs/exports/octonionic_collatz_freeze_diagnostic_v1.json`
 
 ### `[C]` Hypothesen (nur `Prop`, **kein** `sorry`-Fake-Theorem)
@@ -71,15 +130,15 @@ Bewiesen u. a.:
 - `bad_run_net_descent_witness_of_mod4_three` bleibt `[C]` offen (V2.7)
 - Kein Claim „Freeze ⇒ Collatz-Terminierung“
 - Kein Upgrade von E-098 zu Physik/SDSS
+- Die Disk-Paritäts-Invariante **upgradet nicht** zu Net-Descent
 
 ---
 
 ## Nächste konkrete Lean-Ziele
 
-1. **Halbganzzahliger Hurwitz-Coset** in `IsIntegerHurwitz` / `IsHurwitz` vereinheitlichen  
-2. `collatzOctEmbed` durch eine **normverträgliche** Embed-Familie ersetzen und Invarianten `[A]` prüfen  
-3. Eine **echte** Implikation `FreezePredicate → …` für eine *endliche* Restklassenaussage (z. B. Parität der Koordinatensumme unter Odd-Core) — ohne Net-Descent zu behaupten  
-4. Optional: Brücke zu `OctCollatzState.octDirection` (O3), sobald Fano-Rotation O4 existiert
+1. Nichtkonstante endlichwertige Invariante auf einer **echten** abgeschlossenen Odd-Core-Unterklasse (falls die Embed-Familie verfeinert wird)
+2. Halbganzzahliger Hurwitz-Coset in `IsIntegerHurwitz` / `IsHurwitz` vereinheitlichen
+3. Optional: Brücke zu `OctCollatzState.octDirection` (O3), sobald Fano-Rotation O4 existiert
 
 ---
 

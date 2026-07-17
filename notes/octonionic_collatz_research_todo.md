@@ -198,7 +198,8 @@ Siehe [`notes/octonionic_collatz_freeze_proof_attempt_v1.md`](octonionic_collatz
 - Lean: `KeplerHurwitz/Collatz/Octonion/FreezeProofAttemptV1.lean` (`FreezePredicate`, Fano-Witness `[A]`)
 - Python `[B]/[C]`: `src/kepler_hurwitz/octonionic_collatz_freeze_diagnostic.py`
 - **Nicht** geschlossen: `bad_run_net_descent_witness_of_mod4_three`
-- Nächstes Lean-Ziel: endliche Restklassen-Invariante unter Odd-Core für `collatzOctEmbed` (ohne Net-Descent-Claim)
+- Erreicht: `diskAxisParity_collatzOctEmbed_oddCoreStep` (+ Kanal-7 `triadBaseParity`); volle Summenparität / Hurwitz / χ₇ gescheitert
+- Nächstes Lean-Ziel: nichtkonstante endlichwertige Invariante auf abgeschlossener Odd-Core-Unterklasse (ohne Net-Descent-Claim)
 
 ```bash
 lake build KeplerHurwitz.Collatz.Octonion.FreezeProofAttemptV1

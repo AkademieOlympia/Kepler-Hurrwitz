@@ -1,5 +1,5 @@
 {
-  "channel_seven_count": 8,
+  "channel_seven_count": 10,
   "channel_seven_samples": [
     {
       "channel_seven": true,
@@ -208,6 +208,58 @@
       "triad_disk_norm_sq": 9.0,
       "triad_jet_norm_sq": 1.0,
       "witness_associator_norm_sq": 4.0
+    },
+    {
+      "channel_seven": true,
+      "controlled_triad_associator_norm_sq": 0.0,
+      "coords": [
+        71.0,
+        3.0,
+        11.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "freeze_predicate_heuristic": true,
+      "hurwitz_note": "integer/half-integer Hurwitz check via discrete_time_flow",
+      "is_hurwitz": true,
+      "map_status": "[B]/[C]",
+      "n": 71,
+      "odd": true,
+      "residue_mod12": 11,
+      "residue_mod8": 7,
+      "triad_base_norm_sq": 5050.0,
+      "triad_disk_norm_sq": 121.0,
+      "triad_jet_norm_sq": 1.0,
+      "witness_associator_norm_sq": 4.0
+    },
+    {
+      "channel_seven": true,
+      "controlled_triad_associator_norm_sq": 0.0,
+      "coords": [
+        79.0,
+        3.0,
+        7.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "freeze_predicate_heuristic": true,
+      "hurwitz_note": "integer/half-integer Hurwitz check via discrete_time_flow",
+      "is_hurwitz": true,
+      "map_status": "[B]/[C]",
+      "n": 79,
+      "odd": true,
+      "residue_mod12": 7,
+      "residue_mod8": 7,
+      "triad_base_norm_sq": 6250.0,
+      "triad_disk_norm_sq": 49.0,
+      "triad_jet_norm_sq": 1.0,
+      "witness_associator_norm_sq": 4.0
     }
   ],
   "embed_map": {
@@ -299,7 +351,7 @@
       ]
     }
   ],
-  "freeze_heuristic_count": 24,
+  "freeze_heuristic_count": 30,
   "governance": {
     "attempt": "octonionic-collatz-freeze-proof-attempt-v1",
     "depends_on": "discrete_time_flow, octonionic_jet_diagnostic",
@@ -309,9 +361,81 @@
   },
   "not_claimed": [
     "does_not_close_bad_run_net_descent_witness_of_mod4_three",
-    "freeze_predicate_heuristic_is_not_a_Collatz_proof"
+    "freeze_predicate_heuristic_is_not_a_Collatz_proof",
+    "disk_axis_parity_invariant_is_not_net_descent"
   ],
-  "sample_count": 32,
+  "odd_core_invariants": {
+    "failed_candidates": {
+      "chi7_jet_parity": {
+        "example_failures": [
+          7,
+          9,
+          23,
+          37,
+          39,
+          41,
+          55,
+          61
+        ],
+        "holds": false
+      },
+      "freeze_iff_channel_seven": {
+        "agree": 100,
+        "disagree": 100,
+        "note": "correlation [B] only \u2014 not an identity"
+      },
+      "full_coord_sum_parity": {
+        "example_failures": [
+          3,
+          7,
+          11,
+          19,
+          23,
+          25,
+          27,
+          29
+        ],
+        "holds": false,
+        "note": "Hurwitz integer parity is not oddCore-invariant"
+      }
+    },
+    "governance": {
+      "algebraic_lock_in_neq_collatz_proof": true,
+      "no_upgrade_to_BadRunNetDescent": true
+    },
+    "proved_or_confirmed": {
+      "disk_axis_parity": {
+        "expected_parity_for_odd": 1,
+        "failure_count": 0,
+        "failures": [],
+        "holds": true,
+        "invariant": "diskAxisParity \u2218 collatzOctEmbed",
+        "lean_theorem": "diskAxisParity_collatzOctEmbed_oddCoreStep",
+        "not_claimed": "finite residue lock-in \u2260 Collatz / \u2260 BadRunNetDescent",
+        "sample_count": 200,
+        "status": "[A]"
+      },
+      "e0_add_e2_parity": {
+        "expected_parity_for_odd": 0,
+        "holds": true,
+        "lean_theorem": "e0_add_e2_parity_collatzOctEmbed_oddCoreStep",
+        "status": "[A]/[B]"
+      },
+      "triad_base_parity_channel_seven": {
+        "expected_parity": 0,
+        "failure_count": 0,
+        "failures": [],
+        "holds": true,
+        "invariant": "triadBaseParity \u2218 collatzOctEmbed on channel-7",
+        "lean_theorem": "triadBaseParity_collatzOctEmbed_channelSeven_oddCoreStep",
+        "not_claimed": "scoped algebraic lock-in \u2260 net descent",
+        "sample_count": 50,
+        "scope": "n \u2261 7 (mod 8)",
+        "status": "[A]"
+      }
+    }
+  },
+  "sample_count": 40,
   "samples": [
     {
       "channel_seven": false,
@@ -1142,6 +1266,214 @@
       "residue_mod8": 7,
       "triad_base_norm_sq": 3978.0,
       "triad_disk_norm_sq": 9.0,
+      "triad_jet_norm_sq": 1.0,
+      "witness_associator_norm_sq": 4.0
+    },
+    {
+      "channel_seven": false,
+      "controlled_triad_associator_norm_sq": 0.0,
+      "coords": [
+        65.0,
+        0.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "freeze_predicate_heuristic": true,
+      "hurwitz_note": "integer/half-integer Hurwitz check via discrete_time_flow",
+      "is_hurwitz": true,
+      "map_status": "[B]/[C]",
+      "n": 65,
+      "odd": true,
+      "residue_mod12": 5,
+      "residue_mod8": 1,
+      "triad_base_norm_sq": 4225.0,
+      "triad_disk_norm_sq": 25.0,
+      "triad_jet_norm_sq": 0.0,
+      "witness_associator_norm_sq": 4.0
+    },
+    {
+      "channel_seven": false,
+      "controlled_triad_associator_norm_sq": 0.0,
+      "coords": [
+        67.0,
+        1.0,
+        7.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "freeze_predicate_heuristic": false,
+      "hurwitz_note": "integer/half-integer Hurwitz check via discrete_time_flow",
+      "is_hurwitz": false,
+      "map_status": "[B]/[C]",
+      "n": 67,
+      "odd": true,
+      "residue_mod12": 7,
+      "residue_mod8": 3,
+      "triad_base_norm_sq": 4490.0,
+      "triad_disk_norm_sq": 49.0,
+      "triad_jet_norm_sq": 0.0,
+      "witness_associator_norm_sq": 4.0
+    },
+    {
+      "channel_seven": false,
+      "controlled_triad_associator_norm_sq": 0.0,
+      "coords": [
+        69.0,
+        2.0,
+        9.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "freeze_predicate_heuristic": true,
+      "hurwitz_note": "integer/half-integer Hurwitz check via discrete_time_flow",
+      "is_hurwitz": true,
+      "map_status": "[B]/[C]",
+      "n": 69,
+      "odd": true,
+      "residue_mod12": 9,
+      "residue_mod8": 5,
+      "triad_base_norm_sq": 4765.0,
+      "triad_disk_norm_sq": 81.0,
+      "triad_jet_norm_sq": 0.0,
+      "witness_associator_norm_sq": 4.0
+    },
+    {
+      "channel_seven": true,
+      "controlled_triad_associator_norm_sq": 0.0,
+      "coords": [
+        71.0,
+        3.0,
+        11.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "freeze_predicate_heuristic": true,
+      "hurwitz_note": "integer/half-integer Hurwitz check via discrete_time_flow",
+      "is_hurwitz": true,
+      "map_status": "[B]/[C]",
+      "n": 71,
+      "odd": true,
+      "residue_mod12": 11,
+      "residue_mod8": 7,
+      "triad_base_norm_sq": 5050.0,
+      "triad_disk_norm_sq": 121.0,
+      "triad_jet_norm_sq": 1.0,
+      "witness_associator_norm_sq": 4.0
+    },
+    {
+      "channel_seven": false,
+      "controlled_triad_associator_norm_sq": 0.0,
+      "coords": [
+        73.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "freeze_predicate_heuristic": true,
+      "hurwitz_note": "integer/half-integer Hurwitz check via discrete_time_flow",
+      "is_hurwitz": true,
+      "map_status": "[B]/[C]",
+      "n": 73,
+      "odd": true,
+      "residue_mod12": 1,
+      "residue_mod8": 1,
+      "triad_base_norm_sq": 5329.0,
+      "triad_disk_norm_sq": 1.0,
+      "triad_jet_norm_sq": 0.0,
+      "witness_associator_norm_sq": 4.0
+    },
+    {
+      "channel_seven": false,
+      "controlled_triad_associator_norm_sq": 0.0,
+      "coords": [
+        75.0,
+        1.0,
+        3.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "freeze_predicate_heuristic": false,
+      "hurwitz_note": "integer/half-integer Hurwitz check via discrete_time_flow",
+      "is_hurwitz": false,
+      "map_status": "[B]/[C]",
+      "n": 75,
+      "odd": true,
+      "residue_mod12": 3,
+      "residue_mod8": 3,
+      "triad_base_norm_sq": 5626.0,
+      "triad_disk_norm_sq": 9.0,
+      "triad_jet_norm_sq": 0.0,
+      "witness_associator_norm_sq": 4.0
+    },
+    {
+      "channel_seven": false,
+      "controlled_triad_associator_norm_sq": 0.0,
+      "coords": [
+        77.0,
+        2.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "freeze_predicate_heuristic": true,
+      "hurwitz_note": "integer/half-integer Hurwitz check via discrete_time_flow",
+      "is_hurwitz": true,
+      "map_status": "[B]/[C]",
+      "n": 77,
+      "odd": true,
+      "residue_mod12": 5,
+      "residue_mod8": 5,
+      "triad_base_norm_sq": 5933.0,
+      "triad_disk_norm_sq": 25.0,
+      "triad_jet_norm_sq": 0.0,
+      "witness_associator_norm_sq": 4.0
+    },
+    {
+      "channel_seven": true,
+      "controlled_triad_associator_norm_sq": 0.0,
+      "coords": [
+        79.0,
+        3.0,
+        7.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "freeze_predicate_heuristic": true,
+      "hurwitz_note": "integer/half-integer Hurwitz check via discrete_time_flow",
+      "is_hurwitz": true,
+      "map_status": "[B]/[C]",
+      "n": 79,
+      "odd": true,
+      "residue_mod12": 7,
+      "residue_mod8": 7,
+      "triad_base_norm_sq": 6250.0,
+      "triad_disk_norm_sq": 49.0,
       "triad_jet_norm_sq": 1.0,
       "witness_associator_norm_sq": 4.0
     }
