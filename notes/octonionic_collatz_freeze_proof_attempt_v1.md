@@ -140,19 +140,39 @@ Bewiesen u. a.:
 
 | Phase | Ziel | Status |
 |---|---|---|
-| **A** | Nackte Graphentopologie von `oddCoreStep` auf endlichen Odd-Restklassen — keine geometrischen Schranken, keine Fano-Strukturen a priori | Scanner + Export |
-| **B** | Kandidaten-Observablen: exakte Invarianz vs. zyklische Kovarianz \(J(Tx)=\sigma(J(x))\), \(\sigma^k=\mathrm{id}\), \(\sigma\neq\mathrm{id}\) | Quotienten-Audit |
-| **C** | Erst nach Phase-A-Befund: Fano-/Charakter-Hypothesen nur auf Räumen mit `weak_components_count > 1` oder als echte Kovarianz | ausstehend |
+| **A** | Nackte Graphentopologie von `oddCoreStep` auf endlichen Odd-Restklassen — keine geometrischen Schranken, keine Fano-Strukturen a priori | Scanner + Export; Monolithen mod 8…128 |
+| **B** | Kanonische Taktung \(\varphi\) und Tiefe \(d\); Kollisionsaudit lokaler Merkmale gegen \(\varphi\) und \(d\) | Compressor + Export |
+| **C** | Statische Unterklassen-Invarianten auf Monolithen **strukturell gesperrt**; Suche nur noch Kompression von \(\varphi\)/\(d\) | Lockout bewiesen (endlich) |
 
 **Disk-Parität konstant `1`:** Symptom von Zusammenhang (triviale Invariante), kein differenzieller Lock-in. Auf schwach zusammenhängenden Räumen ist das erwartete Kollabieren jeder nichtkonstanten Projektion.
 
-Implementierung: `src/kepler_hurwitz/graph_analyzer.py`, Scan `examples/run_oddcore_function_graph_scan.py`, Export `docs/exports/oddcore_function_graph_phase_a.json`. Satzschema D: [`docs/theory/bh_c11_scale_invariance_homogeneity.md`](../docs/theory/bh_c11_scale_invariance_homogeneity.md) §5.5.
+Implementierung: `src/kepler_hurwitz/graph_analyzer.py`, Scan `examples/run_oddcore_function_graph_scan.py`, Export `docs/exports/oddcore_function_graph_phase_a.json`. Satzschema D: [`docs/theory/bh_c11_scale_invariance_homogeneity.md`](../docs/theory/bh_c11_scale_invariance_homogeneity.md) §5.5 / §5.5.1.
+
+Phasen-Kompressor: `src/kepler_hurwitz/cycle_phase_compressor.py`, Scan `examples/run_cycle_phase_compressor.py`, Export `docs/exports/oddcore_cycle_phase_compression.json`.
+
+### Freeze-Kandidat-Status (Phase-A/B-Monolithen)
+
+$$
+\boxed{\begin{aligned}
+\text{Restklassen mod 8..128:}\quad& \text{schwach zusammenhängend (Monolith-Topologie)}, \\
+\text{Phase-C-Invarianzsperre:}\quad& \text{mathematisch bewiesen absolut wirksam}, \\
+\text{Kanonische Taktung:}\quad& \varphi(T_{\mathrm{odd}}x) = \varphi(x) + 1 \pmod \ell \text{ formal hergeleitet}, \\
+\text{Kanonischer Abstieg:}\quad& d(T_{\mathrm{odd}}x) \le d(x) \text{ als Lyapunov-Rang etabliert}, \\
+\text{Suchziel-Kompression:}\quad& \text{Wie viel lokale Arithmetik rekonstruiert } \varphi \text{ und } d?, \\
+\text{Auditimplementierung:}\quad& \text{optimierungsflag-unabhängig und zur lokalen Verifikation bereit}, \\
+\text{lokaler Freeze:}\quad& \text{erst durch Laufprotokoll, Hash und Commit belegt}.
+\end{aligned}}
+$$
+
+**Ehrlichkeit:** Auf diesen Räumen ist \(\ell=1\) (Attraktor \(\{1\}\)). Dann ist \(\varphi\) konstant \(0\) und die Mod-1-Kovarianz trivial — die Kompressionsfrage für \(\varphi\) kollabiert. Die live Zielobservable ist die Transiententiefe \(d\). Nichttriviales \(\varphi\) erfordert \(\ell>1\).
+
+**Forschungfrage (Kompression):** Welche lokalen arithmetischen Merkmale rekonstruieren \(\varphi\) (bei \(\ell>1\)) und \(d\) ohne Kollision im Feature-Bucket-Audit?
 
 ---
 
 ## Nächste konkrete Lean-Ziele
 
-1. **Nach Phase A:** Nur wenn `weak_components_count > 1` (oder echte Kovarianz \(\sigma\neq\mathrm{id}\)): nichtkonstante endlichwertige Invariante / Kovariante formalisieren — keine Cherry-Pick-Unterklasse
+1. **Nach Phase A:** Statische Unterklassen-Invarianten auf Monolithen nicht formalisieren; statt dessen (bei \(\ell>1\)) Kovarianz \(\varphi\) bzw. lokale Rekonstruktion von \(d\) — keine Cherry-Pick-Unterklasse
 2. Halbganzzahliger Hurwitz-Coset in `IsIntegerHurwitz` / `IsHurwitz` vereinheitlichen
 3. Optional: Brücke zu `OctCollatzState.octDirection` (O3), sobald Fano-Rotation O4 existiert
 

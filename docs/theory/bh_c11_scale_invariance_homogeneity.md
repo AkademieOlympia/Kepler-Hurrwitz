@@ -135,3 +135,20 @@ Für jeden endlichen Zustandsraum \(\mathcal{X}\) unter der deterministischen Ab
 Ist der Graph schwach zusammenhängend (Komponentenzahl \(= 1\)), kollabiert jede algebraische Invariante zwangsläufig zur Konstanten. In diesem Fall verschiebt sich das Suchziel des Modells auf die Identifikation einer endlichen kovarianten Quotientendynamik \(J(T_{\mathrm{odd}}x) = \sigma(J(x))\) mit einer nichttrivialen Permutation \(\sigma \neq \operatorname{id}\). Experimentelle Laufzeit- und Strukturprüfungen haben sich diesem topologischen Befund bedingungslos unterzuordnen.
 
 **Governance (bindend):** Keine nichtkonstante Invariante durch nachträgliche Unterklassen-Wahl erzwingen. Fano-/Charakter-Kandidaten bleiben reine Hypothesen bis zum Graphen-Befund. Kein Collatz-Beweis-Claim. Implementierung: [`src/kepler_hurwitz/graph_analyzer.py`](../../src/kepler_hurwitz/graph_analyzer.py), Phase-A-Export [`../exports/oddcore_function_graph_phase_a.json`](../exports/oddcore_function_graph_phase_a.json).
+
+### 5.5.1 Befund des Phase-A-Funktionsgraphscans
+
+Nach dem berichteten Scan des Operators \(T_{\mathrm{odd}}\) auf den ungeraden Restklassenräumen modulo 8, 16, 32, 64 und 128 besitzt jeder untersuchte Funktionsgraph genau eine schwache Zusammenhangskomponente. Unter der Voraussetzung, dass die Zustandsräume abgeschlossen und vollständig enumeriert wurden, folgt daraus:
+\[
+J \circ T_{\mathrm{odd}} = J \implies J \text{ ist konstant}.
+\]
+Auf den untersuchten vollständigen Restklassenräumen existiert somit keine nichtkonstante exakte Invariante.
+
+Dieser Ausschluss lässt sich nicht durch die Wahl einer nichtleeren vorwärtsabgeschlossenen Unterklasse umgehen. Jede solche Unterklasse enthält den eindeutigen Attraktorzyklus; alle ihre Zustände sind durch ihre Vorwärtsbahnen mit diesem Zyklus verbunden. Der induzierte Funktionsgraph bleibt daher schwach zusammenhängend. Die Einrichtung von Phase-C-Unterklassen zur Generierung statischer Invarianten ist auf diesen endlichen Räumen strukturell gesperrt.
+
+Das weitere Suchprogramm wird in zwei getrennte Richtungen aufgespalten:
+
+1. **Endliche Faktordynamik (Taktung):** Gesucht werden lokale mathematische Merkmale, welche die kanonische Phasen-Kovarianz \(\varphi(T_{\mathrm{odd}}x) = \varphi(x) + 1 \pmod \ell\) auf und vor dem Zyklus der Länge \(\ell > 1\) rekonstruieren.
+2. **Lyapunov-artige Ränge (Abstieg):** Gesucht werden lokale arithmetische Merkmale, welche die global definierte Transiententiefe \(d(T_{\mathrm{odd}}x) \le d(x)\) abbilden, mit strikter Abnahme (\(d-1\)) außerhalb des Attraktors.
+
+**Ehrlichkeit (\(L=1\)):** Auf den Phase-A-Monolithen modulo 8…128 ist der Attraktorzyklus \(\{1\}\), also \(\ell = 1\). Dann ist \(\varphi\) konstant \(0\) und die Kovarianz modulo \(1\) trivial; die Kompressionsfrage für \(\varphi\) kollabiert. Die live Zielobservable ist die Tiefe \(d\). Implementierung: [`src/kepler_hurwitz/cycle_phase_compressor.py`](../../src/kepler_hurwitz/cycle_phase_compressor.py), Export [`../exports/oddcore_cycle_phase_compression.json`](../exports/oddcore_cycle_phase_compression.json).
