@@ -102,6 +102,12 @@ def channelSevenFormalResiduesMod128 : List ℕ := [7, 15, 23, 55, 87, 119]
 /-- mod-256 channel-7 residues formally closed in Lean (2-adic lifts of open mod-128 children). -/
 def channelSevenFormalResiduesMod256 : List ℕ := [39, 79, 95]
 
+/--
+mod-1024 channel-7 residues formally closed in Lean (deep-tail refinements).
+`583` is the maximal short-affine child of open `71 mod 256` (`m ≡ 2 (mod 4)`).
+-/
+def channelSevenFormalResiduesMod1024 : List ℕ := [583]
+
 /-- mod-128 residues with partial mod-256 formal closure (not counted in mod-128 fraction). -/
 def channelSevenMod128PartialFormalResidues : List ℕ := [39, 79, 95]
 
@@ -255,6 +261,19 @@ theorem channel_seven_formal_witness_mod256_thirty_nine
   bad_run_net_descent_witness_mod8_channel_seven_mod256_thirty_nine hn h7 hmod
 
 /--
+`[A]` Formal mod-1024 subclass `583` (deep-tail refinement of open `71 mod 256`):
+`t_good = 4`, `t_loc = 12`. Full `n ≡ 71 (mod 256)` remains open — after ten steps from
+`m_good = 576m+161` the state `729m+206` branches on the parity of `m`.
+-/
+theorem channel_seven_formal_witness_mod1024_five_eighty_three
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ k, n = 1024 * k + 583) :
+    LocalWitnessStatementMod8 n :=
+  bad_run_net_descent_witness_mod8_channel_seven_mod1024_five_eighty_three hn h7 hmod
+
+/--
 `[A]` Formal mod-128 class `55` (`k % 4 = 2`, `j % 4 = 1`): Drei-Schritt-Syracuse
 Zertifikat `[1,1,3]` via `ChannelSevenAttackV210`.
 -/
@@ -393,6 +412,9 @@ Density among the 32 channel-7 residues mod 256:
 12 residues from the six fully closed mod-128 classes, plus the three mod-256
 partial subclasses `{39, 79, 95}` — total `15/32`. Not a claim that 15 of 16
 mod-128 classes are closed.
+
+V2.17 adds the mod-1024 child `583` of open deep-tail `71 mod 256`, but does
+**not** raise this mod-256 fraction (full `71 mod 256` stays open).
 -/
 def channelSevenFormalExtendedCoverageFraction : ℚ := 15 / 32
 
@@ -402,6 +424,8 @@ def channelSevenFormalExtendedCoverageFraction : ℚ := 15 / 32
 
 Still strictly less than all of channel 7: deep-tail
 `{31, 47, 63, 71, 103, 111}` and mod-256 siblings `{167, 207, 223}` stay open.
+V2.17 refinement `n ≡ 583 (mod 1024)` is exposed separately via
+`bad_run_net_descent_witness_channel_seven_formal_extended_union_v217`.
 -/
 theorem bad_run_net_descent_witness_channel_seven_formal_extended_union
     {n : Nat}
@@ -432,6 +456,45 @@ theorem bad_run_net_descent_witness_channel_seven_formal_extended_union
       (Or.inr (Or.inr h))
 
 /--
+`[A]` V2.17 extended cover: V2.16 union or mod-1024 deep-tail child `583`.
+Does **not** claim full `n ≡ 71 (mod 256)`.
+-/
+theorem bad_run_net_descent_witness_channel_seven_formal_extended_union_v217
+    {n : Nat}
+    (hn : 1 < n)
+    (hres :
+      n % 128 = 7 ∨ n % 128 = 15 ∨ n % 128 = 23 ∨
+        n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119 ∨
+          n % 256 = 39 ∨ n % 256 = 79 ∨ n % 256 = 95 ∨
+            n % 1024 = 583) :
+    LocalWitnessStatementMod8 n := by
+  rcases hres with h | h | h | h | h | h | h | h | h | h
+  · exact bad_run_net_descent_witness_channel_seven_formal_extended_union hn
+      (Or.inl h)
+  · exact bad_run_net_descent_witness_channel_seven_formal_extended_union hn
+      (Or.inr (Or.inl h))
+  · exact bad_run_net_descent_witness_channel_seven_formal_extended_union hn
+      (Or.inr (Or.inr (Or.inl h)))
+  · exact bad_run_net_descent_witness_channel_seven_formal_extended_union hn
+      (Or.inr (Or.inr (Or.inr (Or.inl h))))
+  · exact bad_run_net_descent_witness_channel_seven_formal_extended_union hn
+      (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl h)))))
+  · exact bad_run_net_descent_witness_channel_seven_formal_extended_union hn
+      (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl h))))))
+  · exact bad_run_net_descent_witness_channel_seven_formal_extended_union hn
+      (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl h)))))))
+  · exact bad_run_net_descent_witness_channel_seven_formal_extended_union hn
+      (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl h))))))))
+  · exact bad_run_net_descent_witness_channel_seven_formal_extended_union hn
+      (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr h))))))))
+  · have h7 : n % 8 = 7 := by omega
+    have hmod : ∃ k, n = 1024 * k + 583 := by
+      have hdm := Nat.div_add_mod n 1024
+      rw [h] at hdm
+      exact ⟨n / 1024, hdm.symm⟩
+    exact channel_seven_formal_witness_mod1024_five_eighty_three hn h7 hmod
+
+/--
 `[A]` Extended formal cover, lifted to plain `BadRunNetDescentWitness`.
 Domain: `n % 4 = 3` and either a fully closed mod-128 class or a mod-256
 partial subclass from `channelSevenFormalResiduesMod256`.
@@ -446,6 +509,23 @@ theorem bad_run_net_descent_witness_of_mod4_three_channel_seven_formal_extended_
           n % 256 = 39 ∨ n % 256 = 79 ∨ n % 256 = 95) :
     Nonempty (BadRunNetDescentWitness n) :=
   (bad_run_net_descent_witness_channel_seven_formal_extended_union hn hres).map
+    (·.toBadRunNetDescentWitness)
+
+/--
+`[A]` V2.17 extended cover lifted to plain `BadRunNetDescentWitness`, including
+mod-1024 child `583` of open deep-tail `71 mod 256`.
+-/
+theorem bad_run_net_descent_witness_of_mod4_three_channel_seven_formal_extended_subclass_v217
+    {n : Nat}
+    (hn : 1 < n)
+    (_hmod4 : n % 4 = 3)
+    (hres :
+      n % 128 = 7 ∨ n % 128 = 15 ∨ n % 128 = 23 ∨
+        n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119 ∨
+          n % 256 = 39 ∨ n % 256 = 79 ∨ n % 256 = 95 ∨
+            n % 1024 = 583) :
+    Nonempty (BadRunNetDescentWitness n) :=
+  (bad_run_net_descent_witness_channel_seven_formal_extended_union_v217 hn hres).map
     (·.toBadRunNetDescentWitness)
 
 /--
@@ -482,6 +562,8 @@ structure ChannelSevenClassificationStatus : Prop where
     channelSevenFormalResiduesMod128 = [7, 15, 23, 55, 87, 119]
   formal_mod256_residues :
     channelSevenFormalResiduesMod256 = [39, 79, 95]
+  formal_mod1024_residues :
+    channelSevenFormalResiduesMod1024 = [583]
   mod128_partial_formal_residues :
     channelSevenMod128PartialFormalResidues = [39, 79, 95]
   formal_coverage_fraction :
@@ -503,6 +585,13 @@ structure ChannelSevenClassificationStatus : Prop where
         n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119 ∨
           n % 256 = 39 ∨ n % 256 = 79 ∨ n % 256 = 95) →
       LocalWitnessStatementMod8 n
+  formal_extended_union_v217 :
+    ∀ {n : Nat}, 1 < n →
+      (n % 128 = 7 ∨ n % 128 = 15 ∨ n % 128 = 23 ∨
+        n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119 ∨
+          n % 256 = 39 ∨ n % 256 = 79 ∨ n % 256 = 95 ∨
+            n % 1024 = 583) →
+      LocalWitnessStatementMod8 n
   k_mod4_two_local_witness :
     ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ j, n = 32 * j + 23) →
       LocalWitnessStatementMod8 n
@@ -520,6 +609,9 @@ structure ChannelSevenClassificationStatus : Prop where
       LocalWitnessStatementMod8 n
   mod256_thirty_nine_local_witness :
     ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 256 * m + 39) →
+      LocalWitnessStatementMod8 n
+  mod1024_five_eighty_three_local_witness :
+    ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ k, n = 1024 * k + 583) →
       LocalWitnessStatementMod8 n
   mod128_fifty_five_local_witness :
     ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ m, n = 128 * m + 55) →
@@ -542,6 +634,7 @@ theorem channel_seven_classification_status :
   channel_three_deep_tail_mod256 := rfl
   formal_mod128_residues := rfl
   formal_mod256_residues := rfl
+  formal_mod1024_residues := rfl
   mod128_partial_formal_residues := rfl
   formal_coverage_fraction := rfl
   formal_extended_coverage_fraction := rfl
@@ -551,6 +644,8 @@ theorem channel_seven_classification_status :
     bad_run_net_descent_witness_mod256_channel_seven_partial_union hn hres
   formal_extended_union := fun hn hres =>
     bad_run_net_descent_witness_channel_seven_formal_extended_union hn hres
+  formal_extended_union_v217 := fun hn hres =>
+    bad_run_net_descent_witness_channel_seven_formal_extended_union_v217 hn hres
   k_mod4_two_local_witness := fun hn h7 hk2 =>
     channel_seven_formal_witness_mod128_residue hn h7 hk2
   mod128_seven_local_witness := fun hn h7 hmod =>
@@ -563,6 +658,8 @@ theorem channel_seven_classification_status :
     channel_seven_formal_witness_mod256_ninety_five hn h7 hmod
   mod256_thirty_nine_local_witness := fun hn h7 hmod =>
     channel_seven_formal_witness_mod256_thirty_nine hn h7 hmod
+  mod1024_five_eighty_three_local_witness := fun hn h7 hmod =>
+    channel_seven_formal_witness_mod1024_five_eighty_three hn h7 hmod
   mod128_fifty_five_local_witness := fun hn h7 hmod =>
     channel_seven_formal_witness_mod128_fifty_five hn h7 hmod
   mod128_eighty_seven_local_witness := fun hn h7 hmod =>

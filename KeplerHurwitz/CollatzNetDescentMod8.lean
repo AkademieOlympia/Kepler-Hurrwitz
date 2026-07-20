@@ -1767,6 +1767,156 @@ theorem channel_seven_net_descent_from_good_at_nine_mod256_thirty_nine
   · norm_num at hn ⊢
   · omega
 
+/-!
+### Channel `7` — deep-tail lift of `71 mod 128` / obstruction for full `71 mod 256`
+
+The even mod-256 child of deep-tail class `71 mod 128` is `n ≡ 71 (mod 256)`
+(`n = 256m + 71`). It has uniform good-branch entry
+`t_good = 4`, `m_good = 576m + 161`, but after ten further steps the affine state
+`729m + 206` has odd leading coefficient, so the Collatz parity branches on `m`.
+Consequently there is **no** uniform `t_loc` for the whole class `71 mod 256`
+(same obstruction pattern as open siblings `{167, 207, 223}`).
+
+The 2-adic refinement `m ≡ 2 (mod 4)` restores uniformity:
+`n = 1024k + 583` closes at `t_good = 4`, `t_loc = 12`, shrink `729k + 416`.
+-/
+
+/--
+`[A]` Four-step value at `n = 256m+71` (even child of deep-tail `71 mod 128`)
+is exactly `576m+161`.
+-/
+theorem channel_seven_four_step_value_of_two_hundred_fifty_six_mul_add_seventy_one
+    (m : Nat) :
+    (collatzStep^[4]) (256 * m + 71) = 576 * m + 161 := by
+  have hreparam : 256 * m + 71 = 32 * (8 * m + 2) + 7 := by ring
+  calc
+    (collatzStep^[4]) (256 * m + 71)
+        = (collatzStep^[4]) (32 * (8 * m + 2) + 7) := by rw [hreparam]
+    _ = 72 * (8 * m + 2) + 17 :=
+          channel_seven_four_step_value_of_thirty_two_mul_add_seven (8 * m + 2)
+    _ = 576 * m + 161 := by ring
+
+/--
+`[A]` Good-branch state at four steps from `n = 256m+71` lands in `mod 4 = 1`.
+-/
+theorem channel_seven_four_step_good_mod4_one_of_two_hundred_fifty_six_mul_add_seventy_one
+    (m : Nat) :
+    (576 * m + 161) % 4 = 1 := by omega
+
+/--
+`[A]` Four-step value at `n = 1024k+583` (`m ≡ 2 (mod 4)` inside `71 mod 256`)
+is exactly `2304k+1313`.
+-/
+theorem channel_seven_four_step_value_of_one_thousand_twenty_four_mul_add_five_eighty_three
+    (k : Nat) :
+    (collatzStep^[4]) (1024 * k + 583) = 2304 * k + 1313 := by
+  have hreparam : 1024 * k + 583 = 256 * (4 * k + 2) + 71 := by ring
+  calc
+    (collatzStep^[4]) (1024 * k + 583)
+        = (collatzStep^[4]) (256 * (4 * k + 2) + 71) := by rw [hreparam]
+    _ = 576 * (4 * k + 2) + 161 :=
+          channel_seven_four_step_value_of_two_hundred_fifty_six_mul_add_seventy_one
+            (4 * k + 2)
+    _ = 2304 * k + 1313 := by ring
+
+/--
+`[A]` Good-branch state at four steps from `n = 1024k+583` lands in `mod 4 = 1`.
+-/
+theorem channel_seven_four_step_good_mod4_one_of_one_thousand_twenty_four_mul_add_five_eighty_three
+    (k : Nat) :
+    (2304 * k + 1313) % 4 = 1 := by omega
+
+/--
+`[A]` Twelve-step shrink from `m_good = 2304k+1313` (`n ≡ 583 mod 1024`)
+is exactly `729k+416`.
+-/
+theorem channel_seven_twelve_step_shrink_value_of_two_thousand_three_hundred_four_mul_add_thirteen_thirteen
+    (k : Nat) :
+    (collatzStep^[12]) (2304 * k + 1313) = 729 * k + 416 := by
+  have ho0 : (2304 * k + 1313) % 2 = 1 := by omega
+  have hs1 : collatzStep (2304 * k + 1313) = 6912 * k + 3940 := by
+    rw [collatz_step_odd ho0]; ring
+  have he1 : (6912 * k + 3940) % 2 = 0 := by omega
+  have hs2 : collatzStep (6912 * k + 3940) = 3456 * k + 1970 := by
+    rw [collatz_step_even he1]; omega
+  have he2 : (3456 * k + 1970) % 2 = 0 := by omega
+  have hs3 : collatzStep (3456 * k + 1970) = 1728 * k + 985 := by
+    rw [collatz_step_even he2]; omega
+  have ho3 : (1728 * k + 985) % 2 = 1 := by omega
+  have hs4 : collatzStep (1728 * k + 985) = 5184 * k + 2956 := by
+    rw [collatz_step_odd ho3]; ring
+  have he4 : (5184 * k + 2956) % 2 = 0 := by omega
+  have hs5 : collatzStep (5184 * k + 2956) = 2592 * k + 1478 := by
+    rw [collatz_step_even he4]; omega
+  have he5 : (2592 * k + 1478) % 2 = 0 := by omega
+  have hs6 : collatzStep (2592 * k + 1478) = 1296 * k + 739 := by
+    rw [collatz_step_even he5]; omega
+  have ho6 : (1296 * k + 739) % 2 = 1 := by omega
+  have hs7 : collatzStep (1296 * k + 739) = 3888 * k + 2218 := by
+    rw [collatz_step_odd ho6]; ring
+  have he7 : (3888 * k + 2218) % 2 = 0 := by omega
+  have hs8 : collatzStep (3888 * k + 2218) = 1944 * k + 1109 := by
+    rw [collatz_step_even he7]; omega
+  have ho8 : (1944 * k + 1109) % 2 = 1 := by omega
+  have hs9 : collatzStep (1944 * k + 1109) = 5832 * k + 3328 := by
+    rw [collatz_step_odd ho8]; ring
+  have he9 : (5832 * k + 3328) % 2 = 0 := by omega
+  have hs10 : collatzStep (5832 * k + 3328) = 2916 * k + 1664 := by
+    rw [collatz_step_even he9]; omega
+  have he10 : (2916 * k + 1664) % 2 = 0 := by omega
+  have hs11 : collatzStep (2916 * k + 1664) = 1458 * k + 832 := by
+    rw [collatz_step_even he10]; omega
+  have he11 : (1458 * k + 832) % 2 = 0 := by omega
+  have hs12 : collatzStep (1458 * k + 832) = 729 * k + 416 := by
+    rw [collatz_step_even he11]; omega
+  calc
+    (collatzStep^[12]) (2304 * k + 1313)
+        = (collatzStep^[11]) (collatzStep (2304 * k + 1313)) := by
+            simp [Function.iterate_succ_apply']
+    _ = (collatzStep^[11]) (6912 * k + 3940) := by
+          simp [Function.iterate_succ_apply', hs1]
+    _ = (collatzStep^[10]) (3456 * k + 1970) := by
+          simp [Function.iterate_succ_apply', hs2]
+    _ = (collatzStep^[9]) (1728 * k + 985) := by
+          simp [Function.iterate_succ_apply', hs3]
+    _ = (collatzStep^[8]) (5184 * k + 2956) := by
+          simp [Function.iterate_succ_apply', hs4]
+    _ = (collatzStep^[7]) (2592 * k + 1478) := by
+          simp [Function.iterate_succ_apply', hs5]
+    _ = (collatzStep^[6]) (1296 * k + 739) := by
+          simp [Function.iterate_succ_apply', hs6]
+    _ = (collatzStep^[5]) (3888 * k + 2218) := by
+          simp [Function.iterate_succ_apply', hs7]
+    _ = (collatzStep^[4]) (1944 * k + 1109) := by
+          simp [Function.iterate_succ_apply', hs8]
+    _ = (collatzStep^[3]) (5832 * k + 3328) := by
+          simp [Function.iterate_succ_apply', hs9]
+    _ = (collatzStep^[2]) (2916 * k + 1664) := by
+          simp [Function.iterate_succ_apply', hs10]
+    _ = (collatzStep^[1]) (1458 * k + 832) := by
+          simp [Function.iterate_succ_apply', hs11]
+    _ = 729 * k + 416 := hs12
+
+/--
+`[A]` Channel `7` subclass `n ≡ 583 (mod 1024)`: net descent at `t_good = 4`, `t_loc = 12`.
+This is the maximal uniform 2-adic child of deep-tail `71 mod 256` with short affine
+shrink; the residual children of `71 mod 256` remain open.
+-/
+theorem channel_seven_net_descent_from_good_at_twelve_mod1024_five_eighty_three
+    {n : Nat} (hn : 1 < n) (_h7 : n % 8 = 7)
+    (hmod : ∃ k, n = 1024 * k + 583) :
+    ∃ k, n = 1024 * k + 583 ∧
+      (collatzStep^[12]) (2304 * k + 1313) < n := by
+  rcases hmod with ⟨k, hn⟩
+  refine ⟨k, hn, ?_⟩
+  have hshrink :
+      (collatzStep^[12]) (2304 * k + 1313) = 729 * k + 416 :=
+    channel_seven_twelve_step_shrink_value_of_two_thousand_three_hundred_four_mul_add_thirteen_thirteen k
+  rw [hshrink, hn]
+  rcases k with _ | k
+  · norm_num
+  · omega
+
 end CollatzNetDescentMod8
 end CollatzAttemptV2
 

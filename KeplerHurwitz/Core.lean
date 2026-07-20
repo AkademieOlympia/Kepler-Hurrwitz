@@ -25,6 +25,7 @@ import KeplerHurwitz.CollatzProofAttemptV212
 import KeplerHurwitz.CollatzProofAttemptV213
 import KeplerHurwitz.CollatzProofAttemptV215
 import KeplerHurwitz.CollatzProofAttemptV216
+import KeplerHurwitz.CollatzProofAttemptV217
 import KeplerHurwitz.Collatz.ChannelSevenDeepLiftV214
 import KeplerHurwitz.Collatz.ChannelSevenAffineMod128V215
 import KeplerHurwitz.Collatz.ChannelSevenDynamicsV215
@@ -33,6 +34,7 @@ import KeplerHurwitz.Collatz.ChannelSeven71Step6BranchingV215
 import KeplerHurwitz.Collatz.ChannelSeven71Step7BranchingV215
 import KeplerHurwitz.Collatz.ChannelSevenKernel
 import KeplerHurwitz.Collatz.ChannelSevenDeepLiftFormalBridgeV216
+import KeplerHurwitz.Collatz.ChannelSevenDeepLiftFormalBridgeV217
 import KeplerHurwitz.CollatzNetDescentMod8
 import KeplerHurwitz.CollatzChannelSeven
 import KeplerHurwitz.Collatz.H7StateGraph

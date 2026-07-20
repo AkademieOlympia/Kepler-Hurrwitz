@@ -456,6 +456,42 @@ theorem bad_run_net_descent_witness_mod8_channel_seven_mod256_thirty_nine
     input_mod8 := h7 }⟩
 
 /--
+`[A]` Channel `7` deep-tail refinement `n ≡ 583 (mod 1024)`
+(`m ≡ 2 (mod 4)` inside open `n ≡ 71 (mod 256)`):
+witness at `t_good = 4`, `t_loc = 12`.
+
+Governance: full `71 mod 256` has no uniform `t_loc` (affine branch at
+`729m + 206`); this closes only the maximal short-affine child.
+-/
+theorem bad_run_net_descent_witness_mod8_channel_seven_mod1024_five_eighty_three
+    {n : Nat}
+    (hn : 1 < n)
+    (h7 : n % 8 = 7)
+    (hmod : ∃ k, n = 1024 * k + 583) :
+    Nonempty (BadRunNetDescentWitnessMod8 n Mod4ThreeInputChannel.ch7) := by
+  rcases hmod with ⟨k, hn⟩
+  have hreach :
+      (collatzStep^[4]) n = 2304 * k + 1313 := by
+    rw [hn]
+    exact channel_seven_four_step_value_of_one_thousand_twenty_four_mul_add_five_eighty_three k
+  have hgood : (2304 * k + 1313) % 4 = 1 :=
+    channel_seven_four_step_good_mod4_one_of_one_thousand_twenty_four_mul_add_five_eighty_three k
+  have hnet : (collatzStep^[12]) (2304 * k + 1313) < n := by
+    have hshrink :
+        (collatzStep^[12]) (2304 * k + 1313) = 729 * k + 416 :=
+      channel_seven_twelve_step_shrink_value_of_two_thousand_three_hundred_four_mul_add_thirteen_thirteen k
+    rw [hshrink, hn]
+    rcases k with _ | k
+    · norm_num
+    · omega
+  exact ⟨{
+    toBadRunNetDescentWitness :=
+      BadRunNetDescentWitness.ofGoodBranchEntry
+        (BadRunGoodBranchEntryWitness.ofMod4Three 4 (2304 * k + 1313) hreach hgood)
+        12 hnet
+    input_mod8 := h7 }⟩
+
+/--
 `[C]` Channel `7` with `k % 4 ≠ 2`: uniform witness via depth-budget consumption.
 Requires `BadRunTwoAdicBudgetExhaustionStatement` or explicit `t_loc` bounds.
 -/
