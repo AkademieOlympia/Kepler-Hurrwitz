@@ -58,34 +58,40 @@ Damit wird Chiralitaet nicht nur heuristisch, sondern operatorarithmetisch messb
 
 ## 4. Kepler-Invarianten
 
-Zu jeder Zahl \(n\) gehoert neben \(\mathcal H(n)\) ein Invariantensystem:
+Zu jeder Zahl \(n\) gehoert neben \(\mathcal H(n)\) ein Invariantensystem.
+Die Kepler-Exzentrizitaet heisst hier \(e_{\mathrm{kep}}\) (auch \(\varepsilon\)), **nicht** \(e\):
+das Symbol \(e\) ist im EABC-Normalform-Stack fuer den Mod-12-E-Faktor
+\(n=2^\alpha 3^\beta r\,e\) reserviert (siehe [`eabc_normal_form.md`](eabc_normal_form.md) §7).
 
 \[
 \kappa(n)=
-(a(n),b(n),e(n),L(n),T(n),v_{\mathrm{peri}}(n),v_{\mathrm{apo}}(n),R_v(n)).
+(a(n),b(n),e_{\mathrm{kep}}(n),L(n),T(n),v_{\mathrm{peri}}(n),v_{\mathrm{apo}}(n),R_v(n)).
 \]
 
-Definitionen (normiert):
+Definitionen (normiert; \(e_{\mathrm{kep}}\) abgekuerzt als \(\varepsilon\)):
 
 \[
-b=a\sqrt{1-e^2},\quad
-L=\sqrt{a(1-e^2)},\quad
+b=a\sqrt{1-\varepsilon^2},\quad
+L=\sqrt{a(1-\varepsilon^2)},\quad
 T=a^{3/2},
 \]
 \[
-v_{\mathrm{peri}}=\sqrt{\frac{1+e}{a(1-e)}},\quad
-v_{\mathrm{apo}}=\sqrt{\frac{1-e}{a(1+e)}}.
+v_{\mathrm{peri}}=\sqrt{\frac{1+\varepsilon}{a(1-\varepsilon)}},\quad
+v_{\mathrm{apo}}=\sqrt{\frac{1-\varepsilon}{a(1+\varepsilon)}}.
 \]
 
 Schluesselrelation:
 
 \[
 \boxed{
-R_v(n)=\frac{1+e(n)}{1-e(n)}
+R_v(n)=\frac{1+e_{\mathrm{kep}}(n)}{1-e_{\mathrm{kep}}(n)}
 =
 \frac{v_{\mathrm{peri}}(n)}{v_{\mathrm{apo}}(n)}.
 }
 \]
+
+Kanonische Ableitung von \((a,e_{\mathrm{kep}},R_v)\) aus \(H(n)\): Lean `projectToKepler`
+(spread-basiert; siehe [`eabc_normal_form.md`](eabc_normal_form.md) §7.3).
 
 ## 5. Leit-Hypothese
 

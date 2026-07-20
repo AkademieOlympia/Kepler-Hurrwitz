@@ -22,11 +22,21 @@
   - **Dossier:** `docs/eabc_partition.md`
   - **Commit:** `acfea89` (2026-07-04)
 
-- Kanonische EABC-Signatur \(H(n)\) und Masse \(M(n)\) **[B]**
+- Kanonische EABC-Signatur \(H(n)\) und Masse \(M(n)\) **[B]** · Normalform-Stack **[A/B]** (`E-096`)
   - **[A] Formal:** `KeplerHurwitz/EABCLayer.lean` (`EABCSignature4`, `totalWeight`)
   - **[B] Referenz:** `src/kepler_hurwitz/signatures.py` (`signature_from_nat`, `eabc_mass`)
   - **Konvention:** `docs/eabc_mass_convention.md`
-  - **Tests:** `tests/test_signatures.py`
+  - **Normalform \(n=2^\alpha 3^\beta r\,e\):** `docs/eabc_normal_form.md` · Lean `KeplerHurwitz/EABC/NormalForm.lean` · `eabc_normal_form` in `signatures.py`
+  - **Kepler-Projektion / Schichten:** `docs/eabc_normal_form.md` §7 — Pipeline Normalform `[A]` → \(H(n)\) `[B]` → `(a,e_kep,R_v)` `[B]/[C]`; \(e\) = E-Faktor, \(e_{\mathrm{kep}}\) = Lean-spread-Exzentrizität (`projectToKepler`); Form vs. Frame (\(V_4\)/\(24I_3\)) entkoppelt
+  - **\(V_4\cong(\mathbb Z/12\mathbb Z)^\times\):** Lean `KeplerHurwitz/EABC/V4.lean` (`toV4`, `e_factor_v4_neutral`, `residual_carries_v4`) · Python `to_v4` / `normal_form_v4`
+  - **Semiprim-Feinklassen + Triade:** Lean `KeplerHurwitz/EABC/SemiprimGeometry.lean` (`SemiprimKind`, `channelCos`) · Python `classify_semiprim_residual`, `channel_cos`
+  - **Higher/XOR (\(\Omega(r)\ge 3\)):** Lean `KeplerHurwitz/EABC/HigherResidual.lean` (`v4XorFold`, `HigherReading`) · Python `classify_higher_residual` — **nicht** SemiprimKind
+  - **Quaternionen-Brücke / DualCarrier:** `docs/eabc_v4_quaternion_bridge.md` · Lean `KeplerHurwitz/EABC/QuaternionBridge.lean` · Python `quaternion_bridge.py` (`DualCarrier`, `gamma_of_nat`) — Hamilton/Norm/`gammaFromResidual` `[A]`; Ideal-\(\Phi\) `[C]` offen
+  - **Export:** `docs/exports/eabc_normal_form_gamma_1_100.csv`
+  - **Primzahl-Turm (Gauß / Eisenstein / Hurwitz / Oktonion / Riemannkugel):** `docs/eabc_prime_tower_bridge.md` · Lean `KeplerHurwitz/EABC/PrimeTower.lean` · `prime_tower_bridge.py`
+  - **Register:** `E-096` in `EVIDENCE_REGISTER.md`
+  - **Collatz-Audit-Grid (nicht Collatz-Beweis):** `docs/eabc_collatz_audit_grid.md` · Lean `CollatzAuditGrid.lean` · `eabc_collatz_audit.py` · Register `E-097`
+  - **Tests:** `tests/test_signatures.py`, `tests/test_eabc_normal_form.py`, `tests/test_semiprim_geometry.py`, `tests/test_higher_residual.py`, `tests/test_eabc_gamma_table.py`, `tests/test_eabc_collatz_audit.py`
   - **Reine Prim-EABC-Quaternionen (p-only, achsenausgerichtet):** `docs/energiedoku_exports/pure_prime_eabc_quaternions.csv`; idealtheoretische Einordnung → `docs/pure_prime_eabc_dedekind_interpretation.md`
   - **Reine Primzahlvierlinge (kanonische Primquadruplet):** `docs/energiedoku_exports/pure_prime_quadruples.csv`; idealtheoretische Einordnung → `docs/pure_prime_quadruple_dedekind_interpretation.md`
   - **Testkonzept Primzahlvierlinge:** `docs/prime_quadruple_test_concept.md`; Tests → `tests/test_prime_quadruple_eabc.py`, `tests/test_prime_quadruple_governance_docs.py`
