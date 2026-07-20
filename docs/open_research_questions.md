@@ -132,6 +132,20 @@ PYTHONPATH=src python examples/run_riemann_interference_export.py
 pytest tests/test_riemann_interference_diagnostics.py -q
 ```
 
+### ORQ-099: Anisotropic Binary Volume Contraction
+
+- **Kontext:** Gerichtete Skalenfamilie \((2^{-1},\ldots,2^{-n})\) mit Produkt \(\prod_k 2^{-k}=2^{-n(n+1)/2}\) (Dreiecksexponent); Anschauung anisotroper Quaderkontraktion; Anschluss an \(2^\alpha\)-Normalform (E-096) und anisotrope Defekte der Renormierung (E-053).
+- **Kernfrage:** Liefert \(2^{-S_n}\) / sequentielle Achsengewichte \(T_k\) eine trennscharfe Mehrskalen-Audit-Metrik auf EABC-/Hurwitz-Gittern gegenüber Nullmodellen — ohne Volumen-Identität mit Quaternionennormen?
+- **Status:** `[C]` — Formel Lean-`[A]` in `AnisotropicBinaryVolumeContraction.lean`; `[B]`-Upgrade über Kontraktions-Export + CEAB-/Shuffle-/Norm-Nullmodelle.
+- **Abhängigkeiten:** E-053 (komplementär zur Retraktion), E-096 (\(2^\alpha\)); motivisch ORQ-087/089 (Defekt-/Umlauf-Lesarten).
+- **Dossier:** [`theory/anisotropic_binary_volume_contraction.md`](theory/anisotropic_binary_volume_contraction.md) · Lean `KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean`
+
+**Prüfmodus:**
+
+```bash
+lake env lean KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean
+```
+
 ## Projekt „Die drei Musketiere“ (E-026)
 
 - Existiert in jedem Bremensaal ein Nachbar-Dreier der drei uebrigen EABC-Familien?
@@ -206,6 +220,7 @@ Vollstaendige Statements, Governance-Tabelle und Durchbruchspfad: [`open_mathema
 | 14 | ORQ-093 | Legendre-GWTC mass-gap vs. \(\chi_p\) | E-093 | `[C]` → `[B]`-Ziel |
 | 15 | ORQ-094 | Pauli phase invariance on EABC energy | E-094 | `[C]` → `[B]`-Ziel |
 | 16 | ORQ-095 | Riemann zero interference at bc-axis nodes | E-095 | `[C]` → `[B]`-Ziel |
+| 17 | ORQ-099 | Anisotropic binary volume contraction \(2^{-S_n}\) | E-099 | `[C]` → `[B]`-Ziel |
 
 **Shell-Separationsdiagnostik (E-077–E-079):** Mess-Schicht `[C]` — [`reports/shell_separation_diagnostics_protocol.md`](reports/shell_separation_diagnostics_protocol.md) · CSV via `scripts/shell_separation_diagnostics.py`
 

@@ -561,6 +561,8 @@ Die kanonische Formulierung im Repo verbindet Givental-Kepler-Lift und EABC-/Qua
 
 ## 14. Offene Probleme
 
+**Siehe auch (komplementär, `[C]`):** gerichtete binäre Volumenkontraktion \(\prod_k 2^{-k}=2^{-n(n+1)/2}\) als Mehrskalen-Audit-Lesart — [`../theory/anisotropic_binary_volume_contraction.md`](../theory/anisotropic_binary_volume_contraction.md) (ORQ-099 / E-099). Das ersetzt **nicht** die Retraktion \(R^*\mapsto 24I_3\). Didaktik-Audit (Messbecher vs. Lean-Kern): [`normalform_messbecher_lean_kern_abitur_2026_07_20.md`](normalform_messbecher_lean_kern_abitur_2026_07_20.md).
+
 Die wichtigsten offenen Probleme lassen sich in fünf Gruppen ordnen.
 
 ### 14.1 Metrische Vervollständigung

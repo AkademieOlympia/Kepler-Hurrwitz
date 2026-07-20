@@ -26,6 +26,7 @@ import KeplerHurwitz.CyclicWordOrbit
 import KeplerHurwitz.EABCLayer
 import KeplerHurwitz.EABCChannelPartition
 import KeplerHurwitz.EabcWeierstrassMultiscaleInterface
+import KeplerHurwitz.AnisotropicBinaryVolumeContraction
 import KeplerHurwitz.BlackHoleInterface
 import KeplerHurwitz.PhaseninvarianzInterface
 import KeplerHurwitz.PhaseninvarianzEnergy

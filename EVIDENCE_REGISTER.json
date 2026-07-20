@@ -1684,6 +1684,27 @@
       "stability": "experimental",
       "last_reviewed": "2026-07-07",
       "defensive_scope": "Not proof that zeta zeros cause EABC symmetry break; not physics identity; distinct from E-034/E-035 mean-cos metrics; Mangoldt-weighted explicit formula not claimed"
+    },
+    {
+      "id": "E-099",
+      "title": "Anisotropic binary volume contraction prod 2^{-k}=2^{-n(n+1)/2}; directed scale reading for EABC audit",
+      "level": "C",
+      "aclass": "A-T (prod/triangle), C (EABC reading)",
+      "source": "docs/theory/anisotropic_binary_volume_contraction.md, KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean",
+      "depends_on": [
+        "E-053",
+        "E-096"
+      ],
+      "supports": [
+        "docs/open_research_questions.md",
+        "ORQ-099"
+      ],
+      "scope": "Elementary identity prod_k 2^{-k}=2^{-S_n} [A]; anisotropic (L,H,W) reading as analogy to (i,j,k) / multiscale binary filter on EABC sectors [C]; complementary to isotropic retraction R*->24I_3, not a replacement; Lean A-T: triangleNumber, prod 2^{±k}=2^{±S_n}, n=3 witness 1/64",
+      "metric_or_result": "lake env lean KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean; [B] contraction export open",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-20",
+      "defensive_scope": "No quaternion volume identity; no (L,H,W)=(i,j,k) or channel identification; 5=1^2+2^2 does not fix EABC class; does not prove retraction or Dedekind Phi"
     }
   ]
 }

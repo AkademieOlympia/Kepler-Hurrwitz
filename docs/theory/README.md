@@ -183,6 +183,16 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ---
 
+### EABC-Normalform-Stack (E-096)
+
+**Dateien:** [`../eabc_normal_form.md`](../eabc_normal_form.md) · [`../eabc_mass_convention.md`](../eabc_mass_convention.md) · [`../eabc_v4_quaternion_bridge.md`](../eabc_v4_quaternion_bridge.md) · [`../eabc_prime_tower_bridge.md`](../eabc_prime_tower_bridge.md)  
+**Status:** `[A]` Lean-Kern (Zerlegung, \(V_4\), \(\gamma\), XOR); `[B]` Governance/Python/Triade  
+**Evidenz:** [`E-096`](../../EVIDENCE_REGISTER.md) · Master-Index: [`EABC_MASTER_INDEX.md`](../../EABC_MASTER_INDEX.md)  
+**Zweck:** Kanonische Sprache \(n=2^\alpha 3^\beta r\,e\); SemiprimKind; Higher via `v4XorFold`; DualCarrier bei E-Kollaps.  
+**Claim-Grenze:** Mod-8-`isE` ≠ Kanal-E; Triaden-\(\cos\) ≠ Hamilton-Orthogonalität; Ideal-\(\Phi\) `[C]` offen. Parallelsprachen (Dumas-Orbit, Prime Grid) bleiben getrennt.
+
+---
+
 ### Dumas Cone–Orbit Model (E-048 / Gedankenexperiment)
 
 **Datei:** [`dumas_cone_orbit_model.md`](dumas_cone_orbit_model.md)  
@@ -340,6 +350,18 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 | E-093 | [`black_hole_legendre_gwtc_bridge.md`](black_hole_legendre_gwtc_bridge.md) | Legendre-GWTC, ORQ-093 \(\kappa\)/\(\chi_p\) Fisher-Test `[C]` |
 | E-094 | [`phaseninvarianz_pauli_energy_bridge.md`](phaseninvarianz_pauli_energy_bridge.md) | Pauli Z/X-Invarianz auf \(E_a\), ORQ-094 `[C]` |
 | E-095 | [`riemann_zero_interference_analogy.md`](riemann_zero_interference_analogy.md) | \(\sum\cos(\gamma\ln x)\) an bc-Knoten, ORQ-095 `[C]` |
+| E-099 | [`anisotropic_binary_volume_contraction.md`](anisotropic_binary_volume_contraction.md) | \(\prod 2^{-k}=2^{-S_n}\), anisotrope Skalenlesart ORQ-099 `[C]` |
+
+---
+
+### Anisotrope binäre Volumenkontraktion (ORQ-099 / E-099)
+
+**Datei:** [`anisotropic_binary_volume_contraction.md`](anisotropic_binary_volume_contraction.md)  
+**Status:** `[C]` skalentheoretische Brücke — Formel `[A]`, EABC-Lesart `[C]`  
+**Lean:** `KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean`  
+**Zweck:** Gerichtete Skalenfamilie \((2^{-1},\ldots,2^{-n})\) und \(\prod_k 2^{-k}=2^{-n(n+1)/2}\) als Audit-Metrik für anisotrope Mehrskalen-Kontraktion; komplementär zur isotropen Retraktion \(R^*\mapsto 24I_3\).  
+**Claim-Grenze:** Keine Identifikation \((L,H,W)\leftrightarrow(i,j,k)\) oder \(\{E,A,B,C\}\); kein Quaternionen-Volumen-Beweis; kein Ersatz für E-053.  
+**Abitur-Metapher (Audit):** [`../energiedoku_exports/normalform_messbecher_lean_kern_abitur_2026_07_20.md`](../energiedoku_exports/normalform_messbecher_lean_kern_abitur_2026_07_20.md)
 
 ---
 
