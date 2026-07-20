@@ -358,6 +358,97 @@ theorem bad_run_net_descent_witness_of_mod4_three_channel_seven_formal_subclass
     (·.toBadRunNetDescentWitness)
 
 /--
+`[A]` Mechanical union of the three mod-256 channel-7 subclasses that carry an
+individually-proved, sorry-free `[A]` witness
+(`{39, 79, 95}` — exactly `channelSevenFormalResiduesMod256`).
+
+These close only one of the two mod-256 children of the corresponding mod-128
+class; siblings `{167, 207, 223}` remain open. No deep-tail class is claimed.
+-/
+theorem bad_run_net_descent_witness_mod256_channel_seven_partial_union
+    {n : Nat}
+    (hn : 1 < n)
+    (hres : n % 256 = 39 ∨ n % 256 = 79 ∨ n % 256 = 95) :
+    LocalWitnessStatementMod8 n := by
+  have h7 : n % 8 = 7 := by omega
+  rcases hres with h | h | h
+  · have hmod : ∃ m, n = 256 * m + 39 := by
+      have hdm := Nat.div_add_mod n 256
+      rw [h] at hdm
+      exact ⟨n / 256, hdm.symm⟩
+    exact channel_seven_formal_witness_mod256_thirty_nine hn h7 hmod
+  · have hmod : ∃ m, n = 256 * m + 79 := by
+      have hdm := Nat.div_add_mod n 256
+      rw [h] at hdm
+      exact ⟨n / 256, hdm.symm⟩
+    exact channel_seven_formal_witness_mod256_seventy_nine hn h7 hmod
+  · have hmod : ∃ m, n = 256 * m + 95 := by
+      have hdm := Nat.div_add_mod n 256
+      rw [h] at hdm
+      exact ⟨n / 256, hdm.symm⟩
+    exact channel_seven_formal_witness_mod256_ninety_five hn h7 hmod
+
+/--
+Density among the 32 channel-7 residues mod 256:
+12 residues from the six fully closed mod-128 classes, plus the three mod-256
+partial subclasses `{39, 79, 95}` — total `15/32`. Not a claim that 15 of 16
+mod-128 classes are closed.
+-/
+def channelSevenFormalExtendedCoverageFraction : ℚ := 15 / 32
+
+/--
+`[A]` Extended formal cover: six fully closed mod-128 classes
+`{7, 15, 23, 55, 87, 119}` or three mod-256 partial subclasses `{39, 79, 95}`.
+
+Still strictly less than all of channel 7: deep-tail
+`{31, 47, 63, 71, 103, 111}` and mod-256 siblings `{167, 207, 223}` stay open.
+-/
+theorem bad_run_net_descent_witness_channel_seven_formal_extended_union
+    {n : Nat}
+    (hn : 1 < n)
+    (hres :
+      n % 128 = 7 ∨ n % 128 = 15 ∨ n % 128 = 23 ∨
+        n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119 ∨
+          n % 256 = 39 ∨ n % 256 = 79 ∨ n % 256 = 95) :
+    LocalWitnessStatementMod8 n := by
+  rcases hres with h | h | h | h | h | h | h | h | h
+  · exact bad_run_net_descent_witness_mod128_channel_seven_formal_union hn
+      (Or.inl h)
+  · exact bad_run_net_descent_witness_mod128_channel_seven_formal_union hn
+      (Or.inr (Or.inl h))
+  · exact bad_run_net_descent_witness_mod128_channel_seven_formal_union hn
+      (Or.inr (Or.inr (Or.inl h)))
+  · exact bad_run_net_descent_witness_mod128_channel_seven_formal_union hn
+      (Or.inr (Or.inr (Or.inr (Or.inl h))))
+  · exact bad_run_net_descent_witness_mod128_channel_seven_formal_union hn
+      (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl h)))))
+  · exact bad_run_net_descent_witness_mod128_channel_seven_formal_union hn
+      (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr h)))))
+  · exact bad_run_net_descent_witness_mod256_channel_seven_partial_union hn
+      (Or.inl h)
+  · exact bad_run_net_descent_witness_mod256_channel_seven_partial_union hn
+      (Or.inr (Or.inl h))
+  · exact bad_run_net_descent_witness_mod256_channel_seven_partial_union hn
+      (Or.inr (Or.inr h))
+
+/--
+`[A]` Extended formal cover, lifted to plain `BadRunNetDescentWitness`.
+Domain: `n % 4 = 3` and either a fully closed mod-128 class or a mod-256
+partial subclass from `channelSevenFormalResiduesMod256`.
+-/
+theorem bad_run_net_descent_witness_of_mod4_three_channel_seven_formal_extended_subclass
+    {n : Nat}
+    (hn : 1 < n)
+    (_hmod4 : n % 4 = 3)
+    (hres :
+      n % 128 = 7 ∨ n % 128 = 15 ∨ n % 128 = 23 ∨
+        n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119 ∨
+          n % 256 = 39 ∨ n % 256 = 79 ∨ n % 256 = 95) :
+    Nonempty (BadRunNetDescentWitness n) :=
+  (bad_run_net_descent_witness_channel_seven_formal_extended_union hn hres).map
+    (·.toBadRunNetDescentWitness)
+
+/--
 `[C]` Uniform channel-7 witness — same open core as
 `bad_run_net_descent_witness_mod8_channel_seven_v28` (`sorry` off the formal ladder).
 -/
@@ -395,6 +486,23 @@ structure ChannelSevenClassificationStatus : Prop where
     channelSevenMod128PartialFormalResidues = [39, 79, 95]
   formal_coverage_fraction :
     channelSevenFormalCoverageFraction = 6 / 16
+  formal_extended_coverage_fraction :
+    channelSevenFormalExtendedCoverageFraction = 15 / 32
+  mod128_formal_union :
+    ∀ {n : Nat}, 1 < n →
+      (n % 128 = 7 ∨ n % 128 = 15 ∨ n % 128 = 23 ∨
+        n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119) →
+      LocalWitnessStatementMod8 n
+  mod256_partial_union :
+    ∀ {n : Nat}, 1 < n →
+      (n % 256 = 39 ∨ n % 256 = 79 ∨ n % 256 = 95) →
+      LocalWitnessStatementMod8 n
+  formal_extended_union :
+    ∀ {n : Nat}, 1 < n →
+      (n % 128 = 7 ∨ n % 128 = 15 ∨ n % 128 = 23 ∨
+        n % 128 = 55 ∨ n % 128 = 87 ∨ n % 128 = 119 ∨
+          n % 256 = 39 ∨ n % 256 = 79 ∨ n % 256 = 95) →
+      LocalWitnessStatementMod8 n
   k_mod4_two_local_witness :
     ∀ {n : Nat}, 1 < n → n % 8 = 7 → (∃ j, n = 32 * j + 23) →
       LocalWitnessStatementMod8 n
@@ -436,6 +544,13 @@ theorem channel_seven_classification_status :
   formal_mod256_residues := rfl
   mod128_partial_formal_residues := rfl
   formal_coverage_fraction := rfl
+  formal_extended_coverage_fraction := rfl
+  mod128_formal_union := fun hn hres =>
+    bad_run_net_descent_witness_mod128_channel_seven_formal_union hn hres
+  mod256_partial_union := fun hn hres =>
+    bad_run_net_descent_witness_mod256_channel_seven_partial_union hn hres
+  formal_extended_union := fun hn hres =>
+    bad_run_net_descent_witness_channel_seven_formal_extended_union hn hres
   k_mod4_two_local_witness := fun hn h7 hk2 =>
     channel_seven_formal_witness_mod128_residue hn h7 hk2
   mod128_seven_local_witness := fun hn h7 hmod =>
