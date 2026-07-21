@@ -1,0 +1,701 @@
+{
+  "schema": "semiprime_surgery_71_mod256_probe/v1",
+  "governance": {
+    "tag": "[C]",
+    "status": "exploratory_scaffold",
+    "collatz": false,
+    "closes_deep_tail": false,
+    "closes_absorption_arrow": false,
+    "pr8_disclaimer": "Semiprime24Bridge / Tensorchirurgie / Typentrennung E_\u0394\u2260E_vol are NOT content of PR #8 (energiedoku exports).",
+    "stein1_stein2": "open",
+    "universal_cover": "not_proved"
+  },
+  "target": {
+    "residue_mod256": 71,
+    "deep_tail_mod128": [
+      31,
+      47,
+      63,
+      71,
+      103,
+      111
+    ],
+    "controlled_mod128": [
+      39,
+      79,
+      95,
+      103
+    ],
+    "mod1024_children": [
+      71,
+      327,
+      583,
+      839
+    ],
+    "formal_child_mod1024": 583
+  },
+  "computed_from_existing": {
+    "h7_witness_matrix": [
+      {
+        "j": 1,
+        "c_j": 169,
+        "residues": {
+          "39": {
+            "t_param": 10,
+            "c_j": 169,
+            "fiber_mod128": 39
+          },
+          "79": {
+            "t_param": 66,
+            "c_j": 169,
+            "fiber_mod128": 79
+          },
+          "95": {
+            "t_param": 114,
+            "c_j": 169,
+            "fiber_mod128": 95
+          },
+          "103": {
+            "t_param": 74,
+            "c_j": 169,
+            "fiber_mod128": 103
+          }
+        }
+      },
+      {
+        "j": 2,
+        "c_j": 206,
+        "residues": {
+          "39": {
+            "t_param": 3,
+            "c_j": 206,
+            "fiber_mod128": 39
+          },
+          "79": {
+            "t_param": 59,
+            "c_j": 206,
+            "fiber_mod128": 79
+          },
+          "95": {
+            "t_param": 107,
+            "c_j": 206,
+            "fiber_mod128": 95
+          },
+          "103": {
+            "t_param": 67,
+            "c_j": 206,
+            "fiber_mod128": 103
+          }
+        }
+      },
+      {
+        "j": 3,
+        "c_j": 103,
+        "residues": {
+          "39": {
+            "t_param": 64,
+            "c_j": 103,
+            "fiber_mod128": 39
+          },
+          "79": {
+            "t_param": 120,
+            "c_j": 103,
+            "fiber_mod128": 79
+          },
+          "95": {
+            "t_param": 40,
+            "c_j": 103,
+            "fiber_mod128": 95
+          },
+          "103": {
+            "t_param": 0,
+            "c_j": 103,
+            "fiber_mod128": 103
+          }
+        }
+      },
+      {
+        "j": 4,
+        "c_j": 173,
+        "residues": {
+          "39": {
+            "t_param": 30,
+            "c_j": 173,
+            "fiber_mod128": 39
+          },
+          "79": {
+            "t_param": 86,
+            "c_j": 173,
+            "fiber_mod128": 79
+          },
+          "95": {
+            "t_param": 6,
+            "c_j": 173,
+            "fiber_mod128": 95
+          },
+          "103": {
+            "t_param": 94,
+            "c_j": 173,
+            "fiber_mod128": 103
+          }
+        }
+      },
+      {
+        "j": 5,
+        "c_j": 208,
+        "residues": {
+          "39": {
+            "t_param": 13,
+            "c_j": 208,
+            "fiber_mod128": 39
+          },
+          "79": {
+            "t_param": 69,
+            "c_j": 208,
+            "fiber_mod128": 79
+          },
+          "95": {
+            "t_param": 117,
+            "c_j": 208,
+            "fiber_mod128": 95
+          },
+          "103": {
+            "t_param": 77,
+            "c_j": 208,
+            "fiber_mod128": 103
+          }
+        }
+      }
+    ],
+    "affine_landings_mod256": [
+      {
+        "j": 1,
+        "c_j": 169,
+        "target_mod256": 71,
+        "t_mod256": 106,
+        "fiber": 25927,
+        "fiber_mod256": 71,
+        "lands": true,
+        "inverse_243_mod256": 59
+      },
+      {
+        "j": 2,
+        "c_j": 206,
+        "target_mod256": 71,
+        "t_mod256": 227,
+        "fiber": 55367,
+        "fiber_mod256": 71,
+        "lands": true,
+        "inverse_243_mod256": 59
+      },
+      {
+        "j": 3,
+        "c_j": 103,
+        "target_mod256": 71,
+        "t_mod256": 160,
+        "fiber": 38983,
+        "fiber_mod256": 71,
+        "lands": true,
+        "inverse_243_mod256": 59
+      },
+      {
+        "j": 4,
+        "c_j": 173,
+        "target_mod256": 71,
+        "t_mod256": 126,
+        "fiber": 30791,
+        "fiber_mod256": 71,
+        "lands": true,
+        "inverse_243_mod256": 59
+      },
+      {
+        "j": 5,
+        "c_j": 208,
+        "target_mod256": 71,
+        "t_mod256": 109,
+        "fiber": 26695,
+        "fiber_mod256": 71,
+        "lands": true,
+        "inverse_243_mod256": 59
+      }
+    ],
+    "lean_aligned_checks": {
+      "j3_c_j": 103,
+      "j3_t_160_fiber_mod256": 71,
+      "j3_t_672_fiber_mod1024": 583,
+      "expected_71": 71,
+      "expected_583": 583,
+      "ok": true
+    },
+    "orbit_gallery_k0": [
+      {
+        "start": 71,
+        "child_mod1024": 71,
+        "is_formal_child": false,
+        "orbit": [
+          71,
+          107,
+          161,
+          121,
+          91
+        ],
+        "orbit_mod256": [
+          71,
+          107,
+          161,
+          121,
+          91
+        ],
+        "orbit_mod1024": [
+          71,
+          107,
+          161,
+          121,
+          91
+        ],
+        "landings": [
+          "other",
+          "other",
+          "other",
+          "other"
+        ],
+        "odd_cores": [
+          71,
+          107,
+          161,
+          121,
+          91
+        ]
+      },
+      {
+        "start": 327,
+        "child_mod1024": 327,
+        "is_formal_child": false,
+        "orbit": [
+          327,
+          491,
+          737,
+          553,
+          415
+        ],
+        "orbit_mod256": [
+          71,
+          235,
+          225,
+          41,
+          159
+        ],
+        "orbit_mod1024": [
+          327,
+          491,
+          737,
+          553,
+          415
+        ],
+        "landings": [
+          "other",
+          "other",
+          "other",
+          "deep_tail_mod128"
+        ],
+        "odd_cores": [
+          327,
+          491,
+          737,
+          553,
+          415
+        ]
+      },
+      {
+        "start": 583,
+        "child_mod1024": 583,
+        "is_formal_child": true,
+        "orbit": [
+          583,
+          875,
+          1313,
+          985,
+          739
+        ],
+        "orbit_mod256": [
+          71,
+          107,
+          33,
+          217,
+          227
+        ],
+        "orbit_mod1024": [
+          583,
+          875,
+          289,
+          985,
+          739
+        ],
+        "landings": [
+          "other",
+          "other",
+          "other",
+          "other"
+        ],
+        "odd_cores": [
+          583,
+          875,
+          1313,
+          985,
+          739
+        ]
+      },
+      {
+        "start": 839,
+        "child_mod1024": 839,
+        "is_formal_child": false,
+        "orbit": [
+          839,
+          1259,
+          1889,
+          1417,
+          1063
+        ],
+        "orbit_mod256": [
+          71,
+          235,
+          97,
+          137,
+          39
+        ],
+        "orbit_mod1024": [
+          839,
+          235,
+          865,
+          393,
+          39
+        ],
+        "landings": [
+          "other",
+          "other",
+          "other",
+          "partial_formal_mod256"
+        ],
+        "odd_cores": [
+          839,
+          1259,
+          1889,
+          1417,
+          1063
+        ]
+      }
+    ]
+  },
+  "provisional_surgery_matrix_C": {
+    "definition_tag": "[C]",
+    "definition": "Provisional transfer counts on mod-1024 children of 71 mod 256 under odd Syracuse; cut = wrap OR non-formal deep-tail stay. Not a universal-cover surgery; not a Lean theorem.",
+    "states_mod1024": [
+      71,
+      327,
+      583,
+      839
+    ],
+    "column_labels": [
+      "child_327",
+      "child_583",
+      "child_71",
+      "child_839",
+      "controlled_mod128",
+      "deep_tail_mod128",
+      "formal_mod1024_583",
+      "other",
+      "partial_formal_mod256",
+      "stay_71_mod256"
+    ],
+    "dense_matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0
+      ]
+    ],
+    "sparse_counts": {
+      "child_71": {
+        "child_327": 0,
+        "child_583": 0,
+        "child_71": 0,
+        "child_839": 0,
+        "controlled_mod128": 0,
+        "deep_tail_mod128": 0,
+        "formal_mod1024_583": 0,
+        "other": 8,
+        "partial_formal_mod256": 0,
+        "stay_71_mod256": 0
+      },
+      "child_327": {
+        "child_327": 0,
+        "child_583": 0,
+        "child_71": 0,
+        "child_839": 0,
+        "controlled_mod128": 0,
+        "deep_tail_mod128": 0,
+        "formal_mod1024_583": 0,
+        "other": 8,
+        "partial_formal_mod256": 0,
+        "stay_71_mod256": 0
+      },
+      "child_583": {
+        "child_327": 0,
+        "child_583": 0,
+        "child_71": 0,
+        "child_839": 0,
+        "controlled_mod128": 0,
+        "deep_tail_mod128": 0,
+        "formal_mod1024_583": 0,
+        "other": 8,
+        "partial_formal_mod256": 0,
+        "stay_71_mod256": 0
+      },
+      "child_839": {
+        "child_327": 0,
+        "child_583": 0,
+        "child_71": 0,
+        "child_839": 0,
+        "controlled_mod128": 0,
+        "deep_tail_mod128": 0,
+        "formal_mod1024_583": 0,
+        "other": 8,
+        "partial_formal_mod256": 0,
+        "stay_71_mod256": 0
+      }
+    },
+    "samples_per_child": 8,
+    "depth": 1,
+    "cut_edge_count": 29,
+    "cut_edges_sample": [
+      {
+        "source_child": 71,
+        "landing": "other",
+        "start": 1095,
+        "image": 1643
+      },
+      {
+        "source_child": 71,
+        "landing": "other",
+        "start": 2119,
+        "image": 3179
+      },
+      {
+        "source_child": 71,
+        "landing": "other",
+        "start": 3143,
+        "image": 4715
+      },
+      {
+        "source_child": 71,
+        "landing": "other",
+        "start": 4167,
+        "image": 6251
+      },
+      {
+        "source_child": 71,
+        "landing": "other",
+        "start": 5191,
+        "image": 7787
+      },
+      {
+        "source_child": 71,
+        "landing": "other",
+        "start": 6215,
+        "image": 9323
+      },
+      {
+        "source_child": 71,
+        "landing": "other",
+        "start": 7239,
+        "image": 10859
+      },
+      {
+        "source_child": 327,
+        "landing": "other",
+        "start": 1351,
+        "image": 2027
+      },
+      {
+        "source_child": 327,
+        "landing": "other",
+        "start": 2375,
+        "image": 3563
+      },
+      {
+        "source_child": 327,
+        "landing": "other",
+        "start": 3399,
+        "image": 5099
+      },
+      {
+        "source_child": 327,
+        "landing": "other",
+        "start": 4423,
+        "image": 6635
+      },
+      {
+        "source_child": 327,
+        "landing": "other",
+        "start": 5447,
+        "image": 8171
+      },
+      {
+        "source_child": 327,
+        "landing": "other",
+        "start": 6471,
+        "image": 9707
+      },
+      {
+        "source_child": 327,
+        "landing": "other",
+        "start": 7495,
+        "image": 11243
+      },
+      {
+        "source_child": 583,
+        "landing": "other",
+        "start": 1607,
+        "image": 2411
+      },
+      {
+        "source_child": 583,
+        "landing": "other",
+        "start": 2631,
+        "image": 3947
+      },
+      {
+        "source_child": 583,
+        "landing": "other",
+        "start": 3655,
+        "image": 5483
+      },
+      {
+        "source_child": 583,
+        "landing": "other",
+        "start": 4679,
+        "image": 7019
+      },
+      {
+        "source_child": 583,
+        "landing": "other",
+        "start": 5703,
+        "image": 8555
+      },
+      {
+        "source_child": 583,
+        "landing": "other",
+        "start": 6727,
+        "image": 10091
+      },
+      {
+        "source_child": 583,
+        "landing": "other",
+        "start": 7751,
+        "image": 11627
+      },
+      {
+        "source_child": 839,
+        "landing": "other",
+        "start": 839,
+        "image": 1259
+      },
+      {
+        "source_child": 839,
+        "landing": "other",
+        "start": 1863,
+        "image": 2795
+      },
+      {
+        "source_child": 839,
+        "landing": "other",
+        "start": 2887,
+        "image": 4331
+      },
+      {
+        "source_child": 839,
+        "landing": "other",
+        "start": 3911,
+        "image": 5867
+      },
+      {
+        "source_child": 839,
+        "landing": "other",
+        "start": 4935,
+        "image": 7403
+      },
+      {
+        "source_child": 839,
+        "landing": "other",
+        "start": 5959,
+        "image": 8939
+      },
+      {
+        "source_child": 839,
+        "landing": "other",
+        "start": 6983,
+        "image": 10475
+      },
+      {
+        "source_child": 839,
+        "landing": "other",
+        "start": 8007,
+        "image": 12011
+      }
+    ],
+    "formal_child": 583,
+    "not_claimed": [
+      "universal cover / desingularization",
+      "DeepLiftFiber dynamic entry for full 71 mod 256",
+      "BoolTrace(P)=0 \u21d2 archimedean descent",
+      "Collatz termination"
+    ]
+  },
+  "open_reductions": {
+    "stein1_deep_tail_entry": "DeepLiftFiber dynamic entry / full class 71 mod 256 still open; only child 583 mod 1024 has formal LocalWitness (V2.17).",
+    "stein2_absorption_arrow": "BoolTrace(P)=0 \u21d2 archimedean descent remains open [C]; this probe does not construct that implication."
+  }
+}
