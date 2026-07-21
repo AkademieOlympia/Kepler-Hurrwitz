@@ -29,6 +29,9 @@ not_claimed:
 **Verdict zur Entwurfs-Behauptung „In der Normalform schrumpft das Phasenvolumen nach \(n\) Schritten um \(2^{-n(n+1)/2}\)“:** **NEIN** (als Gesamtpaket).  
 **Verdict zur reinen Formel \(\prod_{k=1}^{n}2^{-k}=2^{-n(n+1)/2}\):** **JA** — Lean `[A]`, für jedes \(n\).
 
+> **Re-verifiziert, weiterhin zutreffend Stand 21. Juli 2026.**  
+> Geprüft: `KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean` bytegleich zu Commit `7e91ec0` (kein Diff); `KeplerHurwitz/EABC/NormalForm.lean` enthält weiterhin keine Volumen-/Schrumpfungstheoreme (nur Zahlzerlegungs-API \(n=2^\alpha 3^\beta r\,e\)); EABC-Lesemarker bleiben `Prop := True` `[C]`. Keine neue Brücke Normalform → Phasenvolumenfaktor. Collatz nicht bewiesen.
+
 ---
 
 ## 1. Was jemand behaupten wollte

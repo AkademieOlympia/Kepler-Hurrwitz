@@ -29,6 +29,9 @@ not_claimed:
 **Lean:** `KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean` — `triangleNumber`, \(\prod 2^{\pm k}=2^{\pm S_n}\) (`[A]`); EABC-Lesemarker als `Prop := True` (`[C]`)  
 **Didaktik (Abitur-Audit):** [`../energiedoku_exports/normalform_messbecher_lean_kern_abitur_2026_07_20.md`](../energiedoku_exports/normalform_messbecher_lean_kern_abitur_2026_07_20.md) — Messbecher mappt auf den Formel-Kern `[A]`; „Normalform-Phasenvolumen“ ist Phantom-Kopplung (nicht Lean).
 
+> **Re-verifiziert, weiterhin zutreffend Stand 21. Juli 2026.**  
+> Lean-Kern E-099 unverändert seit `7e91ec0`; keine Normalform→Volumen-Brücke in Lean; Claim-Wall unverändert. Collatz nicht bewiesen.
+
 ---
 
 ## Kernfrage
