@@ -2,6 +2,7 @@ import Mathlib
 import KeplerHurwitz.CollatzNormShell
 import KeplerHurwitz.CollatzProofAttemptV27
 import KeplerHurwitz.Collatz.SemiprimeDesingularization
+import KeplerHurwitz.Collatz.CollatzChirurgeryBridge
 
 /-!
 # Pure-E Semiprime cover vs Collatz — claim boundary
@@ -33,17 +34,22 @@ None of them currently implies `OddCoreCollatzConjecture` **unconditionally**.
 
 ```
 Semiprime surgery / EABC phase (constructive interface only)
-    --[open hyp: BoolTraceZeroImpliesLocalShrink]--> BadRunNetDescentWitness
+    --[open hyp: BoolTraceZeroImpliesLocalShrink / AbsorbingTraceCertificate]-->
+       BadRunNetDescentWitness / OddCoreNetDescentWitness
     --[A, V2.7]--> ∃ t, collatzStep^[t] n < n   (= OpenCase, for n ≡ 3 mod 4)
-    --[A, WF glue below]--> OddCoreCollatzConjecture   (IF uniform net descent)
+    --[A, abstract descent_implies_reaches_one / WF glue]--> OddCoreCollatz
+         (IF uniform net descent; even via collatzStep/oddPart strip, NEVER via oddCoreSyracuse)
 ```
 
-Gap 2 (local descent → reach-`1`) is **closed** conditionally:
-`BadRunNetDescentStatement → OddCoreCollatzConjecture` via `Nat.strong_induction_on`
-plus already-proved even / `mod 4 = 1` local shrinks.
+Architectural core lives in
+`KeplerHurwitz.Collatz.CollatzChirurgeryBridge`
+(OddCoreDynamics / FuelSearch / AbstractDescentTermination / EabcBridgeBoundary).
 
-Gap 1 (algebra / BoolTrace → witness) remains **open**; only a constructive
-interface is provided. Circularity of “pure E cover ⇔ net descent” is unchanged.
+**Even-branch bug fixed:** `oddCoreSyracuse` is odd-domain only; Gap-2 even
+case uses `collatz_even_step_lt` / 2-adic oddPart strip, not `T(even)<even`.
+
+Gap 2 (local descent → reach-`1`) is **closed** conditionally.
+Gap 1 (algebra / BoolTrace → witness) remains **open** `[C]`.
 -/
 
 namespace KeplerHurwitz.Collatz.PureESemiprimeCoverClaimBoundary
@@ -53,6 +59,7 @@ open KeplerHurwitz.CollatzAttemptV2
 open KeplerHurwitz.CollatzAttemptV2.CollatzNetDescent
 open KeplerHurwitz.CollatzAttemptV2.ProofAttempt
 open KeplerHurwitz.Collatz.SemiprimeDesingularization
+open KeplerHurwitz.Collatz.CollatzChirurgeryBridge
 
 /-! ## Three E-vocabularies (markers, not bridges) -/
 
@@ -123,54 +130,53 @@ theorem open_case_of_pure_E_semiprime_cover
 
 /-! ## Gap 2 — WF glue: local descent → OddCore / classical Collatz
 
-Standard well-founded induction on `(ℕ, <)`. **No Collatz content:** the hard
-arithmetic remains the open uniform witness hypothesis
-`BadRunNetDescentStatement`. Even / `mod 4 = 1` local shrinks are already `[A]`.
+Uses `collatzStep` (not `oddCoreSyracuse`) on the full `ℕ` domain:
+* **even:** `collatz_even_step_lt` (halving) — never `oddCoreSyracuse`
+* **odd ≡ 1 (mod 4):** `good_branch_collatz_local_shrink` `[A]`
+* **odd ≡ 3 (mod 4):** open `BadRunNetDescentStatement`
+
+Abstract kernel: `CollatzChirurgeryBridge.descent_implies_reaches_one` style
+strong induction + iterate composition (here specialized because
+`collatzStep 1 ≠ 1`; base case is zero iterates).
 -/
 
 /-- Strict one-step positivity of `collatzStep` on positive inputs. -/
-theorem collatzStep_pos {n : Nat} (hn : 0 < n) : 0 < collatzStep n := by
-  unfold collatzStep
-  split_ifs with he
-  · have h2le : 2 ≤ n := by omega
-    exact Nat.div_pos h2le (by decide : 0 < 2)
-  · omega
+theorem collatzStep_pos {n : Nat} (hn : 0 < n) : 0 < collatzStep n :=
+  CollatzChirurgeryBridge.collatzStep_pos hn
 
 /-- Iterates of `collatzStep` stay positive. -/
 theorem collatzStep_iterate_pos {n t : Nat} (hn : 0 < n) :
-    0 < (collatzStep^[t]) n := by
-  induction t with
-  | zero =>
-      simpa using hn
-  | succ t ih =>
-      rw [Function.iterate_succ_apply']
-      exact collatzStep_pos ih
+    0 < collatzStep^[t] n :=
+  iterate_pos_of_pos collatzStep (fun _ => collatzStep_pos) hn
 
 /--
 `[A]` Local strict descent for **all** `n > 1`, assuming the open `mod 4 = 3`
-net-descent cover. Glues:
-* even: `collatz_even_step_lt`
-* odd `≡ 1 (mod 4)`: `good_branch_collatz_local_shrink`
-* odd `≡ 3 (mod 4)`: `BadRunNetDescentStatement`
+net-descent cover. Even branch is **halving**, not accelerated Syracuse.
 -/
 theorem exists_strict_collatz_descent_of_net_descent
     (h : BadRunNetDescentStatement) {n : Nat} (hn : 1 < n) :
-    ∃ t, (collatzStep^[t]) n < n := by
+    ∃ t, 0 < t ∧ (collatzStep^[t]) n < n := by
   by_cases he : n % 2 = 0
-  · exact ⟨1, by
-      simpa using collatz_even_step_lt (by omega : 0 < n) he⟩
+  · refine ⟨1, by decide, ?_⟩
+    simpa using collatz_even_step_lt (by omega : 0 < n) he
   · have hmod : n % 4 = 1 ∨ n % 4 = 3 := by omega
     rcases hmod with h1 | h3
-    · exact ⟨goodBranchCollatzShrinkSteps,
-        good_branch_collatz_local_shrink_at_canonical_steps hn h1⟩
+    · refine ⟨goodBranchCollatzShrinkSteps, by decide, ?_⟩
+      exact good_branch_collatz_local_shrink_at_canonical_steps hn h1
     · rcases h hn h3 with ⟨w⟩
-      exact mod4_three_descends_from_net_descent_witness h3 w
+      rcases mod4_three_descends_from_net_descent_witness h3 w with ⟨t, ht⟩
+      have htpos : 0 < t := by
+        by_contra h0
+        have : t = 0 := by omega
+        subst t
+        simp at ht
+      exact ⟨t, htpos, ht⟩
 
 /--
-`[A]` Uniform local-descent packaging of the previous lemma.
+`[A]` Uniform local-descent packaging (positive shrink time).
 -/
 def LocalStrictCollatzDescentStatement : Prop :=
-  ∀ {n : Nat}, 1 < n → ∃ t, (collatzStep^[t]) n < n
+  ∀ {n : Nat}, 1 < n → ∃ t, 0 < t ∧ (collatzStep^[t]) n < n
 
 theorem local_strict_descent_of_net_descent
     (h : BadRunNetDescentStatement) :
@@ -178,8 +184,10 @@ theorem local_strict_descent_of_net_descent
   fun {_n} hn => exists_strict_collatz_descent_of_net_descent h hn
 
 /--
-`[A]` Gap-2 core: local strict descent on all `n > 1` ⇒ classical Collatz,
-via `Nat.strong_induction_on` (well-founded `<` on `ℕ`).
+`[A]` Gap-2 core via strong induction + iterate composition.
+
+Even states are **not** fed to `oddCoreSyracuse`. For the odd-core Syracuse
+route see `oddCoreCollatz_of_OddNetDescent` in `CollatzChirurgeryBridge`.
 -/
 theorem classicalCollatz_of_local_strict_descent
     (hdesc : LocalStrictCollatzDescentStatement) :
@@ -193,11 +201,18 @@ theorem classicalCollatz_of_local_strict_descent
       by_cases h1 : m = 1
       · exact ⟨0, by simp [h1]⟩
       · have hm_gt : 1 < m := by omega
-        rcases hdesc hm_gt with ⟨t, ht⟩
-        have hmt : 0 < (collatzStep^[t]) m := collatzStep_iterate_pos hm
-        rcases ih ((collatzStep^[t]) m) ht hmt with ⟨k, hk⟩
+        rcases hdesc hm_gt with ⟨t, _htpos, ht⟩
+        have hmt : 0 < collatzStep^[t] m := collatzStep_iterate_pos hm
+        rcases ih (collatzStep^[t] m) ht hmt with ⟨k, hk⟩
         refine ⟨k + t, ?_⟩
-        rw [Function.iterate_add_apply, hk]
+        -- align with ClassicalCollatzConjecture's `Nat.iterate`
+        have hcomp :
+            Nat.iterate collatzStep (k + t) m =
+              Nat.iterate collatzStep k (Nat.iterate collatzStep t m) := by
+          simpa [Nat.iterate] using
+            (Function.iterate_add_apply collatzStep k t m)
+        rw [hcomp]
+        simpa [Nat.iterate] using hk
   exact hreach n hn
 
 /--
@@ -210,10 +225,11 @@ theorem oddCoreCollatz_of_local_strict_descent
     (classicalCollatz_of_local_strict_descent hdesc)
 
 /--
-`[A]` **Proved** WF bridge (replaces the former opaque `Hterm` hypothesis):
+`[A]` **Proved** WF bridge:
 
 `BadRunNetDescentStatement → OddCoreCollatzConjecture`.
 
+Even case: `collatzStep` halving / oddPart strip. Odd ≡ 3: open cover.
 Does **not** prove the antecedent. Collatz remains open.
 -/
 theorem net_descent_cover_implies_oddCoreCollatz
@@ -263,12 +279,14 @@ theorem mere_reine_E_shape_implies_witness_iff_net_descent :
   · intro H n hn hmod _
     exact H hn hmod
 
-/-! ## Gap 1 — constructive eabc→witness **interface** (no fake cover)
+/-! ## Gap 1 — constructive interface (no fake cover)
 
-EABC NormalForm is **not** imported on this worktree. We therefore take an
-explicit phase-depth / `t_loc` certificate instead of pretending EABC supplies
-one. The arithmetic arrow
-`BoolTrace = 0 → local net shrink` remains a **named open hypothesis**.
+EABC NormalForm is **not** imported on this worktree. The arithmetic arrow
+`BoolTrace = 0 → local net shrink` remains a **named open hypothesis**
+(`AbsorbingTraceCertificate` / `BoolTraceZeroImpliesLocalShrink`).
+
+Packing of an *already given* descent into a witness is `[A]` and lives in
+`CollatzChirurgeryBridge.descent_exists_to_witness` — it is **not** an EABC bridge.
 -/
 
 /--
@@ -287,13 +305,17 @@ def t_loc_of_phase_depth (phase_depth : Nat) : Nat :=
 `[C]` **Open** arithmetic hypothesis (Gap 1): BoolTrace-zero / absorption at the
 given phase depth implies archimedean net shrink after `t_loc_of_phase_depth`.
 
-Not proved. Not the same as Stein2’s residue-restricted packaging, but the same
-epistemic slot: finite boolean diagnosis ↛ `ℕ` descent without this arrow.
+Not proved. Same epistemic slot as
+`CollatzChirurgeryBridge.AbsorbingTraceCertificate` /
+`CollatzChirurgeryBridge.BoolTraceZeroImpliesLocalShrink`.
 -/
 def BoolTraceZeroImpliesLocalShrink : Prop :=
   ∀ {n : Nat} (_hn : 1 < n) (_hmod : n % 4 = 3)
     (e : BadRunGoodBranchEntryWitness n) (phase_depth : Nat),
     (collatzStep^[t_loc_of_phase_depth phase_depth]) e.m_good < n
+
+/-- Alias: keep the open EABC arrow visible under the architectural name. -/
+abbrev AbsorbingTraceCertificate_collatzStep := BoolTraceZeroImpliesLocalShrink
 
 /--
 Constructive witness recipe: good-branch entry + explicit phase depth + proved
@@ -314,12 +336,14 @@ def ConstructiveWitnessRecipe.toWitness {n : Nat}
     (t_loc_of_phase_depth r.phase.phase_depth) r.local_shrink
 
 /--
-`[A]` Conditional constructive generator matching the Fahrplan name `eabcToWitness`.
+`[A]` Conditional constructive generator (BoolTrace hyp required).
 
 Requires the open `BoolTraceZeroImpliesLocalShrink` hypothesis — does **not**
-claim that hypothesis.
+claim that hypothesis. For pure packing without BoolTrace see
+`CollatzChirurgeryBridge.descent_exists_to_witness` /
+`pack_net_descent_witness`.
 -/
-def eabcToWitness
+def pack_net_descent_witness_of_booltrace
     (Hbt : BoolTraceZeroImpliesLocalShrink)
     {n : Nat} (hn : 1 < n) (hmod : n % 4 = 3)
     (e : BadRunGoodBranchEntryWitness n)
@@ -327,6 +351,9 @@ def eabcToWitness
     BadRunNetDescentWitness n :=
   BadRunNetDescentWitness.ofGoodBranchEntry e
     (t_loc_of_phase_depth c.phase_depth) (Hbt hn hmod e c.phase_depth)
+
+/-- Compatibility name (Fahrplan). Prefer `pack_net_descent_witness_of_booltrace`. -/
+abbrev eabcToWitness := pack_net_descent_witness_of_booltrace
 
 /--
 `[A]` IF BoolTrace-local-shrink hyp AND a phase-depth cover,
@@ -343,7 +370,7 @@ theorem bad_run_net_descent_of_eabc_constructive_cover
   intro n hn hmod
   let e := bad_run_good_branch_entry_of_mod4_three hmod
   rcases Hphase hn hmod with ⟨c⟩
-  exact ⟨eabcToWitness Hbt hn hmod e c⟩
+  exact ⟨pack_net_descent_witness_of_booltrace Hbt hn hmod e c⟩
 
 /--
 `[A]` Same conditional cover packaged through `ConstructiveWitnessRecipe`.
@@ -401,10 +428,11 @@ theorem stein1_is_special_case_of_net_descent_shape :
 Claim-boundary status.
 
 * Gap 2 WF glue: **closed** (`net_descent_cover_implies_oddCoreCollatz`, 0 `sorry`).
-* Gap 1: constructive interface only; `BoolTraceZeroImpliesLocalShrink` open.
+  Even via `collatzStep`/oddPart; abstract `descent_implies_reaches_one` in bridge.
+* Gap 1: constructive interface only; `BoolTraceZeroImpliesLocalShrink` /
+  `AbsorbingTraceCertificate` open `[C]`.
 * Semiprime surgery: still 3× `sorry` in `SemiprimeDesingularization.lean`.
-* Octonion O6 path (`block_descent_uniform_implies_termination`,
-  `octonionic_termination_implies_oddCoreCollatz`) remains separate/`sorry`.
+* Octonion O6 path remains separate/`sorry`.
 -/
 structure PureESemiprimeCoverClaimBoundaryStatus : Prop where
   cover_iff_net_descent :

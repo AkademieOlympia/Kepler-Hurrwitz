@@ -169,14 +169,17 @@ theorem semiprime_surgery_implies_stein1 : SemiprimeSurgeryImpliesStein1 := by
 
 /-! ## Constructive witness interface (cross-ref; no fake cover)
 
-The constructive Fahrplan (`eabcToWitness`, phase-depth → `t_loc`,
-`BoolTraceZeroImpliesLocalShrink`) lives in
+The constructive Fahrplan (`pack_net_descent_witness` /
+`descent_exists_to_witness`, phase-depth → `t_loc`,
+`BoolTraceZeroImpliesLocalShrink` / `AbsorbingTraceCertificate`) lives in
+`KeplerHurwitz.Collatz.CollatzChirurgeryBridge` and the thin claim-boundary
 `KeplerHurwitz.Collatz.PureESemiprimeCoverClaimBoundary`.
 
 This scaffold does **not** delete the three `sorry`s above by inventing a
 BoolTrace⇒descent proof. Stein1/Stein2 stay open `[C]`. Gap 2 WF glue
 (`BadRunNetDescentStatement → OddCoreCollatzConjecture`) is proved there
-conditionally; Gap 1 arithmetic is not.
+conditionally; Gap 1 arithmetic is not. Even branch never uses
+`oddCoreSyracuse` shrink.
 -/
 
 /--

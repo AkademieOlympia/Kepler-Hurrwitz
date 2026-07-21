@@ -45,6 +45,7 @@ import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Collatz.CkA.OrbitSmoothBridge
 import KeplerHurwitz.Collatz.Octonion.Termination
 import KeplerHurwitz.Collatz.SemiprimeDesingularization
+import KeplerHurwitz.Collatz.CollatzChirurgeryBridge
 import KeplerHurwitz.Collatz.PureESemiprimeCoverClaimBoundary
 import KeplerHurwitz.CyclicWordOrbit
 import KeplerHurwitz.EABCLayer
