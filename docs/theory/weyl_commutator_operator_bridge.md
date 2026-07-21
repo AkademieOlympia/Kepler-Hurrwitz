@@ -39,13 +39,11 @@ sodass Primvierling-Orbits, CEAB-Chiralität und Dedekind-Idealpfade $H\gamma$ v
 
 ## Why Weyl algebra?
 
-It explains how position and motion can be woven together into a single mathematical language, where the order of actions matters just as much as the actions themselves. Imagine trying to measure the position of a particle and then its momentum. If you switch the order, the result is not exactly the same. This subtle mismatch lies at the heart of quantum mechanics.
+The Weyl algebra supplies a single mathematical language in which **position** and **motion** are woven together — and in which the **order of actions** matters as much as the actions themselves. Measure a particle’s position and then its momentum; reverse the sequence, and the outcome need not agree. That mismatch is a core motif of quantum mechanics.
 
-The Weyl algebra captures this behavior by treating position and momentum like operators that do not commute. Unlike ordinary numbers, where multiplication can be swapped freely, these operators carry a built-in asymmetry. Acting in one order creates a slight shift compared to acting in the reverse order, reflecting the fundamental uncertainty of the quantum world.
+Formally, position and momentum are treated as **non-commuting operators**. Ordinary numbers may be multiplied in either order; these operators carry a built-in asymmetry. One order of composition differs from the reverse by a canonical shift — the algebraic shadow of quantum uncertainty.
 
-This structure turns algebra into a dynamic system of transformations. Instead of simply describing where something is, it encodes how states change, evolve, and interact. The relations between its elements preserve the rhythm of quantum motion, much like rules that keep a musical composition in harmony.
-
-Mathematicians and physicists use the Weyl algebra as a foundation for quantum theory, differential equations, and symmetries in modern physics. It provides the precise framework for understanding how observables behave when classical ideas of measurement and motion give way to the deeper logic of the microscopic universe.
+The same structure turns algebra into a **dynamic system of transformations**: it encodes how states change, evolve, and interact, not merely where something sits. Mathematicians and physicists use the Weyl algebra as a foundation for quantum theory, differential equations, and modern symmetry constructions — a precise frame for observables once classical measurement and motion give way to microscopic rules.
 
 Formally, generators $A,B$ satisfy $[A,B]=AB-BA=I$ — the canonical non-commutative defect that ORQ-087 later reads as an **order defect** in Hurwitz ideal paths (`[C]` bridge only).
 
@@ -55,13 +53,11 @@ Formally, generators $A,B$ satisfy $[A,B]=AB-BA=I$ — the canonical non-commuta
 
 ## Warum die Weyl-Algebra?
 
-Sie erklärt, wie **Ort** und **Bewegung** in einer gemeinsamen mathematischen Sprache verwebt werden können — und dass die **Reihenfolge** der Schritte ebenso zählt wie die Schritte selbst. Stelle dir vor, die Position eines Teilchens zu messen und danach seinen Impuls. Vertauscht man die Reihenfolge, ist das Ergebnis nicht exakt dasselbe. Dieser subtile Unterschied liegt im Kern der Quantenmechanik.
+Die Weyl-Algebra liefert eine gemeinsame mathematische Sprache, in der **Ort** und **Bewegung** verwebt sind — und in der die **Reihenfolge** der Schritte ebenso zählt wie die Schritte selbst. Misst man zuerst die Position eines Teilchens und dann seinen Impuls, und vertauscht man die Sequenz, muss das Ergebnis nicht übereinstimmen. Dieser Unterschied ist ein Kernmotiv der Quantenmechanik.
 
-Die Weyl-Algebra fasst dieses Verhalten, indem sie Ort und Impuls als **nicht vertauschbare Operatoren** behandelt. Anders als gewöhnliche Zahlen, deren Multiplikation beliebig vertauscht werden kann, tragen diese Operatoren eine eingebaute Asymmetrie. Handeln in der einen Reihenfolge erzeugt gegenüber der umgekehrten Reihenfolge eine leichte Verschiebung — ein Spiegelbild der fundamentalen Unsicherheit der Quantenwelt.
+Formal werden Ort und Impuls als **nicht vertauschbare Operatoren** behandelt. Gewöhnliche Zahlen dürfen in beliebiger Reihenfolge multipliziert werden; diese Operatoren tragen eine eingebaute Asymmetrie. Die eine Kompositionsreihenfolge unterscheidet sich von der umgekehrten um eine kanonische Verschiebung — das algebraische Abbild quantenmechanischer Unsicherheit.
 
-Diese Struktur macht aus Algebra ein **dynamisches System von Transformationen**. Statt nur zu beschreiben, wo etwas ist, kodiert sie, wie Zustände wechseln, sich entwickeln und wechselwirken. Die Relationen zwischen ihren Elementen bewahren den Rhythmus quantenmechanischer Bewegung — ähnlich wie Regeln eine musikalische Komposition im Gleichgewicht halten.
-
-Mathematiker und Physiker nutzen die Weyl-Algebra als Fundament für Quantentheorie, Differentialgleichungen und Symmetrien in der modernen Physik. Sie liefert den präzisen Rahmen dafür, wie Observablen sich verhalten, wenn klassische Vorstellungen von Messung und Bewegung der tieferen Logik des mikroskopischen Universums weichen.
+Dieselbe Struktur macht aus Algebra ein **dynamisches System von Transformationen**: sie kodiert, wie Zustände wechseln, sich entwickeln und wechselwirken — nicht nur, wo etwas sitzt. Mathematiker und Physiker nutzen die Weyl-Algebra als Fundament für Quantentheorie, Differentialgleichungen und moderne Symmetriekonstruktionen — als präzisen Rahmen für Observablen, sobald klassische Messung und Bewegung mikroskopischen Regeln weichen.
 
 Formal erfüllen Erzeuger $A,B$ die Relation $[A,B]=AB-BA=I$ — der kanonische nichtkommutative Defekt, den ORQ-087 später als **Ordnungs-Defekt** in Hurwitz-Idealpfaden liest (nur `[C]`-Brücke).
 

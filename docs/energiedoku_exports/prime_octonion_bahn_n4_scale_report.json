@@ -1,0 +1,236 @@
+{
+  "tag": "[C]",
+  "name": "N4_rotor_scale_scan",
+  "statement": "Does rotor-edge excess vs family-label shuffle persist at larger X?",
+  "null_reps": 1000,
+  "seed": 20260719,
+  "limits": [
+    5000,
+    10000,
+    50000,
+    100000,
+    500000,
+    1000000
+  ],
+  "points": [
+    {
+      "limit": 5000,
+      "n_eabc_primes": 667,
+      "n_transitions": 666,
+      "observed_rotor_total": 293,
+      "null_rotor_total_mean": 166.983,
+      "null_rotor_total_std": 11.308258530826045,
+      "z_rotor_total": 11.143802527726143,
+      "holds": false,
+      "excess_rotor_count": 126.017,
+      "excess_rotor_rate": 0.1892147147147147,
+      "z_over_sqrt_n": 0.4318135768251896,
+      "edges": {
+        "A->B": {
+          "observed": 83,
+          "null_mean": 43.702,
+          "z": 7.984299115832899
+        },
+        "B->C": {
+          "observed": 67,
+          "null_mean": 42.697,
+          "z": 5.166970743452688
+        },
+        "E->A": {
+          "observed": 71,
+          "null_mean": 40.608,
+          "z": 6.350667711790756
+        },
+        "C->E": {
+          "observed": 72,
+          "null_mean": 39.976,
+          "z": 6.690360748919114
+        }
+      }
+    },
+    {
+      "limit": 10000,
+      "n_eabc_primes": 1227,
+      "n_transitions": 1226,
+      "observed_rotor_total": 501,
+      "null_rotor_total_mean": 306.87,
+      "null_rotor_total_std": 15.658515255285222,
+      "z_rotor_total": 12.397727168575274,
+      "holds": false,
+      "excess_rotor_count": 194.13,
+      "excess_rotor_rate": 0.15834420880913538,
+      "z_over_sqrt_n": 0.3540762847944742,
+      "edges": {
+        "A->B": {
+          "observed": 136,
+          "null_mean": 78.125,
+          "z": 8.58341612500298
+        },
+        "B->C": {
+          "observed": 120,
+          "null_mean": 77.761,
+          "z": 6.348759750069784
+        },
+        "E->A": {
+          "observed": 120,
+          "null_mean": 75.48,
+          "z": 6.59518645256821
+        },
+        "C->E": {
+          "observed": 125,
+          "null_mean": 75.504,
+          "z": 7.392076228541293
+        }
+      }
+    },
+    {
+      "limit": 50000,
+      "n_eabc_primes": 5131,
+      "n_transitions": 5130,
+      "observed_rotor_total": 1910,
+      "null_rotor_total_mean": 1282.19,
+      "null_rotor_total_std": 32.27977540194479,
+      "z_rotor_total": 19.449020080919638,
+      "holds": false,
+      "excess_rotor_count": 627.81,
+      "excess_rotor_rate": 0.12238011695906431,
+      "z_over_sqrt_n": 0.2715432691112286,
+      "edges": {
+        "A->B": {
+          "observed": 507,
+          "null_mean": 323.139,
+          "z": 13.506502696184484
+        },
+        "B->C": {
+          "observed": 468,
+          "null_mean": 324.576,
+          "z": 10.691553363683076
+        },
+        "E->A": {
+          "observed": 451,
+          "null_mean": 316.385,
+          "z": 9.374276913490734
+        },
+        "C->E": {
+          "observed": 484,
+          "null_mean": 318.09,
+          "z": 12.420003267656229
+        }
+      }
+    },
+    {
+      "limit": 100000,
+      "n_eabc_primes": 9590,
+      "n_transitions": 9589,
+      "observed_rotor_total": 3508,
+      "null_rotor_total_mean": 2398.414,
+      "null_rotor_total_std": 41.786942984621405,
+      "z_rotor_total": 26.553414075022285,
+      "holds": false,
+      "excess_rotor_count": 1109.5859999999998,
+      "excess_rotor_rate": 0.11571446449056208,
+      "z_over_sqrt_n": 0.2711650470557907,
+      "edges": {
+        "A->B": {
+          "observed": 925,
+          "null_mean": 605.72,
+          "z": 17.3212589877785
+        },
+        "B->C": {
+          "observed": 857,
+          "null_mean": 602.291,
+          "z": 14.035304521255663
+        },
+        "E->A": {
+          "observed": 831,
+          "null_mean": 596.914,
+          "z": 12.8289394287433
+        },
+        "C->E": {
+          "observed": 895,
+          "null_mean": 593.489,
+          "z": 16.51036304332959
+        }
+      }
+    },
+    {
+      "limit": 500000,
+      "n_eabc_primes": 41536,
+      "n_transitions": 41535,
+      "observed_rotor_total": 14516,
+      "null_rotor_total_mean": 10378.967,
+      "null_rotor_total_std": 90.82377393061797,
+      "z_rotor_total": 45.55011117640144,
+      "holds": false,
+      "excess_rotor_count": 4137.032999999999,
+      "excess_rotor_rate": 0.09960353918382087,
+      "z_over_sqrt_n": 0.22350247354409883,
+      "edges": {
+        "A->B": {
+          "observed": 3803,
+          "null_mean": 2605.812,
+          "z": 29.59100285749927
+        },
+        "B->C": {
+          "observed": 3486,
+          "null_mean": 2605.312,
+          "z": 21.874398005360792
+        },
+        "E->A": {
+          "observed": 3428,
+          "null_mean": 2584.083,
+          "z": 22.0240582987706
+        },
+        "C->E": {
+          "observed": 3799,
+          "null_mean": 2583.76,
+          "z": 32.5150878266437
+        }
+      }
+    },
+    {
+      "limit": 1000000,
+      "n_eabc_primes": 78496,
+      "n_transitions": 78495,
+      "observed_rotor_total": 26838,
+      "null_rotor_total_mean": 19616.158,
+      "null_rotor_total_std": 118.57946296049751,
+      "z_rotor_total": 60.90297442488688,
+      "holds": false,
+      "excess_rotor_count": 7221.842000000001,
+      "excess_rotor_rate": 0.09200384737881394,
+      "z_over_sqrt_n": 0.2173789600053089,
+      "edges": {
+        "A->B": {
+          "observed": 7058,
+          "null_mean": 4912.354,
+          "z": 40.511292859186646
+        },
+        "B->C": {
+          "observed": 6460,
+          "null_mean": 4922.457,
+          "z": 29.740988645897456
+        },
+        "E->A": {
+          "observed": 6333,
+          "null_mean": 4883.834,
+          "z": 27.81922488738599
+        },
+        "C->E": {
+          "observed": 6987,
+          "null_mean": 4897.513,
+          "z": 41.14040420637946
+        }
+      }
+    }
+  ],
+  "verdict": {
+    "n4_fails_at_all_scanned_limits": true,
+    "z_trend": "growing_|z|",
+    "excess_rate_roughly_stable": false,
+    "mean_z_over_sqrt_n": 0.29491326855601513,
+    "interpretation": "Large |z| persists beyond X=5000; excess rotor rate drifts while |z| trend=growing_|z|. Persistent rate excess \u21d2 channel dynamics beyond family marginals [C]; not infinitude / not HL claim."
+  },
+  "claimed_as_theorem": false,
+  "status": "n4_scale_scan_c"
+}

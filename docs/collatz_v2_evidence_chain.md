@@ -3,11 +3,14 @@
 **Quelle:** `KeplerHurwitz/CollatzProofAttemptV2.lean` … `CollatzProofAttemptV27.lean`  
 **V2.7-Dossier:** [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md) (Net-Descent-Bridge, Governance `[A]`/`[C]`)  
 **Analytische Perspektiven (Python, Tao 2019, 2-adische Lesesprache):** [`collatz_analytical_perspectives.md`](collatz_analytical_perspectives.md) — **`[B]`/`[C]`**, kein Projektbeweis  
-**Register-Verweis:** `EVIDENCE_REGISTER.md` (Collatz-Kern, unabhaengig von Musketiere-Spur)
+**Register-Verweis:** `EVIDENCE_REGISTER.md` (Collatz-Kern, unabhaengig von Musketiere-Spur)  
+**EABC-Audit-Grid (orthogonal, kein Collatz-Beweis):** [`eabc_collatz_audit_grid.md`](eabc_collatz_audit_grid.md) · Register [`E-097`](../EVIDENCE_REGISTER.md)  
+**V2.16 Kanal-7-Bewertung:** [`collatz_v216_assessment.md`](collatz_v216_assessment.md) · Register [`E-098`](../EVIDENCE_REGISTER.md) (Lean auf Branch `pr/11-collatz-v27-net-descent`)
 
 Diese Kette dokumentiert den **lokalen** Beweisstand des Collatz-V2-Versuchs (ungerader Kern `T_odd`,
 mod-4-Fallzerlegung). Sie ist von der Musketiere-Evidence Chain **E-046 → E-048 → E-032 → E-026**
-getrennt.
+getrennt. Das EABC-Raster (`E-096`/`E-097`) liefert ein **Audit-Werkzeug** für Kanalwechsel —
+keinen Ersatz für die Net-Descent-/Zyklus-Schicht.
 
 ---
 

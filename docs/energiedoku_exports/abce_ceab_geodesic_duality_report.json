@@ -1,0 +1,257 @@
+{
+  "tag": "[C]",
+  "limit": 1000000,
+  "n_quadruplets": 166,
+  "n_ABCE": 84,
+  "n_CEAB": 82,
+  "residue_words": {
+    "ABCE": [
+      5,
+      7,
+      11,
+      1
+    ],
+    "CEAB": [
+      11,
+      1,
+      5,
+      7
+    ]
+  },
+  "gaps": [
+    2,
+    4,
+    2
+  ],
+  "within_class_edge_signatures": {
+    "ABCE": [
+      {
+        "edge": 0,
+        "gap": 2,
+        "n_distinct_signatures": 2,
+        "signatures": {
+          "(2, 1.0, 2.0, 0.0)": 43,
+          "(2, 1.0, 2.0, 1.0)": 41
+        },
+        "R_mean": 1.0792069531774233,
+        "R_std": 0.0811158282892317,
+        "R_min": 1.0,
+        "R_max": 1.1622776601683795,
+        "constant_R": false
+      },
+      {
+        "edge": 1,
+        "gap": 4,
+        "n_distinct_signatures": 2,
+        "signatures": {
+          "(4, 2.0, 4.0, 1.0)": 43,
+          "(4, -2.0, 4.0, -1.0)": 41
+        },
+        "R_mean": 2.0827625302982193,
+        "R_std": 0.0,
+        "R_min": 2.0827625302982193,
+        "R_max": 2.0827625302982193,
+        "constant_R": true
+      },
+      {
+        "edge": 2,
+        "gap": 2,
+        "n_distinct_signatures": 2,
+        "signatures": {
+          "(2, -3.0, -10.0, -1.0)": 43,
+          "(2, 1.0, -10.0, 0.0)": 41
+        },
+        "R_mean": 8.467135074305832,
+        "R_std": 0.21500277528323938,
+        "R_min": 8.246950765959598,
+        "R_max": 8.677078252031311,
+        "constant_R": false
+      }
+    ],
+    "CEAB": [
+      {
+        "edge": 0,
+        "gap": 2,
+        "n_distinct_signatures": 2,
+        "signatures": {
+          "(2, 1.0, -10.0, 0.0)": 46,
+          "(2, -3.0, -10.0, -1.0)": 36
+        },
+        "R_mean": 8.435787223259375,
+        "R_std": 0.2134585277085715,
+        "R_min": 8.246950765959598,
+        "R_max": 8.677078252031311,
+        "constant_R": false
+      },
+      {
+        "edge": 1,
+        "gap": 4,
+        "n_distinct_signatures": 2,
+        "signatures": {
+          "(4, -2.0, 4.0, 0.0)": 46,
+          "(4, 2.0, 4.0, 0.0)": 36
+        },
+        "R_mean": 2.0,
+        "R_std": 0.0,
+        "R_min": 2.0,
+        "R_max": 2.0,
+        "constant_R": true
+      },
+      {
+        "edge": 2,
+        "gap": 2,
+        "n_distinct_signatures": 2,
+        "signatures": {
+          "(2, 1.0, 2.0, 0.0)": 46,
+          "(2, 1.0, 2.0, 1.0)": 36
+        },
+        "R_mean": 1.07124385080563,
+        "R_std": 0.08053321757205464,
+        "R_min": 1.0,
+        "R_max": 1.1622776601683795,
+        "constant_R": false
+      }
+    ]
+  },
+  "duality_ABCE_i_vs_CEAB_2minus_i": [
+    {
+      "ABCE_edge": 0,
+      "CEAB_edge": 2,
+      "ABCE_signature_set": [
+        [
+          2,
+          1.0,
+          2.0,
+          0.0
+        ],
+        [
+          2,
+          1.0,
+          2.0,
+          1.0
+        ]
+      ],
+      "CEAB_signature_set": [
+        [
+          2,
+          1.0,
+          2.0,
+          0.0
+        ],
+        [
+          2,
+          1.0,
+          2.0,
+          1.0
+        ]
+      ],
+      "signature_sets_equal": true,
+      "ABCE_n_sigs": 2,
+      "CEAB_n_sigs": 2,
+      "mean_R_ABCE": 1.0792069531774233,
+      "mean_R_CEAB": 1.07124385080563,
+      "abs_mean_diff": 0.007963102371793429,
+      "both_constant_R": false,
+      "exact_constant_duality": false
+    },
+    {
+      "ABCE_edge": 1,
+      "CEAB_edge": 1,
+      "ABCE_signature_set": [
+        [
+          4,
+          -2.0,
+          4.0,
+          -1.0
+        ],
+        [
+          4,
+          2.0,
+          4.0,
+          1.0
+        ]
+      ],
+      "CEAB_signature_set": [
+        [
+          4,
+          -2.0,
+          4.0,
+          0.0
+        ],
+        [
+          4,
+          2.0,
+          4.0,
+          0.0
+        ]
+      ],
+      "signature_sets_equal": false,
+      "ABCE_n_sigs": 2,
+      "CEAB_n_sigs": 2,
+      "mean_R_ABCE": 2.0827625302982193,
+      "mean_R_CEAB": 2.0,
+      "abs_mean_diff": 0.08276253029821934,
+      "both_constant_R": true,
+      "exact_constant_duality": false
+    },
+    {
+      "ABCE_edge": 2,
+      "CEAB_edge": 0,
+      "ABCE_signature_set": [
+        [
+          2,
+          -3.0,
+          -10.0,
+          -1.0
+        ],
+        [
+          2,
+          1.0,
+          -10.0,
+          0.0
+        ]
+      ],
+      "CEAB_signature_set": [
+        [
+          2,
+          -3.0,
+          -10.0,
+          -1.0
+        ],
+        [
+          2,
+          1.0,
+          -10.0,
+          0.0
+        ]
+      ],
+      "signature_sets_equal": true,
+      "ABCE_n_sigs": 2,
+      "CEAB_n_sigs": 2,
+      "mean_R_ABCE": 8.467135074305832,
+      "mean_R_CEAB": 8.435787223259375,
+      "abs_mean_diff": 0.031347851046456654,
+      "both_constant_R": false,
+      "exact_constant_duality": false
+    }
+  ],
+  "poly_R": {
+    "ABCE_mean": 11.629104557781474,
+    "CEAB_mean": 11.507031074065004,
+    "abs_mean_diff": 0.12207348371646987
+  },
+  "analytic_middle": {
+    "ABCE_R": 2.0827625302982193,
+    "CEAB_R": 2.0,
+    "note": "ABCE middle always |\u0394\u03c7\u2087|=1 \u2192 \u221a37\u22124; CEAB middle always \u0394\u03c7\u2087=0 \u2192 \u221a36\u22124=2. Not dual."
+  },
+  "verdict": {
+    "exact_identity_all_edges": false,
+    "outer_edges_signature_set_duality": true,
+    "middle_edge_exact_duality": false,
+    "middle_edge_signature_sets_equal": false,
+    "interpretation": "Outer edges (i\u21942\u2212i): identical embed-signature *sets* (two mod-8/\u03c7\u2087 atoms each); means nearly equal, frequencies differ \u2192 distributional duality, not per-quadruplet identity. Middle edge: class-constant R but ABCE \u221a37\u22124 \u2260 CEAB 2 (\u03c7\u2087 jump present only on ABCE) \u2192 duality fails exactly here. Total polygonal residual means stay close by outer compensation [C]."
+  },
+  "claimed_as_theorem": false,
+  "status": "abce_ceab_duality_probe_c"
+}

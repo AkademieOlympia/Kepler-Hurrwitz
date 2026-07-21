@@ -1,0 +1,652 @@
+{
+  "tag": "[C]",
+  "governance": {
+    "status": "C prime polygonal Bahn in collatzOctEmbed \u211d\u2078",
+    "embedding": "collatz_oct_embed / Lean collatzOctEmbed",
+    "metric": "Euclidean on O \u2245 \u211d\u2078 (primary); optional S\u2077 after normalize",
+    "not_claimed": "octonion-multiplication geodesic; E8 lattice shortest path; infinitude or distribution theorems; family geodesic discrimination theorem",
+    "analysis": "EABC family split of collatzOctEmbed Bahn"
+  },
+  "limit": 1000,
+  "channels": {
+    "E": 1,
+    "A": 5,
+    "B": 7,
+    "C": 11
+  },
+  "family_prime_counts": {
+    "A": 44,
+    "B": 44,
+    "C": 42,
+    "E": 36
+  },
+  "within_family_bahn": {
+    "E": {
+      "residue_mod12": 1,
+      "n_primes": 36,
+      "n_segments": 35,
+      "euclidean": {
+        "n": 35,
+        "total": 986.2221178278039,
+        "mean": 28.17777479508011,
+        "median": 24.0,
+        "stdev": 17.160132588499742,
+        "min": 12.165525060596439,
+        "max": 84.02380615040002
+      },
+      "arithmetic_gap": {
+        "n": 35,
+        "total": 984.0,
+        "mean": 28.114285714285714,
+        "median": 24.0,
+        "stdev": 17.19762679403582,
+        "min": 12.0,
+        "max": 84.0
+      },
+      "mean_L_over_gap": 1.0022582498250039,
+      "first_primes": [
+        13,
+        37,
+        61,
+        73,
+        97,
+        109,
+        157,
+        181
+      ],
+      "longest_segments": [
+        {
+          "p": 457,
+          "q": 541,
+          "euclidean_length": 84.02380615040002,
+          "spherical_arc": null
+        },
+        {
+          "p": 769,
+          "q": 829,
+          "euclidean_length": 60.03332407921454,
+          "spherical_arc": null
+        },
+        {
+          "p": 877,
+          "q": 937,
+          "euclidean_length": 60.03332407921454,
+          "spherical_arc": null
+        },
+        {
+          "p": 937,
+          "q": 997,
+          "euclidean_length": 60.03332407921454,
+          "spherical_arc": null
+        },
+        {
+          "p": 109,
+          "q": 157,
+          "euclidean_length": 48.0,
+          "spherical_arc": null
+        }
+      ]
+    },
+    "A": {
+      "residue_mod12": 5,
+      "n_primes": 44,
+      "n_segments": 43,
+      "euclidean": {
+        "n": 43,
+        "total": 975.6769018189826,
+        "mean": 22.690160507418202,
+        "median": 24.0,
+        "stdev": 12.413172386853367,
+        "min": 12.165525060596439,
+        "max": 60.03332407921454
+      },
+      "arithmetic_gap": {
+        "n": 43,
+        "total": 972.0,
+        "mean": 22.6046511627907,
+        "median": 24.0,
+        "stdev": 12.467892783454145,
+        "min": 12.0,
+        "max": 60.0
+      },
+      "mean_L_over_gap": 1.0037828208014226,
+      "first_primes": [
+        5,
+        17,
+        29,
+        41,
+        53,
+        89,
+        101,
+        113
+      ],
+      "longest_segments": [
+        {
+          "p": 701,
+          "q": 761,
+          "euclidean_length": 60.03332407921454,
+          "spherical_arc": null
+        },
+        {
+          "p": 401,
+          "q": 449,
+          "euclidean_length": 48.0,
+          "spherical_arc": null
+        },
+        {
+          "p": 461,
+          "q": 509,
+          "euclidean_length": 48.0,
+          "spherical_arc": null
+        },
+        {
+          "p": 881,
+          "q": 929,
+          "euclidean_length": 48.0,
+          "spherical_arc": null
+        },
+        {
+          "p": 53,
+          "q": 89,
+          "euclidean_length": 36.05551275463989,
+          "spherical_arc": null
+        }
+      ]
+    },
+    "B": {
+      "residue_mod12": 7,
+      "n_primes": 44,
+      "n_segments": 43,
+      "euclidean": {
+        "n": 43,
+        "total": 988.3824744705098,
+        "mean": 22.985638941174646,
+        "median": 24.0,
+        "stdev": 12.294257788047998,
+        "min": 12.206555615733702,
+        "max": 60.0416522091123
+      },
+      "arithmetic_gap": {
+        "n": 43,
+        "total": 984.0,
+        "mean": 22.88372093023256,
+        "median": 24.0,
+        "stdev": 12.361247213218661,
+        "min": 12.0,
+        "max": 60.0
+      },
+      "mean_L_over_gap": 1.0044537342179976,
+      "first_primes": [
+        7,
+        19,
+        31,
+        43,
+        67,
+        79,
+        103,
+        127
+      ],
+      "longest_segments": [
+        {
+          "p": 379,
+          "q": 439,
+          "euclidean_length": 60.0416522091123,
+          "spherical_arc": null
+        },
+        {
+          "p": 223,
+          "q": 271,
+          "euclidean_length": 48.0,
+          "spherical_arc": null
+        },
+        {
+          "p": 643,
+          "q": 691,
+          "euclidean_length": 48.0,
+          "spherical_arc": null
+        },
+        {
+          "p": 919,
+          "q": 967,
+          "euclidean_length": 48.0,
+          "spherical_arc": null
+        },
+        {
+          "p": 163,
+          "q": 199,
+          "euclidean_length": 36.069377593742864,
+          "spherical_arc": null
+        }
+      ]
+    },
+    "C": {
+      "residue_mod12": 11,
+      "n_primes": 42,
+      "n_segments": 41,
+      "euclidean": {
+        "n": 41,
+        "total": 976.4122311046928,
+        "mean": 23.814932465968116,
+        "median": 24.0,
+        "stdev": 15.277760544370825,
+        "min": 12.206555615733702,
+        "max": 84.02975663418287
+      },
+      "arithmetic_gap": {
+        "n": 41,
+        "total": 972.0,
+        "mean": 23.70731707317073,
+        "median": 24.0,
+        "stdev": 15.337255617452373,
+        "min": 12.0,
+        "max": 84.0
+      },
+      "mean_L_over_gap": 1.0045393324122354,
+      "first_primes": [
+        11,
+        23,
+        47,
+        59,
+        71,
+        83,
+        107,
+        131
+      ],
+      "longest_segments": [
+        {
+          "p": 743,
+          "q": 827,
+          "euclidean_length": 84.02975663418287,
+          "spherical_arc": null
+        },
+        {
+          "p": 503,
+          "q": 563,
+          "euclidean_length": 60.0416522091123,
+          "spherical_arc": null
+        },
+        {
+          "p": 263,
+          "q": 311,
+          "euclidean_length": 48.0,
+          "spherical_arc": null
+        },
+        {
+          "p": 599,
+          "q": 647,
+          "euclidean_length": 48.0,
+          "spherical_arc": null
+        },
+        {
+          "p": 131,
+          "q": 167,
+          "euclidean_length": 36.069377593742864,
+          "spherical_arc": null
+        }
+      ]
+    }
+  },
+  "global_transitions": {
+    "A->A": {
+      "euclidean": {
+        "n": 2,
+        "total": 24.331050121192877,
+        "mean": 12.165525060596439,
+        "median": 12.165525060596439,
+        "stdev": 0.0,
+        "min": 12.165525060596439,
+        "max": 12.165525060596439
+      },
+      "arithmetic_gap": {
+        "n": 2,
+        "total": 24.0,
+        "mean": 12.0,
+        "median": 12.0,
+        "stdev": 0.0,
+        "min": 12.0,
+        "max": 12.0
+      },
+      "count": 2
+    },
+    "A->B": {
+      "euclidean": {
+        "n": 24,
+        "total": 129.81331540999938,
+        "mean": 5.408888142083307,
+        "median": 3.1622776601683795,
+        "stdev": 4.563689559968329,
+        "min": 3.0,
+        "max": 14.491376746189438
+      },
+      "arithmetic_gap": {
+        "n": 24,
+        "total": 108.0,
+        "mean": 4.5,
+        "median": 2.0,
+        "stdev": 4.873397172404482,
+        "min": 2.0,
+        "max": 14.0
+      },
+      "count": 24
+    },
+    "A->C": {
+      "euclidean": {
+        "n": 11,
+        "total": 96.54094816259227,
+        "mean": 8.776449832962934,
+        "median": 8.54400374531753,
+        "stdev": 0.2546319312144204,
+        "min": 8.54400374531753,
+        "max": 9.055385138137417
+      },
+      "arithmetic_gap": {
+        "n": 11,
+        "total": 66.0,
+        "mean": 6.0,
+        "median": 6.0,
+        "stdev": 0.0,
+        "min": 6.0,
+        "max": 6.0
+      },
+      "count": 11
+    },
+    "A->E": {
+      "euclidean": {
+        "n": 7,
+        "total": 62.609903369994115,
+        "mean": 8.94427190999916,
+        "median": 8.94427190999916,
+        "stdev": 0.0,
+        "min": 8.94427190999916,
+        "max": 8.94427190999916
+      },
+      "arithmetic_gap": {
+        "n": 7,
+        "total": 56.0,
+        "mean": 8.0,
+        "median": 8.0,
+        "stdev": 0.0,
+        "min": 8.0,
+        "max": 8.0
+      },
+      "count": 7
+    },
+    "B->A": {
+      "euclidean": {
+        "n": 8,
+        "total": 82.8358610998202,
+        "mean": 10.354482637477526,
+        "median": 10.246950765959598,
+        "stdev": 0.1862506649020205,
+        "min": 10.246950765959598,
+        "max": 10.677078252031311
+      },
+      "arithmetic_gap": {
+        "n": 8,
+        "total": 80.0,
+        "mean": 10.0,
+        "median": 10.0,
+        "stdev": 0.0,
+        "min": 10.0,
+        "max": 10.0
+      },
+      "count": 8
+    },
+    "B->B": {
+      "euclidean": {
+        "n": 3,
+        "total": 36.6196668472011,
+        "mean": 12.2065556157337,
+        "median": 12.206555615733702,
+        "stdev": 0.0,
+        "min": 12.206555615733702,
+        "max": 12.206555615733702
+      },
+      "arithmetic_gap": {
+        "n": 3,
+        "total": 36.0,
+        "mean": 12.0,
+        "median": 12.0,
+        "stdev": 0.0,
+        "min": 12.0,
+        "max": 12.0
+      },
+      "count": 3
+    },
+    "B->C": {
+      "euclidean": {
+        "n": 22,
+        "total": 133.82077566656082,
+        "mean": 6.082762530298219,
+        "median": 6.082762530298219,
+        "stdev": 0.0,
+        "min": 6.082762530298219,
+        "max": 6.082762530298219
+      },
+      "arithmetic_gap": {
+        "n": 22,
+        "total": 88.0,
+        "mean": 4.0,
+        "median": 4.0,
+        "stdev": 0.0,
+        "min": 4.0,
+        "max": 4.0
+      },
+      "count": 22
+    },
+    "B->E": {
+      "euclidean": {
+        "n": 11,
+        "total": 104.90660962697608,
+        "mean": 9.53696451154328,
+        "median": 8.602325267042627,
+        "stdev": 2.9925572366547915,
+        "min": 8.54400374531753,
+        "max": 19.0
+      },
+      "arithmetic_gap": {
+        "n": 11,
+        "total": 78.0,
+        "mean": 7.090909090909091,
+        "median": 6.0,
+        "stdev": 3.4497574474564137,
+        "min": 6.0,
+        "max": 18.0
+      },
+      "count": 11
+    },
+    "C->A": {
+      "euclidean": {
+        "n": 15,
+        "total": 128.56830683183864,
+        "mean": 8.57122045545591,
+        "median": 8.54400374531753,
+        "stdev": 0.029095887009413797,
+        "min": 8.54400374531753,
+        "max": 8.602325267042627
+      },
+      "arithmetic_gap": {
+        "n": 15,
+        "total": 90.0,
+        "mean": 6.0,
+        "median": 6.0,
+        "stdev": 0.0,
+        "min": 6.0,
+        "max": 6.0
+      },
+      "count": 15
+    },
+    "C->B": {
+      "euclidean": {
+        "n": 9,
+        "total": 92.07245980867647,
+        "mean": 10.230273312075163,
+        "median": 8.94427190999916,
+        "stdev": 3.6373612480934003,
+        "min": 8.94427190999916,
+        "max": 20.518284528683193
+      },
+      "arithmetic_gap": {
+        "n": 9,
+        "total": 84.0,
+        "mean": 9.333333333333334,
+        "median": 8.0,
+        "stdev": 3.7712361663282534,
+        "min": 8.0,
+        "max": 20.0
+      },
+      "count": 9
+    },
+    "C->C": {
+      "euclidean": {
+        "n": 1,
+        "total": 12.206555615733702,
+        "mean": 12.206555615733702,
+        "median": 12.206555615733702,
+        "stdev": 0.0,
+        "min": 12.206555615733702,
+        "max": 12.206555615733702
+      },
+      "arithmetic_gap": {
+        "n": 1,
+        "total": 12.0,
+        "mean": 12.0,
+        "median": 12.0,
+        "stdev": 0.0,
+        "min": 12.0,
+        "max": 12.0
+      },
+      "count": 1
+    },
+    "C->E": {
+      "euclidean": {
+        "n": 17,
+        "total": 190.8103794090884,
+        "mean": 11.224139965240495,
+        "median": 10.246950765959598,
+        "stdev": 2.213828128348631,
+        "min": 10.246950765959598,
+        "max": 17.26267650163207
+      },
+      "arithmetic_gap": {
+        "n": 17,
+        "total": 58.0,
+        "mean": 3.411764705882353,
+        "median": 2.0,
+        "stdev": 3.866276876507055,
+        "min": 2.0,
+        "max": 14.0
+      },
+      "count": 17
+    },
+    "E->A": {
+      "euclidean": {
+        "n": 18,
+        "total": 108.0,
+        "mean": 6.0,
+        "median": 6.0,
+        "stdev": 0.0,
+        "min": 6.0,
+        "max": 6.0
+      },
+      "arithmetic_gap": {
+        "n": 18,
+        "total": 72.0,
+        "mean": 4.0,
+        "median": 4.0,
+        "stdev": 0.0,
+        "min": 4.0,
+        "max": 4.0
+      },
+      "count": 18
+    },
+    "E->B": {
+      "euclidean": {
+        "n": 8,
+        "total": 69.8861741409999,
+        "mean": 8.735771767624987,
+        "median": 8.54400374531753,
+        "stdev": 0.2475714522439719,
+        "min": 8.54400374531753,
+        "max": 9.055385138137417
+      },
+      "arithmetic_gap": {
+        "n": 8,
+        "total": 48.0,
+        "mean": 6.0,
+        "median": 6.0,
+        "stdev": 0.0,
+        "min": 6.0,
+        "max": 6.0
+      },
+      "count": 8
+    },
+    "E->C": {
+      "euclidean": {
+        "n": 8,
+        "total": 113.56046912923888,
+        "mean": 14.19505864115486,
+        "median": 14.19505864115486,
+        "stdev": 0.01761176239703488,
+        "min": 14.177446878757825,
+        "max": 14.212670403551895
+      },
+      "arithmetic_gap": {
+        "n": 8,
+        "total": 80.0,
+        "mean": 10.0,
+        "median": 10.0,
+        "stdev": 0.0,
+        "min": 10.0,
+        "max": 10.0
+      },
+      "count": 8
+    },
+    "E->E": {
+      "euclidean": {
+        "n": 1,
+        "total": 12.165525060596439,
+        "mean": 12.165525060596439,
+        "median": 12.165525060596439,
+        "stdev": 0.0,
+        "min": 12.165525060596439,
+        "max": 12.165525060596439
+      },
+      "arithmetic_gap": {
+        "n": 1,
+        "total": 12.0,
+        "mean": 12.0,
+        "median": 12.0,
+        "stdev": 0.0,
+        "min": 12.0,
+        "max": 12.0
+      },
+      "count": 1
+    }
+  },
+  "global_same_family_segments": {
+    "n": 7,
+    "total": 85.32279764472412,
+    "mean": 12.188971092103445,
+    "median": 12.206555615733702,
+    "stdev": 0.020304858902998973,
+    "min": 12.165525060596439,
+    "max": 12.206555615733702
+  },
+  "global_cross_family_segments": {
+    "n": 158,
+    "total": 1313.4252026557851,
+    "mean": 8.312817738327754,
+    "median": 8.54400374531753,
+    "stdev": 3.3010697128875424,
+    "min": 3.0,
+    "max": 20.518284528683193
+  },
+  "pattern_notes": [
+    "Within-family consecutive primes differ by \u2265 12 (same residue mod 12).",
+    "Euclidean length is dominated by \u0394e0 = prime gap; mod-8/12/\u03c7\u2087 are corrections.",
+    "Cross-family transitions on the global prime path are the typical case."
+  ],
+  "claimed_as_theorem": false,
+  "status": "exploratory_eabc_bahn_c"
+}

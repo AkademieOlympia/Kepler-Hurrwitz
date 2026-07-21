@@ -1,10 +1,12 @@
 import KeplerHurwitz.Collatz.Octonion.BlockDescentBridge
+import KeplerHurwitz.Collatz.Octonion.LargeWitnessPhaseVolume
 import KeplerHurwitz.CollatzNormShell
 
 /-!
 Modul O6 — Termination `[C]` scaffold.
 
 Verbindung zur bestehenden Odd-Core- und klassischen Collatz-Kette und V2-7.
+Large-witness Phasenindex / mod-8-Carrier: `[A]` in `LargeWitnessPhaseVolume`.
 -/
 
 namespace KeplerHurwitz.Collatz.Octonion

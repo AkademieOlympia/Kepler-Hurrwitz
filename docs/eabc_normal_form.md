@@ -11,6 +11,24 @@ Wenn im Modell von **„Normalform“**, **„Primzahl × E“** oder **„Semip
 
 ---
 
+## 0. Signatur-Reduktion statt Faktorisierung (Claim-Wand)
+
+> Lean-Fassade: `KeplerHurwitz/EABC/Semiprim.lean` (re-exportiert `V4` / `NormalForm` / `SemiprimGeometry` / `QuaternionBridge`; **keine** Typ-Duplikate).
+
+| Schicht | Inhalt | Tag |
+|---|---|---|
+| **Kanalnormalform** | \(V_4\)-Algebra; \(e\)-Neutralität; Residual trägt Klasse; \(A·B=C\); Hamilton-Achsenprodukt | `[A]` |
+| **Signatur-/Gestalt** | `ResidualShape` / `SemiprimKind` / Triaden-\(\cos\); \(\gamma=e+r\cdot\mathbf{e}_{\mathrm{Kanal}}\) als Kanalgestalt | `[B]` |
+| **offen / Nicht-Folgerung** | Spatprodukt jenseits Dictionary; arithmetische Primfaktorisierung von \(r\); Cosinus auf `higher` | `[C]` / verboten |
+
+1. **Was geleistet wird:** Für \(\Omega(r)\le 2\) ordnet die Cosinus-/Semiprim-Schicht dem Residual \(r\) eine **eindeutige kanonische Achse** \(\mathrm{Achse}_{[r]_{V_4}}\) in \(\mathbb H\) zu. Bei `distinctChannel` (\(\cos=-\tfrac12\)) entsteht die einkanalige Gestalt \(\gamma=e+r\cdot\mathbf{e}_{\mathrm{Kanal}}\), unabhängig von der arithmetischen Zerlegung von \(r\).
+2. **Was NICHT behauptet wird:** Das Modell berechnet keine Primfaktoren von \(r\). Für \(\Omega(r)\ge 3\) (`higher`) gilt die Cosinus-Reduktion explizit nicht (XOR-Pfad).
+3. **DualCarrier:** Bei `square` / `sameChannel` (E-Kollaps, \(\gamma(25)=\gamma(1)\)) sichert \((\gamma,\Omega(r),\mathrm{shape})\) gegen Informationsverlust.
+
+**Intervall-MRA-Audit:** Auf \([1,256]\) (\(M=1000\) Multiset-Shuffle) ist Mid-Scale-CWT-Resonanz `[C]` verworfen; die \(V_4\)-Triaden-Antikorrelation bleibt `[B]`. Siehe [`eabc_interval_wavelet.md`](eabc_interval_wavelet.md) § Audit-Abschluss.
+
+---
+
 ## 1. Kanonische Zerlegung
 
 Für jedes \(n \ge 1\) gibt es eindeutige \(\alpha,\beta\in\mathbb N_0\) und einen **Kern** \(\kappa=\kappa(n)\) mit
@@ -277,6 +295,19 @@ Eine **Varianz-/RMS-Metrik** über die Kanalzählungen (z. B. \(\sigma^2=\tfra
 
 ---
 
+### 7.6 Integrierte Pipeline (Python)
+
+Die Schichten aus §7.1–7.5 sind in einem Snapshot gebündelt:
+
+```text
+n → Normalform → H(n) → (a, e_kep, R_v) → γ / DualCarrier
+```
+
+Python: `eabc_pipeline` / `EABCPipelineSnapshot` in `eabc_pipeline.py`.  
+Collatz-Audit entlang \(T_{\mathrm{acc}}\): `audit_trajectory` in `eabc_collatz_audit.py` (Register [`E-097`](../EVIDENCE_REGISTER.md); **kein** Collatz-Beweis).
+
+---
+
 ## 8. Artefakte
 
 | Schicht | Pfad |
@@ -287,9 +318,11 @@ Eine **Varianz-/RMS-Metrik** über die Kanalzählungen (z. B. \(\sigma^2=\tfra
 | Lean \(V_4\) | `KeplerHurwitz/EABC/V4.lean` |
 | Lean Kepler-Projektion | `KeplerHurwitz/EABCLayer.lean` (`projectToKepler`, Feld `e` = \(e_{\mathrm{kep}}\)) |
 | Python | `signatures.py` (`axis_split`, `eabc_normal_form`, `to_v4`, `HigherReading`) |
+| Python Pipeline | `eabc_pipeline.py` (`eabc_pipeline`, `pipeline_row`) |
 | Python Kepler | `dumas_cone_orbit.py` (`project_to_kepler`), `kepler.py` |
-| Tests | `tests/test_eabc_normal_form.py`, `tests/test_semiprim_geometry.py`, `tests/test_higher_residual.py` |
+| Tests | `tests/test_eabc_normal_form.py`, `tests/test_semiprim_geometry.py`, `tests/test_higher_residual.py`, `tests/test_eabc_pipeline.py` |
 | Masse | `docs/eabc_mass_convention.md` |
 | Mod-8-Schicht (getrennt) | `KeplerHurwitz/EABC/Basic.lean` |
+| Collatz-Audit-Grid | [`eabc_collatz_audit_grid.md`](eabc_collatz_audit_grid.md) · [`E-097`](../EVIDENCE_REGISTER.md) |
 | Register | [`E-096`](../EVIDENCE_REGISTER.md) |
 | Master-Index | [`EABC_MASTER_INDEX.md`](../EABC_MASTER_INDEX.md) |

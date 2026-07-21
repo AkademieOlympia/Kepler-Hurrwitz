@@ -22,6 +22,17 @@ lake build KeplerHurwitz.Collatz.Octonion.Definitions
 
 ## Witness-Beweiskette (O2, strikte Reihenfolge)
 
+### 0. Large-Witness Phasenindex `[A]` — Kernel
+
+`KeplerHurwitz/Collatz/Octonion/LargeWitnessPhaseVolume.lean` (Core + ReachableTheorems):
+
+- `large_witness_phase_index_theorem` / `reachable_large_witness_phase_index_theorem`
+- `phaseExponent_two_pow_forty` → \(S(v_2(2^{40}))=861\)
+- `mod8Carrier_*` → skalenstabiler Carrier aus \(n\bmod 8\)
+- `triangularS_eq_triangleNumber` → Anbindung E-099
+
+Nicht im Satz: physikalisches \(2^{-S_k}\), DualCarrier, Collatz-Beweis.
+
 ### 1. Definitionen `[A]` — `Definitions.lean`
 
 ```lean
