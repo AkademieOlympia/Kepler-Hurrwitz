@@ -980,6 +980,8 @@ Für \(k\in[10,14]\) ist \(G_k^{\mathrm{cut}}\) azyklisch (0 Cut-Zykeln); das Ko
 > | `[B]` | refined match auf \(F_k\); Fokus-Wörter; stated≠cut; Cut azyklisch \(k\in[10,14]\) |
 > | `[C]` | \(\forall k\); Cut-Absorptionssatz (§5.23); Collatz |
 
+**Operatorwahl / Claim-Rand (Querverweis):** Die Primärlinie \(\Phi_k^{\mathrm{ref}}\mapsto(M_j)\mapsto P=\bigodot M_j\mapsto\mathrm{BoolTrace}(P)\) ist scharfe Obstruktionsdiagnose für endliche Liftstrukturen — **nicht** geometrisch ausgezeichneter Operator auf \(\mathbb N\). Bewiesen bleibt nur die Implikation Einheitsdefektwort \(\Rightarrow P_j\in\{E_{01},Z\}\Rightarrow\mathrm{BoolTrace}=0\); die Pfeile „Syracuse-Bahn \(\Rightarrow\) Wortform“ und „BoolTrace\(=0\Rightarrow\) archimedischer Abstieg“ sind `[C]`. Versiegelte Stance inkl. PR-#8-Korrektur (PR #8 = Renormierungs-/Primvierling-Export, **nicht** Typentrennung): [`energiedoku_exports/geometrisch_ausgezeichneter_operator_suche_2026_07_21.md`](energiedoku_exports/geometrisch_ausgezeichneter_operator_suche_2026_07_21.md).
+
 ### 5.23 Stub — Stabile-Zyklus-Klassifikation `[C]` / next
 
 Ziel: jeder wrap-/loss-freie Zyklus in \(G_k^{\mathrm{cut}}\) erzeugt ein absorbierendes Relationswort; Verbindung zu \(\rho(A_k^{\mathrm{cut}})=0\). Im aktuellen Fenster gibt es keine Cut-Zykeln — der universelle Satz bleibt offen.
