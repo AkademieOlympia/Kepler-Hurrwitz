@@ -2,18 +2,19 @@
 title: Pure-E Semiprime-Cover vs Collatz — Claim-Grenze
 date: 2026-07-21
 status: >-
-  Claim-boundary note. Collatz not proved. Formalizes that an honest
-  “pure E Semiprime cover” is definitionally BadRunNetDescentStatement.
+  Claim-boundary note. Collatz not proved. Gap 2 WF glue closed conditionally;
+  Gap 1 constructive interface only (BoolTrace→descent open).
 governance: >-
-  [A] packaging equivalences in
+  [A] packaging equivalences + WF glue in
   KeplerHurwitz/Collatz/PureESemiprimeCoverClaimBoundary.lean.
-  [C] SemiprimeDesingularization scaffold (3× sorry); O6 OddCore glue (sorry);
+  [C] SemiprimeDesingularization scaffold (3× sorry); BoolTraceZeroImpliesLocalShrink;
   EABC NormalForm reine-E not wired on this Collatz worktree.
 not_claimed:
   - Collatz bewiesen
   - IsReineEForm ⇒ BadRunNetDescentWitness
-  - Boolean absorption ⇒ archimedischer Abstieg
+  - Boolean absorption / BoolTrace=0 ⇒ archimedischer Abstieg
   - Semiprime surgery ⇒ Stein1 / full 71 mod 256 cover
+  - Zirkularität „pure E cover ⇔ net descent“ aufgelöst
 ---
 
 # Pure-E Semiprime-Cover vs Collatz — Claim-Grenze (2026-07-21)
@@ -36,57 +37,65 @@ Die gesprochene Kette „Semiprime-Abstieg → reine E → Collatz“ vermengt d
 
 ---
 
-## 2. Was **würde** reichen?
+## 2. Zwei Lücken — Status nach konstruktivem Fahrplan
 
-Präzise hinreichende Hypothese (ehrliche Verpackung):
+| Lücke | Inhalt | Lean-Status |
+|---|---|---|
+| **Gap 2** | lokaler Abstieg unter `n` → `OddCoreCollatzConjecture` | **geschlossen** (bedingt): `net_descent_cover_implies_oddCoreCollatz` via `Nat.strong_induction_on` + even/`mod4=1`-Shrinks `[A]` |
+| **Gap 1** | EABC/Semiprime/BoolTrace → `BadRunNetDescentWitness` | **offen**; nur konstruktives Interface (`eabcToWitness`, `PhaseLengthCertificate`, `BoolTraceZeroImpliesLocalShrink` als Hypothese) |
+
+### Gap 2 (WF-Glue) — was bewiesen ist
+
+Unter der offenen Hypothese `BadRunNetDescentStatement`:
+
+1. für jedes `n > 1` existiert `t` mit `collatzStep^[t] n < n`
+   (even / `≡1 mod 4` schon `[A]`; `≡3 mod 4` aus dem Cover);
+2. starke Induktion über `(ℕ,<)` liefert `ClassicalCollatzConjecture`;
+3. Äquivalenz ⇒ `OddCoreCollatzConjecture`.
+
+Theorem-Namen:
+
+* `exists_strict_collatz_descent_of_net_descent`
+* `classicalCollatz_of_local_strict_descent`
+* `net_descent_cover_implies_oddCoreCollatz`
+* `collatz_of_pure_E_semiprime_cover` (ohne opake `Hterm`-Hypothese)
+
+Das beweist **nicht** den Antezedens. Collatz bleibt offen.
+
+### Gap 1 (konstruktives Interface) — was bewusst *nicht* bewiesen ist
+
+* `PhaseLengthCertificate` / `t_loc_of_phase_depth` — Buchhaltung ohne EABC-Import
+* `BoolTraceZeroImpliesLocalShrink` — **named open hypothesis**
+* `eabcToWitness` — bedingt: `Hbt` + Entry + Phase ⇒ Witness
+* `bad_run_net_descent_of_eabc_constructive_cover` — bedingt Cover⇒NetDescent
+* Stein1 / Stein2 / surgery⇒Stein1 in `SemiprimeDesingularization.lean` bleiben **3× sorry**
+
+Kein Fake-`exact` für BoolTrace⇒Abstieg.
+
+---
+
+## 3. Was **würde** reichen (unverändert hart)
 
 > Für jedes `n > 1` mit `n ≡ 3 (mod 4)` existiert ein
 > `BadRunNetDescentWitness n`
-> **und** es gibt eine bewiesene Brücke
-> `BadRunNetDescentStatement → OddCoreCollatzConjecture`
-> (well-founded / Termination bis `1`).
+> (oder BoolTrace-Hypothese + Phasen-Cover, die ihn liefern).
 
-Dann folgt Odd-Core-Collatz, und via
+Dann folgt Odd-Core **via Gap-2-Glue**, und via
 `oddCoreCollatz_implies_classicalCollatz` die klassische Form.
 
 Lean-Name der ehrlichen Cover-Hypothese:
-`PureESemiprimeCoverStatement`
-(`KeplerHurwitz/Collatz/PureESemiprimeCoverClaimBoundary.lean`).
+`PureESemiprimeCoverStatement`.
 
 ---
 
-## 3. Was fehlt (fehlende Pfeile)
+## 4. Zirkularität — **nicht** magisch aufgelöst
 
-```
-Semiprime surgery / „reine E“
-    --[fehlt]--> BadRunNetDescentWitness          (Stein1/2, NormalForm-Brücke)
-BadRunNetDescentStatement
-    --[A, V2.7]--> CollatzAttemptV2OpenCase         (∃ t, step^t n < n)
-CollatzAttemptV2OpenCase
-    --[fehlt]--> OddCoreCollatzConjecture           (O6: 2× sorry)
-```
+`PureESemiprimeCoverStatement ↔ BadRunNetDescentStatement` ist weiterhin `[A]`.
 
-Konkrete Zitationen:
-
-| Fehlender Pfeil | Datei / Theorem |
-|---|---|
-| Surgery ⇒ Deep-Tail-Witness (`71 mod 256`) | `stein1_deep_tail_fiber_entry` (`sorry`) |
-| Absorption ⇒ archimedischer Abstieg | `stein2_absorption_archimedean_descent` (`sorry`) |
-| Surgery-Daten ⇒ Stein1 | `semiprime_surgery_implies_stein1` (`sorry`); Antezedens ist vacuous (`surgery_implies_stein1_iff_stein1`) |
-| Net-Descent ⇒ oktonionische Termination | `block_descent_uniform_implies_termination` (`sorry`) |
-| Oktonionische Termination ⇒ OddCore | `octonionic_termination_implies_oddCoreCollatz` (`sorry`) |
-| NormalForm reine E ⇒ Witness | nicht formalisiert; Prop `MereReineEShapeImpliesWitness` ⇔ offener Kern (Platzhalter) |
-
----
-
-## 4. Zirkularität
-
-`PureESemiprimeCoverStatement ↔ BadRunNetDescentStatement` ist `[A]` bewiesen.
-Eine „reine E“-Cover-Hypothese, die wirklich Collatz speist, **ist** der offene
-V2.7-Kern — keine schwächere NormalForm-Aussage.
-
-Shape-only (`MereEABCReineEShape := True` als Platzhalter ohne EABC-Import)
-macht `MereReineEShapeImpliesWitness` ebenfalls äquivalent zum offenen Kern.
+Gap 2 schließt nur den Induktionsschritt „lokaler Abstieg → Reach-`1`“.
+Gap 1 (woher der uniforme Witness kommt) bleibt der offene V2.7-Kern.
+Ein Shape-only „reine E“ ohne dynamisches `t_loc` ist weiterhin nicht schwächer
+als dieser Kern (`MereReineEShapeImpliesWitness` ⇔ NetDescent beim Platzhalter).
 
 ---
 
@@ -97,11 +106,12 @@ macht `MereReineEShapeImpliesWitness` ebenfalls äquivalent zum offenen Kern.
 \text{reine E (Shape/Absorption/Scaffold)}
 \nRightarrow
 \text{BadRunNetDescentWitness}
-\nRightarrow
+\quad;\quad
+\text{BadRunNetDescentStatement}
+\Rightarrow_{\mathrm{[A,\,WF]}}
 \text{OddCoreCollatz}
-\nRightarrow
-\text{Collatz}
+\quad\text{(Antezedens offen)}
 }
 \]
 
-Closed today: Witness ⇒ OpenCase (V2.7). Open: uniform Witness + OpenCase ⇒ Reach-`1`.
+**Collatz?** **NEIN.**

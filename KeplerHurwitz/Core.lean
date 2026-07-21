@@ -44,6 +44,8 @@ import KeplerHurwitz.Collatz.H7Mod256SingleValued
 import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Collatz.CkA.OrbitSmoothBridge
 import KeplerHurwitz.Collatz.Octonion.Termination
+import KeplerHurwitz.Collatz.SemiprimeDesingularization
+import KeplerHurwitz.Collatz.PureESemiprimeCoverClaimBoundary
 import KeplerHurwitz.CyclicWordOrbit
 import KeplerHurwitz.EABCLayer
 import KeplerHurwitz.EABCChannelPartition

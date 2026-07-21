@@ -39,7 +39,12 @@ def OctonionicCollatzProofTarget : Prop :=
     (∀ n, 1 < n → n % 2 = 1 → octonionic_energy_to_block_descent n)
 
 /--
-`[C]` V2-7-Witness-Schnittstelle: Net-Descent uniform ⇒ Termination — offen.
+`[C]` V2-7-Witness-Schnittstelle: Net-Descent uniform ⇒ *oktonionische*
+`oddCoreStep`-Termination — offen (andere Dynamik als `collatzStep`).
+
+Für die `collatzStep` / OddCore-Route ist Gap-2 WF-Glue `[A]` in
+`KeplerHurwitz.Collatz.PureESemiprimeCoverClaimBoundary.net_descent_cover_implies_oddCoreCollatz`
+(bedingt auf `BadRunNetDescentStatement`; Collatz nicht bewiesen).
 -/
 theorem block_descent_uniform_implies_termination
     (hnet : CollatzAttemptV2.CollatzNetDescent.BadRunNetDescentStatement) :

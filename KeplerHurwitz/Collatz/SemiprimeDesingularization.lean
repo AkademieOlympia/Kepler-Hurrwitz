@@ -167,6 +167,25 @@ theorem stein2_absorption_archimedean_descent :
 theorem semiprime_surgery_implies_stein1 : SemiprimeSurgeryImpliesStein1 := by
   sorry
 
+/-! ## Constructive witness interface (cross-ref; no fake cover)
+
+The constructive Fahrplan (`eabcToWitness`, phase-depth → `t_loc`,
+`BoolTraceZeroImpliesLocalShrink`) lives in
+`KeplerHurwitz.Collatz.PureESemiprimeCoverClaimBoundary`.
+
+This scaffold does **not** delete the three `sorry`s above by inventing a
+BoolTrace⇒descent proof. Stein1/Stein2 stay open `[C]`. Gap 2 WF glue
+(`BadRunNetDescentStatement → OddCoreCollatzConjecture`) is proved there
+conditionally; Gap 1 arithmetic is not.
+-/
+
+/--
+`[C]` Alias: residue-restricted Stein2 is a special case of the Gap-1
+BoolTrace/local-shrink slot, not a proof of it.
+-/
+def Stein2_as_deep_tail_booltrace_slot : Prop :=
+  Stein2_AbsorptionArchimedeanDescent
+
 /-! ## What *is* already formal nearby (do not overclaim) -/
 
 /--
