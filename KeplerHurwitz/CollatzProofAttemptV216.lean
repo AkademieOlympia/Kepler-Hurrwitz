@@ -14,6 +14,7 @@ open KeplerHurwitz.Collatz.ChannelSevenDeepLiftFormalBridgeV216
 
 Governance: composes already-proved `[A]` residue witnesses; does not close
 deep-tail classes or claim global Collatz termination.
+Assessment: `docs/collatz_v216_assessment.md` · Register E-098.
 
 Note: this status bundle intentionally does **not** import `CollatzProofAttemptV215`,
 so it stays buildable independently of the `OctonionicChiralDiagnostic` import gap
