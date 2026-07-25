@@ -4,7 +4,20 @@ import KeplerHurwitz.Collatz.Octonion.OddCoreCocycle
 import KeplerHurwitz.CollatzProofAttemptV27
 
 /-!
-Modul O5 — Block-Descent-Bridge `[C]`.
+Modul O5 — Block-Descent-Bridge + Variante C (Forschungsscaffold).
+
+## Epistemischer Status (STRICT)
+
+- **Forschungshypothese / Prop-Scaffold**, kein Collatz-Beweis.
+- `ExclusionOfInfiniteBadCylindersProp` / H_Fano-Defect ist **nicht bewiesen**.
+- `fano_defect_implies_block_descent` ist nur **konditionale Glue** aus der Prop
+  (0 sorry, nur im Docstring erwähnt).
+- Fano/Oktonion-Geometrie **beweist nicht** Collatz. Collatz? **NEIN**.
+
+Governance-Schichten:
+- `[C]` Modellkonstruktion (lokaler Fano-Defekt, Schalenpotential)
+- `[B]` formale Prop + konditionale Folgerung
+- `[E]` numerischer Scan (`examples/verify_v2_defect_scan.py`) — diagnostisch
 
 Verbindung oktonionischer Energie-Drift mit der V2-7-Net-Descent-Witness-Kette.
 
@@ -15,8 +28,10 @@ Verbindung oktonionischer Energie-Drift mit der V2-7-Net-Descent-Witness-Kette.
 | `bad_class_maps_to_A_or_C` | endliche mod-24-Übergangsstruktur |
 | `arbitrarily_long_valuation_one_runs` | No-Go für uniforme Wartezeit |
 | `valuation_surplus_implies_block_descent` | exakte O5-Schnittstelle (mit Korrekturterm) |
+| `ExclusionOfInfiniteBadCylindersProp` | Variante C — Hypothese, unbewiesen |
 
-Schutzsatz-Kern: **Jede erfolgreiche O5-Strategie muss über den endlichen mod-12-Automaten hinausgehen.**
+Schutzsatz-Kern: **Jede erfolgreiche O5-Strategie muss über den endlichen
+mod-12-Automaten hinausgehen.**
 
 ### Block-Schwelle (asymptotisch vs. exakt)
 
@@ -35,6 +50,71 @@ open CollatzNetDescentMod8
 open CollatzNetDescent.CollatzNetDescentMod8Witness
 
 noncomputable section
+
+/-! ### Variante C — H_Fano-Defect (Exclusion of Infinite Bad Cylinders)
+
+Forschungshypothese: ein unendlicher Nicht-Abstiegsorbit akkumuliert einen
+unbeschränkten Fano-Richtungsdefekt und widerspricht damit einer endlichen
+Schalen-Schranke `M(n0)`. **Nicht bewiesen; kein Collatz-Claim.**
+-/
+
+/--
+`[C]` Lokaler Fano-Phasendefekt eines Odd-Core-Schritts.
+
+Misst die Entropieschuld unter dem asymptotischen Mittel `log2 3`:
+`D(n) = max(0, log2 3 - ν₂(3n+1) + log2(1+1/(3n))/(1+1/(3n)))` für `n > 0`.
+Nur Modellbeobachtungsgröße — keine geometrische Collatz-Folgerung.
+-/
+def fanoDefect (n : Nat) : ℝ :=
+  if n = 0 then 0
+  else
+    let ν : ℝ := (padicValNat 2 (3 * n + 1) : ℝ)
+    let t : ℝ := (1 : ℝ) / (3 * (n : ℝ))
+    let corr : ℝ := (Real.log (1 + t) / Real.log 2) / (1 + t)
+    max 0 (Real.log 3 / Real.log 2 - ν + corr)
+
+/-- Kumulierte Defektsumme über `k` Odd-Core-Schritte ab `n`. -/
+def fanoDefectSum (n k : Nat) : ℝ :=
+  (Finset.range k).sum fun j => fanoDefect (oddCoreIterate j n)
+
+/--
+`[C]` Modell-Schalenpotential `M(n0) = C_Fano * log(shell + 1)`
+mit `shell = n0 / 12`. Kalibrierkonstante ist Forschungsparameter, kein Theorem.
+-/
+def fanoShellBound (n0 : Nat) (C_Fano : ℝ) : ℝ :=
+  C_Fano * Real.log (((n0 / 12 : Nat) : ℝ) + 1)
+
+/--
+`[B]` Research Prop — **Hypothese**, kein bewiesenes Theorem.
+
+H_Fano-Defect: Exclusion of Infinite Bad Cylinders.
+Ein unendlicher Nicht-Abstiegsorbit (alle Odd-Core-Iterierte `≥ n0`) ist
+in der EABC/Fano-Gittergeometrie unzulässig und wird hier als `False`
+kodiert. Instanzierung / Beweis bleibt offen; Collatz? **NEIN**.
+-/
+def ExclusionOfInfiniteBadCylindersProp : Prop :=
+  ∀ (n0 : Nat), 1 < n0 → n0 % 2 = 1 →
+    (∀ k, oddCoreIterate k n0 ≥ n0) →
+    False
+
+/--
+`[B]` Konditionale Glue (0 sorry): aus der Exclusion-Prop folgt Block-Abstieg.
+
+Kein Collatz-Beweis — entpackt nur die Hypothesenannahme.
+-/
+theorem fano_defect_implies_block_descent
+    (h_excl : ExclusionOfInfiniteBadCylindersProp)
+    {n : Nat} (hn : 1 < n) (ho : n % 2 = 1) :
+    ∃ k, 1 ≤ k ∧ oddCoreIterate k n < n := by
+  by_contra h
+  push Not at h
+  refine h_excl n hn ho fun k => ?_
+  match k with
+  | 0 =>
+    dsimp [oddCoreIterate]
+    exact Nat.le_refl n
+  | k + 1 =>
+    exact h (k + 1) (Nat.succ_le_succ (Nat.zero_le k))
 
 /-- Mittlere Valuation-Überschuss-Summe über `k` Odd-Core-Schritte. -/
 def valuationSurplusAvg (n : Nat) (k : Nat) : ℝ :=
