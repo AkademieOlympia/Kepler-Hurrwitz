@@ -177,7 +177,7 @@ Diese \(3/4\)-Lesart strukturiert den Vergleich mit V2.7 (`BadRunNetDescentWitne
 | `relative_net_descent_threshold(n)` | `floor(N/2)` für relative First Passage |
 | `log_uniform_odd_sample(limit)` | **Continuous log-scale approximation** (ungerade) |
 | `discrete_log_odd_sample(limit)` | Exakte diskrete `1/n`-Gewichtung (moderate Limits) |
-| `batch_first_passage_experiment(..., threshold="relative"|int)` | Batch + Summary inkl. Governance-Felder |
+| `batch_first_passage_experiment(..., threshold="relative" or int)` | Batch + Summary inkl. Governance-Felder |
 | `batch_fixed_threshold_first_passage_summaries(...)` | Tao-style fixed-x Schwellen `{10,100,1000,10000}` |
 | `log_uniform_odd_sample_mod8(limit, residue)` | Log-uniform ungerade Probe in einer mod-8-Klasse |
 | `batch_first_passage_by_mod8(...)` | First-Passage-Statistik pro Klein-Klasse `{1,3,5,7}` |
