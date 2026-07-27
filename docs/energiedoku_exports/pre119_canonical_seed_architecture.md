@@ -18,10 +18,10 @@ AffineOddQuotient (forward)               [A]  Schicht 2
 RealizesWord ↔ AffineOddQuotient          [C]  Schicht 2 reverse
         │
         ▼
-exists_unique_canonicalBase               [C]  Schicht 3
-        │
-        ▼
-canonicalBase_realizes                    [C]  Schicht 3
+exists_unique_canonicalBase               [A]  Schicht 3  ← discharged
+canonicalBase_{lt,modEq,unique}           [A]
+canonicalBase_eq_classBase (e=4..11)      [A]
+canonicalBase_realizes                    [C]
         │
         ▼
 infinite_lifting_from_realizing_base      [A]  Schicht 4 (e≥5, beliebiger Seed)
@@ -39,8 +39,8 @@ canonical_infinite_lifting                [C]  Komposition
 |-------|---------|--------|
 | `FiberEWordAlgebra.lean` | 1 | `[A]` `wordC_fiberE`, `fiberE_affine_identity` |
 | `AffineOddQuotient.lean` | 2 | `[A]` forward; reverse statement `[C]` |
+| `CanonicalBase.lean` | 3 | `[A]` `exists_unique_canonicalBase`, specs, census `e=4..11`; realizes `[C]` |
 | `ApMemberFromTransfer.lean` | 4 | `[A]` `margin_fiberE_of_realizes`, `infinite_lifting_from_realizing_base` |
-| (pending) CanonicalBase | 3 | Spezifikation `∃!` vor `modInv`-Implementierung |
 
 ## API-Entkopplung
 

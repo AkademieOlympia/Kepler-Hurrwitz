@@ -13,8 +13,16 @@
       "theorems_A": ["affineOddQuotient_of_realizesWord"]
     },
     "3_canonical_base": {
-      "status": "C",
-      "targets": ["exists_unique_canonicalBase", "canonicalBase_realizes"]
+      "status_exists_unique": "A",
+      "status_realizes": "C",
+      "theorems_A": [
+        "exists_unique_canonicalBase",
+        "canonicalBase_lt",
+        "canonicalBase_modEq",
+        "canonicalBase_unique",
+        "canonicalBase_eq_classBase"
+      ],
+      "goals_C": ["CanonicalBaseRealizesGoal", "CanonicalInfiniteLiftingViaCanonicalBaseGoal"]
     },
     "4_seed_independent_transfer": {
       "status": "A",
