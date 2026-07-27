@@ -1,0 +1,59 @@
+{
+  "experiment": "Core6DynamicD3",
+  "branch": "cursor/core6-dynamic-d3-4007",
+  "base": "cursor/core6-dynamic-feed-in-4007",
+  "base_d2b_freeze_head": "18e874773d5cbc8a072cd2c38edefe5087560861",
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicD3",
+  "plan": "docs/energiedoku_exports/pre119_core6_dynamic_d3_experiment.md",
+  "audit": "docs/exports/pre119_core6_dynamic_d3_closure_audit.md",
+  "status_wall": {
+    "D3_0_trichotomy": "C\u2192A",
+    "D3_1_target_index_affine": "C\u2192A",
+    "D3_2_general_path_AP": "C\u2192A",
+    "D3_3a_path_packaging": "C\u2192A",
+    "D3_3b_not_Core6PathFeedInGoal": "C\u2192A",
+    "D3_3c_residual_decomposition": "C\u2192A",
+    "D3_3d_residual_iff_reachability": "C\u2192A",
+    "Core6PathFeedInGoal": "false",
+    "BlockBoundaryFeedInGoal": "C",
+    "OffCore6ReentryGoal": "C",
+    "ResidualFeedInGoal": "C",
+    "ReachabilityFeedInGoal": "C",
+    "collapse": false
+  },
+  "delivered": [
+    "realizesChannelPath_eq_progression",
+    "channelPathNumberModulus",
+    "IsContractingFirstHitPath",
+    "core6PathFeedInSet_eq_iUnion_progressions",
+    "mem_core6PathFeedInSet_one_1246239",
+    "not_mem_core6PathFeedInSet_one_31",
+    "not_core6PathFeedInGoal",
+    "core6PathResidualSet",
+    "canonicalCylinder_eq_core6PathFeedIn_union_residual",
+    "oneBlockOffCore6Set_subset_core6PathResidualSet",
+    "mem_core6PathResidualSet_one_31",
+    "mem_core6PathFeedInSet_reaches_contractingMass",
+    "residualFeedIn_iff_reachability",
+    "core6PathFeedIn_implies_blockBoundary",
+    "blockBoundaryFeedIn_implies_reachability"
+  ],
+  "d3_3_freeze": {
+    "frozen": true,
+    "math_freeze_head": "24bd5c83718da11c9ec2bfa8962de331be117369",
+    "packaging_lean_comments_head": "adb2dd84ea87473dd4e6c49ace50de15cb676297",
+    "packaging_character": "docs_and_nonsemantic_lean_comments_only",
+    "packaging_note": "adb2dd8 Lean delta is module/freeze/non-theorem comments only; no defs/theorems/proofs/certificates changed",
+    "policy": "no_new_kernel_mathematics; CI_linter_review_docs_only",
+    "promotion_rule": "candidate \u2227 CI green \u2227 review \u2227 merge \u21d2 C\u2192A \u2192 A (separate commit)",
+    "follow_up_scope": "D3.4 residual fine-structure + D4 ResidualFeedInGoal",
+    "follow_up_branch_prefix": "cursor/core6-dynamic-d34-residual-4007"
+  },
+  "planned_d3_4": {
+    "status": "design_only",
+    "split": "Residual = FiniteBlockExit \u222a\u0307 ForeverExpandingBoundary",
+    "lean_status": "no Lean statement in PR #18",
+    "note": "definitions/disjointness are C\u2192A candidates only on the follow-up PR; dynamics remain C"
+  },
+  "claims_freeze": false
+}

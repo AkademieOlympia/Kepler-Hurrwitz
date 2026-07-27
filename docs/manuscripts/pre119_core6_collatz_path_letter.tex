@@ -1,0 +1,509 @@
+% !TEX program = pdflatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=blue!50!black
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Lean}{\textsc{Lean}\,4}
+\newcommand{\CA}{\ensuremath{[\mathrm{C}\!\to\!\mathrm{A}]}}
+\newcommand{\tagA}{\ensuremath{[\mathrm{A}]}}
+\newcommand{\tagB}{\ensuremath{[\mathrm{B}]}}
+\newcommand{\tagC}{\ensuremath{[\mathrm{C}]}}
+\newcommand{\FeedIn}{\mathtt{core6PathFeedInSet}}
+\newcommand{\Residual}{\mathtt{core6PathResidualSet}}
+\newcommand{\Umap}{U}
+
+\title{%
+  From the Collatz Suspicion to a Residual Reduction:\\
+  A Letter on the Pre119--Core6 Formal Path
+}
+\author{%
+  Thomas Hofbauer\\
+  \small Bamberg / Akademie Olympia\\
+  \small\texttt{Kepler--Hurwitz} formalization programme
+}
+\date{27 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note is addressed, with respect, to \textbf{Lothar Collatz},
+to \textbf{Riho Terras}, and to the many mathematicians who shaped the
+modern language of the $3x+1$ problem.
+It recounts---without claiming a proof---how a contemporary
+machine-checked investigation isolates the classical suspicion inside a
+precise residual set.
+On the Core6 cylinder architecture we obtain a complete algebraic
+classification of the \emph{Core6-internal} first-hit feed-in channel and a
+formal equivalence
+\[
+  \mathtt{ResidualFeedInGoal}
+  \;\Longleftrightarrow\;
+  \mathtt{ReachabilityFeedInGoal}.
+\]
+Thus the global dynamical difficulty is localized, not dissolved.
+The epistemic status remains deliberately open: \texttt{ClaimsFreeze}
+is false; Collatz's conjecture is unproved.
+\end{abstract}
+
+\tableofcontents
+\vspace{1em}
+
+%==============================================================================
+\section{An address to those who came before}
+%==============================================================================
+
+Dear Professor Collatz,
+dear Dr.~Terras,
+and dear colleagues along the long $3x+1$ road---
+Everett, Kakutani, Ulam, Lagarias, Conway, Wirsching, Korec, Crandall,
+Kontorovich, Tao, and so many unnamed computers and computers of computers---
+
+We write not to announce a solution, but to report a \emph{localization}.
+Your suspicion---that every positive integer, under the map that doubles down
+on odds and halves on evens, eventually reaches the cycle
+$4\to 2\to 1$---remains open.
+What we can offer, after a day of concentrated formal work inside the
+\texttt{Kepler--Hurwitz} Lean library, is a sharper statement of
+\emph{where} the remaining difficulty lives.
+
+The classical problem asks for a global dynamical fact.
+Our contribution is architectural:
+we carve the odd Syracuse dynamics along a fixed valuation word
+(\texttt{Core6}), prove what can be proved inside that word, refute what
+cannot, and reduce the rest to a residual set that is logically equivalent
+to full expanding-mass reachability.
+
+If this letter has one moral, it is the one Terras already taught the
+subject with probabilistic clarity:
+\begin{quote}
+\emph{Almost all} behaviour is not \emph{all} behaviour;\\
+and a beautiful average is not a uniform certificate.
+\end{quote}
+We try to keep that distinction machine-checkable.
+
+%==============================================================================
+\section{The suspicion, in classical language}
+%==============================================================================
+
+\subsection{Collatz's map}
+Let
+\[
+  T(n) \;=\;
+  \begin{cases}
+    n/2, & n\text{ even},\\
+    3n+1, & n\text{ odd}.
+  \end{cases}
+\]
+The Collatz conjecture asserts that for every $n\in\mathbb{N}_{>0}$ there
+exists $t\ge 0$ with $T^{\circ t}(n)=1$.
+An equivalent and often cleaner formulation works with the
+\emph{odd Syracuse map}
+\[
+  \Umap(n)
+  \;=\;
+  \frac{3n+1}{2^{v_2(3n+1)}},
+\]
+the first odd iterate after an odd kick.
+Reachability of the trivial cycle is then equivalent to every odd start
+eventually entering a contracting regime under iterates of $\Umap$.
+
+\subsection{Voices on the path}
+We name only a few of those whose work prepared the ground for any modern
+attempt---including ours---to speak carefully about the problem.
+
+\begin{description}[leftmargin=1.6cm,style=nextline]
+  \item[Lothar Collatz (1910--1990).]
+  The conjecture that bears his name: a child's game that became a
+  century's embarrassment and invitation.
+  We address him first because honesty toward the originator forbids
+  packaging a localization as a proof.
+
+  \item[Riho Terras.]
+  Terras's density and stopping-time analysis remains the paradigmatic
+  lesson that probabilistic almost-sure descent is not a uniform theorem.
+  When we write ``Mr.~Taro'' in conversation, we mean Terras:
+  the voice that taught the subject to distinguish heuristic measure from
+  certificate.
+
+  \item[C.~J.~Everett; Shizuo Kakutani; Stanis\l{}aw Ulam.]
+  Early dynamical and probabilistic framings of the $3x+1$ iteration;
+  the problem's migration from recreational oddity to ergodic curiosity.
+
+  \item[Jeffrey C.~Lagarias.]
+  The definitive surveys and the culture of precise partial results:
+  congruence constraints, covering systems, computational frontiers,
+  and the discipline of stating what is \emph{not} proved.
+
+  \item[John H.~Conway.]
+  Undecidability for generalized Collatz maps: a warning that formal
+  caution is not pedantry.
+
+  \item[G\"unter Wirsching; Ivan Korec; and the computational school.]
+  Structure theorems, density estimates, and the vast experimental
+  verification that makes every residual witness---such as our $31$---
+  feel both familiar and sharp.
+
+  \item[Terence Tao (2019).]
+  Almost all orbits attain almost bounded values (logarithmic density).
+  A magnificent external milestone, and still not the Collatz conjecture.
+  We cite it as context, never as a discharged step of our Lean chain
+  \cite{Tao2019}.
+\end{description}
+
+None of these names is invoked as co-author of the present formal package.
+They are the audience to whom we owe an accurate status report.
+
+%==============================================================================
+\section{Our programme: Pre119 and the Core6 word}
+%==============================================================================
+
+\subsection{Epistemic tags}
+Inside the project we refuse a single boolean ``proved / unproved'' for every
+sentence.
+Claims carry tags:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Tag & Meaning & Promotion rule \\
+\midrule
+\tagA & Lean-formal, accepted after review & repository of record \\
+\tagB & reproducible census / numerics & never alone upgrades to \tagA \\
+\tagC & open hypothesis / interface & may become \CA \\
+\CA & constructive Lean package, not yet \tagA & needs merge + separate promotion \\
+\bottomrule
+\end{tabular}
+\end{center}
+Global \texttt{ClaimsFreeze} remains \textbf{false}: we do not claim Collatz.
+
+\subsection{The Core6 fiber}
+A \emph{fiber word} is a finite sequence of positive $2$-adic valuations
+recording the successive halvings after odd Syracuse kicks.
+The distinguished prefix
+\[
+  \mathtt{core6}
+  \;=\;
+  [1,1,1,1,2,2]
+\]
+is a length-$6$ valuation word shared by a large coherent family of starts.
+Appending a positive tail exponent $e$ yields the length-$7$ fiber
+\[
+  \mathtt{fiberE}(e)
+  \;=\;
+  \mathtt{core6}\mathbin{+\kern-0.2em+}[e].
+\]
+For each $e\ge 1$ there is a unique \emph{canonical base} $b_e$ in a complete
+residue system modulo $2^{e+9}$, and an infinite arithmetic progression---the
+\emph{canonical cylinder}
+\[
+  C_e
+  \;=\;
+  \bigl\{\, b_e + k\cdot 2^{e+9}
+  \;\big|\;
+  k\in\mathbb{N}\,\bigr\}.
+\]
+Dynamically we split
+\begin{align*}
+  \mathtt{expandingMass}
+  &\;=\; C_1\cup C_2\cup C_3,\\
+  \mathtt{contractingMass}
+  &\;=\; \textstyle\bigcup_{e\ge 4} C_e.
+\end{align*}
+Heuristically, expanding channels tend to grow under a full block, while
+contracting channels tend to shrink.
+The classical reachability goal, in this language, is:
+
+\begin{hypothesis}[ReachabilityFeedInGoal \tagC]
+Every $n\in\mathtt{expandingMass}$ admits $t\ge 1$ with
+$\Umap^{\circ t}(n)\in\mathtt{contractingMass}$.
+\end{hypothesis}
+
+This is still open.
+What changed today is its \emph{logical location}.
+
+%==============================================================================
+\section{The formal path of the last weeks}
+%==============================================================================
+
+We summarize the stack that led to today's residual reduction.
+All packages below are presently at status \CA{} (CI-green candidates), not yet
+promoted repository-\tagA{} after merge.
+
+\subsection{PR\,\#15 --- canonical seed lifting}
+Unique bases, realization of $\mathtt{fiberE}(e)$, and infinite arithmetic
+lifting for every $e\ge 4$:
+every cylinder point is an infinite AP of genuine Core6-tail realizations.
+Algebraically, the odd affine coefficient along $\mathtt{fiberE}(e)$ is
+independent of~$e$ (the constant $2347$ in the formalization).
+
+\subsection{PR\,\#16 --- static cylinder partition}
+Pairwise disjointness of the cylinders~$C_e$, the expanding/contracting phase
+partition of the Core6 cylinder, and a \emph{relative} dyadic density statement:
+the contracting share among Core6 residues tends to $1/8$.
+Explicit non-claim: this is \textbf{not} natural density on~$\mathbb{N}$, and
+not Collatz.
+
+\subsection{PR\,\#17 --- one-block feed-in (D2b freeze)}
+After one full $\mathtt{fiberE}(e_0)$ block, the starts in~$C_{e_0}$ that land
+immediately in contracting mass form a set
+$\mathtt{oneBlockFeedInSet}(e_0)$.
+This set is a disjoint union of arithmetic progressions indexed by target
+channels $f\ge 4$, via a Cancel-by-$2$ congruence bridge and a unique residue
+class~$\kappa$.
+A positive witness is $1{,}246{,}239\in\mathtt{oneBlockFeedInSet}(1)$;
+the universal one-block claim is formally false via $31\mapsto 137$.
+
+\subsection{PR\,\#18 --- multi-block paths and residual reduction (D3.3 freeze)}
+This is the subject of today's investigations.
+Mathematical freeze head:
+\[
+  \texttt{24bd5c83718da11c9ec2bfa8962de331be117369}.
+\]
+Packaging with non-semantic Lean comments only:
+\[
+  \texttt{adb2dd84ea87473dd4e6c49ace50de15cb676297}.
+\]
+
+%==============================================================================
+\section{Today's theorems, stated carefully}
+%==============================================================================
+
+\subsection{Fixed-path arithmetic progressions}
+For a fixed nonempty channel path $p$ with valid labels, the set of starts
+that realize~$p$ is exactly an arithmetic progression $\mathrm{AP}_p$
+(obtained by iterated dyadic lifting, not by an appeal to classical CRT as a
+black box).
+
+\subsection{First-hit packaging}
+A \emph{contracting first-hit path} starts in an expanding channel, stays
+expanding in every interior channel, and ends at the first contracting
+channel.
+Their union is
+\[
+  \FeedIn(e_0)
+  \;=\;
+  \bigcup_{\substack{p\text{ contracting}\\\text{first-hit from }e_0}}
+  \mathrm{AP}_p.
+\]
+This is the Core6-\emph{internal} successful channel.
+
+\subsection{Refutation of universal Core6-path coverage}
+\begin{theorem}[$\neg\,\mathtt{Core6PathFeedInGoal}$ \CA]
+It is not true that every start in $C_1\cup C_2\cup C_3$ realizes some
+Core6-internal contracting first-hit path.
+\end{theorem}
+\begin{proof}[Proof sketch in the kernel]
+Take $e_0=1$ and $n=31$.
+Then $31\in C_1$, yet after one block $31\mapsto 137\notin\mathtt{core6Cylinder}$.
+Any Core6-internal first-hit path would force the first block image back into
+Core6; hence $31\notin\FeedIn(1)$.
+\end{proof}
+Thus the strategy
+``every expanding start has a purely Core6-internal first-hit path''
+is not merely unfinished---it is \textbf{false}.
+
+\subsection{Cylinder dichotomy}
+\begin{definition}
+$\Residual(e_0) \;=\; C_{e_0}\setminus\FeedIn(e_0)$.
+\end{definition}
+\begin{theorem}[Dichotomy \CA]
+$C_{e_0}=\FeedIn(e_0)\;\dot\cup\;\Residual(e_0)$,
+and $\mathtt{oneBlockOffCore6Set}(e_0)\subseteq\Residual(e_0)$.
+\end{theorem}
+For $e_0=1$ the residual is nonempty ($31$) and the feed-in share is nonempty
+($1{,}246{,}239$).
+
+\subsection{The First-Hit bridge}
+Membership in the feed-in set is not only arithmetic: it is dynamical.
+\begin{theorem}[Feed-in bridge \CA]
+If $n\in\FeedIn(e_0)$, then there exist $r\ge 1$ and
+$t=7r$ with $\Umap^{\circ t}(n)\in\mathtt{contractingMass}$.
+\end{theorem}
+The Core6-internal share therefore needs \textbf{no further open dynamics}.
+
+\subsection{The equivalence that localizes the difficulty}
+\begin{theorem}[Residual reduction \CA]
+\[
+  \mathtt{ResidualFeedInGoal}
+  \;\Longleftrightarrow\;
+  \mathtt{ReachabilityFeedInGoal}.
+\]
+\end{theorem}
+\begin{remark}
+The reverse implication is immediate: residual starts lie in expanding mass.
+The forward implication needs the dichotomy \emph{and} the First-Hit bridge.
+The bare set equation $C=F\,\dot\cup\,R$ does not by itself move dynamics from
+$F$ to contracting mass.
+\end{remark}
+
+In one sentence for Professor Collatz:
+\begin{quote}
+\emph{Everything that can be finished inside Core6-internal first-hit paths
+is finished; everything that remains is exactly the residual, and the residual
+is as hard as the whole expanding-mass reachability question.}
+\end{quote}
+
+%==============================================================================
+\section{What the residual still hides}
+%==============================================================================
+
+The residual is not homogeneous.
+At present we know only that immediate one-block Off-Core6 exits sit inside it.
+Design architecture for a follow-up (not yet Lean, not a theorem) proposes
+\[
+  \Residual
+  \;=\;
+  \mathtt{FiniteBlockExit}
+  \;\dot\cup\;
+  \mathtt{ForeverExpandingBoundary},
+\]
+i.e.\ starts that leave Core6 after finitely many expanding blocks, versus
+starts that remain forever in $C_1\cup C_2\cup C_3$ at every block boundary.
+Re-entry after exit, and the exclusion or control of forever-expanding
+boundary orbits, remain \tagC.
+
+\begin{hypothesis}[ResidualFeedInGoal \tagC]
+Every residual start eventually reaches contracting mass under odd Syracuse
+iteration.
+\end{hypothesis}
+By the equivalence above, discharging this hypothesis would discharge
+expanding-mass reachability in the Core6 language---still short of a full
+Collatz theorem for all of~$\mathbb{N}$, but the natural next fortress.
+
+%==============================================================================
+\section{Governance: how we refuse to overclaim}
+%==============================================================================
+
+\begin{enumerate}[leftmargin=*]
+  \item PR\,\#18 is under a \textbf{strict mathematical freeze} at
+  \texttt{24bd5c8}. No new kernel mathematics belongs on that pull request.
+  \item Status tags stay \CA{} until review, merge, and a \textbf{separate}
+  promotion commit to repository-\tagA.
+  \item D3.4 residual fine-structure and D4 residual dynamics belong on a
+  follow-up branch
+  (\texttt{cursor/core6-dynamic-d34-residual-\ldots}), not on the frozen tip.
+  \item Natural density, global Collatz, and ``collapse'' rhetoric are
+  explicit non-goals of the present package.
+\end{enumerate}
+
+This discipline is our debt to Conway's undecidability warning and to
+Lagarias's survey culture: name the theorem you have, and name the theorem
+you do not.
+
+%==============================================================================
+\section{A small diagram of the day}
+%==============================================================================
+
+\[
+\begin{array}{c}
+C_{e_0}\quad(1\le e_0\le 3)\\[0.4em]
+\hline
+\begin{array}{c|c}
+\FeedIn(e_0)=\bigcup_p\mathrm{AP}_p
+&
+\Residual(e_0)\\[0.3em]
+\text{First-Hit bridge: }t=7r
+&
+\text{open dynamical core}\\[0.2em]
+\text{finished}
+&
+\equiv\ \mathtt{ReachabilityFeedInGoal}
+\end{array}
+\end{array}
+\]
+
+%==============================================================================
+\section{Closing words}
+%==============================================================================
+
+Professor Collatz: your map is still unconquered.
+What we can say, after formalizing the Core6 channel, is that one seductive
+proof idea---universal coverage by Core6-internal first-hit paths---is dead,
+and that the surviving difficulty has a clean name.
+
+Dr.~Terras: your lesson stands.
+We have converted a heuristic partition into Lean definitions and theorems,
+but the residual still asks for dynamics that averages cannot supply.
+
+To Lagarias, Tao, and the computational witnesses of decades:
+thank you for the language in which an honest residual can be stated.
+
+The conjecture remains a suspicion.
+Our progress is that the suspicion now has a smaller, sharper address.
+
+\vspace{1.2em}
+\begin{flushright}
+\textit{Bamberg, 27 July 2026}\\
+Thomas Hofbauer\\
+\texttt{Kepler--Hurwitz / Pre119--Core6}
+\end{flushright}
+
+%==============================================================================
+\begin{thebibliography}{9}
+\bibitem{Collatz}
+L.~Collatz.
+\newblock On the $3x+1$ problem (historical attribution; circulating notes and
+correspondence, mid-20th century).
+\newblock See surveys in~\cite{Lagarias2010}.
+
+\bibitem{Terras1976}
+R.~Terras.
+\newblock A stopping time problem on the positive integers.
+\newblock \emph{Acta Arith.} \textbf{30} (1976), 241--252.
+
+\bibitem{Lagarias2010}
+J.~C.~Lagarias (ed.).
+\newblock \emph{The Ultimate Challenge: The $3x+1$ Problem}.
+\newblock American Mathematical Society, 2010.
+
+\bibitem{Conway1972}
+J.~H.~Conway.
+\newblock Unpredictable iterations.
+\newblock In \emph{Proc.\ 1972 Number Theory Conf.}, Univ.\ of Colorado,
+Boulder, 1972, 49--52.
+
+\bibitem{Tao2019}
+T.~Tao.
+\newblock Almost all orbits of the Collatz map attain almost bounded values.
+\newblock arXiv:1909.03562, 2019.
+
+\bibitem{Wirsching1998}
+G.~J.~Wirsching.
+\newblock \emph{The Dynamical System Generated by the $3n+1$ Function}.
+\newblock Lecture Notes in Mathematics \textbf{1681}, Springer, 1998.
+
+\bibitem{KHPre119}
+Akademie Olympia / Kepler--Hurwitz.
+\newblock Pre119 Core6 formalization stack (PRs \#15--\#18),
+math freeze heads
+\texttt{3740183} (static),
+\texttt{18e8747} (D2b),
+\texttt{24bd5c8} (D3.3);
+\texttt{ClaimsFreeze} false.
+\end{thebibliography}
+
+\end{document}
