@@ -517,6 +517,296 @@ theorem mem_channelPathProgression_one_four_1246239 :
   (realizesChannelPath_two_iff_mem_progression (by decide) (by decide)).1
     realizesChannelPath_one_four_1246239
 
+/-! ### D3.2 closure — general fixed-path AP equivalence
+
+Iterated dyadic congruence lifting (not classical CRT): after each hop the next
+condition is pulled back through `j = λ + 2187·r`, and oddness of `2187` yields
+a unique residual class. Moduli multiply as `∏ 2^{eᵢ+8}`.
+-/
+
+theorem ChannelPathLabelsValid.head {e : Nat} {es : List Nat}
+    (h : ChannelPathLabelsValid (e :: es)) : 1 ≤ e :=
+  h e (List.mem_cons.2 (Or.inl rfl))
+
+theorem ChannelPathLabelsValid.tail {e : Nat} {es : List Nat}
+    (h : ChannelPathLabelsValid (e :: es)) : ChannelPathLabelsValid es :=
+  fun x hx => h x (List.mem_cons.2 (Or.inr hx))
+
+/--
+`[C→A]` Canonical representative is strictly below the path modulus.
+-/
+theorem channelPathIndexClass_lt {es : List Nat}
+    (hvalid : ChannelPathLabelsValid es) (hne : es ≠ []) :
+    channelPathIndexClass es < channelPathIndexModulus es := by
+  match es with
+  | [] => exact (hne rfl).elim
+  | [_] =>
+    change (0 : Nat) < 1
+    exact Nat.one_pos
+  | e :: f :: rest =>
+    have he : 1 ≤ e := hvalid.head
+    have hf : 1 ≤ f := hvalid.tail.head
+    rw [channelPathIndexClass_cons he hf, channelPathIndexModulus_cons]
+    set κ1 := oneBlockIndexClass e f
+    set ρ := channelPathResidual e f rest he hf
+    set Mf := oneBlockIndexModulus f
+    set Mrest := channelPathIndexModulus (f :: rest)
+    have hκlt : κ1 < Mf := oneBlockIndexClass_lt e f
+    have hρlt : ρ < Mrest := channelPathResidual_lt (rest := rest) he hf
+    have hstrict : κ1 + ρ * Mf < Mf + ρ * Mf :=
+      Nat.add_lt_add_right hκlt _
+    have heq : Mf + ρ * Mf = Mf * (ρ + 1) := by ring
+    have hle : Mf * (ρ + 1) ≤ Mf * Mrest :=
+      Nat.mul_le_mul_left Mf (Nat.succ_le_of_lt hρlt)
+    exact lt_of_lt_of_le (hstrict.trans_eq heq) hle
+
+/--
+`[C→A]` Residual cancellation: `λ + 2187·r ≡ κ_rest ↔ r ≡ ρ`,
+using that `2187` is a unit modulo every path modulus.
+-/
+theorem channelPathResidual_iff {e f : Nat} {rest : List Nat} {r : Nat}
+    (he : 1 ≤ e) (hf : 1 ≤ f) :
+    oneBlockTargetBaseIndex e f he hf + coeff3 * r ≡
+        channelPathIndexClass (f :: rest)
+          [MOD channelPathIndexModulus (f :: rest)] ↔
+      r ≡ channelPathResidual e f rest he hf
+        [MOD channelPathIndexModulus (f :: rest)] := by
+  set es' := f :: rest
+  set baseIdx := oneBlockTargetBaseIndex e f he hf
+  set κrest := channelPathIndexClass es'
+  set Mrest := channelPathIndexModulus es'
+  set ρ := channelPathResidual e f rest he hf
+  have hρspec : (coeff3 : ZMod Mrest) * (ρ : ZMod Mrest) =
+      (κrest : ZMod Mrest) - (baseIdx : ZMod Mrest) := by
+    simpa [es', baseIdx, κrest, Mrest, ρ] using
+      channelPathResidual_spec (rest := rest) he hf
+  constructor
+  · intro hj
+    have hZ : ((baseIdx + coeff3 * r : Nat) : ZMod Mrest) =
+        (κrest : ZMod Mrest) :=
+      (ZMod.natCast_eq_natCast_iff _ _ _).2 hj
+    have hcast :
+        ((baseIdx + coeff3 * r : Nat) : ZMod Mrest) =
+          (baseIdx : ZMod Mrest) + (coeff3 : ZMod Mrest) * (r : ZMod Mrest) := by
+      push_cast; rfl
+    have hr_mul : (coeff3 : ZMod Mrest) * (r : ZMod Mrest) =
+        (κrest : ZMod Mrest) - (baseIdx : ZMod Mrest) := by
+      have : (baseIdx : ZMod Mrest) + (coeff3 : ZMod Mrest) * (r : ZMod Mrest) =
+          (κrest : ZMod Mrest) := by rwa [← hcast]
+      simpa [add_sub_cancel_left] using
+        congrArg (fun z : ZMod Mrest => z - (baseIdx : ZMod Mrest)) this
+    have hcoeff : (coeff3 : ZMod Mrest) * (r : ZMod Mrest) =
+        (coeff3 : ZMod Mrest) * (ρ : ZMod Mrest) := by
+      rw [hr_mul, hρspec]
+    have hinv :=
+      congrArg (fun z : ZMod Mrest =>
+        (↑(coeff3UnitPath es')⁻¹ : ZMod Mrest) * z) hcoeff
+    have hrZ : (r : ZMod Mrest) = (ρ : ZMod Mrest) := by
+      simpa [← coeff3UnitPath_coe es', ← mul_assoc, Units.inv_mul] using hinv
+    exact (ZMod.natCast_eq_natCast_iff _ _ _).1 hrZ
+  · intro hr
+    have hrZ : (r : ZMod Mrest) = (ρ : ZMod Mrest) :=
+      (ZMod.natCast_eq_natCast_iff _ _ _).2 hr
+    have hjZ :
+        (baseIdx : ZMod Mrest) + (coeff3 : ZMod Mrest) * (r : ZMod Mrest) =
+          (κrest : ZMod Mrest) := by
+      rw [hrZ, hρspec]; abel
+    have hcast :
+        ((baseIdx + coeff3 * r : Nat) : ZMod Mrest) =
+          (baseIdx : ZMod Mrest) + (coeff3 : ZMod Mrest) * (r : ZMod Mrest) := by
+      push_cast; rfl
+    exact (ZMod.natCast_eq_natCast_iff _ _ _).1 (hcast.trans hjZ)
+
+/--
+Dyadic lifting compose: `r ≡ ρ [MOD N]` ⇒ `κ + r·M ≡ κ + ρ·M [MOD M·N]`.
+-/
+theorem modEq_compose_residue {κ r ρ M N : Nat}
+    (hr : r ≡ ρ [MOD N]) :
+    κ + r * M ≡ κ + ρ * M [MOD M * N] := by
+  refine (Int.natCast_modEq_iff).1 ?_
+  refine (Int.modEq_iff_dvd).2 ?_
+  have hdiv : (N : ℤ) ∣ (ρ : ℤ) - r :=
+    (Int.modEq_iff_dvd).1 ((Int.natCast_modEq_iff).2 hr)
+  obtain ⟨t, ht⟩ := hdiv
+  refine ⟨t, ?_⟩
+  calc
+    ((κ + ρ * M : Nat) : ℤ) - ↑(κ + r * M)
+        = ((ρ : ℤ) - r) * M := by push_cast; ring
+    _ = (N * t) * M := by rw [ht]
+    _ = ↑(M * N) * t := by push_cast; ring
+
+/--
+Dyadic lifting decompose: from `k ≡ κ + ρ·M [MOD M·N]` with `κ < M`,
+recover `k ≡ κ [MOD M]` and `k/M ≡ ρ [MOD N]`.
+-/
+theorem modEq_decompose_residue {k κ ρ M N : Nat}
+    (hκ : κ < M)
+    (hk : k ≡ κ + ρ * M [MOD M * N]) :
+    k ≡ κ [MOD M] ∧ k / M ≡ ρ [MOD N] := by
+  have hkM : k ≡ κ [MOD M] := by
+    have h1 : k ≡ κ + ρ * M [MOD M] :=
+      Nat.ModEq.of_dvd (Nat.dvd_mul_right M N) hk
+    have h0 : κ + ρ * M ≡ κ [MOD M] := by
+      have : ρ * M ≡ 0 [MOD M] := by
+        rw [Nat.ModEq]; simp
+      exact this.add_left κ
+    exact h1.trans h0
+  refine ⟨hkM, ?_⟩
+  have hdecomp := eq_add_mul_of_modEq hκ hkM
+  have hcongr : κ + (k / M) * M ≡ κ + ρ * M [MOD M * N] := by
+    rwa [← hdecomp]
+  have hmul : (k / M) * M ≡ ρ * M [MOD M * N] :=
+    Nat.ModEq.add_left_cancel' κ hcongr
+  have hM : 0 < M := Nat.zero_lt_of_lt hκ
+  have hdiv : ↑(M * N) ∣ (↑(ρ * M) : ℤ) - ↑(k / M * M) :=
+    (Int.modEq_iff_dvd).1 ((Int.natCast_modEq_iff).2 hmul)
+  obtain ⟨t, ht⟩ := hdiv
+  have hfactor : (ρ : ℤ) - ↑(k / M) = ↑N * t := by
+    have hMne : (M : ℤ) ≠ 0 := by exact_mod_cast hM.ne'
+    apply mul_left_cancel₀ hMne
+    calc
+      ↑M * ((ρ : ℤ) - ↑(k / M))
+          = ↑(ρ * M) - ↑(k / M * M) := by push_cast; ring
+      _ = ↑(M * N) * t := ht
+      _ = ↑M * (↑N * t) := by push_cast; ring
+  exact (Int.natCast_modEq_iff).1 ((Int.modEq_iff_dvd).2 ⟨t, hfactor⟩)
+
+private theorem realizes_image_mem_first_target
+    {e f : Nat} {rest : List Nat} {n : Nat}
+    (hR : RealizesChannelPath (e :: f :: rest) n) :
+    realizedImage n (fiberE e) ∈ canonicalCylinder f := by
+  have htail := hR.2
+  match rest with
+  | [] =>
+    simpa [RealizesChannelPath] using htail
+  | _ :: _ =>
+    exact htail.1
+
+/--
+`[C→A]` General fixed-path index characterization by induction on the tail:
+`Φ_{e₀}(k)` realizes `e₀::rest` iff `k ≡ κ(e₀::rest) [MOD M(e₀::rest)]`.
+-/
+theorem realizesChannelPath_fiberIndex_iff
+    {e₀ : Nat} {rest : List Nat} {k : Nat}
+    (he₀ : 1 ≤ e₀) (hrest : ChannelPathLabelsValid rest) :
+    RealizesChannelPath (e₀ :: rest) (fiberIndexMap e₀ k) ↔
+      k ≡ channelPathIndexClass (e₀ :: rest)
+        [MOD channelPathIndexModulus (e₀ :: rest)] := by
+  revert k
+  induction rest generalizing e₀ with
+  | nil =>
+    intro k
+    constructor
+    · intro _
+      exact Nat.modEq_zero_iff_dvd.2 (Nat.one_dvd _)
+    · intro _
+      simpa [RealizesChannelPath, ← canonicalCylinder_eq_ap] using
+        fiberIndexMap_mem e₀ k
+  | cons f rest ih =>
+    intro k
+    have hf : 1 ≤ f := hrest.head
+    have hrest' : ChannelPathLabelsValid rest := hrest.tail
+    have hmod := channelPathIndexModulus_cons e₀ f rest
+    have hclass := channelPathIndexClass_cons (rest := rest) he₀ hf
+    set Mf := oneBlockIndexModulus f
+    set es' := f :: rest
+    set Mrest := channelPathIndexModulus es'
+    set κ1 := oneBlockIndexClass e₀ f
+    set baseIdx := oneBlockTargetBaseIndex e₀ f he₀ hf
+    set κrest := channelPathIndexClass es'
+    set ρ := channelPathResidual e₀ f rest he₀ hf
+    have hκlt : κ1 < Mf := oneBlockIndexClass_lt e₀ f
+    constructor
+    · intro hR
+      have himg_mem := realizes_image_mem_first_target hR
+      have hkκ : k ≡ κ1 [MOD Mf] :=
+        (fiberIndexImage_mem_target_iff_index_modEq he₀ hf).1 himg_mem
+      set r := k / Mf
+      have hstep :=
+        realizesChannelPath_cons_fiberIndex_step (rest := rest) he₀ hf hkκ
+      have htail :
+          RealizesChannelPath es'
+            (fiberIndexMap f (baseIdx + coeff3 * r)) :=
+        hstep.1 hR
+      have hj :=
+        (ih (e₀ := f) hf hrest' (k := baseIdx + coeff3 * r)).1 htail
+      have hrρ : r ≡ ρ [MOD Mrest] :=
+        (channelPathResidual_iff (rest := rest) (r := r) he₀ hf).1
+          (by simpa [baseIdx, κrest, Mrest, es'] using hj)
+      have hdecomp : k = κ1 + r * Mf := eq_add_mul_of_modEq hκlt hkκ
+      have hcomp : k ≡ κ1 + ρ * Mf [MOD Mf * Mrest] := by
+        rw [hdecomp]
+        exact modEq_compose_residue hrρ
+      simpa [hmod, hclass, Mf, Mrest, κ1, ρ] using hcomp
+    · intro hk
+      have hk' : k ≡ κ1 + ρ * Mf [MOD Mf * Mrest] := by
+        simpa [hmod, hclass, Mf, Mrest, κ1, ρ] using hk
+      obtain ⟨hkκ, hrρ⟩ := modEq_decompose_residue hκlt hk'
+      set r := k / Mf
+      have hstep :=
+        realizesChannelPath_cons_fiberIndex_step (rest := rest) he₀ hf hkκ
+      have hj : baseIdx + coeff3 * r ≡ κrest [MOD Mrest] :=
+        (channelPathResidual_iff (rest := rest) (r := r) he₀ hf).2
+          (by simpa [r, ρ, Mrest] using hrρ)
+      have htail :
+          RealizesChannelPath es'
+            (fiberIndexMap f (baseIdx + coeff3 * r)) :=
+        (ih (e₀ := f) hf hrest' (k := baseIdx + coeff3 * r)).2
+          (by simpa [baseIdx, κrest, Mrest, es'] using hj)
+      exact hstep.2 htail
+
+/--
+`[C→A]` For every nonempty valid fixed path, realizers equal the path progression.
+-/
+theorem realizesChannelPath_iff_mem_progression
+    {e₀ : Nat} {rest : List Nat} {n : Nat}
+    (he₀ : 1 ≤ e₀) (hrest : ChannelPathLabelsValid rest) :
+    RealizesChannelPath (e₀ :: rest) n ↔
+      n ∈ channelPathProgression (e₀ :: rest) := by
+  constructor
+  · intro hR
+    have hnC : n ∈ canonicalCylinder e₀ := by
+      match rest with
+      | [] => simpa [RealizesChannelPath] using hR
+      | _ :: _ => exact hR.1
+    obtain ⟨k, rfl⟩ := exists_fiberIndex_of_mem_cylinder hnC
+    have hk := (realizesChannelPath_fiberIndex_iff he₀ hrest).1 hR
+    set M := channelPathIndexModulus (e₀ :: rest)
+    set κ := channelPathIndexClass (e₀ :: rest)
+    have hvalid : ChannelPathLabelsValid (e₀ :: rest) := by
+      intro x hx
+      rcases List.mem_cons.1 hx with rfl | hx'
+      · exact he₀
+      · exact hrest x hx'
+    have hκlt : κ < M :=
+      channelPathIndexClass_lt hvalid (by simp)
+    have hmod : k % M = κ := by
+      have := hk
+      rw [Nat.ModEq, Nat.mod_eq_of_lt hκlt] at this
+      exact this
+    refine ⟨k / M, ?_⟩
+    have hdecomp := (Nat.div_add_mod k M).symm
+    rw [hmod] at hdecomp
+    change fiberIndexMap e₀ k =
+      fiberIndexMap e₀ (κ + (k / M) * M)
+    congr 1
+    calc
+      k = M * (k / M) + κ := hdecomp
+      _ = κ + (k / M) * M := by ring
+  · intro hn
+    obtain ⟨r, rfl⟩ := hn
+    refine (realizesChannelPath_fiberIndex_iff he₀ hrest).2 ?_
+    rw [Nat.ModEq]
+    simp [Nat.add_mul_mod_self_right]
+
+theorem realizesChannelPath_eq_progression
+    {e₀ : Nat} {rest : List Nat}
+    (he₀ : 1 ≤ e₀) (hrest : ChannelPathLabelsValid rest) :
+    {n | RealizesChannelPath (e₀ :: rest) n} =
+      channelPathProgression (e₀ :: rest) := by
+  ext n
+  exact realizesChannelPath_iff_mem_progression he₀ hrest
+
 /-! ### Open D3/D4 dynamical goals (definitions only) -/
 
 /--
@@ -572,6 +862,17 @@ structure Core6DynamicD3AlgebraGoals : Prop where
           let j := oneBlockTargetBaseIndex e f he hf + coeff3 * r
           (RealizesChannelPath (e :: f :: rest) (fiberIndexMap e k) ↔
             RealizesChannelPath (f :: rest) (fiberIndexMap f j))
+  channelPathFiberIndex :
+    ∀ e₀ : Nat, ∀ rest : List Nat, ∀ k : Nat,
+      1 ≤ e₀ → ChannelPathLabelsValid rest →
+        (RealizesChannelPath (e₀ :: rest) (fiberIndexMap e₀ k) ↔
+          k ≡ channelPathIndexClass (e₀ :: rest)
+            [MOD channelPathIndexModulus (e₀ :: rest)])
+  channelPathEqProgression :
+    ∀ e₀ : Nat, ∀ rest : List Nat,
+      1 ≤ e₀ → ChannelPathLabelsValid rest →
+        {n | RealizesChannelPath (e₀ :: rest) n} =
+          channelPathProgression (e₀ :: rest)
   channelPathWitness : RealizesChannelPath [1, 4] 1246239
   offCore6Witness : 31 ∈ oneBlockOffCore6Set 1
   blockBoundaryImpliesReachability :
@@ -586,6 +887,10 @@ theorem core6DynamicD3AlgebraGoals_named : Core6DynamicD3AlgebraGoals where
     channelPathProgression_two_eq_oneBlock he₀ hf
   channelPathHopStep := fun _ _ _ _ he hf hk =>
     realizesChannelPath_cons_fiberIndex_step he hf hk
+  channelPathFiberIndex := fun _ _ _ he₀ hrest =>
+    realizesChannelPath_fiberIndex_iff he₀ hrest
+  channelPathEqProgression := fun _ _ he₀ hrest =>
+    realizesChannelPath_eq_progression he₀ hrest
   channelPathWitness := realizesChannelPath_one_four_1246239
   offCore6Witness := mem_oneBlockOffCore6Set_one_31
   blockBoundaryImpliesReachability := blockBoundaryFeedIn_implies_reachability
@@ -595,7 +900,8 @@ theorem core6DynamicD3AlgebraGoals_named : Core6DynamicD3AlgebraGoals where
 
 - `BlockBoundaryFeedInGoal` / `OffCore6ReentryGoal` are not discharged.
 - `ReachabilityFeedInGoal` remains `[C]`.
-- Finite channel-path APs are structure, not universal reachability.
+- Fixed-path APs are structure for each finite `p`, not universal reachability.
+- The constructed path modulus need not be the minimal period.
 - No Collatz / collapse statement.
 -/
 
