@@ -198,7 +198,8 @@ It is **not** part of the PR #15 `[A]` claim surface.
 1. Target for `e≥1` is realization at `canonicalBase e` (canonical representative), not bare `∃ b`.
 2. Hard dichotomy: no conserving channel; `e=4` is already strictly contracting.
 3. Density reading in 16f is **relative dyadic density** along `Q_m = 2^{m+9}`:
-   `|R_m^{contr}| = 2^{m-3}-1`, proportion `(2^{m-3}-1)/2^m = 1/8 - 1/2^m`.
+   `|R_m^{contr}| = 2^{m-3}-1`, `|R_m^{Core6}| = 2^m`,
+   proportion `(2^{m-3}-1)/2^m = 1/8 - 1/2^m`, plus `Tendsto → 1/8` on ℝ.
    Ordinary natural density needs a separate bridge theorem.
    The deep open step after 16f is dynamical feed-in `[C]`.
 
