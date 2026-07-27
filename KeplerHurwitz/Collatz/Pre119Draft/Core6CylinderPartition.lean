@@ -18,11 +18,14 @@ set_option linter.style.nativeDecide false
 /-!
 # Pre119Draft — Core6CylinderPartition (PR #16)
 
+**Closure candidate:** mathematical freeze at Head `3740183` (+ certificate commit).
+Only review/CI fixes allowed in this PR thereafter — no natural density, no
+reachability, no further orbit dynamics.
+
 **Epistemic wall:**
 - Repo-of-record `[A]` stops at PR #15:
   `∀ e ≥ 4, ∀ k, ApMemberOkFrom e (canonicalBase e) k`.
-- This file is the **target architecture** of PR #16. Candidate Lean may live on
-  branch `cursor/core6-cylinder-partition-4007`, but packages below stay
+- This file is the **target architecture** of PR #16. Packages below stay
   **`[C→A]`** until CI is green on PR #16 and the stack is merged. Do not read
   them as trunk / PR #15 `[A]` claims.
 
@@ -31,15 +34,17 @@ set_option linter.style.nativeDecide false
 | Paket | Inhalt | Status |
 |-------|--------|--------|
 | 16a | kanonische Realisierung für `e≥1` | `[C→A]` |
-| 16b | AP = vollständige Realisierungsfaser | `[C→A]` |
+| 16b | Quotientenfaser = AP = Realisierungsfaser | `[C→A]` |
 | 16c | Tail-Eindeutigkeit und Disjunktheit | `[C→A]` |
 | 16d | Core6-Partition und Drei-Kanal-Komplement | `[C→A]` |
-| 16e | Expansion `e≤3` vs Kontraktion `e≥4` (kein konservierender Kanal) | `[C→A]` |
-| 16f | endlich-kombinatorische Zählung mod `2^{m+9}` | `[C→A]` |
-| danach | Zuführung `C_1,C_2,C_3` → kontraktive Familie | `[C]` |
+| 16e | Expansion `e≤3` vs Kontraktion `e≥4` | `[C→A]` |
+| 16f | endliche Residuen, Inklusion, Kardinalität, Proportion, `Tendsto` | `[C→A]` |
+| danach | Zuführung `C_1,C_2,C_3` → kontraktive Familie | `[C]` (separate PR) |
 
-Hard dichotomy (target): `e∈{1,2,3}` ⇒ image `> n`; `e≥4` ⇒ image `< n`.
-Density is a late reading of finite residue counts, not a foundation.
+Import entry point: `core6StaticDyadicCertificate`.
+
+Claim wall: relative dyadic density **yes**; natural density **no**;
+global Collatz **no**; dynamical feed-in **no**.
 
 No Collatz claim. ClaimsFreeze false.
 -/
@@ -1091,5 +1096,53 @@ def FiniteDyadicContractingCountGoal : Prop :=
 
 theorem finiteDyadicContractingCountGoal : FiniteDyadicContractingCountGoal :=
   fun _ hm => contractingResidues_card hm
+
+/-! ### Closure certificate (no new mathematics)
+
+**Freeze:** Head `3740183` is the mathematical closure candidate for PR #16.
+This certificate only bundles already-proved theorems into one import node.
+Further PRs must not expand scope here (no natural density, no reachability).
+-/
+
+open Filter Topology
+
+/--
+`[C→A]` Canonical static Core6 dyadic certificate — single review/import entry point.
+Bundles phase split, finite occupancy inclusion, cards, ℚ proportion, and ℝ Tendsto.
+-/
+structure Core6StaticDyadicCertificate : Prop where
+  phasePartition :
+    core6Cylinder = expandingCore6 ∪ contractingCore6
+  phaseDisjoint :
+    Disjoint expandingCore6 contractingCore6
+  finiteSubset :
+    ∀ m, 4 ≤ m → contractingResidues m ⊆ core6Residues m
+  contractingCard :
+    ∀ m, 4 ≤ m → (contractingResidues m).card = 2 ^ (m - 3) - 1
+  core6Card :
+    ∀ m, (core6Residues m).card = 2 ^ m
+  dyadicProportion :
+    ∀ m, 4 ≤ m →
+      ((contractingResidues m).card : ℚ) / ((core6Residues m).card : ℚ) =
+        (1 : ℚ) / 8 - (1 : ℚ) / (2 ^ m : ℚ)
+  dyadicLimit :
+    Tendsto
+      (fun m : Nat =>
+        ((contractingResidues (m + 4)).card : ℝ) /
+          ((core6Residues (m + 4)).card : ℝ))
+      atTop
+      (nhds ((1 : ℝ) / 8))
+
+/--
+`[C→A]` Discharge of `Core6StaticDyadicCertificate` from existing lemmas only.
+-/
+theorem core6StaticDyadicCertificate : Core6StaticDyadicCertificate where
+  phasePartition := (core6Cylinder_eq_expanding_disjoint_union_contracting).1
+  phaseDisjoint := (core6Cylinder_eq_expanding_disjoint_union_contracting).2
+  finiteSubset := fun _ hm => contractingResidues_subset_core6Residues hm
+  contractingCard := fun _ hm => contractingResidues_card hm
+  core6Card := core6Residues_card
+  dyadicProportion := fun _ hm => contractingResidues_dyadicProportion hm
+  dyadicLimit := contractingResidues_tendsto_dyadicDensity
 
 end KeplerHurwitz.Collatz.Pre119Draft.Core6CylinderPartition

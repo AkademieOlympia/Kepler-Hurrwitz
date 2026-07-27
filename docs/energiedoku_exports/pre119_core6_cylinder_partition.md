@@ -1,7 +1,15 @@
 # Pre119 — Core6 Cylinder Partition (PR #16)
 
+**Closure candidate freeze:** Head `3740183` (+ certificate packaging commit).
+Only review/CI/doc fixes thereafter. Entry point: `core6StaticDyadicCertificate`.
+Audit: `docs/exports/pre119_core6_cylinder_partition_closure_audit.md`.
+
+**Claim wall:** relative dyadic density **yes** · natural density **no** ·
+global Collatz **no** · dynamical feed-in **no** (`[C]`, separate PR).
+
 **Epistemic wall:** This document is the **target architecture** of PR #16.
-It must not be confused with repository `[A]` status.
+It must not be confused with repository `[A]` status. Status remains `[C→A]`
+until CI green ∧ review ∧ merge ∧ separate promotion commit.
 
 ## Three-phase project matrix
 

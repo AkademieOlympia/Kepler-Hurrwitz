@@ -1,6 +1,37 @@
 {
   "pr": 16,
-  "title": "Core6 cylinder partition \u2014 target architecture",
+  "title": "Core6 cylinder partition \u2014 static dyadic closure",
+  "closure_candidate": {
+    "freeze_head": "3740183198160e79b302eb2fcd8250d1e9fd925e",
+    "status": "C\u2192A",
+    "entry_point": "core6StaticDyadicCertificate",
+    "structure": "Core6StaticDyadicCertificate",
+    "audit": "docs/exports/pre119_core6_cylinder_partition_closure_audit.md",
+    "allowed_after_freeze": [
+      "proof fixes",
+      "import/linter fixes",
+      "documentation/register sync",
+      "review fixes without scope expansion"
+    ],
+    "forbidden_after_freeze": [
+      "natural density",
+      "reachability",
+      "further orbit dynamics"
+    ]
+  },
+  "claim_wall": {
+    "relative_dyadic_density": true,
+    "natural_density": false,
+    "global_collatz": false,
+    "dynamical_feed_in": false
+  },
+  "stack_merge_order": [
+    "review+merge PR15",
+    "retarget/rebase PR16",
+    "re-run full CI on new tip",
+    "review+merge PR16",
+    "separate promotion commit C\u2192A to A"
+  ],
   "project_matrix": {
     "PR15": {
       "label": "A",
@@ -18,14 +49,16 @@
         "fiberIndexEquiv (C_e \u2243 Nat)",
         "disjointness",
         "Core6 partition",
-        "finite ZMod(2^(m+9)) residue count \u2192 densities 1/8 vs 7/8"
+        "finite residue count, inclusion, Tendsto 1/8",
+        "core6StaticDyadicCertificate"
       ]
     },
     "followup": {
       "label": "C",
       "nature": "dynamic / trajectorial",
       "role": "orbit feed-in / reachability",
-      "claim": "C1 \u222a C2 \u222a C3 \u2192 union_{e\u22654} C_e"
+      "claim": "C1 \u222a C2 \u222a C3 \u2192 union_{e\u22654} C_e",
+      "module": "Core6DynamicFeedIn.lean (new PR after #16 closes)"
     }
   },
   "static_vs_dynamic": {
