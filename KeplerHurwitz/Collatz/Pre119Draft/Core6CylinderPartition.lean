@@ -11,15 +11,22 @@ set_option linter.style.nativeDecide false
 
 Coverage & partition bridge after the infinite lifting channel (PR #15).
 
-**Claim hierarchy (this PR):**
-- **16a `[A]`:** cylinders = full realization fibers; pairwise disjoint via unique
-  local valuation after the Core6 prefix (not a separate residue calculation).
-- **16b `[A]`:** all tails `e ≥ 1` partition the Core6 cylinder.
-- **16c `[A]` (set form) / `[C]` (finite dyadic count):** contracting family `e ≥ 4`
-  complement is exactly the three small channels `e ∈ {1,2,3}`; density `1/8`
-  awaits finite residue counting.
+**Claim hierarchy (discharged status):**
+| Paket | Inhalt | Status |
+|-------|--------|--------|
+| 16a | AP = vollständige Realisierungsfaser (`e≥1`) | `[A]` |
+| 16b | `tailExponent_unique` + Disjunktheit | `[A]` |
+| 16c | vollständige Core6-Partition | `[A]` |
+| 16d | Komplement = `C_1 ∪ C_2 ∪ C_3` | `[A]` |
+| 16dδ | `e≤3` expandiert, `e≥4` kontraktiv (Phasengrenze) | `[A]` |
+| 16e | endliche Zählung und Dichte `1/8` | `[C→A]` |
+| danach | Zuführung der drei Expansionskanäle | `[C]` |
 
-Density/measure language remains a late corollary of finite dyadic counting.
+Struktursatz:
+`core6Cylinder = expandingCore6 ∪ contractingCore6` (disjoint),
+with expanding = `C_1 ⊔ C_2 ⊔ C_3`.
+
+Density/measure remains a late corollary of finite dyadic counting.
 No Collatz claim. ClaimsFreeze false. 0 sorry in discharged `[A]` parts.
 -/
 
