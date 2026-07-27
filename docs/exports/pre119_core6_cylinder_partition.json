@@ -2,46 +2,73 @@
   "pr": 16,
   "title": "Core6 cylinder partition and three-channel complement",
   "base": "cursor/canonical-seed-lifting-4007",
+  "proof_order": [
+    "realization equivalence",
+    "full partition",
+    "disjointness",
+    "complement equation",
+    "counting and density"
+  ],
   "packages": {
-    "A_identification": {
+    "auftakt_e_ge_1_realization": {
       "status": "A",
-      "defs": ["canonicalCylinder", "core6Cylinder"],
       "theorems": [
-        "modEq_of_affineOddQuotient_fiberE",
-        "mem_canonicalCylinder_iff_realizes_fiberE"
+        "fiberE_positive_of_one_le",
+        "canonicalBase_realizes_of_one_le"
+      ],
+      "note": "realization only for e=1,2,3; not contraction"
+    },
+    "16a_fiber_identification": {
+      "status": "A",
+      "was": "C→A",
+      "theorems": ["mem_canonicalCylinder_iff_realizes_fiberE"]
+    },
+    "16b_unique_disjoint": {
+      "status": "A",
+      "was": "C→A",
+      "theorems": [
+        "tailExponent_unique",
+        "canonicalCylinders_disjoint",
+        "canonicalCylinders_pairwise_disjoint"
       ]
     },
-    "B_disjoint_partition": {
+    "16c_partition": {
       "status": "A",
+      "was": "C→A",
       "theorems": [
-        "realizesWord_append",
-        "canonicalCylinders_pairwise_disjoint",
         "core6Cylinder_eq_iUnion_tailCylinders",
-        "core6PartitionGoal"
-      ],
-      "route": "unique valuation after Core6 prefix (not bare Diophantine)"
+        "core6Cylinder_eq_iUnion_canonicalCylinders"
+      ]
     },
-    "C_complement_set": {
+    "16d_complement": {
       "status": "A",
+      "was": "C→A",
       "theorems": [
         "core6_complement_contracting_eq_smallTails",
-        "core6ComplementSmallTailsGoal"
-      ],
-      "complement": ["canonicalCylinder 1", "canonicalCylinder 2", "canonicalCylinder 3"],
-      "relative_share_contracting_expected": "1/8"
+        "core6_diff_contracting_eq_smallTails"
+      ]
     },
-    "C_finite_dyadic_count": {
-      "status": "C",
+    "16d_delta_phase_boundary": {
+      "status": "A",
+      "theorems": [
+        "expands_fiberE_of_le_three",
+        "core6Cylinder_eq_expanding_disjoint_union_contracting"
+      ],
+      "phase_boundary": "e=4"
+    },
+    "16e_finite_dyadic_count": {
+      "status": "C→A",
       "goal": "FiniteDyadicContractingCountGoal",
       "expected": "(2^{m-3}-1)/2^m = 1/8 - 1/2^m"
     }
   },
+  "structure_theorem": "core6Cylinder = expanding(C1⊔C2⊔C3) ⊔ contracting(e≥4)",
   "research_front_C": [
     "feed-in of Core6++[1]",
     "feed-in of Core6++[2]",
     "feed-in of Core6++[3]"
   ],
-  "not_claimed": ["Collatz", "executable density measure theory", "feed-in bridges"],
+  "not_claimed": ["Collatz", "density measure theory without finite count", "feed-in bridges"],
   "claims_freeze": false,
   "sorry_count": 0
 }
