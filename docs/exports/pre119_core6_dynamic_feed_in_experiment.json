@@ -1,0 +1,26 @@
+{
+  "experiment": "Core6DynamicFeedIn",
+  "status": "C",
+  "branch": "cursor/core6-dynamic-feed-in-4007",
+  "base": "cursor/core6-cylinder-partition-4007",
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicFeedIn",
+  "plan": "docs/energiedoku_exports/pre119_core6_dynamic_feed_in_experiment.md",
+  "open_goals": [
+    "OneStepFeedInGoal",
+    "ReachabilityFeedInGoal"
+  ],
+  "imports_from_PR16": [
+    "core6StaticDyadicCertificate",
+    "expandingCore6",
+    "contractingCore6"
+  ],
+  "claim_wall": {
+    "relative_dyadic_density_from_PR16": "importable, not a hitting probability",
+    "natural_density": false,
+    "global_collatz": false,
+    "reachability": "open [C]"
+  },
+  "phases": ["D0_scaffold", "D1_census", "D2_one_block", "D3_sufficient", "D4_full_reachability"],
+  "claims_freeze": false,
+  "note": "Organized as next experiment after PR #16 static freeze; no discharge yet."
+}
