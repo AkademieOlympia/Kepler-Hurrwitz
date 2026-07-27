@@ -2,18 +2,57 @@
 
 **Status:** `[C→A]` until review ∧ merge ∧ separate promotion commit to `[A]`.
 
-Remote CI for head `24bd5c8` reported green (Lean Action, Quality Gate,
-Evidence Register Audit). Packaging tip may advance docs-only after the math
-freeze without mathematical divergence.
-
-## Freeze cascade
+## Two-SHA freeze structure
 
 | Layer | SHA | Role |
 |-------|-----|------|
-| **1. Mathematical freeze (D3.0–D3.3d)** | `24bd5c83718da11c9ec2bfa8962de331be117369` | trichotomy through residual ↔ reachability |
-| **2. Claim-audit / freeze packaging** | *(this tip)* | freeze notice, audit, D3.4 roadmap only |
+| **Math freeze (D3.0–D3.3d)** | `24bd5c83718da11c9ec2bfa8962de331be117369` | final mathematical content |
+| **Packaging tip** | `adb2dd84ea87473dd4e6c49ace50de15cb676297` | claim-audit / freeze packaging |
 
-No Lean mathematics after layer 1 on this PR.
+Remote CI for the math freeze `24bd5c8` was fully green (Lean Action, Quality
+Gate, Evidence Register Audit). The packaging tip may still have Quality Gate
+in progress while Lean / Evidence Audit are already green.
+
+### Precise nature of the packaging commit
+
+`adb2dd8` is **not** literally “docs-only / no Lean file touched”.
+
+Against the math freeze it adds exactly one commit with:
+
+- three documentation / audit artefacts under `docs/`;
+- **20 lines** in `Core6DynamicD3.lean` that are **exclusively** module
+  comments and freeze / non-theorem documentation.
+
+No definitions, theorems, proofs, or bundled certificates changed.
+
+Exact label:
+
+> Packaging/Docs-Commit mit ausschließlich nichtsemantischen Lean-Kommentaren.
+
+Incorrect label:
+
+> „Der Commit verändert keine Lean-Datei.“
+
+## Governance boundary (strict freeze)
+
+**No new kernel mathematics in PR #18.**
+
+Allowed:
+
+- CI / import fixes;
+- linter fixes;
+- review-driven proof repairs without scope expansion;
+- documentation, audit, and packaging adjustments.
+
+Forbidden:
+
+- `FiniteBlockExit` / `ForeverExpandingBoundary` definitions;
+- new residual decompositions;
+- re-entry theorems;
+- attempts to prove `ResidualFeedInGoal`;
+- premature promotion to `[A]`.
+
+Follow-up branch prefix: `cursor/core6-dynamic-d34-residual-4007`.
 
 ## Toolchain
 
@@ -33,13 +72,12 @@ rg -n -P '(^|[^A-Za-z0-9_/`])(sorry|admit)([^A-Za-z0-9_]|$)' \
 
 **Result:** no `sorry` / `admit` tactics.
 
-## `#print axioms` (selected)
+## `#print axioms` (selected; math freeze)
 
 ### `core6DynamicD3AlgebraGoals_named`
 
 Depends on: `propext`, `Classical.choice`, `Quot.sound`, plus `native_decide`
-certificates for fixed Nat identities (CanonicalBase / D2b witnesses / Core6
-nil-checks). No unpaid proof debt.
+certificates for fixed Nat identities. No unpaid proof debt.
 
 ### `residualFeedIn_iff_reachability`
 
@@ -51,19 +89,22 @@ Depends on: `propext`, `Classical.choice`, `Quot.sound`, and
 Depends on: kernel/classical axioms plus D2b witness native_decide certificates
 for `31 ↦ 137 ∉ core6`. No unpaid proof debt.
 
-## Closure package (bundled)
+## Frozen mathematical content (at `24bd5c8`)
 
-| Field / theorem | Role |
-|-----------------|------|
-| `core6PathFeedInSet_eq_iUnion_progressions` | D3.3a packaging |
-| `not_core6PathFeedInGoal` | D3.3b refutation |
-| `canonicalCylinder_eq_core6PathFeedIn_union_residual` | D3.3c split |
-| `mem_core6PathFeedInSet_reaches_contractingMass` | First-Hit bridge |
-| `residualFeedIn_iff_reachability` | D3.3d equivalence |
+| Item | Status |
+|------|--------|
+| One-block trichotomy | `[C→A]` |
+| Affine target-index transport | `[C→A]` |
+| Fixed-path AP characterization | `[C→A]` |
+| `core6PathFeedInSet = ⋃_p AP_p` | `[C→A]` |
+| `¬ Core6PathFeedInGoal` | `[C→A]` |
+| `C = FeedIn ∪̇ Residual` | `[C→A]` |
+| First-Hit bridge (FeedIn ⇒ contracting mass) | `[C→A]` |
+| `ResidualFeedInGoal ↔ ReachabilityFeedInGoal` | `[C→A]` |
 
-Entry point: `theorem core6DynamicD3AlgebraGoals_named : Core6DynamicD3AlgebraGoals`.
+Entry point: `theorem core6DynamicD3AlgebraGoals_named`.
 
-## Claim wall (frozen)
+## Claim wall
 
 | Claim | In PR #18 math freeze? |
 |-------|------------------------|
@@ -71,30 +112,34 @@ Entry point: `theorem core6DynamicD3AlgebraGoals_named : Core6DynamicD3AlgebraGo
 | `¬ Core6PathFeedInGoal` | **yes** |
 | Feed-In / Residual decomposition | **yes** |
 | Residual ↔ Reachability (via bridge) | **yes** |
-| Residual fine-structure (FiniteExit / ForeverExpanding) | **no** (D3.4 follow-up) |
+| Residual fine-structure (FiniteExit / ForeverExpanding) | **no** — design only |
 | `ResidualFeedInGoal` discharged | **no** (`[C]`) |
 | Global Collatz / natural density | **no** |
 
-## What the reduction does / does not do
+## D3.4 design (not a Lean statement)
 
-- Feed-In share needs **no further dynamics** (bridge gives `t = 7r` hit).
-- Residual is a **localization of the full open difficulty**, not a weakening:
-  `ResidualFeedInGoal ↔ ReachabilityFeedInGoal`.
-- Residual is heterogeneous; currently only Off-Core6 ⊆ Residual is proved.
-  `OffCore6ReentryGoal` is a depth-1 subclass, not a substitute for D4.
+Planned split (paper architecture only):
+
+`Residual = FiniteBlockExit ∪̇ ForeverExpandingBoundary`
+
+Status: **Designziel, keine Lean-Aussage und kein mathematisches Resultat.**
+Formalization belongs exclusively in the follow-up PR.
+
+## Promotion process
+
+`[C→A] xrightarrow{Review ∧ Merge} accepted repository content xrightarrow{separate commit} [A]`
+
+Merge alone must not silently change the epistemic tag.
 
 ## Stack merge order
 
 1. Integrate PR #15 → #16 → #17 (D2b freeze) first.  
 2. Retarget/rebase PR #18 onto accepted feed-in base if needed.  
-3. Re-run full CI on the tip.  
-4. Review & merge PR #18.  
-5. Separate status-promotion commit `[C→A] → [A]` for D3.0–D3.3d after merge.  
-6. Open follow-up branch `cursor/core6-dynamic-d34-residual-4007` for D3.4 / D4.
+3. Wait for packaging-tip CI fully green; review & merge PR #18.  
+4. Separate status-promotion commit `[C→A] → [A]` for D3.0–D3.3d.  
+5. Open follow-up branch for D3.4 / D4.
 
 ## Out of scope after freeze
 
-No FiniteBlockExit / ForeverExpanding Lean definitions on this tip.
-No residual dynamics / re-entry proofs.
-No Collatz claim.
-Only proof/import/linter/doc/review fixes until merge.
+No new residual mathematics on this PR. Stabilize and review PR #18;
+any further residual mathematics belongs in the follow-up PR.

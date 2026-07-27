@@ -41,15 +41,19 @@
   "d3_3_freeze": {
     "frozen": true,
     "math_freeze_head": "24bd5c83718da11c9ec2bfa8962de331be117369",
-    "policy": "CI_linter_review_only",
+    "packaging_tip": "adb2dd84ea87473dd4e6c49ace50de15cb676297",
+    "packaging_character": "docs_and_nonsemantic_lean_comments_only",
+    "packaging_note": "Lean delta is module/freeze/non-theorem comments only; no defs/theorems/proofs/certificates changed",
+    "policy": "no_new_kernel_mathematics; CI_linter_review_docs_only",
     "promotion_rule": "candidate \u2227 CI green \u2227 review \u2227 merge \u21d2 C\u2192A \u2192 A (separate commit)",
     "follow_up_scope": "D3.4 residual fine-structure + D4 ResidualFeedInGoal",
     "follow_up_branch_prefix": "cursor/core6-dynamic-d34-residual-4007"
   },
   "planned_d3_4": {
-    "status": "C",
+    "status": "design_only",
     "split": "Residual = FiniteBlockExit \u222a\u0307 ForeverExpandingBoundary",
-    "note": "definitions and disjointness intended as C\u2192A on follow-up; dynamics remain C"
+    "lean_status": "no Lean statement in PR #18",
+    "note": "definitions/disjointness are C\u2192A candidates only on the follow-up PR; dynamics remain C"
   },
   "claims_freeze": false
 }

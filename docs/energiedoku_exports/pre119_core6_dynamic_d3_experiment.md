@@ -6,15 +6,20 @@
 
 ## D3.3 freeze
 
-**Frozen head:** `24bd5c83718da11c9ec2bfa8962de331be117369`
+**Math freeze head:** `24bd5c83718da11c9ec2bfa8962de331be117369`  
+**Packaging tip:** `adb2dd84ea87473dd4e6c49ace50de15cb676297`
 
 D3.0–D3.3d (trichotomy through residual ↔ reachability) are **mathematically
-closed** on this head. Further work on PR #18 is limited to CI / linter /
-review packaging. Algebraic residual fine-structure continues in a **new**
-D3.4 follow-up branch after merge.
+closed** on the math freeze head. Further work on PR #18 is limited to CI /
+linter / review packaging — **no new kernel mathematics**.
+
+The packaging tip is a Packaging/Docs-Commit with **exclusively non-semantic
+Lean comments** (module freeze notice / non-theorem docs) plus audit artefacts.
+It does **not** change definitions, theorems, proofs, or certificates.
 
 Promotion of `[C→A]` → accepted repo-`[A]` waits for review ∧ merge ∧ a
 **separate** promotion commit. ClaimsFreeze remains false until that commit.
+
 
 ## Status wall (after D3.3 freeze)
 
@@ -40,22 +45,22 @@ Promotion of `[C→A]` → accepted repo-`[A]` waits for review ∧ merge ∧ a
 The Core6-internal feed-in share is dynamically finished. The entire remaining
 reachability question lies exactly in the residual set.
 
-## Planned D3.4 architecture (not in this freeze)
+## Planned D3.4 architecture (design only — not in this freeze)
 
 Residual is dynamically heterogeneous. Currently only
 
 `oneBlockOffCore6Set ⊆ core6PathResidualSet`
 
-is proved. The intended static split (follow-up `[C→A]` definitions):
+is proved. The intended static split is a **Designziel**:
 
 ```
 Residual = FiniteBlockExit ∪̇ ForeverExpandingBoundary
 ```
 
-where FiniteBlockExit collects Exit-at-depth-`r` layers along expanding
-Core6 paths, and ForeverExpandingBoundary is the class that stays in
-`C_1 ∪ C_2 ∪ C_3` at every block boundary. `OffCore6ReentryGoal` covers only
-the depth-1 exit class and is **not** a substitute for `ResidualFeedInGoal`.
+It is **not** a Lean statement and **not** a mathematical result in PR #18.
+`OffCore6ReentryGoal` covers only the depth-1 exit class and is **not** a
+substitute for `ResidualFeedInGoal`. Follow-up branch prefix:
+`cursor/core6-dynamic-d34-residual-4007`.
 
 ## Non-goals on this tip
 
