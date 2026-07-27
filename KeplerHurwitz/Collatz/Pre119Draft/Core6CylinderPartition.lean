@@ -160,6 +160,20 @@ theorem valuationStep_eq_of_realizes_singleton {e n : Nat}
   exact hval
 
 /--
+`[A]` The seventh (tail) exponent after a shared Core6 prefix is unique.
+-/
+theorem tailExponent_unique {e f n : Nat}
+    (he : RealizesWord (fiberE e) n)
+    (hf : RealizesWord (fiberE f) n) :
+    e = f := by
+  rw [fiberE_eq_core6_concat] at he hf
+  have hE := (realizesWord_append (E := core6) (F := [e])).1 he
+  have hF := (realizesWord_append (E := core6) (F := [f])).1 hf
+  have hvale := valuationStep_eq_of_realizes_singleton hE.2
+  have hvalf := valuationStep_eq_of_realizes_singleton hF.2
+  exact hvale.symm.trans hvalf
+
+/--
 `[A]` Pairwise disjointness of canonical cylinders: a common start cannot realize
 two distinct exact seventh valuations after the shared Core6 prefix.
 -/
@@ -172,12 +186,13 @@ theorem canonicalCylinders_pairwise_disjoint {e f : Nat}
     (mem_canonicalCylinder_iff_realizes_fiberE he).1 hne
   have hRf : RealizesWord (fiberE f) n :=
     (mem_canonicalCylinder_iff_realizes_fiberE hf).1 hnf
-  rw [fiberE_eq_core6_concat] at hRe hRf
-  have hE := (realizesWord_append (E := core6) (F := [e])).1 hRe
-  have hF := (realizesWord_append (E := core6) (F := [f])).1 hRf
-  have hvale := valuationStep_eq_of_realizes_singleton hE.2
-  have hvalf := valuationStep_eq_of_realizes_singleton hF.2
-  exact hef (hvale.symm.trans hvalf)
+  exact hef (tailExponent_unique hRe hRf)
+
+/-- Alias matching the PR #16 naming note. -/
+theorem canonicalCylinders_disjoint {e f : Nat}
+    (he : 1 ≤ e) (hf : 1 ≤ f) (hef : e ≠ f) :
+    Disjoint (canonicalCylinder e) (canonicalCylinder f) :=
+  canonicalCylinders_pairwise_disjoint he hf hef
 
 /-! ### Package B/C goals: full Core6 partition and small-tail complement -/
 
@@ -316,6 +331,117 @@ theorem core6_complement_contracting_eq_smallTails :
 
 theorem core6ComplementSmallTailsGoal : Core6ComplementSmallTailsGoal :=
   core6_complement_contracting_eq_smallTails
+
+/-- Alias matching the PR #16 naming note. -/
+theorem core6_diff_contracting_eq_smallTails :
+    core6Cylinder \ contractingCore6 =
+      canonicalCylinder 1 ∪ canonicalCylinder 2 ∪ canonicalCylinder 3 := by
+  simpa [smallTailCore6] using core6_complement_contracting_eq_smallTails
+
+/-- Alias matching the PR #16 naming note. -/
+theorem core6Cylinder_eq_iUnion_canonicalCylinders :
+    core6Cylinder = ⋃ e : Nat, ⋃ (_ : 1 ≤ e), canonicalCylinder e :=
+  core6Cylinder_eq_iUnion_tailCylinders
+
+/-! ### Package D: expanding vs contracting phase boundary -/
+
+private theorem two_pow_lt_three_pow_seven_of_le_three {e : Nat}
+    (he1 : 1 ≤ e) (he3 : e ≤ 3) :
+    2 ^ (e + 8) < 3 ^ 7 := by
+  interval_cases e <;> native_decide
+
+/--
+`[A]` For tails `e ∈ {1,2,3}`, every realizing start is strictly expanding on the
+seven-step Core6++[e] block (`2^{e+8} < 3^7`).
+-/
+theorem expands_fiberE_of_le_three {e n : Nat}
+    (he1 : 1 ≤ e) (he3 : e ≤ 3)
+    (hn : RealizesWord (fiberE e) n) :
+    n < realizedImage n (fiberE e) := by
+  have hmul := realizedImage_mul_pow hn
+  have hsum : (fiberE e).sum = e + 8 := fiberE_sum_eight_add' e
+  have hlen : (fiberE e).length = 7 := fiberE_length_seven' e
+  have hC : wordC (fiberE e) = 2347 := wordC_fiberE e
+  have hpow_lt : 2 ^ (e + 8) < 3 ^ 7 :=
+    two_pow_lt_three_pow_seven_of_le_three he1 he3
+  have hlist : fiberE e = [1, 1, 1, 1, 2, 2, e] := fiberE_list e
+  have hn1 : 1 ≤ n := by
+    rw [hlist] at hn
+    exact one_le_of_realizes_cons hn
+  have hstrict :
+      3 ^ 7 * n + 2347 > n * 2 ^ (e + 8) := by
+    have hmul_lt : n * 2 ^ (e + 8) < n * 3 ^ 7 :=
+      Nat.mul_lt_mul_of_pos_left hpow_lt hn1
+    have : n * 3 ^ 7 ≤ 3 ^ 7 * n + 2347 := by
+      rw [Nat.mul_comm]
+      exact Nat.le_add_right _ _
+    exact Nat.lt_of_lt_of_le hmul_lt this
+  have himg :
+      realizedImage n (fiberE e) * 2 ^ (e + 8) =
+        3 ^ 7 * n + 2347 := by
+    simpa [hsum, hlen, hC] using hmul
+  have hpos : 0 < 2 ^ (e + 8) := Nat.pow_pos (by decide : 0 < 2)
+  have : realizedImage n (fiberE e) * 2 ^ (e + 8) >
+      n * 2 ^ (e + 8) := by
+    rwa [himg]
+  have hswap :
+      2 ^ (e + 8) * realizedImage n (fiberE e) >
+        2 ^ (e + 8) * n := by
+    simpa [Nat.mul_comm] using this
+  exact (Nat.mul_lt_mul_left hpos).mp hswap
+
+/-- Expanding Core6 mass: the three small channels. -/
+def expandingCore6 : Set Nat := smallTailCore6
+
+theorem expands_of_mem_smallTail {n : Nat} (hn : n ∈ smallTailCore6) :
+    ∃ e : Nat, 1 ≤ e ∧ e ≤ 3 ∧
+      RealizesWord (fiberE e) n ∧ n < realizedImage n (fiberE e) := by
+  rcases mem_smallTailCore6.1 hn with h1 | h2 | h3
+  · refine ⟨1, by decide, by decide, ?_, ?_⟩
+    · exact realizes_of_mem_canonicalCylinder (by decide) h1
+    · exact expands_fiberE_of_le_three (by decide) (by decide)
+        (realizes_of_mem_canonicalCylinder (by decide) h1)
+  · refine ⟨2, by decide, by decide, ?_, ?_⟩
+    · exact realizes_of_mem_canonicalCylinder (by decide) h2
+    · exact expands_fiberE_of_le_three (by decide) (by decide)
+        (realizes_of_mem_canonicalCylinder (by decide) h2)
+  · refine ⟨3, by decide, by decide, ?_, ?_⟩
+    · exact realizes_of_mem_canonicalCylinder (by decide) h3
+    · exact expands_fiberE_of_le_three (by decide) (by decide)
+        (realizes_of_mem_canonicalCylinder (by decide) h3)
+
+/--
+`[A]` Structural Core6 phase split:
+expanding channels `e=1,2,3` disjointly union the contracting family `e≥4`.
+-/
+theorem core6Cylinder_eq_expanding_disjoint_union_contracting :
+    core6Cylinder = expandingCore6 ∪ contractingCore6 ∧
+      Disjoint expandingCore6 contractingCore6 := by
+  refine ⟨?heq, ?hdisj⟩
+  · have hdiff := core6_complement_contracting_eq_smallTails
+    -- A = (A \ B) ∪ B when B ⊆ A
+    have hsub : contractingCore6 ⊆ core6Cylinder := by
+      intro n hn
+      rcases mem_contractingCore6.1 hn with ⟨e, he4, hmem⟩
+      have : n ∈ ⋃ e : Nat, ⋃ (_ : 1 ≤ e), canonicalCylinder e :=
+        mem_iUnion.2 ⟨e, mem_iUnion.2 ⟨by omega, hmem⟩⟩
+      exact (Set.ext_iff.1 core6Cylinder_eq_iUnion_tailCylinders n).2 this
+    -- core6 = small ∪ contracting
+    ext n
+    constructor
+    · intro hn
+      by_cases hcon : n ∈ contractingCore6
+      · exact Or.inr hcon
+      · have : n ∈ core6Cylinder \ contractingCore6 := ⟨hn, hcon⟩
+        exact Or.inl ((Set.ext_iff.1 hdiff n).1 this)
+    · intro hn
+      rcases hn with hs | hc
+      · exact ((Set.ext_iff.1 hdiff n).2 hs).1
+      · exact hsub hc
+  · refine Set.disjoint_left.2 ?_
+    intro n hs hc
+    have hdiff := (Set.ext_iff.1 core6_complement_contracting_eq_smallTails n).2 hs
+    exact hdiff.2 hc
 
 /--
 `[C]` Finite dyadic count goal: for `4 ≤ e ≤ m`, the contracting cylinders occupy
