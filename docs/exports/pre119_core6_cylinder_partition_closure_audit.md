@@ -1,7 +1,7 @@
 # PR #16 Closure Audit — Core6 Static Dyadic Certificate
 
 **Mathematical freeze (closure candidate):** `3740183198160e79b302eb2fcd8250d1e9fd925e`  
-**This audit commit / tip:** see git HEAD after certificate packaging.  
+**Certificate packaging tip:** `d9d588ba34b757a49b689bfa4ac1f37354e68631`  
 **Status:** `[C→A]` until CI green ∧ review ∧ merge ∧ separate promotion commit to `[A]`.
 
 ## Toolchain
