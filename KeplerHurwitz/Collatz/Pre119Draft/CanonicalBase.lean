@@ -3,6 +3,7 @@ import Mathlib.Tactic.IntervalCases
 import KeplerHurwitz.Collatz.Pre119Draft.FiberEWordAlgebra
 import KeplerHurwitz.Collatz.Pre119Draft.AffineOddQuotient
 import KeplerHurwitz.Collatz.Pre119Draft.ApMemberFromTransfer
+import KeplerHurwitz.Collatz.Pre119Draft.Core6InfiniteLifting
 import KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema
 
 set_option linter.style.nativeDecide false
@@ -29,6 +30,8 @@ open KeplerHurwitz.Collatz.Pre119Draft.FiberEWordAlgebra
 open KeplerHurwitz.Collatz.Pre119Draft.AffineOddQuotient
 open KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema
 open KeplerHurwitz.Collatz.Pre119Draft.ApMemberFromTransfer
+open KeplerHurwitz.Collatz.Pre119Draft.Core6InfiniteLifting
+open KeplerHurwitz.Collatz.Pre119Draft.Core6Lifting
 
 /-- Affine coefficient `3^7`. -/
 def coeff3 : Nat := 2187
@@ -146,7 +149,13 @@ theorem exists_unique_canonicalBase (e : Nat) :
       rwa [Nat.mod_eq_of_lt hlt] at hbmod
     exact this
 
-/-- Canonical seed via unique choice. -/
+/-- Canonical seed via unique choice.
+
+Mathematically: uniquely determined by `e` (existence+uniqueness above).
+Computationally: `Classical.choose` is noncomputable — Lean does not evaluate
+`canonicalBase 100` to a concrete numeral. An executable `modInv`-formula is
+orthogonal to the lifting proof debt (see architecture note).
+-/
 noncomputable def canonicalBase (e : Nat) : Nat :=
   Classical.choose (ExistsUnique.exists (exists_unique_canonicalBase e))
 
@@ -248,11 +257,31 @@ theorem canonicalInfiniteLiftingViaCanonicalBaseGoal :
   have he4 : 4 ≤ e := by omega
   exact infinite_lifting_from_realizing_base he5 (canonicalBase_realizes e he4) k
 
-/-- Seed-relative infinite lifting for all `e ≥ 5`. -/
+/-- Seed-relative infinite lifting for all `e ≥ 5` (uniform margin API). -/
 theorem infinite_lifting_canonicalBase {e : Nat} (he : 5 ≤ e) :
     ∀ k : Nat, ApMemberOkFrom e (canonicalBase e) k :=
   infinite_lifting_from_realizing_base he
     (canonicalBase_realizes e (by omega))
+
+/-- `[A]` The separate `e = 4` instance, transported to `canonicalBase`. -/
+theorem apMemberOkFrom_canonicalBase_e4 (k : Nat) :
+    ApMemberOkFrom 4 (canonicalBase 4) k := by
+  have hb : canonicalBase 4 = classBase 4 :=
+    canonicalBase_eq_classBase (by decide : 4 ≤ 4) (by decide : 4 ≤ 11)
+  rw [hb]
+  -- `ApMemberOkFrom 4 (classBase 4)` is defeq to `ApMemberOk 4`.
+  exact apMemberOk_e4 k
+
+/--
+`[A]` Closed family for all `e ≥ 4`: union of the separate `e = 4` instance
+with the uniform `e ≥ 5` transfer. Not a corollary of `e ≥ 5` alone.
+-/
+theorem infinite_lifting_canonicalBase_ge_four {e : Nat} (he : 4 ≤ e) :
+    ∀ k : Nat, ApMemberOkFrom e (canonicalBase e) k := by
+  by_cases h4 : e = 4
+  · subst e
+    exact apMemberOkFrom_canonicalBase_e4
+  · exact infinite_lifting_canonicalBase (by omega)
 
 /-- `[A]` Existential form of the universal lifting goal. -/
 theorem canonicalInfiniteLiftingGoal :

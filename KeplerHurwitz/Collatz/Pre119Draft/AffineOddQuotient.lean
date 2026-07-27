@@ -145,7 +145,7 @@ theorem affineOddQuotient_cons_form {e : Nat} {es : List Nat} {n q : Nat}
 step and a tail quotient.
 -/
 theorem affineOddQuotient_cons_decompose {e : Nat} {es : List Nat} {n : Nat}
-    (_he : 1 ≤ e) (hpos : ∀ a ∈ es, 1 ≤ a)
+    (hpos : ∀ a ∈ es, 1 ≤ a)
     (hAQ : AffineOddQuotient (e :: es) n) :
     ∃ m : Nat,
       Odd m ∧
@@ -261,7 +261,7 @@ theorem realizesWord_of_affineOddQuotient {E : List Nat} {n : Nat}
     have he : 1 ≤ e := hpos e (by simp)
     have hpos' : ∀ a ∈ es, 1 ≤ a := fun a ha => hpos a (List.mem_cons_of_mem _ ha)
     obtain ⟨m, hm_odd, hm_eq, htail⟩ :=
-      affineOddQuotient_cons_decompose he hpos' hAQ
+      affineOddQuotient_cons_decompose hpos' hAQ
     have hodd := odd_of_affineOddQuotient_cons he hpos hAQ
     have hval := valuationStep_eq_of_two_pow_mul_odd hm_eq hm_odd
     have hnext := nextOdd_eq_of_two_pow_mul_odd hm_eq hm_odd

@@ -23,6 +23,7 @@
     "3_canonical_base": {
       "status_exists_unique": "A",
       "status_realizes": "A",
+      "canonicalBase_computability": "noncomputable Classical.choose; mathematically unique, not executable numeral",
       "theorems_A": [
         "exists_unique_canonicalBase",
         "canonicalBase_lt",
@@ -31,14 +32,19 @@
         "canonicalBase_eq_classBase",
         "canonicalBase_affineOddQuotient",
         "canonicalBase_realizes",
+        "infinite_lifting_canonicalBase",
+        "apMemberOkFrom_canonicalBase_e4",
+        "infinite_lifting_canonicalBase_ge_four",
         "canonicalBaseRealizesGoal",
         "canonicalInfiniteLiftingViaCanonicalBaseGoal",
-        "infinite_lifting_canonicalBase"
+        "infinite_lifting_canonicalBase",
+        "canonicalInfiniteLiftingGoal"
       ],
       "goals_A": [
         "CanonicalBaseRealizesGoal",
         "CanonicalInfiniteLiftingViaCanonicalBaseGoal"
-      ]
+      ],
+      "precision_e4": "e=4 is a separate [A] instance; not a corollary of e≥5; union lemma gives ∀ e≥4"
     },
     "4_seed_independent_transfer": {
       "status": "A",
@@ -46,13 +52,29 @@
         "margin_fiberE_of_realizes",
         "infinite_lifting_from_realizing_base"
       ],
-      "goal_A": "CanonicalInfiniteLiftingGoal"
+      "goal_A": "CanonicalInfiniteLiftingGoal",
+      "uniform_from": 5
     }
+  },
+  "coverage": {
+    "cylinder_Ce": "canonicalBase(e) + k * 2^(e+9)",
+    "density_Ce": "2^(-(e+9))",
+    "density_union_e_ge_5": "1/8192",
+    "relative_odd_e_ge_5": "1/4096",
+    "core6_cylinder_density": "1/512",
+    "share_of_core6_e_ge_5": "1/16",
+    "share_of_core6_e_ge_4": "1/8",
+    "next_front": "exact dyadic partition of the Core6 cylinder (PR #16 candidate)"
   },
   "architecture": "e -> unique dyadic class -> AffineOddQuotient -> RealizesWord -> infinite AP",
   "bridge": "ModEq => AffineOddQuotient => RealizesWord",
   "census_role": "classBase(4..11) is a finite regression against canonicalBase",
-  "not_claimed": ["CompatibleNextData", "liftExponent", "Collatz"],
+  "not_claimed": [
+    "CompatibleNextData",
+    "liftExponent",
+    "Collatz",
+    "executable canonicalBaseComputed"
+  ],
   "claims_freeze": false,
   "sorry_count": 0
 }
