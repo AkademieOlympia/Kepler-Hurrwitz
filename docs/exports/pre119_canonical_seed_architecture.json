@@ -4,12 +4,17 @@
   "layers": {
     "1_word_algebra": {
       "status": "A",
-      "theorems": ["wordC_fiberE", "fiberE_affine_identity"]
+      "theorems": [
+        "wordC_fiberE",
+        "fiberE_affine_identity"
+      ]
     },
     "2_affine_odd_quotient": {
       "status_forward": "A",
       "status_reverse": "A",
-      "defs": ["AffineOddQuotient"],
+      "defs": [
+        "AffineOddQuotient"
+      ],
       "theorems_A": [
         "affineOddQuotient_of_realizesWord",
         "affineOddQuotient_of_half_modulus_modEq",
@@ -44,7 +49,7 @@
         "CanonicalBaseRealizesGoal",
         "CanonicalInfiniteLiftingViaCanonicalBaseGoal"
       ],
-      "precision_e4": "e=4 is a separate [A] instance; not a corollary of e≥5; union lemma gives ∀ e≥4"
+      "precision_e4": "e=4 is a separate [A] instance; not a corollary of e\u22655; union lemma gives \u2200 e\u22654"
     },
     "4_seed_independent_transfer": {
       "status": "A",
@@ -76,5 +81,24 @@
     "executable canonicalBaseComputed"
   ],
   "claims_freeze": false,
-  "sorry_count": 0
+  "sorry_count": 0,
+  "project_matrix": {
+    "PR15": {
+      "label": "A",
+      "role": "algebraic existence and infinite lifting e\u22654"
+    },
+    "PR16": {
+      "label": "C\u2192A",
+      "role": "combinatorial decomposition; constructive Lean debt of PR15 algebra"
+    },
+    "followup": {
+      "label": "C",
+      "role": "global feed-in C1\u222aC2\u222aC3 \u2192 contracting family"
+    }
+  },
+  "representative_vs_fiber": {
+    "fiber": "infinitely many realizers in C_e",
+    "representative": "unique IsCanonicalSeed below 2^(e+9)"
+  },
+  "coverage_note": "documented expectations in PR15; Lean partition theorems belong to PR16 C\u2192A"
 }

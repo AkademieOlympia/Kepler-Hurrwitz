@@ -1,62 +1,37 @@
 {
   "pr": 16,
   "title": "Core6 cylinder partition — target architecture",
-  "epistemic_wall": {
-    "repo_A_stops_at": "PR #15: forall e≥4, ApMemberOkFrom e (canonicalBase e) k",
-    "this_document": "target architecture / C→A ladder; not trunk [A] claims",
-    "promotion_rule": "package becomes [A] only after CI-green merge of PR #16"
-  },
-  "base": "cursor/canonical-seed-lifting-4007",
-  "proof_order": [
-    "realization equivalence",
-    "full partition",
-    "disjointness",
-    "complement equation",
-    "expansion/contraction dichotomy",
-    "finite counting then density reading"
-  ],
-  "packages": {
-    "16a_realization_e_ge_1": {
-      "status": "C→A",
-      "theorems": ["canonicalBase_realizes_of_one_le", "fiberE_positive_of_one_le"],
-      "note": "canonical seed realization, not bare existence; noncomputable choose remains"
+  "project_matrix": {
+    "PR15": {
+      "label": "A",
+      "role": "algebraic existence and infinite lifting",
+      "claim": "forall e≥4, forall k, ApMemberOkFrom e (canonicalBase e) k",
+      "note": "unique representative mod 2^(e+9); infinite contracting fiber C_e"
     },
-    "16b_fiber_identification": {
-      "status": "C→A",
-      "theorems": ["mem_canonicalCylinder_iff_realizes_fiberE"]
+    "PR16": {
+      "label": "C→A",
+      "role": "combinatorial decomposition and residue density",
+      "method": "constructive Lean discharge of PR15 algebra; not external axiom debt"
     },
-    "16c_unique_disjoint": {
-      "status": "C→A",
-      "theorems": ["tailExponent_unique", "canonicalCylinders_disjoint"]
-    },
-    "16d_partition_complement": {
-      "status": "C→A",
-      "theorems": [
-        "core6Cylinder_eq_iUnion_canonicalCylinders",
-        "core6_diff_contracting_eq_smallTails"
-      ]
-    },
-    "16e_hard_dichotomy": {
-      "status": "C→A",
-      "theorems": ["expands_fiberE_of_le_three"],
-      "note": "e=1,2,3 expand; e≥4 contract; no conserving channel; e=4 already contracting"
-    },
-    "16f_finite_dyadic_count": {
-      "status": "C→A",
-      "goal": "FiniteDyadicContractingCountGoal",
-      "method": "finite combinatorics mod 2^(m+9); density is a later reading"
+    "followup": {
+      "label": "C",
+      "role": "global dynamics and orbit feed-in",
+      "claim": "C1 ∪ C2 ∪ C3 → union_{e≥4} C_e"
     }
   },
-  "research_front_C": [
-    "feed-in C1 → contracting family",
-    "feed-in C2 → contracting family",
-    "feed-in C3 → contracting family"
-  ],
-  "not_claimed_as_repo_A": [
-    "partition theorems",
-    "disjointness",
-    "1/8 density as Lean theorem",
-    "expands_fiberE_of_le_three as trunk [A]"
-  ],
+  "representative_vs_fiber": {
+    "fiber": "infinitely many x in C_e realize fiberE e",
+    "representative": "exists unique b < 2^(e+9) with IsCanonicalSeed e b"
+  },
+  "C_to_A_semantics": "constructive proof goal awaiting Lean discharge; not unpaid empirical hypothesis",
+  "base": "cursor/canonical-seed-lifting-4007",
+  "packages": {
+    "16a": {"status": "C→A", "content": "canonicalBase_realizes_of_one_le (e≥1)"},
+    "16b": {"status": "C→A", "content": "mem_canonicalCylinder_iff_realizes_fiberE"},
+    "16c": {"status": "C→A", "content": "tailExponent_unique and disjointness"},
+    "16d": {"status": "C→A", "content": "Core6 partition and C1⊔C2⊔C3 complement"},
+    "16e": {"status": "C→A", "content": "expansion e≤3 vs contraction e≥4"},
+    "16f": {"status": "C→A", "content": "finite count mod 2^(m+9) then density reading"}
+  },
   "claims_freeze": false
 }
