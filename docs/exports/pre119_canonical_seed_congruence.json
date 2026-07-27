@@ -1,0 +1,68 @@
+{
+  "tag": "B",
+  "claim": "census bases equal unique odd-residue solutions of 3^7*b+2347 \u2261 2^(e+8) mod 2^(e+9)",
+  "wordC": 2347,
+  "rows": [
+    {
+      "e": 4,
+      "censusBase": 6687,
+      "canonicalBase": 6687,
+      "match": true,
+      "modulus": 8192
+    },
+    {
+      "e": 5,
+      "censusBase": 10783,
+      "canonicalBase": 10783,
+      "match": true,
+      "modulus": 16384
+    },
+    {
+      "e": 6,
+      "censusBase": 18975,
+      "canonicalBase": 18975,
+      "match": true,
+      "modulus": 32768
+    },
+    {
+      "e": 7,
+      "censusBase": 2591,
+      "canonicalBase": 2591,
+      "match": true,
+      "modulus": 65536
+    },
+    {
+      "e": 8,
+      "censusBase": 100895,
+      "canonicalBase": 100895,
+      "match": true,
+      "modulus": 131072
+    },
+    {
+      "e": 9,
+      "censusBase": 166431,
+      "canonicalBase": 166431,
+      "match": true,
+      "modulus": 262144
+    },
+    {
+      "e": 10,
+      "censusBase": 35359,
+      "canonicalBase": 35359,
+      "match": true,
+      "modulus": 524288
+    },
+    {
+      "e": 11,
+      "censusBase": 297503,
+      "canonicalBase": 297503,
+      "match": true,
+      "modulus": 1048576
+    }
+  ],
+  "not_claimed": [
+    "forall_e_InfiniteApLifting",
+    "canonicalBase_realizes",
+    "Collatz"
+  ]
+}

@@ -6,11 +6,11 @@ set_option linter.style.nativeDecide false
 /-!
 # Pre119Draft — Core6InfiniteLifting
 
-Discharge of `InfiniteApLiftingHypothesis e` for fixed `e = 4..7`, plus an
-`e = 8` **integration probe**: concrete seed/base/margin only, proved via the
-existing `FiberWordAffine` API (`realizesWord_add_pow` / `contracts_of_le_base`).
+Discharge of `InfiniteApLiftingHypothesis e` for fixed `e = 4..7`, plus
+integration/minimal probes `e = 8` and `e = 9`: concrete seed/base/margin only,
+proved via the existing `FiberWordAffine` API.
 
-No new inductive core, no family `∀ e ≥ 8`, no packaging API.
+No new inductive core, no family `∀ e ≥ 8`, no `liftExponent` / packaging API.
 
 Governance: `[A]` for discharged instances; no ∀n / CoverCertified / Collatz.
 `ClaimsFreeze` remains false. 0 sorry.
@@ -181,5 +181,35 @@ Does **not** claim `∀ e ≥ 8`.
 -/
 theorem infinite_lifting_e8 : InfiniteApLiftingHypothesis 8 := fun _ k =>
   apMemberOk_e8 k
+
+/-! ### Minimal probe `e = 9` (new data, same transfer core; Folge-PR) -/
+
+theorem wordC_fiberE9 : wordC (fiberE 9) = 2347 := by native_decide
+theorem classBase_nine : classBase 9 = 166431 := rfl
+theorem classPeriod_nine : classPeriod 9 = 2 ^ 18 := by native_decide
+
+/-- Seed: base realizes `fiberE 9` (finite `native_decide` on one odd start). -/
+theorem realizes_base_e9 : RealizesWord (fiberE 9) (classBase 9) := by
+  native_decide
+
+/-- Margin: `2347 < 166431 · 128885`. -/
+theorem margin_e9 :
+    wordC (fiberE 9) <
+      classBase 9 * (2 ^ (fiberE 9).sum - 3 ^ (fiberE 9).length) := by
+  native_decide
+
+/-- `[A]` Every AP index for `e = 9` is a realizing contractor. -/
+theorem apMemberOk_e9 (k : Nat) : ApMemberOk 9 k := by
+  refine ⟨?_, ?_⟩
+  · exact realizes_apMember_of_base realizes_base_e9
+  · exact contracts_apMember_of_base (by decide : 4 ≤ 9)
+      (realizes_apMember_of_base realizes_base_e9) margin_e9
+
+/--
+`[A]` Minimal probe: infinite AP lifting for `e = 9` via the existing transfer API.
+Does **not** claim `∀ e ≥ 8`, nor an exponent step `e → e+1`.
+-/
+theorem infinite_lifting_e9 : InfiniteApLiftingHypothesis 9 := fun _ k =>
+  apMemberOk_e9 k
 
 end KeplerHurwitz.Collatz.Pre119Draft.Core6InfiniteLifting

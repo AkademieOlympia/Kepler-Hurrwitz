@@ -35,14 +35,30 @@ def normalize_ref(raw: str) -> str:
     return ref
 
 
+def split_file_refs(raw: str) -> list[str]:
+    """Split comma-separated source/reference lists into individual paths."""
+    parts: list[str] = []
+    for part in raw.split(","):
+        normalized = normalize_ref(part)
+        if normalized:
+            parts.append(normalized)
+    return parts
+
+
+def is_skippable_path_pattern(ref: str) -> bool:
+    """Brace expansions / globs are documentation patterns, not literal paths."""
+    return any(ch in ref for ch in "*?{}")
+
+
 def looks_like_file_ref(raw: str) -> bool:
     ref = normalize_ref(raw)
     if ref.startswith("E-"):
         return False
+    if is_skippable_path_pattern(ref):
+        return False
     if "/" in ref:
         return True
     return ref.endswith(FILE_EXTENSIONS)
-
 
 def resolve_ref_path(ref: str, root: Path, source_path: Path | None) -> Path | None:
     normalized = normalize_ref(ref)
@@ -123,26 +139,45 @@ def validate(
 
         refs: list[str] = []
         source = entry.get("source")
+        source_parts: list[str] = []
         if isinstance(source, str) and source.strip():
-            refs.append(source)
+            source_parts = [
+                p for p in split_file_refs(source) if not is_skippable_path_pattern(p)
+            ]
+            refs.extend(source_parts)
 
         for field in ("depends_on", "supports"):
             values = entry.get(field, [])
             if not isinstance(values, list):
                 continue
-            refs.extend(v for v in values if isinstance(v, str))
+            for v in values:
+                if not isinstance(v, str):
+                    continue
+                if looks_like_file_ref(v) or ("," in v and not v.strip().startswith("E-")):
+                    refs.extend(split_file_refs(v))
+                else:
+                    refs.append(v)
 
         source_path: Path | None = None
-        if isinstance(source, str):
-            normalized_source = normalize_ref(source)
-            source_path = root / normalized_source
-            if not source_path.exists():
-                issues.append(f"{entry_id}: source file missing: {normalized_source}")
+        missing_sources: list[str] = []
+        for normalized_source in source_parts:
+            candidate = root / normalized_source
+            if candidate.exists():
+                if source_path is None:
+                    source_path = candidate
+            else:
+                missing_sources.append(normalized_source)
+        if missing_sources:
+            issues.append(
+                f"{entry_id}: source file missing: {', '.join(missing_sources)}"
+            )
 
         for ref in refs:
             if not looks_like_file_ref(ref):
                 continue
             normalized = normalize_ref(ref)
+            if is_skippable_path_pattern(normalized):
+                continue
             ref_path = resolve_ref_path(ref, root=root, source_path=source_path)
             if ref_path is None:
                 issues.append(f"{entry_id}: referenced file missing: {normalized}")
@@ -160,7 +195,6 @@ def validate(
                     issues.append(
                         f"{entry_id}: symbol {symbol!r} not found textually in {rel}"
                     )
-
     return issues
 
 

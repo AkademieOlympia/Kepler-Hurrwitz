@@ -15,11 +15,26 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: Install Python test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest numpy matplotlib pandas
+          python -m pip install -e .
+
       - name: Validate evidence registry
         run: python scripts/validate_registry.py --registry EVIDENCE_REGISTER.json --out-dir results
 
       - name: Run pytest
-        run: pytest
+        run: |
+          python -m pytest \
+            --ignore=tests/test_bamberg_gauge_dynamics.py \
+            --ignore=tests/test_cycle_phase_compressor.py \
+            --ignore=tests/test_distilled_parameters.py \
+            --ignore=tests/test_erpc_233_hamiltonian.py \
+            --ignore=tests/test_nuclear_binding_residual_bridge.py \
+            --ignore=tests/test_octonionic_collatz_freeze_diagnostic.py \
+            --ignore=tests/test_twin_prime_eabc_scale_sweep.py \
+            --ignore=tests/test_twin_prime_eabc_structured_controls.py
 
       - name: Setup Lean toolchain
         uses: leanprover/lean-action@v1

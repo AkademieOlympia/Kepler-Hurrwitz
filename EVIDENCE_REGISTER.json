@@ -352,7 +352,7 @@
       "title": "EABC Smoothness Attraktor Dossier und Exportartefakte",
       "level": "B",
       "aclass": null,
-      "source": "results/reports/EABC_SMOOTHNESS_ATTRACTOR_DOSSIER.md",
+      "source": "docs/reports/eabc_smoothness_attractor_dossier.md",
       "depends_on": [
         "docs/energiedoku_exports/smoothness_significance.json",
         "docs/energiedoku_exports/smoothness_scale_stability.json",
@@ -379,7 +379,7 @@
         "scripts/invariant_subspaces_a4_toy.sage (a5_geo mode)"
       ],
       "supports": [
-        "results/reports/A5_GEO_INVARIANT_SUBSPACES_REPORT.md"
+        "docs/reports/a5_geo_invariant_subspaces_report.md"
       ],
       "scope": "Geometrische A5-Wirkung auf 12 Ikosaeder-Ecken; explizit nicht Ih",
       "metric_or_result": "group order=60, vertices preserved=True, W_triv invariant=True, W_sumzero invariant=True, direct sum dimension=12, intersection dimension=0, sum invariant=True",
@@ -398,7 +398,7 @@
         "scripts/invariant_subspaces_a4_toy.sage (a5_geo_decompose mode)"
       ],
       "supports": [
-        "results/reports/A5_GEO_CHARACTER_DECOMPOSITION_REPORT.md"
+        "docs/reports/a5_geo_character_decomposition_report.md"
       ],
       "scope": "Charakteranalyse der 12-Ecken-Permutationsdarstellung; explizit nicht Ih",
       "metric_or_result": "class sizes=[1,12,12,15,20], perm char=[12,2,2,0,0], irred deg=[1,3,3,4,5], mult=[1,1,1,0,1], dim sum=12, trivial mult=1",
@@ -417,7 +417,7 @@
         "scripts/invariant_subspaces_a4_toy.sage (a5_geo_projectors mode)"
       ],
       "supports": [
-        "results/reports/A5_GEO_PROJECTOR_DECOMPOSITION_REPORT.md"
+        "docs/reports/a5_geo_projector_decomposition_report.md"
       ],
       "scope": "Zentrale Charakterprojektoren fuer die 12-Ecken-Wirkung; explizit nicht Ih",
       "metric_or_result": "idempotence=True, orthogonality=True, ranks=[1,3,3,5], sum identity=True, group order=60",
@@ -436,7 +436,7 @@
         "scripts/invariant_subspaces_a4_toy.sage (a5_geo_mode_fingerprints mode)"
       ],
       "supports": [
-        "results/reports/A5_GEO_MODE_FINGERPRINTS_REPORT.md"
+        "docs/reports/a5_geo_mode_fingerprints_report.md"
       ],
       "scope": "Modenanteile konkreter Testvektoren via Projektoren; explizit nicht Ih",
       "metric_or_result": "reconstruction=True und energy sum=True fuer alle Testvektoren; Mode-Energien dokumentiert",
@@ -455,7 +455,7 @@
         "scripts/invariant_subspaces_a4_toy.sage (a5_geo_eabc_signature_modes mode)"
       ],
       "supports": [
-        "results/reports/A5_GEO_EABC_SIGNATURE_MODES_REPORT.md"
+        "docs/reports/a5_geo_eabc_signature_modes_report.md"
       ],
       "scope": "Toy zyklische ABCE/CEAB-Labelzuweisung auf 12 Ecken; explizit nicht kanonische EABC-Geometrie und nicht Ih",
       "metric_or_result": "stabile Projektorchecks; unter diesem toy embedding identische ABCE/CEAB-Fingerprints (delta_3=0, delta_3'=0)",
@@ -474,7 +474,7 @@
         "scripts/invariant_subspaces_a4_toy.sage (a5_geo_eabc_embedding_sweep mode)"
       ],
       "supports": [
-        "results/reports/A5_GEO_EABC_EMBEDDING_SWEEP_REPORT.md"
+        "docs/reports/a5_geo_eabc_embedding_sweep_report.md"
       ],
       "scope": "Vergleich von ABCE/CEAB-Fingerprints ueber mehrere toy label-to-vertex embeddings; kein kanonisches EABC->Ikosaeder-Embedding behauptet",
       "metric_or_result": "tested=15, identical=4, non-identical=11, max|delta E3|=7.15541752799933, max|delta E3'|=7.15541752799933, Rekonstruktion immer wahr",
@@ -649,75 +649,6 @@
       "last_reviewed": "2026-07-03"
     },
     {
-      "id": "E-046",
-      "title": "Primvierling-Komplementaritaet und Host-Auslassungs-Symmetrie (Lean-Label E-033)",
-      "level": "A",
-      "aclass": "A-T",
-      "source": "KeplerHurwitz/PrimvierlingSymmetry.lean",
-      "depends_on": [
-        "E-025",
-        "EABCChronology"
-      ],
-      "supports": [
-        "E-032",
-        "E-047",
-        "E-026",
-        "E-048"
-      ],
-      "scope": "hostTriple, hostTriple_union_host_eq_four_set, hostTriples_pairwise_ne, Gap-Paare, hostTriple_shiftCEAB",
-      "metric_or_result": "0 sorry; lake build KeplerHurwitz.PrimvierlingSymmetry gruen (2026-07-03)",
-      "status": "bewiesen",
-      "stability": "stable",
-      "last_reviewed": "2026-07-03",
-      "lean_label": "E-033"
-    },
-    {
-      "id": "E-047",
-      "title": "hostComponentEquiv und Dreier-Multiplizitaet (Lean-Label E-034)",
-      "level": "A",
-      "aclass": "A-T",
-      "source": "KeplerHurwitz/PrimvierlingSymmetry.lean",
-      "depends_on": [
-        "E-046",
-        "E-025"
-      ],
-      "supports": [
-        "E-032",
-        "E-026",
-        "E-048"
-      ],
-      "scope": "hostComponentEquiv; mem_hostTriple_count = 3; unique_excluded_host; mem_hostTriple_iff_ne_hostComponent; Bruecke zu RespectsLabelFibers / LabelIntertwiningGraphAuto",
-      "metric_or_result": "0 sorry; lake build KeplerHurwitz.PrimvierlingSymmetry gruen (2026-07-03)",
-      "status": "bewiesen",
-      "stability": "stable",
-      "last_reviewed": "2026-07-03",
-      "lean_label": "E-034"
-    },
-    {
-      "id": "E-048",
-      "title": "Dumas-Lemma Dumas_one_for_all_all_for_one (Lean E-048; Konsolidierung Lean-Label E-034)",
-      "level": "A",
-      "aclass": "A-T",
-      "source": "KeplerHurwitz/PrimvierlingSymmetry.lean",
-      "depends_on": [
-        "E-046",
-        "E-047"
-      ],
-      "supports": [
-        "E-032",
-        "E-026"
-      ],
-      "scope": "Dumas_one_for_all_all_for_one; dumasLemma; dumasLemma_hostComponent_bij; dumasLemma_otherChannels_card",
-      "metric_or_result": "0 sorry; lake build KeplerHurwitz.PrimvierlingSymmetry gruen (2026-07-03)",
-      "status": "bewiesen",
-      "stability": "stable",
-      "last_reviewed": "2026-07-03",
-      "lean_label": "E-048",
-      "related_lean_labels": [
-        "E-034"
-      ]
-    },
-    {
       "id": "E-033",
       "title": "Kepler-Zeit-Leiter: diskretes Delta-M-Linienspektrum auf Floquet-Attraktoren",
       "level": "B",
@@ -760,8 +691,7 @@
       "source": "src/kepler_hurwitz/riemann_resonance_checker.py, docs/energiedoku_exports/riemann_scale_resonance.json",
       "depends_on": [
         "E-033",
-        "E-034",
-        "phi/phi_inv Skalenkomponente x_0"
+        "E-034"
       ],
       "supports": [],
       "scope": "korrigierte explizite-Formel-Metrik; volle Stichprobe N=2_001_052",
@@ -985,6 +915,75 @@
       "last_reviewed": "2026-07-03",
       "upgrade_status": "pre",
       "defensive_scope": "No classification theorem; scalar E-044 negative result preserved; signed orbit classes do not separate N=4,6,8 under G_5-code."
+    },
+    {
+      "id": "E-046",
+      "title": "Primvierling-Komplementaritaet und Host-Auslassungs-Symmetrie (Lean-Label E-033)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/PrimvierlingSymmetry.lean",
+      "depends_on": [
+        "E-025",
+        "EABCChronology"
+      ],
+      "supports": [
+        "E-032",
+        "E-047",
+        "E-026",
+        "E-048"
+      ],
+      "scope": "hostTriple, hostTriple_union_host_eq_four_set, hostTriples_pairwise_ne, Gap-Paare, hostTriple_shiftCEAB",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.PrimvierlingSymmetry gruen (2026-07-03)",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03",
+      "lean_label": "E-033"
+    },
+    {
+      "id": "E-047",
+      "title": "hostComponentEquiv und Dreier-Multiplizitaet (Lean-Label E-034)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/PrimvierlingSymmetry.lean",
+      "depends_on": [
+        "E-046",
+        "E-025"
+      ],
+      "supports": [
+        "E-032",
+        "E-026",
+        "E-048"
+      ],
+      "scope": "hostComponentEquiv; mem_hostTriple_count = 3; unique_excluded_host; mem_hostTriple_iff_ne_hostComponent; Bruecke zu RespectsLabelFibers / LabelIntertwiningGraphAuto",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.PrimvierlingSymmetry gruen (2026-07-03)",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03",
+      "lean_label": "E-034"
+    },
+    {
+      "id": "E-048",
+      "title": "Dumas-Lemma Dumas_one_for_all_all_for_one (Lean E-048; Konsolidierung Lean-Label E-034)",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "KeplerHurwitz/PrimvierlingSymmetry.lean",
+      "depends_on": [
+        "E-046",
+        "E-047"
+      ],
+      "supports": [
+        "E-032",
+        "E-026"
+      ],
+      "scope": "Dumas_one_for_all_all_for_one; dumasLemma; dumasLemma_hostComponent_bij; dumasLemma_otherChannels_card",
+      "metric_or_result": "0 sorry; lake build KeplerHurwitz.PrimvierlingSymmetry gruen (2026-07-03)",
+      "status": "bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-03",
+      "lean_label": "E-048",
+      "related_lean_labels": [
+        "E-034"
+      ]
     },
     {
       "id": "E-049",
@@ -1314,7 +1313,7 @@
     {
       "id": "E-075",
       "title": "Prime Grid / Signaturgeometrie natuerlicher Zahlen",
-      "level": "B/C",
+      "level": "B",
       "aclass": null,
       "source": "docs/mathematische_texte/kolossvary_the_prime_grid.pdf, docs/energiedoku_exports/e075_prime_grid_signaturgeometrie.md",
       "depends_on": [],
@@ -1570,7 +1569,7 @@
     {
       "id": "E-090",
       "title": "Kanonische e3-Zerlegung n = q*e^3 + r*e (Lemma 1-3: product split + S± multiplet)",
-      "level": "A/B/C",
+      "level": "A",
       "aclass": "A-T",
       "source": "KeplerHurwitz/E3Decomposition.lean, src/kepler_hurwitz/e3_decomposition.py, docs/collatz_e3_decomposition.md, tests/test_e3_decomposition.py",
       "depends_on": [],
@@ -1686,10 +1685,65 @@
       "defensive_scope": "Not proof that zeta zeros cause EABC symmetry break; not physics identity; distinct from E-034/E-035 mean-cos metrics; Mangoldt-weighted explicit formula not claimed"
     },
     {
+      "id": "E-096",
+      "title": "EABC-Normalform-Stack: n=2^a 3^b r e, V4, SemiprimKind, Higher/XOR, DualCarrier/gamma",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "docs/eabc_normal_form.md, docs/eabc_v4_quaternion_bridge.md, KeplerHurwitz/EABC/V4.lean",
+      "depends_on": [],
+      "supports": [
+        "E-097",
+        "E-099",
+        "E-100"
+      ],
+      "scope": "Governance-Referenzschicht fuer Normalform-Sprache; Claim-Wall in Docs",
+      "metric_or_result": "Docs + V4 Lean-Anker; Python/Lean-Vollstack teils branch-abhaengig",
+      "status": "dokumentiert / teilweise bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-27",
+      "defensive_scope": "Keine Ideal-Phi/Spatprodukt-Claims; keine Collatz-Aussage."
+    },
+    {
+      "id": "E-097",
+      "title": "EABC x Collatz Audit-Grid: Syracuse T_acc on V4/DualCarrier; claim boundary vs Collatz proof",
+      "level": "A",
+      "aclass": "A-T",
+      "source": "docs/eabc_collatz_audit_grid.md, KeplerHurwitz/EABC/SyracuseRelationClassifierPhi.lean",
+      "depends_on": [
+        "E-096"
+      ],
+      "supports": [
+        "E-098"
+      ],
+      "scope": "Audit-Grid fuer Kanalwechsel; explizit kein Collatz-Beweis",
+      "metric_or_result": "Lean-Labels/Teilbarkeit [A]; Python-Audits [B] in Docs; Open Non-Claim §5.21 [C]",
+      "status": "dokumentiert / teilweise bewiesen",
+      "stability": "stable",
+      "last_reviewed": "2026-07-27",
+      "defensive_scope": "Kein Beweis der Collatz-Vermutung; additive Barriere bleibt."
+    },
+    {
+      "id": "E-098",
+      "title": "Collatz V2.16 assessment pointer (local union/deep-lift vs global tail)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/collatz_v216_assessment.md",
+      "depends_on": [
+        "E-097"
+      ],
+      "supports": [],
+      "scope": "Bewertungszeiger; lokale Union/Deep-Lift vs Tail/Eintritt/global",
+      "metric_or_result": "dokumentiert; globale Claims offen",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-27",
+      "defensive_scope": "Kein CoverCertified/Collatz."
+    },
+    {
       "id": "E-099",
       "title": "Anisotropic binary volume contraction prod 2^{-k}=2^{-n(n+1)/2}; directed scale reading for EABC audit",
-      "level": "C",
-      "aclass": "A-T (prod/triangle), C (EABC reading)",
+      "level": "A",
+      "aclass": "A-T",
       "source": "docs/theory/anisotropic_binary_volume_contraction.md, KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean",
       "depends_on": [
         "E-053",
@@ -1705,6 +1759,38 @@
       "stability": "experimental",
       "last_reviewed": "2026-07-20",
       "defensive_scope": "No quaternion volume identity; no (L,H,W)=(i,j,k) or channel identification; 5=1^2+2^2 does not fix EABC class; does not prove retraction or Dedekind Phi"
+    },
+    {
+      "id": "E-100",
+      "title": "FiniteFactorTree/EABC consumer-chain freeze pointer",
+      "level": "B",
+      "aclass": null,
+      "source": "docs/exports/pre119_finite_fiber_freeze.json",
+      "depends_on": [
+        "E-096"
+      ],
+      "supports": [],
+      "scope": "Freeze/Export-Anker im aktuellen Checkout; Vollstack branch-abhaengig",
+      "metric_or_result": "Export vorhanden; Consumer-Kette nicht als Collatz-Beweis gelesen",
+      "status": "reproduzierbar (Export)",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-27",
+      "defensive_scope": "Kein Collatz-Beweis; ArithmeticFactorization bleibt False."
+    },
+    {
+      "id": "E-101",
+      "title": "E-101 core-model status bundle pointer",
+      "level": "B",
+      "aclass": null,
+      "source": "docs/exports/pre119_exponent_extension_e9.json",
+      "depends_on": [],
+      "supports": [],
+      "scope": "Status-Bundle-Zeiger im aktuellen Pre119-Exponent-Extension-Strang",
+      "metric_or_result": "Export-Anker; kein universelles Infinite-Lifting",
+      "status": "reproduzierbar (Export)",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-27",
+      "defensive_scope": "Kein Collatz-/Cover-Claim."
     }
   ]
 }

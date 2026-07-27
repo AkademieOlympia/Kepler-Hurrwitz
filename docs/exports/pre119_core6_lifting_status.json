@@ -26,16 +26,20 @@
     "infinite_lifting_e8"
   ],
   "tag_C": [
-    "InfiniteApLiftingHypothesis_e_ge_9",
+    "InfiniteApLiftingHypothesis_e_ge_10",
     "InfiniteApLiftingHypothesis_forall_e_ge_8",
+    "CompatibleNextData",
+    "liftExponent",
     "CoverCertified",
     "Collatz"
   ],
   "InfiniteApLiftingDischarged": [4, 5, 6, 7],
   "InfiniteApLiftingIntegrationProbe": [8],
+  "InfiniteApLiftingMinimalProbe": [9],
   "tag_C_notes": {
-    "InfiniteApLiftingHypothesis_e_ge_9": "next concrete instance after probe e=8; still open",
-    "InfiniteApLiftingHypothesis_forall_e_ge_8": "uniform family goal; not claimed by e=8 probe"
+    "InfiniteApLiftingHypothesis_e_ge_10": "next concrete instance after minimal probe e=9; still open",
+    "InfiniteApLiftingHypothesis_forall_e_ge_8": "uniform family goal; not claimed by e=8/e=9 probes",
+    "liftExponent": "Weg B target; requires CompatibleNextData — not in this PR"
   },
   "claims_freeze": false,
   "collatz_proved": false,
