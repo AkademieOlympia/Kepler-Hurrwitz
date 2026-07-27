@@ -244,7 +244,7 @@ theorem canonicalBaseRealizesGoal : CanonicalBaseRealizesGoal :=
 
 /--
 `[A]` Universal infinite AP lifting via the unique canonical seed for `e ≥ 8`
-(and more generally `e ≥ 5` via the transfer API).
+(stated goal range). Stronger closed family: `infinite_lifting_canonicalBase_ge_four`.
 -/
 def CanonicalInfiniteLiftingViaCanonicalBaseGoal : Prop :=
   ∀ e : Nat, 8 ≤ e →
