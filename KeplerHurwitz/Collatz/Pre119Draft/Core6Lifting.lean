@@ -18,9 +18,9 @@ Die Entwurfsskizze vermischte:
 Korrektes Lifting unter `[A]`:
 `RealizesWord (fiberE e) n_k ∧ realizedImage n_k (fiberE e) < n_k`.
 
-Das unendliche `∀ k : ℕ`-Lifting (ohne Schranke `2^21`) bleibt als
-explizite Hypothese `[C]` — offline für große `k` gestützt, aber hier nicht
-als bewiesenes `∀k` behauptet.
+Das unendliche `∀ k : ℕ`-Lifting ist hier als `InfiniteApLiftingHypothesis`
+benannt; die Entladung für `e = 4..7` liegt in `Core6InfiniteLifting`
+(via `FiberWordAffine`: Valuation-Stabilität + affine Contracts).
 
 Kein CoverCertified / Collatz. ClaimsFreeze false. 0 sorry.
 -/
@@ -98,21 +98,16 @@ theorem apMember_of_add (e k : Nat) :
     classBase e + k * period e = apMember e k :=
   (apMember_eq e k).symm
 
-/-! ### Infinite lifting — explicit `[C]` (not proved here) -/
+/-! ### Infinite lifting — named hypothesis (discharged for e=4..7 elsewhere) -/
 
 /--
-`[C]` Infinite AP lifting hypothesis for a fixed `e ≥ 4`:
+Infinite AP lifting hypothesis for a fixed `e ≥ 4`:
 every `k : ℕ` (unbounded) yields a realizing contractor on `apMember e k`.
 
-Offline checks support large finite `k`; this Prop is **not** discharged here.
+Discharged under `[A]` for `e = 4..7` in `Core6InfiniteLifting`.
 -/
 def InfiniteApLiftingHypothesis (e : Nat) : Prop :=
   4 ≤ e → ∀ k : Nat, ApMemberOk e k
-
-/-- Marker: infinite lifting is not claimed as a theorem in this module. -/
-def InfiniteApLiftingClaimed : Prop := False
-
-theorem InfiniteApLiftingClaimed_false : ¬ InfiniteApLiftingClaimed := fun h => h
 
 /--
 Rejected sketch (documentation only): `isGood` does **not** apply to numbers, and

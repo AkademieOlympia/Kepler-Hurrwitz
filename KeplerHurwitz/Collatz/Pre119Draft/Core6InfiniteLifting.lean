@@ -1,0 +1,152 @@
+import KeplerHurwitz.Collatz.Pre119Draft.Core6Lifting
+import KeplerHurwitz.Collatz.Pre119Draft.FiberWordAffine
+
+set_option linter.style.nativeDecide false
+
+/-!
+# Pre119Draft — Core6InfiniteLifting
+
+Discharge of `InfiniteApLiftingHypothesis e` for fixed `e = 4..7` via
+modular valuation stability (`realizesWord_add_pow`) and affine contraction
+(`contracts_of_le_base`), seeded by the known class bases.
+
+Governance: `[A]` for the four discharged exponents; no ∀n / CoverCertified /
+Collatz. `ClaimsFreeze` remains false. 0 sorry.
+-/
+
+namespace KeplerHurwitz.Collatz.Pre119Draft.Core6InfiniteLifting
+
+open KeplerHurwitz.Collatz.Pre119Draft.FiberWordBasics
+open KeplerHurwitz.Collatz.Pre119Draft.FiberWordAffine
+open KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema
+open KeplerHurwitz.Collatz.Pre119Draft.Core6Lifting
+open KeplerHurwitz.Collatz.Pre119Draft.GapFiberClassTail4
+open KeplerHurwitz.Collatz.Pre119Draft.GapFiberClassTail5
+
+/-- Common Core6++[e] affine remainder (independent of the last exponent). -/
+theorem wordC_fiberE4 : wordC (fiberE 4) = 2347 := by native_decide
+theorem wordC_fiberE5 : wordC (fiberE 5) = 2347 := by native_decide
+theorem wordC_fiberE6 : wordC (fiberE 6) = 2347 := by native_decide
+theorem wordC_fiberE7 : wordC (fiberE 7) = 2347 := by native_decide
+
+theorem fiberE_length_seven (e : Nat) : (fiberE e).length = 7 :=
+  fiberE_length e
+
+theorem fiberE_sum_eight_add (e : Nat) : (fiberE e).sum = 8 + e :=
+  fiberE_sum e
+
+theorem good_le_fiberE {e : Nat} (he : 4 ≤ e) :
+    3 ^ (fiberE e).length ≤ 2 ^ (fiberE e).sum := by
+  have hstrict : isGoodExpSequence (fiberE e) := isGood_fiberE_of_e_ge_four he
+  exact Nat.le_of_lt hstrict
+
+/-- Period matches the lifting modulus `2^{sum+1}`. -/
+theorem classPeriod_eq_sum_succ (e : Nat) :
+    classPeriod e = 2 ^ ((fiberE e).sum + 1) := by
+  simp [classPeriod]
+
+theorem realizes_apMember_of_base {e k : Nat}
+    (hbase : RealizesWord (fiberE e) (classBase e)) :
+    RealizesWord (fiberE e) (apMember e k) := by
+  have h := realizesWord_add_pow (E := fiberE e) (n := classBase e) (k := k) hbase
+  simpa [apMember, classMember, classPeriod_eq_sum_succ] using h
+
+theorem contracts_apMember_of_base {e k : Nat}
+    (he : 4 ≤ e)
+    (hreal : RealizesWord (fiberE e) (apMember e k))
+    (hmargin : wordC (fiberE e) <
+        classBase e * (2 ^ (fiberE e).sum - 3 ^ (fiberE e).length)) :
+    realizedImage (apMember e k) (fiberE e) < apMember e k := by
+  have hle : classBase e ≤ apMember e k := by
+    simp [apMember, classMember]
+  exact contracts_of_le_base hreal (good_le_fiberE he) hmargin hle
+
+/-- Base margin check for `e = 4` (`2347 < 6687 · 1909`). -/
+theorem margin_e4 :
+    wordC (fiberE 4) <
+      classBase 4 * (2 ^ (fiberE 4).sum - 3 ^ (fiberE 4).length) := by
+  native_decide
+
+theorem margin_e5 :
+    wordC (fiberE 5) <
+      classBase 5 * (2 ^ (fiberE 5).sum - 3 ^ (fiberE 5).length) := by
+  native_decide
+
+theorem margin_e6 :
+    wordC (fiberE 6) <
+      classBase 6 * (2 ^ (fiberE 6).sum - 3 ^ (fiberE 6).length) := by
+  native_decide
+
+theorem margin_e7 :
+    wordC (fiberE 7) <
+      classBase 7 * (2 ^ (fiberE 7).sum - 3 ^ (fiberE 7).length) := by
+  native_decide
+
+theorem realizes_base_e4 : RealizesWord (fiberE 4) (classBase 4) := by
+  simpa [classBase, fiberE_tail4_matches] using realizes_fiber_6687
+
+theorem realizes_base_e5 : RealizesWord (fiberE 5) (classBase 5) := by
+  simpa [classBase, fiberE_tail5_matches] using realizes_fiber_10783
+
+theorem realizes_base_e6 : RealizesWord (fiberE 6) (classBase 6) :=
+  realizes_e6_base
+
+theorem realizes_base_e7 : RealizesWord (fiberE 7) (classBase 7) :=
+  realizes_e7_base
+
+/-- `[A]` Every AP index for `e = 4` is a realizing contractor. -/
+theorem apMemberOk_e4 (k : Nat) : ApMemberOk 4 k := by
+  refine ⟨?_, ?_⟩
+  · exact realizes_apMember_of_base realizes_base_e4
+  · exact contracts_apMember_of_base (by decide : 4 ≤ 4)
+      (realizes_apMember_of_base realizes_base_e4) margin_e4
+
+/-- `[A]` Every AP index for `e = 5` is a realizing contractor. -/
+theorem apMemberOk_e5 (k : Nat) : ApMemberOk 5 k := by
+  refine ⟨?_, ?_⟩
+  · exact realizes_apMember_of_base realizes_base_e5
+  · exact contracts_apMember_of_base (by decide : 4 ≤ 5)
+      (realizes_apMember_of_base realizes_base_e5) margin_e5
+
+/-- `[A]` Every AP index for `e = 6` is a realizing contractor. -/
+theorem apMemberOk_e6 (k : Nat) : ApMemberOk 6 k := by
+  refine ⟨?_, ?_⟩
+  · exact realizes_apMember_of_base realizes_base_e6
+  · exact contracts_apMember_of_base (by decide : 4 ≤ 6)
+      (realizes_apMember_of_base realizes_base_e6) margin_e6
+
+/-- `[A]` Every AP index for `e = 7` is a realizing contractor. -/
+theorem apMemberOk_e7 (k : Nat) : ApMemberOk 7 k := by
+  refine ⟨?_, ?_⟩
+  · exact realizes_apMember_of_base realizes_base_e7
+  · exact contracts_apMember_of_base (by decide : 4 ≤ 7)
+      (realizes_apMember_of_base realizes_base_e7) margin_e7
+
+/-- `[A]` Discharge of the infinite AP lifting hypothesis for `e = 4`. -/
+theorem infinite_lifting_e4 : InfiniteApLiftingHypothesis 4 := fun _ k =>
+  apMemberOk_e4 k
+
+/-- `[A]` Discharge of the infinite AP lifting hypothesis for `e = 5`. -/
+theorem infinite_lifting_e5 : InfiniteApLiftingHypothesis 5 := fun _ k =>
+  apMemberOk_e5 k
+
+/-- `[A]` Discharge of the infinite AP lifting hypothesis for `e = 6`. -/
+theorem infinite_lifting_e6 : InfiniteApLiftingHypothesis 6 := fun _ k =>
+  apMemberOk_e6 k
+
+/-- `[A]` Discharge of the infinite AP lifting hypothesis for `e = 7`. -/
+theorem infinite_lifting_e7 : InfiniteApLiftingHypothesis 7 := fun _ k =>
+  apMemberOk_e7 k
+
+/--
+`[A]` Pack: infinite AP lifting for the four closed Core6 single-step
+exponents `e = 4..7`.
+-/
+theorem infinite_lifting_e4_to_e7 :
+    InfiniteApLiftingHypothesis 4 ∧
+      InfiniteApLiftingHypothesis 5 ∧
+      InfiniteApLiftingHypothesis 6 ∧
+      InfiniteApLiftingHypothesis 7 :=
+  ⟨infinite_lifting_e4, infinite_lifting_e5, infinite_lifting_e6, infinite_lifting_e7⟩
+
+end KeplerHurwitz.Collatz.Pre119Draft.Core6InfiniteLifting

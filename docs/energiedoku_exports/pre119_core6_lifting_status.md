@@ -1,6 +1,6 @@
 # Pre119 — Core6Lifting
 
-**Tag:** `[A]` finites AP-Lifting · `[C]` unendliches ∀k · **0 sorry** · Collatz unbewiesen
+**Tag:** `[A]` finites + unendliches AP-Lifting für e=4..7 · **0 sorry** · Collatz unbewiesen
 
 ## Antwort auf die Skizze
 
@@ -21,12 +21,9 @@ Korrektes Lifting:
 n_k=\mathrm{base}(e)+k\cdot 2^{S(e)+1}.
 \]
 
-`ZMod`-Restklassen helfen bei der Notation `n ≡ base [MOD P]`, ersetzen aber nicht
-Realizes/contracts.
-
 ## Lean `[A]`
 
-Modul: `Core6Lifting.lean`
+Module: `Core6Lifting.lean`, `FiberWordAffine.lean`, `Core6InfiniteLifting.lean`
 
 | Aussage | Status |
 |---------|--------|
@@ -34,8 +31,10 @@ Modul: `Core6Lifting.lean`
 | `ApMemberOk` | Def |
 | `lifting_e4..e7_below_2pow21` | `[A]` |
 | `family_coverage_e4_to_e7_below_2pow21` | `[A]` |
-| `InfiniteApLiftingHypothesis` | Prop **`[C]`** |
-| `InfiniteApLiftingClaimed = False` | Marker |
+| `valuation_nextOdd_add_pow` / `realizesWord_add_pow` | `[A]` |
+| `realizedImage_mul_pow` / `contracts_of_wordC_lt` | `[A]` |
+| `InfiniteApLiftingHypothesis e` für `e=4..7` | `[A]` (entladen) |
+| `InfiniteApLiftingHypothesis e` für `e≥8` | offen (Basen vorhanden, gleicher Mechanismus) |
 
 ## Architektur
 
@@ -43,11 +42,10 @@ Modul: `Core6Lifting.lean`
 isGoodExpSequence (Core6++[e])     [A]  (Wort)
         │
         ▼
-ApMemberOk e k  (Realizes + contracts)   [A] für k unter 2^21 (e=4..7)
-        │
-        ▼
-InfiniteApLiftingHypothesis e            [C]  ∀k : ℕ
-        │
+ApMemberOk e k  (Realizes + contracts)
+        │  finite: Core6Lifting [A] unter 2^21
+        │  infinite e=4..7: Core6InfiniteLifting [A]
+        │    via FiberWordAffine (mod-2^{S+1} + wordC)
         ▼
 CoverCertified / Collatz                 [C]
 ```
