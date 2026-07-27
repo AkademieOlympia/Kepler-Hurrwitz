@@ -4,130 +4,62 @@
 **Base:** `cursor/core6-cylinder-partition-4007` (PR #16 stack)  
 **Module:** `KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicFeedIn`
 
-## Status wall (after D1 pilot + D2a + D2b skeleton)
+## Status wall (after D2b.1–.4)
 
 | Object | Mathematical status | Repository status |
 |--------|---------------------|-------------------|
 | D1 representative census | finite reproducible evidence | `[B]` |
 | `OneBlockFeedInGoal` | formally refuted | no positive claim |
-| `not_oneBlockFeedInGoal` | Lean theorem on branch | `[C→A]` |
-| `oneBlockFeedInSet` | characterization object | D2b in progress |
-| `oneBlockFeedInSet 1 ⊂ C_1` | Lean theorem (witness `31`) | `[C→A]` |
+| `not_oneBlockFeedInGoal` | Lean theorem | `[C→A]` |
+| `realizedImage_fiberIndexMap` | affine block map `q+4374k` | `[C→A]` |
+| `oneBlockIndexClass` / `existsUnique_…` | unique κ mod `2^{f+8}` | `[C→A]` |
+| `1246239 ∈ oneBlockFeedInSet 1` | positive witness | `[C→A]` |
+| `∅ ⊂ oneBlockFeedInSet 1 ⊂ C_1` | sandwich | `[C→A]` |
+| full disjoint-union decomp (D2b.5) | expected, not discharged | open |
 | `ReachabilityFeedInGoal` | undecided | `[C]` |
-| universal reachability / collapse | not claimed | — |
 
-`[B]` may support or falsify a `[C]` hypothesis; it never replaces a Lean proof and never creates `[A]` alone.
 Promotion of `[C→A]` → accepted repo-`[A]` waits for CI, review, and merge.
 
 ## Lean goals
 
-### Refuted universal one-block claim (D2a)
+### D2a — refuted universal one-block
+
+Witness: `e₀=1`, `n=31`, image `137 ∉ contractingMass`.
+
+### D2b.1 — affine index formula
 
 ```lean
-def OneBlockFeedInGoal : Prop :=
-  ∀ e₀, 1 ≤ e₀ → e₀ ≤ 3 →
-    ∀ n ∈ canonicalCylinder e₀,
-      realizedImage n (fiberE e₀) ∈ contractingMass
+theorem realizedImage_fiberIndexMap {e₀} (he₀ : 1 ≤ e₀) (k : Nat) :
+    realizedImage (fiberIndexMap e₀ k) (fiberE e₀) =
+      oneBlockBaseImage e₀ + 2 * 3 ^ 7 * k
 ```
 
-**Witness:** `e₀=1`, `n=31`, `realizedImage 31 (fiberE 1) = 137 ∉ contractingMass`.  
-Lean: `theorem not_oneBlockFeedInGoal : ¬ OneBlockFeedInGoal`.
+Equivalently `q_{e₀} + 4374·k`.
 
-Kernel packaging:
-\[
-31\in C_1 \;\land\;
-\operatorname{realizedImage}(31,\operatorname{fiberE}(1))=137 \;\land\;
-137\notin\operatorname{contractingMass}
-\quad\Longrightarrow\quad
-\neg\texttt{OneBlockFeedInGoal}.
-\]
-
-One-block evaluation does **not** depend on the reachability horizon `T`.
-Correct phrasing for the pilot: **0 of 56 stage representatives are one-block hits**
-— not “0 one-block hits until T=32”.
-
-### Characterization set (D2b)
+### D2b.2 — target congruence
 
 ```lean
-def oneBlockFeedInSet (e₀ : Nat) : Set Nat :=
-  {n | n ∈ canonicalCylinder e₀ ∧
-    realizedImage n (fiberE e₀) ∈ contractingMass}
+realizedImage (fiberIndexMap e₀ k) (fiberE e₀) ∈ canonicalCylinder f
+  ↔ oneBlockBaseImage e₀ + 2*3^7*k ≡ canonicalBase f [MOD seedModulus f]
 ```
 
-Delivered skeleton (`[C→A]`):
-- `OneBlockFeedInGoal ↔ ∀ e₀∈{1,2,3}, oneBlockFeedInSet e₀ = C_{e₀}`
-- `31 ∉ oneBlockFeedInSet 1`
-- `oneBlockFeedInSet 1 ⊂ canonicalCylinder 1`
+### D2b.3 — unique index class
 
-Still open: emptiness / positive membership / arithmetic structure of
-`oneBlockFeedInSet(e₀)` beyond the proper-subset witness. A finite D1 census
-with zero one-block hits among stage representatives does **not** prove emptiness
-of the infinite-fiber set.
+`κ(e₀,f) = oneBlockIndexClass e₀ f` solves
+`2187·κ ≡ (b_f − q_{e₀})/2` in `ZMod 2^{f+8}`, uniquely among residues `< 2^{f+8}`.
+
+Bridge from this reduced congruence all the way to cylinder membership
+(full cancel-by-2 equivalence) feeds D2b.5.
+
+### D2b.4 — positive witness
+
+`k=1217`, `n=Φ_1(1217)=1246239`, image `5323295 ∈ C_4`, hence
+`1246239 ∈ oneBlockFeedInSet 1`, and
+`∅ ⊂ oneBlockFeedInSet 1 ⊂ C_1`.
 
 ### Reachability (still open)
 
-```lean
-def ReachabilityFeedInGoal : Prop :=
-  ∀ n ∈ expandingMass,
-    ∃ t, 1 ≤ t ∧ syracuseOddIterate t n ∈ contractingMass
-```
-
-Quantifier distinction:
-\[
-\neg\texttt{OneBlockFeedInGoal}
-\;=\;
-\exists n\in\mathrm{expandingMass}:\;
-U^{\circ 7}(n)\notin\mathrm{contractingMass},
-\]
-while reachability asks for some (possibly later) odd iterate. Explicitly:
-\[
-\neg\texttt{OneBlockFeedInGoal}
-\;\not\Rightarrow\;
-\neg\texttt{ReachabilityFeedInGoal}.
-\]
-
-## Claim wall
-
-| Static / local fact | Illegal dynamical reading |
-|---------------------|---------------------------|
-| `#contr / #Core6 → 1/8` | hitting probability |
-| `R_m^contr ⊆ R_m^Core6` | orbits enter contracting fibers |
-| `¬ OneBlockFeedInGoal` | `¬ ReachabilityFeedInGoal` |
-| `oneBlockFeedInSet 1 ⊂ C_1` | `oneBlockFeedInSet e₀ = ∅` |
-
-## D1 — full census of **stage representatives** `[B]`
-
-For stage `m ≥ 3`, enumerate all canonical expanding residues at `Q_m = 2^{m+9}`:
-
-$$
-n=\Phi_{e_0}(k)=b_{e_0}+k\cdot 2^{e_0+9},\qquad
-e_0\in\{1,2,3\},\qquad 0\le k<2^{m-e_0}.
-$$
-
-This is a complete census of **stage representatives**, not of all elements of the
-infinite fibers `C_1,C_2,C_3`. Without a dynamical congruence-stability theorem,
-lift behaviour does not automatically transfer.
-
-### Pilot `m=6`, `T=32` (`param_hash=ccd46f0393bb72e4`)
-
-| | count |
-|--|------:|
-| starts | 56 |
-| reachability hits (≤T) | 2 |
-| censored at T | 54 |
-| one-block hits | **0** (independent of T) |
-
-- `e₀=1`: hit at `t=10`, target `e=4`
-- `e₀=2`: hit at `t=28`, target `e=7`
-- `e₀=3`: no hit ≤32
-- Censoring ≠ counterexample to reachability
-
-Artifact: `docs/exports/artifacts/d1_census/summary_m6_T32.json`
-
-```bash
-PYTHONPATH=. python3 scripts/core6_dynamic_feed_in_d1_census.py --m 8 --T 64 \
-  --jsonl /tmp/d1.jsonl --summary /tmp/d1_summary.json
-```
+`¬ OneBlockFeedInGoal ⇏ ¬ ReachabilityFeedInGoal`.
 
 ## Ladder
 
@@ -135,9 +67,13 @@ PYTHONPATH=. python3 scripts/core6_dynamic_feed_in_d1_census.py --m 8 --T 64 \
 |-------|---------|--------|
 | **D0** | definitions, claim wall | done |
 | **D1** | full representative census `[B]` | pilot done |
-| **D2a** | formal `¬ OneBlockFeedInGoal` | Lean candidate `[C→A]` |
-| **D2b** | structure of `oneBlockFeedInSet` | skeleton: proper subset `e₀=1`; structure open |
-| **D3** | sufficient multi-step reachability conditions | open `[C]` |
+| **D2a** | formal `¬ OneBlockFeedInGoal` | `[C→A]` |
+| **D2b.1** | affine `q+4374k` | `[C→A]` |
+| **D2b.2** | target congruence packaging | `[C→A]` |
+| **D2b.3** | unique κ class | `[C→A]` |
+| **D2b.4** | positive witness + sandwich | `[C→A]` |
+| **D2b.5** | disjoint progressive decomposition | open |
+| **D3** | multi-step conditions | open `[C]` |
 | **D4** | `ReachabilityFeedInGoal` | open `[C]` |
 
 ## Non-goals
