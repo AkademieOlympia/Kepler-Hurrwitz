@@ -2,11 +2,15 @@
   "pr": 16,
   "title": "Core6 cylinder partition \u2014 static dyadic closure",
   "closure_candidate": {
+    "math_freeze_head": "3740183198160e79b302eb2fcd8250d1e9fd925e",
+    "certificate_docs_head": "533f8a155d3104815dc9db3fb1a91bfcfa6f80d0",
+    "axioms_artifact_head": "6904f87d120526d477c36e322188dcfe2c78d6e9",
     "freeze_head": "3740183198160e79b302eb2fcd8250d1e9fd925e",
     "status": "C\u2192A",
     "entry_point": "core6StaticDyadicCertificate",
     "structure": "Core6StaticDyadicCertificate",
     "audit": "docs/exports/pre119_core6_cylinder_partition_closure_audit.md",
+    "axioms_artifact": "docs/exports/artifacts/core6StaticDyadicCertificate_print_axioms.txt",
     "allowed_after_freeze": [
       "proof fixes",
       "import/linter fixes",

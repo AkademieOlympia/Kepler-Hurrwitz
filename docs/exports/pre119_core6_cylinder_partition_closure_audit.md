@@ -1,8 +1,16 @@
 # PR #16 Closure Audit — Core6 Static Dyadic Certificate
 
-**Mathematical freeze (closure candidate):** `3740183198160e79b302eb2fcd8250d1e9fd925e`  
-**Packaging / documentation head:** `533f8a155d3104815dc9db3fb1a91bfcfa6f80d0`  
 **Status:** `[C→A]` until CI green ∧ review ∧ merge ∧ separate promotion commit to `[A]`.
+
+### Three-SHA freeze cascade (no mathematical divergence)
+
+| Layer | SHA | Role |
+|-------|-----|------|
+| **1. Mathematical freeze** | `3740183198160e79b302eb2fcd8250d1e9fd925e` | inclusion, cards, proportion, Tendsto |
+| **2. Certificate / docs packaging** | `533f8a155d3104815dc9db3fb1a91bfcfa6f80d0` | `Core6StaticDyadicCertificate` + register sync |
+| **3. Verbatim axioms artifact** | `6904f87d120526d477c36e322188dcfe2c78d6e9` | unabridged `#print axioms` file only |
+
+Current PR tip = layer 3. No Lean mathematics after layer 1.
 
 ## Toolchain
 
