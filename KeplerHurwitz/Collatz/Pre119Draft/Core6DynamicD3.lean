@@ -13,7 +13,8 @@ set_option autoImplicit false
 # Pre119Draft — Core6DynamicD3 (Follow-up after D2b freeze)
 
 **Base:** PR #17 / `Core6DynamicFeedIn` (D2b frozen at `18e8747`).
-**This module** develops D3.0–D3.2 algebraic structure; D3.3–D4 remain `[C]`.
+**This module** develops D3.0–D3.3c algebraic structure.
+`Core6PathFeedInGoal` is formally refuted (`¬`); residual re-entry / D4 remain `[C]`.
 
 Must not reopen PR #16 static math or the frozen D2b package.
 No Collatz claim. ClaimsFreeze false.
@@ -886,9 +887,9 @@ theorem IsContractingFirstHitPath.length_ge_two
   simp [List.length_cons, List.length_append]
 
 /--
-Starts in `C_{e₀}` that realize some contracting-first-hit Core6 path.
-Algebraic packaging of successful fixed-path APs; coverage of all of `C_{e₀}`
-is `Core6PathFeedInGoal` (`[C]`).
+Starts that realize some contracting-first-hit Core6-internal path.
+Algebraic packaging of successful fixed-path APs. This is a **proper**
+subset of `C_{e₀}` in general (`¬ Core6PathFeedInGoal`).
 -/
 def core6PathFeedInSet (e₀ : Nat) : Set Nat :=
   ⋃ p : List Nat, ⋃ (_ : IsContractingFirstHitPath e₀ p),
@@ -996,14 +997,81 @@ theorem not_mem_core6PathFeedInSet_one_31 :
     31 ∉ core6PathFeedInSet 1 :=
   not_mem_core6PathFeedInSet_of_offCore6 mem_oneBlockOffCore6Set_one_31
 
-/-! ### Open D3/D4 dynamical goals (definitions only) -/
+theorem mem_canonicalCylinder_of_mem_core6PathFeedInSet
+    {e₀ n : Nat} (h : n ∈ core6PathFeedInSet e₀) :
+    n ∈ canonicalCylinder e₀ := by
+  obtain ⟨p, hp'⟩ := mem_iUnion.1 h
+  obtain ⟨hp, hR⟩ := mem_iUnion.1 hp'
+  obtain ⟨mid, f, rfl, _, _, _⟩ := hp
+  have hR' : RealizesChannelPath (e₀ :: (mid ++ [f])) n := hR
+  match mid with
+  | [] => exact hR'.1
+  | _ :: _ => exact hR'.1
+
+/-! ### D3.3b — formal refutation of Core6PathFeedInGoal -/
 
 /--
-`[C]` Every expanding start admits a contracting-first-hit Core6 channel path.
+Formerly a coverage candidate. Formally false: `31 ∈ C_1` but
+`31 ∉ core6PathFeedInSet 1` (see `not_core6PathFeedInGoal`).
 -/
 def Core6PathFeedInGoal : Prop :=
   ∀ e₀ : Nat, 1 ≤ e₀ → e₀ ≤ 3 →
     canonicalCylinder e₀ ⊆ core6PathFeedInSet e₀
+
+/--
+`[C→A]` D3.3b: Core6-internal first-hit paths do **not** cover all of `C_{e₀}`.
+-/
+theorem not_core6PathFeedInGoal : ¬ Core6PathFeedInGoal := by
+  intro h
+  have h31 : 31 ∈ core6PathFeedInSet 1 :=
+    h 1 (by decide) (by decide) mem_canonicalCylinder_one_31
+  exact not_mem_core6PathFeedInSet_one_31 h31
+
+/-! ### D3.3c — residual complement inside the start cylinder -/
+
+/--
+Starts in `C_{e₀}` that do **not** realize any Core6-internal contracting
+first-hit path. Contains all one-block Off-Core6 exits.
+-/
+def core6PathResidualSet (e₀ : Nat) : Set Nat :=
+  canonicalCylinder e₀ \ core6PathFeedInSet e₀
+
+theorem disjoint_core6PathFeedIn_residual (e₀ : Nat) :
+    Disjoint (core6PathFeedInSet e₀) (core6PathResidualSet e₀) :=
+  disjoint_sdiff_right
+
+/--
+`[C→A]` D3.3c: cylinder decomposition into Core6-path feed-in and residual.
+-/
+theorem canonicalCylinder_eq_core6PathFeedIn_union_residual (e₀ : Nat) :
+    canonicalCylinder e₀ =
+      core6PathFeedInSet e₀ ∪ core6PathResidualSet e₀ := by
+  ext n
+  constructor
+  · intro hn
+    by_cases hF : n ∈ core6PathFeedInSet e₀
+    · exact Or.inl hF
+    · exact Or.inr ⟨hn, hF⟩
+  · intro h
+    rcases h with hF | hR
+    · exact mem_canonicalCylinder_of_mem_core6PathFeedInSet hF
+    · exact hR.1
+
+theorem oneBlockOffCore6Set_subset_core6PathResidualSet (e₀ : Nat) :
+    oneBlockOffCore6Set e₀ ⊆ core6PathResidualSet e₀ := by
+  intro n hO
+  exact ⟨hO.1, not_mem_core6PathFeedInSet_of_offCore6 hO⟩
+
+theorem mem_core6PathResidualSet_one_31 :
+    31 ∈ core6PathResidualSet 1 :=
+  oneBlockOffCore6Set_subset_core6PathResidualSet 1
+    mem_oneBlockOffCore6Set_one_31
+
+theorem core6PathResidualSet_one_nonempty :
+    (core6PathResidualSet 1).Nonempty :=
+  ⟨31, mem_core6PathResidualSet_one_31⟩
+
+/-! ### Open D3.4 / D4 dynamical goals (definitions only) -/
 
 /--
 `[C]` Hits contracting mass at a complete block boundary (`t = 7r`).
@@ -1021,6 +1089,16 @@ def OffCore6ReentryGoal : Prop :=
     ∀ n ∈ oneBlockOffCore6Set e₀,
       ∃ s : Nat, 1 ≤ s ∧
         syracuseOddIterate s (realizedImage n (fiberE e₀)) ∈ core6Cylinder
+
+/--
+`[C]` D3.4 residual feed-in: every residual start eventually reaches
+contracting mass (includes Off-Core6 re-entry routes).
+-/
+def ResidualFeedInGoal : Prop :=
+  ∀ e₀ : Nat, 1 ≤ e₀ → e₀ ≤ 3 →
+    ∀ n ∈ core6PathResidualSet e₀,
+      ∃ t : Nat, 1 ≤ t ∧
+        syracuseOddIterate t n ∈ contractingMass
 
 theorem realizedImage_eq_syracuseOddIterate (n : Nat) (w : List Nat) :
     realizedImage n w = syracuseOddIterate w.length n := by
@@ -1188,6 +1266,16 @@ structure Core6DynamicD3AlgebraGoals : Prop where
           channelPathProgression p
   core6PathWitness : 1246239 ∈ core6PathFeedInSet 1
   offCore6NotPathFeedIn : 31 ∉ core6PathFeedInSet 1
+  notCore6PathFeedInGoal : ¬ Core6PathFeedInGoal
+  residualDecomposition :
+    ∀ e₀ : Nat,
+      canonicalCylinder e₀ =
+        core6PathFeedInSet e₀ ∪ core6PathResidualSet e₀
+  residualDisjoint :
+    ∀ e₀ : Nat, Disjoint (core6PathFeedInSet e₀) (core6PathResidualSet e₀)
+  offCore6SubsetResidual :
+    ∀ e₀ : Nat, oneBlockOffCore6Set e₀ ⊆ core6PathResidualSet e₀
+  residualWitness : 31 ∈ core6PathResidualSet 1
   core6PathImpliesBlockBoundary :
     Core6PathFeedInGoal → BlockBoundaryFeedInGoal
   blockBoundaryImpliesReachability :
@@ -1205,17 +1293,25 @@ theorem core6DynamicD3AlgebraGoals_named : Core6DynamicD3AlgebraGoals where
   core6PathPackaging := fun _ => core6PathFeedInSet_eq_iUnion_progressions _
   core6PathWitness := mem_core6PathFeedInSet_one_1246239
   offCore6NotPathFeedIn := not_mem_core6PathFeedInSet_one_31
+  notCore6PathFeedInGoal := not_core6PathFeedInGoal
+  residualDecomposition := fun _ =>
+    canonicalCylinder_eq_core6PathFeedIn_union_residual _
+  residualDisjoint := fun _ => disjoint_core6PathFeedIn_residual _
+  offCore6SubsetResidual := fun _ =>
+    oneBlockOffCore6Set_subset_core6PathResidualSet _
+  residualWitness := mem_core6PathResidualSet_one_31
   core6PathImpliesBlockBoundary := core6PathFeedIn_implies_blockBoundary
   blockBoundaryImpliesReachability := blockBoundaryFeedIn_implies_reachability
 
 /-!
 ## Explicit non-theorems
 
-- `Core6PathFeedInGoal` / `BlockBoundaryFeedInGoal` / `OffCore6ReentryGoal`
-  are not discharged.
+- `Core6PathFeedInGoal` is **formally false** (`not_core6PathFeedInGoal`).
+- Implications from a false premise remain valid but are not a global proof path.
+- `BlockBoundaryFeedInGoal` / `OffCore6ReentryGoal` / `ResidualFeedInGoal`
+  remain `[C]`; `¬ Core6PathFeedInGoal` does **not** imply their negations.
 - `ReachabilityFeedInGoal` remains `[C]`.
-- D3.3a packages fixed-path APs; it does **not** prove coverage of all of `C_{e₀}`.
-- Off-Core6 exits (e.g. `31`) lie outside `core6PathFeedInSet`.
+- D3.3a isolates the Core6-internal path share; residual re-entry is D3.4.
 - No Collatz / collapse statement.
 -/
 
