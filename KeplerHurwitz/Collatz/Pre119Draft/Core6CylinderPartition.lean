@@ -1,11 +1,15 @@
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 import Mathlib.Algebra.Ring.GeomSum
+import Mathlib.Analysis.SpecificLimits.Basic
 import Mathlib.Data.Rat.Defs
+import Mathlib.Data.Real.Basic
 import Mathlib.Data.Set.Basic
 import Mathlib.Data.Set.Lattice
 import Mathlib.Data.ZMod.Basic
+import Mathlib.Order.Filter.AtTopBot.Basic
 import Mathlib.Tactic.FieldSimp
 import Mathlib.Tactic.IntervalCases
+import Mathlib.Topology.UniformSpace.Real
 import KeplerHurwitz.Collatz.Pre119Draft.CanonicalBase
 import KeplerHurwitz.Collatz.Pre119Draft.AffineOddQuotient
 
@@ -760,25 +764,102 @@ theorem contractingResidues_card {m : Nat} (hm : 4 ≤ m) :
     have hb4 : 4 ≤ b := (Finset.mem_Icc.1 hb).1
     exact fiberResidues_disjoint (by omega : 1 ≤ a) (by omega : 1 ≤ b) hab
 
-/-- Architectural Core6 residue budget at stage `m` (denominator of dyadic density). -/
-def core6ResidueBudget (m : Nat) : Nat := 2 ^ m
+/--
+Core6 prefix half-modulus period: `2^(core6.sum + 1) = 2^9`.
+Lifts of this class to `Q_m = 2^{m+9}` form the ambient Core6 residue domain.
+-/
+def core6SeedModulus : Nat := 2 ^ 9
+
+theorem core6SeedModulus_eq : core6SeedModulus = 2 ^ (core6.sum + 1) := by
+  simp [core6SeedModulus, core6_sum]
 
 /--
-`[C→A]` Step 5a — exact relative dyadic proportion (cast to `ℚ`; not `Nat` division):
+Representative of the Core6 residue class mod `2^9`, taken from any contracting
+canonical seed (`canonicalBase 4`); all Core6 realizers share this class.
+-/
+noncomputable def core6LiftBase : Nat :=
+  canonicalBase 4 % core6SeedModulus
 
-`(2^{m-3}-1)/2^m = 1/8 - 1/2^m`.
+theorem core6LiftBase_lt : core6LiftBase < core6SeedModulus :=
+  Nat.mod_lt _ (by decide : 0 < (2 : Nat) ^ 9)
+
+/--
+`[C→A]` Explicit Core6 residue Finset at stage `m`:
+
+$$
+R_m^{\mathrm{Core6}}
+=
+\{b_6 + k\cdot 2^9 : 0 \le k < 2^m\}
+\subset [0, Q_m).
+$$
+-/
+noncomputable def core6Residues (m : Nat) : Finset Nat :=
+  (Finset.range (2 ^ m)).image (fun k => core6LiftBase + k * core6SeedModulus)
+
+theorem mem_core6Residues {m n : Nat} :
+    n ∈ core6Residues m ↔
+      ∃ k : Nat, k < 2 ^ m ∧ n = core6LiftBase + k * core6SeedModulus := by
+  simp [core6Residues, eq_comm]
+
+theorem core6Residues_lt_commonModulus {m n : Nat}
+    (hn : n ∈ core6Residues m) :
+    n < commonModulus m := by
+  obtain ⟨k, hk, rfl⟩ := (mem_core6Residues (m := m) (n := n)).1 hn
+  have hb := core6LiftBase_lt
+  have hge : 1 ≤ 2 ^ m := Nat.one_le_two_pow
+  have : core6LiftBase + k * core6SeedModulus + 1 ≤ commonModulus m := by
+    calc
+      core6LiftBase + k * core6SeedModulus + 1
+          ≤ core6SeedModulus + k * core6SeedModulus := by omega
+      _ ≤ core6SeedModulus + (2 ^ m - 1) * core6SeedModulus := by
+          gcongr
+          exact Nat.le_pred_of_lt hk
+      _ = 2 ^ m * core6SeedModulus := by
+          set M := core6SeedModulus
+          calc
+            M + (2 ^ m - 1) * M
+                = 1 * M + (2 ^ m - 1) * M := by rw [Nat.one_mul]
+            _ = (1 + (2 ^ m - 1)) * M := (Nat.add_mul _ _ _).symm
+            _ = (2 ^ m - 1 + 1) * M := by rw [Nat.add_comm]
+            _ = 2 ^ m * M := by rw [Nat.sub_add_cancel hge]
+      _ = commonModulus m := by
+          simp only [commonModulus, seedModulus, core6SeedModulus, ← pow_add]
+  exact Nat.lt_of_succ_le this
+
+/-- `[C→A]` `|R_m^{Core6}| = 2^m`. -/
+theorem core6Residues_card (m : Nat) :
+    (core6Residues m).card = 2 ^ m := by
+  rw [core6Residues, Finset.card_image_of_injective]
+  · exact Finset.card_range _
+  · intro a b h
+    have : a * core6SeedModulus = b * core6SeedModulus :=
+      Nat.add_left_cancel h
+    exact Nat.eq_of_mul_eq_mul_right (by decide : 0 < core6SeedModulus) this
+
+/-- Alias: architectural budget equals the Finset cardinality. -/
+noncomputable def core6ResidueBudget (m : Nat) : Nat := (core6Residues m).card
+
+theorem core6ResidueBudget_eq (m : Nat) :
+    core6ResidueBudget m = 2 ^ m := by
+  simp [core6ResidueBudget, core6Residues_card]
+
+/--
+`[C→A]` Step 5a — exact relative dyadic proportion as a ratio of Finset cards
+(cast to `ℚ`; not `Nat` division):
+
+`|R_m^{contr}| / |R_m^{Core6}| = 1/8 - 1/2^m`.
 -/
 theorem contractingResidues_dyadicProportion {m : Nat} (hm : 4 ≤ m) :
-    ((contractingResidues m).card : ℚ) / (core6ResidueBudget m : ℚ) =
+    ((contractingResidues m).card : ℚ) / ((core6Residues m).card : ℚ) =
       (1 : ℚ) / 8 - (1 : ℚ) / (2 ^ m : ℚ) := by
   have hm3 : 3 ≤ m := by omega
   have hcard := contractingResidues_card hm
-  have hpos : (0 : ℚ) < (2 : ℚ) ^ m := by positivity
+  have hden := core6Residues_card m
   have hge : 1 ≤ 2 ^ (m - 3) := Nat.one_le_two_pow
   calc
-    ((contractingResidues m).card : ℚ) / (core6ResidueBudget m : ℚ)
+    ((contractingResidues m).card : ℚ) / ((core6Residues m).card : ℚ)
         = ((2 ^ (m - 3) - 1 : Nat) : ℚ) / (2 ^ m : ℚ) := by
-          simp [hcard, core6ResidueBudget]
+          simp [hcard, hden]
     _ = ((2 ^ (m - 3) : Nat) : ℚ) / (2 ^ m : ℚ) - (1 : ℚ) / (2 ^ m : ℚ) := by
         rw [Nat.cast_sub hge, sub_div]
         simp
@@ -791,20 +872,82 @@ theorem contractingResidues_dyadicProportion {m : Nat} (hm : 4 ≤ m) :
         field_simp
         ring
 
+/-- Alias keeping the old budget name in the denominator. -/
+theorem contractingResidues_dyadicProportion_budget {m : Nat} (hm : 4 ≤ m) :
+    ((contractingResidues m).card : ℚ) / (core6ResidueBudget m : ℚ) =
+      (1 : ℚ) / 8 - (1 : ℚ) / (2 ^ m : ℚ) := by
+  simpa [core6ResidueBudget] using contractingResidues_dyadicProportion hm
+
 /--
 `[C→A]` Step 5b — exact error to `1/8` (implies the dyadic limit `→ 1/8`):
 
 $$
-\left|\frac{|R_m^{\mathrm{contr}}|}{2^m}-\frac18\right|=\frac1{2^m}.
+\left|\frac{|R_m^{\mathrm{contr}}|}{|R_m^{\mathrm{Core6}}|}-\frac18\right|=\frac1{2^m}.
 $$
 
 This is **relative dyadic density** along `Q_m = 2^{m+9}`, not ordinary natural density.
 -/
 theorem contractingResidues_dyadicDensity_error {m : Nat} (hm : 4 ≤ m) :
-    |((contractingResidues m).card : ℚ) / (core6ResidueBudget m : ℚ) - (1 : ℚ) / 8| =
+    |((contractingResidues m).card : ℚ) / ((core6Residues m).card : ℚ) -
+        (1 : ℚ) / 8| =
       (1 : ℚ) / (2 ^ m : ℚ) := by
   rw [contractingResidues_dyadicProportion hm, sub_sub_cancel_left, abs_neg, abs_of_nonneg]
   exact div_nonneg (by norm_num) (by positivity)
+
+open Filter Topology
+
+/--
+`[C→A]` Step 5c — Mathlib topological packaging of the dyadic limit:
+
+`Tendsto (m ↦ |R_m^{contr}| / |R_m^{Core6}|) atTop (𝓝 (1/8))` on `ℝ`.
+-/
+theorem contractingResidues_tendsto_dyadicDensity :
+    Tendsto
+      (fun m : Nat =>
+        ((contractingResidues (m + 4)).card : ℝ) /
+          ((core6Residues (m + 4)).card : ℝ))
+      atTop
+      (nhds ((1 : ℝ) / 8)) := by
+  have hform :
+      ∀ m : Nat,
+        ((contractingResidues (m + 4)).card : ℝ) /
+            ((core6Residues (m + 4)).card : ℝ) =
+          (1 : ℝ) / 8 - (1 : ℝ) / (2 ^ (m + 4) : ℝ) := by
+    intro m
+    have hm : 4 ≤ m + 4 := by omega
+    have hq := contractingResidues_dyadicProportion hm
+    have hqR :
+        (((contractingResidues (m + 4)).card : ℚ) /
+            ((core6Residues (m + 4)).card : ℚ) : ℝ) =
+          (((1 : ℚ) / 8 - (1 : ℚ) / (2 ^ (m + 4) : ℚ) : ℚ) : ℝ) :=
+      by exact_mod_cast hq
+    have hcast :
+        (((contractingResidues (m + 4)).card : ℚ) /
+            ((core6Residues (m + 4)).card : ℚ) : ℝ) =
+          ((contractingResidues (m + 4)).card : ℝ) /
+            ((core6Residues (m + 4)).card : ℝ) := by
+      push_cast; rfl
+    have hrhs :
+        (((1 : ℚ) / 8 - (1 : ℚ) / (2 ^ (m + 4) : ℚ) : ℚ) : ℝ) =
+          (1 : ℝ) / 8 - (1 : ℝ) / (2 ^ (m + 4) : ℝ) := by
+      push_cast; rfl
+    exact (hcast.symm.trans hqR).trans hrhs
+  have hconst : Tendsto (fun _ : Nat => (1 : ℝ) / 8) atTop (nhds ((1 : ℝ) / 8)) :=
+    tendsto_const_nhds
+  have hvan :
+      Tendsto (fun m : Nat => (1 : ℝ) / (2 ^ (m + 4) : ℝ)) atTop (nhds (0 : ℝ)) := by
+    have hpow :
+        Tendsto (fun m : Nat => ((1 : ℝ) / 2) ^ (m + 4)) atTop (nhds (0 : ℝ)) :=
+      (tendsto_pow_atTop_nhds_zero_of_lt_one
+          (r := (1 / 2 : ℝ)) (by norm_num) (by norm_num)).comp
+        (tendsto_add_atTop_nat 4)
+    refine hpow.congr fun m => ?_
+    rw [div_pow, one_pow]
+  have hdiff :
+      Tendsto (fun m : Nat => (1 : ℝ) / 8 - (1 : ℝ) / (2 ^ (m + 4) : ℝ))
+        atTop (nhds ((1 : ℝ) / 8)) := by
+    simpa using hconst.sub hvan
+  exact hdiff.congr fun m => (hform m).symm
 
 /--
 `[C→A]` Package goal: contracting family occupies `2^{m-3}-1` residues at stage `m`.
