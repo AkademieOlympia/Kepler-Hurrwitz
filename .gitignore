@@ -3,3 +3,4 @@
 /audit-cylinder-normal.json
 /audit-cylinder-optimized.json
 __pycache__/
+src/*.egg-info/
