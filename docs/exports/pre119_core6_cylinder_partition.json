@@ -83,6 +83,7 @@
         "fiberResidues_disjoint",
         "contractingResidues_card",
         "core6Residues_card",
+        "contractingResidues_subset_core6Residues",
         "contractingResidues_dyadicProportion",
         "contractingResidues_dyadicDensity_error",
         "contractingResidues_tendsto_dyadicDensity",
@@ -90,6 +91,8 @@
       ],
       "cardinality": "|R_m^contr| = 2^(m-3) - 1",
       "core6_denominator": "|R_m^Core6| = 2^m via core6Residues Finset",
+      "b_Core6": "core6LiftBase = canonicalBase 4 % 2^9 (not canonicalBase 6)",
+      "inclusion": "contractingResidues m \u2286 core6Residues m",
       "tendsto": "contractingResidues_tendsto_dyadicDensity on Real",
       "density_kind": "relative dyadic density along Q_m = 2^(m+9); not yet natural density"
     }

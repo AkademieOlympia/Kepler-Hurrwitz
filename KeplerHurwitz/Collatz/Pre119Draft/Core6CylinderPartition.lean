@@ -774,14 +774,111 @@ theorem core6SeedModulus_eq : core6SeedModulus = 2 ^ (core6.sum + 1) := by
   simp [core6SeedModulus, core6_sum]
 
 /--
-Representative of the Core6 residue class mod `2^9`, taken from any contracting
-canonical seed (`canonicalBase 4`); all Core6 realizers share this class.
+Representative of the Core6 residue class mod `2^9` (`b_Core6`), taken from any
+contracting canonical seed (`canonicalBase 4 % 2^9`).
+
+**Not** `canonicalBase 6` (that is the tail-`e=6` representative).
+All Core6 realizers share this class mod `2^9`.
 -/
 noncomputable def core6LiftBase : Nat :=
   canonicalBase 4 % core6SeedModulus
 
+/-- Documentation alias for `core6LiftBase` (= `b_Core6`). -/
+noncomputable abbrev bCore6 : Nat := core6LiftBase
+
 theorem core6LiftBase_lt : core6LiftBase < core6SeedModulus :=
   Nat.mod_lt _ (by decide : 0 < (2 : Nat) ^ 9)
+
+theorem wordC_core6 : wordC core6 = 697 := by native_decide
+
+theorem core6_positive : ∀ a ∈ core6, 1 ≤ a := by
+  intro a ha
+  have : a ∈ ([1, 1, 1, 1, 2, 2] : List Nat) := by simpa [core6] using ha
+  simp at this
+  omega
+
+/-- Affine Core6 quotient ⇒ half-modulus congruence mod `2^9`. -/
+theorem modEq_of_affineOddQuotient_core6 {n : Nat}
+    (hAQ : AffineOddQuotient core6 n) :
+    (3 ^ 6 * n + wordC core6) ≡ 2 ^ 8 [MOD core6SeedModulus] := by
+  obtain ⟨q, hq, heq⟩ := hAQ
+  obtain ⟨t, ht⟩ : ∃ t, q = 2 * t + 1 := by
+    refine ⟨q / 2, ?_⟩
+    have : q % 2 = 1 := Nat.odd_iff.mp hq
+    omega
+  have hsum : core6.sum = 8 := core6_sum
+  have hlen : core6.length = 6 := core6_length
+  have hform :
+      3 ^ 6 * n + wordC core6 = 2 ^ 8 + t * core6SeedModulus := by
+    calc
+      3 ^ 6 * n + wordC core6
+          = q * 2 ^ core6.sum := by
+            simpa [hsum, hlen, Nat.mul_comm] using heq.symm
+      _ = q * 2 ^ 8 := by rw [hsum]
+      _ = (2 * t + 1) * 2 ^ 8 := by rw [ht]
+      _ = 2 ^ 8 + t * 2 ^ 9 := by ring
+      _ = 2 ^ 8 + t * core6SeedModulus := by simp [core6SeedModulus]
+  have hlt : 2 ^ 8 < core6SeedModulus := by
+    native_decide
+  change (3 ^ 6 * n + wordC core6) % core6SeedModulus =
+    (2 ^ 8) % core6SeedModulus
+  rw [hform, Nat.add_mul_mod_self_right, Nat.mod_eq_of_lt hlt]
+
+theorem realizes_core6_of_realizes_fiberE {e n : Nat}
+    (h : RealizesWord (fiberE e) n) :
+    RealizesWord core6 n := by
+  rw [fiberE_eq_core6_concat] at h
+  exact ((realizesWord_append (E := core6) (F := [e])).1 h).1
+
+theorem modEq_of_realizes_core6 {n : Nat}
+    (h : RealizesWord core6 n) :
+    (3 ^ 6 * n + wordC core6) ≡ 2 ^ 8 [MOD core6SeedModulus] :=
+  modEq_of_affineOddQuotient_core6
+    (affineOddQuotient_of_realizesWord core6_ne_nil h)
+
+/-- Any two Core6 realizers are congruent mod `2^9`. -/
+theorem realizes_core6_modEq_unique {n₁ n₂ : Nat}
+    (h₁ : RealizesWord core6 n₁) (h₂ : RealizesWord core6 n₂) :
+    n₁ ≡ n₂ [MOD core6SeedModulus] := by
+  have hm₁ := modEq_of_realizes_core6 h₁
+  have hm₂ := modEq_of_realizes_core6 h₂
+  have hmul :
+      3 ^ 6 * n₁ ≡ 3 ^ 6 * n₂ [MOD core6SeedModulus] :=
+    Nat.ModEq.add_right_cancel' (wordC core6) (hm₁.trans hm₂.symm)
+  have hcop : Nat.Coprime (3 ^ 6) core6SeedModulus := by
+    native_decide
+  have hcop' : Nat.gcd core6SeedModulus (3 ^ 6) = 1 := by
+    simpa [Nat.gcd_comm, Nat.coprime_iff_gcd_eq_one] using hcop
+  exact Nat.ModEq.cancel_left_of_coprime hcop' hmul
+
+theorem canonicalBase_modEq_core6LiftBase {e : Nat} (he : 1 ≤ e) :
+    canonicalBase e ≡ core6LiftBase [MOD core6SeedModulus] := by
+  have heR : RealizesWord core6 (canonicalBase e) :=
+    realizes_core6_of_realizes_fiberE (canonicalBase_realizes_of_one_le he)
+  have h4R : RealizesWord core6 (canonicalBase 4) :=
+    realizes_core6_of_realizes_fiberE (canonicalBase_realizes_of_one_le (by decide))
+  have hcong := realizes_core6_modEq_unique heR h4R
+  -- core6LiftBase = canonicalBase 4 % 2^9 ≡ canonicalBase 4
+  have hbase : canonicalBase 4 ≡ core6LiftBase [MOD core6SeedModulus] := by
+    simp only [core6LiftBase]
+    exact (Nat.mod_modEq (canonicalBase 4) core6SeedModulus).symm
+  exact hcong.trans hbase
+
+theorem fiberIndexMap_modEq_core6LiftBase {e k : Nat} (he : 1 ≤ e) :
+    fiberIndexMap e k ≡ core6LiftBase [MOD core6SeedModulus] := by
+  have hb := canonicalBase_modEq_core6LiftBase he
+  have hdiv : core6SeedModulus ∣ seedModulus e := by
+    simp only [core6SeedModulus, seedModulus]
+    exact pow_dvd_pow (a := 2) (by omega : 9 ≤ e + 9)
+  have hk0 : k * seedModulus e ≡ 0 [MOD core6SeedModulus] :=
+    Nat.modEq_zero_iff_dvd.2 (dvd_mul_of_dvd_right hdiv k)
+  calc
+    fiberIndexMap e k
+        = canonicalBase e + k * seedModulus e := rfl
+    _ ≡ canonicalBase e + 0 [MOD core6SeedModulus] :=
+        Nat.ModEq.add (Nat.ModEq.refl _) hk0
+    _ = canonicalBase e := by simp
+    _ ≡ core6LiftBase [MOD core6SeedModulus] := hb
 
 /--
 `[C→A]` Explicit Core6 residue Finset at stage `m`:
@@ -789,7 +886,7 @@ theorem core6LiftBase_lt : core6LiftBase < core6SeedModulus :=
 $$
 R_m^{\mathrm{Core6}}
 =
-\{b_6 + k\cdot 2^9 : 0 \le k < 2^m\}
+\{b_{\mathrm{Core6}} + k\cdot 2^9 : 0 \le k < 2^m\}
 \subset [0, Q_m).
 $$
 -/
@@ -835,6 +932,43 @@ theorem core6Residues_card (m : Nat) :
     have : a * core6SeedModulus = b * core6SeedModulus :=
       Nat.add_left_cancel h
     exact Nat.eq_of_mul_eq_mul_right (by decide : 0 < core6SeedModulus) this
+
+/--
+`[C→A]` Every lifted fiber representative at stage `m` lands in `core6Residues`.
+-/
+theorem fiberIndexMap_mem_core6Residues {m e k : Nat}
+    (he1 : 1 ≤ e) (hem : e ≤ m) (hk : k < 2 ^ (m - e)) :
+    fiberIndexMap e k ∈ core6Residues m := by
+  set n := fiberIndexMap e k
+  set M := core6SeedModulus
+  have hlt : n < commonModulus m := fiberIndexMap_lt_commonModulus hem hk
+  have hmod : n ≡ core6LiftBase [MOD M] := fiberIndexMap_modEq_core6LiftBase he1
+  have hnmod : n % M = core6LiftBase := by
+    have : n % M = core6LiftBase % M := hmod
+    rwa [Nat.mod_eq_of_lt core6LiftBase_lt] at this
+  have hQ : commonModulus m = 2 ^ m * M := by
+    simp only [commonModulus, seedModulus, M, core6SeedModulus, ← pow_add]
+  refine (mem_core6Residues (m := m) (n := n)).2 ⟨n / M, ?_, ?_⟩
+  · have : n < M * 2 ^ m := by
+      rw [Nat.mul_comm]; rwa [← hQ]
+    exact Nat.div_lt_of_lt_mul this
+  · calc
+      n = M * (n / M) + n % M := (Nat.div_add_mod n M).symm
+      _ = (n / M) * M + n % M := by ring
+      _ = core6LiftBase + (n / M) * M := by rw [hnmod]; ring
+
+/--
+`[C→A]` Semantic occupancy bridge: contracting residues are a sub-Finset of the
+Core6 residue domain at stage `m`.
+-/
+theorem contractingResidues_subset_core6Residues {m : Nat} (_hm : 4 ≤ m) :
+    contractingResidues m ⊆ core6Residues m := by
+  intro n hn
+  obtain ⟨e, he, hmem⟩ := Finset.mem_biUnion.1 hn
+  rcases Finset.mem_Icc.1 he with ⟨he4, hem⟩
+  obtain ⟨k, hk, rfl⟩ := Finset.mem_image.1 hmem
+  exact fiberIndexMap_mem_core6Residues (by omega : 1 ≤ e) hem
+    (Finset.mem_range.1 hk)
 
 /-- Alias: architectural budget equals the Finset cardinality. -/
 noncomputable def core6ResidueBudget (m : Nat) : Nat := (core6Residues m).card
