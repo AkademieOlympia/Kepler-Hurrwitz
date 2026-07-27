@@ -137,7 +137,9 @@ def census_one(stage_m: int, e0: int, k: int, n: int, T: int) -> CensusRow:
     if n != fiber_index(e0, k):
         raise SystemExit(f"sanity: n ≠ Φ(e0,k): {n} vs {fiber_index(e0, k)}")
 
-    # One-block image after full fiberE e0
+    # One-block image after full fiberE e0 (independent of horizon T).
+    # A false one_block_hit is a concrete negative for universal OneBlockFeedInGoal,
+    # not a "censored" orbit observation.
     img = realized_image(CORE6 + (e0,), n)
     one_hit, one_e = in_contracting_mass(img)
 

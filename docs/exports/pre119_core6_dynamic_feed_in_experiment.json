@@ -1,48 +1,60 @@
 {
   "experiment": "Core6DynamicFeedIn",
-  "status": "C",
   "branch": "cursor/core6-dynamic-feed-in-4007",
   "base": "cursor/core6-cylinder-partition-4007",
   "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicFeedIn",
   "plan": "docs/energiedoku_exports/pre119_core6_dynamic_feed_in_experiment.md",
   "census_script": "scripts/core6_dynamic_feed_in_d1_census.py",
+  "status_wall": {
+    "D1_census": "B",
+    "OneBlockFeedInGoal_universal": "empirically_falsified",
+    "not_OneBlockFeedInGoal": "C\u2192A",
+    "ReachabilityFeedInGoal": "C",
+    "observed_hits": "B_existence_only",
+    "universal_reachability": false,
+    "collapse": false
+  },
   "open_goals": {
     "OneBlockFeedInGoal": {
-      "status": "C",
-      "meaning": "after full fiberE e0 (e0 in {1,2,3}), image in contractingMass"
+      "status": "refuted",
+      "refutation": "not_oneBlockFeedInGoal",
+      "witness": {"e0": 1, "n": 31, "image": 137}
     },
     "ReachabilityFeedInGoal": {
       "status": "C",
       "meaning": "some odd iterate t>=1 lands in contractingMass"
     }
   },
+  "oneBlockFeedInSet": {
+    "role": "D2b characterization replacing false universal claim",
+    "def": "{n in C_e0 | realizedImage n (fiberE e0) in contractingMass}"
+  },
   "D1_census": {
     "status": "B",
-    "kind": "full_dyadic_not_sample",
+    "kind": "full_stage_representatives_not_infinite_fibers",
     "starts": "n = Phi_e0(k), e0 in {1,2,3}, 0 <= k < 2^(m-e0)",
-    "expected_start_count": "2^(m-1)+2^(m-2)+2^(m-3)",
-    "horizon": "T odd iterates; censor if no hit",
-    "note": "100% hits up to m_max do not discharge universal [C] goals"
+    "one_block_vs_horizon": "one_block_hit is independent of T; not a censoring event",
+    "pilot_m6_T32": {
+      "param_hash": "ccd46f0393bb72e4",
+      "starts": 56,
+      "reachability_hits": 2,
+      "censored": 54,
+      "one_block_hits": 0,
+      "artifact": "docs/exports/artifacts/d1_census/summary_m6_T32.json"
+    }
   },
-  "imports_from_PR16": [
-    "core6StaticDyadicCertificate",
-    "expandingCore6",
-    "contractingCore6",
-    "canonicalCylinder",
-    "fiberIndexMap"
-  ],
-  "claim_wall": {
-    "relative_dyadic_density_from_PR16": "importable, not a hitting probability",
-    "natural_density": false,
-    "global_collatz": false,
-    "reachability": "open [C]",
-    "census_is_not_proof": true
+  "epistemics": {
+    "B_can_falsify_C_hypothesis": true,
+    "B_does_not_yield_A": true,
+    "universal_positive_needs_proof": true,
+    "universal_negative_needs_one_lean_witness": true
   },
   "phases": [
     "D0_scaffold",
-    "D1_full_census_B",
-    "D2_one_block_images",
-    "D3_sufficient",
+    "D1_full_representative_census_B",
+    "D2a_refute_one_block_C_to_A",
+    "D2b_characterize_oneBlockFeedInSet",
+    "D3_sufficient_reachability",
     "D4_full_reachability"
   ],
   "claims_freeze": false
