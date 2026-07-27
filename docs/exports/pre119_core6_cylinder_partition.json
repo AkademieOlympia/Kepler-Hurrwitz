@@ -156,5 +156,17 @@
     "kernel": "builds locally / type-correct",
     "repo_A": "CI green \u2227 review \u2227 merge",
     "note": "candidate may be kernel-valid while still C\u2192A in the Evidence Register"
+  },
+  "fiberIndexEquiv": {
+    "status": "C\u2192A",
+    "type": "Nat \u2243 {n // n \u2208 canonicalCylinder e}",
+    "meaning": "C_e \u2243 \u2115",
+    "theorems": [
+      "fiberIndexMap_injective",
+      "range_fiberIndexMap_eq_canonicalCylinderAP",
+      "range_fiberIndexMap_eq_canonicalCylinder",
+      "fiberIndexEquiv"
+    ],
+    "note": "local fiber coordinate; density 1/8 still needs joint modulus counting"
   }
 }

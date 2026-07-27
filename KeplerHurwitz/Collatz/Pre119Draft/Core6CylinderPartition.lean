@@ -168,6 +168,64 @@ theorem fiberIndexMap_div (e k : Nat) :
     fiberIndexMap e k / seedModulus e = k :=
   canonicalCylinderAP_div_eq_index rfl
 
+/-- `[C→A]` Left inverse ⇒ injectivity of `Φ_e`. -/
+theorem fiberIndexMap_injective (e : Nat) :
+    Function.Injective (fiberIndexMap e) := by
+  intro k l h
+  have hdiv := congrArg (fun n => n / seedModulus e) h
+  simpa [fiberIndexMap_div] using hdiv
+
+/-- `[C→A]` Image of `Φ_e` is exactly the AP cylinder. -/
+theorem range_fiberIndexMap_eq_canonicalCylinderAP (e : Nat) :
+    Set.range (fiberIndexMap e) = canonicalCylinderAP e := by
+  ext n
+  constructor
+  · rintro ⟨k, rfl⟩
+    exact fiberIndexMap_mem e k
+  · intro hn
+    obtain ⟨k, hk⟩ := hn
+    exact ⟨k, hk.symm⟩
+
+/-- `[C→A]` Same range equality for the ZMod-preimage cylinder. -/
+theorem range_fiberIndexMap_eq_canonicalCylinder (e : Nat) :
+    Set.range (fiberIndexMap e) = canonicalCylinder e := by
+  rw [range_fiberIndexMap_eq_canonicalCylinderAP, ← canonicalCylinder_eq_ap]
+
+theorem fiberIndexMap_surjective_onto_cylinder (e : Nat) :
+    Function.Surjective
+      (fun k : Nat => (⟨fiberIndexMap e k,
+        by simpa [← canonicalCylinder_eq_ap] using fiberIndexMap_mem e k⟩ :
+          {n : Nat // n ∈ canonicalCylinder e})) := by
+  intro ⟨n, hn⟩
+  have hap : n ∈ canonicalCylinderAP e := by
+    rwa [canonicalCylinder_eq_ap] at hn
+  obtain ⟨k, hk⟩ := hap
+  refine ⟨k, ?_⟩
+  apply Subtype.ext
+  exact hk.symm
+
+/--
+`[C→A]` Type-correct equivalence `ℕ ≃ C_e`:
+`toFun = Φ_e`, `invFun = (· / M_e)`.
+-/
+noncomputable def fiberIndexEquiv (e : Nat) :
+    Nat ≃ {n : Nat // n ∈ canonicalCylinder e} where
+  toFun k :=
+    ⟨fiberIndexMap e k, by simpa [← canonicalCylinder_eq_ap] using fiberIndexMap_mem e k⟩
+  invFun n := n.1 / seedModulus e
+  left_inv k := fiberIndexMap_div e k
+  right_inv := by
+    intro ⟨n, hn⟩
+    apply Subtype.ext
+    have hap : n ∈ canonicalCylinderAP e := by
+      rwa [canonicalCylinder_eq_ap] at hn
+    obtain ⟨k, hk⟩ := hap
+    have hdiv := canonicalCylinderAP_div_eq_index hk
+    calc
+      fiberIndexMap e (n / seedModulus e)
+          = fiberIndexMap e k := by rw [hdiv]
+      _ = n := hk.symm
+
 /-- Odd affine quotient on `fiberE e` yields the canonical seed congruence. -/
 theorem modEq_of_affineOddQuotient_fiberE {e n : Nat}
     (hAQ : AffineOddQuotient (fiberE e) n) :
