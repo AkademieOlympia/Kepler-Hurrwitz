@@ -17,6 +17,17 @@ set_option autoImplicit false
 `Core6PathFeedInGoal` is formally refuted (`¬`); D3.3d reduces global
 reachability to the residual. Residual structure / `ResidualFeedInGoal` remain `[C]`.
 
+## D3.3 freeze
+
+**Mathematical freeze head:** `24bd5c83718da11c9ec2bfa8962de331be117369`
+
+D3.0–D3.3d are **mathematically closed** on this head. Further work on this PR
+is limited to CI / linter / review packaging. Status remains `[C→A]` until
+review ∧ merge ∧ a **separate** promotion commit to repo-`[A]`.
+
+D3.4 residual fine-structure and D4 residual feed-in continue on a **new**
+follow-up branch after merge — not on this frozen tip.
+
 Must not reopen PR #16 static math or the frozen D2b package.
 No Collatz claim. ClaimsFreeze false.
 -/
@@ -1380,15 +1391,16 @@ theorem core6DynamicD3AlgebraGoals_named : Core6DynamicD3AlgebraGoals where
   blockBoundaryImpliesReachability := blockBoundaryFeedIn_implies_reachability
 
 /-!
-## Explicit non-theorems
+## Explicit non-theorems / freeze boundary
 
 - `Core6PathFeedInGoal` is **formally false** (`not_core6PathFeedInGoal`).
-- Implications from a false premise remain valid but are not a global proof path.
 - D3.3d reduces global reachability to residual feed-in via the First-Hit bridge;
   the cylinder decomposition alone does **not** yield the equivalence.
-- `BlockBoundaryFeedInGoal` / `OffCore6ReentryGoal` (D3.4 structure) remain `[C]`.
+- `BlockBoundaryFeedInGoal` / `OffCore6ReentryGoal` remain `[C]`.
 - `ResidualFeedInGoal` / `ReachabilityFeedInGoal` remain open `[C]` (equivalent).
-- No Collatz / collapse statement.
+- Planned D3.4 split `Residual = FiniteBlockExit ∪̇ ForeverExpandingBoundary`
+  is **not** formalized in this freeze; follow-up branch after merge.
+- No Collatz / collapse statement. No further D3.3 mathematics on this tip.
 -/
 
 end KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicD3

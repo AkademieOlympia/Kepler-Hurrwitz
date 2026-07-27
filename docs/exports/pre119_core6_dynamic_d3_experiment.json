@@ -5,6 +5,7 @@
   "base_d2b_freeze_head": "18e874773d5cbc8a072cd2c38edefe5087560861",
   "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicD3",
   "plan": "docs/energiedoku_exports/pre119_core6_dynamic_d3_experiment.md",
+  "audit": "docs/exports/pre119_core6_dynamic_d3_closure_audit.md",
   "status_wall": {
     "D3_0_trichotomy": "C\u2192A",
     "D3_1_target_index_affine": "C\u2192A",
@@ -37,5 +38,18 @@
     "core6PathFeedIn_implies_blockBoundary",
     "blockBoundaryFeedIn_implies_reachability"
   ],
+  "d3_3_freeze": {
+    "frozen": true,
+    "math_freeze_head": "24bd5c83718da11c9ec2bfa8962de331be117369",
+    "policy": "CI_linter_review_only",
+    "promotion_rule": "candidate \u2227 CI green \u2227 review \u2227 merge \u21d2 C\u2192A \u2192 A (separate commit)",
+    "follow_up_scope": "D3.4 residual fine-structure + D4 ResidualFeedInGoal",
+    "follow_up_branch_prefix": "cursor/core6-dynamic-d34-residual-4007"
+  },
+  "planned_d3_4": {
+    "status": "C",
+    "split": "Residual = FiniteBlockExit \u222a\u0307 ForeverExpandingBoundary",
+    "note": "definitions and disjointness intended as C\u2192A on follow-up; dynamics remain C"
+  },
   "claims_freeze": false
 }
