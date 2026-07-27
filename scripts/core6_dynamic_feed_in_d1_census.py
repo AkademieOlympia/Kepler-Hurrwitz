@@ -2,9 +2,11 @@
 """D1 full dyadic census for Core6 expanding→contracting feed-in [B].
 
 Epistemic:
-  - ReachabilityFeedInGoal / OneBlockFeedInGoal remain [C].
-  - This script produces finite reproducible [B] evidence only.
-  - 100% hits up to stage m_max do NOT prove the universal Lean goals.
+  - ReachabilityFeedInGoal remains [C].
+  - Universal OneBlockFeedInGoal is Lean-refuted ([C→A]); this census is [B] only.
+  - Zero one-block hits among stage representatives do NOT prove emptiness of
+    oneBlockFeedInSet on the infinite fibers.
+  - 100% reachability hits up to stage m_max do NOT prove ReachabilityFeedInGoal.
   - Censoring at horizon T is NOT a counterexample.
 
 Starts (complete expanding residues at stage m):

@@ -12,6 +12,7 @@ set_option linter.style.nativeDecide false
 - `ReachabilityFeedInGoal` — open **`[C]`**
 - `OneBlockFeedInGoal` — **universally false**;
   Lean discharge `¬ OneBlockFeedInGoal` is `[C→A]`
+- `oneBlockFeedInSet 1 ⊂ C_1` — D2b skeleton `[C→A]`
 - D1 full representative census — **`[B]`** only
 
 This module must not reopen PR #16 static mathematics.
@@ -30,11 +31,14 @@ This module must not reopen PR #16 static mathematics.
 | Object | Status |
 |--------|--------|
 | D1 representative census | `[B]` |
-| `OneBlockFeedInGoal` (universal) | empirically falsified; Lean `¬` is `[C→A]` |
+| `OneBlockFeedInGoal` (universal) | formally refuted; Lean `¬` is `[C→A]` |
+| `not_oneBlockFeedInGoal` | `[C→A]` |
+| `oneBlockFeedInSet` | defined; D2b proper-subset for `e₀=1` is `[C→A]` |
 | `ReachabilityFeedInGoal` | `[C]` open |
 | finite observed hits | `[B]` existence only |
 
 `[B]` may support or falsify a `[C]` hypothesis; it never yields `[A]` by itself.
+`¬ OneBlockFeedInGoal` does **not** imply `¬ ReachabilityFeedInGoal`.
 
 No Collatz claim. ClaimsFreeze false.
 -/
@@ -141,19 +145,72 @@ theorem not_oneBlockFeedInGoal : ¬ OneBlockFeedInGoal := by
 theorem oneBlockFeedInGoal_refuted : ¬ OneBlockFeedInGoal :=
   not_oneBlockFeedInGoal
 
+/-! ### D2b — structure of `oneBlockFeedInSet`
+
+Does **not** ask whether every expanding start one-block feeds in.
+Characterizes the (possibly proper) subset of `C_{e₀}` that does.
+Emptiness / density of the set remains open; D1 census is `[B]` only.
+-/
+
+theorem mem_oneBlockFeedInSet_iff {e₀ n : Nat} :
+    n ∈ oneBlockFeedInSet e₀ ↔
+      n ∈ canonicalCylinder e₀ ∧
+        realizedImage n (fiberE e₀) ∈ contractingMass :=
+  Iff.rfl
+
+theorem oneBlockFeedInSet_subset_canonicalCylinder (e₀ : Nat) :
+    oneBlockFeedInSet e₀ ⊆ canonicalCylinder e₀ :=
+  fun _ hn => hn.1
+
+/-- Universal one-block ⇔ characterization sets fill their cylinders. -/
+theorem OneBlockFeedInGoal_iff_sets :
+    OneBlockFeedInGoal ↔
+      ∀ e₀ : Nat, 1 ≤ e₀ → e₀ ≤ 3 →
+        oneBlockFeedInSet e₀ = canonicalCylinder e₀ := by
+  constructor
+  · intro h e₀ he₁ he₃
+    ext n
+    exact ⟨fun hn => hn.1, fun hn => ⟨hn, h e₀ he₁ he₃ n hn⟩⟩
+  · intro h e₀ he₁ he₃ n hn
+    exact ((h e₀ he₁ he₃ ▸ hn) : n ∈ oneBlockFeedInSet e₀).2
+
+/-- Witness `31 ∈ C_1` fails one-block feed-in. -/
+theorem not_mem_oneBlockFeedInSet_one_31 : 31 ∉ oneBlockFeedInSet 1 := by
+  intro h
+  have himg : realizedImage 31 (fiberE 1) ∈ contractingMass := h.2
+  rw [realizedImage_fiberE_one_31] at himg
+  exact not_mem_contractingMass_137 himg
+
+theorem oneBlockFeedInSet_one_ne_canonicalCylinder :
+    oneBlockFeedInSet 1 ≠ canonicalCylinder 1 := by
+  intro h
+  exact not_mem_oneBlockFeedInSet_one_31 (h ▸ mem_canonicalCylinder_one_31)
+
+/--
+`[C→A]` For `e₀ = 1`, the characterization set is a **proper** subset of `C_1`.
+Does not settle emptiness, density, or reachability.
+-/
+theorem oneBlockFeedInSet_one_ssubset_canonicalCylinder :
+    oneBlockFeedInSet 1 ⊂ canonicalCylinder 1 :=
+  (oneBlockFeedInSet_subset_canonicalCylinder 1).ssubset_of_ne
+    oneBlockFeedInSet_one_ne_canonicalCylinder
+
 /-! ### Experiment package -/
 
 /--
-Experiment package after D1/D2a:
+Experiment package after D1/D2a/D2b skeleton:
 - one-block universal claim is refuted;
+- `oneBlockFeedInSet 1` is a proper subset of `C_1`;
 - reachability remains classically open (not discharged).
 -/
 structure Core6DynamicFeedInGoals : Prop where
   oneBlockRefuted : ¬ OneBlockFeedInGoal
+  oneBlockSetProper_e1 : oneBlockFeedInSet 1 ⊂ canonicalCylinder 1
   reachabilityOpen : ReachabilityFeedInGoal ∨ ¬ReachabilityFeedInGoal
 
 theorem core6DynamicFeedInGoals_named : Core6DynamicFeedInGoals where
   oneBlockRefuted := not_oneBlockFeedInGoal
+  oneBlockSetProper_e1 := oneBlockFeedInSet_one_ssubset_canonicalCylinder
   reachabilityOpen := Classical.em _
 
 /-- Import hook: static certificate is available, unused for dynamics. -/
@@ -167,6 +224,7 @@ theorem staticCertificate_available : Core6StaticDyadicCertificate :=
 - Dyadic density `1/8` is **not** a hitting probability for expanding channels.
 - A finite D1 census (`[B]`) never upgrades reachability to `[A]`.
 - `¬ OneBlockFeedInGoal` does **not** imply `¬ ReachabilityFeedInGoal`.
+- `oneBlockFeedInSet e₀ ⊂ C_{e₀}` (proved for `e₀=1`) does **not** imply the set is empty.
 - No collapse / global Collatz statement is in scope.
 -/
 

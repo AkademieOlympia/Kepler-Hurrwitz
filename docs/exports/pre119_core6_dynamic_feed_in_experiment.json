@@ -7,18 +7,34 @@
   "census_script": "scripts/core6_dynamic_feed_in_d1_census.py",
   "status_wall": {
     "D1_census": "B",
-    "OneBlockFeedInGoal_universal": "empirically_falsified",
+    "OneBlockFeedInGoal_universal": "formally_refuted",
     "not_OneBlockFeedInGoal": "C\u2192A",
+    "oneBlockFeedInSet": "D2b_in_progress",
+    "oneBlockFeedInSet_one_ssubset_C1": "C\u2192A",
     "ReachabilityFeedInGoal": "C",
     "observed_hits": "B_existence_only",
     "universal_reachability": false,
-    "collapse": false
+    "collapse": false,
+    "not_OneBlock_implies_not_Reachability": false
   },
   "open_goals": {
     "OneBlockFeedInGoal": {
       "status": "refuted",
       "refutation": "not_oneBlockFeedInGoal",
       "witness": {"e0": 1, "n": 31, "image": 137}
+    },
+    "oneBlockFeedInSet": {
+      "status": "D2b_partial",
+      "delivered": [
+        "mem_oneBlockFeedInSet_iff",
+        "OneBlockFeedInGoal_iff_sets",
+        "not_mem_oneBlockFeedInSet_one_31",
+        "oneBlockFeedInSet_one_ssubset_canonicalCylinder"
+      ],
+      "open": [
+        "emptiness_or_positive_membership",
+        "arithmetic_structure_beyond_proper_subset"
+      ]
     },
     "ReachabilityFeedInGoal": {
       "status": "C",
@@ -47,13 +63,14 @@
     "B_can_falsify_C_hypothesis": true,
     "B_does_not_yield_A": true,
     "universal_positive_needs_proof": true,
-    "universal_negative_needs_one_lean_witness": true
+    "universal_negative_needs_one_lean_witness": true,
+    "not_OneBlock_does_not_imply_not_Reachability": true
   },
   "phases": [
     "D0_scaffold",
     "D1_full_representative_census_B",
     "D2a_refute_one_block_C_to_A",
-    "D2b_characterize_oneBlockFeedInSet",
+    "D2b_characterize_oneBlockFeedInSet_partial",
     "D3_sufficient_reachability",
     "D4_full_reachability"
   ],

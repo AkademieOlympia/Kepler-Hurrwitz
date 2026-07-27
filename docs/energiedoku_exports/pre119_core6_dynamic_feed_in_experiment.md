@@ -4,22 +4,24 @@
 **Base:** `cursor/core6-cylinder-partition-4007` (PR #16 stack)  
 **Module:** `KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicFeedIn`
 
-## Status wall (after D1 pilot + D2a witness)
+## Status wall (after D1 pilot + D2a + D2b skeleton)
 
-| Object | Status |
-|--------|--------|
-| D1 representative census | `[B]` |
-| `OneBlockFeedInGoal` (universal) | empirically falsified |
-| `¬ OneBlockFeedInGoal` | **`[C→A]`** Lean candidate (`not_oneBlockFeedInGoal`) |
-| `ReachabilityFeedInGoal` | **`[C]`** open |
-| observed finite hits | `[B]` existence only |
-| universal reachability / collapse | not claimed |
+| Object | Mathematical status | Repository status |
+|--------|---------------------|-------------------|
+| D1 representative census | finite reproducible evidence | `[B]` |
+| `OneBlockFeedInGoal` | formally refuted | no positive claim |
+| `not_oneBlockFeedInGoal` | Lean theorem on branch | `[C→A]` |
+| `oneBlockFeedInSet` | characterization object | D2b in progress |
+| `oneBlockFeedInSet 1 ⊂ C_1` | Lean theorem (witness `31`) | `[C→A]` |
+| `ReachabilityFeedInGoal` | undecided | `[C]` |
+| universal reachability / collapse | not claimed | — |
 
 `[B]` may support or falsify a `[C]` hypothesis; it never replaces a Lean proof and never creates `[A]` alone.
+Promotion of `[C→A]` → accepted repo-`[A]` waits for CI, review, and merge.
 
 ## Lean goals
 
-### Refuted universal one-block claim
+### Refuted universal one-block claim (D2a)
 
 ```lean
 def OneBlockFeedInGoal : Prop :=
@@ -28,8 +30,17 @@ def OneBlockFeedInGoal : Prop :=
       realizedImage n (fiberE e₀) ∈ contractingMass
 ```
 
-**Witness (D2a):** `e₀=1`, `n=31`, `realizedImage 31 (fiberE 1) = 137 ∉ contractingMass`.  
+**Witness:** `e₀=1`, `n=31`, `realizedImage 31 (fiberE 1) = 137 ∉ contractingMass`.  
 Lean: `theorem not_oneBlockFeedInGoal : ¬ OneBlockFeedInGoal`.
+
+Kernel packaging:
+\[
+31\in C_1 \;\land\;
+\operatorname{realizedImage}(31,\operatorname{fiberE}(1))=137 \;\land\;
+137\notin\operatorname{contractingMass}
+\quad\Longrightarrow\quad
+\neg\texttt{OneBlockFeedInGoal}.
+\]
 
 One-block evaluation does **not** depend on the reachability horizon `T`.
 Correct phrasing for the pilot: **0 of 56 stage representatives are one-block hits**
@@ -43,7 +54,15 @@ def oneBlockFeedInSet (e₀ : Nat) : Set Nat :=
     realizedImage n (fiberE e₀) ∈ contractingMass}
 ```
 
-Open structural question: for which `n ∈ C_{e₀}` does one-block feed-in hold?
+Delivered skeleton (`[C→A]`):
+- `OneBlockFeedInGoal ↔ ∀ e₀∈{1,2,3}, oneBlockFeedInSet e₀ = C_{e₀}`
+- `31 ∉ oneBlockFeedInSet 1`
+- `oneBlockFeedInSet 1 ⊂ canonicalCylinder 1`
+
+Still open: emptiness / positive membership / arithmetic structure of
+`oneBlockFeedInSet(e₀)` beyond the proper-subset witness. A finite D1 census
+with zero one-block hits among stage representatives does **not** prove emptiness
+of the infinite-fiber set.
 
 ### Reachability (still open)
 
@@ -53,13 +72,28 @@ def ReachabilityFeedInGoal : Prop :=
     ∃ t, 1 ≤ t ∧ syracuseOddIterate t n ∈ contractingMass
 ```
 
+Quantifier distinction:
+\[
+\neg\texttt{OneBlockFeedInGoal}
+\;=\;
+\exists n\in\mathrm{expandingMass}:\;
+U^{\circ 7}(n)\notin\mathrm{contractingMass},
+\]
+while reachability asks for some (possibly later) odd iterate. Explicitly:
+\[
+\neg\texttt{OneBlockFeedInGoal}
+\;\not\Rightarrow\;
+\neg\texttt{ReachabilityFeedInGoal}.
+\]
+
 ## Claim wall
 
-| Static fact (PR #16) | Illegal dynamical reading |
-|----------------------|---------------------------|
+| Static / local fact | Illegal dynamical reading |
+|---------------------|---------------------------|
 | `#contr / #Core6 → 1/8` | hitting probability |
 | `R_m^contr ⊆ R_m^Core6` | orbits enter contracting fibers |
 | `¬ OneBlockFeedInGoal` | `¬ ReachabilityFeedInGoal` |
+| `oneBlockFeedInSet 1 ⊂ C_1` | `oneBlockFeedInSet e₀ = ∅` |
 
 ## D1 — full census of **stage representatives** `[B]`
 
@@ -102,9 +136,9 @@ PYTHONPATH=. python3 scripts/core6_dynamic_feed_in_d1_census.py --m 8 --T 64 \
 | **D0** | definitions, claim wall | done |
 | **D1** | full representative census `[B]` | pilot done |
 | **D2a** | formal `¬ OneBlockFeedInGoal` | Lean candidate `[C→A]` |
-| **D2b** | characterize `oneBlockFeedInSet` | open |
-| **D3** | sufficient reachability conditions | open `[C]` / later `[C→A]` |
-| **D4** | universal reachability | open `[C]` |
+| **D2b** | structure of `oneBlockFeedInSet` | skeleton: proper subset `e₀=1`; structure open |
+| **D3** | sufficient multi-step reachability conditions | open `[C]` |
+| **D4** | `ReachabilityFeedInGoal` | open `[C]` |
 
 ## Non-goals
 
