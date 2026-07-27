@@ -13,10 +13,31 @@ It must not be confused with repository `[A]` status.
 
 ## Representative vs fiber (do not conflate)
 
+Quotient-space interface between PR #15 and PR #16:
+
+$$
+C_e \;\longleftrightarrow\; [b_e] \in \mathbb{N}/2^{e+9}\mathbb{N},
+\qquad b_e = \operatorname{canonicalBase}(e).
+$$
+
 * **Infinite fiber:** every `x ∈ C_e` realizes `fiberE e` — infinitely many realizers.
 * **Unique representative below the modulus:**
   `∃! b < 2^{e+9}, IsCanonicalSeed e b` (and that `b` realizes the word).
   Uniqueness is of the **canonical residue representative**, not of the whole fiber.
+
+## Five-stage governance cascade
+
+| Stufe | Inhalt | Status |
+|-------|--------|--------|
+| 1 | Eindeutige Koordinate `b_e ∈ [0, 2^{e+9})` | **`[A]` PR #15 (CI green)** |
+| 2 | Faseridentifikation `n ∈ C_e ↔ RealizesWord (fiberE e) n` | **`[C→A]` PR #16a/b candidate** |
+| 3 | Disjunkte Partition `C_Core6 = (C_1⊔C_2⊔C_3) ⊔ ⊔_{e≥4} C_e` | **`[C→A]` PR #16c/d** |
+| 4 | Endliche Zählung → Dichten `1/8` vs `7/8` | **`[C→A]` PR #16e/f** |
+| 5 | Globale Zuführung `C_1∪C_2∪C_3 → ⋃_{e≥4} C_e` | **`[C]` Folgeprogramm** |
+
+Promotion rule: after PR #16 CI is green and merge/review accepts a package,
+that package moves from `[C→A]` into repo-of-record `[A]`. Until then the
+bridge Algebra → Mengenlehre remains formally prepared, not yet promoted.
 
 ## Methodical meaning of `[C→A]` in PR #16
 

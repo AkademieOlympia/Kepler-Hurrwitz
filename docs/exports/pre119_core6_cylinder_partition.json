@@ -1,22 +1,22 @@
 {
   "pr": 16,
-  "title": "Core6 cylinder partition — target architecture",
+  "title": "Core6 cylinder partition \u2014 target architecture",
   "project_matrix": {
     "PR15": {
       "label": "A",
       "role": "algebraic existence and infinite lifting",
-      "claim": "forall e≥4, forall k, ApMemberOkFrom e (canonicalBase e) k",
+      "claim": "forall e\u22654, forall k, ApMemberOkFrom e (canonicalBase e) k",
       "note": "unique representative mod 2^(e+9); infinite contracting fiber C_e"
     },
     "PR16": {
-      "label": "C→A",
+      "label": "C\u2192A",
       "role": "combinatorial decomposition and residue density",
       "method": "constructive Lean discharge of PR15 algebra; not external axiom debt"
     },
     "followup": {
       "label": "C",
       "role": "global dynamics and orbit feed-in",
-      "claim": "C1 ∪ C2 ∪ C3 → union_{e≥4} C_e"
+      "claim": "C1 \u222a C2 \u222a C3 \u2192 union_{e\u22654} C_e"
     }
   },
   "representative_vs_fiber": {
@@ -26,12 +26,64 @@
   "C_to_A_semantics": "constructive proof goal awaiting Lean discharge; not unpaid empirical hypothesis",
   "base": "cursor/canonical-seed-lifting-4007",
   "packages": {
-    "16a": {"status": "C→A", "content": "canonicalBase_realizes_of_one_le (e≥1)"},
-    "16b": {"status": "C→A", "content": "mem_canonicalCylinder_iff_realizes_fiberE"},
-    "16c": {"status": "C→A", "content": "tailExponent_unique and disjointness"},
-    "16d": {"status": "C→A", "content": "Core6 partition and C1⊔C2⊔C3 complement"},
-    "16e": {"status": "C→A", "content": "expansion e≤3 vs contraction e≥4"},
-    "16f": {"status": "C→A", "content": "finite count mod 2^(m+9) then density reading"}
+    "16a": {
+      "status": "C\u2192A",
+      "content": "canonicalBase_realizes_of_one_le (e\u22651)"
+    },
+    "16b": {
+      "status": "C\u2192A",
+      "content": "mem_canonicalCylinder_iff_realizes_fiberE"
+    },
+    "16c": {
+      "status": "C\u2192A",
+      "content": "tailExponent_unique and disjointness"
+    },
+    "16d": {
+      "status": "C\u2192A",
+      "content": "Core6 partition and C1\u2294C2\u2294C3 complement"
+    },
+    "16e": {
+      "status": "C\u2192A",
+      "content": "expansion e\u22643 vs contraction e\u22654"
+    },
+    "16f": {
+      "status": "C\u2192A",
+      "content": "finite count mod 2^(m+9) then density reading"
+    }
   },
-  "claims_freeze": false
+  "claims_freeze": false,
+  "quotient_interface": "C_e \u2194 [b_e] in N / 2^(e+9)N with b_e = canonicalBase(e)",
+  "governance_cascade": [
+    {
+      "stage": 1,
+      "content": "unique coordinate b_e",
+      "status": "A",
+      "where": "PR15 CI green"
+    },
+    {
+      "stage": 2,
+      "content": "fiber identification",
+      "status": "C\u2192A",
+      "where": "PR16a/b candidate"
+    },
+    {
+      "stage": 3,
+      "content": "disjoint partition",
+      "status": "C\u2192A",
+      "where": "PR16c/d"
+    },
+    {
+      "stage": 4,
+      "content": "finite count \u2192 densities 1/8 vs 7/8",
+      "status": "C\u2192A",
+      "where": "PR16e/f"
+    },
+    {
+      "stage": 5,
+      "content": "global feed-in",
+      "status": "C",
+      "where": "follow-up"
+    }
+  ],
+  "next_process_step": "PR16 CI green + review/merge promotes candidates from C\u2192A to repo-of-record A"
 }
