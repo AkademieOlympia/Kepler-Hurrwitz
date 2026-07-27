@@ -8,21 +8,37 @@
     },
     "2_affine_odd_quotient": {
       "status_forward": "A",
-      "status_reverse": "C",
+      "status_reverse": "A",
       "defs": ["AffineOddQuotient"],
-      "theorems_A": ["affineOddQuotient_of_realizesWord"]
+      "theorems_A": [
+        "affineOddQuotient_of_realizesWord",
+        "affineOddQuotient_of_half_modulus_modEq",
+        "valuationStep_eq_of_two_pow_mul_odd",
+        "nextOdd_eq_of_two_pow_mul_odd",
+        "affineOddQuotient_cons_decompose",
+        "realizesWord_of_affineOddQuotient",
+        "realizesWord_iff_affineOddQuotient"
+      ]
     },
     "3_canonical_base": {
       "status_exists_unique": "A",
-      "status_realizes": "C",
+      "status_realizes": "A",
       "theorems_A": [
         "exists_unique_canonicalBase",
         "canonicalBase_lt",
         "canonicalBase_modEq",
         "canonicalBase_unique",
-        "canonicalBase_eq_classBase"
+        "canonicalBase_eq_classBase",
+        "canonicalBase_affineOddQuotient",
+        "canonicalBase_realizes",
+        "canonicalBaseRealizesGoal",
+        "canonicalInfiniteLiftingViaCanonicalBaseGoal",
+        "infinite_lifting_canonicalBase"
       ],
-      "goals_C": ["CanonicalBaseRealizesGoal", "CanonicalInfiniteLiftingViaCanonicalBaseGoal"]
+      "goals_A": [
+        "CanonicalBaseRealizesGoal",
+        "CanonicalInfiniteLiftingViaCanonicalBaseGoal"
+      ]
     },
     "4_seed_independent_transfer": {
       "status": "A",
@@ -30,11 +46,13 @@
         "margin_fiberE_of_realizes",
         "infinite_lifting_from_realizing_base"
       ],
-      "goal_C": "CanonicalInfiniteLiftingGoal"
+      "goal_A": "CanonicalInfiniteLiftingGoal"
     }
   },
-  "architecture": "e -> unique dyadic class -> realization -> infinite AP",
-  "not_claimed": ["CompatibleNextData", "liftExponent", "Collatz", "canonicalBase_realizes"],
+  "architecture": "e -> unique dyadic class -> AffineOddQuotient -> RealizesWord -> infinite AP",
+  "bridge": "ModEq => AffineOddQuotient => RealizesWord",
+  "census_role": "classBase(4..11) is a finite regression against canonicalBase",
+  "not_claimed": ["CompatibleNextData", "liftExponent", "Collatz"],
   "claims_freeze": false,
   "sorry_count": 0
 }

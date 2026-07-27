@@ -10,7 +10,7 @@ Seed-independent transfer API: lifting is stated relative to an arbitrary realiz
 base `b`, not the finite `classBase` census table.
 
 Uniform margin for `e ≥ 5` and the generic infinite-AP transfer are `[A]`.
-`canonicalBase` / `canonicalBase_realizes` remain `[C]` (Schicht 3).
+Realization of `canonicalBase` is discharged in `CanonicalBase.lean` (`[A]`).
 
 No Collatz claim. ClaimsFreeze false. 0 sorry.
 -/
@@ -104,8 +104,9 @@ theorem infinite_lifting_from_realizing_base {e b : Nat}
   exact contracts_of_le_base hreal hgood hmargin hle
 
 /--
-`[C]` Universal target once a realizing canonical seed exists for every `e ≥ 8`
-(Schicht 3: `canonicalBase_realizes`). Not discharged here.
+`[A]` Universal target: a realizing seed exists for every `e ≥ 8` and lifts the AP.
+Discharged by `CanonicalBase.canonicalInfiniteLiftingViaCanonicalBaseGoal`
+(via `canonicalBase_realizes` + `infinite_lifting_from_realizing_base`).
 -/
 def CanonicalInfiniteLiftingGoal : Prop :=
   ∀ e : Nat, 8 ≤ e →

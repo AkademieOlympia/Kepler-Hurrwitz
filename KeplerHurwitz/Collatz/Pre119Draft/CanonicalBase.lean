@@ -1,6 +1,7 @@
 import Mathlib.Data.ZMod.Basic
 import Mathlib.Tactic.IntervalCases
 import KeplerHurwitz.Collatz.Pre119Draft.FiberEWordAlgebra
+import KeplerHurwitz.Collatz.Pre119Draft.AffineOddQuotient
 import KeplerHurwitz.Collatz.Pre119Draft.ApMemberFromTransfer
 import KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema
 
@@ -15,14 +16,17 @@ set_option linter.style.nativeDecide false
 
 with representative `b < 2^{e+9}`.
 
-Realization remains `[C]`. ClaimsFreeze false. 0 sorry.
+Realization: ModEq → AffineOddQuotient → RealizesWord (`[A]`).
+ClaimsFreeze false. 0 sorry.
 -/
 
 namespace KeplerHurwitz.Collatz.Pre119Draft.CanonicalBase
 
 open Nat
 open KeplerHurwitz.Collatz.Pre119Draft.FiberWordBasics
+open KeplerHurwitz.Collatz.Pre119Draft.FiberWordAffine
 open KeplerHurwitz.Collatz.Pre119Draft.FiberEWordAlgebra
+open KeplerHurwitz.Collatz.Pre119Draft.AffineOddQuotient
 open KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema
 open KeplerHurwitz.Collatz.Pre119Draft.ApMemberFromTransfer
 
@@ -177,14 +181,84 @@ theorem canonicalBase_eq_classBase {e : Nat}
     canonicalBase e = classBase e :=
   (canonicalBase_unique (classBase_isCanonicalSeed_of_le_eleven h4 h11)).symm
 
-/-- `[C]` Realization goal (needs reverse AffineOddQuotient). -/
+/-! ### ModEq → AffineOddQuotient → RealizesWord -/
+
+/-- Every entry of `fiberE e` is ≥ 1 when `e ≥ 4`. -/
+theorem fiberE_positive {e : Nat} (he : 4 ≤ e) :
+    ∀ a ∈ fiberE e, 1 ≤ a := by
+  intro a ha
+  have hlist : fiberE e = [1, 1, 1, 1, 2, 2, e] := fiberE_list e
+  rw [hlist] at ha
+  simp only [List.mem_cons, List.not_mem_nil, or_false] at ha
+  rcases ha with
+    h | h | h | h | h | h | h <;> omega
+
+/--
+`[A]` The unique dyadic seed satisfies the odd affine quotient identity on `fiberE e`.
+-/
+theorem canonicalBase_affineOddQuotient (e : Nat) :
+    AffineOddQuotient (fiberE e) (canonicalBase e) := by
+  let A := coeff3 * canonicalBase e + 2347
+  let S := e + 8
+  have hmod : A ≡ 2 ^ S [MOD 2 ^ (S + 1)] := by
+    simpa [A, S, seedModulus, Nat.add_assoc] using canonicalBase_modEq e
+  obtain ⟨q, hq, heq⟩ := affineOddQuotient_of_half_modulus_modEq (S := S) (A := A) hmod
+  refine ⟨q, hq, ?_⟩
+  have hsum : (fiberE e).sum = S := fiberE_sum_eight_add' e
+  have hlen : (fiberE e).length = 7 := fiberE_length_seven' e
+  have hC : wordC (fiberE e) = 2347 := wordC_fiberE e
+  have hcoeff : coeff3 = 3 ^ 7 := coeff3_eq_three_pow
+  calc
+    q * 2 ^ (fiberE e).sum
+        = q * 2 ^ S := by rw [hsum]
+    _ = A := heq
+    _ = coeff3 * canonicalBase e + 2347 := rfl
+    _ = 3 ^ 7 * canonicalBase e + 2347 := by rw [hcoeff]
+    _ = 3 ^ (fiberE e).length * canonicalBase e + wordC (fiberE e) := by
+          rw [hlen, hC]
+
+/--
+`[A]` The canonical seed realizes the Core6 single-step word for every `e ≥ 4`.
+-/
+theorem canonicalBase_realizes (e : Nat) (he : 4 ≤ e) :
+    RealizesWord (fiberE e) (canonicalBase e) :=
+  realizesWord_of_affineOddQuotient (fiberE_positive he)
+    (canonicalBase_affineOddQuotient e)
+
+/-- `[A]` Realization goal discharged. -/
 def CanonicalBaseRealizesGoal : Prop :=
   ∀ e : Nat, 4 ≤ e →
     RealizesWord (fiberE e) (canonicalBase e)
 
-/-- `[C]` Universal lifting goal after realization. -/
+theorem canonicalBaseRealizesGoal : CanonicalBaseRealizesGoal :=
+  canonicalBase_realizes
+
+/--
+`[A]` Universal infinite AP lifting via the unique canonical seed for `e ≥ 8`
+(and more generally `e ≥ 5` via the transfer API).
+-/
 def CanonicalInfiniteLiftingViaCanonicalBaseGoal : Prop :=
   ∀ e : Nat, 8 ≤ e →
     ∀ k : Nat, ApMemberOkFrom e (canonicalBase e) k
+
+theorem canonicalInfiniteLiftingViaCanonicalBaseGoal :
+    CanonicalInfiniteLiftingViaCanonicalBaseGoal := by
+  intro e he8 k
+  have he5 : 5 ≤ e := by omega
+  have he4 : 4 ≤ e := by omega
+  exact infinite_lifting_from_realizing_base he5 (canonicalBase_realizes e he4) k
+
+/-- Seed-relative infinite lifting for all `e ≥ 5`. -/
+theorem infinite_lifting_canonicalBase {e : Nat} (he : 5 ≤ e) :
+    ∀ k : Nat, ApMemberOkFrom e (canonicalBase e) k :=
+  infinite_lifting_from_realizing_base he
+    (canonicalBase_realizes e (by omega))
+
+/-- `[A]` Existential form of the universal lifting goal. -/
+theorem canonicalInfiniteLiftingGoal :
+    CanonicalInfiniteLiftingGoal := by
+  intro e he8
+  refine ⟨canonicalBase e, canonicalBase_realizes e (by omega),
+    infinite_lifting_canonicalBase (by omega)⟩
 
 end KeplerHurwitz.Collatz.Pre119Draft.CanonicalBase
