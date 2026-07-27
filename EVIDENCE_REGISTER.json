@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-07-05",
+  "updated_at": "2026-07-28",
   "id_notes": {
     "musketiere_lean_labels": "E-033/E-034 in PrimvierlingSymmetry.lean map to register entries E-046/E-047",
     "energiedoku_e033_e034": "Register E-033/E-034 remain Kepler time bridge and Riemann resonance"
@@ -352,15 +352,11 @@
       "title": "EABC Smoothness Attraktor Dossier und Exportartefakte",
       "level": "B",
       "aclass": null,
-      "source": "results/reports/EABC_SMOOTHNESS_ATTRACTOR_DOSSIER.md",
-      "depends_on": [
-        "docs/energiedoku_exports/smoothness_significance.json",
-        "docs/energiedoku_exports/smoothness_scale_stability.json",
-        "docs/energiedoku_exports/smoothness_b_bound_matrix.json",
-        "docs/energiedoku_exports/smoothness_b_bound_summary.json"
-      ],
+      "source": "docs/energiedoku_exports/smoothness_significance.json, docs/energiedoku_exports/smoothness_scale_stability.json, docs/energiedoku_exports/smoothness_b_bound_matrix.json, docs/energiedoku_exports/smoothness_b_bound_summary.json",
+      "depends_on": [],
       "supports": [
-        "E-017"
+        "E-017",
+        "results/reports/EABC_SMOOTHNESS_ATTRACTOR_DOSSIER.md"
       ],
       "scope": "Reproduzierbare Empirie getrennt von Lean-Theoremen",
       "metric_or_result": "Artefaktkette dokumentiert; Attraktorfrage bleibt offen",
@@ -1314,7 +1310,7 @@
     {
       "id": "E-075",
       "title": "Prime Grid / Signaturgeometrie natuerlicher Zahlen",
-      "level": "B/C",
+      "level": "B",
       "aclass": null,
       "source": "docs/mathematische_texte/kolossvary_the_prime_grid.pdf, docs/energiedoku_exports/e075_prime_grid_signaturgeometrie.md",
       "depends_on": [],
@@ -1570,7 +1566,7 @@
     {
       "id": "E-090",
       "title": "Kanonische e3-Zerlegung n = q*e^3 + r*e (Lemma 1-3: product split + S± multiplet)",
-      "level": "A/B/C",
+      "level": "A",
       "aclass": "A-T",
       "source": "KeplerHurwitz/E3Decomposition.lean, src/kepler_hurwitz/e3_decomposition.py, docs/collatz_e3_decomposition.md, tests/test_e3_decomposition.py",
       "depends_on": [],
@@ -1686,10 +1682,64 @@
       "defensive_scope": "Not proof that zeta zeros cause EABC symmetry break; not physics identity; distinct from E-034/E-035 mean-cos metrics; Mangoldt-weighted explicit formula not claimed"
     },
     {
+      "id": "E-096",
+      "title": "EABC Normalform-Stack (V4 / Semiprim / Higher pointer on this branch)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/eabc_normal_form.md, docs/eabc_v4_quaternion_bridge.md, KeplerHurwitz/EABC/V4.lean, src/kepler_hurwitz/signatures.py",
+      "depends_on": [],
+      "supports": [
+        "E-097",
+        "E-099"
+      ],
+      "scope": "Normalform-Sprache und V4-Lean-Kern; volle Modulmatrix teils auf Parallelbranches",
+      "metric_or_result": "Dokumentation + V4.lean / signatures.py auf diesem Branch",
+      "status": "teilweise synchronisiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-28",
+      "defensive_scope": "Kein Claim auf vollstaendige NormalForm/QuaternionBridge-Lean-Suite in diesem Tree."
+    },
+    {
+      "id": "E-097",
+      "title": "EABC x Collatz Audit-Grid (docs pointer)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/eabc_collatz_audit_grid.md",
+      "depends_on": [
+        "E-096"
+      ],
+      "supports": [
+        "E-098"
+      ],
+      "scope": "Syracuse/V4 Audit-Dokumentation; Lean/Python-Suite teils off-tree",
+      "metric_or_result": "Dossier docs/eabc_collatz_audit_grid.md",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-28",
+      "defensive_scope": "Kein Collatz-Beweis; keine Garantie der off-tree Audit-Module in diesem Checkout."
+    },
+    {
+      "id": "E-098",
+      "title": "Collatz V2.16 Kanal-7 Assessment (docs pointer)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/collatz_v216_assessment.md",
+      "depends_on": [
+        "E-097"
+      ],
+      "supports": [],
+      "scope": "Assessment/Zeiger; Lean-Formalisierung primaer auf Parallelbranch",
+      "metric_or_result": "docs/collatz_v216_assessment.md",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-28",
+      "defensive_scope": "Kein globaler Collatz-Beweis; Deep-Tail offen."
+    },
+    {
       "id": "E-099",
       "title": "Anisotropic binary volume contraction prod 2^{-k}=2^{-n(n+1)/2}; directed scale reading for EABC audit",
       "level": "C",
-      "aclass": "A-T (prod/triangle), C (EABC reading)",
+      "aclass": null,
       "source": "docs/theory/anisotropic_binary_volume_contraction.md, KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean",
       "depends_on": [
         "E-053",
