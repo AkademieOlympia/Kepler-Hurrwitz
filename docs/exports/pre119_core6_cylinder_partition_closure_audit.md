@@ -1,7 +1,7 @@
 # PR #16 Closure Audit — Core6 Static Dyadic Certificate
 
 **Mathematical freeze (closure candidate):** `3740183198160e79b302eb2fcd8250d1e9fd925e`  
-**Certificate packaging tip:** `d9d588ba34b757a49b689bfa4ac1f37354e68631`  
+**Packaging / documentation head:** `533f8a155d3104815dc9db3fb1a91bfcfa6f80d0`  
 **Status:** `[C→A]` until CI green ∧ review ∧ merge ∧ separate promotion commit to `[A]`.
 
 ## Toolchain
@@ -25,18 +25,34 @@ rg -n -P '(^|[^A-Za-z0-9_/`])(sorry|admit)([^A-Za-z0-9_]|$)' \
 
 **Result:** no `sorry` / `admit` **tactics**. Only documentation lines of the form `0 sorry.` appear in module headers.
 
-## `#print axioms core6StaticDyadicCertificate`
+## `#print axioms core6StaticDyadicCertificate` (verbatim)
+
+Command:
+
+```lean
+import KeplerHurwitz.Collatz.Pre119Draft.Core6CylinderPartition
+open KeplerHurwitz.Collatz.Pre119Draft.Core6CylinderPartition
+#print axioms core6StaticDyadicCertificate
+```
+
+Unabridged Lean output:
 
 ```
-'…core6StaticDyadicCertificate' depends on axioms: [propext,
+'KeplerHurwitz.Collatz.Pre119Draft.Core6CylinderPartition.core6StaticDyadicCertificate' depends on axioms: [propext,
  Classical.choice,
  Quot.sound,
- …native_decide axioms from census/identity lemmas…]
+ KeplerHurwitz.Collatz.Pre119Draft.CanonicalBase.coeff3_coprime_seedModulus._native.native_decide.ax_1_1,
+ KeplerHurwitz.Collatz.Pre119Draft.CanonicalBase.coeff3_eq_three_pow._native.native_decide.ax_1_1,
+ core6_ne_nil._native.native_decide.ax_1_1,
+ modEq_of_affineOddQuotient_core6._native.native_decide.ax_1_3,
+ realizes_core6_modEq_unique._native.native_decide.ax_1_1,
+ KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema.core6_length._native.native_decide.ax_1_1,
+ KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema.core6_sum._native.native_decide.ax_1_1]
 ```
 
-Kernel / classical axioms: `propext`, `Classical.choice`, `Quot.sound`.  
-Additional entries are Lean `native_decide` certificates for fixed Nat identities
-(`core6_sum`, `core6_length`, `wordC`/`coprime` decides, etc.) — not unpaid proof debt.
+Classification:
+- Kernel / classical: `propext`, `Classical.choice`, `Quot.sound`
+- Remaining entries: Lean `native_decide` certificates for fixed Nat identities — **not** unpaid proof debt
 
 ## Closure lemmas (bundled only)
 
@@ -67,6 +83,17 @@ Entry point: `theorem core6StaticDyadicCertificate : Core6StaticDyadicCertificat
 3. Re-run full CI on the new tip.  
 4. Review & merge PR #16.  
 5. Separate status-promotion commit `[C→A] → [A]` after merge.
+
+## Process diagnosis (at packaging head)
+
+| Layer | State |
+|-------|--------|
+| Mathematics | closed and certified at `3740183` |
+| Local audit | documented; build success reported |
+| Remote CI | queued (Lean / Quality Gate / Evidence Audit) |
+| Review / merge | open |
+| Status | `[C→A]` |
+| Reachability | `[C]`, separate follow-up |
 
 ## Out of scope after freeze
 

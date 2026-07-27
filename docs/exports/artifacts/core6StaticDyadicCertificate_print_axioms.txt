@@ -1,0 +1,10 @@
+'KeplerHurwitz.Collatz.Pre119Draft.Core6CylinderPartition.core6StaticDyadicCertificate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ KeplerHurwitz.Collatz.Pre119Draft.CanonicalBase.coeff3_coprime_seedModulus._native.native_decide.ax_1_1,
+ KeplerHurwitz.Collatz.Pre119Draft.CanonicalBase.coeff3_eq_three_pow._native.native_decide.ax_1_1,
+ core6_ne_nil._native.native_decide.ax_1_1,
+ modEq_of_affineOddQuotient_core6._native.native_decide.ax_1_3,
+ realizes_core6_modEq_unique._native.native_decide.ax_1_1,
+ KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema.core6_length._native.native_decide.ax_1_1,
+ KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema.core6_sum._native.native_decide.ax_1_1]
