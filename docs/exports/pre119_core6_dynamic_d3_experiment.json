@@ -12,6 +12,7 @@
     "D3_3a_path_packaging": "C\u2192A",
     "D3_3b_not_Core6PathFeedInGoal": "C\u2192A",
     "D3_3c_residual_decomposition": "C\u2192A",
+    "D3_3d_residual_iff_reachability": "C\u2192A",
     "Core6PathFeedInGoal": "false",
     "BlockBoundaryFeedInGoal": "C",
     "OffCore6ReentryGoal": "C",
@@ -31,6 +32,8 @@
     "canonicalCylinder_eq_core6PathFeedIn_union_residual",
     "oneBlockOffCore6Set_subset_core6PathResidualSet",
     "mem_core6PathResidualSet_one_31",
+    "mem_core6PathFeedInSet_reaches_contractingMass",
+    "residualFeedIn_iff_reachability",
     "core6PathFeedIn_implies_blockBoundary",
     "blockBoundaryFeedIn_implies_reachability"
   ],

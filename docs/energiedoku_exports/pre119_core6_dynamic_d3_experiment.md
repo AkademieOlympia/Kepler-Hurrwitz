@@ -12,29 +12,35 @@
 | D3.1 | affine target-index transport | `[C→A]` |
 | D3.2 | fixed-path AP equivalence | `[C→A]` |
 | D3.3a | packaging `core6PathFeedInSet = ⋃ AP_p` | `[C→A]` |
-| D3.3b | `not_core6PathFeedInGoal` | `[C→A]` (coverage false) |
-| D3.3c | `core6PathResidualSet` decomposition | `[C→A]` |
-| D3.4 | `ResidualFeedInGoal` / `OffCore6ReentryGoal` | defined; open `[C]` |
-| D4 | `ReachabilityFeedInGoal` | still `[C]` |
+| D3.3b | `not_core6PathFeedInGoal` | `[C→A]` |
+| D3.3c | `C = FeedIn ∪̇ Residual` | `[C→A]` |
+| D3.3d | `ResidualFeedInGoal ↔ ReachabilityFeedInGoal` | `[C→A]` |
+| D3.4 | residual structure / `OffCore6ReentryGoal` | defined; open `[C]` |
+| D4 | `ResidualFeedInGoal` (≡ Reachability) | still `[C]` |
 
-## D3.3a–c delivered
+## Already formal (D3.3b–c)
 
-- `IsContractingFirstHitPath` — expanding start/interior, first contracting hit at end
-- `core6PathFeedInSet` — union of realizers of such paths
-- `core6PathFeedInSet_eq_iUnion_progressions` — packaging via D3.2
-- Witness `1246239 ∈ core6PathFeedInSet 1`; exclusion `31 ∉ core6PathFeedInSet 1`
-- `not_core6PathFeedInGoal` — formal refutation via `31 ∈ C_1`
-- `core6PathResidualSet = C_{e₀} \ core6PathFeedInSet`
-- `C_{e₀} = core6PathFeedInSet ∪ residual` (disjoint); Off-Core6 ⊆ residual
-- Implications (premise false; implications still valid):
-  `Core6PathFeedInGoal ⇒ BlockBoundaryFeedInGoal ⇒ ReachabilityFeedInGoal`
+- `¬ Core6PathFeedInGoal` via `31 ∈ C_1`, `31 ∉ core6PathFeedInSet 1`
+- Cylinder decomposition and Off-Core6 ⊆ Residual
+- First-Hit path class is excluded as a complete global solution
 
-## Quantifier boundary
+## D3.3d — equivalence needs the First-Hit bridge
 
-D3.3a packages `∀ p, Realizer(p) = AP_p`. The coverage
-`∀ n ∈ C₁∪C₂∪C₃, ∃ p` is **false** for this path family, not merely open:
-`⋃_p AP_p ⊊ C_1` (witness `31`). Residual re-entry is D3.4 `[C]`.
+The equivalence is **not** a consequence of the decomposition alone.
+
+- **Feed-in bridge** (`[C→A]`):  
+  `n ∈ core6PathFeedInSet e₀ ⇒ ∃ t, U^{∘t}(n) ∈ contractingMass`  
+  via `mem_core6PathFeedInSet_reaches_contractingMass`
+- **Forward:** Residual ⇒ Reachability uses decomposition + bridge
+- **Reverse:** Reachability ⇒ Residual is immediate (Residual ⊆ expanding mass)
+
+## Open front
+
+Global dynamical proof is reduced to the residual. Open work:
+
+- D3.4 structure of `core6PathResidualSet` / re-entry mechanisms
+- D4 discharge of `ResidualFeedInGoal`
 
 ## Non-goals
 
-No attempt to revive `Core6PathFeedInGoal`. No Collatz claim. D2b untouched.
+No revival of `Core6PathFeedInGoal`. No Collatz claim. D2b untouched.

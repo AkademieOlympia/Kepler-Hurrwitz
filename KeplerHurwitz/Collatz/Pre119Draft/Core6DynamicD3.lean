@@ -13,8 +13,9 @@ set_option autoImplicit false
 # Pre119Draft — Core6DynamicD3 (Follow-up after D2b freeze)
 
 **Base:** PR #17 / `Core6DynamicFeedIn` (D2b frozen at `18e8747`).
-**This module** develops D3.0–D3.3c algebraic structure.
-`Core6PathFeedInGoal` is formally refuted (`¬`); residual re-entry / D4 remain `[C]`.
+**This module** develops D3.0–D3.3d algebraic structure.
+`Core6PathFeedInGoal` is formally refuted (`¬`); D3.3d reduces global
+reachability to the residual. Residual structure / `ResidualFeedInGoal` remain `[C]`.
 
 Must not reopen PR #16 static math or the frozen D2b package.
 No Collatz claim. ClaimsFreeze false.
@@ -1071,7 +1072,7 @@ theorem core6PathResidualSet_one_nonempty :
     (core6PathResidualSet 1).Nonempty :=
   ⟨31, mem_core6PathResidualSet_one_31⟩
 
-/-! ### Open D3.4 / D4 dynamical goals (definitions only) -/
+/-! ### Open dynamical goals (definitions only) -/
 
 /--
 `[C]` Hits contracting mass at a complete block boundary (`t = 7r`).
@@ -1082,7 +1083,8 @@ def BlockBoundaryFeedInGoal : Prop :=
       syracuseOddIterate (7 * r) n ∈ contractingMass
 
 /--
-`[C]` After exiting Core6 in one block, some later odd iterate re-enters Core6.
+`[C]` D3.4 structure: after exiting Core6 in one block, some later odd
+iterate re-enters Core6.
 -/
 def OffCore6ReentryGoal : Prop :=
   ∀ e₀ : Nat, 1 ≤ e₀ → e₀ ≤ 3 →
@@ -1091,8 +1093,9 @@ def OffCore6ReentryGoal : Prop :=
         syracuseOddIterate s (realizedImage n (fiberE e₀)) ∈ core6Cylinder
 
 /--
-`[C]` D3.4 residual feed-in: every residual start eventually reaches
-contracting mass (includes Off-Core6 re-entry routes).
+`[C]` D4 residual feed-in: every residual start eventually reaches
+contracting mass. Equivalent to `ReachabilityFeedInGoal` once the
+First-Hit bridge is composed (see D3.3d).
 -/
 def ResidualFeedInGoal : Prop :=
   ∀ e₀ : Nat, 1 ≤ e₀ → e₀ ≤ 3 →
@@ -1198,6 +1201,71 @@ theorem realizesChannelPath_contractingFirstHit_blockBoundary
   refine ⟨(e₀ :: mid).length, by simp [List.length_cons], ?_⟩
   exact mem_iUnion.2 ⟨f, mem_iUnion.2 ⟨hf, himg⟩⟩
 
+/--
+`[C→A]` Element-level First-Hit bridge: membership in the path feed-in set
+implies eventual arrival in contracting mass.
+-/
+theorem mem_core6PathFeedInSet_reaches_contractingMass
+    {e₀ n : Nat} (h : n ∈ core6PathFeedInSet e₀) :
+    ∃ t : Nat, 1 ≤ t ∧
+      syracuseOddIterate t n ∈ contractingMass := by
+  obtain ⟨p, hp'⟩ := mem_iUnion.1 h
+  obtain ⟨hp, hR⟩ := mem_iUnion.1 hp'
+  obtain ⟨r, hr, himg⟩ :=
+    realizesChannelPath_contractingFirstHit_blockBoundary hp hR
+  exact ⟨7 * r, by omega, himg⟩
+
+/-! ### D3.3d — residual feed-in iff global reachability -/
+
+/--
+`[C→A]` Reverse direction: residual is a subclass of expanding mass, so
+global reachability specializes immediately.
+-/
+theorem reachability_implies_residualFeedIn :
+    ReachabilityFeedInGoal → ResidualFeedInGoal := by
+  intro h e₀ he₁ he₃ n hnR
+  have hnC := hnR.1
+  have hnE : n ∈ expandingMass := by
+    simp only [expandingMass, expandingCore6, smallTailCore6]
+    have : e₀ = 1 ∨ e₀ = 2 ∨ e₀ = 3 := by omega
+    rcases this with rfl | rfl | rfl
+    · exact Or.inl (Or.inl hnC)
+    · exact Or.inl (Or.inr hnC)
+    · exact Or.inr hnC
+  exact h n hnE
+
+/--
+`[C→A]` Forward direction: uses the cylinder decomposition plus the
+element-level First-Hit bridge on the feed-in part.
+-/
+theorem residualFeedIn_implies_reachability :
+    ResidualFeedInGoal → ReachabilityFeedInGoal := by
+  intro hRes n hn
+  have hU : n ∈
+      canonicalCylinder 1 ∨ n ∈ canonicalCylinder 2 ∨
+        n ∈ canonicalCylinder 3 := by
+    simpa [expandingMass, expandingCore6, smallTailCore6, or_assoc] using hn
+  have handle : ∀ e₀ : Nat, 1 ≤ e₀ → e₀ ≤ 3 → n ∈ canonicalCylinder e₀ →
+      ∃ t : Nat, 1 ≤ t ∧
+        syracuseOddIterate t n ∈ contractingMass := by
+    intro e₀ he₁ he₃ hnC
+    by_cases hF : n ∈ core6PathFeedInSet e₀
+    · exact mem_core6PathFeedInSet_reaches_contractingMass hF
+    · exact hRes e₀ he₁ he₃ n ⟨hnC, hF⟩
+  rcases hU with h1 | h2 | h3
+  · exact handle 1 (by decide) (by decide) h1
+  · exact handle 2 (by decide) (by decide) h2
+  · exact handle 3 (by decide) (by decide) h3
+
+/--
+`[C→A]` D3.3d: after composing the First-Hit bridge, residual feed-in is
+equivalent to global expanding-mass reachability. The decomposition alone
+does not give this; the bridge is the extra ingredient.
+-/
+theorem residualFeedIn_iff_reachability :
+    ResidualFeedInGoal ↔ ReachabilityFeedInGoal :=
+  ⟨residualFeedIn_implies_reachability, reachability_implies_residualFeedIn⟩
+
 theorem core6PathFeedIn_implies_blockBoundary :
     Core6PathFeedInGoal → BlockBoundaryFeedInGoal := by
   intro h n hn
@@ -1276,6 +1344,11 @@ structure Core6DynamicD3AlgebraGoals : Prop where
   offCore6SubsetResidual :
     ∀ e₀ : Nat, oneBlockOffCore6Set e₀ ⊆ core6PathResidualSet e₀
   residualWitness : 31 ∈ core6PathResidualSet 1
+  feedInReachesContracting :
+    ∀ e₀ n : Nat, n ∈ core6PathFeedInSet e₀ →
+      ∃ t : Nat, 1 ≤ t ∧ syracuseOddIterate t n ∈ contractingMass
+  residualIffReachability :
+    ResidualFeedInGoal ↔ ReachabilityFeedInGoal
   core6PathImpliesBlockBoundary :
     Core6PathFeedInGoal → BlockBoundaryFeedInGoal
   blockBoundaryImpliesReachability :
@@ -1300,6 +1373,9 @@ theorem core6DynamicD3AlgebraGoals_named : Core6DynamicD3AlgebraGoals where
   offCore6SubsetResidual := fun _ =>
     oneBlockOffCore6Set_subset_core6PathResidualSet _
   residualWitness := mem_core6PathResidualSet_one_31
+  feedInReachesContracting := fun _ _ h =>
+    mem_core6PathFeedInSet_reaches_contractingMass h
+  residualIffReachability := residualFeedIn_iff_reachability
   core6PathImpliesBlockBoundary := core6PathFeedIn_implies_blockBoundary
   blockBoundaryImpliesReachability := blockBoundaryFeedIn_implies_reachability
 
@@ -1308,10 +1384,10 @@ theorem core6DynamicD3AlgebraGoals_named : Core6DynamicD3AlgebraGoals where
 
 - `Core6PathFeedInGoal` is **formally false** (`not_core6PathFeedInGoal`).
 - Implications from a false premise remain valid but are not a global proof path.
-- `BlockBoundaryFeedInGoal` / `OffCore6ReentryGoal` / `ResidualFeedInGoal`
-  remain `[C]`; `¬ Core6PathFeedInGoal` does **not** imply their negations.
-- `ReachabilityFeedInGoal` remains `[C]`.
-- D3.3a isolates the Core6-internal path share; residual re-entry is D3.4.
+- D3.3d reduces global reachability to residual feed-in via the First-Hit bridge;
+  the cylinder decomposition alone does **not** yield the equivalence.
+- `BlockBoundaryFeedInGoal` / `OffCore6ReentryGoal` (D3.4 structure) remain `[C]`.
+- `ResidualFeedInGoal` / `ReachabilityFeedInGoal` remain open `[C]` (equivalent).
 - No Collatz / collapse statement.
 -/
 
