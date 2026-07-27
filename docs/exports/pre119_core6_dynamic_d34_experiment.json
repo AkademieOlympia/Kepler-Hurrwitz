@@ -1,0 +1,30 @@
+{
+  "experiment": "Core6DynamicD34",
+  "branch": "cursor/core6-dynamic-d34-residual-2ed1",
+  "base": "cursor/core6-dynamic-d3-4007",
+  "base_d3_3_math_freeze_head": "24bd5c83718da11c9ec2bfa8962de331be117369",
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicD34",
+  "plan": "docs/energiedoku_exports/pre119_core6_dynamic_d34_experiment.md",
+  "manuscript_de": "docs/manuscripts/pre119_core6_residualdynamik.de.tex",
+  "status_wall": {
+    "D3_4_finiteBlockExitSet": "C→A",
+    "D3_4_foreverExpandingBoundarySet": "C→A",
+    "D3_4_residual_dichotomy": "C→A",
+    "ResidualFeedInGoal": "C",
+    "OffCore6ReentryGoal": "C",
+    "ReachabilityFeedInGoal": "C",
+    "collapse": false
+  },
+  "delivered": [
+    "finiteBlockExitSet",
+    "foreverExpandingBoundarySet",
+    "oneBlockOffCore6Set_subset_finiteBlockExitSet",
+    "mem_finiteBlockExitSet_one_31",
+    "finiteBlockExitSet_subset_core6PathResidualSet",
+    "foreverExpandingBoundarySet_subset_core6PathResidualSet",
+    "disjoint_finiteBlockExit_foreverExpanding",
+    "core6PathResidualSet_eq_finiteBlockExit_union_forever",
+    "core6DynamicD34ResidualGoals_named"
+  ],
+  "claims_freeze": false
+}
