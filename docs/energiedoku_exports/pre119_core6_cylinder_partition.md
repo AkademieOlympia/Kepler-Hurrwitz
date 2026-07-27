@@ -83,13 +83,21 @@ $$
 with `e` the fiber/tail coordinate, `b_e` the canonical representative, and `k` the
 position inside the fiber (`Φ_e : k ↦ b_e + k M_e` = `fiberIndexMap`).
 
-Packaged on the branch (`[C→A]` until CI/merge):
+Packaged on the branch at head `0e26b12` (`[C→A]` until CI/merge):
 - `fiberIndexMap_injective`
 - `range_fiberIndexMap_eq_canonicalCylinderAP` / `…_eq_canonicalCylinder`
-- `fiberIndexEquiv : Nat ≃ {n // n ∈ canonicalCylinder e}`  ⇒  `C_e ≃ ℕ`
+- **`fiberIndexEquiv : Nat ≃ {n // n ∈ canonicalCylinder e}`**  ⇒  `C_e ≃ ℕ`
 
-Local fiber counting uses `Φ_e(k) ≤ N`; the global `1/8` density still needs
-disjointness + a common finite modulus across varying `M_e`.
+### Local coordinate vs global density
+
+| | Local (`Φ_e` / `fiberIndexEquiv`) | Global period sync |
+|--|----------------------------------|--------------------|
+| Domain | one fiber `C_e` | `⋃_{e≥4} C_e` |
+| Period | fixed `M_e = 2^{e+9}` | `M_e` grows with `e` |
+| Tool | `C_e ≃ ℕ` | disjointness ∧ common `ZMod (2^{m+9})` count |
+
+`Φ_e(k) ≤ N` counts inside one fiber; it does **not** replace the joint residue
+count for density `1/8`.
 
 ### Kernel-Beweisbarkeit ≠ Repository-Status `[A]`
 

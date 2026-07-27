@@ -100,9 +100,9 @@
       "process": "CI green; draft; unmerged"
     },
     "PR16": {
-      "head": "18eb6bf",
+      "head": "0e26b12",
       "theorem": "C\u2192A",
-      "process": "CI queued/running; draft"
+      "process": "CI queued; draft; mergeable; fiberIndexEquiv packaged"
     },
     "followup": {
       "theorem": "C",
@@ -168,5 +168,9 @@
       "fiberIndexEquiv"
     ],
     "note": "local fiber coordinate; density 1/8 still needs joint modulus counting"
+  },
+  "local_vs_global": {
+    "local": "fiberIndexEquiv: C_e \u2243 Nat; fixed M_e",
+    "global": "union e\u22654 needs disjointness + common ZMod 2^(m+9) for density 1/8"
   }
 }
