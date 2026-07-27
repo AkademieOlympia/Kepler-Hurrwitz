@@ -1,0 +1,25 @@
+{
+  "experiment": "Core6DynamicD3",
+  "branch": "cursor/core6-dynamic-d3-4007",
+  "base": "cursor/core6-dynamic-feed-in-4007",
+  "base_d2b_freeze_head": "18e874773d5cbc8a072cd2c38edefe5087560861",
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicD3",
+  "plan": "docs/energiedoku_exports/pre119_core6_dynamic_d3_experiment.md",
+  "status_wall": {
+    "D3_0_trichotomy": "C\u2192A",
+    "D3_1_target_index_affine": "C\u2192A",
+    "D3_2_channel_paths": "deferred",
+    "BlockBoundaryFeedInGoal": "C",
+    "OffCore6ReentryGoal": "C",
+    "ReachabilityFeedInGoal": "C",
+    "collapse": false
+  },
+  "delivered": [
+    "canonicalCylinder_eq_oneBlock_trichotomy",
+    "oneBlockExpandingReturnSet_eq_iUnion_progressions",
+    "mem_oneBlockOffCore6Set_one_31",
+    "oneBlock_targetIndex_affine",
+    "blockBoundaryFeedIn_implies_reachability"
+  ],
+  "claims_freeze": false
+}
