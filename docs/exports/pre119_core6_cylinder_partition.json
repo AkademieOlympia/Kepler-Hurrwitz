@@ -1,0 +1,267 @@
+{
+  "pr": 16,
+  "title": "Core6 cylinder partition \u2014 static dyadic closure",
+  "closure_candidate": {
+    "math_freeze_head": "3740183198160e79b302eb2fcd8250d1e9fd925e",
+    "certificate_docs_head": "533f8a155d3104815dc9db3fb1a91bfcfa6f80d0",
+    "axioms_artifact_head": "6904f87d120526d477c36e322188dcfe2c78d6e9",
+    "freeze_head": "3740183198160e79b302eb2fcd8250d1e9fd925e",
+    "status": "C\u2192A",
+    "entry_point": "core6StaticDyadicCertificate",
+    "structure": "Core6StaticDyadicCertificate",
+    "audit": "docs/exports/pre119_core6_cylinder_partition_closure_audit.md",
+    "axioms_artifact": "docs/exports/artifacts/core6StaticDyadicCertificate_print_axioms.txt",
+    "allowed_after_freeze": [
+      "proof fixes",
+      "import/linter fixes",
+      "documentation/register sync",
+      "review fixes without scope expansion"
+    ],
+    "forbidden_after_freeze": [
+      "natural density",
+      "reachability",
+      "further orbit dynamics"
+    ]
+  },
+  "claim_wall": {
+    "relative_dyadic_density": true,
+    "natural_density": false,
+    "global_collatz": false,
+    "dynamical_feed_in": false
+  },
+  "stack_merge_order": [
+    "review+merge PR15",
+    "retarget/rebase PR16",
+    "re-run full CI on new tip",
+    "review+merge PR16",
+    "separate promotion commit C\u2192A to A"
+  ],
+  "project_matrix": {
+    "PR15": {
+      "label": "A",
+      "nature": "algebraic",
+      "role": "local fiber existence and infinite lifting",
+      "claim": "forall e\u22654, forall k, ApMemberOkFrom e (canonicalBase e) k",
+      "note": "unique representative b_e < M_e; infinite contracting fiber C_e"
+    },
+    "PR16": {
+      "label": "C\u2192A",
+      "nature": "static / combinatorial",
+      "role": "inter-fiber decomposition and combinatorial density",
+      "method": "constructive Lean discharge of PR15 algebra; not external axiom debt; not orbit dynamics",
+      "includes": [
+        "fiberIndexEquiv (C_e \u2243 Nat)",
+        "disjointness",
+        "Core6 partition",
+        "finite residue count, inclusion, Tendsto 1/8",
+        "core6StaticDyadicCertificate"
+      ]
+    },
+    "followup": {
+      "label": "C",
+      "nature": "dynamic / trajectorial",
+      "role": "orbit feed-in / reachability",
+      "claim": "C1 \u222a C2 \u222a C3 \u2192 union_{e\u22654} C_e",
+      "module": "Core6DynamicFeedIn.lean (new PR after #16 closes)"
+    }
+  },
+  "static_vs_dynamic": {
+    "PR16": {
+      "object": "disjointness and state-space decomposition",
+      "math": "residue count in ZMod(2^(m+9))",
+      "claim": "C_e \u2229 C_f = \u2205 and sum delta(C_e) \u2192 1/8"
+    },
+    "followup": {
+      "object": "orbit flow and feed-in",
+      "math": "preimage iteration / reachability",
+      "claim": "C1 \u222a C2 \u222a C3 \u2192 union_{e\u22654} C_e"
+    },
+    "density_in_PR16": {
+      "reason": "embedding periods 2^(e+9) into common module is deductive; no external dynamics",
+      "formula": "sum_{e=4}^m 2^(m-e) = 2^(m-3) - 1",
+      "limit": "(2^(m-3)-1)/2^m \u2192 1/8",
+      "package": "16f"
+    }
+  },
+  "representative_vs_fiber": {
+    "fiber": "infinitely many x in C_e realize fiberE e",
+    "representative": "exists unique b < 2^(e+9) with IsCanonicalSeed e b"
+  },
+  "C_to_A_semantics": "constructive proof goal awaiting Lean discharge; not unpaid empirical hypothesis",
+  "base": "cursor/canonical-seed-lifting-4007",
+  "packages": {
+    "16a": {
+      "status": "C\u2192A",
+      "content": "canonicalBase_realizes_of_one_le (e\u22651)"
+    },
+    "16b": {
+      "status": "C\u2192A",
+      "content": "mem_canonicalCylinder_iff_realizes_fiberE"
+    },
+    "16c": {
+      "status": "C\u2192A",
+      "content": "tailExponent_unique and disjointness"
+    },
+    "16d": {
+      "status": "C\u2192A",
+      "content": "Core6 partition and C1\u2294C2\u2294C3 complement"
+    },
+    "16e": {
+      "status": "C\u2192A",
+      "content": "expansion e\u22643 vs contraction e\u22654"
+    },
+    "16f": {
+      "status": "C\u2192A",
+      "content": "finite count mod 2^(m+9) then relative dyadic density 1/8",
+      "packaged": true,
+      "theorems": [
+        "fiberIndexMap_lt_commonModulus",
+        "fiberResidues_card",
+        "fiberResidues_disjoint",
+        "contractingResidues_card",
+        "core6Residues_card",
+        "contractingResidues_subset_core6Residues",
+        "contractingResidues_dyadicProportion",
+        "contractingResidues_dyadicDensity_error",
+        "contractingResidues_tendsto_dyadicDensity",
+        "finiteDyadicContractingCountGoal"
+      ],
+      "cardinality": "|R_m^contr| = 2^(m-3) - 1",
+      "core6_denominator": "|R_m^Core6| = 2^m via core6Residues Finset",
+      "b_Core6": "core6LiftBase = canonicalBase 4 % 2^9 (not canonicalBase 6)",
+      "inclusion": "contractingResidues m \u2286 core6Residues m",
+      "tendsto": "contractingResidues_tendsto_dyadicDensity on Real",
+      "density_kind": "relative dyadic density along Q_m = 2^(m+9); not yet natural density"
+    }
+  },
+  "claims_freeze": false,
+  "quotient_interface": "C_e \u2194 [b_e] in N / 2^(e+9)N with b_e = canonicalBase(e)",
+  "governance_cascade": [
+    {
+      "stage": 1,
+      "content": "unique coordinate b_e and lifting",
+      "status": "A",
+      "where": "PR15"
+    },
+    {
+      "stage": 2,
+      "content": "local equivalence Nat \u2243 {n | n in C_e} via fiberIndexEquiv",
+      "status": "C\u2192A",
+      "where": "packaged; promote after CI"
+    },
+    {
+      "stage": 3,
+      "content": "disjointness e \u2260 f \u21d2 C_e \u2229 C_f = \u2205",
+      "status": "C\u2192A",
+      "where": "PR16c"
+    },
+    {
+      "stage": 4,
+      "content": "Core6 partition (C1\u2294C2\u2294C3) \u2294 sqcup_{e\u22654} C_e",
+      "status": "C\u2192A",
+      "where": "PR16d"
+    },
+    {
+      "stage": 5,
+      "content": "finite module count sum 2^(m-e) = 2^(m-3)-1 \u2192 relative dyadic density 1/8",
+      "status": "C\u2192A",
+      "where": "PR16f packaged; promote after CI"
+    },
+    {
+      "stage": 6,
+      "content": "dynamic feed-in",
+      "status": "C",
+      "where": "follow-up"
+    }
+  ],
+  "next_process_step": "PR16 CI green + review/merge promotes candidates from C\u2192A to repo-of-record A",
+  "triple_object_clarity": {
+    "coordinate": "b_e = canonicalBase(e) in [0, 2^(e+9))",
+    "quotient_class": "[b_e] in N/2^(e+9)N",
+    "preimage_fiber": "C_e = pi_e^{-1}([b_e]) subset N",
+    "inequality": "b_e in C_e AND [b_e] \u2260 {b_e} AND C_e \u2260 {b_e}",
+    "projection": "pi_e : N \u2192 N/2^(e+9)N"
+  },
+  "theorem_vs_process": {
+    "PR15": {
+      "head": "6004d2b",
+      "theorem": "A",
+      "process": "CI green; draft; unmerged"
+    },
+    "PR16": {
+      "head": "branch HEAD",
+      "theorem": "C\u2192A",
+      "process": "CI queued; draft; mergeable; 16f contractingResidues packaged"
+    },
+    "followup": {
+      "theorem": "C",
+      "process": "research front; dynamic / trajectorial"
+    }
+  },
+  "immunization": [
+    "no type collapse: Nat \u2260 ZMod \u2260 Set Nat",
+    "no uniqueness collapse: unique representative \u2260 unique realizer",
+    "no scope collapse: local fiber structure \u2260 inter-fiber density \u2260 orbit feed-in [C]",
+    "no static/dynamic collapse: PR16 residue combinatorics \u2260 Follow-up reachability"
+  ],
+  "lean_types": {
+    "representative": "canonicalBase e : Nat",
+    "quotient_element": "residueMap e (canonicalBase e) : ZMod (seedModulus e)",
+    "preimage_fiber": "canonicalCylinder e : Set Nat"
+  },
+  "kernel_defs": {
+    "residueMap": "Nat \u2192 ZMod (seedModulus e)",
+    "canonicalCylinder": "residueMap e \u207b\u00b9' {residueMap e (canonicalBase e)}",
+    "canonicalCylinder_eq_ap": "AP presentation = ZMod preimage (C\u2192A candidate)"
+  },
+  "canonicalCylinder_eq_ap": {
+    "kind": "extensional Set.ext equality in Set Nat",
+    "not": "isomorphism of distinct spaces",
+    "statement": "canonicalCylinder e = canonicalCylinderAP e",
+    "status": "C\u2192A candidate on branch; promote after CI+review+merge"
+  },
+  "uniqueness_layers": {
+    "1_representative": {
+      "statement": "existsUnique b < M_e, IsCanonicalSeed e b",
+      "status": "A",
+      "where": "PR15"
+    },
+    "2_fiber_extensionality": {
+      "statement": "canonicalCylinder e = canonicalCylinderAP e",
+      "kind": "Set.ext in Set Nat",
+      "status": "C\u2192A"
+    },
+    "3_index_uniqueness": {
+      "statement": "n in C_e \u21d2 existsUnique k, n = b_e + k*M_e",
+      "theorems": [
+        "canonicalCylinderAP_div_eq_index",
+        "existsUnique_index_of_mem_canonicalCylinderAP"
+      ],
+      "avoids": "truncated Nat.sub",
+      "status": "C\u2192A"
+    }
+  },
+  "promotion_rule": "candidate \u2227 CI green \u2227 review \u2227 merge \u21d2 C\u2192A \u2192 A",
+  "kernel_vs_repo_A": {
+    "kernel": "builds locally / type-correct",
+    "repo_A": "CI green \u2227 review \u2227 merge",
+    "note": "candidate may be kernel-valid while still C\u2192A in the Evidence Register"
+  },
+  "fiberIndexEquiv": {
+    "status": "C\u2192A",
+    "type": "Nat \u2243 {n // n \u2208 canonicalCylinder e}",
+    "meaning": "C_e \u2243 \u2115",
+    "theorems": [
+      "fiberIndexMap_injective",
+      "range_fiberIndexMap_eq_canonicalCylinderAP",
+      "range_fiberIndexMap_eq_canonicalCylinder",
+      "fiberIndexEquiv"
+    ],
+    "note": "local fiber coordinate; density 1/8 still needs joint modulus counting"
+  },
+  "local_vs_global": {
+    "local": "fiberIndexEquiv: C_e \u2243 Nat; fixed M_e; both in PR16",
+    "inter_fiber": "disjointness + common ZMod 2^(m+9) residue sum for density 1/8; package 16f; still PR16 static",
+    "dynamic_followup": "C1\u222aC2\u222aC3 \u2192 union e\u22654 is Follow-up [C], not PR16"
+  }
+}

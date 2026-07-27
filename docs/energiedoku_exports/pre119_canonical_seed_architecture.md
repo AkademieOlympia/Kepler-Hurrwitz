@@ -50,6 +50,12 @@ uniformen Familie zur geschlossenen Aussage `∀ e ≥ 4` vereinigt.
 
 Instanzen `e ∈ {5,…,9}` sind Korollare der uniformen Familie; `e = 4` nicht.
 
+## Präzision: Repräsentant vs. Faser
+
+* **Unendliche Faser:** jedes `x ∈ C_e` realisiert `fiberE e` — unendlich viele Realisierer.
+* **Eindeutigkeit im Modul:** `∃! b < 2^{e+9}, IsCanonicalSeed e b`
+  (kanonischer Repräsentant unterhalb der Modulschranke), nicht Eindeutigkeit der ganzen Faser.
+
 ## Präzision: mathematisch bestimmt ≠ ausführbar
 
 `canonicalBase` ist `noncomputable` via `Classical.choose`.
@@ -70,30 +76,29 @@ ist orthogonal zur Lifting-Beweisschuld (Folgearbeit, nicht PR #15).
 nicht der Anfang einer vermuteten unendlichen Wertetabelle.
 `canonicalBase_eq_classBase` hält die Gleichheit genau im Zensusfenster fest.
 
-## Coverage (exakte dyadische Antwort)
+## Coverage (documented expectations — not Lean partition theorems in PR #15)
 
 Sei `C_e = { canonicalBase(e) + k·2^{e+9} : k ∈ ℕ }` (eine Restklasse,
-da `classPeriod e = 2^{e+9}`). Für `e ≠ f` sind `C_e` und `C_f` disjunkt
-(verschiedene exakte siebte Bewertungen nach demselben Core6-Präfix).
+da `classPeriod e = 2^{e+9}`). Erwartete Dichten:
 
 | Aussage | Wert |
 |---------|------|
 | `d(C_e)` | `2^{-(e+9)}` |
-| `d(⋃_{e≥5} C_e)` | `∑_{e≥5} 2^{-(e+9)} = 1/8192` |
-| relativ unter Ungeraden | `(1/8192)/(1/2) = 1/4096` |
-| Core6-Zylinder-Dichte | `2^{-9} = 1/512` |
-| Anteil `e≥5` im Core6-Zylinder | `(1/8192)/(1/512) = 1/16` |
-| Anteil `e≥4` im Core6-Zylinder | `(1/4096)/(1/512) = 1/8` |
+| `d(⋃_{e≥5} C_e)` | `1/8192` |
+| Anteil `e≥4` im Core6-Zylinder | `1/8` |
 
-Endlich-dyadisch: für `5 ≤ e ≤ m` enthält die Vereinigung modulo `2^{m+9}` genau
-`∑_{e=5}^{m} 2^{m-e} = 2^{m-4}-1` Restklassenpunkte, also Dichte
-`1/8192 - 1/2^{m+9}`.
+## Dreiphasige Projektmatrix
 
-**Forschungsfront nach Lifting-Abschluss:** nicht „Coverage untersuchen“,
-sondern die **exakte dyadische Partition des Core6-Zylinders** beweisen
-(Folge-PR #16: Disjunktheit, endliche Zählung, relative Dichte).
-Danach: weitere Valuationswörter / Preimage-Abschluss / Zuführungsbrücke —
-das Lifting-Problem ist geschlossen; das Zylinder-Überdeckungsproblem beginnt.
+| Phase | Label | Inhalt |
+|-------|-------|--------|
+| **PR #15** | **`[A]`** | Algebraische Existenz & unendliches Lifting (`e≥4`) |
+| **PR #16** | **`[C→A]`** | Kombinatorische Zerlegung & Restklassen-Dichte (deduktive Lean-Schuld der PR-#15-Algebra; **keine** externe Axiomen-/Datenschuld) |
+| **Folge** | **`[C]`** | Globale Dynamik: Zuführung `C_1∪C_2∪C_3 → ⋃_{e≥4} C_e` |
+
+**PR #16 Leiter (sämtlich `[C→A]` bis Promotion):** 16a–16f
+(Realisierung `e≥1` → Faseridentifikation → Disjunktheit → Partition/Komplement
+→ Dichotomie Expansion/Kontraktion → endliche Abzählung). Dichte ist spätere
+Ablesung. **Nicht** mit dem Repo-`[A]`-Status von PR #15 verwechseln.
 
 ## Module
 
