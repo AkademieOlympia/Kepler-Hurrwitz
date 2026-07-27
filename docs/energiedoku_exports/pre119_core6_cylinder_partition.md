@@ -74,6 +74,15 @@ canonicalCylinderAP e : Set Nat
 | 2. Fasergleichheit | `canonicalCylinder e = canonicalCylinderAP e` | `Set.ext` in `Set Nat` — `[C→A]` |
 | 3. Indexeindeutigkeit | `n ∈ C_e ⇒ ∃! k, n = b_e + k·M_e` | Offset via `/` without `Nat.sub` — `[C→A]` |
 
+Global coordinates for `n ∈ C_e`:
+
+$$
+n \longleftrightarrow (e,k),\qquad n = b_e + k M_e,
+$$
+
+with `e` the fiber/tail coordinate, `b_e` the canonical representative, and `k` the
+position inside the fiber (`Φ_e : k ↦ b_e + k M_e` = `fiberIndexMap`).
+
 ### Kernel-Beweisbarkeit ≠ Repository-Status `[A]`
 
 | | Kernel-Beweisbarkeit | Repository-Status `[A]` |
