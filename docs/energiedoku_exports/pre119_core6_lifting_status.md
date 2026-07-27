@@ -35,7 +35,9 @@ Module: `Core6Lifting.lean`, `FiberWordAffine.lean`, `Core6InfiniteLifting.lean`
 | `realizedImage_mul_pow` / `contracts_of_wordC_lt` | `[A]` |
 | `InfiniteApLiftingHypothesis e` für `e=4..7` | `[A]` (entladen) |
 | `InfiniteApLiftingHypothesis 8` | `[A]` Integrationsprobe (Seed+Margin, gleicher Kern) |
-| `∀ e ≥ 8` / Packaging / Zylinder-API | **nicht** Gegenstand von PR #13 (`[C]`) |
+| `InfiniteApLiftingHypothesis` für konkretes `e≥9` | `[C]` (nächste Instanz) |
+| `InfiniteApLiftingHypothesis_forall_e_ge_8` | `[C]` uniformes Familienziel |
+| Packaging / Zylinder-API | Folge-PR; **nicht** Gegenstand von PR #13 |
 
 ## Architektur
 
