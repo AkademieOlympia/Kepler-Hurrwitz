@@ -104,7 +104,7 @@ $$
 with `e` the fiber/tail coordinate, `b_e` the canonical representative, and `k` the
 position inside the fiber (`Φ_e : k ↦ b_e + k M_e` = `fiberIndexMap`).
 
-Packaged on the branch (`[C→A]` until CI/merge); feat `0e26b12`, tip `377c104`:
+Packaged on the branch (`[C→A]` until CI/merge); feat `0e26b12` (branch tip = HEAD):
 - `fiberIndexMap_injective`
 - `range_fiberIndexMap_eq_canonicalCylinderAP` / `…_eq_canonicalCylinder`
 - **`fiberIndexEquiv : Nat ≃ {n // n ∈ canonicalCylinder e}`**  ⇒  `C_e ≃ ℕ`
@@ -143,7 +143,7 @@ and in-scope for PR #16. Dynamical feed-in remains Follow-up `[C]`.
 | PR | Head | Theoremstatus | Process-Status |
 |----|------|---------------|----------------|
 | **#15** | `6004d2b` | **`[A]`** lokale Faser-Existenz & Lifting | CI grün (Lean/Evidence/QG) · Draft · ungemergt |
-| **#16** | `377c104` | **`[C→A]`** Inter-Faser-Zerlegung & kombinatorische Dichte | CI queued · Draft · mergeable |
+| **#16** | branch HEAD | **`[C→A]`** Inter-Faser-Zerlegung & kombinatorische Dichte | CI queued · Draft · mergeable |
 | Folge | — | **`[C]`** dynamische Zuführung / Orbit-Trajektorien | Forschungsfront |
 
 ## Immunisierung gegen Kategorienfehler
@@ -153,7 +153,7 @@ and in-scope for PR #16. Dynamical feed-in remains Follow-up `[C]`.
 3. **Scope-Kollaps vermieden:** lokale Faserstruktur ≠ Inter-Faser-Dichte ≠ Orbit-Zuführung `[C]`.
 4. **Statik/Dynamik-Kollaps vermieden:** PR #16 residue combinatorics ≠ Follow-up reachability.
 
-## Final governance cascade (head `377c104`)
+## Final governance cascade (PR #16 branch HEAD)
 
 | Stufe | Inhalt | Status |
 |-------|--------|--------|
