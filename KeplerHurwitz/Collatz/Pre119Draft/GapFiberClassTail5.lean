@@ -16,7 +16,8 @@ first-good-Wort. Sie bilden die AP
 Dieses Modul verankert unter `[A]`:
 - Güte der Klassenfaser,
 - den kanonischen Repräsentanten `n=10783`,
-- einen finiten Pilot-Pack `k ∈ {0..7}` entlang der AP.
+- Pilot-Pack `k ∈ {0..7}`,
+- **Vollzensus** `∀ k < 128` (`tail5_forall_k_lt_128`).
 
 Kein CoverUpTo / ∀n / Collatz-Claim. ClaimsFreeze false. 0 sorry.
 -/
@@ -123,9 +124,31 @@ theorem tail5_class_pilot_pack :
     realizes_tail5_k6, contracts_tail5_k6,
     realizes_tail5_k7, contracts_tail5_k7⟩
 
-/-- Offline census marker (not a proof of the count): period `2^14`, base `10783`. -/
+/-- Offline census marker: period `2^14`, base `10783`, count `128` below `2^21`. -/
 def tail5ClassPeriod : Nat := 2 ^ 14
 def tail5ClassBase : Nat := 10783
-def tail5ClassCountBelow2pow21_offline : Nat := 128
+def tail5ClassCountBelow2pow21 : Nat := 128
+
+/-! ### Full AP census under `[A]`: all `k < 128` -/
+
+/--
+`[A]` Every index `k : Fin 128` yields a realizing, contracting Tail-5 member.
+Closes the offline 128-census in the kernel (finite, not ∀n).
+-/
+theorem tail5_forall_fin128 :
+    ∀ k : Fin 128,
+      RealizesWord fiberE_tail5 (tail5ClassMember k.val) ∧
+        realizedImage (tail5ClassMember k.val) fiberE_tail5 <
+          tail5ClassMember k.val := by
+  native_decide
+
+/-- `[A]` Same census as a `Nat`-bounded universal. -/
+theorem tail5_forall_k_lt_128 {k : Nat} (hk : k < 128) :
+    RealizesWord fiberE_tail5 (tail5ClassMember k) ∧
+      realizedImage (tail5ClassMember k) fiberE_tail5 < tail5ClassMember k :=
+  tail5_forall_fin128 ⟨k, hk⟩
+
+theorem tail5ClassCountBelow2pow21_eq :
+    tail5ClassCountBelow2pow21 = 128 := rfl
 
 end KeplerHurwitz.Collatz.Pre119Draft.GapFiberClassTail5
