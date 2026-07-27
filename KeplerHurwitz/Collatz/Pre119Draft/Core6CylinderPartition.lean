@@ -126,20 +126,25 @@ theorem seedModulus_eq_sum_succ (e : Nat) :
 /--
 `[C→A]` Index uniqueness for fixed `n` in the AP presentation: Euclidean division
 recovers `k` without invoking truncated `Nat.sub`.
-Uses `b_e < M_e` from PR #15 (`canonicalBase_lt`).
+Uses `canonicalBase_lt e` from PR #15 internally.
 -/
 theorem canonicalCylinderAP_div_eq_index {e n k : Nat}
-    (hb : canonicalBase e < seedModulus e)
     (hk : n = canonicalBase e + k * seedModulus e) :
     n / seedModulus e = k := by
-  subst hk
   have hM : 0 < seedModulus e := seedModulus_pos e
-  have hdiv := Nat.add_mul_div_right (canonicalBase e) k hM
+  have hb : canonicalBase e < seedModulus e := canonicalBase_lt e
   have hb0 : canonicalBase e / seedModulus e = 0 := Nat.div_eq_of_lt hb
-  omega
+  calc
+    n / seedModulus e
+        = (canonicalBase e + k * seedModulus e) / seedModulus e := by rw [hk]
+    _ = canonicalBase e / seedModulus e + k :=
+          Nat.add_mul_div_right (canonicalBase e) k hM
+    _ = 0 + k := by rw [hb0]
+    _ = k := by simp
 
 /--
 `[C→A]` For each `n` in the AP cylinder there is a unique offset index `k`.
+This is bijectivity of `Φ_e : k ↦ b_e + k·M_e` on the element level.
 -/
 theorem existsUnique_index_of_mem_canonicalCylinderAP {e n : Nat}
     (hn : n ∈ canonicalCylinderAP e) :
@@ -147,9 +152,21 @@ theorem existsUnique_index_of_mem_canonicalCylinderAP {e n : Nat}
   obtain ⟨k, hk⟩ := hn
   refine ExistsUnique.intro k hk ?_
   intro k' hk'
-  have h1 := canonicalCylinderAP_div_eq_index (canonicalBase_lt e) hk
-  have h2 := canonicalCylinderAP_div_eq_index (canonicalBase_lt e) hk'
+  have h1 := canonicalCylinderAP_div_eq_index hk
+  have h2 := canonicalCylinderAP_div_eq_index hk'
   omega
+
+/-- Parametrization of the AP cylinder by the fiber index `k`. -/
+noncomputable def fiberIndexMap (e k : Nat) : Nat :=
+  canonicalBase e + k * seedModulus e
+
+theorem fiberIndexMap_mem (e k : Nat) :
+    fiberIndexMap e k ∈ canonicalCylinderAP e :=
+  ⟨k, rfl⟩
+
+theorem fiberIndexMap_div (e k : Nat) :
+    fiberIndexMap e k / seedModulus e = k :=
+  canonicalCylinderAP_div_eq_index rfl
 
 /-- Odd affine quotient on `fiberE e` yields the canonical seed congruence. -/
 theorem modEq_of_affineOddQuotient_fiberE {e n : Nat}
