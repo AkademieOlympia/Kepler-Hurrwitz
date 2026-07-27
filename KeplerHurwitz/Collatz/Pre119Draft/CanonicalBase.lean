@@ -237,8 +237,8 @@ theorem canonicalBase_affineOddQuotient (e : Nat) :
           rw [hlen, hC]
 
 /--
-`[A]` The canonical seed realizes `fiberE e` for every `e ≥ 1`
-(realization only — not contraction; margin/contraction still needs `e ≥ 4`/`e ≥ 5`).
+`[C→A]` Candidate (PR #16; not PR #15 `[A]` scope): the canonical seed realizes
+`fiberE e` for every `e ≥ 1` (realization only — not contraction).
 -/
 theorem canonicalBase_realizes_of_one_le {e : Nat} (he : 1 ≤ e) :
     RealizesWord (fiberE e) (canonicalBase e) :=

@@ -9,25 +9,30 @@ set_option linter.style.nativeDecide false
 /-!
 # Pre119Draft — Core6CylinderPartition (PR #16)
 
-Coverage & partition bridge after the infinite lifting channel (PR #15).
+**Epistemic wall:**
+- Repo-of-record `[A]` stops at PR #15:
+  `∀ e ≥ 4, ∀ k, ApMemberOkFrom e (canonicalBase e) k`.
+- This file is the **target architecture** of PR #16. Candidate Lean may live on
+  branch `cursor/core6-cylinder-partition-4007`, but packages below stay
+  **`[C→A]`** until CI is green on PR #16 and the stack is merged. Do not read
+  them as trunk / PR #15 `[A]` claims.
 
-**Claim hierarchy (discharged status):**
+**Target ladder (status before accepted `[A]` promotion):**
+
 | Paket | Inhalt | Status |
 |-------|--------|--------|
-| 16a | AP = vollständige Realisierungsfaser (`e≥1`) | `[A]` |
-| 16b | `tailExponent_unique` + Disjunktheit | `[A]` |
-| 16c | vollständige Core6-Partition | `[A]` |
-| 16d | Komplement = `C_1 ∪ C_2 ∪ C_3` | `[A]` |
-| 16dδ | `e≤3` expandiert, `e≥4` kontraktiv (Phasengrenze) | `[A]` |
-| 16e | endliche Zählung und Dichte `1/8` | `[C→A]` |
-| danach | Zuführung der drei Expansionskanäle | `[C]` |
+| 16a | kanonische Realisierung für `e≥1` | `[C→A]` |
+| 16b | AP = vollständige Realisierungsfaser | `[C→A]` |
+| 16c | Tail-Eindeutigkeit und Disjunktheit | `[C→A]` |
+| 16d | Core6-Partition und Drei-Kanal-Komplement | `[C→A]` |
+| 16e | Expansion `e≤3` vs Kontraktion `e≥4` (kein konservierender Kanal) | `[C→A]` |
+| 16f | endlich-kombinatorische Zählung mod `2^{m+9}` | `[C→A]` |
+| danach | Zuführung `C_1,C_2,C_3` → kontraktive Familie | `[C]` |
 
-Struktursatz:
-`core6Cylinder = expandingCore6 ∪ contractingCore6` (disjoint),
-with expanding = `C_1 ⊔ C_2 ⊔ C_3`.
+Hard dichotomy (target): `e∈{1,2,3}` ⇒ image `> n`; `e≥4` ⇒ image `< n`.
+Density is a late reading of finite residue counts, not a foundation.
 
-Density/measure remains a late corollary of finite dyadic counting.
-No Collatz claim. ClaimsFreeze false. 0 sorry in discharged `[A]` parts.
+No Collatz claim. ClaimsFreeze false.
 -/
 
 namespace KeplerHurwitz.Collatz.Pre119Draft.Core6CylinderPartition
@@ -127,7 +132,7 @@ theorem realizes_of_mem_canonicalCylinder {e n : Nat} (he : 1 ≤ e)
   simpa [hper] using realizesWord_add_pow (E := fiberE e) (n := canonicalBase e) (k := k) hbase
 
 /--
-`[A]` Completeness bridge: the canonical AP is exactly the realization fiber of
+`[C→A]` Completeness bridge (PR #16 target): the canonical AP is exactly the realization fiber of
 `fiberE e` (for every positive tail exponent).
 -/
 theorem mem_canonicalCylinder_iff_realizes_fiberE {e n : Nat} (he : 1 ≤ e) :
@@ -167,7 +172,7 @@ theorem valuationStep_eq_of_realizes_singleton {e n : Nat}
   exact hval
 
 /--
-`[A]` The seventh (tail) exponent after a shared Core6 prefix is unique.
+`[C→A]` The seventh (tail) exponent after a shared Core6 prefix is unique.
 -/
 theorem tailExponent_unique {e f n : Nat}
     (he : RealizesWord (fiberE e) n)
@@ -181,7 +186,7 @@ theorem tailExponent_unique {e f n : Nat}
   exact hvale.symm.trans hvalf
 
 /--
-`[A]` Pairwise disjointness of canonical cylinders: a common start cannot realize
+`[C→A]` Pairwise disjointness of canonical cylinders: a common start cannot realize
 two distinct exact seventh valuations after the shared Core6 prefix.
 -/
 theorem canonicalCylinders_pairwise_disjoint {e f : Nat}
@@ -259,7 +264,7 @@ private theorem mem_smallTailCore6 {n : Nat} :
   simp [smallTailCore6, or_assoc]
 
 /--
-`[A]` Every Core6 realization has a unique positive tail exponent, and belongs to
+`[C→A]` Every Core6 realization has a unique positive tail exponent, and belongs to
 the corresponding canonical cylinder. Conversely every positive-tail cylinder
 lies in the Core6 cylinder.
 -/
@@ -290,11 +295,14 @@ theorem core6Cylinder_eq_iUnion_tailCylinders :
     rw [fiberE_eq_core6_concat] at hR
     exact ((realizesWord_append (E := core6) (F := [e])).1 hR).1
 
+/-
+Candidate discharge of partition goal (promotes to [A] only after CI/merge).
+-/
 theorem core6PartitionGoal : Core6PartitionGoal :=
   core6Cylinder_eq_iUnion_tailCylinders
 
 /--
-`[A]` The Core6 mass outside the contracting family `e ≥ 4` is exactly the three
+`[C→A]` The Core6 mass outside the contracting family `e ≥ 4` is exactly the three
 small channels `e ∈ {1,2,3}` — not a diffuse remainder.
 -/
 theorem core6_complement_contracting_eq_smallTails :
@@ -358,7 +366,7 @@ private theorem two_pow_lt_three_pow_seven_of_le_three {e : Nat}
   interval_cases e <;> native_decide
 
 /--
-`[A]` For tails `e ∈ {1,2,3}`, every realizing start is strictly expanding on the
+`[C→A]` For tails `e ∈ {1,2,3}`, every realizing start is strictly expanding on the
 seven-step Core6++[e] block (`2^{e+8} < 3^7`).
 -/
 theorem expands_fiberE_of_le_three {e n : Nat}
@@ -418,7 +426,7 @@ theorem expands_of_mem_smallTail {n : Nat} (hn : n ∈ smallTailCore6) :
         (realizes_of_mem_canonicalCylinder (by decide) h3)
 
 /--
-`[A]` Structural Core6 phase split:
+`[C→A]` Structural Core6 phase split:
 expanding channels `e=1,2,3` disjointly union the contracting family `e≥4`.
 -/
 theorem core6Cylinder_eq_expanding_disjoint_union_contracting :
