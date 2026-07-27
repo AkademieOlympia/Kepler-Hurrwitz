@@ -20,13 +20,25 @@ It must not reopen PR #16 mathematics.
 | pairwise cylinder disjointness | natural density on `ℕ` |
 | dyadic density `1/8` | Collatz convergence / “collapse” |
 
-## Open target (not discharged)
+## Open targets (not discharged)
+
+**Universal reachability** (`ReachabilityFeedInGoal`):
 
 $$
 \forall n \in C_1 \cup C_2 \cup C_3,\quad
 \exists\, t \ge 1:\
 U^{\circ t}(n) \in \bigcup_{e \ge 4} C_e.
 $$
+
+**One-block feed-in** (`OneBlockFeedInGoal`): after a full expanding
+`fiberE e₀` block (`e₀ ∈ {1,2,3}`), the image lies in the contracting mass.
+
+## Epistemic layers
+
+| Layer | Status |
+|-------|--------|
+| `ReachabilityFeedInGoal` / `OneBlockFeedInGoal` | `[C]` |
+| finite reproducible D1 census | `[B]` (supports/refutes; does not promote) |
 
 No Collatz claim. ClaimsFreeze false.
 -/
@@ -56,13 +68,22 @@ def contractingMass : Set Nat := contractingCore6
 /-! ### Open goals — `[C]` placeholders (no proofs) -/
 
 /--
-`[C]` Local one-step feed-in aspiration (may fail): after one Core6++ block,
-land in the contracting family. **Not** claimed for all expanding starts.
+`[C]` One-block feed-in: after the **full** expanding word `fiberE e₀`
+(`e₀ ∈ {1,2,3}`), the image lies in the contracting family.
+
+This is **not** “after the shared Core6 prefix alone”.
 -/
-def OneStepFeedInGoal : Prop :=
-  ∀ n ∈ expandingMass,
-    ∃ e : Nat, 4 ≤ e ∧
-      RealizesWord (fiberE e) (realizedImage n core6)
+def OneBlockFeedInGoal : Prop :=
+  ∀ e₀ : Nat, 1 ≤ e₀ → e₀ ≤ 3 →
+    ∀ n ∈ canonicalCylinder e₀,
+      realizedImage n (fiberE e₀) ∈ contractingMass
+
+/-- Equivalent packaging via an explicit target tail `e ≥ 4`. -/
+def OneBlockFeedInGoal_existsTail : Prop :=
+  ∀ e₀ : Nat, 1 ≤ e₀ → e₀ ≤ 3 →
+    ∀ n ∈ canonicalCylinder e₀,
+      ∃ e : Nat, 4 ≤ e ∧
+        realizedImage n (fiberE e₀) ∈ canonicalCylinder e
 
 /--
 `[C]` True dynamical target: some finite odd-iterate lands in a contracting cylinder.
@@ -76,7 +97,7 @@ def ReachabilityFeedInGoal : Prop :=
 Discharging either requires new dynamical arguments — not dyadic counting.
 -/
 structure Core6DynamicFeedInGoals : Prop where
-  oneStepOpen : OneStepFeedInGoal ∨ ¬OneStepFeedInGoal
+  oneBlockOpen : OneBlockFeedInGoal ∨ ¬OneBlockFeedInGoal
   reachabilityOpen : ReachabilityFeedInGoal ∨ ¬ReachabilityFeedInGoal
 
 /--
@@ -84,7 +105,7 @@ Trivial classical packaging of openness — **does not** prove feed-in.
 Exists only so the module builds and names the research contract.
 -/
 theorem core6DynamicFeedInGoals_named : Core6DynamicFeedInGoals where
-  oneStepOpen := Classical.em _
+  oneBlockOpen := Classical.em _
   reachabilityOpen := Classical.em _
 
 /-- Import hook: static certificate is available, unused for dynamics. -/
@@ -96,6 +117,7 @@ theorem staticCertificate_available : Core6StaticDyadicCertificate :=
 
 - `ReachabilityFeedInGoal` is **not** a corollary of `core6StaticDyadicCertificate`.
 - Dyadic density `1/8` is **not** a hitting probability for expanding channels.
+- A finite D1 census (`[B]`) never upgrades these goals to `[C→A]` / `[A]`.
 - No collapse / global Collatz statement is in scope.
 -/
 

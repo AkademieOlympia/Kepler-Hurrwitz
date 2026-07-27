@@ -16,40 +16,96 @@ $$
 \exists\, t \ge 1:\ U^{\circ t}(n) \in \bigcup_{e \ge 4} C_e.
 $$
 
-## Invariants inherited from PR #16 (may import)
+## Lean open goals (D0 corrected)
 
-- Phase split `expandingCore6 ⊔ contractingCore6`
-- Disjoint cylinders / tail uniqueness
-- Finite dyadic density → `1/8` (**relative**, not natural density)
+| Goal | Meaning | Status |
+|------|---------|--------|
+| `OneBlockFeedInGoal` | after full `fiberE e₀` (`e₀∈{1,2,3}`), image ∈ contracting mass | `[C]` |
+| `ReachabilityFeedInGoal` | some odd-iterate `t≥1` lands in contracting mass | `[C]` |
 
-## Forbidden reinterpretations
+`OneBlockFeedInGoal` is **not** “after Core6 prefix alone”.
 
-| Static fact | Illegal dynamical reading |
-|-------------|---------------------------|
-| `#contr / #Core6 → 1/8` | “expanding starts hit contracting with rate 1/8” |
-| `R_m^contr ⊆ R_m^Core6` | “orbits eventually enter contracting fibers” |
+## Claim wall
+
+| Static fact (PR #16) | Illegal dynamical reading |
+|----------------------|---------------------------|
+| `#contr / #Core6 → 1/8` | hitting probability for expanding starts |
+| `R_m^contr ⊆ R_m^Core6` | orbits eventually enter contracting fibers |
 | `fiberIndexEquiv` | collapse / Collatz termination |
 
-## Experiment phases (proposed)
+## D1 — full dyadic census `[B]` (not a sample)
 
-| Phase | Content | Exit criterion |
-|-------|---------|----------------|
-| **D0** | Scaffold + claim wall (this commit) | module builds; goals named |
-| **D1** | Diagnostic census: sample expanding starts, track first contracting hit time | `[B]` tables / notebooks only |
-| **D2** | Formal one-block image lemmas for `e∈{1,2,3}` (expansion already in 16e) | local Lean lemmas, still `[C]` for feed-in |
-| **D3** | Candidate sufficient conditions for feed-in (e.g. after `k` Core6 blocks) | `[C→A]` only if kernel-discharged |
-| **D4** | Full `ReachabilityFeedInGoal` | `[A]` only after CI∧review∧merge |
+For stage `m ≥ 3`, enumerate **all** expanding residues at `Q_m = 2^{m+9}`:
 
-## Success / failure modes
+$$
+n=\Phi_{e_0}(k)=b_{e_0}+k\cdot 2^{e_0+9},\qquad
+e_0\in\{1,2,3\},\qquad
+0\le k<2^{m-e_0}.
+$$
 
-- **Success:** a kernel proof of `ReachabilityFeedInGoal` (or a precise weakening) under the claim wall.
-- **Partial success:** proved feed-in on a positive-measure / dyadic subclass of expanding residues — still not natural density unless bridged.
-- **Failure / defer:** keep `[C]`; do not smuggle progress into PR #16 registers.
+Expected start count: \(2^{m-1}+2^{m-2}+2^{m-3}\).
 
-## Definition of Done for this experiment PR (scaffold)
+For each start, compute
+
+$$
+\tau_T(n)=\min\{t\in\{1,\ldots,T\}:U^{\circ t}(n)\in\mathrm{contractingMass}\}
+$$
+
+or mark **censored at horizon `T`** if empty. Censoring ≠ counterexample.
+
+### Required fields
+
+| Field | Meaning |
+|-------|---------|
+| `stage_m` | dyadic stage |
+| `source_e` | `e₀ ∈ {1,2,3}` |
+| `source_k` | index in `Φ_{e₀}` |
+| `start_n` | concrete start |
+| `hit` | contracting mass reached by `T`? |
+| `first_hit_t` | minimal hit time |
+| `target_e` | hit tail `e≥4` |
+| `censored_at` | `T` if no hit |
+| `valuation_trace` | observed `ν₂(3n+1)` along the search |
+| `one_block_hit` | image after full `fiberE e₀` already contracting? |
+| `one_block_target_e` | tail after one block (if hit) |
+
+### Script
+
+```bash
+PYTHONPATH=. python scripts/core6_dynamic_feed_in_d1_census.py --m 8 --T 64 \
+  --jsonl /tmp/d1.jsonl --summary /tmp/d1_summary.json
+```
+
+Built-in sanity checks: source-fiber membership, unique starts, verified hits,
+minimal hit time, reproducible `param_hash`.
+
+### Epistemic status of D1
+
+$$
+\boxed{
+\begin{array}{rcl}
+\text{Reachability / OneBlock goals} &:& [C],\\
+\text{finite reproducible census} &:& [B].
+\end{array}}
+$$
+
+Even 100% hits for all tested `m ≤ m_max` only proves the property on the
+finite set `S_{m_max}`, not the universal Lean statements.
+
+## Experiment ladder
+
+| Phase | Content | Exit |
+|-------|---------|------|
+| **D0** | definitions, claim wall, open goals | module builds |
+| **D1** | full dyadic census `[B]` | reproducible tables + sanity OK |
+| **D2** | exact image formulas for `C_1,C_2,C_3` | Lean lemmas (feed-in still `[C]`) |
+| **D3** | sufficient feed-in conditions | possible `[C→A]` fragments |
+| **D4** | universal reachability | `[A]` only after CI∧review∧merge |
+
+## Definition of Done (scaffold / D1-spec)
 
 1. Separate branch/PR from PR #16 freeze.  
-2. Module builds.  
-3. Goals named; no `sorry` discharge of reachability.  
-4. Docs + JSON register declare `[C]` and exclusions.  
+2. `OneBlockFeedInGoal` matches the measured one-block event.  
+3. D1 script enumerates full stages (not random samples).  
+4. Docs + JSON declare `[C]` goals vs `[B]` census.  
 5. No change to PR #16 mathematical freeze SHAs.

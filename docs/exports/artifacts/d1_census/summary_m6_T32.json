@@ -1,0 +1,46 @@
+{
+  "Q_m": 32768,
+  "by_source_e": {
+    "1": {
+      "censored": 31,
+      "hit_times": [
+        10
+      ],
+      "hits": 1,
+      "one_block_hits": 0,
+      "starts": 32,
+      "target_e_counts": {
+        "4": 1
+      }
+    },
+    "2": {
+      "censored": 15,
+      "hit_times": [
+        28
+      ],
+      "hits": 1,
+      "one_block_hits": 0,
+      "starts": 16,
+      "target_e_counts": {
+        "7": 1
+      }
+    },
+    "3": {
+      "censored": 8,
+      "hit_times": [],
+      "hits": 0,
+      "one_block_hits": 0,
+      "starts": 8,
+      "target_e_counts": {}
+    }
+  },
+  "epistemic": "[B] finite census \u2014 does not discharge [C] goals",
+  "expected_starts": 56,
+  "horizon_T": 32,
+  "param_hash": "ccd46f0393bb72e4",
+  "stage_m": 6,
+  "total_censored": 54,
+  "total_hits": 2,
+  "total_one_block_hits": 0,
+  "total_starts": 56
+}

@@ -5,22 +5,45 @@
   "base": "cursor/core6-cylinder-partition-4007",
   "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicFeedIn",
   "plan": "docs/energiedoku_exports/pre119_core6_dynamic_feed_in_experiment.md",
-  "open_goals": [
-    "OneStepFeedInGoal",
-    "ReachabilityFeedInGoal"
-  ],
+  "census_script": "scripts/core6_dynamic_feed_in_d1_census.py",
+  "open_goals": {
+    "OneBlockFeedInGoal": {
+      "status": "C",
+      "meaning": "after full fiberE e0 (e0 in {1,2,3}), image in contractingMass"
+    },
+    "ReachabilityFeedInGoal": {
+      "status": "C",
+      "meaning": "some odd iterate t>=1 lands in contractingMass"
+    }
+  },
+  "D1_census": {
+    "status": "B",
+    "kind": "full_dyadic_not_sample",
+    "starts": "n = Phi_e0(k), e0 in {1,2,3}, 0 <= k < 2^(m-e0)",
+    "expected_start_count": "2^(m-1)+2^(m-2)+2^(m-3)",
+    "horizon": "T odd iterates; censor if no hit",
+    "note": "100% hits up to m_max do not discharge universal [C] goals"
+  },
   "imports_from_PR16": [
     "core6StaticDyadicCertificate",
     "expandingCore6",
-    "contractingCore6"
+    "contractingCore6",
+    "canonicalCylinder",
+    "fiberIndexMap"
   ],
   "claim_wall": {
     "relative_dyadic_density_from_PR16": "importable, not a hitting probability",
     "natural_density": false,
     "global_collatz": false,
-    "reachability": "open [C]"
+    "reachability": "open [C]",
+    "census_is_not_proof": true
   },
-  "phases": ["D0_scaffold", "D1_census", "D2_one_block", "D3_sufficient", "D4_full_reachability"],
-  "claims_freeze": false,
-  "note": "Organized as next experiment after PR #16 static freeze; no discharge yet."
+  "phases": [
+    "D0_scaffold",
+    "D1_full_census_B",
+    "D2_one_block_images",
+    "D3_sufficient",
+    "D4_full_reachability"
+  ],
+  "claims_freeze": false
 }
