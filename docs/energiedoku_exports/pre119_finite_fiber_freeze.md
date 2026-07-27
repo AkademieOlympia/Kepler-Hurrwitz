@@ -32,7 +32,8 @@ dominantesten Core-6-Single-Step-Endklassen unter \(2^{21}\), plus Short-Pack-1.
 Dieser Freeze ist **kein** Collatz-Beweis und **keine** unendliche Zylinder-Partition.
 Er schließt nur die dokumentierte finite Sample-/Klassen-Front unter `[A]`.
 
-## Empfohlener nächster mathematischer Keil (nach dem Freeze)
+## Schema-Keil (nachgezogen)
 
-Schema-Lemma: jedes gute Wort `Core6 ++ [e]` erzeugt eine AP-Klasse mit Periode
-\(2^{S}\) — Generatorsatz statt weiterer Einzelzensus-Module.
+`Core6SingleStepSchema.lean`: Güte für alle `e≥4`, Periode \(2^{S+1}\),
+Vollzensus-Brücken e=4..7 (480 Mitglieder). Siehe
+`pre119_core6_single_step_schema_status.md`.
