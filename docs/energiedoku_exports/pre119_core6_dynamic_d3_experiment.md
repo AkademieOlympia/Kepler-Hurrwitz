@@ -60,8 +60,7 @@ Residual = FiniteBlockExit ∪̇ ForeverExpandingBoundary
 
 It is **not** a Lean statement and **not** a mathematical result in PR #18.
 `OffCore6ReentryGoal` covers only the depth-1 exit class and is **not** a
-substitute for `ResidualFeedInGoal`. Follow-up branch prefix:
-`cursor/core6-dynamic-d34-residual-4007`.
+substitute for `ResidualFeedInGoal`. Follow-up branch: `cursor/core6-dynamic-d34-residual-2ed1` (D3.4 dichotomy delivered; see `pre119_core6_dynamic_d34_experiment.md`).
 
 ## Non-goals on this tip
 

@@ -1,0 +1,39 @@
+{
+  "experiment": "Core6DynamicD34",
+  "branch": "cursor/core6-dynamic-d34-residual-2ed1",
+  "base": "cursor/core6-dynamic-d3-4007",
+  "base_d3_3_math_freeze_head": "24bd5c83718da11c9ec2bfa8962de331be117369",
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicD34",
+  "plan": "docs/energiedoku_exports/pre119_core6_dynamic_d34_experiment.md",
+  "audit": "docs/exports/pre119_core6_dynamic_d34_closure_audit.md",
+  "manuscript_de": "docs/manuscripts/pre119_core6_residualdynamik.de.tex",
+  "status_wall": {
+    "PR15_16": "A-path after stack merge/promotion",
+    "PR17_18": "C→A",
+    "D3_4_residual_dichotomy": "C→A",
+    "ResidualFeedInGoal": "C",
+    "OffCore6ReentryGoal": "C",
+    "ForeverExp_exclusion": "C",
+    "ReachabilityFeedInGoal": "C",
+    "collapse": false
+  },
+  "governance_sequence": [
+    "await_CI_green",
+    "review_manuscript_and_lean",
+    "merge_onto_accepted_d33_base_stack_order",
+    "separate_promotion_commit_C_to_A",
+    "open_D4_follow_up_for_dynamics"
+  ],
+  "delivered": [
+    "finiteBlockExitSet",
+    "foreverExpandingBoundarySet",
+    "oneBlockOffCore6Set_subset_finiteBlockExitSet",
+    "mem_finiteBlockExitSet_one_31",
+    "finiteBlockExitSet_subset_core6PathResidualSet",
+    "foreverExpandingBoundarySet_subset_core6PathResidualSet",
+    "disjoint_finiteBlockExit_foreverExpanding",
+    "core6PathResidualSet_eq_finiteBlockExit_union_forever",
+    "core6DynamicD34ResidualGoals_named"
+  ],
+  "claims_freeze": false
+}

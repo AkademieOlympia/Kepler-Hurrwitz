@@ -1,0 +1,680 @@
+% !TEX program = pdflatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{lmodern}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=blue!50!black
+}
+
+\newtheorem{theorem}{Satz}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothese}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Bemerkung}
+
+\newcommand{\Lean}{\textsc{Lean}\,4}
+\newcommand{\CA}{\ensuremath{[\mathrm{C}\!\to\!\mathrm{A}]}}
+\newcommand{\tagA}{\ensuremath{[\mathrm{A}]}}
+\newcommand{\tagB}{\ensuremath{[\mathrm{B}]}}
+\newcommand{\tagC}{\ensuremath{[\mathrm{C}]}}
+% Kurznamen in Formeln; Lean-Identifikatoren im Fließtext.
+\newcommand{\FeedIn}{\mathrm{FeedIn}}
+\newcommand{\Residual}{\mathrm{Residual}}
+\newcommand{\FiniteExit}{\mathrm{FiniteExit}}
+\newcommand{\Forever}{\mathrm{ForeverExp}}
+\newcommand{\Umap}{U}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\AP}{\mathrm{AP}}
+
+\title{%
+  Von der Collatz-Struktur zur Residualdynamik\\[0.35em]
+  \large Das Core6-Formalisierungsprogramm:\\
+  historischer Kontext, algebraische Reduktion\\
+  und die verbleibende dynamische Barriere
+}
+\author{%
+  Thomas Hofbauer\\
+  \small Bamberg / Akademie Olympia\\
+  \small\texttt{Kepler--Hurwitz}-Formalisierungsprogramm
+}
+\date{27.\ Juli 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Die Collatz-Vermutung bleibt eines der hartnäckigsten offenen Probleme der
+diskreten Mathematik. Seit ihrer Formulierung durch Lothar Collatz in den
+1930er Jahren widersteht sie Ansätzen von elementaren Kongruenzargumenten
+über probabilistische Dynamik bis hin zu großflächiger Rechnung.
+
+Dieser Artikel stellt ein Formalisierungsprogramm auf der Basis der
+Core6-Zylinderarchitektur vor. Ziel ist \emph{nicht} der Anspruch eines
+Beweises der Collatz-Vermutung, sondern die präzise Isolation jener Teile
+des Problems, die algebraisch zugänglich werden, und jenes Teils, der
+genuin dynamisch bleibt.
+
+Das Programm trennt drei grundsätzlich verschiedene Schichten:
+\begin{enumerate}[leftmargin=*,itemsep=0.2em]
+  \item die arithmetische Struktur von Bewertungszylindern,
+  \item endliche Residuenraum-Besetzung und Dichteaussagen,
+  \item globale Orbit-Erreichbarkeit.
+\end{enumerate}
+Im Core6-Rahmen werden feste Bewertungsfasern klassifiziert, die
+kontrahierende Residuenbesetzung durch ein dyadisches Zertifikat
+quantifiziert und endliche Core6-interne First-Hit-Pfade als
+arithmetische Progressionen beschrieben.
+
+Eine stärkere universelle Pfadüberdeckungsbehauptung wird durch einen
+expliziten Zeugen formal widerlegt. Die verbleibende Collatz-Schwierigkeit
+reduziert sich damit auf ein Residual-Erreichbarkeitsproblem.
+
+Die zentrale Schlussfolgerung ist daher keine Lösung von Collatz, sondern
+ein Lokalisierungssatz:
+\[
+  \text{globale Erreichbarkeit}
+  \;\Longleftrightarrow\;
+  \text{Erreichbarkeit der Residualmenge}.
+\]
+Die arithmetische Struktur ist klassifiziert; die dynamische Barriere bleibt.
+Epistemischer Status: \texttt{ClaimsFreeze} ist falsch; die Collatz-Vermutung
+bleibt unbewiesen.
+\end{abstract}
+
+\tableofcontents
+\vspace{1em}
+
+%==============================================================================
+\section{Historischer Hintergrund: von Collatz zur modernen Formaldynamik}
+%==============================================================================
+
+Die Iteration, die heute als Collatz-Abbildung bekannt ist, wurde von
+Lothar Collatz im zwanzigsten Jahrhundert eingeführt. Das Problem fragt,
+ob die wiederholte Anwendung von
+\[
+  T(n)
+  \;=\;
+  \begin{cases}
+    n/2, & n\equiv 0\pmod{2},\\
+    3n+1, & n\equiv 1\pmod{2}
+  \end{cases}
+\]
+schließlich den Zyklus
+\[
+  4\to 2\to 1
+\]
+erreicht. Obwohl die Regel elementar ist, verbinden die resultierende
+Dynamik lokale arithmetische Einfachheit mit globaler Unvorhersehbarkeit.
+
+Frühe Untersuchungen von Stanisław Ulam und Shizuo Kakutani erkannten das
+Problem als diskretes dynamisches System. Everett und andere entwickelten
+probabilistische Sichtweisen; daraus entstand das moderne Verständnis, dass
+mittleres Verhalten wesentlich leichter zugänglich sein kann als eine
+vollständige Orbitklassifikation.
+
+Riho Terras begründete zentrale Dichte- und Stoppzeitresultate. Seine Arbeit
+führte eine methodisch unverzichtbare Unterscheidung ein:
+\[
+  \text{fast-alles Verhalten}
+  \;\neq\;
+  \text{alles Verhalten}.
+\]
+Diese Unterscheidung bleibt zentral. Probabilistische Abstiegsmodelle können
+typisches Verhalten stark nahelegen und zugleich Ausnahmebahnen vollständig
+offenlassen. Wenn im Projekt informell von ``Mr.~Taro'' die Rede ist, ist
+Terras gemeint: die Stimme, die Heuristik von Zertifikat trennt.
+
+Jeffrey Lagarias systematisierte weite Teile der bekannten Theorie und
+betonte Kongruenzstrukturen, rechnerische Verifikation sowie die präzise
+Trennung zwischen bewiesenen Aussagen und Heuristiken.
+
+John Conways Resultate zu verallgemeinerten Collatz-Systemen zeigten, dass
+verwandte Probleme sogar unentscheidbares Verhalten kodieren können; das
+verstärkt die Notwendigkeit mathematischer Vorsicht.
+
+Spätere Arbeiten von Wirsching, Korec und vielen rechnerischen Schulen
+erweiterten das strukturelle und experimentelle Verständnis der Iteration.
+Terence Taos Ergebnis von 2019, dass fast alle Bahnen fast beschränkte Werte
+erreichen, ist ein bedeutender Meilenstein, bleibt aber ein Dichtesatz und
+kein Beweis universeller Termination~\cite{Tao2019}.
+
+Das vorliegende Programm folgt dieser historischen Lehre:
+\begin{quote}
+\emph{Eine Reduktion ist nur dann wertvoll, wenn die verbleibende logische
+Lücke explizit benannt wird.}
+\end{quote}
+
+%==============================================================================
+\section{Formale Methodik}
+%==============================================================================
+
+Das Projekt nutzt \Lean{} als Beweisassistenten. Jede mathematische Aussage
+trägt einen epistemischen Status:
+
+\begin{center}
+\begin{tabular}{@{}llp{7.2cm}@{}}
+\toprule
+Tag & Bedeutung & Aufstiegsregel \\
+\midrule
+\tagA & formal bewiesener Satz & Repository of record nach Review \\
+\tagB & Census / Numerik & hebt allein niemals zu \tagA{} auf \\
+\CA & konstruktives Lean-Paket, noch nicht \tagA & Merge + separater Promotion-Commit \\
+\tagC & offene Hypothese / Interface & kann zu \CA{} werden \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Diese Unterscheidung verhindert einen typischen Fehlmodus der
+rechnerischen Mathematik: umfangreiche Verifikation mit Beweis zu
+verwechseln. Ziel ist daher nicht bloß die Erzeugung von Daten, sondern die
+Umwandlung struktureller Beobachtungen in kerngeprüfte Mathematik.
+
+\subsection{Programm-Wand (PR-Stack)}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{2.8cm}p{1.6cm}p{7.4cm}@{}}
+\toprule
+Schicht & Tag & Inhalt \\
+\midrule
+PR\,\#15--\#16
+  & \tagA-Pfad
+  & Core6-Existenz, Faseräquivalenz $C_e\simeq\N$, relative Dichte $1/8$ \\
+PR\,\#17--\#18
+  & \CA
+  & Ein-Block-D2b, Pfad-AP (D3.2), Residual $\Leftrightarrow$ Reachability \\
+PR\,\#19 (D3.4)
+  & \CA
+  & Dichotomie $\Residual=\FiniteExit\,\dot\cup\,\Forever$ (Draft) \\
+Re-Entry / Reaches
+  & \tagC
+  & Konvergenz auf $\FiniteExit$; Ausschluss von $\Forever$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Die vollständige \emph{Reduktion} des Collatz-Engpasses ist damit formal
+gefasst (\CA); die dynamische Lösung der beiden Residualklassen bleibt
+unkonditioniert Forschungsfront (\tagC).
+
+Global bleibt \texttt{ClaimsFreeze} \textbf{falsch}: es wird kein Collatz-Beweis
+beansprucht.
+
+%==============================================================================
+\section{Die Core6-Zylinderarchitektur}
+%==============================================================================
+
+\subsection{Die ungerade Syracuse-Abbildung}
+
+Eine oft klarere Formulierung arbeitet mit der ungeraden Syracuse-Abbildung
+\[
+  \Umap(n)
+  \;=\;
+  \frac{3n+1}{2^{v_2(3n+1)}},
+\]
+dem ersten ungeraden Iterat nach einem ungeraden Kick. Erreichbarkeit des
+trivialen Zyklus ist dann äquivalent dazu, dass jeder ungerade Start unter
+Iteraten von~$\Umap$ schließlich in ein kontrahierendes Regime eintritt.
+
+\subsection{Faserworte und der Core6-Präfix}
+
+Ein \emph{Faserwort} ist eine endliche Folge positiver $2$-adischer
+Bewertungen, die die sukzessiven Halbierungen nach ungeraden Syracuse-Kicks
+aufzeichnet. Der ausgezeichnete Präfix
+\[
+  \mathtt{core6}
+  \;=\;
+  [1,1,1,1,2,2]
+\]
+ist ein Bewertungswort der Länge~$6$, das von einer kohärenten Familie von
+Starts geteilt wird. Anhängen eines positiven Schwanzexponenten~$e$ liefert
+die Länge-$7$-Faser
+\[
+  \mathtt{fiberE}(e)
+  \;=\;
+  \mathtt{core6}\mathbin{+\kern-0.15em+}[e].
+\]
+
+\subsection{Kanonische Basen und Zylinder}
+
+Für jeden Exponenten $e\ge 1$ gibt es einen eindeutigen
+\emph{kanonischen Repräsentanten} $b_e$ in einem vollständigen
+Restsystem modulo $2^{e+9}$ und eine unendliche arithmetische Progression---den
+\emph{kanonischen Zylinder}
+\[
+  C_e
+  \;=\;
+  \bigl\{\, b_e + k\cdot 2^{e+9}
+  \;\big|\;
+  k\in\N \,\bigr\}.
+\]
+Eine konzeptionell unverzichtbare Typentrennung lautet:
+\[
+  b_e
+  \;\neq\;
+  [b_e]
+  \;\neq\;
+  C_e.
+\]
+Der Repräsentant ist ein endliches Objekt; die Restklasse ist ein
+Äquivalenzobjekt; der Zylinder ist eine unendliche Teilmenge der natürlichen
+Zahlen. Diese Trennung verhindert den Typenkollaps zwischen
+arithmetischen Repräsentanten und unendlichen Fasern.
+
+\subsection{Expandierende und kontrahierende Masse}
+
+Dynamisch splittet man
+\begin{align*}
+  \mathtt{expandingMass}
+  &\;=\; C_1\cup C_2\cup C_3,\\
+  \mathtt{contractingMass}
+  &\;=\; \textstyle\bigcup_{e\ge 4} C_e.
+\end{align*}
+Heuristisch tendieren expandierende Kanäle unter einem vollen Block zum
+Wachstum, kontrahierende zum Schrumpfen. Das klassische Erreichbarkeitsziel
+lautet in dieser Sprache:
+
+\begin{hypothesis}[ReachabilityFeedInGoal \tagC]
+Jedes $n\in\mathtt{expandingMass}$ gestattet ein $t\ge 1$ mit
+$\Umap^{\circ t}(n)\in\mathtt{contractingMass}$.
+\end{hypothesis}
+
+Diese Hypothese bleibt offen. Was sich ändert, ist ihre
+\emph{logische Lage}.
+
+%==============================================================================
+\section{Statische Klassifikation: PR\,\#15 und PR\,\#16}
+%==============================================================================
+
+Die erste Phase etabliert die algebraische Struktur.
+
+\subsection{Kanonisches Samen-Lifting (PR\,\#15)}
+
+Für $e\ge 4$ gehören die Core6-Zylinder zum kontrahierenden Regime.
+Die Faserindex-Abbildung
+\[
+  \Phi_e(k)
+  \;=\;
+  b_e + k\, M_e
+\]
+ist injektiv und liefert eine Äquivalenz $\N\simeq C_e$. Jeder
+Zylinderpunkt ist eine unendliche arithmetische Progression echter
+Core6-Schwanz-Realisierungen. Algebraisch ist der ungerade affine
+Koeffizient entlang $\mathtt{fiberE}(e)$ unabhängig von~$e$ (die Konstante
+$2347$ in der Formalisierung).
+
+\subsection{Statische Zylinderpartition (PR\,\#16)}
+
+Paarweise Disjunktheit der Zylinder~$C_e$, die expandierende/kontrahierende
+Phasenpartition des Core6-Zylinders und eine \emph{relative} dyadische
+Dichteaussage:
+\[
+  \frac{\lvert R_m^{\mathrm{contr}}\rvert}
+       {\lvert R_m^{\mathrm{Core6}}\rvert}
+  \;=\;
+  \frac18 - \frac1{2^m}.
+\]
+Daher
+\[
+  \lim_{m\to\infty}
+  \frac{\lvert R_m^{\mathrm{contr}}\rvert}
+       {\lvert R_m^{\mathrm{Core6}}\rvert}
+  \;=\;
+  \frac18.
+\]
+Dieses Resultat ist rein statisch. Es impliziert \textbf{nicht}:
+Orbitkonvergenz, universelle Erreichbarkeit oder Collatz-Termination.
+Die Unterscheidung zwischen Residuenbesetzung und dynamischer Anziehung ist
+fundamental.
+
+\begin{remark}[Expliziter Nicht-Claim]
+Die relative dyadische Dichte ist \textbf{keine} natürliche Dichte auf~$\N$
+und kein Collatz-Satz. Status der gelieferten Pakete: derzeit \CA{}
+(CI-grüne Kandidaten), noch nicht repository-\tagA{} nach Merge und
+separatem Promotion-Commit.
+\end{remark}
+
+%==============================================================================
+\section{Dynamische Phase: PR\,\#17 und PR\,\#18}
+%==============================================================================
+
+Die nächste Phase untersucht, ob expandierende Zylinder in die
+kontrahierende Core6-Masse einspeisen.
+
+\subsection{Ein-Block-Feed-In und D2b-Freeze (PR\,\#17)}
+
+Nach einem vollen $\mathtt{fiberE}(e_0)$-Block bilden jene Starts in~$C_{e_0}$,
+die sofort in kontrahierende Masse landen, die Menge
+$\mathtt{oneBlockFeedInSet}(e_0)$. Diese Menge ist eine disjunkte Vereinigung
+arithmetischer Progressionen, indiziert durch Zielkanäle $f\ge 4$, via einer
+Cancel-by-$2$-Kongruenzbrücke und einer eindeutigen Residuenklasse~$\kappa$.
+
+Ein positiver Zeuge ist $1{,}246{,}239\in\mathtt{oneBlockFeedInSet}(1)$;
+der universelle Ein-Block-Anspruch ist formal falsch via $31\mapsto 137$.
+
+\subsection{Kanalpfade und First-Hit-Packaging (PR\,\#18 / D3)}
+
+Die anfängliche Hypothese war, dass jeder expandierende Core6-Zylinder einen
+endlichen Core6-internen First-Hit-Pfad gestatten könnte. Das wurde über
+Kanalpfade formalisiert:
+\[
+  p
+  \;=\;
+  [e_0,e_1,\ldots,e_r].
+\]
+Für jeden \emph{festen} Pfad bilden die Realisierer eine arithmetische
+Progression:
+\[
+  \bigl\{\, n \;\big|\; \mathtt{RealizesChannelPath}(p,n) \,\bigr\}
+  \;=\;
+  \AP_p.
+\]
+Der algebraische Mechanismus ist iteriertes dyadisches Kongruenzlifting,
+nicht ein klassisches CRT als Blackbox. Die Pfadstruktur ist damit
+vollständig klassifiziert.
+
+Ein \emph{kontrahierender First-Hit-Pfad} startet in einem expandierenden
+Kanal, bleibt in jedem inneren Kanal expandierend und endet beim ersten
+kontrahierenden Kanal. Ihre Vereinigung ist in Lean
+\texttt{core6PathFeedInSet}$(e_0)$; in Formeln schreiben wir kurz
+\[
+  \FeedIn(e_0)
+  \;=\;
+  \bigcup_{\substack{p\text{ kontrahierend}\\\text{First-Hit von }e_0}}
+  \AP_p.
+\]
+Das ist der Core6-\emph{interne} erfolgreiche Kanal.
+
+\begin{theorem}[First-Hit-Brücke \CA]
+Ist $n\in\FeedIn(e_0)$, so existieren $r\ge 1$ und $t=7r$ mit
+$\Umap^{\circ t}(n)\in\mathtt{contractingMass}$.
+\end{theorem}
+Der Core6-interne Anteil braucht daher \textbf{keine weitere offene Dynamik}.
+
+%==============================================================================
+\section{Das Scheitern der universellen Core6-Pfadüberdeckung}
+%==============================================================================
+
+Die stärkere Aussage
+\[
+  \forall\, n\in C_1\cup C_2\cup C_3\;
+  \exists\, p:\ \mathtt{RealizesChannelPath}(p,n)
+\]
+(in der präzisen Form $\mathtt{Core6PathFeedInGoal}$: jeder Start in~$C_{e_0}$
+realisiert einen Core6-internen kontrahierenden First-Hit-Pfad) ist falsch.
+
+\begin{theorem}[$\neg\,\mathtt{Core6PathFeedInGoal}$ \CA]
+Es ist nicht wahr, dass jeder Start in $C_1\cup C_2\cup C_3$ einen
+Core6-internen kontrahierenden First-Hit-Pfad realisiert.
+\end{theorem}
+
+Ein formaler Gegenzeuge ist
+\[
+  31\in C_1,
+  \qquad
+  31\notin\FeedIn(1),
+\]
+denn nach einem Block gilt $31\mapsto 137\notin\mathtt{core6Cylinder}$.
+Jeder Core6-interne First-Hit-Pfad würde das erste Blockbild zurück in
+Core6 zwingen.
+
+\begin{remark}
+Dieses Scheitern zerstört die algebraische Klassifikation nicht. Es
+identifiziert die fehlende dynamische Komponente. Die Strategie
+``jeder expandierende Start hat einen rein Core6-internen First-Hit-Pfad''
+ist nicht bloß unvollendet---sie ist \textbf{falsch}.
+\end{remark}
+
+%==============================================================================
+\section{Residualreduktion}
+%==============================================================================
+
+\begin{definition}[Residualmenge]
+In Lean: \texttt{core6PathResidualSet}$(e_0)$.
+\[
+  \Residual(e_0)
+  \;=\;
+  C_{e_0}\setminus\FeedIn(e_0).
+\]
+\end{definition}
+
+\begin{theorem}[Zylinderdichotomie \CA]
+\[
+  C_{e_0}
+  \;=\;
+  \FeedIn(e_0)
+  \;\dot\cup\;
+  \Residual(e_0),
+\]
+und $\mathtt{oneBlockOffCore6Set}(e_0)\subseteq\Residual(e_0)$.
+\end{theorem}
+
+Für $e_0=1$ ist das Residual nichtleer ($31$) und der Feed-In-Anteil
+nichtleer ($1{,}246{,}239$). Der Feed-In-Anteil ist über arithmetische
+Progressionskanäle verstanden; das Residual enthält genau jene Startwerte,
+die vom endlichen Core6-internen Pfadmechanismus nicht erfasst werden.
+
+\begin{hypothesis}[ResidualFeedInGoal \tagC]
+Jedes Residual-Start erreicht unter ungerader Syracuse-Iteration schließlich
+kontrahierende Masse.
+\end{hypothesis}
+
+\begin{theorem}[Residualreduktion \CA]
+\[
+  \boxed{
+  \mathtt{ResidualFeedInGoal}
+  \;\Longleftrightarrow\;
+  \mathtt{ReachabilityFeedInGoal}
+  }
+\]
+\end{theorem}
+
+\begin{remark}
+Die Rückrichtung ist unmittelbar: Residualstarts liegen in expandierender
+Masse. Die Vorwärtsrichtung braucht die Dichotomie \emph{und} die
+First-Hit-Brücke. Die bloße Mengengleichung
+$C=F\,\dot\cup\,R$ verschiebt für sich allein keine Dynamik von~$F$ in die
+kontrahierende Masse.
+\end{remark}
+
+In einem Satz:
+\begin{quote}
+\emph{Alles, was innerhalb Core6-interner First-Hit-Pfade abgeschlossen werden
+kann, ist abgeschlossen; alles, was bleibt, ist genau das Residual---und das
+Residual ist so schwer wie die gesamte Expanding-Mass-Erreichbarkeitsfrage.}
+\end{quote}
+
+Mathematischer Freeze-Kopf von D3.3:
+\texttt{24bd5c83718da11c9ec2bfa8962de331be117369}.
+
+%==============================================================================
+\section{Die D3.4-Forschungsgrenze: Residualfeinstruktur}
+%==============================================================================
+
+Das Residual ist nicht homogen. Die nächste strukturelle Zerlegung lautet:
+\[
+  \Residual(e_0)
+  \;=\;
+  \FiniteExit(e_0)
+  \;\dot\cup\;
+  \Forever(e_0).
+\]
+
+\begin{definition}[Endlicher Blockaustritt]
+Lean-Bezeichner: \texttt{finiteBlockExitSet}.\\
+$\FiniteExit(e_0)$ umfasst Starts mit expandierendem Core6-Aufenthalt, deren
+nächster voller Block den Core6-Zylinder verlässt.
+Tiefe~$0$ entspricht dem Ein-Block-Off-Core6-Anteil; Zeuge: $31\in\FiniteExit(1)$.
+\end{definition}
+
+\begin{definition}[Expandierende Grenzbahnen]
+Lean-Bezeichner: \texttt{foreverExpandingBoundarySet}.\\
+$\Forever(e_0)$ umfasst Starts, deren jeder expandierende Aufenthalt beim
+nächsten Block wieder in expandierender Masse landet.
+\end{definition}
+
+\begin{theorem}[Residualfeinstruktur, D3.4 \CA]
+Für expandierende Startkanäle $e_0\in\{1,2,3\}$ gilt
+\[
+  \Residual(e_0)
+  \;=\;
+  \FiniteExit(e_0)
+  \;\dot\cup\;
+  \Forever(e_0).
+\]
+Die beiden Summanden sind disjunkt; der Ein-Block-Off-Core6-Anteil liegt in
+$\FiniteExit(e_0)\subseteq\Residual(e_0)$, und ebenso
+$\Forever(e_0)\subseteq\Residual(e_0)$.
+\end{theorem}
+
+Diese Unterscheidung trennt zwei grundsätzlich verschiedene Fragen:
+\begin{enumerate}[leftmargin=*]
+  \item endliche arithmetische Fluchtmechanismen
+        ($\FiniteExit$, inkl.\ möglicher späterer Re-Entry),
+  \item unendliche dynamische Obstruktion
+        ($\Forever$).
+\end{enumerate}
+Beide dynamischen Ziele bleiben \tagC:
+$\mathtt{OffCore6ReentryGoal}$ und die Ausschließung bzw.\ Kontrolle von
+$\Forever$ sind nicht Bestandteil der algebraischen Dichotomie.
+Insbesondere ist $\mathtt{OffCore6ReentryGoal}$ \textbf{kein} Ersatz für
+$\mathtt{ResidualFeedInGoal}$.
+
+%==============================================================================
+\section{Governance: wie Überanspruch vermieden wird}
+%==============================================================================
+
+\begin{enumerate}[leftmargin=*]
+  \item PR\,\#18 steht unter strengem mathematischem Freeze bei
+  \texttt{24bd5c8}. Neue Kernel-Mathematik gehört nicht auf diesen Pull Request.
+  \item D3.4 lebt auf PR\,\#19
+  (\texttt{cursor/core6-dynamic-d34-residual-2ed1}).
+  \item Governance-Sequenz für PR\,\#19:
+  CI-grün (Lean Action, Quality Gate, Evidence Audit)
+  $\to$ Review
+  $\to$ Merge auf akzeptierte D3.3-Basis (Stack \#15--\#18, kein Vorgriff auf
+  \texttt{main})
+  $\to$ \textbf{separater} Promotion-Commit $\CA\to\tagA$.
+  \item Natürliche Dichte, globales Collatz und ``Collapse''-Rhetorik sind
+  explizite Nicht-Ziele des vorliegenden Pakets.
+\end{enumerate}
+
+Diese Disziplin ist die Schuld an Conways Unentscheidbarkeitswarnung und an
+Lagarias' Survey-Kultur: den Satz benennen, den man hat---und den Satz
+benennen, den man nicht hat.
+
+%==============================================================================
+\section{Abschlussstatus}
+%==============================================================================
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{4.8cm}p{2.6cm}p{4.6cm}@{}}
+\toprule
+Komponente & Status & Kommentar \\
+\midrule
+Core6-Algebra / Faserklassifikation
+  & bewiesen (\CA/\tagA-Pfad) & PR\,\#15--\#16 \\
+Relative dyadische Dichte $1/8$
+  & bewiesen (\CA) & kein Natürlich-Dichte-Claim \\
+Feste Kanalpfade $=\AP_p$
+  & bewiesen (\CA) & D3.2 \\
+Universelle Core6-Pfadüberdeckung
+  & widerlegt & $\neg$\,Core6PathFeedInGoal \\
+Feed-In / Residual-Zerlegung
+  & bewiesen (\CA) & D3.3c \\
+Residual $\Leftrightarrow$ Reachability
+  & bewiesen (\CA) & D3.3d + First-Hit-Brücke \\
+Residual-Feinstruktur
+  & bewiesen (\CA)
+  & $\FiniteExit\,\dot\cup\,\Forever$ \\
+Residual-Erreichbarkeit
+  & offen \tagC & Re-Entry / ForeverExp-Ausschluss \\
+Collatz-Vermutung
+  & offen & \texttt{ClaimsFreeze} false \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Die korrekte Schlussfolgerung lautet daher:
+\[
+  \boxed{\text{Die arithmetische Struktur ist klassifiziert.}}
+\]
+\[
+  \boxed{\text{Die verbleibende Schwierigkeit ist genau Residualdynamik.}}
+\]
+Kein Beweis von Collatz wird beansprucht. Der Beitrag ist eine formal
+verifizierte Reduktion dahin, \emph{wo} ein solcher Beweis noch operieren muss.
+
+\vspace{1.2em}
+\begin{flushright}
+\textit{Bamberg, 27.\ Juli 2026}\\
+Thomas Hofbauer\\
+\texttt{Kepler--Hurwitz / Pre119--Core6}
+\end{flushright}
+
+%==============================================================================
+\begin{thebibliography}{9}
+
+\bibitem{Collatz}
+L.~Collatz.
+\newblock Zum $3x+1$-Problem (historische Zuschreibung; zirkulierende Notizen
+und Korrespondenz, Mitte des 20.~Jahrhunderts).
+\newblock Siehe Surveys in~\cite{Lagarias2010}.
+
+\bibitem{Terras1976}
+R.~Terras.
+\newblock A stopping time problem on the positive integers.
+\newblock \emph{Acta Arith.} \textbf{30} (1976), 241--252.
+
+\bibitem{Lagarias2010}
+J.~C.~Lagarias (Hrsg.).
+\newblock \emph{The Ultimate Challenge: The $3x+1$ Problem}.
+\newblock American Mathematical Society, 2010.
+
+\bibitem{Conway1972}
+J.~H.~Conway.
+\newblock Unpredictable iterations.
+\newblock In \emph{Proc.\ 1972 Number Theory Conf.}, Univ.\ of Colorado,
+Boulder, 1972, 49--52.
+
+\bibitem{Tao2019}
+T.~Tao.
+\newblock Almost all orbits of the Collatz map attain almost bounded values.
+\newblock arXiv:1909.03562, 2019.
+
+\bibitem{Wirsching1998}
+G.~J.~Wirsching.
+\newblock \emph{The Dynamical System Generated by the $3n+1$ Function}.
+\newblock Lecture Notes in Mathematics \textbf{1681}, Springer, 1998.
+
+\bibitem{KHPre119}
+Akademie Olympia / Kepler--Hurwitz.
+\newblock Pre119-Core6-Formalisierungsstack (PRs \#15--\#18 und D3.4-Follow-up),
+Math-Freeze-Köpfe
+\texttt{3740183} (statisch),
+\texttt{18e8747} (D2b),
+\texttt{24bd5c8} (D3.3);
+\texttt{ClaimsFreeze} falsch.
+
+\end{thebibliography}
+
+\end{document}
