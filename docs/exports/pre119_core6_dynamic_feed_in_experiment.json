@@ -73,5 +73,11 @@
     "D3_sufficient_reachability",
     "D4_full_reachability"
   ],
+  "d2b_freeze": {
+    "frozen": true,
+    "head": "18e874773d5cbc8a072cd2c38edefe5087560861",
+    "policy": "CI_linter_review_only",
+    "follow_up_branch": "cursor/core6-dynamic-d3-4007"
+  },
   "claims_freeze": false
 }

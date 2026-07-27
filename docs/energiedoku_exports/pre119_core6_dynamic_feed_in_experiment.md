@@ -4,7 +4,16 @@
 **Base:** `cursor/core6-cylinder-partition-4007` (PR #16 stack)  
 **Module:** `KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicFeedIn`
 
-## Status wall (after D2b.1–.5)
+## D2b freeze
+
+**Frozen head:** `18e874773d5cbc8a072cd2c38edefe5087560861`
+
+D2b (affine map, Cancel-by-2, κ-class, sandwich, progression decomposition) is
+**mathematically closed** on this head. Further work on this PR is limited to
+CI / linter / review packaging. Algebraic multi-block analysis continues in the
+D3 follow-up branch/PR (`cursor/core6-dynamic-d3-4007`).
+
+## Status wall (after D2b.1–.5 freeze)
 
 | Object | Mathematical status | Repository status |
 |--------|---------------------|-------------------|
