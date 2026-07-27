@@ -57,13 +57,14 @@ $$
 | PR | Head | Theoremstatus | Process-Status |
 |----|------|---------------|----------------|
 | **#15** | `6004d2b` | **`[A]`** eindeutige Koordinate & Lifting `e≥4` | CI grün (Lean/Evidence/QG) · Draft · ungemergt |
-| **#16** | `0575b03` | **`[C→A]`** Faseridentifikation, Partition, Zählung | CI queued · Draft |
+| **#16** | `28e6d43` | **`[C→A]`** Faseridentifikation, Partition, Zählung | CI queued · Draft |
 | Folge | — | **`[C]`** Zuführung `C_1,C_2,C_3` | Forschungsfront |
 
 ## Immunisierung gegen Kategorienfehler
 
-1. **Kein Objektkollaps:** `b_e ≠ [b_e] ≠ C_e`.
-2. **Kein Scope-Overreach:** lokaler Faser-/Strukturbeweis ≠ globale Orbit-Zuführung `[C]`.
+1. **Typen-Kollaps vermieden:** `Nat ≠_Typ ZMod ≠_Typ Set Nat`.
+2. **Eindeutigkeits-Kollaps vermieden:** kanonischer Repräsentant `b_e` ≠ einziger Realisierer (`C_e` unendlich).
+3. **Scope-Kollaps vermieden:** lokale Faser-/Strukturbeweise ≠ globale Orbit-Zuführung `[C]`.
 
 ## Five-stage governance cascade
 
