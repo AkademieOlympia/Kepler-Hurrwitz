@@ -143,7 +143,7 @@ and in-scope for PR #16. Dynamical feed-in remains Follow-up `[C]`.
 | PR | Head | Theoremstatus | Process-Status |
 |----|------|---------------|----------------|
 | **#15** | `6004d2b` | **`[A]`** lokale Faser-Existenz & Lifting | CI grün (Lean/Evidence/QG) · Draft · ungemergt |
-| **#16** | branch HEAD | **`[C→A]`** Inter-Faser-Zerlegung & kombinatorische Dichte | CI queued · Draft · mergeable |
+| **#16** | branch HEAD | **`[C→A]`** Inter-Faser-Zerlegung & dyadische Modulzählung (16f packaged) | CI queued · Draft · mergeable |
 | Folge | — | **`[C]`** dynamische Zuführung / Orbit-Trajektorien | Forschungsfront |
 
 ## Immunisierung gegen Kategorienfehler
@@ -161,7 +161,7 @@ and in-scope for PR #16. Dynamical feed-in remains Follow-up `[C]`.
 | 2 | Lokale Äquivalenz `ℕ ≃ {n \| n ∈ C_e}` via `fiberIndexEquiv` | **`[C→A]` packaged; promote after CI** |
 | 3 | Disjunktheit `e ≠ f ⇒ C_e ∩ C_f = ∅` | **`[C→A]` PR #16c** |
 | 4 | Core6-Partition `(C_1⊔C_2⊔C_3) ⊔ ⊔_{e≥4} C_e` | **`[C→A]` PR #16d** |
-| 5 | Endliche Modul-Zählung `∑_{e=4}^m 2^{m-e} = 2^{m-3}-1` → Dichten `1/8` : `7/8` | **`[C→A]` PR #16f** |
+| 5 | Endliche Modul-Zählung `∑_{e=4}^m 2^{m-e} = 2^{m-3}-1` → dyadische Dichte `1/8` | **`[C→A]` PR #16f packaged** (`contractingResidues_card`) |
 | 6 | Dynamische Zuführung `C_1∪C_2∪C_3 → ⋃_{e≥4} C_e` | **`[C]` Folgeprogramm** |
 
 Promotion rule: after PR #16 CI is green and merge/review accepts a package,
@@ -187,7 +187,7 @@ It marks a **purely constructive Lean discharge goal**:
 | 16c | Tail-Eindeutigkeit ∧ Disjunktheit | `[C→A]` |
 | 16d | Partition `C_Core6 = ⊔_{e≥1} C_e` und Komplement `C_1 ⊔ C_2 ⊔ C_3` | `[C→A]` |
 | 16e | Strikte Dichotomie: Expansion `e≤3` vs Kontraktion `e≥4` | `[C→A]` |
-| 16f | Endlich-kombinatorische Abzählung mod `2^{m+9}` → Dichten `1/8` : `7/8` | `[C→A]` |
+| 16f | Endlich-kombinatorische Abzählung mod `2^{m+9}` → relative dyadische Dichte `1/8` | `[C→A]` packaged (`contractingResidues_*`) |
 | danach | Zuführung der drei Expansionskanäle | `[C]` |
 
 Candidate Lean may appear on `cursor/core6-cylinder-partition-4007` / PR #16.
@@ -197,5 +197,18 @@ It is **not** part of the PR #15 `[A]` claim surface.
 
 1. Target for `e≥1` is realization at `canonicalBase e` (canonical representative), not bare `∃ b`.
 2. Hard dichotomy: no conserving channel; `e=4` is already strictly contracting.
-3. Density is a late reading of finite residue counts mod `2^{m+9}` — not a foundation.
-   The deep open step after 16f is dynamical feed-in.
+3. Density reading in 16f is **relative dyadic density** along `Q_m = 2^{m+9}`:
+   `|R_m^{contr}| = 2^{m-3}-1`, proportion `(2^{m-3}-1)/2^m = 1/8 - 1/2^m`.
+   Ordinary natural density needs a separate bridge theorem.
+   The deep open step after 16f is dynamical feed-in `[C]`.
+
+### Package 16f API (packaged, still `[C→A]` until CI/merge)
+
+| Theorem | Content |
+|---------|---------|
+| `fiberIndexMap_lt_commonModulus` | no wraparound: `Φ_e(k) < Q_m` |
+| `fiberResidues_card` | `|R_{m,e}| = 2^{m-e}` |
+| `fiberResidues_disjoint` | `R_{m,e} ∩ R_{m,f} = ∅` via tail uniqueness |
+| `contractingResidues_card` | `|R_m^{contr}| = 2^{m-3}-1` |
+| `contractingResidues_dyadicProportion` | exact ℚ proportion `1/8 - 1/2^m` |
+| `contractingResidues_dyadicDensity_error` | error to `1/8` equals `1/2^m` |

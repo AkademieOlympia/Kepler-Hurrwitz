@@ -75,7 +75,19 @@
     },
     "16f": {
       "status": "C\u2192A",
-      "content": "finite count mod 2^(m+9) then density reading"
+      "content": "finite count mod 2^(m+9) then relative dyadic density 1/8",
+      "packaged": true,
+      "theorems": [
+        "fiberIndexMap_lt_commonModulus",
+        "fiberResidues_card",
+        "fiberResidues_disjoint",
+        "contractingResidues_card",
+        "contractingResidues_dyadicProportion",
+        "contractingResidues_dyadicDensity_error",
+        "finiteDyadicContractingCountGoal"
+      ],
+      "cardinality": "|R_m^contr| = 2^(m-3) - 1",
+      "density_kind": "relative dyadic density along Q_m = 2^(m+9); not yet natural density"
     }
   },
   "claims_freeze": false,
@@ -107,9 +119,9 @@
     },
     {
       "stage": 5,
-      "content": "finite module count sum 2^(m-e) = 2^(m-3)-1 \u2192 densities 1/8 : 7/8",
+      "content": "finite module count sum 2^(m-e) = 2^(m-3)-1 \u2192 relative dyadic density 1/8",
       "status": "C\u2192A",
-      "where": "PR16f"
+      "where": "PR16f packaged; promote after CI"
     },
     {
       "stage": 6,
@@ -135,7 +147,7 @@
     "PR16": {
       "head": "branch HEAD",
       "theorem": "C\u2192A",
-      "process": "CI queued; draft; mergeable; inter-fiber decomposition and combinatorial density"
+      "process": "CI queued; draft; mergeable; 16f contractingResidues packaged"
     },
     "followup": {
       "theorem": "C",

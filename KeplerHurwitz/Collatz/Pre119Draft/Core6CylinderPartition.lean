@@ -1,6 +1,10 @@
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.Ring.GeomSum
+import Mathlib.Data.Rat.Defs
 import Mathlib.Data.Set.Basic
 import Mathlib.Data.Set.Lattice
 import Mathlib.Data.ZMod.Basic
+import Mathlib.Tactic.FieldSimp
 import Mathlib.Tactic.IntervalCases
 import KeplerHurwitz.Collatz.Pre119Draft.CanonicalBase
 import KeplerHurwitz.Collatz.Pre119Draft.AffineOddQuotient
@@ -621,12 +625,194 @@ theorem core6Cylinder_eq_expanding_disjoint_union_contracting :
     have hdiff := (Set.ext_iff.1 core6_complement_contracting_eq_smallTails n).2 hs
     exact hdiff.2 hc
 
+/-! ### Package F: finite dyadic residue count at common modulus `Q_m = 2^{m+9}`
+
+16f answers: how many **finite module residues** does the contracting family occupy
+at stage `m`? It does **not** ask how large the infinite fiber `C_e` is.
+
+For `Q_m = seedModulus m`, `M_e = seedModulus e`, and `4 ≤ e ≤ m`:
+
+$$
+R_{m,e}=\bigl\{[b_e+k M_e]_{Q_m}:0\le k<2^{m-e}\bigr\}.
+$$
+
+We represent lifts by their Nat representatives `fiberIndexMap e k` (all `< Q_m`).
+
+Epistemic note: the limit below is a **relative dyadic density** along the modulus
+sequence `2^{m+9}`. Calling it ordinary natural density requires a separate bridge
+theorem (out of scope for 16f).
+-/
+
+/-- Common modulus `Q_m = 2^{m+9}`. -/
+abbrev commonModulus (m : Nat) : Nat := seedModulus m
+
 /--
-`[C]` Finite dyadic count goal: for `4 ≤ e ≤ m`, the contracting cylinders occupy
-`2^{m-3} - 1` residues mod `2^{m+9}`, hence relative density `1/8 - 1/2^m`
-among the `2^m` Core6 residues mod `2^{m+9}`.
+`[C→A]` Step 1 — no premature wraparound:
+`k < 2^{m-e}` ⇒ `Φ_e(k) < Q_m`.
+-/
+theorem fiberIndexMap_lt_commonModulus {m e k : Nat}
+    (hem : e ≤ m) (hk : k < 2 ^ (m - e)) :
+    fiberIndexMap e k < commonModulus m := by
+  have hb : canonicalBase e < seedModulus e := canonicalBase_lt e
+  have hpow :
+      2 ^ (m - e) * seedModulus e = commonModulus m := by
+    simp only [commonModulus, seedModulus]
+    rw [← pow_add]
+    congr 1
+    omega
+  have : fiberIndexMap e k + 1 ≤ commonModulus m := by
+    calc
+      fiberIndexMap e k + 1
+          = canonicalBase e + k * seedModulus e + 1 := rfl
+      _ ≤ seedModulus e + k * seedModulus e := by
+          have := Nat.succ_le_of_lt hb
+          omega
+      _ ≤ seedModulus e + (2 ^ (m - e) - 1) * seedModulus e := by
+          gcongr
+          exact Nat.le_pred_of_lt hk
+      _ = 2 ^ (m - e) * seedModulus e := by
+          have hge : 1 ≤ 2 ^ (m - e) := Nat.one_le_two_pow
+          set M := seedModulus e
+          change M + (2 ^ (m - e) - 1) * M = 2 ^ (m - e) * M
+          calc
+            M + (2 ^ (m - e) - 1) * M
+                = 1 * M + (2 ^ (m - e) - 1) * M := by rw [Nat.one_mul]
+            _ = (1 + (2 ^ (m - e) - 1)) * M := (Nat.add_mul _ _ _).symm
+            _ = (2 ^ (m - e) - 1 + 1) * M := by rw [Nat.add_comm]
+            _ = 2 ^ (m - e) * M := by rw [Nat.sub_add_cancel hge]
+      _ = commonModulus m := hpow
+  exact Nat.lt_of_succ_le this
+
+/-- Lifted residue set `R_{m,e}` as Nat representatives in `[0, Q_m)`. -/
+noncomputable def fiberResidues (m e : Nat) : Finset Nat :=
+  (Finset.range (2 ^ (m - e))).image (fun k => fiberIndexMap e k)
+
+/--
+`[C→A]` Step 2 — cardinality of one lifted fiber:
+`|R_{m,e}| = 2^{m-e}`.
+-/
+theorem fiberResidues_card (m e : Nat) :
+    (fiberResidues m e).card = 2 ^ (m - e) := by
+  rw [fiberResidues, Finset.card_image_of_injective _ (fiberIndexMap_injective e)]
+  exact Finset.card_range _
+
+/--
+`[C→A]` Step 3 — lifted fibers remain disjoint on the common modulus stage
+(via `tailExponent_unique` / cylinder disjointness; equal Nat lifts cannot sit in two
+cylinders).
+-/
+theorem fiberResidues_disjoint {m e f : Nat}
+    (he1 : 1 ≤ e) (hf1 : 1 ≤ f) (hef : e ≠ f) :
+    Disjoint (fiberResidues m e) (fiberResidues m f) := by
+  refine Finset.disjoint_left.2 ?_
+  intro n hne hnf
+  obtain ⟨k, _, rfl⟩ := Finset.mem_image.1 hne
+  obtain ⟨l, _, hl⟩ := Finset.mem_image.1 hnf
+  have heq : fiberIndexMap e k = fiberIndexMap f l := hl.symm
+  have hme : fiberIndexMap e k ∈ canonicalCylinder e := by
+    simpa [← canonicalCylinder_eq_ap] using fiberIndexMap_mem e k
+  have hmf : fiberIndexMap e k ∈ canonicalCylinder f := by
+    simpa [heq, ← canonicalCylinder_eq_ap] using fiberIndexMap_mem f l
+  exact (Set.disjoint_left.1
+    (canonicalCylinders_pairwise_disjoint he1 hf1 hef)) hme hmf
+
+/-- Contracting residue union `R_m^{contr} = ⊔_{e=4}^m R_{m,e}`. -/
+noncomputable def contractingResidues (m : Nat) : Finset Nat :=
+  (Finset.Icc 4 m).biUnion (fun e => fiberResidues m e)
+
+private theorem sum_two_pow_m_sub_e {m : Nat} (hm : 4 ≤ m) :
+    ∑ e ∈ Finset.Icc 4 m, 2 ^ (m - e) = 2 ^ (m - 3) - 1 := by
+  have hrange :
+      ∑ e ∈ Finset.Icc 4 m, 2 ^ (m - e) =
+        ∑ i ∈ Finset.range (m - 3), 2 ^ i := by
+    refine Finset.sum_bij (fun e _ => m - e) ?_ ?_ ?_ ?_
+    · intro e he
+      rcases Finset.mem_Icc.1 he with ⟨he4, hem⟩
+      have : m - e ≤ m - 4 := Nat.sub_le_sub_left he4 _
+      have hlt : m - e < m - 3 := by omega
+      exact Finset.mem_range.2 hlt
+    · intro a ha b hb h
+      rcases Finset.mem_Icc.1 ha with ⟨_, ham⟩
+      rcases Finset.mem_Icc.1 hb with ⟨_, hbm⟩
+      omega
+    · intro i hi
+      have hi' : i < m - 3 := Finset.mem_range.1 hi
+      refine ⟨m - i, ?_, ?_⟩
+      · refine Finset.mem_Icc.2 ⟨?_, Nat.sub_le m i⟩
+        have : i ≤ m - 4 := by omega
+        omega
+      · exact Nat.sub_sub_self (by omega : i ≤ m)
+    · intro e _; rfl
+  rw [hrange, Nat.geomSum_eq (by decide : 2 ≤ 2)]
+  simp
+
+/--
+`[C→A]` Step 4 — total contracting residue cardinality:
+`|R_m^{contr}| = 2^{m-3} - 1`.
+-/
+theorem contractingResidues_card {m : Nat} (hm : 4 ≤ m) :
+    (contractingResidues m).card = 2 ^ (m - 3) - 1 := by
+  rw [contractingResidues, Finset.card_biUnion]
+  · simp_rw [fiberResidues_card]
+    exact sum_two_pow_m_sub_e hm
+  · intro a ha b hb hab
+    have ha4 : 4 ≤ a := (Finset.mem_Icc.1 ha).1
+    have hb4 : 4 ≤ b := (Finset.mem_Icc.1 hb).1
+    exact fiberResidues_disjoint (by omega : 1 ≤ a) (by omega : 1 ≤ b) hab
+
+/-- Architectural Core6 residue budget at stage `m` (denominator of dyadic density). -/
+def core6ResidueBudget (m : Nat) : Nat := 2 ^ m
+
+/--
+`[C→A]` Step 5a — exact relative dyadic proportion (cast to `ℚ`; not `Nat` division):
+
+`(2^{m-3}-1)/2^m = 1/8 - 1/2^m`.
+-/
+theorem contractingResidues_dyadicProportion {m : Nat} (hm : 4 ≤ m) :
+    ((contractingResidues m).card : ℚ) / (core6ResidueBudget m : ℚ) =
+      (1 : ℚ) / 8 - (1 : ℚ) / (2 ^ m : ℚ) := by
+  have hm3 : 3 ≤ m := by omega
+  have hcard := contractingResidues_card hm
+  have hpos : (0 : ℚ) < (2 : ℚ) ^ m := by positivity
+  have hge : 1 ≤ 2 ^ (m - 3) := Nat.one_le_two_pow
+  calc
+    ((contractingResidues m).card : ℚ) / (core6ResidueBudget m : ℚ)
+        = ((2 ^ (m - 3) - 1 : Nat) : ℚ) / (2 ^ m : ℚ) := by
+          simp [hcard, core6ResidueBudget]
+    _ = ((2 ^ (m - 3) : Nat) : ℚ) / (2 ^ m : ℚ) - (1 : ℚ) / (2 ^ m : ℚ) := by
+        rw [Nat.cast_sub hge, sub_div]
+        simp
+    _ = (2 : ℚ) ^ (m - 3) / (2 : ℚ) ^ m - (1 : ℚ) / (2 : ℚ) ^ m := by
+        norm_cast
+    _ = (1 : ℚ) / 8 - (1 : ℚ) / (2 : ℚ) ^ m := by
+        have hsplit : (2 : ℚ) ^ m = (2 : ℚ) ^ (m - 3) * (2 : ℚ) ^ 3 := by
+          rw [← pow_add, Nat.sub_add_cancel hm3]
+        rw [hsplit, pow_three]
+        field_simp
+        ring
+
+/--
+`[C→A]` Step 5b — exact error to `1/8` (implies the dyadic limit `→ 1/8`):
+
+$$
+\left|\frac{|R_m^{\mathrm{contr}}|}{2^m}-\frac18\right|=\frac1{2^m}.
+$$
+
+This is **relative dyadic density** along `Q_m = 2^{m+9}`, not ordinary natural density.
+-/
+theorem contractingResidues_dyadicDensity_error {m : Nat} (hm : 4 ≤ m) :
+    |((contractingResidues m).card : ℚ) / (core6ResidueBudget m : ℚ) - (1 : ℚ) / 8| =
+      (1 : ℚ) / (2 ^ m : ℚ) := by
+  rw [contractingResidues_dyadicProportion hm, sub_sub_cancel_left, abs_neg, abs_of_nonneg]
+  exact div_nonneg (by norm_num) (by positivity)
+
+/--
+`[C→A]` Package goal: contracting family occupies `2^{m-3}-1` residues at stage `m`.
 -/
 def FiniteDyadicContractingCountGoal : Prop :=
-  ∀ m : Nat, 4 ≤ m → True
+  ∀ m : Nat, 4 ≤ m → (contractingResidues m).card = 2 ^ (m - 3) - 1
+
+theorem finiteDyadicContractingCountGoal : FiniteDyadicContractingCountGoal :=
+  fun _ hm => contractingResidues_card hm
 
 end KeplerHurwitz.Collatz.Pre119Draft.Core6CylinderPartition
