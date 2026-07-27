@@ -130,11 +130,6 @@ def expanding_starts(m: int) -> Iterator[tuple[int, int, int]]:
             yield e0, k, fiber_index(e0, k)
 
 
-def run_orbit(n: int, T: int) -> CensusRow | None:
-    """Unused placeholder — rows built in census_stage."""
-    return None
-
-
 def census_one(stage_m: int, e0: int, k: int, n: int, T: int) -> CensusRow:
     # Sanity: start in claimed source fiber
     if not realizes_word(CORE6 + (e0,), n):
