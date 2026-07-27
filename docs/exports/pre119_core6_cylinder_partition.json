@@ -133,7 +133,7 @@
       "process": "CI green; draft; unmerged"
     },
     "PR16": {
-      "head": "62a68a0",
+      "head": "377c104",
       "theorem": "C\u2192A",
       "process": "CI queued; draft; mergeable; inter-fiber decomposition and combinatorial density"
     },
