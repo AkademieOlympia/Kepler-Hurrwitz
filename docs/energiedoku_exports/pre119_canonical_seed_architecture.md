@@ -89,11 +89,12 @@ Endlich-dyadisch: für `5 ≤ e ≤ m` enthält die Vereinigung modulo `2^{m+9}`
 `∑_{e=5}^{m} 2^{m-e} = 2^{m-4}-1` Restklassenpunkte, also Dichte
 `1/8192 - 1/2^{m+9}`.
 
-**Forschungsfront nach Lifting-Abschluss:** nicht „Coverage untersuchen“,
-sondern die **exakte dyadische Partition des Core6-Zylinders** beweisen
-(Folge-PR #16: Disjunktheit, endliche Zählung, relative Dichte).
-Danach: weitere Valuationswörter / Preimage-Abschluss / Zuführungsbrücke —
-das Lifting-Problem ist geschlossen; das Zylinder-Überdeckungsproblem beginnt.
+**Forschungsfront nach Lifting-Abschluss (PR #16):** nicht diffuse Coverage,
+sondern (i) Vollständigkeitsbrücke `RealizesWord ↔ C_e`, (ii) Disjunktheit über
+Bewertungs-Eindeutigkeit, (iii) Partition `C_Core6 = ⊔_{e≥1} C_e`, (iv) Komplement
+der kontraktiven Familie **exakt** `e∈{1,2,3}` (Anteil `7/8`). Endliche dyadische
+Zählung liefert danach `1/8` als Korollar. Offene Front: Zuführung der drei
+kleinen Kanäle `Core6++[1|2|3]`.
 
 ## Module
 

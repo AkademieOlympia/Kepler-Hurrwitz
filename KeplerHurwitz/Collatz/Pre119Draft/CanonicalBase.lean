@@ -192,8 +192,8 @@ theorem canonicalBase_eq_classBase {e : Nat}
 
 /-! ### ModEq → AffineOddQuotient → RealizesWord -/
 
-/-- Every entry of `fiberE e` is ≥ 1 when `e ≥ 4`. -/
-theorem fiberE_positive {e : Nat} (he : 4 ≤ e) :
+/-- Every entry of `fiberE e` is ≥ 1 when `e ≥ 1`. -/
+theorem fiberE_positive_ge_one {e : Nat} (he : 1 ≤ e) :
     ∀ a ∈ fiberE e, 1 ≤ a := by
   intro a ha
   have hlist : fiberE e = [1, 1, 1, 1, 2, 2, e] := fiberE_list e
@@ -201,6 +201,11 @@ theorem fiberE_positive {e : Nat} (he : 4 ≤ e) :
   simp only [List.mem_cons, List.not_mem_nil, or_false] at ha
   rcases ha with
     h | h | h | h | h | h | h <;> omega
+
+/-- Every entry of `fiberE e` is ≥ 1 when `e ≥ 4`. -/
+theorem fiberE_positive {e : Nat} (he : 4 ≤ e) :
+    ∀ a ∈ fiberE e, 1 ≤ a :=
+  fiberE_positive_ge_one (by omega)
 
 /--
 `[A]` The unique dyadic seed satisfies the odd affine quotient identity on `fiberE e`.
@@ -227,12 +232,19 @@ theorem canonicalBase_affineOddQuotient (e : Nat) :
           rw [hlen, hC]
 
 /--
+`[A]` The canonical seed realizes the Core6 single-step word for every `e ≥ 1`.
+-/
+theorem canonicalBase_realizes_ge_one (e : Nat) (he : 1 ≤ e) :
+    RealizesWord (fiberE e) (canonicalBase e) :=
+  realizesWord_of_affineOddQuotient (fiberE_positive_ge_one he)
+    (canonicalBase_affineOddQuotient e)
+
+/--
 `[A]` The canonical seed realizes the Core6 single-step word for every `e ≥ 4`.
 -/
 theorem canonicalBase_realizes (e : Nat) (he : 4 ≤ e) :
     RealizesWord (fiberE e) (canonicalBase e) :=
-  realizesWord_of_affineOddQuotient (fiberE_positive he)
-    (canonicalBase_affineOddQuotient e)
+  canonicalBase_realizes_ge_one e (by omega)
 
 /-- `[A]` Realization goal discharged. -/
 def CanonicalBaseRealizesGoal : Prop :=
