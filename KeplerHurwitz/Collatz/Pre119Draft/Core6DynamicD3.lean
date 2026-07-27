@@ -28,6 +28,7 @@ open KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema
 open KeplerHurwitz.Collatz.Pre119Draft.FiberWordBasics
 
 open KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicFeedIn
+open KeplerHurwitz.Collatz.Pre119Draft.FiberEWordAlgebra
 
 /-! ### D3.0 — semantic one-block trichotomy -/
 
@@ -807,7 +808,202 @@ theorem realizesChannelPath_eq_progression
   ext n
   exact realizesChannelPath_iff_mem_progression he₀ hrest
 
+/-! ### Index modulus vs number modulus -/
+
+/--
+Number-level modulus of a nonempty path: `2^{e₀+9} · M_p`.
+The Lean name `channelPathIndexModulus` is the **fiber-index** modulus only.
+-/
+def channelPathNumberModulus : List Nat → Nat
+  | [] => 1
+  | e :: rest => seedModulus e * channelPathIndexModulus (e :: rest)
+
+theorem mem_channelPathProgression_numberModEq
+    {e₀ : Nat} {rest : List Nat} {n : Nat}
+    (_he₀ : 1 ≤ e₀) (_hrest : ChannelPathLabelsValid rest)
+    (hn : n ∈ channelPathProgression (e₀ :: rest)) :
+    n ≡ fiberIndexMap e₀ (channelPathIndexClass (e₀ :: rest))
+      [MOD channelPathNumberModulus (e₀ :: rest)] := by
+  obtain ⟨r, rfl⟩ := hn
+  simp only [channelPathIndexMap, channelPathNumberModulus, fiberIndexMap]
+  set κ := channelPathIndexClass (e₀ :: rest)
+  set M := channelPathIndexModulus (e₀ :: rest)
+  set S := seedModulus e₀
+  have h : (κ + r * M) * S ≡ κ * S [MOD S * M] := by
+    have : κ * S + r * M * S ≡ κ * S [MOD S * M] := by
+      have h0 : r * (S * M) ≡ 0 [MOD S * M] := by
+        rw [Nat.ModEq]; simp
+      simpa [mul_comm M S, mul_left_comm, mul_assoc] using
+        (h0.add_left (κ * S))
+    convert this using 1
+    ring
+  exact h.add_left (canonicalBase e₀)
+
+/-! ### D3.3a — packaging successful Core6 path APs -/
+
+/-- Expanding Core6 channel label `e ∈ {1,2,3}`. -/
+def IsExpandingChannel (e : Nat) : Prop := 1 ≤ e ∧ e ≤ 3
+
+/-- Contracting Core6 channel label `e ≥ 4`. -/
+def IsContractingChannel (e : Nat) : Prop := 4 ≤ e
+
+/--
+Finite Core6 path with expanding start `e₀`, expanding interior channels,
+and **first** contracting hit exactly at the last label.
+-/
+def IsContractingFirstHitPath (e₀ : Nat) (p : List Nat) : Prop :=
+  ∃ mid : List Nat, ∃ f : Nat,
+    p = e₀ :: (mid ++ [f]) ∧
+      IsExpandingChannel e₀ ∧
+      (∀ e ∈ mid, IsExpandingChannel e) ∧
+      IsContractingChannel f
+
+theorem IsContractingFirstHitPath.labelsValid
+    {e₀ : Nat} {p : List Nat}
+    (hp : IsContractingFirstHitPath e₀ p) :
+    ChannelPathLabelsValid p := by
+  obtain ⟨mid, f, rfl, he₀, hmid, hf⟩ := hp
+  intro e he
+  have he' : e ∈ e₀ :: (mid ++ [f]) := he
+  rw [List.mem_cons, List.mem_append, List.mem_singleton] at he'
+  rcases he' with rfl | hmid' | rfl
+  · exact he₀.1
+  · exact (hmid e hmid').1
+  · exact Nat.le_trans (by decide : 1 ≤ 4) hf
+
+theorem IsContractingFirstHitPath.head_expanding
+    {e₀ : Nat} {p : List Nat}
+    (hp : IsContractingFirstHitPath e₀ p) :
+    IsExpandingChannel e₀ := by
+  obtain ⟨_, _, _, he₀, _, _⟩ := hp
+  exact he₀
+
+theorem IsContractingFirstHitPath.length_ge_two
+    {e₀ : Nat} {p : List Nat}
+    (hp : IsContractingFirstHitPath e₀ p) :
+    2 ≤ p.length := by
+  obtain ⟨mid, f, rfl, _, _, _⟩ := hp
+  simp [List.length_cons, List.length_append]
+
+/--
+Starts in `C_{e₀}` that realize some contracting-first-hit Core6 path.
+Algebraic packaging of successful fixed-path APs; coverage of all of `C_{e₀}`
+is `Core6PathFeedInGoal` (`[C]`).
+-/
+def core6PathFeedInSet (e₀ : Nat) : Set Nat :=
+  ⋃ p : List Nat, ⋃ (_ : IsContractingFirstHitPath e₀ p),
+    {n | RealizesChannelPath p n}
+
+/--
+`[C→A]` D3.3a packaging: the feed-in set is the union of path progressions.
+-/
+theorem core6PathFeedInSet_eq_iUnion_progressions (e₀ : Nat) :
+    core6PathFeedInSet e₀ =
+      ⋃ p : List Nat, ⋃ (_ : IsContractingFirstHitPath e₀ p),
+        channelPathProgression p := by
+  ext n
+  constructor
+  · intro hn
+    obtain ⟨p, hp'⟩ := mem_iUnion.1 hn
+    obtain ⟨hp, hR⟩ := mem_iUnion.1 hp'
+    refine mem_iUnion.2 ⟨p, mem_iUnion.2 ⟨hp, ?_⟩⟩
+    obtain ⟨mid, f, rfl, he₀, hmid, hf⟩ := hp
+    have hvalid := IsContractingFirstHitPath.labelsValid
+      ⟨mid, f, rfl, he₀, hmid, hf⟩
+    have hrest : ChannelPathLabelsValid (mid ++ [f]) :=
+      hvalid.tail
+    have : n ∈ {m | RealizesChannelPath (e₀ :: (mid ++ [f])) m} := hR
+    rwa [realizesChannelPath_eq_progression he₀.1 hrest] at this
+  · intro hn
+    obtain ⟨p, hp'⟩ := mem_iUnion.1 hn
+    obtain ⟨hp, hP⟩ := mem_iUnion.1 hp'
+    refine mem_iUnion.2 ⟨p, mem_iUnion.2 ⟨hp, ?_⟩⟩
+    obtain ⟨mid, f, rfl, he₀, hmid, hf⟩ := hp
+    have hvalid := IsContractingFirstHitPath.labelsValid
+      ⟨mid, f, rfl, he₀, hmid, hf⟩
+    have hrest : ChannelPathLabelsValid (mid ++ [f]) :=
+      hvalid.tail
+    have : n ∈ channelPathProgression (e₀ :: (mid ++ [f])) := hP
+    rwa [← realizesChannelPath_eq_progression he₀.1 hrest] at this
+
+theorem realizesChannelPath_one_four_isContractingFirstHit :
+    IsContractingFirstHitPath 1 [1, 4] := by
+  refine ⟨[], 4, rfl, ?exp, ?mid, ?f⟩
+  · exact ⟨by decide, by decide⟩
+  · intro e he; cases he
+  · exact (by decide : 4 ≤ 4)
+
+theorem mem_core6PathFeedInSet_one_1246239 :
+    1246239 ∈ core6PathFeedInSet 1 :=
+  mem_iUnion.2 ⟨[1, 4], mem_iUnion.2
+    ⟨realizesChannelPath_one_four_isContractingFirstHit,
+      realizesChannelPath_one_four_1246239⟩⟩
+
+/-- First hop of a contracting-first-hit path lands back in Core6. -/
+theorem realizesContractingFirstHit_firstImage_mem_core6
+    {e₀ : Nat} {mid : List Nat} {f n : Nat}
+    (hmid : ∀ e ∈ mid, IsExpandingChannel e)
+    (hf : IsContractingChannel f)
+    (hR : RealizesChannelPath (e₀ :: (mid ++ [f])) n) :
+    realizedImage n (fiberE e₀) ∈ core6Cylinder := by
+  have hphase := core6Cylinder_eq_expanding_disjoint_union_contracting
+  match mid with
+  | [] =>
+    have himg : realizedImage n (fiberE e₀) ∈ canonicalCylinder f := by
+      simpa [RealizesChannelPath] using hR.2
+    rw [hphase.1]
+    exact Or.inr (mem_iUnion.2 ⟨f, mem_iUnion.2 ⟨hf, himg⟩⟩)
+  | x :: xs =>
+    have hR' : RealizesChannelPath (e₀ :: x :: (xs ++ [f])) n := by
+      simpa [List.cons_append] using hR
+    have himg : realizedImage n (fiberE e₀) ∈ canonicalCylinder x := by
+      match xs with
+      | [] =>
+        have htail : RealizesChannelPath [x, f]
+            (realizedImage n (fiberE e₀)) := hR'.2
+        exact htail.1
+      | y :: ys =>
+        have htail : RealizesChannelPath (x :: y :: (ys ++ [f]))
+            (realizedImage n (fiberE e₀)) := by
+          simpa [List.cons_append] using hR'.2
+        exact htail.1
+    have hx : IsExpandingChannel x := hmid x (List.mem_cons.2 (Or.inl rfl))
+    rw [hphase.1]
+    refine Or.inl ?_
+    have hx' : x = 1 ∨ x = 2 ∨ x = 3 := by
+      have := hx.1; have := hx.2; omega
+    have : realizedImage n (fiberE e₀) ∈
+        canonicalCylinder 1 ∨
+          realizedImage n (fiberE e₀) ∈ canonicalCylinder 2 ∨
+            realizedImage n (fiberE e₀) ∈ canonicalCylinder 3 := by
+      rcases hx' with rfl | rfl | rfl
+      · exact Or.inl himg
+      · exact Or.inr (Or.inl himg)
+      · exact Or.inr (Or.inr himg)
+    simpa [expandingCore6, smallTailCore6, or_assoc] using this
+
+theorem not_mem_core6PathFeedInSet_of_offCore6
+    {e₀ n : Nat} (hO : n ∈ oneBlockOffCore6Set e₀) :
+    n ∉ core6PathFeedInSet e₀ := by
+  intro hF
+  obtain ⟨p, hp'⟩ := mem_iUnion.1 hF
+  obtain ⟨hp, hR⟩ := mem_iUnion.1 hp'
+  obtain ⟨mid, f, rfl, _he₀, hmid, hf⟩ := hp
+  exact hO.2
+    (realizesContractingFirstHit_firstImage_mem_core6 hmid hf hR)
+
+theorem not_mem_core6PathFeedInSet_one_31 :
+    31 ∉ core6PathFeedInSet 1 :=
+  not_mem_core6PathFeedInSet_of_offCore6 mem_oneBlockOffCore6Set_one_31
+
 /-! ### Open D3/D4 dynamical goals (definitions only) -/
+
+/--
+`[C]` Every expanding start admits a contracting-first-hit Core6 channel path.
+-/
+def Core6PathFeedInGoal : Prop :=
+  ∀ e₀ : Nat, 1 ≤ e₀ → e₀ ≤ 3 →
+    canonicalCylinder e₀ ⊆ core6PathFeedInSet e₀
 
 /--
 `[C]` Hits contracting mass at a complete block boundary (`t = 7r`).
@@ -826,11 +1022,134 @@ def OffCore6ReentryGoal : Prop :=
       ∃ s : Nat, 1 ≤ s ∧
         syracuseOddIterate s (realizedImage n (fiberE e₀)) ∈ core6Cylinder
 
+theorem realizedImage_eq_syracuseOddIterate (n : Nat) (w : List Nat) :
+    realizedImage n w = syracuseOddIterate w.length n := by
+  induction w generalizing n with
+  | nil => rfl
+  | cons _e es ih =>
+    simp only [realizedImage, List.length_cons, syracuseOddIterate]
+    rw [ih]
+    change Nat.iterate syracuseOddStep es.length (syracuseOddStep n) =
+      Nat.iterate syracuseOddStep (es.length + 1) n
+    rw [show es.length + 1 = es.length.succ from rfl]
+    -- Need step^[k] (step n) = step^[k+1] n.
+    have hcomm := Function.Commute.iterate_self syracuseOddStep es.length n
+    -- hcomm : step^[k] (step n) = step (step^[k] n)
+    rw [hcomm]
+    exact (Function.iterate_succ_apply' syracuseOddStep es.length n).symm
+
+theorem fiberE_length_eq_seven (e : Nat) : (fiberE e).length = 7 :=
+  fiberE_length_seven' e
+
+private theorem realizesChannelPath_cons_tail
+    {e : Nat} {rest : List Nat} {n : Nat}
+    (hne : rest ≠ [])
+    (hR : RealizesChannelPath (e :: rest) n) :
+    n ∈ canonicalCylinder e ∧
+      RealizesChannelPath rest (realizedImage n (fiberE e)) := by
+  match rest with
+  | [] => exact (hne rfl).elim
+  | _ :: _ => exact hR
+
+/--
+After realizing `es ++ [f]` with `es ≠ []`, the image after `7 * es.length`
+odd steps lies in `C_f`.
+-/
+theorem realizesChannelPath_snoc_iterate
+    {es : List Nat} {f n : Nat}
+    (hne : es ≠ [])
+    (hes : ChannelPathLabelsValid es)
+    (hR : RealizesChannelPath (es ++ [f]) n) :
+    syracuseOddIterate (7 * es.length) n ∈ canonicalCylinder f := by
+  match es with
+  | [] => exact (hne rfl).elim
+  | e :: rest =>
+    have hrest := hes.tail
+    have hR' : RealizesChannelPath (e :: (rest ++ [f])) n := by
+      simpa [List.cons_append] using hR
+    have hpair := realizesChannelPath_cons_tail
+      (rest := rest ++ [f]) (by cases rest <;> simp) hR'
+    have himg := hpair.2
+    have heq : realizedImage n (fiberE e) = syracuseOddIterate 7 n := by
+      simpa [fiberE_length_eq_seven] using
+        realizedImage_eq_syracuseOddIterate n (fiberE e)
+    match rest with
+    | [] =>
+      have himg_f : realizedImage n (fiberE e) ∈ canonicalCylinder f := by
+        simpa [RealizesChannelPath] using himg
+      simpa [List.length_cons, List.length_nil, heq.symm] using himg_f
+    | x :: xs =>
+      have hne' : x :: xs ≠ [] := List.cons_ne_nil _ _
+      have ih := realizesChannelPath_snoc_iterate (es := x :: xs) (f := f)
+        (n := realizedImage n (fiberE e)) hne' hrest
+        (by simpa [List.cons_append] using himg)
+      have : syracuseOddIterate (7 * (x :: xs).length)
+          (syracuseOddIterate 7 n) ∈ canonicalCylinder f := by
+        rwa [heq] at ih
+      have hcomp :
+          syracuseOddIterate (7 * (x :: xs).length) (syracuseOddIterate 7 n) =
+            syracuseOddIterate (7 * (x :: xs).length + 7) n := by
+        simp only [syracuseOddIterate]
+        rw [← Function.iterate_add_apply]
+      have hlen :
+          7 * (e :: x :: xs).length = 7 * (x :: xs).length + 7 := by
+        simp [List.length_cons, Nat.mul_add]
+      rwa [hcomp, ← hlen] at this
+
+theorem realizesChannelPath_contractingFirstHit_blockBoundary
+    {e₀ : Nat} {p : List Nat} {n : Nat}
+    (hp : IsContractingFirstHitPath e₀ p)
+    (hR : RealizesChannelPath p n) :
+    ∃ r : Nat, 1 ≤ r ∧
+      syracuseOddIterate (7 * r) n ∈ contractingMass := by
+  obtain ⟨mid, f, rfl, he₀, hmid, hf⟩ := hp
+  have hvalid :=
+    IsContractingFirstHitPath.labelsValid ⟨mid, f, rfl, he₀, hmid, hf⟩
+  have hes : ChannelPathLabelsValid (e₀ :: mid) := by
+    intro e he
+    apply hvalid
+    rw [List.mem_cons] at he ⊢
+    rcases he with rfl | he'
+    · exact Or.inl rfl
+    · exact Or.inr (List.mem_append.2 (Or.inl he'))
+  have hR' : RealizesChannelPath ((e₀ :: mid) ++ [f]) n := by
+    simpa [List.cons_append] using hR
+  have himg :=
+    realizesChannelPath_snoc_iterate (es := e₀ :: mid) (List.cons_ne_nil _ _)
+      hes hR'
+  refine ⟨(e₀ :: mid).length, by simp [List.length_cons], ?_⟩
+  exact mem_iUnion.2 ⟨f, mem_iUnion.2 ⟨hf, himg⟩⟩
+
+theorem core6PathFeedIn_implies_blockBoundary :
+    Core6PathFeedInGoal → BlockBoundaryFeedInGoal := by
+  intro h n hn
+  have hU : n ∈
+      canonicalCylinder 1 ∨ n ∈ canonicalCylinder 2 ∨
+        n ∈ canonicalCylinder 3 := by
+    simpa [expandingMass, expandingCore6, smallTailCore6, or_assoc] using hn
+  have handle : ∀ e₀ : Nat, 1 ≤ e₀ → e₀ ≤ 3 → n ∈ canonicalCylinder e₀ →
+      ∃ r : Nat, 1 ≤ r ∧
+        syracuseOddIterate (7 * r) n ∈ contractingMass := by
+    intro e₀ he₁ he₃ hnC
+    have hnF : n ∈ core6PathFeedInSet e₀ := h e₀ he₁ he₃ hnC
+    obtain ⟨p, hp'⟩ := mem_iUnion.1 hnF
+    obtain ⟨hp, hR⟩ := mem_iUnion.1 hp'
+    exact realizesChannelPath_contractingFirstHit_blockBoundary hp hR
+  rcases hU with h1 | h2 | h3
+  · exact handle 1 (by decide) (by decide) h1
+  · exact handle 2 (by decide) (by decide) h2
+  · exact handle 3 (by decide) (by decide) h3
+
 theorem blockBoundaryFeedIn_implies_reachability :
     BlockBoundaryFeedInGoal → ReachabilityFeedInGoal := by
   intro h n hn
   obtain ⟨r, hr, himg⟩ := h n hn
   exact ⟨7 * r, by omega, himg⟩
+
+theorem core6PathFeedIn_implies_reachability :
+    Core6PathFeedInGoal → ReachabilityFeedInGoal :=
+  fun h => blockBoundaryFeedIn_implies_reachability
+    (core6PathFeedIn_implies_blockBoundary h)
 
 /-! ### D3 algebraic package -/
 
@@ -851,17 +1170,6 @@ structure Core6DynamicD3AlgebraGoals : Prop where
           (fiberE e₀) =
         fiberIndexMap f
           (oneBlockTargetBaseIndex e₀ f he₀ hf + coeff3 * r)
-  channelPathLengthTwo :
-    ∀ e₀ f : Nat, 1 ≤ e₀ → 1 ≤ f →
-      channelPathProgression [e₀, f] = oneBlockTargetProgression e₀ f
-  channelPathHopStep :
-    ∀ e f : Nat, ∀ rest : List Nat, ∀ k : Nat,
-      ∀ he : 1 ≤ e, ∀ hf : 1 ≤ f,
-        k ≡ oneBlockIndexClass e f [MOD oneBlockIndexModulus f] →
-          let r := k / oneBlockIndexModulus f
-          let j := oneBlockTargetBaseIndex e f he hf + coeff3 * r
-          (RealizesChannelPath (e :: f :: rest) (fiberIndexMap e k) ↔
-            RealizesChannelPath (f :: rest) (fiberIndexMap f j))
   channelPathFiberIndex :
     ∀ e₀ : Nat, ∀ rest : List Nat, ∀ k : Nat,
       1 ≤ e₀ → ChannelPathLabelsValid rest →
@@ -873,8 +1181,15 @@ structure Core6DynamicD3AlgebraGoals : Prop where
       1 ≤ e₀ → ChannelPathLabelsValid rest →
         {n | RealizesChannelPath (e₀ :: rest) n} =
           channelPathProgression (e₀ :: rest)
-  channelPathWitness : RealizesChannelPath [1, 4] 1246239
-  offCore6Witness : 31 ∈ oneBlockOffCore6Set 1
+  core6PathPackaging :
+    ∀ e₀ : Nat,
+      core6PathFeedInSet e₀ =
+        ⋃ p : List Nat, ⋃ (_ : IsContractingFirstHitPath e₀ p),
+          channelPathProgression p
+  core6PathWitness : 1246239 ∈ core6PathFeedInSet 1
+  offCore6NotPathFeedIn : 31 ∉ core6PathFeedInSet 1
+  core6PathImpliesBlockBoundary :
+    Core6PathFeedInGoal → BlockBoundaryFeedInGoal
   blockBoundaryImpliesReachability :
     BlockBoundaryFeedInGoal → ReachabilityFeedInGoal
 
@@ -883,25 +1198,24 @@ theorem core6DynamicD3AlgebraGoals_named : Core6DynamicD3AlgebraGoals where
   expandingReturnProgressions := fun _ he =>
     oneBlockExpandingReturnSet_eq_iUnion_progressions he
   targetIndexAffine := fun _ _ _ he₀ hf => oneBlock_targetIndex_affine he₀ hf
-  channelPathLengthTwo := fun _ _ he₀ hf =>
-    channelPathProgression_two_eq_oneBlock he₀ hf
-  channelPathHopStep := fun _ _ _ _ he hf hk =>
-    realizesChannelPath_cons_fiberIndex_step he hf hk
   channelPathFiberIndex := fun _ _ _ he₀ hrest =>
     realizesChannelPath_fiberIndex_iff he₀ hrest
   channelPathEqProgression := fun _ _ he₀ hrest =>
     realizesChannelPath_eq_progression he₀ hrest
-  channelPathWitness := realizesChannelPath_one_four_1246239
-  offCore6Witness := mem_oneBlockOffCore6Set_one_31
+  core6PathPackaging := fun _ => core6PathFeedInSet_eq_iUnion_progressions _
+  core6PathWitness := mem_core6PathFeedInSet_one_1246239
+  offCore6NotPathFeedIn := not_mem_core6PathFeedInSet_one_31
+  core6PathImpliesBlockBoundary := core6PathFeedIn_implies_blockBoundary
   blockBoundaryImpliesReachability := blockBoundaryFeedIn_implies_reachability
 
 /-!
 ## Explicit non-theorems
 
-- `BlockBoundaryFeedInGoal` / `OffCore6ReentryGoal` are not discharged.
+- `Core6PathFeedInGoal` / `BlockBoundaryFeedInGoal` / `OffCore6ReentryGoal`
+  are not discharged.
 - `ReachabilityFeedInGoal` remains `[C]`.
-- Fixed-path APs are structure for each finite `p`, not universal reachability.
-- The constructed path modulus need not be the minimal period.
+- D3.3a packages fixed-path APs; it does **not** prove coverage of all of `C_{e₀}`.
+- Off-Core6 exits (e.g. `31`) lie outside `core6PathFeedInSet`.
 - No Collatz / collapse statement.
 -/
 

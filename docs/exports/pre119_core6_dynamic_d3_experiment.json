@@ -8,25 +8,23 @@
   "status_wall": {
     "D3_0_trichotomy": "C\u2192A",
     "D3_1_target_index_affine": "C\u2192A",
-    "D3_2_channel_paths": "C\u2192A",
     "D3_2_general_path_AP": "C\u2192A",
+    "D3_3a_path_packaging": "C\u2192A",
+    "Core6PathFeedInGoal": "C",
     "BlockBoundaryFeedInGoal": "C",
     "OffCore6ReentryGoal": "C",
     "ReachabilityFeedInGoal": "C",
     "collapse": false
   },
   "delivered": [
-    "canonicalCylinder_eq_oneBlock_trichotomy",
-    "oneBlock_targetIndex_affine",
-    "RealizesChannelPath",
-    "channelPathProgression_two_eq_oneBlock",
-    "realizesChannelPath_cons_fiberIndex_step",
-    "channelPathIndexClass_lt",
-    "channelPathResidual_iff",
-    "realizesChannelPath_fiberIndex_iff",
     "realizesChannelPath_eq_progression",
+    "channelPathNumberModulus",
+    "IsContractingFirstHitPath",
+    "core6PathFeedInSet_eq_iUnion_progressions",
+    "mem_core6PathFeedInSet_one_1246239",
+    "not_mem_core6PathFeedInSet_one_31",
+    "core6PathFeedIn_implies_blockBoundary",
     "blockBoundaryFeedIn_implies_reachability"
   ],
-  "claims_freeze": false,
-  "notes": "Path modulus is iterated dyadic lifting via odd unit 2187, not classical CRT."
+  "claims_freeze": false
 }
