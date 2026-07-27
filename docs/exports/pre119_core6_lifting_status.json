@@ -1,0 +1,19 @@
+{
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6Lifting",
+  "correction": {
+    "rejected_sketch": "isGood on numbers / Core6PlusPlus e + k*period",
+    "correct_lifting": "ApMemberOk = RealizesWord + contracts on AP"
+  },
+  "tag_A": [
+    "lifting_e4_below_2pow21",
+    "lifting_e5_below_2pow21",
+    "lifting_e6_below_2pow21",
+    "lifting_e7_below_2pow21",
+    "family_coverage_e4_to_e7_below_2pow21"
+  ],
+  "tag_C": ["InfiniteApLiftingHypothesis"],
+  "InfiniteApLiftingClaimed": false,
+  "claims_freeze": false,
+  "collatz_proved": false,
+  "sorry_count": 0
+}
