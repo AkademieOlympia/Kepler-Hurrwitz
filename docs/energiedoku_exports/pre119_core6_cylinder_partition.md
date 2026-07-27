@@ -11,19 +11,43 @@ It must not be confused with repository `[A]` status.
 | **PR #16** | **`[C→A]`** | Combinatorial decomposition & residue density (deductive discharge of PR #15 algebra — **not** external axiom debt). |
 | **Follow-up** | **`[C]`** | Global dynamics & orbit feed-in: `C_1 ∪ C_2 ∪ C_3 → ⋃_{e≥4} C_e`. |
 
-## Representative vs fiber (do not conflate)
+## Dreifache Objektklarheit (kein Typenkollaps)
 
-Quotient-space interface between PR #15 and PR #16:
+Projection `π_e : ℕ → ℕ/2^{e+9}ℕ` and preimage fiber:
 
 $$
-C_e \;\longleftrightarrow\; [b_e] \in \mathbb{N}/2^{e+9}\mathbb{N},
+C_e = \pi_e^{-1}([b_e]),
 \qquad b_e = \operatorname{canonicalBase}(e).
 $$
 
-* **Infinite fiber:** every `x ∈ C_e` realizes `fiberE e` — infinitely many realizers.
-* **Unique representative below the modulus:**
-  `∃! b < 2^{e+9}, IsCanonicalSeed e b` (and that `b` realizes the word).
-  Uniqueness is of the **canonical residue representative**, not of the whole fiber.
+| Objekt | Notation | Raum | Rolle |
+|--------|----------|------|-------|
+| Element / Koordinate | `b_e` | `ℕ` | eindeutiger Repräsentant in `[0, 2^{e+9})` |
+| Quotientenklasse | `[b_e]` | `ℕ/2^{e+9}ℕ` | Punkt im dyadischen Modulraum |
+| Urbildfaser | `C_e = π_e^{-1}([b_e])` | `⊂ ℕ` | unendliche AP |
+
+Fundamental inequality of objects:
+
+$$
+b_e \in C_e
+\quad\land\quad
+[b_e] \neq \{b_e\}
+\quad\land\quad
+C_e \neq \{b_e\}.
+$$
+
+## Theoremstatus ≠ Prozessstatus
+
+| PR | Head | Theoremstatus | Process-Status |
+|----|------|---------------|----------------|
+| **#15** | `6004d2b` | **`[A]`** eindeutige Koordinate & Lifting `e≥4` | CI grün (Lean/Evidence/QG) · Draft · ungemergt |
+| **#16** | `0575b03` | **`[C→A]`** Faseridentifikation, Partition, Zählung | CI queued · Draft |
+| Folge | — | **`[C]`** Zuführung `C_1,C_2,C_3` | Forschungsfront |
+
+## Immunisierung gegen Kategorienfehler
+
+1. **Kein Objektkollaps:** `b_e ≠ [b_e] ≠ C_e`.
+2. **Kein Scope-Overreach:** lokaler Faser-/Strukturbeweis ≠ globale Orbit-Zuführung `[C]`.
 
 ## Five-stage governance cascade
 

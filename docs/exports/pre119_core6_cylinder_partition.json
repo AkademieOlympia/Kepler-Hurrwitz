@@ -85,5 +85,32 @@
       "where": "follow-up"
     }
   ],
-  "next_process_step": "PR16 CI green + review/merge promotes candidates from C\u2192A to repo-of-record A"
+  "next_process_step": "PR16 CI green + review/merge promotes candidates from C\u2192A to repo-of-record A",
+  "triple_object_clarity": {
+    "coordinate": "b_e = canonicalBase(e) in [0, 2^(e+9))",
+    "quotient_class": "[b_e] in N/2^(e+9)N",
+    "preimage_fiber": "C_e = pi_e^{-1}([b_e]) subset N",
+    "inequality": "b_e in C_e AND [b_e] \u2260 {b_e} AND C_e \u2260 {b_e}",
+    "projection": "pi_e : N \u2192 N/2^(e+9)N"
+  },
+  "theorem_vs_process": {
+    "PR15": {
+      "head": "6004d2b",
+      "theorem": "A",
+      "process": "CI green; draft; unmerged"
+    },
+    "PR16": {
+      "head": "0575b03",
+      "theorem": "C\u2192A",
+      "process": "CI queued; draft"
+    },
+    "followup": {
+      "theorem": "C",
+      "process": "research front"
+    }
+  },
+  "immunization": [
+    "no object collapse: b_e \u2260 [b_e] \u2260 C_e",
+    "no scope overreach: local fiber/structure [A/C\u2192A] \u2260 global feed-in [C]"
+  ]
 }

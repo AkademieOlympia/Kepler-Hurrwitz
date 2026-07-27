@@ -100,5 +100,15 @@
     "fiber": "infinitely many realizers in C_e",
     "representative": "unique IsCanonicalSeed below 2^(e+9)"
   },
-  "coverage_note": "documented expectations in PR15; Lean partition theorems belong to PR16 C\u2192A"
+  "coverage_note": "documented expectations in PR15; Lean partition theorems belong to PR16 C\u2192A",
+  "triple_object_clarity": {
+    "b_e": "unique representative",
+    "[b_e]": "dyadic quotient class",
+    "C_e": "infinite preimage fiber pi_e^{-1}([b_e])"
+  },
+  "theorem_vs_process_PR15": {
+    "head": "6004d2b",
+    "theorem": "A",
+    "process": "CI green; draft; unmerged"
+  }
 }
