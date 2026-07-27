@@ -1,5 +1,6 @@
 import Mathlib.Data.Set.Basic
 import Mathlib.Data.Set.Lattice
+import Mathlib.Data.ZMod.Basic
 import Mathlib.Tactic.IntervalCases
 import KeplerHurwitz.Collatz.Pre119Draft.CanonicalBase
 import KeplerHurwitz.Collatz.Pre119Draft.AffineOddQuotient
@@ -46,16 +47,69 @@ open KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema
 open KeplerHurwitz.Collatz.Pre119Draft.CanonicalBase
 open KeplerHurwitz.Collatz.Pre119Draft.ApMemberFromTransfer
 
-/-! ### Package A: cylinder identification -/
+/-! ### Package A: type-correct cylinder identification
 
-/-- Canonical AP cylinder for tail exponent `e` (period `2^{e+9}`). -/
+Three Lean universes (do not collapse):
+* `canonicalBase e : Nat` — representative coordinate
+* `residueMap e (canonicalBase e) : ZMod (seedModulus e)` — quotient point
+* `canonicalCylinder e : Set Nat` — infinite preimage fiber
+-/
+
+/-- Residue projection `π_e : ℕ → ℤ/2^{e+9}ℤ`. -/
+def residueMap (e : Nat) : Nat → ZMod (seedModulus e) :=
+  fun n => (n : ZMod (seedModulus e))
+
+/--
+`[C→A]` Type-correct cylinder: preimage of the singleton residue class
+`{residueMap e (canonicalBase e)}` under `residueMap e`.
+-/
 def canonicalCylinder (e : Nat) : Set Nat :=
+  residueMap e ⁻¹' {residueMap e (canonicalBase e)}
+
+/-- AP presentation of the same fiber (linked by `canonicalCylinder_eq_ap`). -/
+def canonicalCylinderAP (e : Nat) : Set Nat :=
   {n | ∃ k : Nat, n = canonicalBase e + k * seedModulus e}
 
 theorem mem_canonicalCylinder {e n : Nat} :
     n ∈ canonicalCylinder e ↔
+      residueMap e n = residueMap e (canonicalBase e) := by
+  simp [canonicalCylinder, Set.mem_preimage, Set.mem_singleton_iff]
+
+theorem mem_canonicalCylinderAP {e n : Nat} :
+    n ∈ canonicalCylinderAP e ↔
       ∃ k : Nat, n = canonicalBase e + k * seedModulus e :=
   Iff.rfl
+
+/--
+`[C→A]` Isomorphism debt of 16a/b: AP presentation equals ZMod-preimage cylinder.
+-/
+theorem canonicalCylinder_eq_ap (e : Nat) :
+    canonicalCylinder e = canonicalCylinderAP e := by
+  ext n
+  constructor
+  · intro hn
+    have hres : residueMap e n = residueMap e (canonicalBase e) :=
+      (mem_canonicalCylinder).1 hn
+    have hmod : n ≡ canonicalBase e [MOD seedModulus e] :=
+      (ZMod.natCast_eq_natCast_iff _ _ (seedModulus e)).1 hres
+    have hbmod : canonicalBase e % seedModulus e = canonicalBase e :=
+      Nat.mod_eq_of_lt (canonicalBase_lt e)
+    have hnmod : n % seedModulus e = canonicalBase e := by
+      have : n % seedModulus e = canonicalBase e % seedModulus e := hmod
+      rwa [hbmod] at this
+    refine ⟨n / seedModulus e, ?_⟩
+    calc
+      n = seedModulus e * (n / seedModulus e) + n % seedModulus e :=
+        (Nat.div_add_mod n (seedModulus e)).symm
+      _ = (n / seedModulus e) * seedModulus e + n % seedModulus e := by ring
+      _ = canonicalBase e + (n / seedModulus e) * seedModulus e := by
+            rw [hnmod]; ring
+  · intro hn
+    obtain ⟨k, rfl⟩ := hn
+    refine (mem_canonicalCylinder).2 ?_
+    change (↑(canonicalBase e + k * seedModulus e) : ZMod (seedModulus e)) =
+      ↑(canonicalBase e)
+    simp [Nat.cast_add, Nat.cast_mul, CharP.cast_eq_zero]
 
 theorem seedModulus_eq_classPeriod (e : Nat) :
     seedModulus e = classPeriod e := by
@@ -114,22 +168,26 @@ theorem mem_canonicalCylinder_of_realizes {e n : Nat} (_he : 1 ≤ e)
     exact (hmul.add_right 2347).trans hmod
   have hseed : IsCanonicalSeed e (n % M) := ⟨hnlt, hcongr⟩
   have huniq : n % M = canonicalBase e := canonicalBase_unique hseed
-  refine ⟨n / M, ?_⟩
-  calc
-    n = M * (n / M) + n % M := (Nat.div_add_mod n M).symm
-    _ = (n / M) * M + n % M := by ring
-    _ = canonicalBase e + (n / M) * M := by rw [huniq]; ring
-    _ = canonicalBase e + (n / M) * seedModulus e := rfl
+  have hap : n ∈ canonicalCylinderAP e := by
+    refine ⟨n / M, ?_⟩
+    calc
+      n = M * (n / M) + n % M := (Nat.div_add_mod n M).symm
+      _ = (n / M) * M + n % M := by ring
+      _ = canonicalBase e + (n / M) * M := by rw [huniq]; ring
+      _ = canonicalBase e + (n / M) * seedModulus e := rfl
+  exact (canonicalCylinder_eq_ap e ▸ hap)
 
 /-- Canonical cylinder members realize the fiber word (any `e ≥ 1`). -/
 theorem realizes_of_mem_canonicalCylinder {e n : Nat} (he : 1 ≤ e)
     (hn : n ∈ canonicalCylinder e) :
     RealizesWord (fiberE e) n := by
-  obtain ⟨k, rfl⟩ := hn
-  have hbase := canonicalBase_realizes_ge_one e he
+  have hap : n ∈ canonicalCylinderAP e := canonicalCylinder_eq_ap e ▸ hn
+  obtain ⟨k, rfl⟩ := hap
+  have hbase := canonicalBase_realizes_of_one_le he
   have hper : seedModulus e = 2 ^ ((fiberE e).sum + 1) :=
     seedModulus_eq_sum_succ e
-  simpa [hper] using realizesWord_add_pow (E := fiberE e) (n := canonicalBase e) (k := k) hbase
+  simpa [hper] using
+    realizesWord_add_pow (E := fiberE e) (n := canonicalBase e) (k := k) hbase
 
 /--
 `[C→A]` Completeness bridge (PR #16 target): the canonical AP is exactly the realization fiber of

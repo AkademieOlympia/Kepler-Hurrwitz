@@ -100,7 +100,7 @@
       "process": "CI green; draft; unmerged"
     },
     "PR16": {
-      "head": "0575b03",
+      "head": "pending_push",
       "theorem": "C\u2192A",
       "process": "CI queued; draft"
     },
@@ -110,7 +110,18 @@
     }
   },
   "immunization": [
-    "no object collapse: b_e \u2260 [b_e] \u2260 C_e",
-    "no scope overreach: local fiber/structure [A/C\u2192A] \u2260 global feed-in [C]"
-  ]
+    "no type collapse: Nat \u2260 ZMod \u2260 Set Nat",
+    "no uniqueness collapse: unique representative \u2260 unique realizer",
+    "no scope collapse: local fiber structure \u2260 global feed-in [C]"
+  ],
+  "lean_types": {
+    "representative": "canonicalBase e : Nat",
+    "quotient_element": "residueMap e (canonicalBase e) : ZMod (seedModulus e)",
+    "preimage_fiber": "canonicalCylinder e : Set Nat"
+  },
+  "kernel_defs": {
+    "residueMap": "Nat \u2192 ZMod (seedModulus e)",
+    "canonicalCylinder": "residueMap e \u207b\u00b9' {residueMap e (canonicalBase e)}",
+    "canonicalCylinder_eq_ap": "AP presentation = ZMod preimage (C\u2192A candidate)"
+  }
 }

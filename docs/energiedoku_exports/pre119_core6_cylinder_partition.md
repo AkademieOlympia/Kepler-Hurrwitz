@@ -11,22 +11,38 @@ It must not be confused with repository `[A]` status.
 | **PR #16** | **`[C→A]`** | Combinatorial decomposition & residue density (deductive discharge of PR #15 algebra — **not** external axiom debt). |
 | **Follow-up** | **`[C]`** | Global dynamics & orbit feed-in: `C_1 ∪ C_2 ∪ C_3 → ⋃_{e≥4} C_e`. |
 
-## Dreifache Objektklarheit (kein Typenkollaps)
+## Dreifache Objektklarheit (typenrein in Lean 4)
 
-Projection `π_e : ℕ → ℕ/2^{e+9}ℕ` and preimage fiber:
+Three universes — a mathematical `≠` across types is a Lean kernel fatal error:
+
+| Objekt | Symbol | Lean-Typ | Rolle |
+|--------|--------|----------|-------|
+| Repräsentant | `b_e = canonicalBase e` | `Nat` | ausgezeichneter Start `b_e < 2^{e+9}` |
+| Quotientenelement | `[b_e]` | `ZMod (2^(e+9))` | Punkt im Modulraum |
+| Urbildfaser | `C_e` | `Set Nat` | unendliche Teilmenge von `ℕ` |
+
+Kernel definitions (PR #16):
+
+```lean
+def residueMap (e : Nat) : Nat → ZMod (seedModulus e) :=
+  fun n => (n : ZMod (seedModulus e))
+def canonicalCylinder (e : Nat) : Set Nat :=
+  residueMap e ⁻¹' {residueMap e (canonicalBase e)}
+```
+
+Primary 16a/b isomorphism debt (candidate, `[C→A]`):
 
 $$
-C_e = \pi_e^{-1}([b_e]),
-\qquad b_e = \operatorname{canonicalBase}(e).
+\{n \mid \exists k,\ n = b_e + k\cdot 2^{e+9}\}
+\;=\;
+\operatorname{canonicalCylinder}(e).
 $$
 
-| Objekt | Notation | Raum | Rolle |
-|--------|----------|------|-------|
-| Element / Koordinate | `b_e` | `ℕ` | eindeutiger Repräsentant in `[0, 2^{e+9})` |
-| Quotientenklasse | `[b_e]` | `ℕ/2^{e+9}ℕ` | Punkt im dyadischen Modulraum |
-| Urbildfaser | `C_e = π_e^{-1}([b_e])` | `⊂ ℕ` | unendliche AP |
+Discharged on this branch as `canonicalCylinder_eq_ap` (promotion to repo `[A]` only after CI/merge).
 
-Fundamental inequality of objects:
+Projection form: `C_e = π_e⁻¹({residueMap e b_e})` with `π_e = residueMap e`.
+
+Fundamental inequality of *roles* (not a Lean `≠` across types):
 
 $$
 b_e \in C_e
