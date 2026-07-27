@@ -1,0 +1,32 @@
+{
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6InfiniteLifting",
+  "focus": "exponent_extension_e9_minimal_probe",
+  "base_milestone_pr": 13,
+  "tag_A": [
+    "infinite_lifting_e9",
+    "realizes_base_e9",
+    "margin_e9",
+    "apMemberOk_e9"
+  ],
+  "tag_B": [
+    "pre119_exponent_extension_matrix",
+    "wordC_constant_2347_for_core6_tail",
+    "seed_sequence_non_monotone"
+  ],
+  "tag_C": [
+    "InfiniteApLiftingHypothesis_e_ge_10",
+    "InfiniteApLiftingHypothesis_forall_e_ge_8",
+    "CompatibleNextData",
+    "liftExponent",
+    "CoverCertified",
+    "Collatz"
+  ],
+  "InfiniteApLiftingDischarged": [4, 5, 6, 7],
+  "InfiniteApLiftingIntegrationProbe": [8],
+  "InfiniteApLiftingMinimalProbe": [9],
+  "classBase_9": 166431,
+  "wordC_fiberE9": 2347,
+  "claims_freeze": false,
+  "collatz_proved": false,
+  "sorry_count": 0
+}
