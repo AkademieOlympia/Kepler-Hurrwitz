@@ -503,18 +503,17 @@ $\Forever(e_0)$ umfasst Starts, deren jeder expandierende Aufenthalt beim
 nächsten Block wieder in expandierender Masse landet.
 \end{definition}
 
-\begin{theorem}[Residualfeinstruktur \CA\ (D3.4)]
+\begin{theorem}[Residualfeinstruktur, D3.4 \CA]
 Für expandierende Startkanäle $e_0\in\{1,2,3\}$ gilt
 \[
   \Residual(e_0)
   \;=\;
   \FiniteExit(e_0)
   \;\dot\cup\;
-  \Forever(e_0),
+  \Forever(e_0).
 \]
-mit $\FiniteExit(e_0)\cap\Forever(e_0)=\emptyset$,
-$\mathtt{oneBlockOffCore6Set}(e_0)\subseteq\FiniteExit(e_0)
-\subseteq\Residual(e_0)$ und
+Die beiden Summanden sind disjunkt; der Ein-Block-Off-Core6-Anteil liegt in
+$\FiniteExit(e_0)\subseteq\Residual(e_0)$, und ebenso
 $\Forever(e_0)\subseteq\Residual(e_0)$.
 \end{theorem}
 
