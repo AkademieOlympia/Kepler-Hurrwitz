@@ -41,9 +41,9 @@
   "d3_3_freeze": {
     "frozen": true,
     "math_freeze_head": "24bd5c83718da11c9ec2bfa8962de331be117369",
-    "packaging_tip": "adb2dd84ea87473dd4e6c49ace50de15cb676297",
+    "packaging_lean_comments_head": "adb2dd84ea87473dd4e6c49ace50de15cb676297",
     "packaging_character": "docs_and_nonsemantic_lean_comments_only",
-    "packaging_note": "Lean delta is module/freeze/non-theorem comments only; no defs/theorems/proofs/certificates changed",
+    "packaging_note": "adb2dd8 Lean delta is module/freeze/non-theorem comments only; no defs/theorems/proofs/certificates changed",
     "policy": "no_new_kernel_mathematics; CI_linter_review_docs_only",
     "promotion_rule": "candidate \u2227 CI green \u2227 review \u2227 merge \u21d2 C\u2192A \u2192 A (separate commit)",
     "follow_up_scope": "D3.4 residual fine-structure + D4 ResidualFeedInGoal",

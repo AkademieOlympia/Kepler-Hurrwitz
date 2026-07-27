@@ -7,15 +7,16 @@
 ## D3.3 freeze
 
 **Math freeze head:** `24bd5c83718da11c9ec2bfa8962de331be117369`  
-**Packaging tip:** `adb2dd84ea87473dd4e6c49ace50de15cb676297`
+**Packaging (Lean comments + audit):** `adb2dd84ea87473dd4e6c49ace50de15cb676297`
 
 D3.0–D3.3d (trichotomy through residual ↔ reachability) are **mathematically
 closed** on the math freeze head. Further work on PR #18 is limited to CI /
 linter / review packaging — **no new kernel mathematics**.
 
-The packaging tip is a Packaging/Docs-Commit with **exclusively non-semantic
+Commit `adb2dd8` is a Packaging/Docs-Commit with **exclusively non-semantic
 Lean comments** (module freeze notice / non-theorem docs) plus audit artefacts.
 It does **not** change definitions, theorems, proofs, or certificates.
+Later tips may refine audit wording as literal docs-only commits.
 
 Promotion of `[C→A]` → accepted repo-`[A]` waits for review ∧ merge ∧ a
 **separate** promotion commit. ClaimsFreeze remains false until that commit.

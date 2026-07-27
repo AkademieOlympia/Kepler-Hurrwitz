@@ -2,18 +2,18 @@
 
 **Status:** `[C→A]` until review ∧ merge ∧ separate promotion commit to `[A]`.
 
-## Two-SHA freeze structure
+## Two-SHA freeze structure (mathematical content)
 
 | Layer | SHA | Role |
 |-------|-----|------|
 | **Math freeze (D3.0–D3.3d)** | `24bd5c83718da11c9ec2bfa8962de331be117369` | final mathematical content |
-| **Packaging tip** | `adb2dd84ea87473dd4e6c49ace50de15cb676297` | claim-audit / freeze packaging |
+| **Packaging with Lean comments** | `adb2dd84ea87473dd4e6c49ace50de15cb676297` | freeze notice in module + audit docs |
 
 Remote CI for the math freeze `24bd5c8` was fully green (Lean Action, Quality
-Gate, Evidence Register Audit). The packaging tip may still have Quality Gate
-in progress while Lean / Evidence Audit are already green.
+Gate, Evidence Register Audit). Later packaging tips may still have Quality Gate
+queued while Lean / Evidence Audit are already green.
 
-### Precise nature of the packaging commit
+### Precise nature of packaging commit `adb2dd8`
 
 `adb2dd8` is **not** literally “docs-only / no Lean file touched”.
 
@@ -32,6 +32,9 @@ Exact label:
 Incorrect label:
 
 > „Der Commit verändert keine Lean-Datei.“
+
+A subsequent tip may add further **literal docs-only** audit wording fixes
+without touching Lean; those do not move the mathematical freeze.
 
 ## Governance boundary (strict freeze)
 
