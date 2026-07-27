@@ -22,14 +22,16 @@
     "infinite_lifting_e5",
     "infinite_lifting_e6",
     "infinite_lifting_e7",
-    "infinite_lifting_e4_to_e7"
+    "infinite_lifting_e4_to_e7",
+    "infinite_lifting_e8"
   ],
   "tag_C": [
-    "InfiniteApLiftingHypothesis_e_ge_8",
+    "InfiniteApLiftingHypothesis_forall_e_ge_8",
     "CoverCertified",
     "Collatz"
   ],
   "InfiniteApLiftingDischarged": [4, 5, 6, 7],
+  "InfiniteApLiftingIntegrationProbe": [8],
   "claims_freeze": false,
   "collatz_proved": false,
   "sorry_count": 0

@@ -6,12 +6,14 @@ set_option linter.style.nativeDecide false
 /-!
 # Pre119Draft — Core6InfiniteLifting
 
-Discharge of `InfiniteApLiftingHypothesis e` for fixed `e = 4..7` via
-modular valuation stability (`realizesWord_add_pow`) and affine contraction
-(`contracts_of_le_base`), seeded by the known class bases.
+Discharge of `InfiniteApLiftingHypothesis e` for fixed `e = 4..7`, plus an
+`e = 8` **integration probe**: concrete seed/base/margin only, proved via the
+existing `FiberWordAffine` API (`realizesWord_add_pow` / `contracts_of_le_base`).
 
-Governance: `[A]` for the four discharged exponents; no ∀n / CoverCertified /
-Collatz. `ClaimsFreeze` remains false. 0 sorry.
+No new inductive core, no family `∀ e ≥ 8`, no packaging API.
+
+Governance: `[A]` for discharged instances; no ∀n / CoverCertified / Collatz.
+`ClaimsFreeze` remains false. 0 sorry.
 -/
 
 namespace KeplerHurwitz.Collatz.Pre119Draft.Core6InfiniteLifting
@@ -28,6 +30,7 @@ theorem wordC_fiberE4 : wordC (fiberE 4) = 2347 := by native_decide
 theorem wordC_fiberE5 : wordC (fiberE 5) = 2347 := by native_decide
 theorem wordC_fiberE6 : wordC (fiberE 6) = 2347 := by native_decide
 theorem wordC_fiberE7 : wordC (fiberE 7) = 2347 := by native_decide
+theorem wordC_fiberE8 : wordC (fiberE 8) = 2347 := by native_decide
 
 theorem fiberE_length_seven (e : Nat) : (fiberE e).length = 7 :=
   fiberE_length e
@@ -148,5 +151,35 @@ theorem infinite_lifting_e4_to_e7 :
       InfiniteApLiftingHypothesis 6 ∧
       InfiniteApLiftingHypothesis 7 :=
   ⟨infinite_lifting_e4, infinite_lifting_e5, infinite_lifting_e6, infinite_lifting_e7⟩
+
+/-! ### Integration probe `e = 8` (concrete data only; existing core) -/
+
+theorem classBase_eight : classBase 8 = 100895 := rfl
+theorem classPeriod_eight : classPeriod 8 = 2 ^ 17 := by native_decide
+
+/-- Seed: base realizes `fiberE 8` (finite `native_decide` on one odd start). -/
+theorem realizes_base_e8 : RealizesWord (fiberE 8) (classBase 8) := by
+  native_decide
+
+/-- Margin: `2347 < 100895 · 63349`. -/
+theorem margin_e8 :
+    wordC (fiberE 8) <
+      classBase 8 * (2 ^ (fiberE 8).sum - 3 ^ (fiberE 8).length) := by
+  native_decide
+
+/-- `[A]` Every AP index for `e = 8` is a realizing contractor. -/
+theorem apMemberOk_e8 (k : Nat) : ApMemberOk 8 k := by
+  refine ⟨?_, ?_⟩
+  · exact realizes_apMember_of_base realizes_base_e8
+  · exact contracts_apMember_of_base (by decide : 4 ≤ 8)
+      (realizes_apMember_of_base realizes_base_e8) margin_e8
+
+/--
+`[A]` Integration probe: infinite AP lifting for `e = 8` via the **same**
+`realizes_apMember_of_base` / `contracts_apMember_of_base` path as `e = 4..7`.
+Does **not** claim `∀ e ≥ 8`.
+-/
+theorem infinite_lifting_e8 : InfiniteApLiftingHypothesis 8 := fun _ k =>
+  apMemberOk_e8 k
 
 end KeplerHurwitz.Collatz.Pre119Draft.Core6InfiniteLifting

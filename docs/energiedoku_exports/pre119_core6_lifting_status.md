@@ -34,7 +34,8 @@ Module: `Core6Lifting.lean`, `FiberWordAffine.lean`, `Core6InfiniteLifting.lean`
 | `valuation_nextOdd_add_pow` / `realizesWord_add_pow` | `[A]` |
 | `realizedImage_mul_pow` / `contracts_of_wordC_lt` | `[A]` |
 | `InfiniteApLiftingHypothesis e` für `e=4..7` | `[A]` (entladen) |
-| `InfiniteApLiftingHypothesis e` für `e≥8` | offen (Basen vorhanden, gleicher Mechanismus) |
+| `InfiniteApLiftingHypothesis 8` | `[A]` Integrationsprobe (Seed+Margin, gleicher Kern) |
+| `∀ e ≥ 8` / Packaging / Zylinder-API | **nicht** Gegenstand von PR #13 (`[C]`) |
 
 ## Architektur
 
@@ -45,7 +46,8 @@ isGoodExpSequence (Core6++[e])     [A]  (Wort)
 ApMemberOk e k  (Realizes + contracts)
         │  finite: Core6Lifting [A] unter 2^21
         │  infinite e=4..7: Core6InfiniteLifting [A]
+        │  probe e=8: gleiche API, nur konkrete Daten [A]
         │    via FiberWordAffine (mod-2^{S+1} + wordC)
         ▼
-CoverCertified / Collatz                 [C]
+∀ e≥8 / Packaging / CoverCertified / Collatz   [C]
 ```
