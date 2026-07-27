@@ -100,9 +100,9 @@
       "process": "CI green; draft; unmerged"
     },
     "PR16": {
-      "head": "28e6d43",
+      "head": "18eb6bf",
       "theorem": "C\u2192A",
-      "process": "CI queued; draft"
+      "process": "CI queued/running; draft"
     },
     "followup": {
       "theorem": "C",
@@ -123,5 +123,16 @@
     "residueMap": "Nat \u2192 ZMod (seedModulus e)",
     "canonicalCylinder": "residueMap e \u207b\u00b9' {residueMap e (canonicalBase e)}",
     "canonicalCylinder_eq_ap": "AP presentation = ZMod preimage (C\u2192A candidate)"
-  }
+  },
+  "canonicalCylinder_eq_ap": {
+    "kind": "extensional Set.ext equality in Set Nat",
+    "not": "isomorphism of distinct spaces",
+    "statement": "canonicalCylinder e = canonicalCylinderAP e",
+    "status": "C\u2192A candidate on branch; promote after CI+review+merge"
+  },
+  "uniqueness_layers": {
+    "representative_b_e": "unique in [0, M_e); A in PR15",
+    "offset_k": "unique for fixed n in C_e via Euclidean division"
+  },
+  "promotion_rule": "candidate \u2227 CI green \u2227 review \u2227 merge \u21d2 C\u2192A \u2192 A"
 }

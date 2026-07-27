@@ -81,7 +81,9 @@ theorem mem_canonicalCylinderAP {e n : Nat} :
   Iff.rfl
 
 /--
-`[C→A]` Isomorphism debt of 16a/b: AP presentation equals ZMod-preimage cylinder.
+`[C→A]` Extensional equality in `Set Nat` (via `Set.ext`): the ZMod-preimage
+cylinder and the AP presentation are the **same** subset of `ℕ`, not merely
+isomorphic spaces.
 -/
 theorem canonicalCylinder_eq_ap (e : Nat) :
     canonicalCylinder e = canonicalCylinderAP e := by

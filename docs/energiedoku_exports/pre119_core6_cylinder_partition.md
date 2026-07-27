@@ -30,27 +30,43 @@ def canonicalCylinder (e : Nat) : Set Nat :=
   residueMap e ⁻¹' {residueMap e (canonicalBase e)}
 ```
 
-Primary 16a/b isomorphism debt (candidate, `[C→A]`):
+## Extensionale Mengengleichheit (nicht Isomorphie)
+
+`canonicalCylinder_eq_ap` is **`Set.ext`-equality in `Set Nat`**, not an
+isomorphism of two spaces:
 
 $$
-\{n \mid \exists k,\ n = b_e + k\cdot 2^{e+9}\}
-\;=\;
-\operatorname{canonicalCylinder}(e).
+\operatorname{canonicalCylinder}(e)
+=
+\operatorname{canonicalCylinderAP}(e)
+\quad\text{in }\operatorname{Set}\mathbb{N}.
 $$
 
-Discharged on this branch as `canonicalCylinder_eq_ap` (promotion to repo `[A]` only after CI/merge).
+Two syntactic presentations of **exactly the same** subset of `ℕ`.
 
-Projection form: `C_e = π_e⁻¹({residueMap e b_e})` with `π_e = residueMap e`.
+Bridge architecture:
 
-Fundamental inequality of *roles* (not a Lean `≠` across types):
+```
+b_e = canonicalBase e : Nat
+        │  π_e = residueMap e
+        ▼
+π_e(b_e) : ZMod (seedModulus e)
+        │  π_e ⁻¹' {π_e(b_e)}
+        ▼
+canonicalCylinder e : Set Nat
+        ║  canonicalCylinder_eq_ap  (extensional equality)
+        ▼
+canonicalCylinderAP e : Set Nat
+  {n | ∃ k, n = b_e + k * seedModulus e}
+```
 
-$$
-b_e \in C_e
-\quad\land\quad
-[b_e] \neq \{b_e\}
-\quad\land\quad
-C_e \neq \{b_e\}.
-$$
+### Two uniqueness layers
+1. **Representative `b_e`:** unique in `[0, M_e)` — `[A]` in PR #15.
+2. **Offset `k`:** for fixed `n ∈ C_e`, unique via Euclidean division
+   `n = b_e + k·M_e`.
+
+### Promotion rule (rigid)
+`Candidate on branch ∧ CI green ∧ Review ∧ Merge ⟹ [C→A] → [A]`.
 
 ## Theoremstatus ≠ Prozessstatus
 
