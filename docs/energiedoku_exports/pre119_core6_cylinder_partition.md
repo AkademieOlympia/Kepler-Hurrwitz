@@ -83,7 +83,7 @@ $$
 with `e` the fiber/tail coordinate, `b_e` the canonical representative, and `k` the
 position inside the fiber (`Φ_e : k ↦ b_e + k M_e` = `fiberIndexMap`).
 
-Packaged on the branch at head `0e26b12` (`[C→A]` until CI/merge):
+Packaged on the branch (`[C→A]` until CI/merge); feat commit `0e26b12`, tip includes docs sync:
 - `fiberIndexMap_injective`
 - `range_fiberIndexMap_eq_canonicalCylinderAP` / `…_eq_canonicalCylinder`
 - **`fiberIndexEquiv : Nat ≃ {n // n ∈ canonicalCylinder e}`**  ⇒  `C_e ≃ ℕ`
@@ -115,7 +115,7 @@ count for density `1/8`.
 | PR | Head | Theoremstatus | Process-Status |
 |----|------|---------------|----------------|
 | **#15** | `6004d2b` | **`[A]`** eindeutige Koordinate & Lifting `e≥4` | CI grün (Lean/Evidence/QG) · Draft · ungemergt |
-| **#16** | `28e6d43` | **`[C→A]`** Faseridentifikation, Partition, Zählung | CI queued · Draft |
+| **#16** | `0e26b12` | **`[C→A]`** inkl. `fiberIndexEquiv` (`C_e ≃ ℕ`) | CI queued · Draft · mergeable |
 | Folge | — | **`[C]`** Zuführung `C_1,C_2,C_3` | Forschungsfront |
 
 ## Immunisierung gegen Kategorienfehler
