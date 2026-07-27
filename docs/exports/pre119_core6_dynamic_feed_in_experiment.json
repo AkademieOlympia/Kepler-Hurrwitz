@@ -1,0 +1,83 @@
+{
+  "experiment": "Core6DynamicFeedIn",
+  "branch": "cursor/core6-dynamic-feed-in-4007",
+  "base": "cursor/core6-cylinder-partition-4007",
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6DynamicFeedIn",
+  "plan": "docs/energiedoku_exports/pre119_core6_dynamic_feed_in_experiment.md",
+  "census_script": "scripts/core6_dynamic_feed_in_d1_census.py",
+  "status_wall": {
+    "D1_census": "B",
+    "OneBlockFeedInGoal_universal": "formally_refuted",
+    "not_OneBlockFeedInGoal": "C\u2192A",
+    "realizedImage_fiberIndexMap": "C\u2192A",
+    "cancel_by_two_bridge": "C\u2192A",
+    "oneBlockIndexClass": "C\u2192A",
+    "mem_oneBlockFeedInSet_one_1246239": "C\u2192A",
+    "oneBlockFeedInSet_one_sandwich": "C\u2192A",
+    "D2b5_disjoint_union": "C\u2192A",
+    "ReachabilityFeedInGoal": "C",
+    "universal_reachability": false,
+    "collapse": false,
+    "not_OneBlock_implies_not_Reachability": false
+  },
+  "open_goals": {
+    "OneBlockFeedInGoal": {
+      "status": "refuted",
+      "refutation": "not_oneBlockFeedInGoal",
+      "witness": {"e0": 1, "n": 31, "image": 137}
+    },
+    "oneBlockFeedInSet": {
+      "status": "D2b_closed_1_to_5",
+      "delivered": [
+        "realizedImage_fiberIndexMap",
+        "fiberIndexImage_mem_target_iff_index_modEq",
+        "oneBlockIndexClass_spec",
+        "existsUnique_oneBlockIndexClass_modEq",
+        "mem_oneBlockFeedInSet_one_1246239",
+        "oneBlockFeedInSet_one_sandwich",
+        "oneBlockFeedInSet_eq_iUnion_progressions",
+        "oneBlockTargetProgression_disjoint",
+        "oneBlockTargetProgression_infinite"
+      ],
+      "positive_witness": {"e0": 1, "k": 1217, "n": 1246239, "image": 5323295, "target_f": 4}
+    },
+    "ReachabilityFeedInGoal": {
+      "status": "C",
+      "meaning": "some odd iterate t>=1 lands in contractingMass"
+    }
+  },
+  "affine_formula": "realizedImage(Phi_e0(k), fiberE e0) = q_e0 + 4374*k",
+  "cancel_by_two": "image in C_f iff k == kappa(e0,f) (mod 2^(f+8))",
+  "D1_census": {
+    "status": "B",
+    "kind": "full_stage_representatives_not_infinite_fibers",
+    "pilot_m6_T32": {
+      "param_hash": "ccd46f0393bb72e4",
+      "starts": 56,
+      "reachability_hits": 2,
+      "censored": 54,
+      "one_block_hits": 0,
+      "artifact": "docs/exports/artifacts/d1_census/summary_m6_T32.json"
+    }
+  },
+  "phases": [
+    "D0_scaffold",
+    "D1_full_representative_census_B",
+    "D2a_refute_one_block_C_to_A",
+    "D2b1_affine_block_map",
+    "D2b2_target_congruence",
+    "D2b3_unique_index_class",
+    "D2b4_positive_witness_sandwich",
+    "cancel_by_two_bridge",
+    "D2b5_disjoint_union",
+    "D3_sufficient_reachability",
+    "D4_full_reachability"
+  ],
+  "d2b_freeze": {
+    "frozen": true,
+    "head": "18e874773d5cbc8a072cd2c38edefe5087560861",
+    "policy": "CI_linter_review_only",
+    "follow_up_branch": "cursor/core6-dynamic-d3-4007"
+  },
+  "claims_freeze": false
+}
