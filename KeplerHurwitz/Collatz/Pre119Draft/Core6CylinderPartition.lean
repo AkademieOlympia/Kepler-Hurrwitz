@@ -123,6 +123,34 @@ theorem seedModulus_eq_sum_succ (e : Nat) :
   simp [seedModulus, fiberE_sum]
   ring
 
+/--
+`[C→A]` Index uniqueness for fixed `n` in the AP presentation: Euclidean division
+recovers `k` without invoking truncated `Nat.sub`.
+Uses `b_e < M_e` from PR #15 (`canonicalBase_lt`).
+-/
+theorem canonicalCylinderAP_div_eq_index {e n k : Nat}
+    (hb : canonicalBase e < seedModulus e)
+    (hk : n = canonicalBase e + k * seedModulus e) :
+    n / seedModulus e = k := by
+  subst hk
+  have hM : 0 < seedModulus e := seedModulus_pos e
+  have hdiv := Nat.add_mul_div_right (canonicalBase e) k hM
+  have hb0 : canonicalBase e / seedModulus e = 0 := Nat.div_eq_of_lt hb
+  omega
+
+/--
+`[C→A]` For each `n` in the AP cylinder there is a unique offset index `k`.
+-/
+theorem existsUnique_index_of_mem_canonicalCylinderAP {e n : Nat}
+    (hn : n ∈ canonicalCylinderAP e) :
+    ∃! k : Nat, n = canonicalBase e + k * seedModulus e := by
+  obtain ⟨k, hk⟩ := hn
+  refine ExistsUnique.intro k hk ?_
+  intro k' hk'
+  have h1 := canonicalCylinderAP_div_eq_index (canonicalBase_lt e) hk
+  have h2 := canonicalCylinderAP_div_eq_index (canonicalBase_lt e) hk'
+  omega
+
 /-- Odd affine quotient on `fiberE e` yields the canonical seed congruence. -/
 theorem modEq_of_affineOddQuotient_fiberE {e n : Nat}
     (hAQ : AffineOddQuotient (fiberE e) n) :

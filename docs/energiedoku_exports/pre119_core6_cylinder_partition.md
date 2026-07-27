@@ -63,7 +63,24 @@ canonicalCylinderAP e : Set Nat
 ### Two uniqueness layers
 1. **Representative `b_e`:** unique in `[0, M_e)` — `[A]` in PR #15.
 2. **Offset `k`:** for fixed `n ∈ C_e`, unique via Euclidean division
-   `n = b_e + k·M_e`.
+   `n = b_e + k·M_e` (`canonicalCylinderAP_div_eq_index`,
+   `existsUnique_index_of_mem_canonicalCylinderAP`).
+
+### Three uniqueness layers (do not conflate)
+
+| Ebene | Aussage | Rolle |
+|-------|---------|-------|
+| 1. Repräsentanteneindeutigkeit | `∃! b_e < M_e, IsCanonicalSeed e b_e` | Koordinatenursprung in `[0,M_e)` — `[A]` PR #15 |
+| 2. Fasergleichheit | `canonicalCylinder e = canonicalCylinderAP e` | `Set.ext` in `Set Nat` — `[C→A]` |
+| 3. Indexeindeutigkeit | `n ∈ C_e ⇒ ∃! k, n = b_e + k·M_e` | Offset via `/` without `Nat.sub` — `[C→A]` |
+
+### Kernel-Beweisbarkeit ≠ Repository-Status `[A]`
+
+| | Kernel-Beweisbarkeit | Repository-Status `[A]` |
+|--|----------------------|------------------------|
+| Ebene | Pure Logik / Lean-Typentheorie | Prozess / Evidence Register |
+| Gültigkeit | baut lokal fehlerfrei | CI-grün ∧ Review ∧ Merge |
+| Bedeutung | mathematisch korrekt | offizielle Projektevidenz |
 
 ### Promotion rule (rigid)
 `Candidate on branch ∧ CI green ∧ Review ∧ Merge ⟹ [C→A] → [A]`.

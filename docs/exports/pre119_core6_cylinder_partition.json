@@ -131,8 +131,30 @@
     "status": "C\u2192A candidate on branch; promote after CI+review+merge"
   },
   "uniqueness_layers": {
-    "representative_b_e": "unique in [0, M_e); A in PR15",
-    "offset_k": "unique for fixed n in C_e via Euclidean division"
+    "1_representative": {
+      "statement": "existsUnique b < M_e, IsCanonicalSeed e b",
+      "status": "A",
+      "where": "PR15"
+    },
+    "2_fiber_extensionality": {
+      "statement": "canonicalCylinder e = canonicalCylinderAP e",
+      "kind": "Set.ext in Set Nat",
+      "status": "C\u2192A"
+    },
+    "3_index_uniqueness": {
+      "statement": "n in C_e \u21d2 existsUnique k, n = b_e + k*M_e",
+      "theorems": [
+        "canonicalCylinderAP_div_eq_index",
+        "existsUnique_index_of_mem_canonicalCylinderAP"
+      ],
+      "avoids": "truncated Nat.sub",
+      "status": "C\u2192A"
+    }
   },
-  "promotion_rule": "candidate \u2227 CI green \u2227 review \u2227 merge \u21d2 C\u2192A \u2192 A"
+  "promotion_rule": "candidate \u2227 CI green \u2227 review \u2227 merge \u21d2 C\u2192A \u2192 A",
+  "kernel_vs_repo_A": {
+    "kernel": "builds locally / type-correct",
+    "repo_A": "CI green \u2227 review \u2227 merge",
+    "note": "candidate may be kernel-valid while still C\u2192A in the Evidence Register"
+  }
 }
