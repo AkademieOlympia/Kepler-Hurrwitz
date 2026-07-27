@@ -13,12 +13,8 @@ set_option linter.style.nativeDecide false
 
 **Experiment status:**
 - `ReachabilityFeedInGoal` — open **`[C]`**
-- `OneBlockFeedInGoal` — **universally false**;
-  Lean discharge `¬ OneBlockFeedInGoal` is `[C→A]`
-- D2b.1 affine block map `q + 4374 k` — `[C→A]`
-- D2b.2 target congruence packaging — `[C→A]`
-- D2b.3 unique index class for `2187·κ ≡ halfDiff` — `[C→A]`
-- D2b.4 `∅ ⊂ oneBlockFeedInSet 1 ⊂ C_1` — `[C→A]`
+- `OneBlockFeedInGoal` — **universally false**; Lean `¬` is `[C→A]`
+- D2b.1–.5 — affine map, Cancel-by-2, κ-class, witness, progression decomp `[C→A]`
 - D1 full representative census — **`[B]`** only
 
 This module must not reopen PR #16 static mathematics.
@@ -39,8 +35,8 @@ This module must not reopen PR #16 static mathematics.
 | D1 representative census | `[B]` |
 | `OneBlockFeedInGoal` (universal) | formally refuted; Lean `¬` is `[C→A]` |
 | `realizedImage_fiberIndexMap` | D2b.1 `[C→A]` |
-| `oneBlockFeedInSet` | D2b.1–.4 partial `[C→A]` |
-| full disjoint-union decomposition | D2b.5 open |
+| `fiberIndexImage_mem_target_iff_index_modEq` | Cancel-by-2 `[C→A]` |
+| `oneBlockFeedInSet_eq_iUnion_progressions` | D2b.5 `[C→A]` |
 | `ReachabilityFeedInGoal` | `[C]` open |
 
 `[B]` may support or falsify a `[C]` hypothesis; it never yields `[A]` by itself.
@@ -422,6 +418,126 @@ theorem existsUnique_oneBlockIndexClass_modEq {e₀ f : Nat}
       oneBlockIndexClass e₀ f % oneBlockIndexModulus f := hmod
   rwa [Nat.mod_eq_of_lt hκ'lt, Nat.mod_eq_of_lt (oneBlockIndexClass_lt e₀ f)] at this
 
+/-! ### Cancel-by-2 bridge — full membership ↔ index class
+
+Core identity on `ℤ`: `2M ∣ 2x ↔ M ∣ x`. Combined with `2h = b - q`, this yields
+`q + 2·3⁷·k ≡ b (mod 2M)` ↔ `3⁷·k ≡ h (mod M)` ↔ `k ≡ κ(e₀,f) (mod M)`.
+-/
+
+private theorem two_mul_dvd_two_mul_iff {M x : ℤ} :
+    (2 * M) ∣ (2 * x) ↔ M ∣ x :=
+  mul_dvd_mul_iff_left (by decide : (2 : ℤ) ≠ 0)
+
+private theorem dvd_sub_comm {a x y : ℤ} (h : a ∣ x - y) : a ∣ y - x := by
+  have : y - x = -(x - y) := by ring
+  rw [this]
+  exact dvd_neg.mpr h
+
+theorem oneBlockImage_modEq_iff_reduced {e₀ f k : Nat}
+    (he₀ : 1 ≤ e₀) (hf : 1 ≤ f) :
+    oneBlockBaseImage e₀ + 2 * 3 ^ 7 * k ≡ canonicalBase f [MOD seedModulus f] ↔
+      ((3 ^ 7 : ℤ) * (k : ℤ) ≡ oneBlockTargetHalfDiff e₀ f
+        [ZMOD (oneBlockIndexModulus f : ℤ)]) := by
+  let q := oneBlockBaseImage e₀
+  let b := canonicalBase f
+  let M := oneBlockIndexModulus f
+  let h := oneBlockTargetHalfDiff e₀ f
+  have h2M : (seedModulus f : ℤ) = 2 * (M : ℤ) := by
+    rw [seedModulus_eq_two_mul_indexModulus f]; rfl
+  have h2h : (2 : ℤ) * h = (b : ℤ) - (q : ℤ) :=
+    oneBlockTargetHalfDiff_mul_two he₀ hf
+  have hcast :
+      ((q + 2 * 3 ^ 7 * k : Nat) : ℤ) = (q : ℤ) + 2 * (3 ^ 7 : ℤ) * k := by
+    simp [Nat.cast_add, Nat.cast_mul]
+  have hdiff :
+      ((q + 2 * 3 ^ 7 * k : Nat) : ℤ) - (b : ℤ) =
+        2 * ((3 ^ 7 : ℤ) * k - h) := by
+    rw [hcast]; linarith
+  constructor
+  · intro hNat
+    have hZ :
+        ((q + 2 * 3 ^ 7 * k : Nat) : ℤ) ≡ (b : ℤ)
+          [ZMOD (seedModulus f : ℤ)] :=
+      (Int.natCast_modEq_iff).2 hNat
+    have hb : (seedModulus f : ℤ) ∣
+        (b : ℤ) - (q + 2 * 3 ^ 7 * k : Nat) :=
+      (Int.modEq_iff_dvd).1 hZ
+    have hq : (2 * (M : ℤ)) ∣
+        ((q + 2 * 3 ^ 7 * k : Nat) : ℤ) - (b : ℤ) := by
+      rw [← h2M]
+      exact dvd_sub_comm hb
+    have hM : (M : ℤ) ∣ ((3 ^ 7 : ℤ) * k - h) := by
+      rw [hdiff] at hq
+      exact (two_mul_dvd_two_mul_iff).1 hq
+    exact (Int.modEq_iff_dvd).2 (dvd_sub_comm hM)
+  · intro hred
+    have hh : (M : ℤ) ∣ h - (3 ^ 7 : ℤ) * k :=
+      (Int.modEq_iff_dvd).1 hred
+    have hM : (M : ℤ) ∣ ((3 ^ 7 : ℤ) * k - h) := dvd_sub_comm hh
+    have hq : (2 * (M : ℤ)) ∣
+        ((q + 2 * 3 ^ 7 * k : Nat) : ℤ) - (b : ℤ) := by
+      rw [hdiff]
+      exact (two_mul_dvd_two_mul_iff).2 hM
+    have hb : (seedModulus f : ℤ) ∣
+        (b : ℤ) - (q + 2 * 3 ^ 7 * k : Nat) := by
+      rw [h2M]
+      exact dvd_sub_comm hq
+    exact (Int.natCast_modEq_iff).1 ((Int.modEq_iff_dvd).2 hb)
+
+theorem reduced_modEq_iff_coeff3_zmod {e₀ f k : Nat} :
+    ((3 ^ 7 : ℤ) * (k : ℤ) ≡ oneBlockTargetHalfDiff e₀ f
+      [ZMOD (oneBlockIndexModulus f : ℤ)]) ↔
+      (coeff3 : ZMod (oneBlockIndexModulus f)) *
+          (k : ZMod (oneBlockIndexModulus f)) =
+        (oneBlockTargetHalfDiff e₀ f : ZMod (oneBlockIndexModulus f)) := by
+  have hpow : (3 ^ 7 : ℤ) = (coeff3 : ℤ) := by
+    simp [coeff3_eq_three_pow]
+  constructor
+  · intro hInt
+    have hInt' :
+        (coeff3 : ℤ) * k ≡ oneBlockTargetHalfDiff e₀ f
+          [ZMOD (oneBlockIndexModulus f : ℤ)] := by
+      simpa [hpow] using hInt
+    have hZ :
+        (↑((coeff3 : ℤ) * k) : ZMod (oneBlockIndexModulus f)) =
+          (oneBlockTargetHalfDiff e₀ f : ZMod (oneBlockIndexModulus f)) :=
+      (ZMod.intCast_eq_intCast_iff _ _ _).2 hInt'
+    convert hZ using 1
+    simp [Int.cast_mul]
+  · intro hZmod
+    have hZ :
+        (↑((coeff3 : ℤ) * k) : ZMod (oneBlockIndexModulus f)) =
+          (oneBlockTargetHalfDiff e₀ f : ZMod (oneBlockIndexModulus f)) := by
+      convert hZmod using 1
+      simp [Int.cast_mul]
+    have hInt' := (ZMod.intCast_eq_intCast_iff _ _ _).1 hZ
+    simpa [hpow] using hInt'
+
+theorem oneBlockImage_modEq_iff_indexClass {e₀ f k : Nat}
+    (he₀ : 1 ≤ e₀) (hf : 1 ≤ f) :
+    oneBlockBaseImage e₀ + 2 * 3 ^ 7 * k ≡ canonicalBase f [MOD seedModulus f] ↔
+      k ≡ oneBlockIndexClass e₀ f [MOD oneBlockIndexModulus f] := by
+  rw [oneBlockImage_modEq_iff_reduced he₀ hf, reduced_modEq_iff_coeff3_zmod]
+  constructor
+  · exact eq_oneBlockIndexClass_of_mul_eq
+  · intro hk
+    have hkZ : (k : ZMod (oneBlockIndexModulus f)) =
+        (oneBlockIndexClass e₀ f : ZMod (oneBlockIndexModulus f)) :=
+      (ZMod.natCast_eq_natCast_iff _ _ _).2 hk
+    rw [hkZ]
+    exact oneBlockIndexClass_spec e₀ f
+
+/--
+`[C→A]` Cancel-by-2 bridge: one-block image lands in `C_f`
+iff the fiber index lies in the unique class `κ(e₀,f)`.
+-/
+theorem fiberIndexImage_mem_target_iff_index_modEq
+    {e₀ f k : Nat} (he₀ : 1 ≤ e₀) (hf : 1 ≤ f) :
+    realizedImage (fiberIndexMap e₀ k) (fiberE e₀) ∈ canonicalCylinder f ↔
+      k ≡ oneBlockIndexClass e₀ f [MOD oneBlockIndexModulus f] := by
+  rw [mem_canonicalCylinder_fiberIndexImage_iff he₀]
+  exact oneBlockImage_modEq_iff_indexClass he₀ hf
+
 /-! ### D2b.4 — positive witness `1246239 ∈ oneBlockFeedInSet 1` -/
 
 theorem canonicalBase_one : canonicalBase 1 = 31 :=
@@ -479,12 +595,167 @@ theorem oneBlockFeedInSet_one_sandwich :
   ⟨(Set.empty_ssubset).2 oneBlockFeedInSet_one_nonempty,
     oneBlockFeedInSet_one_ssubset_canonicalCylinder⟩
 
+/-! ### D2b.5 — disjoint arithmetic-progression decomposition
+
+`oneBlockFeedInSet e₀ = ⋃_{f≥4} P_{e₀,f}` where
+`P_{e₀,f} = { Φ_{e₀}(κ(e₀,f) + r·2^{f+8}) | r ∈ ℕ }`.
+Disjointness uses PR #16 pairwise cylinder disjointness on the image.
+-/
+
+/-- Source progression of starts that one-block into target fiber `C_f`. -/
+noncomputable def oneBlockTargetProgression (e₀ f : Nat) : Set Nat :=
+  {n | ∃ r : Nat,
+    n = fiberIndexMap e₀
+      (oneBlockIndexClass e₀ f + r * oneBlockIndexModulus f)}
+
+theorem mem_oneBlockTargetProgression_iff_index {e₀ f n : Nat} :
+    n ∈ oneBlockTargetProgression e₀ f ↔
+      ∃ r : Nat,
+        n = fiberIndexMap e₀
+          (oneBlockIndexClass e₀ f + r * oneBlockIndexModulus f) :=
+  Iff.rfl
+
+theorem oneBlockTargetProgression_subset_cylinder (e₀ f : Nat) :
+    oneBlockTargetProgression e₀ f ⊆ canonicalCylinder e₀ := by
+  intro n hn
+  obtain ⟨r, rfl⟩ := hn
+  simpa [← canonicalCylinder_eq_ap] using
+    fiberIndexMap_mem e₀ (oneBlockIndexClass e₀ f + r * oneBlockIndexModulus f)
+
+theorem exists_fiberIndex_of_mem_cylinder {e n : Nat}
+    (hn : n ∈ canonicalCylinder e) :
+    ∃ k : Nat, n = fiberIndexMap e k := by
+  have : n ∈ Set.range (fiberIndexMap e) := by
+    rwa [range_fiberIndexMap_eq_canonicalCylinder]
+  obtain ⟨k, hk⟩ := Set.mem_range.mp this
+  exact ⟨k, hk.symm⟩
+
+/--
+`[C→A]` Characterization of the target progression via the Cancel-by-2 bridge.
+-/
+theorem mem_oneBlockTargetProgression_iff {e₀ f n : Nat}
+    (he₀ : 1 ≤ e₀) (hf : 1 ≤ f) :
+    n ∈ oneBlockTargetProgression e₀ f ↔
+      n ∈ canonicalCylinder e₀ ∧
+        realizedImage n (fiberE e₀) ∈ canonicalCylinder f := by
+  constructor
+  · intro hn
+    obtain ⟨r, rfl⟩ := hn
+    refine ⟨?_, ?_⟩
+    · simpa [← canonicalCylinder_eq_ap] using
+        fiberIndexMap_mem e₀ _
+    · refine (fiberIndexImage_mem_target_iff_index_modEq he₀ hf).2 ?_
+      rw [Nat.ModEq]
+      simp [Nat.add_mul_mod_self_right]
+  · intro ⟨hnC, himg⟩
+    obtain ⟨k, rfl⟩ := exists_fiberIndex_of_mem_cylinder hnC
+    have hk : k ≡ oneBlockIndexClass e₀ f [MOD oneBlockIndexModulus f] :=
+      (fiberIndexImage_mem_target_iff_index_modEq he₀ hf).1 himg
+    have hmod : k % oneBlockIndexModulus f =
+        oneBlockIndexClass e₀ f % oneBlockIndexModulus f := hk
+    have hκlt : oneBlockIndexClass e₀ f < oneBlockIndexModulus f :=
+      oneBlockIndexClass_lt e₀ f
+    rw [Nat.mod_eq_of_lt hκlt] at hmod
+    refine ⟨k / oneBlockIndexModulus f, ?_⟩
+    have hdecomp : k =
+        oneBlockIndexModulus f * (k / oneBlockIndexModulus f) +
+          k % oneBlockIndexModulus f :=
+      (Nat.div_add_mod k (oneBlockIndexModulus f)).symm
+    rw [hmod] at hdecomp
+    congr 1
+    calc
+      k = oneBlockIndexModulus f * (k / oneBlockIndexModulus f) +
+            oneBlockIndexClass e₀ f := hdecomp
+      _ = oneBlockIndexClass e₀ f +
+            (k / oneBlockIndexModulus f) * oneBlockIndexModulus f := by ring
+
+theorem oneBlockTargetProgression_nonempty {e₀ f : Nat}
+    (_he₀ : 1 ≤ e₀) (_hf : 1 ≤ f) :
+    (oneBlockTargetProgression e₀ f).Nonempty :=
+  ⟨fiberIndexMap e₀ (oneBlockIndexClass e₀ f), ⟨0, by simp⟩⟩
+
+theorem oneBlockTargetProgression_infinite {e₀ f : Nat}
+    (_he₀ : 1 ≤ e₀) (_hf : 1 ≤ f) :
+    (oneBlockTargetProgression e₀ f).Infinite := by
+  refine Set.infinite_of_injective_forall_mem
+    (f := fun r : Nat =>
+      fiberIndexMap e₀
+        (oneBlockIndexClass e₀ f + r * oneBlockIndexModulus f))
+    ?hinj ?hmem
+  · intro r₁ r₂ h
+    have hinj := fiberIndexMap_injective e₀ h
+    have hM : 0 < oneBlockIndexModulus f := oneBlockIndexModulus_pos f
+    have : r₁ * oneBlockIndexModulus f = r₂ * oneBlockIndexModulus f := by
+      omega
+    exact Nat.eq_of_mul_eq_mul_right hM this
+  · intro r
+    exact ⟨r, rfl⟩
+
+/-- Pairwise disjointness of target progressions via PR #16 cylinder disjointness. -/
+theorem oneBlockTargetProgression_disjoint {e₀ f g : Nat}
+    (he₀ : 1 ≤ e₀) (hf : 1 ≤ f) (hg : 1 ≤ g) (hfg : f ≠ g) :
+    Disjoint (oneBlockTargetProgression e₀ f) (oneBlockTargetProgression e₀ g) := by
+  refine Set.disjoint_left.2 ?_
+  intro n hnf hng
+  have hf' := (mem_oneBlockTargetProgression_iff he₀ hf).1 hnf
+  have hg' := (mem_oneBlockTargetProgression_iff he₀ hg).1 hng
+  exact (Set.disjoint_left.1
+    (canonicalCylinders_pairwise_disjoint hf hg hfg)) hf'.2 hg'.2
+
+theorem mem_oneBlockFeedInSet_iff_exists_target {e₀ n : Nat}
+    (_he₀ : 1 ≤ e₀) :
+    n ∈ oneBlockFeedInSet e₀ ↔
+      n ∈ canonicalCylinder e₀ ∧
+        ∃ f : Nat, 4 ≤ f ∧
+          realizedImage n (fiberE e₀) ∈ canonicalCylinder f := by
+  constructor
+  · intro ⟨hnC, himg⟩
+    refine ⟨hnC, ?_⟩
+    have hU : realizedImage n (fiberE e₀) ∈
+        ⋃ e : Nat, ⋃ (_ : 4 ≤ e), canonicalCylinder e := by
+      simpa [contractingMass, contractingCore6] using himg
+    obtain ⟨f, hf'⟩ := mem_iUnion.1 hU
+    obtain ⟨hf4, hmem⟩ := mem_iUnion.1 hf'
+    exact ⟨f, hf4, hmem⟩
+  · intro ⟨hnC, f, hf4, hmem⟩
+    refine ⟨hnC, ?_⟩
+    change realizedImage n (fiberE e₀) ∈
+      ⋃ e : Nat, ⋃ (_ : 4 ≤ e), canonicalCylinder e
+    exact mem_iUnion.2 ⟨f, mem_iUnion.2 ⟨hf4, hmem⟩⟩
+
+/--
+`[C→A]` D2b.5: one-block feed-in set is the union of target progressions over `f ≥ 4`.
+-/
+theorem oneBlockFeedInSet_eq_iUnion_progressions {e₀ : Nat} (he₀ : 1 ≤ e₀) :
+    oneBlockFeedInSet e₀ =
+      ⋃ f : Nat, ⋃ (_ : 4 ≤ f), oneBlockTargetProgression e₀ f := by
+  ext n
+  constructor
+  · intro hn
+    obtain ⟨hnC, f, hf4, himg⟩ :=
+      (mem_oneBlockFeedInSet_iff_exists_target he₀).1 hn
+    refine mem_iUnion.2 ⟨f, mem_iUnion.2 ⟨hf4, ?_⟩⟩
+    exact (mem_oneBlockTargetProgression_iff he₀ (by omega : 1 ≤ f)).2 ⟨hnC, himg⟩
+  · intro hn
+    obtain ⟨f, hf'⟩ := mem_iUnion.1 hn
+    obtain ⟨hf4, hP⟩ := mem_iUnion.1 hf'
+    have hmem := (mem_oneBlockTargetProgression_iff he₀ (by omega : 1 ≤ f)).1 hP
+    exact (mem_oneBlockFeedInSet_iff_exists_target he₀).2
+      ⟨hmem.1, f, hf4, hmem.2⟩
+
+/-- Pairwise the summands are disjoint for distinct contracting targets. -/
+theorem oneBlockFeedInSet_progressions_pairwise_disjoint {e₀ : Nat}
+    (he₀ : 1 ≤ e₀) {f g : Nat} (hf : 4 ≤ f) (hg : 4 ≤ g) (hfg : f ≠ g) :
+    Disjoint (oneBlockTargetProgression e₀ f) (oneBlockTargetProgression e₀ g) :=
+  oneBlockTargetProgression_disjoint he₀ (by omega) (by omega) hfg
+
 /-! ### Experiment package -/
 
 /--
-Experiment package after D1 / D2a / D2b.1–.4:
+Experiment package after D1 / D2a / D2b.1–.5:
 - one-block universal claim is refuted;
-- affine index formula is available;
+- affine index formula + Cancel-by-2 bridge;
+- disjoint progression decomposition of `oneBlockFeedInSet`;
 - `∅ ⊂ oneBlockFeedInSet 1 ⊂ C_1`;
 - reachability remains classically open.
 -/
@@ -493,6 +764,13 @@ structure Core6DynamicFeedInGoals : Prop where
   affineBlockMap : ∀ e₀ : Nat, 1 ≤ e₀ → ∀ k : Nat,
     realizedImage (fiberIndexMap e₀ k) (fiberE e₀) =
       oneBlockBaseImage e₀ + 2 * 3 ^ 7 * k
+  cancelByTwo :
+    ∀ e₀ f k : Nat, 1 ≤ e₀ → 1 ≤ f →
+      (realizedImage (fiberIndexMap e₀ k) (fiberE e₀) ∈ canonicalCylinder f ↔
+        k ≡ oneBlockIndexClass e₀ f [MOD oneBlockIndexModulus f])
+  progressionDecomposition : ∀ e₀ : Nat, 1 ≤ e₀ →
+    oneBlockFeedInSet e₀ =
+      ⋃ f : Nat, ⋃ (_ : 4 ≤ f), oneBlockTargetProgression e₀ f
   oneBlockSetSandwich_e1 :
     (∅ : Set Nat) ⊂ oneBlockFeedInSet 1 ∧
       oneBlockFeedInSet 1 ⊂ canonicalCylinder 1
@@ -501,6 +779,10 @@ structure Core6DynamicFeedInGoals : Prop where
 theorem core6DynamicFeedInGoals_named : Core6DynamicFeedInGoals where
   oneBlockRefuted := not_oneBlockFeedInGoal
   affineBlockMap := fun _e₀ he₀ k => realizedImage_fiberIndexMap he₀ k
+  cancelByTwo := fun _e₀ _f _k he₀ hf =>
+    fiberIndexImage_mem_target_iff_index_modEq he₀ hf
+  progressionDecomposition := fun _e₀ he₀ =>
+    oneBlockFeedInSet_eq_iUnion_progressions he₀
   oneBlockSetSandwich_e1 := oneBlockFeedInSet_one_sandwich
   reachabilityOpen := Classical.em _
 
@@ -515,7 +797,7 @@ theorem staticCertificate_available : Core6StaticDyadicCertificate :=
 - Dyadic density `1/8` is **not** a hitting probability for expanding channels.
 - A finite D1 census (`[B]`) never upgrades reachability to `[A]`.
 - `¬ OneBlockFeedInGoal` does **not** imply `¬ ReachabilityFeedInGoal`.
-- The full disjoint-union decomposition of `oneBlockFeedInSet` (D2b.5) is not yet discharged.
+- The progression decomposition does **not** fill all of `C_{e₀}` (complement survives to D3).
 - No collapse / global Collatz statement is in scope.
 -/
 

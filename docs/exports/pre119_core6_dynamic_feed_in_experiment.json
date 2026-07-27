@@ -10,10 +10,11 @@
     "OneBlockFeedInGoal_universal": "formally_refuted",
     "not_OneBlockFeedInGoal": "C\u2192A",
     "realizedImage_fiberIndexMap": "C\u2192A",
+    "cancel_by_two_bridge": "C\u2192A",
     "oneBlockIndexClass": "C\u2192A",
     "mem_oneBlockFeedInSet_one_1246239": "C\u2192A",
     "oneBlockFeedInSet_one_sandwich": "C\u2192A",
-    "D2b5_disjoint_union": "open",
+    "D2b5_disjoint_union": "C\u2192A",
     "ReachabilityFeedInGoal": "C",
     "universal_reachability": false,
     "collapse": false,
@@ -26,18 +27,17 @@
       "witness": {"e0": 1, "n": 31, "image": 137}
     },
     "oneBlockFeedInSet": {
-      "status": "D2b_partial_1_to_4",
+      "status": "D2b_closed_1_to_5",
       "delivered": [
         "realizedImage_fiberIndexMap",
-        "mem_canonicalCylinder_fiberIndexImage_iff",
+        "fiberIndexImage_mem_target_iff_index_modEq",
         "oneBlockIndexClass_spec",
         "existsUnique_oneBlockIndexClass_modEq",
         "mem_oneBlockFeedInSet_one_1246239",
-        "oneBlockFeedInSet_one_sandwich"
-      ],
-      "open": [
-        "D2b5_disjoint_union_over_f",
-        "full_cancel_two_bridge_to_cylinder"
+        "oneBlockFeedInSet_one_sandwich",
+        "oneBlockFeedInSet_eq_iUnion_progressions",
+        "oneBlockTargetProgression_disjoint",
+        "oneBlockTargetProgression_infinite"
       ],
       "positive_witness": {"e0": 1, "k": 1217, "n": 1246239, "image": 5323295, "target_f": 4}
     },
@@ -47,6 +47,7 @@
     }
   },
   "affine_formula": "realizedImage(Phi_e0(k), fiberE e0) = q_e0 + 4374*k",
+  "cancel_by_two": "image in C_f iff k == kappa(e0,f) (mod 2^(f+8))",
   "D1_census": {
     "status": "B",
     "kind": "full_stage_representatives_not_infinite_fibers",
@@ -67,7 +68,8 @@
     "D2b2_target_congruence",
     "D2b3_unique_index_class",
     "D2b4_positive_witness_sandwich",
-    "D2b5_disjoint_union_open",
+    "cancel_by_two_bridge",
+    "D2b5_disjoint_union",
     "D3_sufficient_reachability",
     "D4_full_reachability"
   ],
