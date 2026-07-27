@@ -4,19 +4,46 @@
   "project_matrix": {
     "PR15": {
       "label": "A",
-      "role": "algebraic existence and infinite lifting",
+      "nature": "algebraic",
+      "role": "local fiber existence and infinite lifting",
       "claim": "forall e\u22654, forall k, ApMemberOkFrom e (canonicalBase e) k",
-      "note": "unique representative mod 2^(e+9); infinite contracting fiber C_e"
+      "note": "unique representative b_e < M_e; infinite contracting fiber C_e"
     },
     "PR16": {
       "label": "C\u2192A",
-      "role": "combinatorial decomposition and residue density",
-      "method": "constructive Lean discharge of PR15 algebra; not external axiom debt"
+      "nature": "static / combinatorial",
+      "role": "inter-fiber decomposition and combinatorial density",
+      "method": "constructive Lean discharge of PR15 algebra; not external axiom debt; not orbit dynamics",
+      "includes": [
+        "fiberIndexEquiv (C_e \u2243 Nat)",
+        "disjointness",
+        "Core6 partition",
+        "finite ZMod(2^(m+9)) residue count \u2192 densities 1/8 vs 7/8"
+      ]
     },
     "followup": {
       "label": "C",
-      "role": "global dynamics and orbit feed-in",
+      "nature": "dynamic / trajectorial",
+      "role": "orbit feed-in / reachability",
       "claim": "C1 \u222a C2 \u222a C3 \u2192 union_{e\u22654} C_e"
+    }
+  },
+  "static_vs_dynamic": {
+    "PR16": {
+      "object": "disjointness and state-space decomposition",
+      "math": "residue count in ZMod(2^(m+9))",
+      "claim": "C_e \u2229 C_f = \u2205 and sum delta(C_e) \u2192 1/8"
+    },
+    "followup": {
+      "object": "orbit flow and feed-in",
+      "math": "preimage iteration / reachability",
+      "claim": "C1 \u222a C2 \u222a C3 \u2192 union_{e\u22654} C_e"
+    },
+    "density_in_PR16": {
+      "reason": "embedding periods 2^(e+9) into common module is deductive; no external dynamics",
+      "formula": "sum_{e=4}^m 2^(m-e) = 2^(m-3) - 1",
+      "limit": "(2^(m-3)-1)/2^m \u2192 1/8",
+      "package": "16f"
     }
   },
   "representative_vs_fiber": {
@@ -56,31 +83,37 @@
   "governance_cascade": [
     {
       "stage": 1,
-      "content": "unique coordinate b_e",
+      "content": "unique coordinate b_e and lifting",
       "status": "A",
-      "where": "PR15 CI green"
+      "where": "PR15"
     },
     {
       "stage": 2,
-      "content": "fiber identification",
+      "content": "local equivalence Nat \u2243 {n | n in C_e} via fiberIndexEquiv",
       "status": "C\u2192A",
-      "where": "PR16a/b candidate"
+      "where": "packaged; promote after CI"
     },
     {
       "stage": 3,
-      "content": "disjoint partition",
+      "content": "disjointness e \u2260 f \u21d2 C_e \u2229 C_f = \u2205",
       "status": "C\u2192A",
-      "where": "PR16c/d"
+      "where": "PR16c"
     },
     {
       "stage": 4,
-      "content": "finite count \u2192 densities 1/8 vs 7/8",
+      "content": "Core6 partition (C1\u2294C2\u2294C3) \u2294 sqcup_{e\u22654} C_e",
       "status": "C\u2192A",
-      "where": "PR16e/f"
+      "where": "PR16d"
     },
     {
       "stage": 5,
-      "content": "global feed-in",
+      "content": "finite module count sum 2^(m-e) = 2^(m-3)-1 \u2192 densities 1/8 : 7/8",
+      "status": "C\u2192A",
+      "where": "PR16f"
+    },
+    {
+      "stage": 6,
+      "content": "dynamic feed-in",
       "status": "C",
       "where": "follow-up"
     }
@@ -100,19 +133,20 @@
       "process": "CI green; draft; unmerged"
     },
     "PR16": {
-      "head": "0e26b12",
+      "head": "b795e49",
       "theorem": "C\u2192A",
-      "process": "CI queued; draft; mergeable; fiberIndexEquiv packaged"
+      "process": "CI queued; draft; mergeable; inter-fiber decomposition and combinatorial density"
     },
     "followup": {
       "theorem": "C",
-      "process": "research front"
+      "process": "research front; dynamic / trajectorial"
     }
   },
   "immunization": [
     "no type collapse: Nat \u2260 ZMod \u2260 Set Nat",
     "no uniqueness collapse: unique representative \u2260 unique realizer",
-    "no scope collapse: local fiber structure \u2260 global feed-in [C]"
+    "no scope collapse: local fiber structure \u2260 inter-fiber density \u2260 orbit feed-in [C]",
+    "no static/dynamic collapse: PR16 residue combinatorics \u2260 Follow-up reachability"
   ],
   "lean_types": {
     "representative": "canonicalBase e : Nat",
@@ -170,7 +204,8 @@
     "note": "local fiber coordinate; density 1/8 still needs joint modulus counting"
   },
   "local_vs_global": {
-    "local": "fiberIndexEquiv: C_e \u2243 Nat; fixed M_e",
-    "global": "union e\u22654 needs disjointness + common ZMod 2^(m+9) for density 1/8"
+    "local": "fiberIndexEquiv: C_e \u2243 Nat; fixed M_e; both in PR16",
+    "inter_fiber": "disjointness + common ZMod 2^(m+9) residue sum for density 1/8; package 16f; still PR16 static",
+    "dynamic_followup": "C1\u222aC2\u222aC3 \u2192 union e\u22654 is Follow-up [C], not PR16"
   }
 }

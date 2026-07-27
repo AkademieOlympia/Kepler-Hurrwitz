@@ -5,11 +5,32 @@ It must not be confused with repository `[A]` status.
 
 ## Three-phase project matrix
 
-| Phase | Label | Content |
-|-------|-------|---------|
-| **PR #15** | **`[A]`** | Algebraic existence & infinite lifting: `∀ e≥4, ∀ k, ApMemberOkFrom e (canonicalBase e) k`. Unique representative mod `2^{e+9}`; infinite contracting fiber `C_e`. |
-| **PR #16** | **`[C→A]`** | Combinatorial decomposition & residue density (deductive discharge of PR #15 algebra — **not** external axiom debt). |
-| **Follow-up** | **`[C]`** | Global dynamics & orbit feed-in: `C_1 ∪ C_2 ∪ C_3 → ⋃_{e≥4} C_e`. |
+| Phase | Label | Nature | Content |
+|-------|-------|--------|---------|
+| **PR #15** | **`[A]`** | Algebraic | Existence & infinite lifting: `∀ e≥4, ∀ k, ApMemberOkFrom e (canonicalBase e) k`. Unique `b_e < M_e`; infinite contracting fiber `C_e`. |
+| **PR #16** | **`[C→A]`** | **Static / combinatorial** | Disjointness, Core6 partition, finite residue count in `ZMod (2^{m+9})` → densities `1/8` vs `7/8`. Deductive discharge of PR #15 algebra — **not** external axiom debt, **not** orbit dynamics. |
+| **Follow-up** | **`[C]`** | **Dynamic / trajectorial** | Orbit feed-in / reachability: `C_1 ∪ C_2 ∪ C_3 → ⋃_{e≥4} C_e`. |
+
+### Static vs dynamic (do not conflate)
+
+| | **PR #16 `[C→A]`** | **Follow-up `[C]`** |
+|--|--------------------|---------------------|
+| Nature | static / combinatorial | dynamic / trajectorial |
+| Object | disjointness & state-space decomposition | orbit flow & feed-in |
+| Math | residue count in `ZMod (2^{m+9})` | preimage iteration / reachability |
+| Claim | `C_e ∩ C_f = ∅` ∧ `∑ δ(C_e) → 1/8` | `C_1 ∪ C_2 ∪ C_3 → ⋃_{e≥4} C_e` |
+
+Why density sits in PR #16: embedding fibers with periods `2^{e+9}` into a common
+module `ℤ/2^{m+9}ℤ` is a **purely deductive** consequence of already-proved
+congruences. For fixed `m ≥ 4`, each fiber `C_e` (`4 ≤ e ≤ m`) contributes
+exactly `2^{m-e}` disjoint residues; summing
+
+$$
+\sum_{e=4}^{m} 2^{m-e} = 2^{m-3} - 1
+$$
+
+against Core6 modulus size `2^m` yields the limit density `(2^{m-3}-1)/2^m → 1/8`.
+No external dynamics required — finite combinatorics in Lean (package **16f**).
 
 ## Dreifache Objektklarheit (typenrein in Lean 4)
 
@@ -83,21 +104,28 @@ $$
 with `e` the fiber/tail coordinate, `b_e` the canonical representative, and `k` the
 position inside the fiber (`Φ_e : k ↦ b_e + k M_e` = `fiberIndexMap`).
 
-Packaged on the branch (`[C→A]` until CI/merge); feat commit `0e26b12`, tip includes docs sync:
+Packaged on the branch (`[C→A]` until CI/merge); feat `0e26b12`, tip `b795e49`:
 - `fiberIndexMap_injective`
 - `range_fiberIndexMap_eq_canonicalCylinderAP` / `…_eq_canonicalCylinder`
 - **`fiberIndexEquiv : Nat ≃ {n // n ∈ canonicalCylinder e}`**  ⇒  `C_e ≃ ℕ`
 
-### Local coordinate vs global density
+Type-correct chain (inverses proved separately — no circular kernel deps):
 
-| | Local (`Φ_e` / `fiberIndexEquiv`) | Global period sync |
-|--|----------------------------------|--------------------|
-| Domain | one fiber `C_e` | `⋃_{e≥4} C_e` |
-| Period | fixed `M_e = 2^{e+9}` | `M_e` grows with `e` |
-| Tool | `C_e ≃ ℕ` | disjointness ∧ common `ZMod (2^{m+9})` count |
+$$
+\mathbb{N} \xrightarrow{\Phi_e} \{n : \mathbb{N} \mid n \in C_e\} \subset \mathbb{N}.
+$$
 
-`Φ_e(k) ≤ N` counts inside one fiber; it does **not** replace the joint residue
-count for density `1/8`.
+### Local coordinate vs inter-fiber density (both PR #16; different tools)
+
+| | Local (`Φ_e` / `fiberIndexEquiv`) | Inter-fiber (`16c`–`16f`) |
+|--|----------------------------------|---------------------------|
+| Domain | one fiber `C_e` | `⋃_{e≥4} C_e` inside Core6 |
+| Period | fixed `M_e = 2^{e+9}` | common `ZMod (2^{m+9})` |
+| Tool | `C_e ≃ ℕ` | disjointness ∧ residue sum `∑ 2^{m-e}` |
+| Delivers | index bound `Φ_e(k) ≤ N` | densities `1/8` vs `7/8` |
+
+`Φ_e` does **not** replace joint residue counting; both are static/combinatorial
+and in-scope for PR #16. Dynamical feed-in remains Follow-up `[C]`.
 
 ### Kernel-Beweisbarkeit ≠ Repository-Status `[A]`
 
@@ -114,25 +142,27 @@ count for density `1/8`.
 
 | PR | Head | Theoremstatus | Process-Status |
 |----|------|---------------|----------------|
-| **#15** | `6004d2b` | **`[A]`** eindeutige Koordinate & Lifting `e≥4` | CI grün (Lean/Evidence/QG) · Draft · ungemergt |
-| **#16** | `0e26b12` | **`[C→A]`** inkl. `fiberIndexEquiv` (`C_e ≃ ℕ`) | CI queued · Draft · mergeable |
-| Folge | — | **`[C]`** Zuführung `C_1,C_2,C_3` | Forschungsfront |
+| **#15** | `6004d2b` | **`[A]`** lokale Faser-Existenz & Lifting | CI grün (Lean/Evidence/QG) · Draft · ungemergt |
+| **#16** | `b795e49` | **`[C→A]`** Inter-Faser-Zerlegung & kombinatorische Dichte | CI queued · Draft · mergeable |
+| Folge | — | **`[C]`** dynamische Zuführung / Orbit-Trajektorien | Forschungsfront |
 
 ## Immunisierung gegen Kategorienfehler
 
 1. **Typen-Kollaps vermieden:** `Nat ≠_Typ ZMod ≠_Typ Set Nat`.
 2. **Eindeutigkeits-Kollaps vermieden:** kanonischer Repräsentant `b_e` ≠ einziger Realisierer (`C_e` unendlich).
-3. **Scope-Kollaps vermieden:** lokale Faser-/Strukturbeweise ≠ globale Orbit-Zuführung `[C]`.
+3. **Scope-Kollaps vermieden:** lokale Faserstruktur ≠ Inter-Faser-Dichte ≠ Orbit-Zuführung `[C]`.
+4. **Statik/Dynamik-Kollaps vermieden:** PR #16 residue combinatorics ≠ Follow-up reachability.
 
-## Five-stage governance cascade
+## Final governance cascade (head `b795e49`)
 
 | Stufe | Inhalt | Status |
 |-------|--------|--------|
-| 1 | Eindeutige Koordinate `b_e ∈ [0, 2^{e+9})` | **`[A]` PR #15 (CI green)** |
-| 2 | Faseridentifikation `n ∈ C_e ↔ RealizesWord (fiberE e) n` | **`[C→A]` PR #16a/b candidate** |
-| 3 | Disjunkte Partition `C_Core6 = (C_1⊔C_2⊔C_3) ⊔ ⊔_{e≥4} C_e` | **`[C→A]` PR #16c/d** |
-| 4 | Endliche Zählung → Dichten `1/8` vs `7/8` | **`[C→A]` PR #16e/f** |
-| 5 | Globale Zuführung `C_1∪C_2∪C_3 → ⋃_{e≥4} C_e` | **`[C]` Folgeprogramm** |
+| 1 | Eindeutige Koordinate `b_e ∈ [0, 2^{e+9})` & Lifting | **`[A]` PR #15** |
+| 2 | Lokale Äquivalenz `ℕ ≃ {n \| n ∈ C_e}` via `fiberIndexEquiv` | **`[C→A]` packaged; promote after CI** |
+| 3 | Disjunktheit `e ≠ f ⇒ C_e ∩ C_f = ∅` | **`[C→A]` PR #16c** |
+| 4 | Core6-Partition `(C_1⊔C_2⊔C_3) ⊔ ⊔_{e≥4} C_e` | **`[C→A]` PR #16d** |
+| 5 | Endliche Modul-Zählung `∑_{e=4}^m 2^{m-e} = 2^{m-3}-1` → Dichten `1/8` : `7/8` | **`[C→A]` PR #16f** |
+| 6 | Dynamische Zuführung `C_1∪C_2∪C_3 → ⋃_{e≥4} C_e` | **`[C]` Folgeprogramm** |
 
 Promotion rule: after PR #16 CI is green and merge/review accepts a package,
 that package moves from `[C→A]` into repo-of-record `[A]`. Until then the
@@ -143,7 +173,8 @@ bridge Algebra → Mengenlehre remains formally prepared, not yet promoted.
 `[C→A]` here is **not** unpaid empirical/external hypothesis debt.
 It marks a **purely constructive Lean discharge goal**:
 
-* 16a–16e are intended as deductive consequences of algebra already under `[A]` in PR #15.
+* 16a–16f are intended as deductive consequences of algebra already under `[A]` in PR #15
+  (static combinatorics through residue density; **not** dynamical feed-in).
 * They wait only for formal kernel discharge — not for new census data or axioms.
 * Package status rises from `[C→A]` to `[A]` only after that package (through 16f for density) closes under CI-green merge.
 
