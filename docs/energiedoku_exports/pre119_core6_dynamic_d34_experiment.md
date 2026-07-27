@@ -33,6 +33,27 @@ Entry point: `theorem core6DynamicD34ResidualGoals_named`.
 No discharge of residual reachability. No forever-boundary exclusion.
 No Collatz claim. D3.3 freeze tip untouched as mathematical content.
 
+## Governance sequence (PR #19)
+
+1. CI green (Lean Action, Quality Gate, Evidence Register Audit).
+2. Review of manuscript + `Core6DynamicD34.lean`.
+3. Merge PR #19.
+4. **Separate** promotion commit `[C→A] → [A]` for D3.4.
+5. Only then: D4 residual dynamics (`ResidualFeedInGoal`, re-entry, ForeverExp exclusion).
+
+Merge alone must not silently change the epistemic tag. ClaimsFreeze remains false.
+
 ## Manuscript
 
 German article: `docs/manuscripts/pre119_core6_residualdynamik.de.tex`
+
+## Governance sequence
+
+1. CI green (Lean Action, Quality Gate, Evidence Audit)
+2. Review manuscript + `Core6DynamicD34.lean`
+3. Merge onto accepted D3.3 base (stack `#15→#16→#17→#18→#19`; no jump to `main`)
+4. Separate promotion commit `[C→A] → [A]` for D3.4
+5. D4 follow-up remains `[C]` (FiniteExit re-entry / ForeverExp exclusion)
+
+See `docs/exports/pre119_core6_dynamic_d34_closure_audit.md`.
+Closure audit: `docs/exports/pre119_core6_dynamic_d34_closure_audit.md`

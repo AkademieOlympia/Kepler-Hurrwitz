@@ -187,6 +187,34 @@ rechnerischen Mathematik: umfangreiche Verifikation mit Beweis zu
 verwechseln. Ziel ist daher nicht bloß die Erzeugung von Daten, sondern die
 Umwandlung struktureller Beobachtungen in kerngeprüfte Mathematik.
 
+\subsection{Programm-Wand (PR-Stack)}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{2.8cm}p{1.6cm}p{7.4cm}@{}}
+\toprule
+Schicht & Tag & Inhalt \\
+\midrule
+PR\,\#15--\#16
+  & \tagA-Pfad
+  & Core6-Existenz, Faseräquivalenz $C_e\simeq\N$, relative Dichte $1/8$ \\
+PR\,\#17--\#18
+  & \CA
+  & Ein-Block-D2b, Pfad-AP (D3.2), Residual $\Leftrightarrow$ Reachability \\
+PR\,\#19 (D3.4)
+  & \CA
+  & Dichotomie $\Residual=\FiniteExit\,\dot\cup\,\Forever$ (Draft) \\
+Re-Entry / Reaches
+  & \tagC
+  & Konvergenz auf $\FiniteExit$; Ausschluss von $\Forever$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Die vollständige \emph{Reduktion} des Collatz-Engpasses ist damit formal
+gefasst (\CA); die dynamische Lösung der beiden Residualklassen bleibt
+unkonditioniert Forschungsfront (\tagC).
+
 Global bleibt \texttt{ClaimsFreeze} \textbf{falsch}: es wird kein Collatz-Beweis
 beansprucht.
 
@@ -537,10 +565,14 @@ $\mathtt{ResidualFeedInGoal}$.
 \begin{enumerate}[leftmargin=*]
   \item PR\,\#18 steht unter strengem mathematischem Freeze bei
   \texttt{24bd5c8}. Neue Kernel-Mathematik gehört nicht auf diesen Pull Request.
-  \item D3.4/D4 leben auf einem Follow-up-Branch
-  (\texttt{cursor/core6-dynamic-d34-residual-\ldots}).
-  \item Status-Tags bleiben \CA{} bis Review, Merge und einem
-  \textbf{separaten} Promotion-Commit zu repository-\tagA.
+  \item D3.4 lebt auf PR\,\#19
+  (\texttt{cursor/core6-dynamic-d34-residual-2ed1}).
+  \item Governance-Sequenz für PR\,\#19:
+  CI-grün (Lean Action, Quality Gate, Evidence Audit)
+  $\to$ Review
+  $\to$ Merge auf akzeptierte D3.3-Basis (Stack \#15--\#18, kein Vorgriff auf
+  \texttt{main})
+  $\to$ \textbf{separater} Promotion-Commit $\CA\to\tagA$.
   \item Natürliche Dichte, globales Collatz und ``Collapse''-Rhetorik sind
   explizite Nicht-Ziele des vorliegenden Pakets.
 \end{enumerate}
@@ -575,7 +607,7 @@ Residual-Feinstruktur
   & bewiesen (\CA)
   & $\FiniteExit\,\dot\cup\,\Forever$ \\
 Residual-Erreichbarkeit
-  & offen \tagC & D4 \\
+  & offen \tagC & Re-Entry / ForeverExp-Ausschluss \\
 Collatz-Vermutung
   & offen & \texttt{ClaimsFreeze} false \\
 \bottomrule
