@@ -212,6 +212,10 @@ It is **not** part of the PR #15 `[A]` claim surface.
 | `fiberResidues_disjoint` | `R_{m,e} ∩ R_{m,f} = ∅` via tail uniqueness |
 | `contractingResidues_card` | `|R_m^{contr}| = 2^{m-3}-1` |
 | `core6Residues_card` | `|R_m^{Core6}| = 2^m` (explicit Finset denominator) |
+| `contractingResidues_subset_core6Residues` | `R_m^{contr} ⊆ R_m^{Core6}` (occupancy bridge) |
 | `contractingResidues_dyadicProportion` | `#contr / #Core6 = 1/8 - 1/2^m` in ℚ |
 | `contractingResidues_dyadicDensity_error` | error to `1/8` equals `1/2^m` |
 | `contractingResidues_tendsto_dyadicDensity` | `Tendsto … atTop (𝓝 (1/8))` on ℝ |
+
+Notation: `core6LiftBase` / `bCore6` = `canonicalBase 4 % 2^9` is the Core6 base
+residue `b_Core6`, **not** `canonicalBase 6`.
