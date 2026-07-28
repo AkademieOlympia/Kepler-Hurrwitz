@@ -146,6 +146,92 @@ pytest tests/test_riemann_interference_diagnostics.py -q
 lake env lean KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean
 ```
 
+### ORQ-112: EABC Wong Functional Information Bridge
+
+- **Kontext:** EABC-Partition und Zwei-Quadrate-Regel `[A]` als arithmetischer Filter; unter \(Q_0=\tfrac14\) ergibt die Modellgröße \(I_{Q_0}(E_x)=-\log_2 F(E_x)\) für die betrachteten Ereignisse 1 Bit bzw. 2 Bit (kein NT-Absolutum); Wong-Drei-Ordnungen nur `[D]`.
+- **Kernfrage:** ORQ-112 untersucht, ob und wie geeignete Referenzverteilungen \(Q^*\) bzw. Divergenzmaße die beobachteten EABC-Verteilungen gegenüber Nullmodellen trennen können — **ohne** Existenz- oder Eindeutigkeitsanspruch für eine „optimale“ \(Q^*\).
+- **Methodischer Gewinn:** Nicht auf \(D_{\mathrm{KL}}\) festgelegt (\(P\ll Q\)-Voraussetzung; Nullstellen \(\Rightarrow D_{\mathrm{KL}}\to+\infty\)); offen für \(D_{\mathrm{JS}}\), Rényi/Tsallis, Wasserstein/OT.
+- **Status:** Forschungsfrage `[C]` **offen** — physical claim freeze **not granted**. Spezifikation E-112: **CLOSED & ACTIVE** (methodische Schicht; Claim-Wall sealed 2026-07-22). Snapshot freeze **`eabc-functional-info-v0.1`** (2026-07-26); Folge **v0.2 TUR/\(J_{BC}\)** = pending / not started.
+- **Abhängigkeiten:** `EABC/Basic.lean` / Primzahl-Turm (Zwei-Quadrate E∪A); komplementär E-076, ORQ-089 (Analogie-Governance).
+- **Dossier:** [`energiedoku_exports/eabc_wong_functional_information_bridge.md`](energiedoku_exports/eabc_wong_functional_information_bridge.md) · Freeze [`reports/eabc_wong_functional_info_v0.1_freeze.md`](reports/eabc_wong_functional_info_v0.1_freeze.md)
+
+**Prüfmodus:**
+
+```bash
+pytest tests/test_prime_tower_bridge.py::TestFunctionalInformationBits -q
+```
+
+### ORQ-113: Friedman–Lemaître Quaternion-Expansion
+
+- **Kontext:** Lipschitz-Normschalen; \(\Delta_L=v_{\mathrm{mult}}-v_{\mathrm{add}}\); AP-1 Dual-Aggregation + \(H_0^{(1..3)}\).
+- **Kernfrage (beantwortet unter AP-1):** Trennen die Trajektorien bis \(X=1000\) signifikant gegen \(H_0^{(3)}\) (\(p<0{,}01\)) — ohne FLRW-Identität?
+- **AP-1 Ergebnis (versiegelt):** \(\langle\Delta_L\rangle_{\mathrm{schale}}=-0{,}111\), \(p_{H_0^{(3)}}=1{,}000\) n.s.; \(\langle\Delta_L\rangle_{\mathrm{quat}}=+0{,}157\), \(p_{\mathrm{MC}}\le 10^{-4}\) sig. (\(\alpha=0{,}01\); MC-Auflösungsgrenze). Gewichteter Kanal = deskriptive Lokalisierung, keine Kausalität.
+- **Status:** AP-1 Hauptaudit **CLOSED** — signifikanter gewichteter `[B]`-Befund; kein `[A]`; cosmology freeze **not granted**. Spezifikation E-113: **CLOSED & ACTIVE**.
+- **Abhängigkeiten:** Quaternion-Träger; E-101.7; kein Transfer auf Collatz/E-096 ohne eigenen Audit.
+- **Dossier:** [`energiedoku_exports/friedman_lemaitre_ap1_abschlussbericht.md`](energiedoku_exports/friedman_lemaitre_ap1_abschlussbericht.md) · [`energiedoku_exports/friedman_lemaitre_quaternion_expansion.md`](energiedoku_exports/friedman_lemaitre_quaternion_expansion.md) · Export [`exports/friedman_lemaitre_ap1_n1000.json`](exports/friedman_lemaitre_ap1_n1000.json)
+
+**Prüfmodus:**
+
+```bash
+PYTHONPATH=src python -m kepler_hurwitz.friedman_lemaitre --n-max 1000 \
+  --null-models --n-mc 10000 --seed 113001 \
+  --out docs/exports/friedman_lemaitre_ap1_n1000.json
+pytest tests/test_friedman_lemaitre.py -q
+```
+
+### ORQ-113-EXT: AP-2 Asymptotische Skalierungsdiagnose
+
+- **Kontext:** Aufbau auf E-113 AP-1 (gewichteter `[B]`-Kanal). Mathematische Basis: \(R_4(X)\), Primdichte \(1/\zeta(4)\), dyadisches \(\mu_{\mathrm{window}}\), Fitkatalog \(M_0\)–\(M_4\).
+- **Kernfrage:** Sind \(\mu_{\mathrm{quat}}(X)\) und \(\mu_{\mathrm{window}}(X)\) bis \(X=10^6\) mit einem gemeinsamen Plateauwert \(\widehat{c}_{[B]}\) vereinbar und ohne Drift unter \(M_3,M_4\) — **ohne** Limit-Existenzclaim?
+- **Status:** Spezifikation **LOCKED & ACTIVE**; Scale runs **COMPLETE** & **MODULE SEALED**. Fast-Pfad \(\widehat{c}_{[B]}(10^6)=0{,}279245=\mu_{\mathrm{window}}\); \(M_2\succ M_3/M_4\); deskriptiver Kanalvergleich zu AP-1 \(\approx 0{,}157\). Limit/Kausalität/Kosmologie **not granted**.
+- **Report:** [`energiedoku_exports/friedman_lemaitre_ap2_scale_report.md`](energiedoku_exports/friedman_lemaitre_ap2_scale_report.md) · Summary [`exports/friedman_lemaitre_ap2_scale_summary.json`](exports/friedman_lemaitre_ap2_scale_summary.json)
+- **Nomenklatur:** verboten \(c_{[B]}=\lim\); erlaubt \(\widehat{c}_{[B]}(X)\), \(c_{[B]}^{\mathrm{fit}}\).
+- **Abhängigkeiten:** E-113 (AP-1 CLOSED).
+- **Dossier:** [`energiedoku_exports/friedman_lemaitre_ap2_scaling_prereg.md`](energiedoku_exports/friedman_lemaitre_ap2_scaling_prereg.md) · [`experimental/friedman_lemaitre/PROTOCOL_AP2.md`](../experimental/friedman_lemaitre/PROTOCOL_AP2.md)
+
+**Prüfmodus:**
+
+```bash
+PYTHONPATH=src python -m kepler_hurwitz.friedman_lemaitre_ap2 --x-max 1000 \
+  --out docs/exports/friedman_lemaitre_ap2_smoke_n1000.json
+pytest tests/test_friedman_lemaitre_ap2.py -q
+```
+
+### ORQ-113-TENSION: AP-3 Achsen-Kopplungsdifferenz \(\Delta_{\mathrm{axis}}\)
+
+- **Kontext:** Differenz Fast-Pfad vs. Vollkanal: \(\Delta_{\mathrm{axis}}=\widehat{c}_{\mathrm{Fast}}-\widehat{c}_{\mathrm{Voll}}\) (`axis_coupling_delta`). `[D]`-Alias „quaternionische Hubble-Spannung“ (CMB vs. Cepheiden/SNe nur Metapher).
+- **Kernfrage:** Ist \(\Delta_{\mathrm{axis}}(X)\) asymptotisch stabil, und liefert die λ-Intervention \(v_{\mathrm{add}}\mapsto\lambda v_{\mathrm{add}}\) eine lineare Sensitivität \(\chi_{\mathrm{axis}}\) oder Nichtlinearität — **ohne** Astrophysik-/Kausal-Kurzschluss?
+- **Arretiert:** \(\Delta_{\mathrm{axis}}(1000)=0{,}120185\).
+- **Status:** Spezifikation **LOCKED & ACTIVE**; Astrophysik-/Kausal-ohne-Intervention **not granted**.
+- **Abhängigkeiten:** E-113, E-113-EXT.
+- **Dossier:** [`energiedoku_exports/friedman_lemaitre_ap3_tension_prereg.md`](energiedoku_exports/friedman_lemaitre_ap3_tension_prereg.md) · [`experimental/friedman_lemaitre/PROTOCOL_AP3.md`](../experimental/friedman_lemaitre/PROTOCOL_AP3.md)
+
+**Prüfmodus:**
+
+```bash
+PYTHONPATH=src python -m kepler_hurwitz.friedman_lemaitre_ap3 --x 1000 \
+  --out docs/exports/friedman_lemaitre_ap3_delta_axis_n1000.json
+pytest tests/test_friedman_lemaitre_ap3.py -q
+```
+
+### ORQ-113-SPIN8: \(\Delta_{\mathrm{axis}}\)-Ankopplung an \(\mathbb{R}^8\) / \(\mathrm{Spin}(8)\)
+
+- **Kontext:** \(\Delta_{\mathrm{axis}}(1000)=0{,}120185\) als `[B]`-Kopplungsdefekt; natürliche Projektionsfläche \(\mathbb{R}^8\)/\(E_8\)/\(\mathrm{Spin}(8)\)-Trialität.
+- **Kernfrage:** Lässt sich ein vorregistriertes \(\Delta_{\mathrm{axis}}^{(8)}(X)\) so definieren, dass es gegen Nullmodelle trennt und die 4D-Größe als Projektions-Residuum \(\mathrm{Spin}(8)\to\mathrm{Spin}(4)\) **interpretierbar** macht — ohne Ableitungsclaim?
+- **Status:** Hypothese `[C]`/`[D]` **ARCHIVED** (AP-4 ARCHIVE LOCK); Ableitung aus \(\mathrm{Spin}(8)\) **not granted**. Operator-Lock: \(A_{\mathrm{pair}}\) + HS; Kontrolle \(A_{(2)}\); Multiplizität 15.
+- **Nähe-Probe:** Dual-Ranking \((\mathrm{rank}_{\mathrm{abs}},\mathrm{rank}_{\mathrm{rel}})\); \(1/8\) nur robust bei Top in **beiden**.
+- **Gate:** \(\Delta_{\mathrm{axis}}^{(8)}\) unter diesem Lock; Sonden \(\Delta_{\mathrm{axis}}^{\mathbb{Z}^8}\), \(\Delta_{\mathrm{root}}^{E_8}\) ONLINE (`friedman_lemaitre_spin8.v2`).
+- **Smoke-Seal \(n=32\):** \(\delta_{\mathrm{abs}}=0{,}017414\), \(\delta_{\mathrm{rel}}=6{,}6667\%\) — Kanal-Differenz nachgewiesen; **keine** intrinsische \(E_8\)-Wirkung. Skalierungs-Gate **DORMANT** bis Aufruf.
+- **Dossier:** [`energiedoku_exports/friedman_lemaitre_spin8_coupling_hyp.md`](energiedoku_exports/friedman_lemaitre_spin8_coupling_hyp.md) · [`experimental/friedman_lemaitre/PROTOCOL_SPIN8.md`](../experimental/friedman_lemaitre/PROTOCOL_SPIN8.md)
+
+**Prüfmodus:**
+
+```bash
+PYTHONPATH=src python -m kepler_hurwitz.friedman_lemaitre_spin8_probe
+PYTHONPATH=src python -m kepler_hurwitz.friedman_lemaitre_spin8_sensors
+pytest tests/test_friedman_lemaitre_spin8_probe.py tests/test_friedman_lemaitre_spin8_sensors.py -q
+```
+
 ## Projekt „Die drei Musketiere“ (E-026)
 
 - Existiert in jedem Bremensaal ein Nachbar-Dreier der drei uebrigen EABC-Familien?
@@ -221,6 +307,27 @@ Vollstaendige Statements, Governance-Tabelle und Durchbruchspfad: [`open_mathema
 | 15 | ORQ-094 | Pauli phase invariance on EABC energy | E-094 | `[C]` → `[B]`-Ziel |
 | 16 | ORQ-095 | Riemann zero interference at bc-axis nodes | E-095 | `[C]` → `[B]`-Ziel |
 | 17 | ORQ-099 | Anisotropic binary volume contraction \(2^{-S_n}\) | E-099 | `[C]` → `[B]`-Ziel |
+| 18 | ORQ-112 | Wong \(I_{Q_0}\)-Modellgröße; ob/wie \(Q^*\)/Divergenz trennt | E-112 | Spez. CLOSED & ACTIVE; Snapshot v0.1; Physik-freeze not granted; v0.2 TUR pending |
+| 19 | ORQ-113 | AP-1 CLOSED: gewichteter `[B]`-Befund vs. \(H_0^{(3)}\); Schale n.s. | E-113 | Hauptaudit CLOSED; kein `[A]`/Kosmologie |
+| 20 | ORQ-113-EXT | AP-2 SEALED: \(\widehat{c}_{[B]}(10^6)=0{,}279245\); \(M_2\succ\)Drift; vs. AP-1 deskriptiv | E-113-EXT | MODULE SEALED; kein lim/Kausal/Kosmologie |
+| 21 | ORQ-113-TENSION | AP-3 \(\Delta_{\mathrm{axis}}\); λ-Intervention; `[D]` Hubble-Alias | E-113-TENSION | Spez. LOCKED; kein H0-/Kausal-Claim |
+| 22 | ORQ-113-SPIN8 | \(\Delta_{\mathrm{axis}}\) ↔ \(\mathbb{R}^8\)/\(\mathrm{Spin}(8)\)/\(E_8\) Hypothese | E-113-SPIN8 | ARCHIVED; Scale-Gate DORMANT |
+| 23 | ORQ-114 | Small-Box exotic cycle exclusion (affine cylinder) | E-114 | CERTIFIED rebuild; Claim-Wall \(2\le k\le 8\), \(A\le 20\) |
+| 24 | ORQ-114-MF | Modular Family Exclusion Filter | E-114-MF | SCAFFOLD / DORMANT |
+
+### ORQ-114: Small-Box exotic cycle exclusion
+
+- **Kontext:** Affine Identität \(2^A T^k(n)=3^k n+B(w)\) ⇒ Kandidat \(X=B/(2^A-3^k)\).
+- **Kernfrage:** Gibt es in der Box \(2\le k\le 8\), \(k\le A\le 20\) einen exotischen realisierenden Zyklus?
+- **Status:** **CERTIFIED** (Rebuild): \(N_{\mathrm{survivor}}=0\); \(N_{\mathrm{div}}=262970\) dominant; \(N_{\nu_2}=0\); trivial \(X=1\) separat.
+- **Dossier:** [`certificates/small_box_2_8_A20.md`](certificates/small_box_2_8_A20.md) · Lean `small_box_fully_excluded`
+
+### ORQ-114-MF: Modular Family Exclusion Filter (PR #77)
+
+- **Kontext:** \(N_{\mathrm{div}}\)-Barriere qualitativ abstrahieren.
+- **Kernfrage:** Existieren Familien \(\mathcal{F}(k)\) mit \(B(w)\not\equiv 0\pmod{2^A-3^k}\) ohne Wort-Enumeration?
+- **Status:** Scope-Wall **SCAFFOLD / DORMANT**.
+- **Dossier:** [`energiedoku_exports/collatz_pr77_modular_family_scaffold.md`](energiedoku_exports/collatz_pr77_modular_family_scaffold.md)
 
 **Shell-Separationsdiagnostik (E-077–E-079):** Mess-Schicht `[C]` — [`reports/shell_separation_diagnostics_protocol.md`](reports/shell_separation_diagnostics_protocol.md) · CSV via `scripts/shell_separation_diagnostics.py`
 
