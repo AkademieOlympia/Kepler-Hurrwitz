@@ -958,6 +958,122 @@ theorem fiber27_prefix_step5_r2 (m : Nat) :
   · dsimp [fiber27T5_r2]; omega
 
 /-!
+#### `[B]` First \(m \bmod 2^k\) split after \(T_5\)
+
+Still factorization only — no `t_loc` / net-descent claim.
+
+* **`r = 0`**: step 6 stays \(m\)-free (\(v_2 = 1\)); the first split is at step 7
+  (uniform on \(m \bmod 4 \in \{0,1,3\}\); residue \(m \equiv 2 \pmod 4\) needs deeper lift).
+* **`r = 1`**: step 6 splits immediately (uniform on even \(m\) and on \(m \equiv 3 \pmod 4\);
+  residue \(m \equiv 1 \pmod 4\) lifts further).
+* **`r = 2`**: step 6 splits immediately (uniform on even \(m\) and on \(m \equiv 1 \pmod 4\);
+  residue \(m \equiv 3 \pmod 4\) lifts further).
+-/
+
+/-- Odd station after step 6 when `r = 0` (still \(m\)-uniform, \(v_2 = 1\)). -/
+def fiber27T6_r0 (m : Nat) : Nat := 1458 * m + 161
+
+/--
+`[B]` Step 6 for `r = 0`: still independent of \(m\).
+-/
+theorem fiber27_prefix_step6_r0 (m : Nat) :
+    3 * fiber27T5_r0 m + 1 = 2 * fiber27T6_r0 m ∧ fiber27T6_r0 m % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r0, fiber27T6_r0]; ring
+  · dsimp [fiber27T6_r0]; omega
+
+/-- Odd station after step 7 when `r = 0` and `m = 4s` (`v₂ = 2`). -/
+def fiber27T7_r0_m0 (s : Nat) : Nat := 4374 * s + 121
+
+/-- Odd station after step 7 when `r = 0` and `m = 4s+1` (`v₂ = 1`). -/
+def fiber27T7_r0_m1 (s : Nat) : Nat := 8748 * s + 2429
+
+/-- Odd station after step 7 when `r = 0` and `m = 4s+3` (`v₂ = 1`). -/
+def fiber27T7_r0_m3 (s : Nat) : Nat := 8748 * s + 6803
+
+/--
+`[B]` Step 7 for `r = 0`, `m = 4s`: \(3T_6+1 = 4\cdot T_7\) with \(T_7\) odd.
+-/
+theorem fiber27_prefix_step7_r0_m0 (s : Nat) :
+    3 * fiber27T6_r0 (4 * s) + 1 = 4 * fiber27T7_r0_m0 s ∧
+      fiber27T7_r0_m0 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T6_r0, fiber27T7_r0_m0]; ring
+  · dsimp [fiber27T7_r0_m0]; omega
+
+/--
+`[B]` Step 7 for `r = 0`, `m = 4s+1`: \(3T_6+1 = 2\cdot T_7\) with \(T_7\) odd.
+-/
+theorem fiber27_prefix_step7_r0_m1 (s : Nat) :
+    3 * fiber27T6_r0 (4 * s + 1) + 1 = 2 * fiber27T7_r0_m1 s ∧
+      fiber27T7_r0_m1 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T6_r0, fiber27T7_r0_m1]; ring
+  · dsimp [fiber27T7_r0_m1]; omega
+
+/--
+`[B]` Step 7 for `r = 0`, `m = 4s+3`: \(3T_6+1 = 2\cdot T_7\) with \(T_7\) odd.
+-/
+theorem fiber27_prefix_step7_r0_m3 (s : Nat) :
+    3 * fiber27T6_r0 (4 * s + 3) + 1 = 2 * fiber27T7_r0_m3 s ∧
+      fiber27T7_r0_m3 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T6_r0, fiber27T7_r0_m3]; ring
+  · dsimp [fiber27T7_r0_m3]; omega
+
+/-- Odd station after step 6 when `r = 1` and `m = 2s` (`v₂ = 1`). -/
+def fiber27T6_r1_even (s : Nat) : Nat := 1458 * s + 263
+
+/-- Odd station after step 6 when `r = 1` and `m = 4s+3` (`v₂ = 2`). -/
+def fiber27T6_r1_m3 (s : Nat) : Nat := 1458 * s + 1225
+
+/--
+`[B]` Step 6 for `r = 1`, even `m = 2s`: \(3T_5+1 = 2\cdot T_6\) with \(T_6\) odd.
+-/
+theorem fiber27_prefix_step6_r1_even (s : Nat) :
+    3 * fiber27T5_r1 (2 * s) + 1 = 2 * fiber27T6_r1_even s ∧
+      fiber27T6_r1_even s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r1, fiber27T6_r1_even]; ring
+  · dsimp [fiber27T6_r1_even]; omega
+
+/--
+`[B]` Step 6 for `r = 1`, `m = 4s+3`: \(3T_5+1 = 4\cdot T_6\) with \(T_6\) odd.
+-/
+theorem fiber27_prefix_step6_r1_m3 (s : Nat) :
+    3 * fiber27T5_r1 (4 * s + 3) + 1 = 4 * fiber27T6_r1_m3 s ∧
+      fiber27T6_r1_m3 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r1, fiber27T6_r1_m3]; ring
+  · dsimp [fiber27T6_r1_m3]; omega
+
+/-- Odd station after step 6 when `r = 2` and `m = 2s` (`v₂ = 2`). -/
+def fiber27T6_r2_even (s : Nat) : Nat := 1458 * s + 445
+
+/-- Odd station after step 6 when `r = 2` and `m = 4s+1` (`v₂ = 3`). -/
+def fiber27T6_r2_m1 (s : Nat) : Nat := 1458 * s + 587
+
+/--
+`[B]` Step 6 for `r = 2`, even `m = 2s`: \(3T_5+1 = 4\cdot T_6\) with \(T_6\) odd.
+-/
+theorem fiber27_prefix_step6_r2_even (s : Nat) :
+    3 * fiber27T5_r2 (2 * s) + 1 = 4 * fiber27T6_r2_even s ∧
+      fiber27T6_r2_even s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r2, fiber27T6_r2_even]; ring
+  · dsimp [fiber27T6_r2_even]; omega
+
+/--
+`[B]` Step 6 for `r = 2`, `m = 4s+1`: \(3T_5+1 = 8\cdot T_6\) with \(T_6\) odd.
+-/
+theorem fiber27_prefix_step6_r2_m1 (s : Nat) :
+    3 * fiber27T5_r2 (4 * s + 1) + 1 = 8 * fiber27T6_r2_m1 s ∧
+      fiber27T6_r2_m1 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r2, fiber27T6_r2_m1]; ring
+  · dsimp [fiber27T6_r2_m1]; omega
+
+/-!
 ### Channel `7` arithmetic (`n % 8 = 7`)
 
 `T_odd n % 8 = 3` when `k` is even, `7` when `k` is odd. The subcase `k % 4 = 2`
