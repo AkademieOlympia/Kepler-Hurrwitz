@@ -38,5 +38,6 @@
     "no_affine_transport_theorem",
     "resonance_not_required_primitive"
   ],
-  "base_formal_core_commit": "f5df496abea7bbd6f8ad78c0ad1b9d62e16b7de9"
+  "base_formal_core_commit": "f5df496abea7bbd6f8ad78c0ad1b9d62e16b7de9",
+  "package_commit": "96842bb50fb48e57ff9bfd281311e9bf9821138f"
 }
