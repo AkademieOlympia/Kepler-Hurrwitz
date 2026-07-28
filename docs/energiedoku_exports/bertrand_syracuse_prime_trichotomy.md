@@ -3,7 +3,8 @@
 **Branch:** `cursor/bertrand-syracuse-trichotomy-4007`  
 **Module:** `KeplerHurwitz.Collatz.BertrandSyracuseTrichotomy`  
 **Preprint:** `docs/manuscripts/bertrand_syracuse_prime_trichotomy.tex`  
-**Status:** **PREPRINT-READY** after linguistic decoupling from the larger programme  
+**Package:** [`docs/manuscripts/bertrand_syracuse_preprint_package/`](../manuscripts/bertrand_syracuse_preprint_package/README.md)  
+**Status:** **PREPRINT-READY · FORMAL CORE SEALED**  
 (primary title: *A Lean 4 Formalization of a Bertrand–Syracuse Prime Trichotomy*)
 
 ## Four layers (keep separate)
@@ -31,7 +32,13 @@
 Primary: **orbit-determined partition point** / distinguished dynamical landing point `T(n)`.  
 Optional gloss: local resonance point (EABC). Never primary preprint term.
 
-## Build / reproducibility
+## Reproduce (package entry point)
+
+```bash
+./docs/manuscripts/bertrand_syracuse_preprint_package/reproduce.sh
+```
+
+Or manually:
 
 ```bash
 lake build KeplerHurwitz.Collatz.BertrandSyracuseTrichotomy
@@ -39,7 +46,8 @@ rg -n -P '(^|[^A-Za-z0-9_/`])(sorry|admit)([^A-Za-z0-9_]|$)' \
   KeplerHurwitz/Collatz/BertrandSyracuseTrichotomy.lean
 ```
 
-Lean 4.31.0 / Mathlib `v4.31.0`. Certificate: `bertrandSyracuseTrichotomyCertificate`.
+Lean 4.31.0 / Mathlib `v4.31.0`. Certificate: `bertrandSyracuseTrichotomyCertificate`.  
+Manifest: `docs/manuscripts/bertrand_syracuse_preprint_package/MANIFEST.json`.
 
 ## Non-goals
 

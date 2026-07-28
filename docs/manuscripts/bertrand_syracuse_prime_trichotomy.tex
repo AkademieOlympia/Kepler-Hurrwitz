@@ -249,6 +249,10 @@ Interpretive vocabulary (``resonance'', ``arithmetico-dynamical coupling'',
 
 \section{Formalization architecture}
 
+The reproducible preprint package lives at
+\texttt{docs/manuscripts/bertrand\_syracuse\_preprint\_package/}
+(README, \texttt{MANIFEST.json}, \texttt{reproduce.sh}).
+
 \begin{center}
 \begin{tabular}{@{}ll@{}}
 \toprule
@@ -260,12 +264,15 @@ Module &
 \texttt{KeplerHurwitz.Collatz.BertrandSyracuseTrichotomy} \\
 Build &
 \texttt{lake build KeplerHurwitz.Collatz.BertrandSyracuseTrichotomy} \\
+Package check &
+\texttt{./docs/manuscripts/bertrand\_syracuse\_preprint\_package/reproduce.sh} \\
 Sorry audit &
 \texttt{rg -n -P '(sorry\textbar admit)'
   KeplerHurwitz/Collatz/BertrandSyracuseTrichotomy.lean} \\
 Certificate &
 \texttt{bertrandSyracuseTrichotomyCertificate} \\
 Placeholders & \texttt{0 sorry} / \texttt{0 admit} in the module \\
+Seal & PREPRINT-READY $\cdot$ FORMAL CORE SEALED \\
 \bottomrule
 \end{tabular}
 \end{center}
