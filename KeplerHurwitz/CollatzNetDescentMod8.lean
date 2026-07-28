@@ -1074,6 +1074,133 @@ theorem fiber27_prefix_step6_r2_m1 (s : Nat) :
   · dsimp [fiber27T6_r2_m1]; omega
 
 /-!
+#### `[B]` Residual-fiber lift (next \(2\)-adic layer)
+
+Peels the three residual classes left open above. Still factorization only.
+Remaining lift fibers after this layer:
+* `r = 0`: `m ≡ 10 (mod 16)` (from step 7)
+* `r = 1`: `m ≡ 1 (mod 16)` (from step 6)
+* `r = 2`: `m ≡ 11 (mod 16)` (from step 6)
+-/
+
+/-- Odd station after step 7 when `r = 0` and `m = 8s+6` (`v₂ = 3`). -/
+def fiber27T7_r0_m6 (s : Nat) : Nat := 4374 * s + 3341
+
+/-- Odd station after step 7 when `r = 0` and `m = 16s+2` (`v₂ = 4`). -/
+def fiber27T7_r0_m2 (s : Nat) : Nat := 4374 * s + 577
+
+/-- Odd station after step 7 when `r = 0` and `m = 16s+14` (`v₂ = 3`). -/
+def fiber27T7_r0_m14 (s : Nat) : Nat := 8748 * s + 7715
+
+/--
+`[B]` Step 7 for `r = 0`, `m = 8s+6`: \(3T_6+1 = 8\cdot T_7\) with \(T_7\) odd.
+-/
+theorem fiber27_prefix_step7_r0_m6 (s : Nat) :
+    3 * fiber27T6_r0 (8 * s + 6) + 1 = 8 * fiber27T7_r0_m6 s ∧
+      fiber27T7_r0_m6 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T6_r0, fiber27T7_r0_m6]; ring
+  · dsimp [fiber27T7_r0_m6]; omega
+
+/--
+`[B]` Step 7 for `r = 0`, `m = 16s+2`: \(3T_6+1 = 16\cdot T_7\) with \(T_7\) odd.
+-/
+theorem fiber27_prefix_step7_r0_m2 (s : Nat) :
+    3 * fiber27T6_r0 (16 * s + 2) + 1 = 16 * fiber27T7_r0_m2 s ∧
+      fiber27T7_r0_m2 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T6_r0, fiber27T7_r0_m2]; ring
+  · dsimp [fiber27T7_r0_m2]; omega
+
+/--
+`[B]` Step 7 for `r = 0`, `m = 16s+14`: \(3T_6+1 = 8\cdot T_7\) with \(T_7\) odd.
+-/
+theorem fiber27_prefix_step7_r0_m14 (s : Nat) :
+    3 * fiber27T6_r0 (16 * s + 14) + 1 = 8 * fiber27T7_r0_m14 s ∧
+      fiber27T7_r0_m14 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T6_r0, fiber27T7_r0_m14]; ring
+  · dsimp [fiber27T7_r0_m14]; omega
+
+/-- Odd station after step 6 when `r = 1` and `m = 8s+5` (`v₂ = 3`). -/
+def fiber27T6_r1_m5 (s : Nat) : Nat := 1458 * s + 977
+
+/-- Odd station after step 6 when `r = 1` and `m = 16s+9` (`v₂ = 4`). -/
+def fiber27T6_r1_m9 (s : Nat) : Nat := 1458 * s + 853
+
+/-- Odd station after step 6 when `r = 1` and `m = 16s+13` (`v₂ = 3`). -/
+def fiber27T6_r1_m13 (s : Nat) : Nat := 2916 * s + 2435
+
+/--
+`[B]` Step 6 for `r = 1`, `m = 8s+5`: \(3T_5+1 = 8\cdot T_6\) with \(T_6\) odd.
+-/
+theorem fiber27_prefix_step6_r1_m5 (s : Nat) :
+    3 * fiber27T5_r1 (8 * s + 5) + 1 = 8 * fiber27T6_r1_m5 s ∧
+      fiber27T6_r1_m5 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r1, fiber27T6_r1_m5]; ring
+  · dsimp [fiber27T6_r1_m5]; omega
+
+/--
+`[B]` Step 6 for `r = 1`, `m = 16s+9`: \(3T_5+1 = 16\cdot T_6\) with \(T_6\) odd.
+-/
+theorem fiber27_prefix_step6_r1_m9 (s : Nat) :
+    3 * fiber27T5_r1 (16 * s + 9) + 1 = 16 * fiber27T6_r1_m9 s ∧
+      fiber27T6_r1_m9 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r1, fiber27T6_r1_m9]; ring
+  · dsimp [fiber27T6_r1_m9]; omega
+
+/--
+`[B]` Step 6 for `r = 1`, `m = 16s+13`: \(3T_5+1 = 8\cdot T_6\) with \(T_6\) odd.
+-/
+theorem fiber27_prefix_step6_r1_m13 (s : Nat) :
+    3 * fiber27T5_r1 (16 * s + 13) + 1 = 8 * fiber27T6_r1_m13 s ∧
+      fiber27T6_r1_m13 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r1, fiber27T6_r1_m13]; ring
+  · dsimp [fiber27T6_r1_m13]; omega
+
+/-- Odd station after step 6 when `r = 2` and `m = 8s+7` (`v₂ = 4`). -/
+def fiber27T6_r2_m7 (s : Nat) : Nat := 1458 * s + 1387
+
+/-- Odd station after step 6 when `r = 2` and `m = 16s+3` (`v₂ = 5`). -/
+def fiber27T6_r2_m3 (s : Nat) : Nat := 1458 * s + 329
+
+/-- Odd station after step 6 when `r = 2` and `m = 16s+15` (`v₂ = 4`). -/
+def fiber27T6_r2_m15 (s : Nat) : Nat := 2916 * s + 2845
+
+/--
+`[B]` Step 6 for `r = 2`, `m = 8s+7`: \(3T_5+1 = 16\cdot T_6\) with \(T_6\) odd.
+-/
+theorem fiber27_prefix_step6_r2_m7 (s : Nat) :
+    3 * fiber27T5_r2 (8 * s + 7) + 1 = 16 * fiber27T6_r2_m7 s ∧
+      fiber27T6_r2_m7 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r2, fiber27T6_r2_m7]; ring
+  · dsimp [fiber27T6_r2_m7]; omega
+
+/--
+`[B]` Step 6 for `r = 2`, `m = 16s+3`: \(3T_5+1 = 32\cdot T_6\) with \(T_6\) odd.
+-/
+theorem fiber27_prefix_step6_r2_m3 (s : Nat) :
+    3 * fiber27T5_r2 (16 * s + 3) + 1 = 32 * fiber27T6_r2_m3 s ∧
+      fiber27T6_r2_m3 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r2, fiber27T6_r2_m3]; ring
+  · dsimp [fiber27T6_r2_m3]; omega
+
+/--
+`[B]` Step 6 for `r = 2`, `m = 16s+15`: \(3T_5+1 = 16\cdot T_6\) with \(T_6\) odd.
+-/
+theorem fiber27_prefix_step6_r2_m15 (s : Nat) :
+    3 * fiber27T5_r2 (16 * s + 15) + 1 = 16 * fiber27T6_r2_m15 s ∧
+      fiber27T6_r2_m15 s % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T5_r2, fiber27T6_r2_m15]; ring
+  · dsimp [fiber27T6_r2_m15]; omega
+
+/-!
 ### Channel `7` arithmetic (`n % 8 = 7`)
 
 `T_odd n % 8 = 3` when `k` is even, `7` when `k` is odd. The subcase `k % 4 = 2`
