@@ -1201,6 +1201,130 @@ theorem fiber27_prefix_step6_r2_m15 (s : Nat) :
   · dsimp [fiber27T6_r2_m15]; omega
 
 /-!
+#### `[B]` Negative 2-adic lift obstruction (factorization only)
+
+For odd \(A\), the congruence \(A m + C \equiv 0 \pmod{2^k}\) has a **unique**
+solution class in `ZMod (2^k)`. On that class, \(v_2(Am+C)\) is not constant
+(hence no finite modulus makes the valuation uniform on every residue class).
+This is the structural reason the residual fibers `≡10/1/11 (mod 16)` keep lifting:
+they track the unique 2-adic root \(m^\ast = -C\cdot A^{-1}\).
+
+No Collatz / `t_loc` / net-descent claim.
+-/
+
+/--
+`[B]` Odd coefficients are units mod every `2^k`, hence affine equations
+`A m + C = 0` have a unique solution in `ZMod (2^k)`.
+-/
+theorem existsUnique_affine_root_zmod_two_pow
+    (A C : ℕ) (hA : Odd A) (k : ℕ) :
+    ∃! r : ZMod (2 ^ k), (A : ZMod (2 ^ k)) * r + (C : ZMod (2 ^ k)) = 0 := by
+  have hAunit : IsUnit (A : ZMod (2 ^ k)) := by
+    refine (ZMod.isUnit_iff_coprime A (2 ^ k)).2 ?_
+    cases k with
+    | zero => simp
+    | succ k =>
+      exact (Nat.coprime_pow_right_iff (Nat.succ_pos k) A 2).2 hA.coprime_two_right
+  refine ⟨((↑hAunit.unit⁻¹ : ZMod (2 ^ k)) * (-(C : ZMod (2 ^ k)))), ?_, ?_⟩
+  · calc (A : ZMod (2 ^ k)) * (↑hAunit.unit⁻¹ * (-↑C)) + ↑C
+        = (A * ↑hAunit.unit⁻¹) * (-↑C) + ↑C := by ring
+      _ = (1 : ZMod (2 ^ k)) * (-↑C) + ↑C := by rw [hAunit.mul_val_inv]
+      _ = 0 := by ring
+  · intro y hy
+    have hy' : (A : ZMod (2 ^ k)) * y = -↑C := by
+      have := congrArg (fun z : ZMod (2 ^ k) => z - ↑C) hy
+      simpa [add_sub_cancel_right] using this
+    calc y = (1 : ZMod (2 ^ k)) * y := by ring
+      _ = (↑hAunit.unit⁻¹ * A) * y := by rw [hAunit.val_inv_mul]
+      _ = ↑hAunit.unit⁻¹ * (A * y) := by ring
+      _ = ↑hAunit.unit⁻¹ * (-↑C) := by rw [hy']
+
+/--
+`[B]` On the unique root class mod `2^k` (`k > 0`), `v₂(Am+C)` is not constant
+(assuming `Am+C ≠ 0` for all `m`).
+-/
+theorem padicValNat_not_constant_on_affine_root_class
+    (A C : ℕ) (hA : Odd A) (k : ℕ) (_hk : 0 < k)
+    (hne : ∀ m : ℕ, A * m + C ≠ 0)
+    (r : ZMod (2 ^ k))
+    (hr : (A : ZMod (2 ^ k)) * r + (C : ZMod (2 ^ k)) = 0) :
+    ¬ ∃ v : ℕ, ∀ m : ℕ, (m : ZMod (2 ^ k)) = r →
+        padicValNat 2 (A * m + C) = v := by
+  rintro ⟨v, hv⟩
+  set rNat : ℕ := r.val
+  have hr_coe : (rNat : ZMod (2 ^ k)) = r := by simp [rNat]
+  have hdivN : 2 ^ k ∣ A * rNat + C := by
+    rw [← ZMod.natCast_eq_zero_iff]
+    simpa [hr_coe, Nat.cast_add, Nat.cast_mul] using hr
+  obtain ⟨uN, huN⟩ := hdivN
+  have hfac1 : A * (rNat + 2 ^ k) + C = 2 ^ k * (uN + A) := by
+    calc A * (rNat + 2 ^ k) + C
+        = A * rNat + C + A * 2 ^ k := by ring
+      _ = 2 ^ k * uN + A * 2 ^ k := by rw [huN]
+      _ = 2 ^ k * (uN + A) := by ring
+  have huN_ne : uN ≠ 0 := by
+    intro h
+    apply hne rNat
+    calc A * rNat + C = 2 ^ k * uN := huN
+      _ = 0 := by simp [h]
+  have huNA_ne : uN + A ≠ 0 := by
+    intro h
+    apply hne (rNat + 2 ^ k)
+    calc A * (rNat + 2 ^ k) + C = 2 ^ k * (uN + A) := hfac1
+      _ = 0 := by simp [h]
+  have hpow : 2 ^ k ≠ 0 := ne_of_gt (Nat.pow_pos (by decide : 0 < 2))
+  have hval (x : ℕ) (hx : x ≠ 0) :
+      padicValNat 2 (2 ^ k * x) = k + padicValNat 2 x := by
+    rw [padicValNat.mul (p := 2) hpow hx, padicValNat.prime_pow]
+  have hv0 := hv rNat (by simp [hr_coe])
+  have hmod : ((rNat + 2 ^ k : ℕ) : ZMod (2 ^ k)) = r := by
+    have hz : ((2 ^ k : ℕ) : ZMod (2 ^ k)) = 0 :=
+      (ZMod.natCast_eq_zero_iff _ _).2 dvd_rfl
+    rw [Nat.cast_add, hz, add_zero, hr_coe]
+  have hv1 := hv (rNat + 2 ^ k) hmod
+  have hval0 : padicValNat 2 (A * rNat + C) = k + padicValNat 2 uN := by
+    rw [huN, hval uN huN_ne]
+  have hval1 : padicValNat 2 (A * (rNat + 2 ^ k) + C) = k + padicValNat 2 (uN + A) := by
+    rw [hfac1, hval (uN + A) huNA_ne]
+  cases Nat.even_or_odd uN with
+  | inl huEven =>
+    have huAOdd : Odd (uN + A) := huEven.add_odd hA
+    have hOddNotDvd : ¬ 2 ∣ (uN + A) := by
+      intro h
+      exact Nat.not_even_iff_odd.mpr huAOdd (even_iff_two_dvd.mpr h)
+    have h1eq : padicValNat 2 (A * (rNat + 2 ^ k) + C) = k := by
+      rw [hval1, padicValNat.eq_zero_of_not_dvd hOddNotDvd, add_zero]
+    have h0lt : k < padicValNat 2 (A * rNat + C) := by
+      rw [hval0]
+      have h2u : 2 ∣ uN := even_iff_two_dvd.mp huEven
+      have : 1 ≤ padicValNat 2 uN :=
+        (padicValNat_dvd_iff_le (p := 2) (a := uN) huN_ne).1 h2u
+      omega
+    omega
+  | inr huOdd =>
+    have huAEven : Even (uN + A) := Odd.add_odd huOdd hA
+    have hOddNotDvd : ¬ 2 ∣ uN := by
+      intro h
+      exact Nat.not_even_iff_odd.mpr huOdd (even_iff_two_dvd.mpr h)
+    have h0eq : padicValNat 2 (A * rNat + C) = k := by
+      rw [hval0, padicValNat.eq_zero_of_not_dvd hOddNotDvd, add_zero]
+    have h1lt : k < padicValNat 2 (A * (rNat + 2 ^ k) + C) := by
+      rw [hval1]
+      have h2u : 2 ∣ (uN + A) := even_iff_two_dvd.mp huAEven
+      have : 1 ≤ padicValNat 2 (uN + A) :=
+        (padicValNat_dvd_iff_le (p := 2) (a := uN + A) huNA_ne).1 h2u
+      omega
+    omega
+
+/-!
+The packaged form
+`∃! r, ¬∃ v, ∀ m ≡ r, padicValNat 2 (A*m+C) = v`
+follows from the two lemmas above once one also shows that non-root classes
+are valuation-uniform (same 2-adic root mechanism). Left as a follow-up;
+no `sorry` in the formalized core.
+-/
+
+/-!
 ### Channel `7` arithmetic (`n % 8 = 7`)
 
 `T_odd n % 8 = 3` when `k` is even, `7` when `k` is odd. The subcase `k % 4 = 2`
