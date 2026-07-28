@@ -444,8 +444,9 @@ theorem channel_three_collatz_net_descent_mod8_one_at_six_k_mod4_one
 ### Channel `3` odd-`k` / `k % 4 = 3` — mod-128 refinement
 
 Within `n = 32j+27` (`k = 4j+3`), uniform small `t_loc` fails (`≤ 6` barriers above).
-Numerically `t_loc` is `j`-dependent; mod-128 subclass `n ≡ 59` (`j ≡ 1 mod 4`) closes at
-uniform `t_loc = 9`. Remaining subclasses `n ≡ {27, 91, 123} (mod 128)` stay open.
+Mod-128 subclass `n ≡ 59` (`j ≡ 1 mod 4`) closes at uniform `t_loc = 9`.
+Mod-256 subclasses `n ≡ 123` (`j ≡ 3 mod 8`) and `n ≡ 219` (`j ≡ 6 mod 8`) close at
+uniform `t_loc = 11`. Remaining open: `{27, 91, 155, 251} (mod 256)`.
 -/
 
 /--
@@ -551,6 +552,147 @@ theorem channel_three_collatz_net_descent_mod128_fiftynine_at_nine
   rcases m with _ | m
   · norm_num at hn ⊢
   · omega
+
+/-!
+### Channel `3` — mod-256 refinement of open mod-128 classes
+
+Within `{27, 91, 123} (mod 128)`, two half-classes close at uniform `t_loc = 11`:
+`n ≡ 123 (mod 256)` and `n ≡ 219 (mod 256)`. Remaining open: `{27, 91, 155, 251} (mod 256)`.
+-/
+
+/--
+`[A]` `j ≡ 3 (mod 8)` within `n = 32j+27` iff `n = 256m + 123`.
+-/
+theorem exists_eq_two_hundred_fifty_six_mul_add_one_hundred_twenty_three_of_j_mod8_three
+    {n j : Nat} (hj : n = 32 * j + 27) (hj3 : j % 8 = 3) :
+    ∃ m, n = 256 * m + 123 ∧ j = 8 * m + 3 := by
+  refine ⟨j / 8, ?_, ?_⟩
+  · have : 32 * j + 27 = 256 * (j / 8) + 123 := by omega
+    simpa [hj] using this
+  · omega
+
+/--
+`[A]` `j ≡ 6 (mod 8)` within `n = 32j+27` iff `n = 256m + 219`.
+-/
+theorem exists_eq_two_hundred_fifty_six_mul_add_two_hundred_nineteen_of_j_mod8_six
+    {n j : Nat} (hj : n = 32 * j + 27) (hj6 : j % 8 = 6) :
+    ∃ m, n = 256 * m + 219 ∧ j = 8 * m + 6 := by
+  refine ⟨j / 8, ?_, ?_⟩
+  · have : 32 * j + 27 = 256 * (j / 8) + 219 := by omega
+    simpa [hj] using this
+  · omega
+
+/--
+`[A]` Eleven-step value at `T_odd(256m+123)` is exactly `243m+118`.
+-/
+theorem channel_three_eleven_step_value_of_two_hundred_fifty_six_mul_add_one_hundred_twenty_three
+    (m : Nat) :
+    (collatzStep^[11]) (T_odd (256 * m + 123)) = 243 * m + 118 := by
+  have hT : T_odd (256 * m + 123) = 384 * m + 185 := by
+    have hform : 256 * m + 123 = 8 * (32 * m + 15) + 3 := by ring
+    rw [hform, T_odd_of_eight_mul_add_three]
+    ring
+  have ho0 : (384 * m + 185) % 2 = 1 := by omega
+  have s1 : collatzStep (384 * m + 185) = 1152 * m + 556 := by
+    rw [collatz_step_odd ho0]; ring
+  have he1 : (1152 * m + 556) % 2 = 0 := by omega
+  have s2 : collatzStep (1152 * m + 556) = 576 * m + 278 := by
+    rw [collatz_step_even he1]; omega
+  have he2 : (576 * m + 278) % 2 = 0 := by omega
+  have s3 : collatzStep (576 * m + 278) = 288 * m + 139 := by
+    rw [collatz_step_even he2]; omega
+  have ho3 : (288 * m + 139) % 2 = 1 := by omega
+  have s4 : collatzStep (288 * m + 139) = 864 * m + 418 := by
+    rw [collatz_step_odd ho3]; ring
+  have he4 : (864 * m + 418) % 2 = 0 := by omega
+  have s5 : collatzStep (864 * m + 418) = 432 * m + 209 := by
+    rw [collatz_step_even he4]; omega
+  have ho5 : (432 * m + 209) % 2 = 1 := by omega
+  have s6 : collatzStep (432 * m + 209) = 1296 * m + 628 := by
+    rw [collatz_step_odd ho5]; ring
+  have he6 : (1296 * m + 628) % 2 = 0 := by omega
+  have s7 : collatzStep (1296 * m + 628) = 648 * m + 314 := by
+    rw [collatz_step_even he6]; omega
+  have he7 : (648 * m + 314) % 2 = 0 := by omega
+  have s8 : collatzStep (648 * m + 314) = 324 * m + 157 := by
+    rw [collatz_step_even he7]; omega
+  have ho8 : (324 * m + 157) % 2 = 1 := by omega
+  have s9 : collatzStep (324 * m + 157) = 972 * m + 472 := by
+    rw [collatz_step_odd ho8]; ring
+  have he9 : (972 * m + 472) % 2 = 0 := by omega
+  have s10 : collatzStep (972 * m + 472) = 486 * m + 236 := by
+    rw [collatz_step_even he9]; omega
+  have he10 : (486 * m + 236) % 2 = 0 := by omega
+  have s11 : collatzStep (486 * m + 236) = 243 * m + 118 := by
+    rw [collatz_step_even he10]; omega
+  simp [Function.iterate_succ_apply', hT, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11]
+
+/--
+`[A]` Eleven-step value at `T_odd(256m+219)` is exactly `243m+209`.
+-/
+theorem channel_three_eleven_step_value_of_two_hundred_fifty_six_mul_add_two_hundred_nineteen
+    (m : Nat) :
+    (collatzStep^[11]) (T_odd (256 * m + 219)) = 243 * m + 209 := by
+  have hT : T_odd (256 * m + 219) = 384 * m + 329 := by
+    have hform : 256 * m + 219 = 8 * (32 * m + 27) + 3 := by ring
+    rw [hform, T_odd_of_eight_mul_add_three]
+    ring
+  have ho0 : (384 * m + 329) % 2 = 1 := by omega
+  have s1 : collatzStep (384 * m + 329) = 1152 * m + 988 := by
+    rw [collatz_step_odd ho0]; ring
+  have he1 : (1152 * m + 988) % 2 = 0 := by omega
+  have s2 : collatzStep (1152 * m + 988) = 576 * m + 494 := by
+    rw [collatz_step_even he1]; omega
+  have he2 : (576 * m + 494) % 2 = 0 := by omega
+  have s3 : collatzStep (576 * m + 494) = 288 * m + 247 := by
+    rw [collatz_step_even he2]; omega
+  have ho3 : (288 * m + 247) % 2 = 1 := by omega
+  have s4 : collatzStep (288 * m + 247) = 864 * m + 742 := by
+    rw [collatz_step_odd ho3]; ring
+  have he4 : (864 * m + 742) % 2 = 0 := by omega
+  have s5 : collatzStep (864 * m + 742) = 432 * m + 371 := by
+    rw [collatz_step_even he4]; omega
+  have ho5 : (432 * m + 371) % 2 = 1 := by omega
+  have s6 : collatzStep (432 * m + 371) = 1296 * m + 1114 := by
+    rw [collatz_step_odd ho5]; ring
+  have he6 : (1296 * m + 1114) % 2 = 0 := by omega
+  have s7 : collatzStep (1296 * m + 1114) = 648 * m + 557 := by
+    rw [collatz_step_even he6]; omega
+  have ho7 : (648 * m + 557) % 2 = 1 := by omega
+  have s8 : collatzStep (648 * m + 557) = 1944 * m + 1672 := by
+    rw [collatz_step_odd ho7]; ring
+  have he8 : (1944 * m + 1672) % 2 = 0 := by omega
+  have s9 : collatzStep (1944 * m + 1672) = 972 * m + 836 := by
+    rw [collatz_step_even he8]; omega
+  have he9 : (972 * m + 836) % 2 = 0 := by omega
+  have s10 : collatzStep (972 * m + 836) = 486 * m + 418 := by
+    rw [collatz_step_even he9]; omega
+  have he10 : (486 * m + 418) % 2 = 0 := by omega
+  have s11 : collatzStep (486 * m + 418) = 243 * m + 209 := by
+    rw [collatz_step_even he10]; omega
+  simp [Function.iterate_succ_apply', hT, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11]
+
+/--
+`[A]` Channel-`3` subclass `n ≡ 123 (mod 256)`: eleven steps from `T_odd n` descend below `n`.
+-/
+theorem channel_three_collatz_net_descent_mod256_one_hundred_twenty_three_at_eleven
+    {n : Nat} (hn : 1 < n) (h8 : n % 8 = 3)
+    (h123 : ∃ m, n = 256 * m + 123) :
+    (collatzStep^[11]) (T_odd n) < n := by
+  rcases h123 with ⟨m, hn⟩
+  rw [hn, channel_three_eleven_step_value_of_two_hundred_fifty_six_mul_add_one_hundred_twenty_three]
+  omega
+
+/--
+`[A]` Channel-`3` subclass `n ≡ 219 (mod 256)`: eleven steps from `T_odd n` descend below `n`.
+-/
+theorem channel_three_collatz_net_descent_mod256_two_hundred_nineteen_at_eleven
+    {n : Nat} (hn : 1 < n) (h8 : n % 8 = 3)
+    (h219 : ∃ m, n = 256 * m + 219) :
+    (collatzStep^[11]) (T_odd n) < n := by
+  rcases h219 with ⟨m, hn⟩
+  rw [hn, channel_three_eleven_step_value_of_two_hundred_fifty_six_mul_add_two_hundred_nineteen]
+  omega
 
 end CollatzNetDescentMod8
 end CollatzAttemptV2
