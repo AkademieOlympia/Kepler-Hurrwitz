@@ -254,6 +254,43 @@ theorem left_or_right_of_landing_empty
     simpa [hM] using hp
   exact hp'.elim (fun h => Or.inl ⟨p, h⟩) (fun h => Or.inr ⟨p, h⟩)
 
+/--
+If `T(n)` is the unique Bertrand-window prime, then left and right classes
+are empty and the landing class is exactly `{T(n)}`.
+-/
+theorem unique_prime_is_landing
+    {n : Nat} (hn : 1 < n) (hmod : n ≡ 3 [MOD 4])
+    (huniq : bertrandPrimeSpectrum n = {syracuseT n}) :
+    primesLeft n = ∅ ∧ primesRight n = ∅ ∧
+      primesLanding n = {syracuseT n} := by
+  have hTmem : syracuseT n ∈ bertrandPrimeSpectrum n := by
+    rw [huniq]; simp
+  have hTprime : Nat.Prime (syracuseT n) := hTmem.1
+  have hM : primesLanding n = {syracuseT n} :=
+    (landing_eq_singleton_iff_prime n).2 hTprime
+  have hL : primesLeft n = ∅ := by
+    ext p
+    constructor
+    · intro hpL
+      have hpB : p ∈ bertrandPrimeSpectrum n := by
+        rw [bertrandPrimeSpectrum_eq_union hn hmod]
+        exact Or.inl (Or.inl hpL)
+      have hpEq : p = syracuseT n := by
+        simpa [huniq] using hpB
+      exact (lt_irrefl p) (by simpa [hpEq] using hpL.2.2)
+    · intro h; exact False.elim h
+  have hR : primesRight n = ∅ := by
+    ext p
+    constructor
+    · intro hpR
+      have hpB : p ∈ bertrandPrimeSpectrum n := by
+        rw [bertrandPrimeSpectrum_eq_union hn hmod]
+        exact Or.inr hpR
+      have hpEq : p = syracuseT n := by
+        simpa [huniq] using hpB
+      exact (lt_irrefl (syracuseT n)) (by simpa [hpEq] using hpR.2.1)
+    · intro h; exact False.elim h
+  exact ⟨hL, hR, hM⟩
 /-! ### Package certificate -/
 
 structure BertrandSyracuseTrichotomyCertificate : Prop where
@@ -275,6 +312,11 @@ structure BertrandSyracuseTrichotomyCertificate : Prop where
   landing_card : ∀ n, (primesLanding n).ncard ≤ 1
   spectrum_nonempty :
     ∀ n : Nat, 1 < n → (bertrandPrimeSpectrum n).Nonempty
+  unique_landing :
+    ∀ n : Nat, 1 < n → n ≡ 3 [MOD 4] →
+      bertrandPrimeSpectrum n = {syracuseT n} →
+        primesLeft n = ∅ ∧ primesRight n = ∅ ∧
+          primesLanding n = {syracuseT n}
 
 theorem bertrandSyracuseTrichotomyCertificate :
     BertrandSyracuseTrichotomyCertificate where
@@ -287,6 +329,7 @@ theorem bertrandSyracuseTrichotomyCertificate :
   landing_singleton := landing_eq_singleton_iff_prime
   landing_card := landing_ncard_le_one
   spectrum_nonempty := fun _ hn => bertrandPrimeSpectrum_nonempty hn
+  unique_landing := fun _ hn hmod h => unique_prime_is_landing hn hmod h
 
 /-!
 ## Explicit non-claims

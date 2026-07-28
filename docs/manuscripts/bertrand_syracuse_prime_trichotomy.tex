@@ -77,9 +77,20 @@ n<\TT(n)<2n.
 \]
 Thus $\TT(n)$ is not a free threshold. It is the actual local orbit
 successor of~$n$, and it cuts the Bertrand prime spectrum at an
-\emph{orbit-determined partition point}.
-(In the broader EABC framework this point may be regarded as a local
-resonance point; that interpretive language is not required here.)
+\emph{orbit-determined partition point}
+(equivalently: a distinguished dynamical landing point).
+\begin{remark}
+In the terminology of the broader EABC framework, this point may be
+regarded as a local resonance point. That interpretive language is not
+required for the theorems below and is not used as a primary technical
+term.
+\end{remark}
+
+\begin{remark}[Detachability]
+This note is intentionally independent of any Dumas-holography wording and
+of any affine-transport principle. Those larger bridges remain separate
+programme layers; the present theorem does not import them.
+\end{remark}
 
 \section{Arithmetic preliminaries}
 
@@ -94,6 +105,11 @@ Let $n$ be odd. Then
 v_2(3n+1)=1 \iff n\equiv 3\pmod{4}.
 \]
 \end{lemma}
+\begin{proof}[Sketch]
+Since $n$ is odd, $n\equiv 1$ or $3\pmod{4}$. If $n\equiv 1\pmod{4}$, then
+$3n+1\equiv 0\pmod{4}$, so $v_2(3n+1)\ge 2$. If $n\equiv 3\pmod{4}$, then
+$3n+1=2(6k+5)$ with $6k+5$ odd, hence $v_2(3n+1)=1$.
+\end{proof}
 Thus the family under study is exactly one natural half of the odd
 residue classes, not an artificial valuation slice.
 
@@ -124,7 +140,10 @@ The hypothesis yields $2\TT(n)=3n+1$. Then
 \]
 \end{proof}
 This inequality is the hinge between dynamics and interval arithmetic. It
-precedes any prime partition.
+precedes any prime partition: the reader sees immediately that the primes
+in the Bertrand window are cut at a dynamically determined point, that the
+point is not a free threshold, that it is the local orbit successor of~$n$,
+and that the statement remains fully local and finite.
 
 \section{Prime-spectrum trichotomy}
 
@@ -163,33 +182,54 @@ the disjoint decomposition
 \,\dot\cup\,
 \Pland(n)
 \,\dot\cup\,
-\Pright(n).
+\Pright(n),
 \]
+where the three classes are as above.
 Moreover $\Pland(n)=\{\TT(n)\}$ if and only if $\TT(n)$ is prime, and
 $\Pland(n)=\varnothing$ otherwise.
 \end{theorem}
+\begin{proof}[Proof outline]
+Lemma~\ref{lem:interior} places $\TT(n)$ in $(n,2n)$. For any prime
+$p\in(n,2n]$, the trichotomy $p<\TT(n)$, $p=\TT(n)$, or $p>\TT(n)$ yields
+membership in exactly one of $\Pleft(n)$, $\Pland(n)$, $\Pright(n)$.
+Disjointness is immediate from the strict inequalities. The landing
+characterisation is the definition of $\Pland(n)$.
+\end{proof}
 
 Two layers must be kept distinct:
 \begin{enumerate}[leftmargin=*]
   \item \textbf{Order-theoretic trichotomy.} The partition follows from the
   linear order on~$\mathbb{N}$ once Lemma~\ref{lem:interior} places
-  $\TT(n)$ inside $(n,2n]$.
+  $\TT(n)$ inside $(n,2n]$. Bertrand's postulate is not used here.
   \item \textbf{Bertrand non-emptiness.} Bertrand's postulate supplies
   $\mathbb{P}\cap(n,2n]\neq\varnothing$ for $n>1$. The name
   ``Bertrand--Syracuse'' therefore combines an order partition with an
-  independent existence theorem; Bertrand is not used to prove the
+  independent existence theorem; Bertrand is not credited with proving the
   trichotomy itself.
 \end{enumerate}
 
+\section{Bertrand consequences}
+
 \begin{corollary}
+\label{cor:landing-empty}
 If $\Pland(n)=\varnothing$, then
 $\Pleft(n)\neq\varnothing$ or $\Pright(n)\neq\varnothing$.
 \end{corollary}
+\begin{proof}
+By Bertrand, $\mathbb{P}\cap(n,2n]\neq\varnothing$. Theorem~\ref{thm:main}
+exhausts this set by the three classes; with empty landing class, at least
+one of the remaining classes is nonempty.
+\end{proof}
 
 \begin{corollary}
+\label{cor:unique-landing}
 If $\TT(n)$ is the unique prime in $(n,2n]$, then
 $\Pleft(n)=\Pright(n)=\varnothing$ and $\Pland(n)=\{\TT(n)\}$.
 \end{corollary}
+\begin{proof}
+Uniqueness forces $\mathbb{P}\cap(n,2n]=\{\TT(n)\}$, so $\TT(n)$ is prime
+and no prime lies strictly left or right of it inside the window.
+\end{proof}
 
 \section{Scope and non-claims}
 
@@ -204,6 +244,9 @@ In particular, a schema-level equivalence of the form
 elsewhere in a larger development---is a characterisation of global reach,
 not a proof that the predicate holds. No such claim is made here.
 
+Interpretive vocabulary (``resonance'', ``arithmetico-dynamical coupling'',
+``local spectral structure'', EABC geometry) is optional commentary only.
+
 \section{Formalization architecture}
 
 \begin{center}
@@ -217,6 +260,9 @@ Module &
 \texttt{KeplerHurwitz.Collatz.BertrandSyracuseTrichotomy} \\
 Build &
 \texttt{lake build KeplerHurwitz.Collatz.BertrandSyracuseTrichotomy} \\
+Sorry audit &
+\texttt{rg -n -P '(sorry\textbar admit)'
+  KeplerHurwitz/Collatz/BertrandSyracuseTrichotomy.lean} \\
 Certificate &
 \texttt{bertrandSyracuseTrichotomyCertificate} \\
 Placeholders & \texttt{0 sorry} / \texttt{0 admit} in the module \\
@@ -229,7 +275,10 @@ Principal Lean names:
 \texttt{syracuseT\_mem\_interior},
 \texttt{bertrandPrimeSpectrum\_eq\_union},
 \texttt{landing\_eq\_singleton\_iff\_prime},
-\texttt{bertrandPrimeSpectrum\_nonempty}.
+\texttt{landing\_ncard\_le\_one},
+\texttt{bertrandPrimeSpectrum\_nonempty},
+\texttt{left\_or\_right\_of\_landing\_empty},
+\texttt{unique\_prime\_is\_landing}.
 
 \section*{Acknowledgements}
 The author thanks the classical $3x+1$ tradition---Collatz, Terras,
