@@ -140,7 +140,7 @@ Lokaler Good-Branch-Shrink `(collatzStep^[3]) m_good < m_good` ist bewiesen; die
 > - Uniforme \(m\)-Formeln \(243m{+}118\) / \(243m{+}209\) (Margins \(13m{+}5\) / \(13m{+}10\)) sind **`[A]`** für alle \(m\) — endliche Suchfenster (~2000 Starts) sind nur **`[B]`**-Heuristik.
 > - 14/16 = 87,5 % ist **Klassenraum**-Bilanz (Kanal 3), kein `Finset.card`-Satz.
 > - Vier Trennungen: Residual nur Kanal 3; V2.8 ≠ E-098/V2.16; Mod-8 ≠ \(V_4\); Build grün ≠ `sorry`-frei.
-> - Kanonischer Lean-Stand: PR **#12** / Worktree `h7mod256` @ `c0765e4…`; PR **#13** `post-freeze` darf V28 nicht überschreiben.
+> - Kanonischer Lean-Stand: PR **#12** / Worktree `h7mod256` @ `c0765e4…`; PR **#13** `post-freeze` trägt angeglichene V28/Mod8-Kopie — Diff-Sanity vor Merge; ChannelSeven-Stack primär auf #12.
 
 ---
 

@@ -67,8 +67,9 @@
   - **Klassenbilanz 14/16 = 28/32 = 87,5 %:** Abdeckung im **Restklassen-Klassenraum** (mod-256-Partition Kanal 3), **keine** `Finset.card`-Aussage und keine endliche Kardinalität über Starts
   - **Residual isoliert:** nur `{27,91,155,251} (mod 256)` + allg. Kanal 7 `sorry` — Residual strahlt nicht auf andere Kanäle aus
   - **Vier Trennungen:** (1) Residual nur Kanal 3 ≠ Kanäle \(\neq 3\); (2) V2.8/Kanal 3 ≠ E-098/V2.16/Kanal 7; (3) Mod-8-Klassifikation ≠ \(V_4\); (4) Build grün ≠ `sorry`-frei
-  - **Kanonischer Branch:** PR **#12** `pr/11-collatz-v27-net-descent` @ `c0765e4…` (Worktree `Kepler-Hurrwitz-h7mod256`, enthält 123/219); PR **#13** `post-freeze` @ `87f5612…` — `CollatzProofAttemptV28.lean` ggf. lokale WIP / älter
-  - **Merge-Schutz:** Diff-Sanity `CollatzProofAttemptV28.lean`; \(243m{+}118\)/\(243m{+}209\) aus PR #12 erhalten; h7mod256-Build verifizieren — PR #13 **darf** PR-#12-Stand **nicht** überschreiben
+  - **Kanonischer Branch:** PR **#12** `pr/11-collatz-v27-net-descent` @ `c0765e4…` (Worktree `Kepler-Hurrwitz-h7mod256`)
+  - **PR #13 Alignment:** `CollatzProofAttemptV28.lean` / `CollatzNetDescentMod8.lean` / `Nu2Bounds.lean` an PR #12 angeglichen; voller `CollatzChannelSeven`-Attack-Stack bleibt auf #12
+  - **Merge-Schutz:** Diff-Sanity gegen `h7mod256`; \(243m{+}118\)/\(243m{+}209\) erhalten — schlankere Fassungen dürfen PR #12 nicht überschreiben
   - **Dossier:** `docs/collatz_v27_net_descent.md` (§ epistemische Konsolidierung + PR-Governance) · Kette: `docs/collatz_v2_evidence_chain.md`
   - **Nächster Angriffspunkt:** Residual `{27,91,155,251}` bzw. Kanal-7-Teilklassen (nicht mit \(V_4\) identifizieren)
 
