@@ -139,7 +139,7 @@ Für `n = 8k+3`:
 
 **Option B (Gerüst):** `badRunTwoAdicBudget n := ν₂(n+1)` benennt das V2.5-Tiefenbudget; `BadRunTwoAdicBudgetExhaustionStatement` markiert die intendierte Widerspruchsschablone für Kanal `7`.
 
-**Noch offen:** Kanal `3` mit `T_odd n % 8 = 1` und `k % 4 = 3` — `t_loc` ist `j`-abhängig (z. B. `n=27` ⇒ `t_loc=94`); Unterklasse `n ≡ 59 (mod 128)` (`j ≡ 1 mod 4`) schließt bei **`t_loc = 9`**; Kanal `7` uniform.
+**Noch offen:** Kanal `3` Residual `{27, 91, 155, 251} (mod 256)` — `t_loc` variabel (z. B. `n=27` ⇒ `t_loc=94`); Kanal `7` uniform. Geschlossen zusätzlich: `n ≡ 123` und `n ≡ 219 (mod 256)` bei **`t_loc = 11`**.
 
 ### V2.8 Lemma-Map `[A]` vs `[C]` (aktualisiert)
 
@@ -164,15 +164,19 @@ Für `n = 8k+3`:
 | `channel_three_eight_step_fails_net_mod128_fiftynine` | **`[A]`** — uniformes `t_loc = 8` scheitert auf `n ≡ 59 (mod 128)` |
 | `channel_three_collatz_net_descent_mod128_fiftynine_at_nine` | **`[A]`** — Netto-Abstieg bei `n ≡ 59 (mod 128)`, `t_loc = 9` |
 | `bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_mod4_one` | **`[A]`** — voller Witness, `t_loc = 9` |
+| `channel_three_eleven_step_value_of_two_hundred_fifty_six_mul_add_one_hundred_twenty_three` | **`[A]`** — `243m+118` (uniform in \(m\); Margin \(13m+5\)) |
+| `channel_three_eleven_step_value_of_two_hundred_fifty_six_mul_add_two_hundred_nineteen` | **`[A]`** — `243m+209` (uniform in \(m\); Margin \(13m+10\)) |
+| `channel_three_collatz_net_descent_mod256_*_at_eleven` | **`[A]`** — Netto-Abstieg `n ≡ 123,219 (mod 256)`, `t_loc = 11`, alle \(m\) |
+| `bad_run_net_descent_witness_mod8_channel_three_mod256_*` | **`[A]`** — volle Witnesses, `t_loc = 11` |
 | `bad_run_two_adic_budget_ge_two_of_mod4_eq_three` | **`[A]`** |
 | `channel_seven_T_odd_mod4_eq_three` | **`[A]`** |
-| `bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_not_mod4_one` | **`[C]`** (`sorry`) |
+| `bad_run_net_descent_witness_mod8_channel_three_k_mod4_three_j_residual_open` | **`[C]`** (`sorry`) — `{27,91,155,251} mod 256` |
 | `bad_run_net_descent_witness_mod8_channel_seven_v28` | **`[C]`** (`sorry`) |
 | `BadRunTwoAdicBudgetExhaustionStatement` | **`[C]`** (Platzhalter) |
 
 **Build:** `lake build KeplerHurwitz.CollatzProofAttemptV28`
 
-**Fortschritt gegenüber V2.7:** Kanal-`3`-Starts mit geradem `k` (`t_loc=4`), ungeradem `k % 4 = 1` (`t_loc=6`), und `k % 4 = 3` mit `j % 4 = 1` / `n ≡ 59 (mod 128)` (`t_loc=9`) haben jetzt **`[A]`**-Zeugen; die übrigen drei mod-128-Unterklassen von `k % 4 = 3` und Kanal `7` bleiben **`[C]`**.
+**Fortschritt gegenüber V2.7:** Kanal-`3` mit geradem `k` (`t_loc=4`), ungeradem `k % 4 = 1` (`t_loc=6`), `j % 8 ∈ {1,5}` / `n ≡ 59 (mod 128)` (`t_loc=9`), sowie `n ≡ 123,219 (mod 256)` (`t_loc=11`) haben **`[A]`**-Zeugen; Residual `{27,91,155,251} (mod 256)` und Kanal `7` bleiben **`[C]`**.
 
 #### Kanal-3-Abdeckung (V2.8)
 
@@ -182,10 +186,86 @@ Für `n % 8 = 3` mit `n = 8k+3`:
 |---|---|---|---|
 | `k` gerade (`T_odd % 8 = 5`) | 1/2 | 4 | **`[A]`** |
 | `k` ungerade, `k % 4 = 1` (`n = 32j+11`) | 1/4 | 6 | **`[A]`** |
-| `k` ungerade, `k % 4 = 3`, `j % 4 = 1` (`n ≡ 59 mod 128`) | 1/16 | 9 | **`[A]`** |
-| `k` ungerade, `k % 4 = 3`, `j % 4 ∈ {0,2,3}` | 3/16 | variabel | **`[C]`** |
+| `k` ungerade, `k % 4 = 3`, `j % 8 ∈ {1,5}` (`n ≡ 59 mod 128`) | 1/16 | 9 | **`[A]`** |
+| `k` ungerade, `k % 4 = 3`, `j % 8 = 3` (`n ≡ 123 mod 256`) | 1/32 | 11 | **`[A]`** |
+| `k` ungerade, `k % 4 = 3`, `j % 8 = 6` (`n ≡ 219 mod 256`) | 1/32 | 11 | **`[A]`** |
+| Residual `j % 8 ∈ {0,2,4,7}` (`n ≡ {27,91,155,251} mod 256`) | 1/8 | variabel | **`[C]`** |
 
-**Kanal-3-Abdeckung gesamt: 13/16 ≈ 81,25 %.**
+**Kanal-3-Abdeckung gesamt: 14/16 = 28/32 = 87,5 %** (Klassenraum, siehe § unten).
+
+### Epistemische Konsolidierung (V2.8) — uniforme \([A]\) vs. Statistik
+
+#### A. Uniforme \(m\)-Formeln vs. statistische / endliche Bilanz
+
+| Ebene | Inhalt | Status |
+|---|---|---|
+| **Uniforme \(m\)-Formeln** | \(n=256m+123\mapsto 243m+118\), Margin \(\Delta=13m+5\); \(n=256m+219\mapsto 243m+209\), Margin \(\Delta=13m+10\) | **`[A]`** — Strukturbeweise für **alle** \(m\in\mathbb N\); Fundament der Sätze |
+| **Endliche Suchfenster / ~2000 Starts** | numerische Regression, Entdeckungsheuristik, Smoke-Checks | **`[B]`** — **nicht** Beweisgrundlage; ersetzen keine Parametrisierung |
+| **Klassenbilanz \(14/16=87{,}5\,\%\)** | Abdeckung der **Restklassen-Partition** (mod-256-Klassenraum Kanal 3: 28 von 32 Fasern) | Dossier-Bilanz aus Einzelklassensätzen; **kein** `Finset.card`-Theorem und **keine** endliche Kardinalitätsaussage über Starts |
+
+Algebraische Margin-Identitäten (Witness-Kern der 11-Schritt-Abstiege):
+
+\[
+(256m+123)-(243m+118)=13m+5,\qquad
+(256m+219)-(243m+209)=13m+10.
+\]
+
+Beide Margins sind für alle \(m\in\mathbb N\) strikt positiv — das ist die analytisch-uniforme Aussage, nicht eine Stichprobenstatistik.
+
+#### B. Vier saubere Trennungen
+
+| Dimension | Abgrenzung A | Abgrenzung B | Epistemische Konsequenz |
+|---|---|---|---|
+| **Residual-Kanal** | nur Kanal 3 | Kanäle \(\neq 3\) | Residual \(\{27,91,155,251\}\) ist isoliert und strahlt nicht auf andere Kanäle aus |
+| **Kanal-Identität** | V2.8 (Kanal 3) | E-098 / V2.16 (Kanal 7) | keine Gleichsetzung verschiedener Kanal-Konfigurationen; 28/32 ≠ 15/32 |
+| **Algebraische Struktur** | Mod-8-Klassifikation (\(T_{\mathrm{odd}}\)) | \(V_4\cong(\mathbb Z/12\mathbb Z)^\times\) | keine falsche Symmetrie-Annahme; Collatz-Kanäle ≠ multiplikative EABC-\(V_4\) |
+| **Build-Status** | Build grün | `sorry`-Freiheit | Kompilieren ist notwendig, aber **nicht** hinreichend für Vollständigkeit |
+
+> **„87,5 % formal“:** Alle 28 gezählten mod-256-Klassen besitzen formale Klassensätze /
+> Witnesses. Das ist **keine** Aussage, dass Lean bereits
+> `Finset.card coveredChannelThreeResidues = 28` enthält — die Zahl beschreibt den
+> **Klassenraum**, gestützt durch Einzelklassensätze, nicht eine Finset-Kardinalität.
+>
+> **Keine gemeinsame mod-4-Gesamtbilanz** ohne eigenen Assembly-Satz (Startmengen,
+> Witness-Begriffe, Disjunktheit). Globale Collatz-Aussage: **nicht** bewiesen.
+
+| Aussage | Status |
+|---|---|
+| Formel / Witness \(n\equiv 123\pmod{256}\) (\(243m+118\), Margin \(13m+5\)) | **`[A]`**, uniform in \(m\) |
+| Formel / Witness \(n\equiv 219\pmod{256}\) (\(243m+209\), Margin \(13m+10\)) | **`[A]`**, uniform in \(m\) |
+| ~2000 Starts / Suchfenster | **`[B]`** Heuristik, nicht Theorem-Fundament |
+| Kanal-3-Bilanz 14/16 = 28/32 | Klassenraum-Bilanz (kein `Finset.card`-Satz nötig) |
+| Residual \(\{27,91,155,251\}\) | **`[C]`**, `sorry` (isoliert auf Kanal 3) |
+| vollständiger Kanal 7 | **`[C]`**, `sorry` (Teilklassen existieren separat; E-098/V2.16) |
+| V2.8-Modul | buildbar, nicht `sorry`-frei |
+| globale Collatz-Aussage | nicht bewiesen |
+
+##### PR-Governance / Merge-Schutz (V2.8)
+
+```
+                  ┌──────────────────────────────────────────┐
+                  │ PR #12 (kanonisch, commit c0765e4...)    │
+                  │ Worktree: Kepler-Hurrwitz-h7mod256       │
+                  │ enthält 123/219 + volle V2.8-Kette       │
+                  └────────────────────┬─────────────────────┘
+                                       │
+                                       ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│ PR #13 (post-freeze, commit 87f5612...)                                  │
+│ ACHTUNG: CollatzProofAttemptV28.lean ist ggf. lokale WIP / älter!         │
+│ -> Darf kanonischen PR-#12-Stand unter keinen Umständen überschreiben.    │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
+**Repo-Stand (Orientierung):** Worktree `h7mod256` hat die kanonisch reichere V2.8-Kette
+(`CollatzProofAttemptV28.lean` ~632 Zeilen, `CollatzNetDescentMod8.lean` ~1.9k);
+der `post-freeze`-Checkout kann schlanker/älter sein — Diff vor Merge ist Pflicht.
+
+Vor Merge / Rebase / Freeze:
+
+1. **Diff-Sanity:** `CollatzProofAttemptV28.lean` (und `CollatzNetDescentMod8.lean`) aus PR #13 nicht ungesehen in den Hauptstrang.
+2. **Kanonischer Abgleich:** Parametrisierungen \(243m+118\) / \(243m+209\) (Margins \(13m+5\) / \(13m+10\)) und die vier Kanal-/Strukturtrennungen aus PR #12 bleiben erhalten.
+3. **Checkout-Verifikation:** im Worktree `Kepler-Hurrwitz-h7mod256` Lean-Build der V2.8-Module ohne unerwartete Regression.
 
 #### Beispiel `n = 27` (`k = 3`, `k % 4 = 3`, `j = 0`, `n % 128 = 27`)
 

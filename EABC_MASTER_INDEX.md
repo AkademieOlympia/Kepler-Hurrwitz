@@ -32,11 +32,12 @@
   - **Semiprim-Feinklassen + Triade:** Lean `KeplerHurwitz/EABC/SemiprimGeometry.lean` (`SemiprimKind`, `channelCos`) · Python `classify_semiprim_residual`, `channel_cos`
   - **Higher/XOR (\(\Omega(r)\ge 3\)):** Lean `KeplerHurwitz/EABC/HigherResidual.lean` (`v4XorFold`, `HigherReading`) · Python `classify_higher_residual` — **nicht** SemiprimKind
   - **Quaternionen-Brücke / DualCarrier:** `docs/eabc_v4_quaternion_bridge.md` · Lean `KeplerHurwitz/EABC/QuaternionBridge.lean` · Python `quaternion_bridge.py` (`DualCarrier`, `gamma_of_nat`) — Hamilton/Norm/`gammaFromResidual` `[A]`; Ideal-\(\Phi\) `[C]` offen
+  - **Integrierte Pipeline:** `eabc_pipeline.py` (`eabc_pipeline` / `pipeline_row`) — Normalform → \(H(n)\) → \((a,e_{\mathrm{kep}},R_v)\) → \(\gamma\)/DualCarrier; Docs §7.6
   - **Export:** `docs/exports/eabc_normal_form_gamma_1_100.csv`
   - **Primzahl-Turm (Gauß / Eisenstein / Hurwitz / Oktonion / Riemannkugel):** `docs/eabc_prime_tower_bridge.md` · Lean `KeplerHurwitz/EABC/PrimeTower.lean` · `prime_tower_bridge.py`
   - **Register:** `E-096` in `EVIDENCE_REGISTER.md`
-  - **Collatz-Audit-Grid (nicht Collatz-Beweis):** `docs/eabc_collatz_audit_grid.md` · Lean `CollatzAuditGrid.lean` · `eabc_collatz_audit.py` · Register `E-097`
-  - **Tests:** `tests/test_signatures.py`, `tests/test_eabc_normal_form.py`, `tests/test_semiprim_geometry.py`, `tests/test_higher_residual.py`, `tests/test_eabc_gamma_table.py`, `tests/test_eabc_collatz_audit.py`
+  - **Collatz-Audit-Grid (nicht Collatz-Beweis):** `docs/eabc_collatz_audit_grid.md` · Lean `CollatzAuditGrid.lean` (inkl. Mod-8≠\(V_4\)-Zeuge `mod8_class_not_equal_v4_class_witness_seven`) · `eabc_collatz_audit.py` (`audit_trajectory`) · Register `E-097`; Assessment-Zeiger `E-098`
+  - **Tests:** `tests/test_signatures.py`, `tests/test_eabc_normal_form.py`, `tests/test_semiprim_geometry.py`, `tests/test_higher_residual.py`, `tests/test_eabc_gamma_table.py`, `tests/test_eabc_collatz_audit.py`, `tests/test_eabc_pipeline.py`
   - **Reine Prim-EABC-Quaternionen (p-only, achsenausgerichtet):** `docs/energiedoku_exports/pure_prime_eabc_quaternions.csv`; idealtheoretische Einordnung → `docs/pure_prime_eabc_dedekind_interpretation.md`
   - **Reine Primzahlvierlinge (kanonische Primquadruplet):** `docs/energiedoku_exports/pure_prime_quadruples.csv`; idealtheoretische Einordnung → `docs/pure_prime_quadruple_dedekind_interpretation.md`
   - **Testkonzept Primzahlvierlinge:** `docs/prime_quadruple_test_concept.md`; Tests → `tests/test_prime_quadruple_eabc.py`, `tests/test_prime_quadruple_governance_docs.py`
@@ -58,11 +59,18 @@
   - **LaTeX:** `eabc-renorm/docs/EABC_Uebersicht.tex` (`sec:prime-quadruple-dedekind`, Alias `eabc_renorm_overview.tex`)
   - **Register:** E-067–E-069, E-053, E-072, E-073
 
-- Collatz V2.7 — Net-Descent-Bridge **[A/C]**
-  - **[A] Formal:** `KeplerHurwitz/CollatzProofAttemptV27.lean` — `mod4_three_descends_from_net_descent_witness` (0 `sorry`)
+- Collatz V2.7/V2.8 — Net-Descent-Bridge **[A/C]**
+  - **[A] Formal (V2.7):** `KeplerHurwitz/CollatzProofAttemptV27.lean` — `mod4_three_descends_from_net_descent_witness` (0 `sorry`)
   - **[C] Offen:** `bad_run_net_descent_witness_of_mod4_three` — uniforme Existenz `BadRunNetDescentWitness` für \(n \equiv 3 \pmod 4\)
-  - **Dossier:** `docs/collatz_v27_net_descent.md` · Kette: `docs/collatz_v2_evidence_chain.md`
-  - **Nächster Angriffspunkt:** quantitative Abschätzung \(m_{\mathrm{good}}\) vs. \(n\)
+  - **[A] Uniforme \(m\)-Formeln (V2.8, Kanal 3):** \(n=256m+123\mapsto 243m+118\) (Margin \(13m+5\)); \(n=256m+219\mapsto 243m+209\) (Margin \(13m+10\)) — gelten **für alle** \(m\in\mathbb N\) per Strukturbeweis (`CollatzNetDescentMod8.lean` / `CollatzProofAttemptV28.lean`)
+  - **Nicht Fundament:** endliche Suchfenster / ~2000 Starts = nur Regression & Entdeckungsheuristik `[B]`, nicht Beweisgrundlage
+  - **Klassenbilanz 14/16 = 28/32 = 87,5 %:** Abdeckung im **Restklassen-Klassenraum** (mod-256-Partition Kanal 3), **keine** `Finset.card`-Aussage und keine endliche Kardinalität über Starts
+  - **Residual isoliert:** nur `{27,91,155,251} (mod 256)` + allg. Kanal 7 `sorry` — Residual strahlt nicht auf andere Kanäle aus
+  - **Vier Trennungen:** (1) Residual nur Kanal 3 ≠ Kanäle \(\neq 3\); (2) V2.8/Kanal 3 ≠ E-098/V2.16/Kanal 7; (3) Mod-8-Klassifikation ≠ \(V_4\); (4) Build grün ≠ `sorry`-frei
+  - **Kanonischer Branch:** PR **#12** `pr/11-collatz-v27-net-descent` @ `c0765e4…` (Worktree `Kepler-Hurrwitz-h7mod256`, enthält 123/219); PR **#13** `post-freeze` @ `87f5612…` — `CollatzProofAttemptV28.lean` ggf. lokale WIP / älter
+  - **Merge-Schutz:** Diff-Sanity `CollatzProofAttemptV28.lean`; \(243m{+}118\)/\(243m{+}209\) aus PR #12 erhalten; h7mod256-Build verifizieren — PR #13 **darf** PR-#12-Stand **nicht** überschreiben
+  - **Dossier:** `docs/collatz_v27_net_descent.md` (§ epistemische Konsolidierung + PR-Governance) · Kette: `docs/collatz_v2_evidence_chain.md`
+  - **Nächster Angriffspunkt:** Residual `{27,91,155,251}` bzw. Kanal-7-Teilklassen (nicht mit \(V_4\) identifizieren)
 
 - Energiedoku Shell-Koordinaten (n=1..3) **[B]**
   - **CSV:** `docs/energiedoku_exports/shell_coordinates_energiedoku_n1_n3.csv` (84 Datenzeilen)

@@ -29,8 +29,10 @@ keinen Ersatz für die Net-Descent-/Zyklus-Schicht.
 | 7c | Mod-8-Mikro-Lemmata (`CollatzNetDescentMod8.lean`) | `ν₂(3n+1)=1`, Syracuse-mod-8-Subfaelle fuer `mod 4 = 3` | **`[A]` geschlossen** |
 | 7d | `bad_run_net_descent_witness_mod8_channel_three/seven` | Per-Kanal Net-Descent-Zeugen | **`[C]` offen (`sorry`)** |
 | 7e | V2.8 Kanal-`3` Halbfall `T_odd % 8 = 5` | Uniform `t_loc = 4`, voller Witness fuer gerades `k` | **`[A]` geschlossen (V2.8)** |
-| 7f | V2.8 Kanal-`3` Halbfall `T_odd % 8 = 1` | `k`-abhaengiges `t_loc`, kein uniformes Bound | **`[C]` offen (`sorry`)** |
+| 7f | V2.8 Kanal-`3` Unterfaelle (`t_loc` 6/9/11) | `k%4=1`; `n≡59 (mod 128)`; `n≡123,219 (mod 256)` mit uniformen \(m\)-Formeln \(243m{+}118\) / \(243m{+}209\) (Margins \(13m{+}5\) / \(13m{+}10\)) | **`[A]` geschlossen (V2.8)** |
+| 7f′ | V2.8 Kanal-`3` Residual | `{27,91,155,251} (mod 256)` — isoliert, strahlt nicht aus | **`[C]` offen (`sorry`)** |
 | 7g | V2.8 2-adisches Budget `badRunTwoAdicBudget` | `ν₂(n+1)`-Geruest + Kanal-`7`-Reduktion | **`[A]` def / `[C]` exhaustion** |
+| 7h | Klassenbilanz Kanal 3 | 14/16 = 28/32 = 87,5 % im **Klassenraum** (nicht `Finset.card`, nicht endliche Starts) | Dossier-Bilanz aus 7e–7f; ≠ E-098/V2.16 Kanal 7 |
 | 8 | `BadRunNetDescentStatement` | Fuer jedes `n ≡ 3 (mod 4)`, `n > 1`: Net-Descent-Zeuge existiert | **`[C]` offen** |
 | 9 | `Mod4ThreeEventuallyDescendsStatement` | Echter `collatzStep`-Abstieg unter Startwert fuer `mod 4 = 3` | **`[C]` offen**, reduziert auf Schritt 8 |
 | 10 | `CollatzGlobalTerminationStatement` | Globale Collatz-Termination | **offen** |
@@ -132,6 +134,13 @@ Lokaler Good-Branch-Shrink `(collatzStep^[3]) m_good < m_good` ist bewiesen; die
 >
 > - Witness ⇒ Abstieg is `[A]` proved
 > - `n ≡ 3 (mod 4)` ⇒ ∃ `BadRunNetDescentWitness n` is `[C]` open core
+
+> **V2.8 epistemische Kurzfassung** (Details: [`collatz_v27_net_descent.md`](collatz_v27_net_descent.md))
+>
+> - Uniforme \(m\)-Formeln \(243m{+}118\) / \(243m{+}209\) (Margins \(13m{+}5\) / \(13m{+}10\)) sind **`[A]`** für alle \(m\) — endliche Suchfenster (~2000 Starts) sind nur **`[B]`**-Heuristik.
+> - 14/16 = 87,5 % ist **Klassenraum**-Bilanz (Kanal 3), kein `Finset.card`-Satz.
+> - Vier Trennungen: Residual nur Kanal 3; V2.8 ≠ E-098/V2.16; Mod-8 ≠ \(V_4\); Build grün ≠ `sorry`-frei.
+> - Kanonischer Lean-Stand: PR **#12** / Worktree `h7mod256` @ `c0765e4…`; PR **#13** `post-freeze` darf V28 nicht überschreiben.
 
 ---
 
