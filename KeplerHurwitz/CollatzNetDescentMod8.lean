@@ -816,6 +816,148 @@ theorem channel_three_collatz_net_descent_mod256_two_hundred_nineteen_at_eleven
   · omega
 
 /-!
+### Channel `3` residual — odd \(v_2\)-prefix `[1,2,1,1]` on \(27 \bmod 64\)
+
+Family `n = 256m + 64r + 27` covers residues `{27,91,155,219}` mod 256
+(`r ∈ {0,1,2,3}`). Here `r = 3` (`n ≡ 219`) is already closed by net descent;
+`r ∈ {0,1,2}` remain open. **This subsection proves only the odd-step
+factorizations** — no `t_loc` / net-descent claim.
+
+The separate residual class `n ≡ 251 (mod 256)` (`≡ 59 mod 64`) is **not** included.
+-/
+
+/-- Base of the `27 mod 64` family: `n = 256m + 64r + 27`. -/
+def fiber27Base (m r : Nat) : Nat := 256 * m + 64 * r + 27
+
+/-- Odd station after \(v_2 = 1\). -/
+def fiber27T1 (m r : Nat) : Nat := 384 * m + 96 * r + 41
+
+/-- Odd station after subsequent \(v_2 = 2\). -/
+def fiber27T2 (m r : Nat) : Nat := 288 * m + 72 * r + 31
+
+/-- Odd station after subsequent \(v_2 = 1\). -/
+def fiber27T3 (m r : Nat) : Nat := 432 * m + 108 * r + 47
+
+/-- Odd station after subsequent \(v_2 = 1\) (end of prefix `[1,2,1,1]`). -/
+def fiber27T4 (m r : Nat) : Nat := 648 * m + 162 * r + 71
+
+/--
+`[A]` Prefix step 1: \(3n+1 = 2\cdot T_1\) with \(T_1\) odd.
+-/
+theorem fiber27_prefix_step1 (m r : Nat) :
+    3 * fiber27Base m r + 1 = 2 * fiber27T1 m r ∧ fiber27T1 m r % 2 = 1 := by
+  constructor
+  · dsimp [fiber27Base, fiber27T1]; ring
+  · dsimp [fiber27T1]; omega
+
+/--
+`[A]` Prefix step 2: \(3T_1+1 = 4\cdot T_2\) with \(T_2\) odd (\(v_2 = 2\)).
+-/
+theorem fiber27_prefix_step2 (m r : Nat) :
+    3 * fiber27T1 m r + 1 = 4 * fiber27T2 m r ∧ fiber27T2 m r % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T1, fiber27T2]; ring
+  · dsimp [fiber27T2]; omega
+
+/--
+`[A]` Prefix step 3: \(3T_2+1 = 2\cdot T_3\) with \(T_3\) odd.
+-/
+theorem fiber27_prefix_step3 (m r : Nat) :
+    3 * fiber27T2 m r + 1 = 2 * fiber27T3 m r ∧ fiber27T3 m r % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T2, fiber27T3]; ring
+  · dsimp [fiber27T3]; omega
+
+/--
+`[A]` Prefix step 4: \(3T_3+1 = 2\cdot T_4\) with \(T_4\) odd.
+(No net-descent claim — branching analysis starts after this station.)
+-/
+theorem fiber27_prefix_step4 (m r : Nat) :
+    3 * fiber27T3 m r + 1 = 2 * fiber27T4 m r ∧ fiber27T4 m r % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T3, fiber27T4]; ring
+  · dsimp [fiber27T4]; omega
+
+/--
+`[A]` Bundle: the four prefix factorizations for the `27 mod 64` family.
+-/
+theorem fiber27_odd_v2_prefix_one_two_one_one (m r : Nat) :
+    (3 * fiber27Base m r + 1 = 2 * fiber27T1 m r ∧ fiber27T1 m r % 2 = 1) ∧
+      (3 * fiber27T1 m r + 1 = 4 * fiber27T2 m r ∧ fiber27T2 m r % 2 = 1) ∧
+        (3 * fiber27T2 m r + 1 = 2 * fiber27T3 m r ∧ fiber27T3 m r % 2 = 1) ∧
+          (3 * fiber27T3 m r + 1 = 2 * fiber27T4 m r ∧ fiber27T4 m r % 2 = 1) :=
+  ⟨fiber27_prefix_step1 m r,
+    fiber27_prefix_step2 m r,
+    fiber27_prefix_step3 m r,
+    fiber27_prefix_step4 m r⟩
+
+/--
+`[A]` Residue dictionary: `r % 4` selects `{27,91,155,219}` inside the family.
+-/
+theorem fiber27_base_mod256_of_r_mod4 (m r : Nat) :
+    (r % 4 = 0 → fiber27Base m r % 256 = 27) ∧
+      (r % 4 = 1 → fiber27Base m r % 256 = 91) ∧
+        (r % 4 = 2 → fiber27Base m r % 256 = 155) ∧
+          (r % 4 = 3 → fiber27Base m r % 256 = 219) := by
+  dsimp [fiber27Base]
+  constructor
+  · intro h; omega
+  constructor
+  · intro h; omega
+  constructor
+  · intro h; omega
+  · intro h; omega
+
+/-!
+#### Step 5 — \(r\)-determined odd \(v_2\) (still factorization only)
+
+After \(T_4 = 648m+162r+71\), the next odd valuation depends only on \(r\)
+(for the open residual indices \(r \in \{0,1,2\}\)):
+* \(r=0\) (`n ≡ 27`): \(v_2 = 1\), station \(972m+107\)
+* \(r=1\) (`n ≡ 91`): \(v_2 = 2\), station \(486m+175\)
+* \(r=2\) (`n ≡ 155`): \(v_2 = 1\), station \(972m+593\)
+
+No net-descent / `t_loc` claim.
+-/
+
+/-- Odd station after step 5 when `r = 0` (`v₂ = 1`). -/
+def fiber27T5_r0 (m : Nat) : Nat := 972 * m + 107
+
+/-- Odd station after step 5 when `r = 1` (`v₂ = 2`). -/
+def fiber27T5_r1 (m : Nat) : Nat := 486 * m + 175
+
+/-- Odd station after step 5 when `r = 2` (`v₂ = 1`). -/
+def fiber27T5_r2 (m : Nat) : Nat := 972 * m + 593
+
+/--
+`[A]` Step 5 for `r = 0` (`n ≡ 27 mod 256`): \(3T_4+1 = 2\cdot T_5\) with \(T_5\) odd.
+-/
+theorem fiber27_prefix_step5_r0 (m : Nat) :
+    3 * fiber27T4 m 0 + 1 = 2 * fiber27T5_r0 m ∧ fiber27T5_r0 m % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T4, fiber27T5_r0]; ring
+  · dsimp [fiber27T5_r0]; omega
+
+/--
+`[A]` Step 5 for `r = 1` (`n ≡ 91 mod 256`): \(3T_4+1 = 4\cdot T_5\) with \(T_5\) odd
+(exact \(v_2 = 2\)).
+-/
+theorem fiber27_prefix_step5_r1 (m : Nat) :
+    3 * fiber27T4 m 1 + 1 = 4 * fiber27T5_r1 m ∧ fiber27T5_r1 m % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T4, fiber27T5_r1]; ring
+  · dsimp [fiber27T5_r1]; omega
+
+/--
+`[A]` Step 5 for `r = 2` (`n ≡ 155 mod 256`): \(3T_4+1 = 2\cdot T_5\) with \(T_5\) odd.
+-/
+theorem fiber27_prefix_step5_r2 (m : Nat) :
+    3 * fiber27T4 m 2 + 1 = 2 * fiber27T5_r2 m ∧ fiber27T5_r2 m % 2 = 1 := by
+  constructor
+  · dsimp [fiber27T4, fiber27T5_r2]; ring
+  · dsimp [fiber27T5_r2]; omega
+
+/-!
 ### Channel `7` arithmetic (`n % 8 = 7`)
 
 `T_odd n % 8 = 3` when `k` is even, `7` when `k` is odd. The subcase `k % 4 = 2`
