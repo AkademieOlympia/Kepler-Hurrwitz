@@ -4,6 +4,27 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ---
 
+### Methodik (Prozess-Framework)
+
+| Datei | Rolle |
+|---|---|
+| [`EVIDENZARCHITEKTUR.md`](EVIDENZARCHITEKTUR.md) | Epistemische Pfeiler `[A]`/`[B]`/`[C]`/`[G]` |
+| [`AUDIT_PROTOCOL_AP1.md`](AUDIT_PROTOCOL_AP1.md) | **AP-1** Standard-Audit-Protokoll (6 Phasen) |
+| [`CLAIM_REGISTER.md`](CLAIM_REGISTER.md) | Claim-IDs A/B/C/G-xxx |
+
+**Status:** methodische Meta-Schicht — invariant gegenüber einzelnen Audit-Ausgängen  
+**Zweck:** Trennung Theorie (Inhalt) vs. Methodik (Prozess); arithmetische Invarianten vs. algorithmic artifacts; Vorregistrierung; Audit-Klassen (Struktur / Trajektorie / Kontrolle)  
+**Kurzformel:** *Dieses Kapitel folgt der Evidenzarchitektur des Projekts: formaler Kern `[A]`, reproduzierbare Audits `[B]` und konkurrenzorientiertes Forschungsprogramm `[C]`.*  
+**Referenzmodul (Theorie):** [`noncanonical_twin_color_extensions.md`](noncanonical_twin_color_extensions.md) · **Referenzinstanz AP-1:** [`../exports/ba_C_H7_first_vs_self_extension_report.md`](../exports/ba_C_H7_first_vs_self_extension_report.md)
+
+---
+
+### Evidenzarchitektur (Kurzverweis)
+
+Siehe Abschnitt **Methodik** oben. Historischer Einstieg: [`EVIDENZARCHITEKTUR.md`](EVIDENZARCHITEKTUR.md).
+
+---
+
 ### Fixed-Locus / Riemann-Programm (L4)
 
 **Datei:** [`fixed_locus_riemann_program.md`](fixed_locus_riemann_program.md)  
