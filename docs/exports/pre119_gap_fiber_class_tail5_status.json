@@ -1,0 +1,27 @@
+{
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.GapFiberClassTail5",
+  "tag_A": [
+    "fiberE_tail5_isGood",
+    "tail5_class_pilot_pack",
+    "realizes_fiber_10783",
+    "tail5_forall_fin128",
+    "tail5_forall_k_lt_128"
+  ],
+  "census_A": {
+    "exact_first_good_word": [1, 1, 1, 1, 2, 2, 5],
+    "count": 128,
+    "arithmetic_progression": {"base": 10783, "period": 16384, "k_range": "0..127"},
+    "kernel_forall_k_lt_128": true
+  },
+  "claims_freeze": false,
+  "collatz_proved": false,
+  "sorry_count": 0,
+  "next_optional": {
+    "tail4_class": {
+      "word": [1, 1, 1, 1, 2, 2, 4],
+      "count_lt_2pow21_offline": 256,
+      "base": 6687,
+      "period": 8192
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "freeze_status": "passed",
+  "spec_id": "hc_spectral_stability",
+  "limiting_noise_class": "N_II_channel",
+  "limiting_criterion": "abs_rayleigh_gap_ge_1/4_contiguous_from_zero",
+  "secondary_criterion": "spectral_projector_overlap",
+  "threshold_gap": "1/4",
+  "epsilon_star_sym": 0.7500000000000002,
+  "epsilon_star": {
+    "N_II_edge": {
+      "positive": {
+        "estimate": 2.0,
+        "lower_pass": 2.0,
+        "upper_fail": null,
+        "certified_to_search_high": true
+      },
+      "rayleigh_struct": 1.9999999999999996,
+      "rayleigh_noise_at_estimate": 2.9999999999999996,
+      "projector_overlap_struct": 0.7236067977499788,
+      "projector_overlap_noise_at_estimate": 0.853553390593273
+    },
+    "N_II_diag": {
+      "positive": {
+        "estimate": 2.0,
+        "lower_pass": 2.0,
+        "upper_fail": null,
+        "certified_to_search_high": true
+      },
+      "rayleigh_struct": 1.9999999999999996,
+      "rayleigh_noise_at_estimate": 3.6999999999999993,
+      "projector_overlap_struct": 0.7236067977499788,
+      "projector_overlap_noise_at_estimate": 0.6077792776780537
+    },
+    "N_II_channel": {
+      "positive": {
+        "estimate": 0.7500000000000002,
+        "lower_pass": 0.7500000000000002,
+        "upper_fail": 0.7500000000000003,
+        "certified_to_search_high": false
+      },
+      "rayleigh_struct": 1.9999999999999996,
+      "rayleigh_noise_at_estimate": 2.2499999999999996,
+      "projector_overlap_struct": 0.7236067977499788,
+      "projector_overlap_noise_at_estimate": 0.6755617207941959
+    }
+  },
+  "governance": "Numerical freeze radius only; not a Lean proof; dimensionless fluctuation index, not a natural constant",
+  "content_sha256": "89863c44aa473f4c7904e89459230635e0abad52b89467af6af7c3cc02186097"
+}

@@ -1,0 +1,86 @@
+{
+  "freeze_id": "eabc-functional-info-v0.1",
+  "evidence_id": "E-112",
+  "orq_id": "ORQ-112",
+  "title": "EABC Wong Functional Information Bridge — methodological snapshot v0.1",
+  "freeze_date": "2026-07-26",
+  "freeze_at_utc": "2026-07-26T05:22:06.921994+00:00",
+  "branch": "post-freeze/octonionic-collatz-proof-attempt",
+  "commit_sha": "f8d0a087a69520b8ff796e3a7ef4fafe0b1ff159",
+  "dirty": true,
+  "dirty_note": "Working tree dirty: freeze cluster includes untracked/modified files not in commit_sha. Release-Tag should be set only after committing the freeze cluster. Physical claim freeze remains not granted.",
+  "tests": {
+    "command": "pytest tests/test_prime_tower_bridge.py -q",
+    "passed": 13,
+    "reference_user_count": "11/11 at claim-wall seal (2026-07-22); current suite 13 (includes guard tests)",
+    "status": "passed"
+  },
+  "specification": "CLOSED & ACTIVE",
+  "physical_claim_freeze": "not granted",
+  "snapshot_freeze": "granted (methodological v0.1)",
+  "protocol_doc": "docs/energiedoku_exports/eabc_wong_functional_information_bridge.md",
+  "protocol_alias_note": "User PROTOCOL.md = claim-wall / governance protocol in the bridge Energiedoku export (no separate PROTOCOL.md for E-112).",
+  "freeze_report": "docs/reports/eabc_wong_functional_info_v0.1_freeze.md",
+  "files": [
+    {
+      "path": "docs/energiedoku_exports/eabc_wong_functional_information_bridge.md",
+      "sha256": "745f4ba2110ed0e09059250fdaeff09ee695adf6a2db0e318241f65ffe226fb3",
+      "bytes": 17800
+    },
+    {
+      "path": "docs/reports/eabc_wong_functional_info_v0.1_freeze.md",
+      "sha256": "a80002b32bc4ba104f8937817b48f214e00bdbab7de5397711721467e0a3cacb",
+      "bytes": 2933
+    },
+    {
+      "path": "src/kepler_hurwitz/prime_tower_bridge.py",
+      "sha256": "541f0d28ccb05485b3caf0405225e787a9c492c7a14c9551d2e5ff9bf1b23bb1",
+      "bytes": 4019
+    },
+    {
+      "path": "tests/test_prime_tower_bridge.py",
+      "sha256": "61038b7d3351a52917c04d70aa19aae2fbf25c8dbf50d8fd8188eb23eeb7daa3",
+      "bytes": 3191
+    },
+    {
+      "path": "docs/open_research_questions.md",
+      "sha256": "a2e63f1facc53e3973374a24f48435480f28bfbdea1c1ec7556b35f173ec6836",
+      "bytes": 26076
+    },
+    {
+      "path": "EVIDENCE_REGISTER.md",
+      "sha256": "0ae267dbeb882c378e7e96831015163c724339bbbd8b0968f4e6ff4fc6ef9b03",
+      "bytes": 74706
+    },
+    {
+      "path": "EVIDENCE_REGISTER.json",
+      "sha256": "b31a796494a8bbc565d88e47b9a47ff2219a22fc8755e573550383c1a1491458",
+      "bytes": 89758
+    },
+    {
+      "path": "experimental/dimensional_sombrero_hurwitz/DISCRETE_ANALOGY_GLOSSARY.md",
+      "sha256": "05c2c42b07b9f627c0f8315b61bdc5501eb65a1ffeee8108e5bb9f6b004ac837",
+      "bytes": 19035
+    }
+  ],
+  "v0_2_roadmap": {
+    "status": "pending / not started",
+    "prerequisite": "freeze v0.1",
+    "focus": "TUR for BC currents",
+    "items": [
+      "J_BC: directed net flow from B↔C transition rates",
+      "TUR: Q = sigma_J^2 / <J>^2 >= 2 / S_BC",
+      "Test suite over parameter sweeps (theta, phi)"
+    ],
+    "implementation_in_this_freeze": false
+  },
+  "not_done": [
+    "no TUR implementation",
+    "no git push",
+    "no commit created by freeze agent",
+    "no physical claim freeze",
+    "no local release tag (deferred: dirty working tree)"
+  ],
+  "intended_git_tag": "eabc-functional-info-v0.1",
+  "git_tag_status": "not_set_local — working tree dirty; tag deferred until freeze cluster is committed"
+}

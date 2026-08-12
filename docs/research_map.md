@@ -44,7 +44,7 @@ Beispiel:
 | 9 | shellPrimeMatchAtFirstLoss | ORQ-086 | E-085 | Hypothese (GATE INACTIVE / PRE-REGISTRATION NOT COMPLETE → Protokoll) |
 | 10 | Weyl-Commutator $\Delta_{\mathrm{LR}}$ | ORQ-087 | — | Hypothese → `[B]`-Ziel |
 | 11 | Onsager Quantization Bridge | ORQ-089 | E-089 | Interpretation / Hypothese |
-| 11 | Onsager Quantization Bridge | ORQ-089 | E-089 | Interpretation / Hypothese |
+| 12 | Nuclear Binding Residual Bridge | ORQ-090 | E-090 | Hypothese → `[B0]`-Ziel (SEMF-Residualdiagnostik) |
 
 **Shell-Separationsdiagnostik (E-077–E-079):** Kategorie `Numerik` (diagnostisch, `[C]`) — [`reports/shell_separation_diagnostics_protocol.md`](reports/shell_separation_diagnostics_protocol.md) · `scripts/shell_separation_diagnostics.py`
 

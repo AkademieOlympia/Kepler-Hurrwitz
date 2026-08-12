@@ -1,0 +1,140 @@
+{
+  "tag": "[C]",
+  "governance": {
+    "status": "C prime polygonal Bahn in collatzOctEmbed \u211d\u2078",
+    "embedding": "collatz_oct_embed / Lean collatzOctEmbed",
+    "metric": "Euclidean on O \u2245 \u211d\u2078 (primary); optional S\u2077 after normalize",
+    "not_claimed": "octonion-multiplication geodesic; E8 lattice shortest path; infinitude or distribution theorems; octonionic geodesic physics beyond residue-class gap + embed coordinates",
+    "analysis": "null-eabc N1\u2013N5, N8 on collatzOctEmbed Bahn"
+  },
+  "limit": 5000,
+  "n_eabc_transitions": 666,
+  "n_eabc_primes": 667,
+  "null_reps": 1000,
+  "seed": 20260719,
+  "N8": {
+    "name": "N8_embed_identity",
+    "statement": "L = sqrt(gap^2 + \u0394e1^2 + \u0394e2^2 + \u0394\u03c77^2) exactly (float)",
+    "n": 666,
+    "r_squared_L_vs_pred": 1.0,
+    "max_abs_error": 0.0,
+    "mean_abs_error": 0.0,
+    "holds": true,
+    "interpretation": "If holds: Bahn 'patterns' are residue-class gaps in embed coordinates, not extra octonionic geodesic physics."
+  },
+  "N1": {
+    "name": "N1_gap_dominance",
+    "statement": "L \u2248 |q-p| up to O(1) embed correction",
+    "n": 666,
+    "mean_gap": 7.498498498498498,
+    "mean_abs_residual_L_minus_gap": 2.326059889593614,
+    "mean_L_over_gap": 1.6745418194691333,
+    "holds": true
+  },
+  "N2": {
+    "name": "N2_same_family_mod12",
+    "statement": "same-family on global Bahn only for gap \u2208 12\u2124",
+    "n_same_family": 55,
+    "n_gap_not_multiple_of_12": 0,
+    "mean_same_family_gap": 13.090909090909092,
+    "holds": true
+  },
+  "N3": {
+    "name": "N3_family_balance",
+    "statement": "family counts A/B/C/E roughly equal (soft sanity)",
+    "counts": {
+      "E": 159,
+      "A": 170,
+      "B": 171,
+      "C": 167
+    },
+    "fractions": {
+      "E": 0.2383808095952024,
+      "A": 0.25487256371814093,
+      "B": 0.2563718140929535,
+      "C": 0.25037481259370314
+    },
+    "chi_square_vs_uniform": 0.5322338830584707,
+    "holds": true,
+    "note": "Soft band 15\u201335%; not a formal uniformity test."
+  },
+  "N4": {
+    "name": "N4_rotor_shuffle",
+    "statement": "rotor edges A\u2192B,B\u2192C,E\u2192A,C\u2192E match shuffle of family sequence with same multiset",
+    "reps": 1000,
+    "seed": 20260719,
+    "observed_rotor_total": 293,
+    "null_rotor_total_mean": 166.983,
+    "null_rotor_total_std": 11.308258530826045,
+    "z_rotor_total": 11.143802527726143,
+    "edges": {
+      "A->B": {
+        "observed": 83,
+        "null_mean": 43.702,
+        "null_std": 4.921909791940522,
+        "z": 7.984299115832899
+      },
+      "B->C": {
+        "observed": 67,
+        "null_mean": 42.697,
+        "null_std": 4.703529632095455,
+        "z": 5.166970743452688
+      },
+      "E->A": {
+        "observed": 71,
+        "null_mean": 40.608,
+        "null_std": 4.785638515391651,
+        "z": 6.350667711790756
+      },
+      "C->E": {
+        "observed": 72,
+        "null_mean": 39.976,
+        "null_std": 4.786587928786016,
+        "z": 6.690360748919114
+      }
+    },
+    "holds": false,
+    "interpretation": "holds=True: rotor flux compatible with family marginals; large |z|: possible prime-channel dynamics beyond marginals [C]."
+  },
+  "N5": {
+    "name": "N5_CE_anomaly_gap_stratified",
+    "statement": "\u27e8residual L\u2212gap\u27e9 at C\u2192E not larger than other transitions with same gap",
+    "n_CE_total": 72,
+    "n_other_total": 594,
+    "mean_residual_CE": 7.58189971304301,
+    "mean_residual_other": 1.688988395842172,
+    "n_gaps_compared": 2,
+    "n_gaps_CE_higher": 2,
+    "fraction_gaps_CE_higher": 1.0,
+    "stratified_head": [
+      {
+        "gap": 2,
+        "n_CE": 60,
+        "n_other": 65,
+        "mean_residual_CE": 8.447676926126398,
+        "mean_residual_other": 1.0798905403905867,
+        "CE_higher": true
+      },
+      {
+        "gap": 14,
+        "n_CE": 12,
+        "n_other": 16,
+        "mean_residual_CE": 3.2530136476260743,
+        "mean_residual_other": 0.3540324291881075,
+        "CE_higher": true
+      }
+    ],
+    "holds": false,
+    "interpretation": "holds=True: no gap-matched C\u2192E residual anomaly; else descriptive [C] curiosity only."
+  },
+  "sanity_N1_N2_N3_hold": true,
+  "summary": {
+    "N8_holds": true,
+    "N4_holds": false,
+    "N5_holds": false,
+    "sanity_holds": true,
+    "expectation": "N8 identity \u21d2 patterns are residue-class gaps in embed coords; N4/N5 probe channel dynamics of transition counts [C]."
+  },
+  "claimed_as_theorem": false,
+  "status": "null_eabc_c"
+}

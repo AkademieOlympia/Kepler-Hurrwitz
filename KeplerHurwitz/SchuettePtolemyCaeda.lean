@@ -2,6 +2,20 @@ import Mathlib
 
 namespace KeplerHurwitz
 
+/-!
+Abstrakte Schuette / Ptolemy-Schnittstelle.
+
+Q3 (entschieden, experimental): kanonische Spannung ist der
+Sehnen-Ptolemy-Defekt max(0, AC·BD - AB·CD - AD·BC).
+Siehe experimental/.../SchuettePtolemyDefect.lean (I4 + Q3-Freeze)
+und icosa_ptolemy_probe.py (I3).
+
+Verworfen als Spannung: Kantenlaenge, Winkeldefekt, Ollivier-kappa.
+
+IsoCaeda hier bleibt absichtlich nur Nichtnegativitaet (modellgesetzlich wahr);
+nichttriviale Geometrie nutzt experimental IsoCaedaChords (delta ≤ 0).
+-/
+
 /--
 Abstrakte Schuette-Spannung auf einem Zustaandsraum.
 Defensiv als nichtnegative Observable modelliert.
@@ -12,8 +26,8 @@ structure SchuetteTensionModel where
   tension_nonneg : ∀ s, 0 ≤ tension s
 
 /--
-Ptolemaeische Abschlussbedingung als abstraktes Praedikat.
-Die konkrete Geometrie wird spaeter spezialisiert.
+Ptolemaeische Abschlussbedingung als abstraktes Praedikat auf *Spannungen*
+von vier Zustaenden. Chord-Level-Gleichheit: experimental `PtolemyEquality`.
 -/
 def PtolemaicClosure
     {M : SchuetteTensionModel}
@@ -21,7 +35,8 @@ def PtolemaicClosure
   M.tension a + M.tension c ≤ M.tension b + M.tension d
 
 /--
-Iso-Caeda als invariantes Strukturpraedikat auf Zustaenden.
+Iso-Caeda (abstrakt): nur `0 ≤ tension`.
+Nichttrivial: experimental `IsoCaedaChords` / Q3.
 -/
 def IsoCaeda {M : SchuetteTensionModel} (s : M.State) : Prop :=
   0 ≤ M.tension s

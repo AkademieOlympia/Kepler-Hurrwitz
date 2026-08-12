@@ -9,6 +9,8 @@ import pytest
 
 from kepler_hurwitz.nuclear_binding_residual import (
     ATOME_TAG,
+    DEFAULT_EABC_FEATURES,
+    DEFAULT_NULLMODEL_MODES,
     WeizsaeckerParams,
     build_atome_analysis,
     build_residual_table,
@@ -18,6 +20,7 @@ from kepler_hurwitz.nuclear_binding_residual import (
     mutual_information,
     pearson_correlation,
     run_nullmodels,
+    run_nullmodels_all_features,
     spearman_correlation,
     toy_nuclides,
     weizsaecker_binding,
@@ -92,8 +95,21 @@ class TestNullmodels:
         residuals = build_residual_table(nuclides)
         invariants = [eabc_invariants(n.a, n.z) for n in nuclides]
         results = run_nullmodels(residuals, invariants, trials=50, seed=1)
-        assert len(results) == 3
+        assert len(results) == len(DEFAULT_NULLMODEL_MODES)
         assert all(r.trials == 50 for r in results)
+        assert all(r.feature == "eabc_mass" for r in results)
+
+    def test_nullmodels_all_features(self):
+        nuclides = toy_nuclides()
+        residuals = build_residual_table(nuclides)
+        invariants = [eabc_invariants(n.a, n.z) for n in nuclides]
+        results = run_nullmodels_all_features(
+            residuals, invariants, trials=20, seed=1
+        )
+        expected = len(DEFAULT_EABC_FEATURES) * len(DEFAULT_NULLMODEL_MODES)
+        assert len(results) == expected
+        features_seen = {r.feature for r in results}
+        assert features_seen == set(DEFAULT_EABC_FEATURES)
 
 
 class TestAtomeExport:
@@ -101,7 +117,10 @@ class TestAtomeExport:
         analysis = build_atome_analysis(toy_nuclides(), nullmodel_trials=20)
         assert analysis.governance == "[C]"
         assert analysis.nuclide_count == len(toy_nuclides())
-        assert len(analysis.correlations) >= 4
+        assert len(analysis.correlations) == len(DEFAULT_EABC_FEATURES)
+        assert len(analysis.nullmodels) == (
+            len(DEFAULT_EABC_FEATURES) * len(DEFAULT_NULLMODEL_MODES)
+        )
 
     def test_export_bundle(self, tmp_path: Path):
         analysis = build_atome_analysis(toy_nuclides()[:10], nullmodel_trials=10)
@@ -111,3 +130,6 @@ class TestAtomeExport:
         assert payload["governance"] == "[C]"
         assert "not_claimed" in payload
         assert paths["residual_csv"].read_text(encoding="utf-8").startswith("label,")
+        assert paths["nullmodel_csv"].exists()
+        null_header = paths["nullmodel_csv"].read_text(encoding="utf-8").splitlines()[0]
+        assert null_header.startswith("feature,mode,")

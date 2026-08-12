@@ -1,0 +1,1898 @@
+{
+  "status": "B arithmetic \u03a6_k relation classifier \u00a75.22",
+  "date": "2026-07-21",
+  "k_range": [
+    10,
+    14
+  ],
+  "definitions": {
+    "phi_k_stated": {
+      "E01": "\u03bd\u2082(3u+1)=1",
+      "E00": "2 \u2264 \u03bd\u2082(3u+1) < k",
+      "Z": "\u03bd\u2082(3u+1) \u2265 k",
+      "scope_claim": "research sketch for wrap-/loss-free G_k^cut edges"
+    },
+    "phi_k_refined": {
+      "E01": "wrap \u2227 \u03bd\u2082=1",
+      "E00": "\u00acwrap \u2227 1 \u2264 \u03bd\u2082 < k",
+      "Z": "\u03bd\u2082 \u2265 k",
+      "scope": "all F_k avoid-1 edges (audited)"
+    },
+    "matrices": {
+      "E00": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "E01": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "Z": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "audit_finding": {
+    "stated_classifier_holds_on_G_k_cut": false,
+    "stated_fails_because": "On wrap-free edges with \u03bd\u2082=1 the lift matrix is E00 (only (0,0)\u2208R); E01 appears exactly on wrap edges with \u03bd\u2082=1. G_k^cut therefore has no E01 edges in the audited range.",
+    "refined_classifier_holds_on_F_k": true,
+    "G_k_cut_acyclic_in_range": true,
+    "G_k_cut_edges_all_E00": true,
+    "focus_cycles_in_F_k_not_cut": true,
+    "focus_refined_match": true,
+    "focus_cyclic_word_E00_pow_E01": true,
+    "focus_MatchesUnitDefectPattern": true
+  },
+  "levels": [
+    {
+      "k": 10,
+      "n_F_edges": 506,
+      "n_cut_edges": 421,
+      "n_edges_cut_away": 85,
+      "n_wrap_cut": 85,
+      "n_loss_cut": 0,
+      "n_F_cycles": 1,
+      "n_cut_cycles": 0,
+      "cut_cycles": [],
+      "F_cycle_lengths": [
+        26
+      ],
+      "type_histogram_F": {
+        "E00": 421,
+        "E01": 85
+      },
+      "type_histogram_cut": {
+        "E00": 421
+      },
+      "stated_match_F": 336,
+      "stated_match_rate_F": 0.6640316205533597,
+      "refined_match_F": 506,
+      "refined_match_rate_F": 1.0,
+      "stated_match_cut": 251,
+      "stated_match_rate_cut": 0.5961995249406176,
+      "refined_match_cut": 421,
+      "refined_match_rate_cut": 1.0,
+      "stated_mismatch_examples": [
+        {
+          "u": 3,
+          "v": 5,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 7,
+          "v": 11,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 11,
+          "v": 17,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 15,
+          "v": 23,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 19,
+          "v": 29,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        }
+      ],
+      "refined_mismatch_examples": [],
+      "cut_all_E00": true,
+      "note_cut_acyclic": true
+    },
+    {
+      "k": 11,
+      "n_F_edges": 1018,
+      "n_cut_edges": 847,
+      "n_edges_cut_away": 171,
+      "n_wrap_cut": 171,
+      "n_loss_cut": 0,
+      "n_F_cycles": 1,
+      "n_cut_cycles": 0,
+      "cut_cycles": [],
+      "F_cycle_lengths": [
+        25
+      ],
+      "type_histogram_F": {
+        "E00": 847,
+        "E01": 171
+      },
+      "type_histogram_cut": {
+        "E00": 847
+      },
+      "stated_match_F": 677,
+      "stated_match_rate_F": 0.6650294695481336,
+      "refined_match_F": 1018,
+      "refined_match_rate_F": 1.0,
+      "stated_match_cut": 506,
+      "stated_match_rate_cut": 0.5974025974025974,
+      "refined_match_cut": 847,
+      "refined_match_rate_cut": 1.0,
+      "stated_mismatch_examples": [
+        {
+          "u": 3,
+          "v": 5,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 7,
+          "v": 11,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 11,
+          "v": 17,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 15,
+          "v": 23,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 19,
+          "v": 29,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        }
+      ],
+      "refined_mismatch_examples": [],
+      "cut_all_E00": true,
+      "note_cut_acyclic": true
+    },
+    {
+      "k": 12,
+      "n_F_edges": 2041,
+      "n_cut_edges": 1700,
+      "n_edges_cut_away": 341,
+      "n_wrap_cut": 341,
+      "n_loss_cut": 0,
+      "n_F_cycles": 2,
+      "n_cut_cycles": 0,
+      "cut_cycles": [],
+      "F_cycle_lengths": [
+        6,
+        7
+      ],
+      "type_histogram_F": {
+        "E00": 1700,
+        "E01": 341
+      },
+      "type_histogram_cut": {
+        "E00": 1700
+      },
+      "stated_match_F": 1359,
+      "stated_match_rate_F": 0.6658500734933855,
+      "refined_match_F": 2041,
+      "refined_match_rate_F": 1.0,
+      "stated_match_cut": 1018,
+      "stated_match_rate_cut": 0.5988235294117648,
+      "refined_match_cut": 1700,
+      "refined_match_rate_cut": 1.0,
+      "stated_mismatch_examples": [
+        {
+          "u": 3,
+          "v": 5,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 7,
+          "v": 11,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 11,
+          "v": 17,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 15,
+          "v": 23,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 19,
+          "v": 29,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        }
+      ],
+      "refined_mismatch_examples": [],
+      "cut_all_E00": true,
+      "note_cut_acyclic": true
+    },
+    {
+      "k": 13,
+      "n_F_edges": 4089,
+      "n_cut_edges": 3406,
+      "n_edges_cut_away": 683,
+      "n_wrap_cut": 683,
+      "n_loss_cut": 0,
+      "n_F_cycles": 0,
+      "n_cut_cycles": 0,
+      "cut_cycles": [],
+      "F_cycle_lengths": [],
+      "type_histogram_F": {
+        "E00": 3406,
+        "E01": 683
+      },
+      "type_histogram_cut": {
+        "E00": 3406
+      },
+      "stated_match_F": 2724,
+      "stated_match_rate_F": 0.6661775495231108,
+      "refined_match_F": 4089,
+      "refined_match_rate_F": 1.0,
+      "stated_match_cut": 2041,
+      "stated_match_rate_cut": 0.5992366412213741,
+      "refined_match_cut": 3406,
+      "refined_match_rate_cut": 1.0,
+      "stated_mismatch_examples": [
+        {
+          "u": 3,
+          "v": 5,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 7,
+          "v": 11,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 11,
+          "v": 17,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 15,
+          "v": 23,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 19,
+          "v": 29,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        }
+      ],
+      "refined_mismatch_examples": [],
+      "cut_all_E00": true,
+      "note_cut_acyclic": true
+    },
+    {
+      "k": 14,
+      "n_F_edges": 8184,
+      "n_cut_edges": 6819,
+      "n_edges_cut_away": 1365,
+      "n_wrap_cut": 1365,
+      "n_loss_cut": 0,
+      "n_F_cycles": 0,
+      "n_cut_cycles": 0,
+      "cut_cycles": [],
+      "F_cycle_lengths": [],
+      "type_histogram_F": {
+        "E00": 6819,
+        "E01": 1365
+      },
+      "type_histogram_cut": {
+        "E00": 6819
+      },
+      "stated_match_F": 5454,
+      "stated_match_rate_F": 0.6664222873900293,
+      "refined_match_F": 8184,
+      "refined_match_rate_F": 1.0,
+      "stated_match_cut": 4089,
+      "stated_match_rate_cut": 0.5996480422349318,
+      "refined_match_cut": 6819,
+      "refined_match_rate_cut": 1.0,
+      "stated_mismatch_examples": [
+        {
+          "u": 3,
+          "v": 5,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 7,
+          "v": 11,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 11,
+          "v": 17,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 15,
+          "v": 23,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 19,
+          "v": 29,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        }
+      ],
+      "refined_mismatch_examples": [],
+      "cut_all_E00": true,
+      "note_cut_acyclic": true
+    }
+  ],
+  "focus_cycles": [
+    {
+      "k": 10,
+      "ell": 26,
+      "nodes": [
+        47,
+        71,
+        107,
+        161,
+        121,
+        91,
+        137,
+        103,
+        155,
+        233,
+        175,
+        263,
+        395,
+        593,
+        445,
+        167,
+        251,
+        377,
+        283,
+        425,
+        319,
+        479,
+        719,
+        55,
+        83,
+        125
+      ],
+      "edges": [
+        {
+          "i": 0,
+          "u": 47,
+          "v": 71,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 1,
+          "u": 71,
+          "v": 107,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 2,
+          "u": 107,
+          "v": 161,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 3,
+          "u": 161,
+          "v": 121,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 4,
+          "u": 121,
+          "v": 91,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 5,
+          "u": 91,
+          "v": 137,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 6,
+          "u": 137,
+          "v": 103,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 7,
+          "u": 103,
+          "v": 155,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 8,
+          "u": 155,
+          "v": 233,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 9,
+          "u": 233,
+          "v": 175,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 10,
+          "u": 175,
+          "v": 263,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 11,
+          "u": 263,
+          "v": 395,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 12,
+          "u": 395,
+          "v": 593,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 13,
+          "u": 593,
+          "v": 445,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 14,
+          "u": 445,
+          "v": 167,
+          "valuation": 3,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 15,
+          "u": 167,
+          "v": 251,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 16,
+          "u": 251,
+          "v": 377,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 17,
+          "u": 377,
+          "v": 283,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 18,
+          "u": 283,
+          "v": 425,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 19,
+          "u": 425,
+          "v": 319,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 20,
+          "u": 319,
+          "v": 479,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 21,
+          "u": 479,
+          "v": 719,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 22,
+          "u": 719,
+          "v": 55,
+          "valuation": 1,
+          "wraps": true,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E01",
+          "lift_matrix_type": "E01",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 23,
+          "u": 55,
+          "v": 83,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 24,
+          "u": 83,
+          "v": 125,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 25,
+          "u": 125,
+          "v": 47,
+          "valuation": 3,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        }
+      ],
+      "type_histogram": {
+        "E00": 25,
+        "E01": 1
+      },
+      "phi_stated_histogram": {
+        "E01": 17,
+        "E00": 9
+      },
+      "phi_refined_histogram": {
+        "E00": 25,
+        "E01": 1
+      },
+      "stated_match_count": 10,
+      "stated_match_rate": 0.38461538461538464,
+      "refined_match_count": 26,
+      "refined_match_rate": 1.0,
+      "n_wrap_edges": 1,
+      "n_loss_edges": 0,
+      "MatchesUnitDefectPattern": true,
+      "cyclic_word_E00_pow_E01": true,
+      "BoolTrace": 0,
+      "P_type": "Z",
+      "CycleLiftable": false,
+      "in_G_k_cut": false,
+      "lean_bridge": {
+        "absorption_module": "KeplerHurwitz.EABC.BooleanRelationAbsorption",
+        "focus_module": "KeplerHurwitz.EABC.FocusCycleUnitDefect",
+        "phi_module": "KeplerHurwitz.EABC.SyracuseRelationClassifierPhi",
+        "hypothesis": "MatchesUnitDefectPattern",
+        "note": "Lean [A] applies to the combinatorial word pattern; modular \u03a6_k matrix identity on F_k is Python [B] / valuation-lift lemmas [A]."
+      }
+    },
+    {
+      "k": 11,
+      "ell": 25,
+      "nodes": [
+        91,
+        137,
+        103,
+        155,
+        233,
+        175,
+        263,
+        395,
+        593,
+        445,
+        167,
+        251,
+        377,
+        283,
+        425,
+        319,
+        479,
+        719,
+        1079,
+        1619,
+        381,
+        143,
+        215,
+        323,
+        485
+      ],
+      "edges": [
+        {
+          "i": 0,
+          "u": 91,
+          "v": 137,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 1,
+          "u": 137,
+          "v": 103,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 2,
+          "u": 103,
+          "v": 155,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 3,
+          "u": 155,
+          "v": 233,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 4,
+          "u": 233,
+          "v": 175,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 5,
+          "u": 175,
+          "v": 263,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 6,
+          "u": 263,
+          "v": 395,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 7,
+          "u": 395,
+          "v": 593,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 8,
+          "u": 593,
+          "v": 445,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 9,
+          "u": 445,
+          "v": 167,
+          "valuation": 3,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 10,
+          "u": 167,
+          "v": 251,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 11,
+          "u": 251,
+          "v": 377,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 12,
+          "u": 377,
+          "v": 283,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 13,
+          "u": 283,
+          "v": 425,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 14,
+          "u": 425,
+          "v": 319,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 15,
+          "u": 319,
+          "v": 479,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 16,
+          "u": 479,
+          "v": 719,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 17,
+          "u": 719,
+          "v": 1079,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 18,
+          "u": 1079,
+          "v": 1619,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 19,
+          "u": 1619,
+          "v": 381,
+          "valuation": 1,
+          "wraps": true,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E01",
+          "lift_matrix_type": "E01",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 20,
+          "u": 381,
+          "v": 143,
+          "valuation": 3,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 21,
+          "u": 143,
+          "v": 215,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 22,
+          "u": 215,
+          "v": 323,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 23,
+          "u": 323,
+          "v": 485,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 24,
+          "u": 485,
+          "v": 91,
+          "valuation": 4,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        }
+      ],
+      "type_histogram": {
+        "E00": 24,
+        "E01": 1
+      },
+      "phi_stated_histogram": {
+        "E01": 17,
+        "E00": 8
+      },
+      "phi_refined_histogram": {
+        "E00": 24,
+        "E01": 1
+      },
+      "stated_match_count": 9,
+      "stated_match_rate": 0.36,
+      "refined_match_count": 25,
+      "refined_match_rate": 1.0,
+      "n_wrap_edges": 1,
+      "n_loss_edges": 0,
+      "MatchesUnitDefectPattern": true,
+      "cyclic_word_E00_pow_E01": true,
+      "BoolTrace": 0,
+      "P_type": "Z",
+      "CycleLiftable": false,
+      "in_G_k_cut": false,
+      "lean_bridge": {
+        "absorption_module": "KeplerHurwitz.EABC.BooleanRelationAbsorption",
+        "focus_module": "KeplerHurwitz.EABC.FocusCycleUnitDefect",
+        "phi_module": "KeplerHurwitz.EABC.SyracuseRelationClassifierPhi",
+        "hypothesis": "MatchesUnitDefectPattern",
+        "note": "Lean [A] applies to the combinatorial word pattern; modular \u03a6_k matrix identity on F_k is Python [B] / valuation-lift lemmas [A]."
+      }
+    },
+    {
+      "k": 12,
+      "ell": 7,
+      "nodes": [
+        703,
+        1055,
+        1583,
+        2375,
+        3563,
+        1249,
+        937
+      ],
+      "edges": [
+        {
+          "i": 0,
+          "u": 703,
+          "v": 1055,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 1,
+          "u": 1055,
+          "v": 1583,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 2,
+          "u": 1583,
+          "v": 2375,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 3,
+          "u": 2375,
+          "v": 3563,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 4,
+          "u": 3563,
+          "v": 1249,
+          "valuation": 1,
+          "wraps": true,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E01",
+          "lift_matrix_type": "E01",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 5,
+          "u": 1249,
+          "v": 937,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 6,
+          "u": 937,
+          "v": 703,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        }
+      ],
+      "type_histogram": {
+        "E00": 6,
+        "E01": 1
+      },
+      "phi_stated_histogram": {
+        "E01": 5,
+        "E00": 2
+      },
+      "phi_refined_histogram": {
+        "E00": 6,
+        "E01": 1
+      },
+      "stated_match_count": 3,
+      "stated_match_rate": 0.42857142857142855,
+      "refined_match_count": 7,
+      "refined_match_rate": 1.0,
+      "n_wrap_edges": 1,
+      "n_loss_edges": 0,
+      "MatchesUnitDefectPattern": true,
+      "cyclic_word_E00_pow_E01": true,
+      "BoolTrace": 0,
+      "P_type": "Z",
+      "CycleLiftable": false,
+      "in_G_k_cut": false,
+      "lean_bridge": {
+        "absorption_module": "KeplerHurwitz.EABC.BooleanRelationAbsorption",
+        "focus_module": "KeplerHurwitz.EABC.FocusCycleUnitDefect",
+        "phi_module": "KeplerHurwitz.EABC.SyracuseRelationClassifierPhi",
+        "hypothesis": "MatchesUnitDefectPattern",
+        "note": "Lean [A] applies to the combinatorial word pattern; modular \u03a6_k matrix identity on F_k is Python [B] / valuation-lift lemmas [A]."
+      }
+    },
+    {
+      "k": 12,
+      "ell": 6,
+      "nodes": [
+        871,
+        1307,
+        1961,
+        1471,
+        2207,
+        3311
+      ],
+      "edges": [
+        {
+          "i": 0,
+          "u": 871,
+          "v": 1307,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 1,
+          "u": 1307,
+          "v": 1961,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 2,
+          "u": 1961,
+          "v": 1471,
+          "valuation": 2,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E00",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": true,
+          "refined_matches": true
+        },
+        {
+          "i": 3,
+          "u": 1471,
+          "v": 2207,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 4,
+          "u": 2207,
+          "v": 3311,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E00",
+          "lift_matrix_type": "E00",
+          "stated_matches": false,
+          "refined_matches": true
+        },
+        {
+          "i": 5,
+          "u": 3311,
+          "v": 871,
+          "valuation": 1,
+          "wraps": true,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "phi_refined": "E01",
+          "lift_matrix_type": "E01",
+          "stated_matches": true,
+          "refined_matches": true
+        }
+      ],
+      "type_histogram": {
+        "E00": 5,
+        "E01": 1
+      },
+      "phi_stated_histogram": {
+        "E01": 5,
+        "E00": 1
+      },
+      "phi_refined_histogram": {
+        "E00": 5,
+        "E01": 1
+      },
+      "stated_match_count": 2,
+      "stated_match_rate": 0.3333333333333333,
+      "refined_match_count": 6,
+      "refined_match_rate": 1.0,
+      "n_wrap_edges": 1,
+      "n_loss_edges": 0,
+      "MatchesUnitDefectPattern": true,
+      "cyclic_word_E00_pow_E01": true,
+      "BoolTrace": 0,
+      "P_type": "E01",
+      "CycleLiftable": false,
+      "in_G_k_cut": false,
+      "lean_bridge": {
+        "absorption_module": "KeplerHurwitz.EABC.BooleanRelationAbsorption",
+        "focus_module": "KeplerHurwitz.EABC.FocusCycleUnitDefect",
+        "phi_module": "KeplerHurwitz.EABC.SyracuseRelationClassifierPhi",
+        "hypothesis": "MatchesUnitDefectPattern",
+        "note": "Lean [A] applies to the combinatorial word pattern; modular \u03a6_k matrix identity on F_k is Python [B] / valuation-lift lemmas [A]."
+      }
+    }
+  ],
+  "small_k_sanity_levels": [
+    {
+      "k": 4,
+      "n_F_edges": 5,
+      "n_cut_edges": 4,
+      "n_edges_cut_away": 1,
+      "n_wrap_cut": 1,
+      "n_loss_cut": 0,
+      "n_F_cycles": 0,
+      "n_cut_cycles": 0,
+      "cut_cycles": [],
+      "F_cycle_lengths": [],
+      "type_histogram_F": {
+        "E00": 4,
+        "E01": 1
+      },
+      "type_histogram_cut": {
+        "E00": 4
+      },
+      "stated_match_F": 3,
+      "stated_match_rate_F": 0.6,
+      "refined_match_F": 5,
+      "refined_match_rate_F": 1.0,
+      "stated_match_cut": 2,
+      "stated_match_rate_cut": 0.5,
+      "refined_match_cut": 4,
+      "refined_match_rate_cut": 1.0,
+      "stated_mismatch_examples": [
+        {
+          "u": 3,
+          "v": 5,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 7,
+          "v": 11,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        }
+      ],
+      "refined_mismatch_examples": [],
+      "cut_all_E00": true,
+      "note_cut_acyclic": true
+    },
+    {
+      "k": 5,
+      "n_F_edges": 13,
+      "n_cut_edges": 10,
+      "n_edges_cut_away": 3,
+      "n_wrap_cut": 3,
+      "n_loss_cut": 0,
+      "n_F_cycles": 0,
+      "n_cut_cycles": 0,
+      "cut_cycles": [],
+      "F_cycle_lengths": [],
+      "type_histogram_F": {
+        "E00": 10,
+        "E01": 3
+      },
+      "type_histogram_cut": {
+        "E00": 10
+      },
+      "stated_match_F": 8,
+      "stated_match_rate_F": 0.6153846153846154,
+      "refined_match_F": 13,
+      "refined_match_rate_F": 1.0,
+      "stated_match_cut": 5,
+      "stated_match_rate_cut": 0.5,
+      "refined_match_cut": 10,
+      "refined_match_rate_cut": 1.0,
+      "stated_mismatch_examples": [
+        {
+          "u": 3,
+          "v": 5,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 7,
+          "v": 11,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 11,
+          "v": 17,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 15,
+          "v": 23,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 19,
+          "v": 29,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        }
+      ],
+      "refined_mismatch_examples": [],
+      "cut_all_E00": true,
+      "note_cut_acyclic": true
+    },
+    {
+      "k": 6,
+      "n_F_edges": 28,
+      "n_cut_edges": 23,
+      "n_edges_cut_away": 5,
+      "n_wrap_cut": 5,
+      "n_loss_cut": 0,
+      "n_F_cycles": 0,
+      "n_cut_cycles": 0,
+      "cut_cycles": [],
+      "F_cycle_lengths": [],
+      "type_histogram_F": {
+        "E00": 23,
+        "E01": 5
+      },
+      "type_histogram_cut": {
+        "E00": 23
+      },
+      "stated_match_F": 18,
+      "stated_match_rate_F": 0.6428571428571429,
+      "refined_match_F": 28,
+      "refined_match_rate_F": 1.0,
+      "stated_match_cut": 13,
+      "stated_match_rate_cut": 0.5652173913043478,
+      "refined_match_cut": 23,
+      "refined_match_rate_cut": 1.0,
+      "stated_mismatch_examples": [
+        {
+          "u": 3,
+          "v": 5,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 7,
+          "v": 11,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 11,
+          "v": 17,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 15,
+          "v": 23,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 19,
+          "v": 29,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        }
+      ],
+      "refined_mismatch_examples": [],
+      "cut_all_E00": true,
+      "note_cut_acyclic": true
+    },
+    {
+      "k": 7,
+      "n_F_edges": 60,
+      "n_cut_edges": 49,
+      "n_edges_cut_away": 11,
+      "n_wrap_cut": 11,
+      "n_loss_cut": 0,
+      "n_F_cycles": 0,
+      "n_cut_cycles": 0,
+      "cut_cycles": [],
+      "F_cycle_lengths": [],
+      "type_histogram_F": {
+        "E00": 49,
+        "E01": 11
+      },
+      "type_histogram_cut": {
+        "E00": 49
+      },
+      "stated_match_F": 39,
+      "stated_match_rate_F": 0.65,
+      "refined_match_F": 60,
+      "refined_match_rate_F": 1.0,
+      "stated_match_cut": 28,
+      "stated_match_rate_cut": 0.5714285714285714,
+      "refined_match_cut": 49,
+      "refined_match_rate_cut": 1.0,
+      "stated_mismatch_examples": [
+        {
+          "u": 3,
+          "v": 5,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 7,
+          "v": 11,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 11,
+          "v": 17,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 15,
+          "v": 23,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 19,
+          "v": 29,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        }
+      ],
+      "refined_mismatch_examples": [],
+      "cut_all_E00": true,
+      "note_cut_acyclic": true
+    },
+    {
+      "k": 8,
+      "n_F_edges": 123,
+      "n_cut_edges": 102,
+      "n_edges_cut_away": 21,
+      "n_wrap_cut": 21,
+      "n_loss_cut": 0,
+      "n_F_cycles": 0,
+      "n_cut_cycles": 0,
+      "cut_cycles": [],
+      "F_cycle_lengths": [],
+      "type_histogram_F": {
+        "E00": 102,
+        "E01": 21
+      },
+      "type_histogram_cut": {
+        "E00": 102
+      },
+      "stated_match_F": 81,
+      "stated_match_rate_F": 0.6585365853658537,
+      "refined_match_F": 123,
+      "refined_match_rate_F": 1.0,
+      "stated_match_cut": 60,
+      "stated_match_rate_cut": 0.5882352941176471,
+      "refined_match_cut": 102,
+      "refined_match_rate_cut": 1.0,
+      "stated_mismatch_examples": [
+        {
+          "u": 3,
+          "v": 5,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 7,
+          "v": 11,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 11,
+          "v": 17,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 15,
+          "v": 23,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        },
+        {
+          "u": 19,
+          "v": 29,
+          "valuation": 1,
+          "wraps": false,
+          "precision_loss": false,
+          "phi_stated": "E01",
+          "actual": "E00"
+        }
+      ],
+      "refined_mismatch_examples": [],
+      "cut_all_E00": true,
+      "note_cut_acyclic": true
+    }
+  ],
+  "corollary": {
+    "statement": "Cycles with exactly one \u03bd\u2082=1 wrap edge and rest wrap-free \u03bd\u2082\u22651 yield W \u223c_cyc E00^{\u2113-1}\u2299E01",
+    "applies_to_focus": true,
+    "applies_to_G_k_cut_cycles": false,
+    "reason_cut": "G_k^cut has 0 cycles for k\u2208[10,14] (and all cut edges are E00); the unit-defect word requires an E01, which needs a wrap edge.",
+    "lean_absorption_link": "Under MatchesUnitDefectPattern, BooleanRelationAbsorption / FocusCycleUnitDefect give BoolTrace=0 and non-liftability of the CSP \u2014 not a Collatz proof, not \u2200k over \u2115."
+  },
+  "claim_wall": {
+    "A": "Lean SyracuseRelationClassifierPhi: \u03a6_k label def; lift valuation invariance v\u2081=v\u2080 when v\u2080<k; T-lift identity; wrap-free \u03b5=1 miss lemmas where green",
+    "B": "This Python audit: refined \u03a6 matches F_k; focus words; stated \u03a6 fails on G_k^cut for \u03bd\u2082=1",
+    "C": "\u00a75.21 Drift D_m / archimedean bridge open; \u00a75.23 cut-cycle absorption \u2200k open; no Collatz",
+    "NOT_collatz": true,
+    "sections": {
+      "5.19": "frozen [A]/[B] absorptive monoid \u2014 reuse, do not duplicate",
+      "5.20": "frozen [A]/[B] unit defect \u2014 reuse FocusCycleUnitDefect",
+      "5.21": "frozen [C] Open Non-Claim Boundary (Drift D_m documented)",
+      "5.22": "[B] audit + partial [A] arithmetic; naive stated \u03a6 not verified; refined \u03a6 verified on audited range",
+      "5.23": "stub / next \u2014 stable cut-cycle classification"
+    }
+  },
+  "matrix_equality_smoke": {
+    "E00_shape": true,
+    "E01_shape": true,
+    "Z_shape": true
+  }
+}

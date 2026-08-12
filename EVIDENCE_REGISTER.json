@@ -1,9 +1,15 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-07-05",
+  "updated_at": "2026-07-28",
   "id_notes": {
     "musketiere_lean_labels": "E-033/E-034 in PrimvierlingSymmetry.lean map to register entries E-046/E-047",
-    "energiedoku_e033_e034": "Register E-033/E-034 remain Kepler time bridge and Riemann resonance"
+    "energiedoku_e033_e034": "Register E-033/E-034 remain Kepler time bridge and Riemann resonance",
+    "e112_wong_bridge": "E-112: specification CLOSED & ACTIVE; I_Q0 model values under Q0; ORQ-112 without existence/uniqueness claim for Q*; physical freeze not granted",
+    "e113_friedman_lemaitre": "E-113 AP-1 CLOSED: schale -0.111 p=1 n.s.; quat +0.157 p_MC<=1e-4 sig @0.01; weighted [B] only; no [A]/causal/cosmology; Abschlussbericht friedman_lemaitre_ap1_abschlussbericht.md",
+    "e113_ext_ap2_scaling": "E-113-EXT SEALED: fast-path ĉ_[B](1e6)=0.279245=μ_window; M2≻drift; descriptive drop vs AP-1 ≈0.157; no lim/causal/cosmology",
+    "e113_tension_ap3": "E-113-TENSION AP-3 LOCKED: Δ_axis(1000)=0.120185; [B] axis_coupling_delta; [D] Hubble-tension alias only; λ-intervention for causality; no H0 claim",
+    "e113_spin8": "E-113-SPIN8 AP-4 ARCHIVE LOCK: smoke package complete; channel diff only; scale gate dormant until call",
+    "e114_small_box": "E-114 PR-76-rebuild CERTIFIED: box 2..8 x A<=20; N_total=263929; N_div=262970; N_survivor=0; trivial X=1 recorded; PR77 scaffold dormant"
   },
   "levels": {
     "A": "formal bewiesen (Lean)",
@@ -352,15 +358,11 @@
       "title": "EABC Smoothness Attraktor Dossier und Exportartefakte",
       "level": "B",
       "aclass": null,
-      "source": "results/reports/EABC_SMOOTHNESS_ATTRACTOR_DOSSIER.md",
-      "depends_on": [
-        "docs/energiedoku_exports/smoothness_significance.json",
-        "docs/energiedoku_exports/smoothness_scale_stability.json",
-        "docs/energiedoku_exports/smoothness_b_bound_matrix.json",
-        "docs/energiedoku_exports/smoothness_b_bound_summary.json"
-      ],
+      "source": "docs/energiedoku_exports/smoothness_significance.json, docs/energiedoku_exports/smoothness_scale_stability.json, docs/energiedoku_exports/smoothness_b_bound_matrix.json, docs/energiedoku_exports/smoothness_b_bound_summary.json",
+      "depends_on": [],
       "supports": [
-        "E-017"
+        "E-017",
+        "results/reports/EABC_SMOOTHNESS_ATTRACTOR_DOSSIER.md"
       ],
       "scope": "Reproduzierbare Empirie getrennt von Lean-Theoremen",
       "metric_or_result": "Artefaktkette dokumentiert; Attraktorfrage bleibt offen",
@@ -1314,7 +1316,7 @@
     {
       "id": "E-075",
       "title": "Prime Grid / Signaturgeometrie natuerlicher Zahlen",
-      "level": "B/C",
+      "level": "B",
       "aclass": null,
       "source": "docs/mathematische_texte/kolossvary_the_prime_grid.pdf, docs/energiedoku_exports/e075_prime_grid_signaturgeometrie.md",
       "depends_on": [],
@@ -1570,7 +1572,7 @@
     {
       "id": "E-090",
       "title": "Kanonische e3-Zerlegung n = q*e^3 + r*e (Lemma 1-3: product split + S± multiplet)",
-      "level": "A/B/C",
+      "level": "A",
       "aclass": "A-T",
       "source": "KeplerHurwitz/E3Decomposition.lean, src/kepler_hurwitz/e3_decomposition.py, docs/collatz_e3_decomposition.md, tests/test_e3_decomposition.py",
       "depends_on": [],
@@ -1684,6 +1686,349 @@
       "stability": "experimental",
       "last_reviewed": "2026-07-07",
       "defensive_scope": "Not proof that zeta zeros cause EABC symmetry break; not physics identity; distinct from E-034/E-035 mean-cos metrics; Mangoldt-weighted explicit formula not claimed"
+    },
+    {
+      "id": "E-096",
+      "title": "EABC Normalform-Stack (V4 / Semiprim / Higher pointer on this branch)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/eabc_normal_form.md, docs/eabc_v4_quaternion_bridge.md, KeplerHurwitz/EABC/V4.lean, src/kepler_hurwitz/signatures.py",
+      "depends_on": [],
+      "supports": [
+        "E-097",
+        "E-099"
+      ],
+      "scope": "Normalform-Sprache und V4-Lean-Kern; volle Modulmatrix teils auf Parallelbranches",
+      "metric_or_result": "Dokumentation + V4.lean / signatures.py auf diesem Branch",
+      "status": "teilweise synchronisiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-28",
+      "defensive_scope": "Kein Claim auf vollstaendige NormalForm/QuaternionBridge-Lean-Suite in diesem Tree."
+    },
+    {
+      "id": "E-097",
+      "title": "EABC x Collatz Audit-Grid (docs pointer)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/eabc_collatz_audit_grid.md",
+      "depends_on": [
+        "E-096"
+      ],
+      "supports": [
+        "E-098"
+      ],
+      "scope": "Syracuse/V4 Audit-Dokumentation; Lean/Python-Suite teils off-tree",
+      "metric_or_result": "Dossier docs/eabc_collatz_audit_grid.md",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-28",
+      "defensive_scope": "Kein Collatz-Beweis; keine Garantie der off-tree Audit-Module in diesem Checkout."
+    },
+    {
+      "id": "E-098",
+      "title": "Collatz V2.16 Kanal-7 Assessment (docs pointer)",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/collatz_v216_assessment.md",
+      "depends_on": [
+        "E-097"
+      ],
+      "supports": [],
+      "scope": "Assessment/Zeiger; Lean-Formalisierung primaer auf Parallelbranch",
+      "metric_or_result": "docs/collatz_v216_assessment.md",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-28",
+      "defensive_scope": "Kein globaler Collatz-Beweis; Deep-Tail offen."
+    },
+    {
+      "id": "E-099",
+      "title": "Anisotropic binary volume contraction prod 2^{-k}=2^{-n(n+1)/2}; directed scale reading for EABC audit",
+      "level": "C",
+      "aclass": null,
+      "source": "docs/theory/anisotropic_binary_volume_contraction.md, KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean",
+      "depends_on": [
+        "E-053",
+        "E-096"
+      ],
+      "supports": [
+        "docs/open_research_questions.md",
+        "ORQ-099"
+      ],
+      "scope": "Elementary identity prod_k 2^{-k}=2^{-S_n} [A]; anisotropic (L,H,W) reading as analogy to (i,j,k) / multiscale binary filter on EABC sectors [C]; complementary to isotropic retraction R*->24I_3, not a replacement; Lean A-T: triangleNumber, prod 2^{±k}=2^{±S_n}, n=3 witness 1/64",
+      "metric_or_result": "lake env lean KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean; [B] contraction export open",
+      "status": "dokumentiert",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-20",
+      "defensive_scope": "No quaternion volume identity; no (L,H,W)=(i,j,k) or channel identification; 5=1^2+2^2 does not fix EABC class; does not prove retraction or Dedekind Phi"
+    },
+    {
+      "id": "E-112",
+      "title": "EABC Wong bridge; model I_Q0 under Q0; ORQ without optimality claim; sealed",
+      "level": "C",
+      "aclass": "A-T (two-squares EA), C (ORQ whether/how Q*), D (Wong analogy)",
+      "source": "docs/energiedoku_exports/eabc_wong_functional_information_bridge.md, docs/open_research_questions.md (ORQ-112), KeplerHurwitz/EABC/Basic.lean, docs/eabc_prime_tower_bridge.md, src/kepler_hurwitz/prime_tower_bridge.py, tests/test_prime_tower_bridge.py, docs/reports/eabc_wong_functional_info_v0.1_freeze.md, docs/exports/eabc_wong_functional_info_v0.1_freeze.json",
+      "depends_on": [
+        "E-096",
+        "E-076",
+        "ORQ-089"
+      ],
+      "supports": [
+        "ORQ-112"
+      ],
+      "scope": "Claim-wall: [A] partition+two-squares; [B/C] model values 1 resp. 2 bit under Q0=uniform (not intrinsic prime info); [C] ORQ whether/how Q*/divergences separate vs null models — no existence/uniqueness of optimal Q*; [D] heuristics. Spec CLOSED & ACTIVE; physical freeze not granted.",
+      "metric_or_result": "functional_information_bits(0.5)=1, (0.25)=2 under q0=uniform; pytest test_prime_tower_bridge.py 13 passed; freeze eabc-functional-info-v0.1",
+      "status": "specification CLOSED & ACTIVE; snapshot v0.1 frozen; ORQ open; physical freeze not granted",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-26",
+      "defensive_scope": "Not proven physics; I_Q0 is model quantity not NT absolute; ORQ-112 claims neither existence nor uniqueness of optimal Q*; E-110/E-111 Bamberg unchanged",
+      "final_closure": {
+        "specification": "CLOSED & ACTIVE",
+        "physical_claim_freeze": "not granted",
+        "claim_wall_sealed": "2026-07-22",
+        "layer": "methodische Schicht",
+        "snapshot_freeze_id": "eabc-functional-info-v0.1",
+        "snapshot_freeze_date": "2026-07-26",
+        "v0_2_tur_bc": "pending / not started"
+      }
+    },
+    {
+      "id": "E-113",
+      "title": "Friedman–Lemaitre AP-1 closed; significant weighted [B] quat channel; no [A]/cosmology",
+      "level": "B",
+      "aclass": "A-T (norm mult, axis pull, r4), B (AP-1 H0^(3) quat), C/D (metaphor only)",
+      "source": "docs/energiedoku_exports/friedman_lemaitre_quaternion_expansion.md, docs/energiedoku_exports/friedman_lemaitre_ap1_abschlussbericht.md, experimental/friedman_lemaitre/PROTOCOL.md, experimental/friedman_lemaitre/LemaitreDifference.lean, src/kepler_hurwitz/friedman_lemaitre.py, tests/test_friedman_lemaitre.py, docs/exports/friedman_lemaitre_ap1_n1000.json, docs/open_research_questions.md (ORQ-113)",
+      "depends_on": [
+        "E-096",
+        "E-101.7"
+      ],
+      "supports": [
+        "ORQ-113"
+      ],
+      "scope": "AP-1 X=1000 sealed: schale mean=-0.111 p_H0_3=1.000 n.s.; quat mean=+0.157 p_MC<=1e-4 significant at alpha=0.01 (MC resolution floor n_mc=1e4). Weighted-channel localization is descriptive, not causal. Final class: significant weighted [B] finding; no [A] theorem; no cosmology claim (G-006/G-007).",
+      "metric_or_result": "docs/exports/friedman_lemaitre_ap1_n1000.json; p_MC<=1e-4 on H0_3 quat; schale compatible with H0_3; docs/energiedoku_exports/friedman_lemaitre_ap1_abschlussbericht.md",
+      "status": "AP-1 Hauptaudit CLOSED; specification CLOSED & ACTIVE; cosmology freeze not granted",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-22",
+      "defensive_scope": "Not [A] invariant; not causal density effect; not FLRW/Hubble/ART; Delta_L remains [B]-score; no Collatz/Semiprim transfer",
+      "freeze_sentence": "E-113 ist technisch geschlossen, governance-konform und für AP-1-Audits freigegeben; Δ_L bleibt ein [B]-Score ohne kosmologischen Claim.",
+      "final_classification": "signifikanter gewichteter [B]-Befund, kein [A]-Satz und kein kosmologischer Claim",
+      "ap1_endpoint": {
+        "x": 1000,
+        "mean_schale": -0.111,
+        "p_H0_3_schale": 1.0,
+        "schale_significant": false,
+        "mean_quat": 0.157,
+        "p_H0_3_quat_mc": "<=1e-4",
+        "quat_significant_alpha_0_01": true,
+        "seed": 113001,
+        "n_mc": 10000,
+        "alpha": 0.01
+      },
+      "final_closure": {
+        "specification": "CLOSED & ACTIVE",
+        "ap1_main_audit": "CLOSED",
+        "ap1_audits": "released",
+        "cosmology_claim_freeze": "not granted",
+        "claim_wall_sealed": "2026-07-22",
+        "ap1_lock": "2026-07-22",
+        "ap1_closed": "2026-07-22",
+        "layer": "methodische Schicht"
+      }
+    },
+    {
+      "id": "E-113-EXT",
+      "title": "AP-2 scaling diagnostics; R4/window/M0-M4; ĉ_[B] only; no limit claim",
+      "level": "C",
+      "aclass": "A-T (Jacobi/R4/zeta4 literature), B (trend/window/fit), C (plateau hypothesis)",
+      "source": "docs/energiedoku_exports/friedman_lemaitre_ap2_scaling_prereg.md, experimental/friedman_lemaitre/PROTOCOL_AP2.md, experimental/friedman_lemaitre/LemaitreScalingAP2.lean, src/kepler_hurwitz/friedman_lemaitre_ap2.py, tests/test_friedman_lemaitre_ap2.py, docs/open_research_questions.md (ORQ-113-EXT)",
+      "depends_on": [
+        "E-113"
+      ],
+      "supports": [
+        "ORQ-113-EXT",
+        "E-113-TENSION"
+      ],
+      "scope": "AP-2 LOCKED: R4 denominator + S_Delta numerator; prim density 1/zeta4; dyadic mu_window; fits M0-M4; horizons 1e4/1e5/1e6. Forbidden c_[B]=lim; allowed ĉ_[B](X) and c_[B]^fit. Freeze: finite [B] trend ≠ limit existence. Prim/nonprim split isolates primitive kernel.",
+      "metric_or_result": "scale exports friedman_lemaitre_ap2_n1e{4,5,6}.json + scale_summary; ĉ_[B]≈0.279 (r4-only mode); mu_window aligned; M2 plateau RMSE < M3 drift; docs/energiedoku_exports/friedman_lemaitre_ap2_scale_report.md",
+      "status": "MODULE SEALED — scale runs COMPLETE; limit/causal/cosmology freeze not granted",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-22",
+      "defensive_scope": "No lim claim; no [A] upgrade from plateau; no causal density; no cosmology; no Collatz/Semiprim transfer",
+      "freeze_sentences": [
+        "Für X=10^4, 10^5, 10^6 können numerische Trend-/Plateau-/Konvergenzdiagnosen für ⟨Δ_L⟩_quat(X) berechnet werden.",
+        "Eine beobachtete Stabilisierung definiert nur einen endlichen [B]-Trendwert; weder Existenz noch exakter Wert eines Grenzwerts.",
+        "ĉ_[B] ist ein empirischer Plateau- oder Extrapolationswert unter spezifiziertem Fitmodell."
+      ],
+      "final_closure": {
+        "specification": "LOCKED & ACTIVE",
+        "limit_existence_claim_freeze": "not granted",
+        "ap2_lock": "2026-07-22",
+        "horizons": [
+          10000,
+          100000,
+          1000000
+        ],
+        "layer": "Skalierungsdiagnose über E-113",
+        "module_sealed": "2026-07-22",
+        "scale_runs": "COMPLETE"
+      },
+      "final_classification": "Fast-Pfad ĉ_[B](1e6)=0.279245=μ_window; M2≻M3/M4; deskriptive Absenkung vs AP-1-Vollkanal ≈0.157; strikter [B]-Score — kein [A]-lim, keine Kausalität, keine Kosmologie",
+      "arrested_summary": {
+        "fast_path_v_add_0": {
+          "c_hat_b_1e6": 0.279245,
+          "mu_window_1e6": 0.279245,
+          "delta": 0.0
+        },
+        "model_selection": {
+          "best_plateau": "M2",
+          "rmse_plateau": 0.04,
+          "best_drift": "M3/M4",
+          "rmse_drift": 0.127
+        },
+        "channel_comparison_descriptive": {
+          "fast_path": 0.2792,
+          "ap1_full_channel": 0.157,
+          "note": "systematic lowering when v_add≠0 — descriptive, not causal"
+        },
+        "governance": {
+          "level": "B",
+          "no_A_limit_theorem": true,
+          "no_causality_claim": true,
+          "no_cosmology_claim": true
+        },
+        "module_status": "E-113 / E-113-EXT fully sealed"
+      }
+    },
+    {
+      "id": "E-113-TENSION",
+      "title": "AP-3 axis coupling delta Δ_axis; [D] Hubble-tension alias only; λ-intervention",
+      "level": "B",
+      "aclass": "B (axis_coupling_delta), D (metaphor alias)",
+      "source": "docs/energiedoku_exports/friedman_lemaitre_ap3_tension_prereg.md, experimental/friedman_lemaitre/PROTOCOL_AP3.md, experimental/friedman_lemaitre/LemaitreTensionAP3.lean, src/kepler_hurwitz/friedman_lemaitre_ap3.py, tests/test_friedman_lemaitre_ap3.py, docs/open_research_questions.md (ORQ-113-TENSION)",
+      "depends_on": [
+        "E-113",
+        "E-113-EXT"
+      ],
+      "supports": [
+        "ORQ-113-TENSION"
+      ],
+      "scope": "Δ_axis(X)=ĉ_Fast−ĉ_Voll (axis_coupling_delta). Sealed Δ_axis(1000)=0.120185. [D] alias „quaternionische Hubble-Spannung“ only (CMB vs Cepheids/SNe — no transfer). Pipeline: trajectory/window, M0–M4, λ-scan. Coupling defect ≠ causal parameter without intervention. No H0/cosmology claim.",
+      "metric_or_result": "Δ_axis(1000)=0.120185; rel_fast≈43.3%; rel_voll≈76.4%; export friedman_lemaitre_ap3_delta_axis_n1000.json; pytest test_friedman_lemaitre_ap3",
+      "status": "specification LOCKED & ACTIVE; causal/astrophysics freeze not granted",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-22",
+      "defensive_scope": "No astrophysical Hubble tension identity; no causal claim without λ-intervention; no lim; no cosmology",
+      "arrested_endpoint": {
+        "x": 1000,
+        "c_fast": 0.277584,
+        "c_voll": 0.157399,
+        "delta_axis": 0.120185,
+        "rel_to_fast": 0.433,
+        "rel_to_voll": 0.7636
+      },
+      "final_closure": {
+        "specification": "LOCKED & ACTIVE",
+        "ap3_lock": "2026-07-22",
+        "astrophysics_claim_freeze": "not granted",
+        "causal_without_intervention_freeze": "not granted"
+      }
+    },
+    {
+      "id": "E-113-SPIN8",
+      "title": "AP-4 ARCHIVE LOCK: smoke package archived; channel diff only; scale gate dormant",
+      "level": "C",
+      "aclass": "C/D hypothesis; B-smoke ARCHIVED; scale gate dormant",
+      "source": "docs/energiedoku_exports/friedman_lemaitre_spin8_coupling_hyp.md, experimental/friedman_lemaitre/PROTOCOL_SPIN8.md, experimental/friedman_lemaitre/LemaitreSpin8Coupling.lean, src/kepler_hurwitz/friedman_lemaitre_spin8_probe.py, src/kepler_hurwitz/friedman_lemaitre_spin8_sensors.py, docs/exports/friedman_lemaitre_spin8_sensors.json, tests/test_friedman_lemaitre_spin8_probe.py, tests/test_friedman_lemaitre_spin8_sensors.py",
+      "depends_on": [
+        "E-113-TENSION"
+      ],
+      "supports": [
+        "ORQ-113-SPIN8"
+      ],
+      "scope": "AP-4 ARCHIVE LOCK. Smoke package technically complete, tested, archive-ready. Proven: channel difference in smoke ensemble. Not proven: intrinsic E8 symmetry effect. Scale gate n in {32..1024}, delta(n), null bands — dormant until call.",
+      "metric_or_result": "smoke n=32 sealed: delta_abs=0.017414, delta_rel=6.6667%, HS-matched~0.1946, mult_ok; 7/7 tests green",
+      "status": "ARCHIVED; scale gate DORMANT; Spin(8)-derivation freeze not granted",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-22",
+      "defensive_scope": "Archived smoke != intrinsic E8 effect; no Spin(8) derivation; no KS physics; no zeta identity; no 1/8 identity; hurwitzUnits≠kappaE8",
+      "final_closure": {
+        "specification": "ARCHIVED",
+        "archive_lock": true,
+        "smoke_seal_n": 32,
+        "smoke_class": "B-smoke",
+        "proven": "channel difference in smoke ensemble",
+        "not_proven": "intrinsic E8 symmetry effect",
+        "ap4_operator_primary": "A_pair",
+        "ap4_operator_control": "A_(2)",
+        "ap4_matching_norm": "HS",
+        "sensors": "Delta_axis_Z8 / Delta_root_E8",
+        "pipeline_complete": true,
+        "package_archive_ready": true,
+        "scale_audit_prereg": {
+          "horizons": [
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024
+          ],
+          "trajectory": "delta(n)=Delta_root_E8(n)-Delta_axis_Z8(n)",
+          "null_models": true,
+          "status": "DORMANT"
+        },
+        "derived_from_spin8": false,
+        "identity_claim_1_over_8": false,
+        "gate": "upgrade Smoke -> [B] only via dormant scale gate on call"
+      }
+    },
+    {
+      "id": "E-114",
+      "title": "PR-76-rebuild small-box exotic cycle exclusion (affine X=B/(2^A-3^k))",
+      "level": "B",
+      "aclass": "B enumeration + Lean archival lock",
+      "source": "docs/certificates/small_box_2_8_A20.json, docs/certificates/small_box_2_8_A20.md, src/kepler_hurwitz/collatz_small_box.py, KeplerHurwitz/Collatz/SmallBoxCycleExclusion.lean, tests/test_collatz_small_box.py",
+      "depends_on": [],
+      "supports": [
+        "ORQ-114",
+        "E-114-MF"
+      ],
+      "scope": "Strict claim-wall 2<=k<=8, k<=A<=20. Exotic survivors=0. Trivial X=1 all-twos recorded separately. No Collatz. No extrapolation. Cited prior N=38000 artifact not present; rebuild uses full composition box.",
+      "metric_or_result": "N_total=263929, N_sign=952, N_div=262970, N_trivial=7, N_nu2=0, N_survivor=0",
+      "status": "CERTIFIED (rebuild); lean anchor small_box_fully_excluded; PR#77 gate DORMANT",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-24",
+      "defensive_scope": "Collatz not claimed; trivial cycle != exotic survivor; no box enlargement as theory substitute",
+      "final_closure": {
+        "specification": "CERTIFIED",
+        "lean_anchor": "small_box_fully_excluded",
+        "exotic_survivors": 0,
+        "pr77_status": "SCAFFOLD_DORMANT"
+      }
+    },
+    {
+      "id": "E-114-MF",
+      "title": "PR #77 Modular Family Exclusion Filter scaffold",
+      "level": "C",
+      "aclass": "C scaffold",
+      "source": "docs/energiedoku_exports/collatz_pr77_modular_family_scaffold.md",
+      "depends_on": [
+        "E-114"
+      ],
+      "supports": [
+        "ORQ-114-MF"
+      ],
+      "scope": "Abstract N_div into congruence families F(k); no numeric box growth; no Collatz claim.",
+      "metric_or_result": "scaffold only",
+      "status": "SCAFFOLD / DORMANT",
+      "stability": "experimental",
+      "last_reviewed": "2026-07-24",
+      "defensive_scope": "No family theorem yet; ModularFamilyExclusionProved=False",
+      "final_closure": {
+        "specification": "SCAFFOLD",
+        "goal": "forall A in F(k): B(w) notequiv 0 mod (2^A-3^k)"
+      }
     }
   ]
 }

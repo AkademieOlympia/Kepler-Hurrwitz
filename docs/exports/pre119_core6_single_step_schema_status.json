@@ -1,0 +1,38 @@
+{
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6SingleStepSchema",
+  "tag_A": [
+    "isGood_fiberE_of_e_ge_four",
+    "classPeriod_eq",
+    "schema_bridges_tail4",
+    "schema_bridges_tail5",
+    "forall_e6_k_lt_64",
+    "forall_e7_k_lt_32",
+    "core6_single_step_schema_pack"
+  ],
+  "schema": {
+    "fiber": "core6 ++ [e]",
+    "good_iff_offline": "e >= 4",
+    "period": "2^(S+1) = 2^(9+e)",
+    "count_below_2pow21": "2^(12-e) for e in 4..11"
+  },
+  "census_A": {
+    "e4": 256,
+    "e5": 128,
+    "e6": 64,
+    "e7": 32,
+    "total": 480
+  },
+  "bases_offline_B": {
+    "4": 6687,
+    "5": 10783,
+    "6": 18975,
+    "7": 2591,
+    "8": 100895,
+    "9": 166431,
+    "10": 35359,
+    "11": 297503
+  },
+  "claims_freeze": false,
+  "collatz_proved": false,
+  "sorry_count": 0
+}

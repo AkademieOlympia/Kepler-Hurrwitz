@@ -4,6 +4,27 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ---
 
+### Methodik (Prozess-Framework)
+
+| Datei | Rolle |
+|---|---|
+| [`EVIDENZARCHITEKTUR.md`](EVIDENZARCHITEKTUR.md) | Epistemische Pfeiler `[A]`/`[B]`/`[C]`/`[G]` |
+| [`AUDIT_PROTOCOL_AP1.md`](AUDIT_PROTOCOL_AP1.md) | **AP-1** Standard-Audit-Protokoll (6 Phasen) |
+| [`CLAIM_REGISTER.md`](CLAIM_REGISTER.md) | Claim-IDs A/B/C/G-xxx |
+
+**Status:** methodische Meta-Schicht — invariant gegenüber einzelnen Audit-Ausgängen  
+**Zweck:** Trennung Theorie (Inhalt) vs. Methodik (Prozess); arithmetische Invarianten vs. algorithmic artifacts; Vorregistrierung; Audit-Klassen (Struktur / Trajektorie / Kontrolle)  
+**Kurzformel:** *Dieses Kapitel folgt der Evidenzarchitektur des Projekts: formaler Kern `[A]`, reproduzierbare Audits `[B]` und konkurrenzorientiertes Forschungsprogramm `[C]`.*  
+**Referenzmodul (Theorie):** [`noncanonical_twin_color_extensions.md`](noncanonical_twin_color_extensions.md) · **Referenzinstanz AP-1:** [`../exports/ba_C_H7_first_vs_self_extension_report.md`](../exports/ba_C_H7_first_vs_self_extension_report.md)
+
+---
+
+### Evidenzarchitektur (Kurzverweis)
+
+Siehe Abschnitt **Methodik** oben. Historischer Einstieg: [`EVIDENZARCHITEKTUR.md`](EVIDENZARCHITEKTUR.md).
+
+---
+
 ### Fixed-Locus / Riemann-Programm (L4)
 
 **Datei:** [`fixed_locus_riemann_program.md`](fixed_locus_riemann_program.md)  
@@ -183,6 +204,16 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 
 ---
 
+### EABC-Normalform-Stack (E-096)
+
+**Dateien:** [`../eabc_normal_form.md`](../eabc_normal_form.md) · [`../eabc_mass_convention.md`](../eabc_mass_convention.md) · [`../eabc_v4_quaternion_bridge.md`](../eabc_v4_quaternion_bridge.md) · [`../eabc_prime_tower_bridge.md`](../eabc_prime_tower_bridge.md)  
+**Status:** `[A]` Lean-Kern (Zerlegung, \(V_4\), \(\gamma\), XOR); `[B]` Governance/Python/Triade  
+**Evidenz:** [`E-096`](../../EVIDENCE_REGISTER.md) · Master-Index: [`EABC_MASTER_INDEX.md`](../../EABC_MASTER_INDEX.md)  
+**Zweck:** Kanonische Sprache \(n=2^\alpha 3^\beta r\,e\); SemiprimKind; Higher via `v4XorFold`; DualCarrier bei E-Kollaps.  
+**Claim-Grenze:** Mod-8-`isE` ≠ Kanal-E; Triaden-\(\cos\) ≠ Hamilton-Orthogonalität; Ideal-\(\Phi\) `[C]` offen. Parallelsprachen (Dumas-Orbit, Prime Grid) bleiben getrennt.
+
+---
+
 ### Dumas Cone–Orbit Model (E-048 / Gedankenexperiment)
 
 **Datei:** [`dumas_cone_orbit_model.md`](dumas_cone_orbit_model.md)  
@@ -325,8 +356,8 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 **Datei:** [`../reports/physical_reference_analogies.md`](../reports/physical_reference_analogies.md)  
 **Status:** `[C]` methodische Physik-Analogie  
 **Evidenz:** E-076 (interpretativ; keine Lean-Formalisation der Analogien)  
-**Zweck:** Drei Referenzphänomene als Resonanzanker — Aharonov–Bohm (Orbit/Phase), von Klitzing/QHE (Kanal/Topologie), Meissner (Defekt-Exklusion, Meissner-Shell) — für Lesefragen zu $24I_3$, Retraktion und Shell-Stapel.  
-**Claim-Grenze:** Analogie, nicht Identität; Dumas-Orbit-Protokoll bleibt empirisch getrennt.
+**Zweck:** Drei Referenzphänomene als Resonanzanker — Aharonov–Bohm (Orbit-/Umlaufsignatur), von Klitzing/QHE (Kanal-/Robustheit), Meissner (Defekt-Exklusion, repo-interne Meissner-Shell) — für Lesefragen zu $24I_3$, Retraktion und Shell-Stapel; die Ankerbegriffe sind repo-interne `[C]`-Taxonomie.  
+**Claim-Grenze:** Analogie, nicht Identität; mod-$12$ ist keine Chern-Zahl/topologische Phase, $R^*$ keine Zeit-/Thermodynamik, Dumas-Orbit-Protokoll bleibt empirisch getrennt.
 
 **Verwandte Schichten:**
 
@@ -340,6 +371,18 @@ Theorie-Dokumente, didaktische Modellbrücken und externe Phase-C-Brücken des K
 | E-093 | [`black_hole_legendre_gwtc_bridge.md`](black_hole_legendre_gwtc_bridge.md) | Legendre-GWTC, ORQ-093 \(\kappa\)/\(\chi_p\) Fisher-Test `[C]` |
 | E-094 | [`phaseninvarianz_pauli_energy_bridge.md`](phaseninvarianz_pauli_energy_bridge.md) | Pauli Z/X-Invarianz auf \(E_a\), ORQ-094 `[C]` |
 | E-095 | [`riemann_zero_interference_analogy.md`](riemann_zero_interference_analogy.md) | \(\sum\cos(\gamma\ln x)\) an bc-Knoten, ORQ-095 `[C]` |
+| E-099 | [`anisotropic_binary_volume_contraction.md`](anisotropic_binary_volume_contraction.md) | \(\prod 2^{-k}=2^{-S_n}\), anisotrope Skalenlesart ORQ-099 `[C]` |
+
+---
+
+### Anisotrope binäre Volumenkontraktion (ORQ-099 / E-099)
+
+**Datei:** [`anisotropic_binary_volume_contraction.md`](anisotropic_binary_volume_contraction.md)  
+**Status:** `[C]` skalentheoretische Brücke — Formel `[A]`, EABC-Lesart `[C]`  
+**Lean:** `KeplerHurwitz/AnisotropicBinaryVolumeContraction.lean`  
+**Zweck:** Gerichtete Skalenfamilie \((2^{-1},\ldots,2^{-n})\) und \(\prod_k 2^{-k}=2^{-n(n+1)/2}\) als Audit-Metrik für anisotrope Mehrskalen-Kontraktion; komplementär zur isotropen Retraktion \(R^*\mapsto 24I_3\).  
+**Claim-Grenze:** Keine Identifikation \((L,H,W)\leftrightarrow(i,j,k)\) oder \(\{E,A,B,C\}\); kein Quaternionen-Volumen-Beweis; kein Ersatz für E-053.  
+**Abitur-Metapher (Audit):** [`../energiedoku_exports/normalform_messbecher_lean_kern_abitur_2026_07_20.md`](../energiedoku_exports/normalform_messbecher_lean_kern_abitur_2026_07_20.md)
 
 ---
 

@@ -1,0 +1,482 @@
+{
+  "tag": "[C]",
+  "governance": {
+    "status": "C exploratory prime-quintuplet / dense-window scan",
+    "pattern": "(p, p+2, p+6, p+8, p+12) with p>3",
+    "not_claimed": "EABC channel type or mass M=5; infinitude; identity with six-chain {p..p+14}; upgrade of twin/quadruplet orientation statistics",
+    "related": "primvierling.is_prime_quadruplet; PrimvierlingNichtUeberlappung.lean (six-chain forbidden for p>5)"
+  },
+  "pattern_offsets": [
+    0,
+    2,
+    6,
+    8,
+    12
+  ],
+  "limit": 100000,
+  "quintuplet_count": 10,
+  "first_quintuplets": [
+    [
+      5,
+      7,
+      11,
+      13,
+      17
+    ],
+    [
+      11,
+      13,
+      17,
+      19,
+      23
+    ],
+    [
+      101,
+      103,
+      107,
+      109,
+      113
+    ],
+    [
+      1481,
+      1483,
+      1487,
+      1489,
+      1493
+    ],
+    [
+      16061,
+      16063,
+      16067,
+      16069,
+      16073
+    ],
+    [
+      19421,
+      19423,
+      19427,
+      19429,
+      19433
+    ],
+    [
+      21011,
+      21013,
+      21017,
+      21019,
+      21023
+    ],
+    [
+      22271,
+      22273,
+      22277,
+      22279,
+      22283
+    ],
+    [
+      43781,
+      43783,
+      43787,
+      43789,
+      43793
+    ],
+    [
+      55331,
+      55333,
+      55337,
+      55339,
+      55343
+    ]
+  ],
+  "quadruplet_count": 38,
+  "quadruplet_extends_to_quintuplet": 10,
+  "extension_rate": 0.2631578947368421,
+  "extension_by_orientation": {
+    "counts": {
+      "ABCE": {
+        "n": 22,
+        "extends": 6
+      },
+      "CEAB": {
+        "n": 16,
+        "extends": 4
+      },
+      "other": {
+        "n": 0,
+        "extends": 0
+      }
+    },
+    "rates": {
+      "ABCE": 0.2727272727272727,
+      "CEAB": 0.25,
+      "other": null
+    },
+    "abs_rate_diff": 0.022727272727272707,
+    "two_proportion_z": 0.15708381417359532,
+    "orientation_dependence_flag": false,
+    "extension_residue": {
+      "ABCE": "p+12 \u2261 5 (A)",
+      "CEAB": "p+12 \u2261 11 (C)"
+    },
+    "interpretation": "No clear ABCE/CEAB dependence of +12 extension at |z|<2 [C]"
+  },
+  "neighborhood_counts": {
+    "prime_quintuplet": 10,
+    "other": 49829,
+    "near_quintuplet": 131,
+    "quadruplet_only": 28
+  },
+  "dense_prime_windows": [
+    {
+      "start": 2,
+      "width": 30,
+      "count": 11,
+      "primes": [
+        2,
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31
+      ]
+    },
+    {
+      "start": 3,
+      "width": 30,
+      "count": 10,
+      "primes": [
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31
+      ]
+    },
+    {
+      "start": 5,
+      "width": 30,
+      "count": 9,
+      "primes": [
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31
+      ]
+    },
+    {
+      "start": 7,
+      "width": 30,
+      "count": 9,
+      "primes": [
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31,
+        37
+      ]
+    },
+    {
+      "start": 11,
+      "width": 30,
+      "count": 9,
+      "primes": [
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31,
+        37,
+        41
+      ]
+    },
+    {
+      "start": 13,
+      "width": 30,
+      "count": 9,
+      "primes": [
+        13,
+        17,
+        19,
+        23,
+        29,
+        31,
+        37,
+        41,
+        43
+      ]
+    },
+    {
+      "start": 17,
+      "width": 30,
+      "count": 9,
+      "primes": [
+        17,
+        19,
+        23,
+        29,
+        31,
+        37,
+        41,
+        43,
+        47
+      ]
+    },
+    {
+      "start": 1277,
+      "width": 30,
+      "count": 9,
+      "primes": [
+        1277,
+        1279,
+        1283,
+        1289,
+        1291,
+        1297,
+        1301,
+        1303,
+        1307
+      ]
+    },
+    {
+      "start": 9,
+      "width": 30,
+      "count": 8,
+      "primes": [
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31,
+        37
+      ]
+    },
+    {
+      "start": 15,
+      "width": 30,
+      "count": 8,
+      "primes": [
+        17,
+        19,
+        23,
+        29,
+        31,
+        37,
+        41,
+        43
+      ]
+    },
+    {
+      "start": 19,
+      "width": 30,
+      "count": 8,
+      "primes": [
+        19,
+        23,
+        29,
+        31,
+        37,
+        41,
+        43,
+        47
+      ]
+    },
+    {
+      "start": 23,
+      "width": 30,
+      "count": 8,
+      "primes": [
+        23,
+        29,
+        31,
+        37,
+        41,
+        43,
+        47,
+        53
+      ]
+    },
+    {
+      "start": 29,
+      "width": 30,
+      "count": 8,
+      "primes": [
+        29,
+        31,
+        37,
+        41,
+        43,
+        47,
+        53,
+        59
+      ]
+    },
+    {
+      "start": 31,
+      "width": 30,
+      "count": 8,
+      "primes": [
+        31,
+        37,
+        41,
+        43,
+        47,
+        53,
+        59,
+        61
+      ]
+    },
+    {
+      "start": 37,
+      "width": 30,
+      "count": 8,
+      "primes": [
+        37,
+        41,
+        43,
+        47,
+        53,
+        59,
+        61,
+        67
+      ]
+    }
+  ],
+  "notable": {
+    "first_quintuplets": [
+      [
+        5,
+        7,
+        11,
+        13,
+        17
+      ],
+      [
+        11,
+        13,
+        17,
+        19,
+        23
+      ],
+      [
+        101,
+        103,
+        107,
+        109,
+        113
+      ],
+      [
+        1481,
+        1483,
+        1487,
+        1489,
+        1493
+      ],
+      [
+        16061,
+        16063,
+        16067,
+        16069,
+        16073
+      ],
+      [
+        19421,
+        19423,
+        19427,
+        19429,
+        19433
+      ],
+      [
+        21011,
+        21013,
+        21017,
+        21019,
+        21023
+      ],
+      [
+        22271,
+        22273,
+        22277,
+        22279,
+        22283
+      ],
+      [
+        43781,
+        43783,
+        43787,
+        43789,
+        43793
+      ],
+      [
+        55331,
+        55333,
+        55337,
+        55339,
+        55343
+      ]
+    ],
+    "classic_examples": [
+      [
+        5,
+        7,
+        11,
+        13,
+        17
+      ],
+      [
+        11,
+        13,
+        17,
+        19,
+        23
+      ],
+      [
+        101,
+        103,
+        107,
+        109,
+        113
+      ],
+      [
+        191,
+        193,
+        197,
+        199,
+        203
+      ]
+    ],
+    "classic_validation": {
+      "(5, 7, 11, 13, 17)": true,
+      "(101, 103, 107, 109, 113)": true,
+      "(191, 193, 197, 199, 203)": false
+    },
+    "six_chain_note": "For p>5 the six-chain {p..p+14} cannot be all prime (PrimvierlingNichtUeberlappung); quintuplet omits p+14."
+  },
+  "verdict": {
+    "claimed_as_theorem": false,
+    "status": "exploratory_scan_c",
+    "orientation_extension_depends": false,
+    "interpretation": "Quintuplet = quadruplet + p+12. Twin/quadruplet EABC structure unchanged. Dense windows list crowded small-prime regions; not an EABC type. No clear ABCE/CEAB dependence of +12 extension at |z|<2 [C]"
+  }
+}

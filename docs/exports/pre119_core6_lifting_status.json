@@ -1,0 +1,43 @@
+{
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.Core6Lifting",
+  "companion_modules": [
+    "KeplerHurwitz.Collatz.Pre119Draft.FiberWordAffine",
+    "KeplerHurwitz.Collatz.Pre119Draft.Core6InfiniteLifting"
+  ],
+  "correction": {
+    "rejected_sketch": "isGood on numbers / Core6PlusPlus e + k*period",
+    "correct_lifting": "ApMemberOk = RealizesWord + contracts on AP"
+  },
+  "tag_A": [
+    "lifting_e4_below_2pow21",
+    "lifting_e5_below_2pow21",
+    "lifting_e6_below_2pow21",
+    "lifting_e7_below_2pow21",
+    "family_coverage_e4_to_e7_below_2pow21",
+    "valuation_nextOdd_add_pow",
+    "realizesWord_add_pow",
+    "realizedImage_mul_pow",
+    "contracts_of_wordC_lt",
+    "infinite_lifting_e4",
+    "infinite_lifting_e5",
+    "infinite_lifting_e6",
+    "infinite_lifting_e7",
+    "infinite_lifting_e4_to_e7",
+    "infinite_lifting_e8"
+  ],
+  "tag_C": [
+    "InfiniteApLiftingHypothesis_e_ge_9",
+    "InfiniteApLiftingHypothesis_forall_e_ge_8",
+    "CoverCertified",
+    "Collatz"
+  ],
+  "InfiniteApLiftingDischarged": [4, 5, 6, 7],
+  "InfiniteApLiftingIntegrationProbe": [8],
+  "tag_C_notes": {
+    "InfiniteApLiftingHypothesis_e_ge_9": "next concrete instance after probe e=8; still open",
+    "InfiniteApLiftingHypothesis_forall_e_ge_8": "uniform family goal; not claimed by e=8 probe"
+  },
+  "claims_freeze": false,
+  "collatz_proved": false,
+  "sorry_count": 0
+}

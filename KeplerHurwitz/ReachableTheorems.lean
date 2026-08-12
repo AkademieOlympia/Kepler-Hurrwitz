@@ -14,6 +14,7 @@ import KeplerHurwitz.DedekindIdealLayer
 import KeplerHurwitz.CollatzProofAttemptV26
 import KeplerHurwitz.CollatzProofAttemptV27
 import KeplerHurwitz.CollatzProofAttemptV28
+import KeplerHurwitz.CollatzProofAttemptV29
 import KeplerHurwitz.CollatzNetDescentMod8
 import KeplerHurwitz.CollatzNetDescentDiagnostics
 import KeplerHurwitz.Representation.Invariant
@@ -22,6 +23,30 @@ import KeplerHurwitz.DistilledParameters
 import KeplerHurwitz.SchuettePtolemyCaeda
 import KeplerHurwitz.SymbolicResultants
 import KeplerHurwitz.HalesTaoIntegration
+import KeplerHurwitz.AnisotropicBinaryVolumeContraction
+import KeplerHurwitz.Collatz.Octonion.LargeWitnessPhaseVolume
+import KeplerHurwitz.EABC.Semiprim
+import KeplerHurwitz.EABC.SemiprimeWaveletCartan
+import KeplerHurwitz.EABC.CartanTwinRayAudit
+import KeplerHurwitz.EABC.SemiprimeReconstruction
+import KeplerHurwitz.FiniteFactorTree.CoefficientDynamics
+import KeplerHurwitz.FiniteFactorTree.PipelineDynamicsAudit
+import KeplerHurwitz.FiniteFactorTree.SemiprimeSymReconstruction
+import KeplerHurwitz.E101.CoreModel
+import KeplerHurwitz.E101.CoupledSlotProbe
+import KeplerHurwitz.E101.NullmodelShuffle
+import KeplerHurwitz.E101.AnalogyProbe
+import KeplerHurwitz.E101.LeptonRoleProbe
+import KeplerHurwitz.E101.DiracPictureGovernance
+import KeplerHurwitz.E101.ConstantNomenclature
+import KeplerHurwitz.E101.CoreShellValence
+import KeplerHurwitz.E101.DiracLikeAudit
+import KeplerHurwitz.EABC.CollatzSyracuseNorm
+import KeplerHurwitz.EABC.CollatzTwoStep
+import KeplerHurwitz.EABC.CollatzThreeStep
+import KeplerHurwitz.EABC.CollatzCycleNecessary
+import KeplerHurwitz.EABC.CollatzModularV2
+import KeplerHurwitz.EABC.CollatzDigraph
 
 namespace KeplerHurwitz
 
@@ -578,5 +603,709 @@ theorem reachable_three_step_shrink_gt_start_of_mod8_eq_three
     n < (3 * CollatzAttemptV2.T_odd n + 1) / 4 := by
   exact CollatzAttemptV2.CollatzNetDescentMod8.three_step_shrink_gt_start_of_mod8_eq_three h8
 
+/--
+Large-witness `[A]`: Phasenexponent + padicVal + skalenstabiler mod-8-Carrier
+(`LargeWitnessPhaseVolume.large_witness_phase_index_theorem`).
+-/
+theorem reachable_large_witness_phase_index_theorem :
+    Collatz.Octonion.LargeWitness.LargeWitnessPhaseIndexTheorem :=
+  Collatz.Octonion.LargeWitness.large_witness_phase_index_theorem
+
+/--
+Large-witness `[A]`: `S(v₂(2⁴⁰)) = 861`.
+-/
+theorem reachable_phaseExponent_two_pow_forty :
+    Collatz.Octonion.LargeWitness.phaseExponent
+        (padicValNat 2 (2 ^ 40)) = 861 :=
+  Collatz.Octonion.LargeWitness.phaseExponent_two_pow_forty
+
+/--
+Large-witness `[A]`: Carrier von `10¹³+7` ist `.C`.
+-/
+theorem reachable_mod8Carrier_ten_pow_thirteen_plus_seven :
+    Collatz.Octonion.LargeWitness.mod8Carrier (10 ^ 13 + 7) =
+      Collatz.Octonion.LargeWitness.Mod8Carrier.C :=
+  Collatz.Octonion.LargeWitness.mod8Carrier_ten_pow_thirteen_plus_seven
+
+/--
+Large-witness `[A]`: Carrier von `5¹³` (Odd-Core von `10¹³`) ist `.B`.
+-/
+theorem reachable_mod8Carrier_five_pow_thirteen :
+    Collatz.Octonion.LargeWitness.mod8Carrier (5 ^ 13) =
+      Collatz.Octonion.LargeWitness.Mod8Carrier.B :=
+  Collatz.Octonion.LargeWitness.mod8Carrier_five_pow_thirteen
+
+/--
+Large-witness `[A]`: `triangularS` = E-099 `triangleNumber`.
+-/
+theorem reachable_triangularS_eq_triangleNumber (k : Nat) :
+    Collatz.Octonion.LargeWitness.triangularS k = triangleNumber k :=
+  Collatz.Octonion.LargeWitness.triangularS_eq_triangleNumber k
+
+/--
+V2.9: Status-Buendel — Large-Witness Kernel + V2.8; kein globaler Collatz-Claim.
+-/
+theorem reachable_collatz_proof_attempt_status_v29 :
+    CollatzAttemptV2.ProofAttempt.CollatzProofAttemptStatusV29 :=
+  CollatzAttemptV2.ProofAttempt.collatz_proof_attempt_status_v29
+
+/--
+V2.9 `[A]`: Kanal `7` ⇒ Large-Witness-Carrier `.C` und Bad-Run-Budget `≥ 2`.
+-/
+theorem reachable_channel_seven_carrier_C_and_budget_ge_two
+    {n : Nat} (h7 : n % 8 = 7) :
+    Collatz.Octonion.LargeWitness.mod8Carrier n =
+        Collatz.Octonion.LargeWitness.Mod8Carrier.C ∧
+      2 ≤ CollatzAttemptV2.CollatzNetDescentV28.badRunTwoAdicBudget n :=
+  CollatzAttemptV2.CollatzNetDescentV29.channel_seven_carrier_C_and_budget_ge_two h7
+
+/--
+V2.9 `[A]`: binärer Kontraktionsindex bei `2^40` ist `861`.
+-/
+theorem reachable_binaryContractionIndex_two_pow_forty :
+    CollatzAttemptV2.CollatzNetDescentV29.binaryContractionIndex
+        (padicValNat 2 (2 ^ 40)) = 861 :=
+  CollatzAttemptV2.CollatzNetDescentV29.binaryContractionIndex_two_pow_forty
+
+/--
+E-096 Semiprim claim wall: `[A]`/`[B]` fixed; no arithmetic factorization claim.
+-/
+theorem reachable_semiprim_claim_wall_status :
+    Nonempty EABC.SemiprimClaimWallStatus :=
+  ⟨EABC.semiprim_claim_wall_status⟩
+
+/--
+Semiprimaler Dreikanal-Zerlegungssatz `[A]`: endliche C₃-äquivariante Haar-Filterbank
+mit Detailenergie = Chirurgieenergie = Cartan-C₂. Kein klassisches MRA auf ℕ.
+-/
+theorem reachable_semiprime_three_channel_decomposition (q : Fin 3 → ℝ) :
+    EABC.SemiprimeWavelet.ThreeChannelDecomposition q :=
+  EABC.SemiprimeWavelet.threeChannelDecomposition q
+
+/--
+FiniteFactorTree [B] coefficient dynamics (consumer): `idMap` is wavelet and energy exact;
+`collapseToMean` is asymptotically collapsing. Does not modify the freeze.
+-/
+theorem reachable_finite_factor_tree_coefficient_dynamics (d : ℕ) :
+    FiniteFactorTree.CoefficientDynamics.IsWaveletExact
+        (FiniteFactorTree.CoefficientDynamics.idMap d) ∧
+      FiniteFactorTree.CoefficientDynamics.IsEnergyExact
+        (FiniteFactorTree.CoefficientDynamics.idMap d) ∧
+      FiniteFactorTree.CoefficientDynamics.IsAsymptoticallyCollapsing
+        (FiniteFactorTree.CoefficientDynamics.collapseToMean d) :=
+  ⟨FiniteFactorTree.CoefficientDynamics.idMap_waveletExact d,
+    FiniteFactorTree.CoefficientDynamics.idMap_energyExact d,
+    FiniteFactorTree.CoefficientDynamics.collapseToMean_asymptoticallyCollapsing⟩
+
+/--
+Pipeline → Dynamics bridge: audits use frozen centered-leaf energy; `idMap` preserves it;
+`collapseToMean` kills detail. No freeze extension.
+-/
+theorem reachable_pipeline_dynamics_audit_bridge {d : ℕ}
+    (track : FiniteFactorTree.ArithmeticSignalPipeline.PipelineTrack)
+    (t : FiniteFactorTree.BinTree (Fin d → ℝ))
+    (xs : List (Fin d → ℝ)) (hne : xs ≠ []) :
+    (FiniteFactorTree.PipelineDynamicsAudit.runDynamicsAudit
+        .idMap track t.leaves).inputDetailEnergy =
+      FiniteFactorTree.centeredLeafEnergy t ∧
+    (FiniteFactorTree.PipelineDynamicsAudit.runDynamicsAudit
+        .idMap track xs).outputDetailEnergy =
+      (FiniteFactorTree.PipelineDynamicsAudit.runDynamicsAudit
+        .idMap track xs).inputDetailEnergy ∧
+    (FiniteFactorTree.PipelineDynamicsAudit.runDynamicsAudit
+        .collapseToMean track xs).outputDetailEnergy = 0 :=
+  ⟨FiniteFactorTree.PipelineDynamicsAudit.audit_input_eq_centeredLeafEnergy
+      .idMap track t,
+    FiniteFactorTree.PipelineDynamicsAudit.audit_idMap_preserves_energy track xs,
+    FiniteFactorTree.PipelineDynamicsAudit.audit_collapseToMean_output_zero track xs hne⟩
+
+/--
+Cartan TwinRay audit consumer: exact inversion `qCE = -qAB` implies even C₂/I₂
+invariance and odd I₃ sign reversal; audit deltas vanish on the canonical neg-pair.
+-/
+theorem reachable_cartan_twinray_audit (qAB : Fin 3 → ℝ) :
+    EABC.CartanTwinRayAudit.IsTwinRayInvariantExact qAB (-qAB) ∧
+      (EABC.CartanTwinRayAudit.runTwinRayAuditNeg qAB).deltaC2 = 0 ∧
+      (EABC.CartanTwinRayAudit.runTwinRayAuditNeg qAB).deltaI2 = 0 ∧
+      (EABC.CartanTwinRayAudit.runTwinRayAuditNeg qAB).deltaI3 = 0 :=
+  ⟨EABC.CartanTwinRayAudit.auditNeg_invariantExact qAB,
+    (EABC.CartanTwinRayAudit.auditNeg_deltas_zero qAB).1,
+    (EABC.CartanTwinRayAudit.auditNeg_deltas_zero qAB).2.1,
+    (EABC.CartanTwinRayAudit.auditNeg_deltas_zero qAB).2.2⟩
+
+/--
+Semiprime reconstruction mod symmetry (consumer 3): on coded residual pairs,
+synthesize ∘ analyze = id up to swap; filterbank S∘A = id on Fin 3.
+Explicitly not arithmetic factorization.
+-/
+theorem reachable_semiprime_reconstruction_mod_symmetry
+    (p : EABC.SemiprimeReconstruction.CodedResidualPair) (q : Fin 3 → ℝ) :
+    EABC.SemiprimeReconstruction.UnorderedEq
+        (EABC.SemiprimeReconstruction.synthesize
+          (EABC.SemiprimeReconstruction.analyze p)
+          (EABC.SemiprimeReconstruction.analyze_isResidual p)) p ∧
+      EABC.SemiprimeReconstruction.synthesizeTriad
+          (EABC.SemiprimeReconstruction.analyzeTriad q) = q ∧
+      ¬ KeplerHurwitz.FiniteFactorTree.ClaimWall.ArithmeticFactorization :=
+  ⟨EABC.SemiprimeReconstruction.synthesize_analyze_unordered p,
+    EABC.SemiprimeReconstruction.synthesize_analyze_triad q,
+    EABC.SemiprimeReconstruction.does_not_claim_factorization⟩
+
+/--
+Satzkandidat 17 (weight layer): on Sym²(ℕ), synthesize ∘ analyze = id
+for any left-invertible weight coding. Not arithmetic factorization.
+-/
+theorem reachable_semiprime_sym2_reconstruction
+    (w : ℕ → ℝ) (w_inv : ℝ → ℕ)
+    (h_inv : ∀ p : ℕ, w_inv (w p) = p)
+    (pair : Sym2 ℕ) :
+    FiniteFactorTree.SemiprimeSymReconstruction.synthesize w_inv
+        (FiniteFactorTree.SemiprimeSymReconstruction.analyze w pair) = pair ∧
+      ¬ FiniteFactorTree.ClaimWall.ArithmeticFactorization :=
+  ⟨FiniteFactorTree.SemiprimeSymReconstruction.reconstruction_sym2_identity
+      w w_inv h_inv pair,
+    FiniteFactorTree.SemiprimeSymReconstruction.does_not_claim_factorization⟩
+
+/--
+E-101 Kernmodell: typed assembly of E-100 interface contracts.
+Own anchor `E101.CoreModel.status`; does not mutate the E-100 freeze.
+-/
+theorem reachable_e101_core_model :
+    Nonempty E101.CoreModel.Status ∧
+      E101.CoreModel.status.upstreamAnchor = "ClaimWall.status" ∧
+      E101.CoreModel.status.ownAnchor = "E101.CoreModel.status" ∧
+      ¬ FiniteFactorTree.ClaimWall.ArithmeticFactorization :=
+  ⟨⟨E101.CoreModel.status⟩, rfl, rfl, E101.CoreModel.does_not_claim_factorization⟩
+
+/--
+E-101.1 Coupled Slot Probe: idMap preserves detail energy; collapse kills it;
+`mutates_e100 = false`.
+-/
+theorem reachable_e101_coupled_slot_probe {d : ℕ}
+    (track : FiniteFactorTree.ArithmeticSignalPipeline.PipelineTrack)
+    (xs : List (Fin d → ℝ)) (hne : xs ≠ []) :
+    E101.CoupledSlotProbe.mutatesE100 = false ∧
+      (E101.CoupledSlotProbe.runDynamicsProbe
+          .B1 .idMap track xs .notApplicable
+          { kind := .notApplicable, unorderedMatch := True, swapInvariant := True
+          }).energyDelta = 0 ∧
+      (E101.CoupledSlotProbe.runDynamicsProbe
+          .B1 .collapseToMean track xs .notApplicable
+          { kind := .notApplicable, unorderedMatch := True, swapInvariant := True
+          }).detailEnergyOut = 0 :=
+  ⟨E101.CoupledSlotProbe.mutates_e100_false,
+    E101.CoupledSlotProbe.coupledProbe_idMap_energyDelta_zero
+      .B1 track xs .notApplicable
+      { kind := .notApplicable, unorderedMatch := True, swapInvariant := True },
+    E101.CoupledSlotProbe.coupledProbe_collapse_zeroDetailEnergy
+      .B1 track xs hne .notApplicable
+      { kind := .notApplicable, unorderedMatch := True, swapInvariant := True }⟩
+
+/--
+E-101.2 Nullmodell-Shuffle: leaf permutation preserves detail energy;
+Sym² orientation swap is invariant; TwinRay exact antipode has ΔI₃=0;
+`mutates_e100 = false`.
+-/
+theorem reachable_e101_nullmodel_shuffle {d : ℕ}
+    {xs ys : List (Fin d → ℝ)} (h : List.Perm xs ys)
+    (w : ℕ → ℝ) (p q : ℕ) (qAB : Fin 3 → ℝ) :
+    E101.NullmodelShuffle.mutatesE100 = false ∧
+      FiniteFactorTree.CoefficientDynamics.configDetailEnergy xs =
+        FiniteFactorTree.CoefficientDynamics.configDetailEnergy ys ∧
+      FiniteFactorTree.SemiprimeSymReconstruction.analyze w s(p, q) =
+        FiniteFactorTree.SemiprimeSymReconstruction.analyze w s(q, p) ∧
+      (EABC.CartanTwinRayAudit.runTwinRayAuditNeg qAB).deltaI3 = 0 :=
+  ⟨E101.NullmodelShuffle.mutates_e100_false,
+    E101.NullmodelShuffle.leafShuffle_preserves_configDetailEnergy h,
+    E101.NullmodelShuffle.sym2OrientationShuffle_analyze_invariant w p q,
+    E101.NullmodelShuffle.twinRay_exact_deltaI3_zero qAB⟩
+
+/--
+E-101.3 Analogy Discrimination Probe: I₃ is orientation-odd; C₂ is anisotropy
+energy; up/down and CP/mass maps are explicitly unsupported; `mutates_e100=false`.
+-/
+theorem reachable_e101_analogy_probe (q : Fin 3 → ℝ) :
+    E101.AnalogyProbe.mutatesE100 = false ∧
+      E101.AnalogyProbe.I3TwinRayOdd = true ∧
+      E101.AnalogyProbe.CPViolation = false ∧
+      E101.AnalogyProbe.UpDownCanonical = false ∧
+      E101.AnalogyProbe.ParticleMassMap = false ∧
+      EABC.SemiprimeWavelet.I3 (-q) = -EABC.SemiprimeWavelet.I3 q ∧
+      EABC.SemiprimeWavelet.C2 q = EABC.SemiprimeWavelet.detailEnergy q :=
+  ⟨E101.AnalogyProbe.mutates_e100_false,
+    E101.AnalogyProbe.i3TwinRayOdd_true,
+    E101.AnalogyProbe.cpViolation_false,
+    E101.AnalogyProbe.upDownCanonical_false,
+    E101.AnalogyProbe.particleMassMap_false,
+    E101.AnalogyProbe.i3_is_orientationOdd q,
+    E101.AnalogyProbe.c2_is_anisotropyEnergy q⟩
+
+/--
+E-101.4 Lepton Sector Role Probe: continuous B1 roles only; no particle /
+generation / PMNS / Majorana identity; collapse is exact isotropic endpoint;
+`mutates_e100 = false`.
+-/
+theorem reachable_e101_lepton_role_probe {d : ℕ}
+    (xs : List (Fin d → ℝ)) (hne : xs ≠ []) (w : ℕ → ℝ) (p q : ℕ) :
+    E101.LeptonRoleProbe.mutatesE100 = false ∧
+      E101.LeptonRoleProbe.particleIdentityClaim = false ∧
+      E101.LeptonRoleProbe.generationStructure = false ∧
+      E101.LeptonRoleProbe.neutrinoOscillation = false ∧
+      E101.LeptonRoleProbe.majoranaClaim = false ∧
+      FiniteFactorTree.CoefficientDynamics.configDetailEnergy
+          ((FiniteFactorTree.CoefficientDynamics.collapseToMean d).toFun xs) = 0 ∧
+      FiniteFactorTree.SemiprimeSymReconstruction.detailEnergyState
+          (FiniteFactorTree.SemiprimeSymReconstruction.analyze w s(p, q)) =
+        FiniteFactorTree.SemiprimeSymReconstruction.detailEnergyState
+          (FiniteFactorTree.SemiprimeSymReconstruction.analyze w s(q, p)) :=
+  ⟨E101.LeptonRoleProbe.mutates_e100_false,
+    E101.LeptonRoleProbe.particleIdentityClaim_false,
+    E101.LeptonRoleProbe.generationStructure_false,
+    E101.LeptonRoleProbe.neutrinoOscillation_false,
+    E101.LeptonRoleProbe.majoranaClaim_false,
+    E101.LeptonRoleProbe.collapse_is_exact_isotropic xs hne,
+    E101.LeptonRoleProbe.sym2Orientation_preserves_detailEnergyState w p q⟩
+
+/--
+E-101.5 Dirac Picture Governance: free-spectrum bands ≠ particle identity;
+exact isotropic kernel ≠ near-isotropic band; No-Gos for QM/PMNS claims;
+`mutates_e100 = false`.
+-/
+theorem reachable_e101_dirac_picture_governance {d : ℕ}
+    (track : FiniteFactorTree.ArithmeticSignalPipeline.PipelineTrack)
+    (xs : List (Fin d → ℝ)) (hne : xs ≠ []) (q : Fin 3 → ℝ) :
+    E101.DiracPictureGovernance.mutatesE100 = false ∧
+      E101.DiracPictureGovernance.corePhysicsClaim = false ∧
+      E101.DiracPictureGovernance.restMassFromBand = false ∧
+      E101.DiracPictureGovernance.particleIdentityFromBand = false ∧
+      E101.LeptonRoleProbe.ContinuousLeptonRole.exactIsotropic ≠
+        E101.LeptonRoleProbe.ContinuousLeptonRole.nearIsotropic ∧
+      EABC.SemiprimeWavelet.C2 q = EABC.SemiprimeWavelet.detailEnergy q ∧
+      (E101.CoupledSlotProbe.runDynamicsProbe
+          .B1 .idMap track xs .notApplicable
+          { kind := .notApplicable, unorderedMatch := True, swapInvariant := True
+          }).energyDelta = 0 ∧
+      (E101.CoupledSlotProbe.runDynamicsProbe
+          .B1 .collapseToMean track xs .notApplicable
+          { kind := .notApplicable, unorderedMatch := True, swapInvariant := True
+          }).detailEnergyOut = 0 :=
+  ⟨E101.DiracPictureGovernance.mutates_e100_false,
+    E101.DiracPictureGovernance.corePhysicsClaim_false,
+    E101.DiracPictureGovernance.restMassFromBand_false,
+    E101.DiracPictureGovernance.particleIdentityFromBand_false,
+    E101.DiracPictureGovernance.exactIsotropic_ne_nearIsotropic,
+    E101.DiracPictureGovernance.H0_proxy_is_detailEnergy q,
+    E101.DiracPictureGovernance.freeEvolution_idMap_energyDelta_zero track xs,
+    E101.DiracPictureGovernance.projectiveV_collapse_to_kernel track xs hne⟩
+
+/--
+E-101.6 Constant-Role Nomenclature: role-equivalent symbols ≠ natural constants;
+`alpha101` well-defined; Parseval \(\Lambda_{101}+C_2\); claim barriers frozen false.
+-/
+theorem reachable_e101_constant_nomenclature (q : Fin 3 → ℝ) (K : ℝ)
+    (x : EABC.V4) :
+    E101.ConstantNomenclature.mutatesE100 = false ∧
+      E101.ConstantNomenclature.nomenclatureOnly = true ∧
+      E101.ConstantNomenclature.h101_is_planck_constant = false ∧
+      E101.ConstantNomenclature.G101_is_newton_constant = false ∧
+      E101.ConstantNomenclature.alpha101_is_fine_structure_constant = false ∧
+      E101.ConstantNomenclature.mu101_is_particle_mass = false ∧
+      (EABC.SemiprimeWavelet.C2 q +
+          E101.ConstantNomenclature.defaultConfig.epsilonReg ≠ 0) ∧
+      EABC.SemiprimeWavelet.energySq q =
+        E101.ConstantNomenclature.Lambda101 q +
+          EABC.SemiprimeWavelet.detailEnergy q ∧
+      FiniteFactorTree.energySq
+          (E101.ConstantNomenclature.characterSignature x) = 2 ∧
+      E101.ConstantNomenclature.crossEnergy
+          E101.ConstantNomenclature.defaultConfig (-K) =
+        E101.ConstantNomenclature.crossEnergy
+          E101.ConstantNomenclature.defaultConfig K :=
+  ⟨E101.ConstantNomenclature.mutates_e100_false,
+    E101.ConstantNomenclature.nomenclatureOnly_true,
+    E101.ConstantNomenclature.h101_is_planck_constant_false,
+    E101.ConstantNomenclature.G101_is_newton_constant_false,
+    E101.ConstantNomenclature.alpha101_is_fine_structure_constant_false,
+    E101.ConstantNomenclature.mu101_is_particle_mass_false,
+    E101.ConstantNomenclature.alpha101_well_defined
+      E101.ConstantNomenclature.defaultConfig K (EABC.SemiprimeWavelet.C2 q)
+      (by simpa [← EABC.SemiprimeWavelet.detailEnergy_eq_C2] using
+        EABC.SemiprimeWavelet.detailEnergy_nonneg q),
+    E101.ConstantNomenclature.parseval_iso_plus_detail q,
+    E101.ConstantNomenclature.characterSignature_normSq x,
+    E101.ConstantNomenclature.crossEnergy_neg_invariant
+      E101.ConstantNomenclature.defaultConfig K⟩
+
+/--
+E-101.7 Core/Shell/Valence reading: Parseval = core+shell only;
+valence is coupling role, not a third energy summand; physics IDs false.
+-/
+theorem reachable_e101_core_shell_valence (q : Fin 3 → ℝ) :
+    E101.CoreShellValence.mutatesE100 = false ∧
+      E101.CoreShellValence.ExclusionShellReading = true ∧
+      E101.CoreShellValence.ValenceIsThirdParsevalSummand = false ∧
+      E101.CoreShellValence.ValenceIsCouplingRole = true ∧
+      E101.CoreShellValence.AtomicShellIdentity = false ∧
+      E101.CoreShellValence.NuclearBindingEnergyClaim = false ∧
+      E101.CoreShellValence.ResidualEqualsC2Claim = false ∧
+      EABC.SemiprimeWavelet.energySq q =
+        E101.CoreShellValence.coreEnergy q +
+          E101.CoreShellValence.shellEnergy q :=
+  ⟨E101.CoreShellValence.mutates_e100_false,
+    E101.CoreShellValence.ExclusionShellReading_true,
+    E101.CoreShellValence.ValenceIsThirdParsevalSummand_false,
+    E101.CoreShellValence.ValenceIsCouplingRole_true,
+    E101.CoreShellValence.AtomicShellIdentity_false,
+    E101.CoreShellValence.NuclearBindingEnergyClaim_false,
+    E101.CoreShellValence.ResidualEqualsC2Claim_false,
+    E101.CoreShellValence.parseval_core_plus_shell q⟩
+
+/--
+E-101.8 Dirac-like audit: core-centered spectral doublet
+λ± = Λ ± √(C₂+G K²); inversion-even in K; no physical Dirac claim.
+-/
+theorem reachable_e101_dirac_like_audit
+    (Λ C2 K : ℝ) (hC2 : 0 ≤ C2) :
+    E101.DiracLikeAudit.mutatesE100 = false ∧
+      E101.DiracLikeAudit.physicalDiracEquation = false ∧
+      E101.DiracLikeAudit.physicalMassGap = false ∧
+      E101.DiracLikeAudit.particleEnergyFromEigenvalue = false ∧
+      (E101.DiracLikeAudit.g101
+          E101.ConstantNomenclature.defaultConfig K) ^ 2 =
+        E101.ConstantNomenclature.defaultConfig.G101 * K ^ 2 ∧
+      (E101.DiracLikeAudit.gapHalf
+          E101.ConstantNomenclature.defaultConfig C2 K) ^ 2 =
+        C2 + E101.ConstantNomenclature.defaultConfig.G101 * K ^ 2 ∧
+      E101.DiracLikeAudit.lambdaPlus
+          E101.ConstantNomenclature.defaultConfig Λ C2 (-K) =
+        E101.DiracLikeAudit.lambdaPlus
+          E101.ConstantNomenclature.defaultConfig Λ C2 K :=
+  ⟨E101.DiracLikeAudit.mutates_e100_false,
+    E101.DiracLikeAudit.physicalDiracEquation_false,
+    E101.DiracLikeAudit.physicalMassGap_false,
+    E101.DiracLikeAudit.particleEnergyFromEigenvalue_false,
+    E101.DiracLikeAudit.g101_sq E101.ConstantNomenclature.defaultConfig K,
+    E101.DiracLikeAudit.gapHalf_sq
+      E101.ConstantNomenclature.defaultConfig hC2,
+    (E101.DiracLikeAudit.spectrum_inversion_even
+      E101.ConstantNomenclature.defaultConfig Λ C2 K).1⟩
+
+/--
+E-097 conditional: under `SyracuseNormHypothesis`, embedding norms are core squares.
+-/
+theorem reachable_normSq_embed_of_syracuseNormHypothesis
+    {κ κ' v : Nat} (H : EABC.CollatzSyracuseNorm.SyracuseNormHypothesis κ κ' v) :
+    EABC.EABCCoord.normSq (EABC.CollatzBridge.embedOddCore κ H.embeddable_pre) =
+        (κ : Int) ^ 2 ∧
+      EABC.EABCCoord.normSq (EABC.CollatzBridge.embedOddCore κ' H.embeddable_post) =
+        (κ' : Int) ^ 2 :=
+  EABC.CollatzSyracuseNorm.normSq_embed_of_syracuseNormHypothesis H
+
+/--
+Audit-grid witness: half-step `7 → 11` is an embedding-norm *ascent* (not descent).
+-/
+theorem reachable_witness_7_11_is_ascent :
+    ¬ EABC.CollatzSyracuseNorm.SyracuseNormDescent 7 11 (by decide) (by decide) :=
+  EABC.CollatzSyracuseNorm.witness_7_11_is_ascent
+
+/--
+Two-step macro: `13 → 5 → 1` descends; compensation criterion holds.
+-/
+theorem reachable_twoStep_13_5_1_macroDescent :
+    EABC.CollatzTwoStep.TwoStepMacroDescent 13 1 :=
+  EABC.CollatzTwoStep.twoStep_13_5_1_macroDescent
+
+/--
+Two-step macro: `7 → 11 → 17` does *not* descend (double half-step ascent).
+-/
+theorem reachable_twoStep_7_11_17_not_macroDescent :
+    ¬ EABC.CollatzTwoStep.TwoStepMacroDescent 7 17 :=
+  EABC.CollatzTwoStep.twoStep_7_11_17_not_macroDescent
+
+/--
+Three-step macro: `11 → 17 → 13 → 5` descends under compensation `v₃=3`.
+-/
+theorem reachable_threeStep_11_17_13_5_macroDescent :
+    EABC.CollatzThreeStep.ThreeStepMacroDescent 11 5 :=
+  EABC.CollatzThreeStep.threeStep_11_17_13_5_macroDescent
+
+/--
+Three-step macro: `7 → 11 → 17 → 13` does not descend (`v₃=2` fails compensation).
+-/
+theorem reachable_threeStep_7_11_17_13_not_macroDescent :
+    ¬ EABC.CollatzThreeStep.ThreeStepMacroDescent 7 13 :=
+  EABC.CollatzThreeStep.threeStep_7_11_17_13_not_macroDescent
+
+/--
+Cycle necessary `[A]`: the only accelerated one-step fixed point is `κ=1, v=2`.
+-/
+theorem reachable_odd_core_fixed_point_eq_one
+    {κ v : Nat} (H : EABC.CollatzSyracuseNorm.SyracuseNormHypothesis κ κ v) :
+    κ = 1 ∧ v = 2 :=
+  EABC.CollatzCycleNecessary.odd_core_fixed_point_eq_one H
+
+/--
+Cycle necessary `[A]`: three-step return forbids macro-descent.
+-/
+theorem reachable_threeStep_return_not_macroDescent
+    {κ κ' κ'' v1 v2 v3 : Nat}
+    (H : EABC.CollatzThreeStep.SyracuseThreeStepHypothesis κ κ' κ'' κ v1 v2 v3) :
+    ¬ EABC.CollatzThreeStep.ThreeStepMacroDescent κ κ :=
+  EABC.CollatzCycleNecessary.threeStep_return_not_macroDescent H
+
+/--
+Modular filter `[A]`: κ ≡ 15 (mod 16) ⇒ ν₂(3κ+1) = 1.
+-/
+theorem reachable_mod16_fifteen_v2_eq_one {κ : Nat} (h : κ % 16 = 15) :
+    padicValNat 2 (3 * κ + 1) = 1 :=
+  EABC.CollatzModularV2.mod16_fifteen_v2_eq_one h
+
+/--
+Modular filter `[A]`: κ ≡ 5 (mod 16) ⇒ ν₂(3κ+1) ≥ 4.
+-/
+theorem reachable_mod16_five_v2_ge_four {κ : Nat} (h : κ % 16 = 5) :
+    4 ≤ padicValNat 2 (3 * κ + 1) :=
+  EABC.CollatzModularV2.mod16_five_v2_ge_four h
+
+/--
+CRT filter `[A]`: κ ≡ 5 (mod 16), gcd(κ,6)=1 ⇒ κ ≡ 1 or 5 (mod 12).
+-/
+theorem reachable_mod16_five_mod12_is_one_or_five {κ : Nat}
+    (h16 : κ % 16 = 5) (h6 : Nat.gcd κ 6 = 1) :
+    κ % 12 = 1 ∨ κ % 12 = 5 :=
+  EABC.CollatzModularV2.mod16_five_mod12_is_one_or_five h16 h6
+
+/--
+CRT filter `[A]`: κ ≡ 15 (mod 16), gcd(κ,6)=1 ⇒ κ ≡ 7 or 11 (mod 12).
+-/
+theorem reachable_mod16_fifteen_mod12_is_seven_or_eleven {κ : Nat}
+    (h16 : κ % 16 = 15) (h6 : Nat.gcd κ 6 = 1) :
+    κ % 12 = 7 ∨ κ % 12 = 11 :=
+  EABC.CollatzModularV2.mod16_fifteen_mod12_is_seven_or_eleven h16 h6
+
+/--
+Modular filter + H `[A under H]`: κ ≡ 15 (mod 16) ⇒ half-step ascent.
+-/
+theorem reachable_mod16_fifteen_normHyp_ascent
+    {κ κ' v : Nat} (h16 : κ % 16 = 15)
+    (H : EABC.CollatzSyracuseNorm.SyracuseNormHypothesis κ κ' v)
+    (hκ : 0 < κ) :
+    v = 1 ∧ κ < κ' :=
+  EABC.CollatzModularV2.mod16_fifteen_normHyp_ascent h16 H hκ
+
+/--
+Modular filter + H `[A under H]`: κ ≡ 5 (mod 16) ⇒ immediate descent.
+-/
+theorem reachable_mod16_five_normHyp_descent
+    {κ κ' v : Nat} (h16 : κ % 16 = 5)
+    (H : EABC.CollatzSyracuseNorm.SyracuseNormHypothesis κ κ' v)
+    (hκ : 0 < κ) :
+    4 ≤ v ∧ κ' < κ :=
+  EABC.CollatzModularV2.mod16_five_normHyp_descent h16 H hκ
+
+/-- Modular filter `[A]`: κ ≡ 7 (mod 16) ⇒ ν₂(3κ+1) = 1. -/
+theorem reachable_mod16_seven_v2_eq_one {κ : Nat} (h : κ % 16 = 7) :
+    padicValNat 2 (3 * κ + 1) = 1 :=
+  EABC.CollatzModularV2.mod16_seven_v2_eq_one h
+
+/-- Half-step image `[A]`: κ ≡ 15 ⇒ ((3κ+1)/2) ≡ 7 or 15 (mod 16). -/
+theorem reachable_mod16_fifteen_half_image {κ : Nat} (h : κ % 16 = 15) :
+    ((3 * κ + 1) / 2) % 16 = 7 ∨ ((3 * κ + 1) / 2) % 16 = 15 :=
+  EABC.CollatzModularV2.mod16_fifteen_half_image h
+
+/-- Half-step image `[A]`: κ ≡ 7 ⇒ ((3κ+1)/2) ≡ 3 or 11 (mod 16). -/
+theorem reachable_mod16_seven_half_image {κ : Nat} (h : κ % 16 = 7) :
+    ((3 * κ + 1) / 2) % 16 = 3 ∨ ((3 * κ + 1) / 2) % 16 = 11 :=
+  EABC.CollatzModularV2.mod16_seven_half_image h
+
+/-- Prison image under H `[A under H]`: class 15 → {7,15}. -/
+theorem reachable_mod16_fifteen_normHyp_image
+    {κ κ' v : Nat} (h16 : κ % 16 = 15)
+    (H : EABC.CollatzSyracuseNorm.SyracuseNormHypothesis κ κ' v) :
+    v = 1 ∧ (κ' % 16 = 7 ∨ κ' % 16 = 15) :=
+  EABC.CollatzModularV2.mod16_fifteen_normHyp_image h16 H
+
+/-- Exit image under H `[A under H]`: class 7 → {3,11}. -/
+theorem reachable_mod16_seven_normHyp_image
+    {κ κ' v : Nat} (h16 : κ % 16 = 7)
+    (H : EABC.CollatzSyracuseNorm.SyracuseNormHypothesis κ κ' v) :
+    v = 1 ∧ (κ' % 16 = 3 ∨ κ' % 16 = 11) :=
+  EABC.CollatzModularV2.mod16_seven_normHyp_image h16 H
+
+/-- Exact `m mod 2` split `[A]`: class 15 → 7 ↔ Even (κ / 16). -/
+theorem reachable_mod16_fifteen_half_image_iff_even_quot {κ : Nat}
+    (h : κ % 16 = 15) :
+    ((3 * κ + 1) / 2) % 16 = 7 ↔ Even (κ / 16) :=
+  EABC.CollatzModularV2.mod16_fifteen_half_image_iff_even_quot h
+
+/-- Exact `m mod 2` split `[A]`: class 7 → 11 ↔ Even (κ / 16). -/
+theorem reachable_mod16_seven_half_image_iff_even_quot {κ : Nat}
+    (h : κ % 16 = 7) :
+    ((3 * κ + 1) / 2) % 16 = 11 ↔ Even (κ / 16) :=
+  EABC.CollatzModularV2.mod16_seven_half_image_iff_even_quot h
+
+/-- Exit channel `[A]`: κ ≡ 3 (mod 16) ⇒ ν₂ = 1. -/
+theorem reachable_mod16_three_v2_eq_one {κ : Nat} (h : κ % 16 = 3) :
+    padicValNat 2 (3 * κ + 1) = 1 :=
+  EABC.CollatzModularV2.mod16_three_v2_eq_one h
+
+/-- Exit channel `[A]`: κ ≡ 11 (mod 16) ⇒ ν₂ = 1. -/
+theorem reachable_mod16_eleven_v2_eq_one {κ : Nat} (h : κ % 16 = 11) :
+    padicValNat 2 (3 * κ + 1) = 1 :=
+  EABC.CollatzModularV2.mod16_eleven_v2_eq_one h
+
+/-- Exit image `[A]`: class 3 → {5,13}. -/
+theorem reachable_mod16_three_half_image {κ : Nat} (h : κ % 16 = 3) :
+    ((3 * κ + 1) / 2) % 16 = 5 ∨ ((3 * κ + 1) / 2) % 16 = 13 :=
+  EABC.CollatzModularV2.mod16_three_half_image h
+
+/-- Exit image `[A]`: class 11 → {1,9}. -/
+theorem reachable_mod16_eleven_half_image {κ : Nat} (h : κ % 16 = 11) :
+    ((3 * κ + 1) / 2) % 16 = 1 ∨ ((3 * κ + 1) / 2) % 16 = 9 :=
+  EABC.CollatzModularV2.mod16_eleven_half_image h
+
+/-- Exact split `[A]`: class 3 → 5 ↔ Even (κ / 16). -/
+theorem reachable_mod16_three_half_image_iff_even_quot {κ : Nat}
+    (h : κ % 16 = 3) :
+    ((3 * κ + 1) / 2) % 16 = 5 ↔ Even (κ / 16) :=
+  EABC.CollatzModularV2.mod16_three_half_image_iff_even_quot h
+
+/-- Exact split `[A]`: class 11 → 1 ↔ Even (κ / 16). -/
+theorem reachable_mod16_eleven_half_image_iff_even_quot {κ : Nat}
+    (h : κ % 16 = 11) :
+    ((3 * κ + 1) / 2) % 16 = 1 ↔ Even (κ / 16) :=
+  EABC.CollatzModularV2.mod16_eleven_half_image_iff_even_quot h
+
+/-- Finite AP half-count `[A]`: among first `2M` indices of `16m+15`, exactly `M` map to 7. -/
+theorem reachable_fifteen_AP_image7_card (M : Nat) :
+    ((Finset.range (2 * M)).filter fun m =>
+        ((3 * (16 * m + 15) + 1) / 2) % 16 = 7).card = M :=
+  EABC.CollatzModularV2.fifteen_AP_image7_card M
+
+/-- Finite AP half-count `[A]`: among first `2M` indices of `16m+7`, exactly `M` map to 11. -/
+theorem reachable_seven_AP_image11_card (M : Nat) :
+    ((Finset.range (2 * M)).filter fun m =>
+        ((3 * (16 * m + 7) + 1) / 2) % 16 = 11).card = M :=
+  EABC.CollatzModularV2.seven_AP_image11_card M
+
+/-- Complete odd-mod-16 ν₂ table `[A]`: `1,9 ↦ 2`. -/
+theorem reachable_mod16_one_v2_eq_two {κ : Nat} (h : κ % 16 = 1) :
+    padicValNat 2 (3 * κ + 1) = 2 :=
+  EABC.CollatzModularV2.mod16_one_v2_eq_two h
+
+theorem reachable_mod16_nine_v2_eq_two {κ : Nat} (h : κ % 16 = 9) :
+    padicValNat 2 (3 * κ + 1) = 2 :=
+  EABC.CollatzModularV2.mod16_nine_v2_eq_two h
+
+theorem reachable_mod16_thirteen_v2_eq_three {κ : Nat} (h : κ % 16 = 13) :
+    padicValNat 2 (3 * κ + 1) = 3 :=
+  EABC.CollatzModularV2.mod16_thirteen_v2_eq_three h
+
+/-- Usable dispatcher `[A]`: lower bound from `κ % 16` for odd κ. -/
+theorem reachable_mod16_odd_v2_ge_lowerBound {κ : Nat} (hodd : Odd κ) :
+    EABC.CollatzModularV2.mod16OddV2LowerBound (κ % 16) ≤
+      padicValNat 2 (3 * κ + 1) :=
+  EABC.CollatzModularV2.mod16_odd_v2_ge_lowerBound hodd
+
+/-- Usable descent `[A under H]`: `v ≥ 2` and `κ > 1` ⇒ core descent. -/
+theorem reachable_normHyp_descent_of_v_ge_two
+    {κ κ' v : Nat}
+    (H : EABC.CollatzSyracuseNorm.SyracuseNormHypothesis κ κ' v)
+    (hv : 2 ≤ v) (hκ : 1 < κ) :
+    κ' < κ :=
+  EABC.CollatzModularV2.normHyp_descent_of_v_ge_two H hv hκ
+
+/--
+Master first-step classifier `[A under H]` by `κ % 16`.
+Primary entry point for modular Syracuse analysis.
+-/
+theorem reachable_mod16_normHyp_firstStep
+    {κ κ' v : Nat}
+    (H : EABC.CollatzSyracuseNorm.SyracuseNormHypothesis κ κ' v)
+    (hκpos : 0 < κ) :
+    (κ % 16 = 3 ∨ κ % 16 = 7 ∨ κ % 16 = 11 ∨ κ % 16 = 15) ∧ v = 1 ∧ κ < κ'
+      ∨
+    (κ % 16 = 1 ∨ κ % 16 = 9) ∧ v = 2 ∧ (1 < κ → κ' < κ)
+      ∨
+    κ % 16 = 13 ∧ v = 3 ∧ κ' < κ
+      ∨
+    κ % 16 = 5 ∧ 4 ≤ v ∧ κ' < κ :=
+  EABC.CollatzModularV2.mod16_normHyp_firstStep H hκpos
+
+/-! ## Half-step digraph / ascent-cycle obstruction (§5.12) -/
+
+/-- `[A]` Every ascent-only half-step cycle is constantly residue `15`. -/
+theorem reachable_ascent_cycle_all_fifteen {n : Nat} (hn : 0 < n)
+    (ρ : Fin n → Nat)
+    (hasc : ∀ i, EABC.CollatzDigraph.IsAscentClass (ρ i))
+    (hedge : ∀ i, EABC.CollatzDigraph.HalfStepEdge (ρ i)
+      (ρ (EABC.CollatzDigraph.cycleSucc hn i))) :
+    ∀ i, ρ i = 15 :=
+  EABC.CollatzDigraph.ascent_cycle_all_fifteen hn ρ hasc hedge
+
+/-- `[A]` No ascent-only half-step cycle visits a non-`15` residue. -/
+theorem reachable_no_ascent_cycle_with_non_fifteen {n : Nat} (hn : 0 < n)
+    (ρ : Fin n → Nat)
+    (hasc : ∀ i, EABC.CollatzDigraph.IsAscentClass (ρ i))
+    (hedge : ∀ i, EABC.CollatzDigraph.HalfStepEdge (ρ i)
+      (ρ (EABC.CollatzDigraph.cycleSucc hn i)))
+    {j : Fin n} (hj : ρ j ≠ 15) :
+    False :=
+  EABC.CollatzDigraph.no_ascent_cycle_with_non_fifteen hn ρ hasc hedge hj
+
+/-- `[A]` Class `7` cannot lie on an ascent-only half-step cycle. -/
+theorem reachable_seven_not_on_ascent_cycle {n : Nat} (hn : 0 < n)
+    (ρ : Fin n → Nat)
+    (hasc : ∀ i, EABC.CollatzDigraph.IsAscentClass (ρ i))
+    (hedge : ∀ i, EABC.CollatzDigraph.HalfStepEdge (ρ i)
+      (ρ (EABC.CollatzDigraph.cycleSucc hn i)))
+    {j : Fin n} (hj : ρ j = 7) :
+    False :=
+  EABC.CollatzDigraph.seven_not_on_ascent_cycle hn ρ hasc hedge hj
+
+/-- `[A]` Half-step image of a class-`15` odd is never itself (no ℕ fixed point). -/
+theorem reachable_half_step_ne_self_of_mod16_fifteen {κ : Nat} (h : κ % 16 = 15) :
+    (3 * κ + 1) / 2 ≠ κ :=
+  EABC.CollatzDigraph.half_step_ne_self_of_mod16_fifteen h
+
+/-- `[A under H]` Class-`15` self-loop on residues is still a strict core ascent. -/
+theorem reachable_mod16_fifteen_self_loop_not_fixed
+    {κ κ' v : Nat} (h16 : κ % 16 = 15)
+    (H : EABC.CollatzSyracuseNorm.SyracuseNormHypothesis κ κ' v)
+    (hκ : 0 < κ) (hres : κ' % 16 = 15) :
+    κ < κ' ∧ κ' ≠ κ :=
+  EABC.CollatzDigraph.mod16_fifteen_self_loop_not_fixed h16 H hκ hres
+
+/-- `[A]` From residue `7`, every length-2 half-step digraph walk lands in descent. -/
+theorem reachable_seven_two_step_reaches_descent
+    {r1 r2 : Nat}
+    (e01 : EABC.CollatzDigraph.HalfStepEdge 7 r1)
+    (e12 : EABC.CollatzDigraph.HalfStepEdge r1 r2) :
+    EABC.CollatzDigraph.IsDescentClass r2 :=
+  EABC.CollatzDigraph.seven_two_step_reaches_descent e01 e12
+
+/--
+`[A]` Ascent residues other than `15` reach a descent class in ≤2 digraph edges.
+-/
+theorem reachable_ascent_non_fifteen_reaches_descent_within_two_edges
+    {r : Nat} (h : EABC.CollatzDigraph.IsAscentClass r) (hne : r ≠ 15) :
+    (∀ r', EABC.CollatzDigraph.HalfStepEdge r r' →
+      EABC.CollatzDigraph.IsDescentClass r') ∨
+      (∀ r' r'', EABC.CollatzDigraph.HalfStepEdge r r' →
+        EABC.CollatzDigraph.HalfStepEdge r' r'' →
+          EABC.CollatzDigraph.IsDescentClass r'') :=
+  EABC.CollatzDigraph.ascent_non_fifteen_reaches_descent_within_two_edges h hne
+
+/--
+`[A]` If `κ % 16 ∈ {3,7,11}`, after ≤2 forced half-steps the residue is descent.
+Class `15` excluded; no global ℕ avoidance.
+-/
+theorem reachable_ascent_non_fifteen_exits_in_at_most_two_half_steps
+    {κ : Nat} (h : EABC.CollatzDigraph.IsAscentClass (κ % 16))
+    (hne : κ % 16 ≠ 15) :
+    EABC.CollatzDigraph.IsDescentClass (((3 * κ + 1) / 2) % 16) ∨
+      EABC.CollatzDigraph.IsDescentClass
+        (((3 * ((3 * κ + 1) / 2) + 1) / 2) % 16) :=
+  EABC.CollatzDigraph.ascent_non_fifteen_exits_in_at_most_two_half_steps h hne
 
 end KeplerHurwitz

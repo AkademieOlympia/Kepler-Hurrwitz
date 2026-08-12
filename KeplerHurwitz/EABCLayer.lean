@@ -29,14 +29,18 @@ def spread (h : EABCSignature4) : Nat :=
   h.maxChannel - h.minChannel
 
 /--
-Defensive Exzentrizitaets-Projektion:
-`spread / (total + 1)` garantiert immer `0 <= e < 1`.
+Kanonische Kepler-Exzentrizitaet `e_kep` (spread-basiert):
+`spread / (totalWeight + 1)` garantiert immer `0 ≤ e_kep < 1`.
+
+Nomenklatur: dies ist **nicht** der Normalform-E-Faktor `e` in `n = 2^α 3^β r e`
+und **nicht** der Kanalzaehler `E` in `H(n) = (E,A,B,C)`.
+Siehe `docs/eabc_normal_form.md` §7.
 -/
 def eccentricity (h : EABCSignature4) : ℝ :=
   (h.spread : ℝ) / ((h.totalWeight : ℝ) + 1)
 
 /--
-Defensive Semimajor-Achse aus dem Gesamtgewicht.
+Defensive Semimajor-Achse aus dem Gesamtgewicht: `a = totalWeight / 4`.
 -/
 def semimajorAxis (h : EABCSignature4) : ℝ :=
   (h.totalWeight : ℝ) / 4
@@ -64,15 +68,19 @@ theorem eccentricity_lt_one (h : EABCSignature4) :
 end EABCSignature4
 
 /--
-Zielsignatur der geometrischen Projektion `H -> (a,e,R_v)`.
+Zielsignatur der geometrischen Projektion `H → (a, e_kep, R_v)`.
+
+Das Feld `e` ist semantisch die Kepler-Exzentrizitaet `e_kep` (nicht der E-Faktor).
 -/
 structure EABCKeplerProjection where
   a : ℝ
+  /-- Kepler-Exzentrizitaet `e_kep` (spread / (M+1)); nicht Normalform-E-Faktor. -/
   e : ℝ
   Rv : ℝ
 
 /--
-Formale API-Projektion vom EABC-Kanalvektor auf Kepler-Groessen.
+Formale API-Projektion vom EABC-Kanalvektor auf Kepler-Groessen `(a, e_kep, R_v)`.
+Kanonische Formel: `a = M/4`, `e_kep = spread/(M+1)`, `R_v = (1+e_kep)/(1-e_kep)`.
 -/
 def projectToKepler (h : EABCSignature4) : EABCKeplerProjection :=
   { a := h.semimajorAxis

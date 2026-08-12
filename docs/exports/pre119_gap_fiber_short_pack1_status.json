@@ -1,0 +1,39 @@
+{
+  "module": "KeplerHurwitz.Collatz.Pre119Draft.GapFiberShortPack1",
+  "tag": "[A]",
+  "claims_freeze": false,
+  "collatz_proved": false,
+  "sorry_count": 0,
+  "note": "Sketched fibers from draft were incorrect; using verified first-good words.",
+  "witnesses": [
+    {
+      "n": 4639,
+      "fiberE": [1, 1, 1, 1, 2, 2, 3, 1, 2, 1, 1, 2, 2, 2, 3],
+      "len": 15,
+      "S": 25,
+      "image": 1985,
+      "prefix6_image": 13213
+    },
+    {
+      "n": 8735,
+      "fiberE": [1, 1, 1, 1, 2, 2, 3, 2],
+      "len": 8,
+      "S": 13,
+      "image": 6997,
+      "prefix6_image": 24877
+    },
+    {
+      "n": 9247,
+      "fiberE": [1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 3, 3, 3],
+      "len": 13,
+      "S": 21,
+      "image": 7031,
+      "prefix6_image": 26335
+    }
+  ],
+  "bundle_theorems": [
+    "short_pack1_all_realize",
+    "short_pack1_all_good",
+    "short_pack1_all_contract"
+  ]
+}

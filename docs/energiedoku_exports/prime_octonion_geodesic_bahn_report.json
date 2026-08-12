@@ -1,0 +1,379 @@
+{
+  "tag": "[C]",
+  "governance": {
+    "status": "C prime polygonal Bahn in collatzOctEmbed \u211d\u2078",
+    "embedding": "collatz_oct_embed / Lean collatzOctEmbed",
+    "metric": "Euclidean on O \u2245 \u211d\u2078 (primary); optional S\u2077 after normalize",
+    "not_claimed": "octonion-multiplication geodesic; E8 lattice shortest path; infinitude or distribution theorems"
+  },
+  "limit": 1000,
+  "n_primes": 168,
+  "n_segments": 167,
+  "total_euclidean_bahn_length": 1403.1622138628825,
+  "total_spherical_arc_length": 5.533795694141307,
+  "mean_euclidean_segment": 8.402168945286721,
+  "mean_spherical_arc": 0.03313650116252279,
+  "first_primes": [
+    2,
+    3,
+    5,
+    7,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31,
+    37
+  ],
+  "last_primes": [
+    947,
+    953,
+    967,
+    971,
+    977,
+    983,
+    991,
+    997
+  ],
+  "embedding_head": {
+    "2": [
+      2.0,
+      1.0,
+      2.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "3": [
+      3.0,
+      1.0,
+      3.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "5": [
+      5.0,
+      2.0,
+      5.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "7": [
+      7.0,
+      3.0,
+      7.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "11": [
+      11.0,
+      1.0,
+      11.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "embedding_norm_head": {
+    "2": 3.0,
+    "3": 4.358898943540674,
+    "5": 7.3484692283495345,
+    "7": 10.392304845413264,
+    "11": 15.588457268119896
+  },
+  "segments_head": [
+    {
+      "p": 2,
+      "q": 3,
+      "euclidean_length": 1.4142135623730951,
+      "spherical_arc": 0.1083595454839453
+    },
+    {
+      "p": 3,
+      "q": 5,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.04416543524608984
+    },
+    {
+      "p": 5,
+      "q": 7,
+      "euclidean_length": 3.1622776601683795,
+      "spherical_arc": 0.09814829192696312
+    },
+    {
+      "p": 7,
+      "q": 11,
+      "euclidean_length": 6.082762530298219,
+      "spherical_arc": 0.249095498980774
+    },
+    {
+      "p": 11,
+      "q": 13,
+      "euclidean_length": 10.246950765959598,
+      "spherical_arc": 0.7095434527575005
+    },
+    {
+      "p": 13,
+      "q": 17,
+      "euclidean_length": 6.0,
+      "spherical_arc": 0.25811829548600257
+    },
+    {
+      "p": 17,
+      "q": 19,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.08313994042944826
+    },
+    {
+      "p": 19,
+      "q": 23,
+      "euclidean_length": 6.082762530298219,
+      "spherical_arc": 0.12128927821421767
+    },
+    {
+      "p": 23,
+      "q": 29,
+      "euclidean_length": 8.602325267042627,
+      "spherical_arc": 0.28118769836409757
+    },
+    {
+      "p": 29,
+      "q": 31,
+      "euclidean_length": 3.1622776601683795,
+      "spherical_arc": 0.06548510495822742
+    },
+    {
+      "p": 31,
+      "q": 37,
+      "euclidean_length": 8.602325267042627,
+      "spherical_arc": 0.20103141678435743
+    },
+    {
+      "p": 37,
+      "q": 41,
+      "euclidean_length": 6.0,
+      "spherical_arc": 0.10864542743950663
+    },
+    {
+      "p": 41,
+      "q": 43,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.04613299753536604
+    },
+    {
+      "p": 43,
+      "q": 47,
+      "euclidean_length": 6.082762530298219,
+      "spherical_arc": 0.08151163698400256
+    },
+    {
+      "p": 47,
+      "q": 53,
+      "euclidean_length": 8.602325267042627,
+      "spherical_arc": 0.13940054511753835
+    }
+  ],
+  "segments_tail": [
+    {
+      "p": 929,
+      "q": 937,
+      "euclidean_length": 8.94427190999916,
+      "spherical_arc": 0.00431484390227605
+    },
+    {
+      "p": 937,
+      "q": 941,
+      "euclidean_length": 6.0,
+      "spherical_arc": 0.0047484162508222225
+    },
+    {
+      "p": 941,
+      "q": 947,
+      "euclidean_length": 8.54400374531753,
+      "spherical_arc": 0.0063917585893664974
+    },
+    {
+      "p": 947,
+      "q": 953,
+      "euclidean_length": 8.54400374531753,
+      "spherical_arc": 0.00645550232916273
+    },
+    {
+      "p": 953,
+      "q": 967,
+      "euclidean_length": 14.491376746189438,
+      "spherical_arc": 0.0038291565118110443
+    },
+    {
+      "p": 967,
+      "q": 971,
+      "euclidean_length": 6.082762530298219,
+      "spherical_arc": 0.0046996520922295655
+    },
+    {
+      "p": 971,
+      "q": 977,
+      "euclidean_length": 8.54400374531753,
+      "spherical_arc": 0.006295180299593035
+    },
+    {
+      "p": 977,
+      "q": 983,
+      "euclidean_length": 9.055385138137417,
+      "spherical_arc": 0.006871522945576227
+    },
+    {
+      "p": 983,
+      "q": 991,
+      "euclidean_length": 8.94427190999916,
+      "spherical_arc": 0.004126372027970399
+    },
+    {
+      "p": 991,
+      "q": 997,
+      "euclidean_length": 8.602325267042627,
+      "spherical_arc": 0.006228136268269605
+    }
+  ],
+  "longest_euclidean_segments": [
+    {
+      "p": 887,
+      "q": 907,
+      "euclidean_length": 20.518284528683193,
+      "spherical_arc": 0.005328977887152336
+    },
+    {
+      "p": 523,
+      "q": 541,
+      "euclidean_length": 19.0,
+      "spherical_arc": 0.011672336233884426
+    },
+    {
+      "p": 839,
+      "q": 853,
+      "euclidean_length": 17.26267650163207,
+      "spherical_arc": 0.012060009247732864
+    },
+    {
+      "p": 863,
+      "q": 877,
+      "euclidean_length": 17.26267650163207,
+      "spherical_arc": 0.011724044311971594
+    },
+    {
+      "p": 113,
+      "q": 127,
+      "euclidean_length": 14.491376746189438,
+      "spherical_arc": 0.027118720321963986
+    },
+    {
+      "p": 953,
+      "q": 967,
+      "euclidean_length": 14.491376746189438,
+      "spherical_arc": 0.0038291565118110443
+    },
+    {
+      "p": 181,
+      "q": 191,
+      "euclidean_length": 14.212670403551895,
+      "spherical_arc": 0.05246505515033675
+    },
+    {
+      "p": 421,
+      "q": 431,
+      "euclidean_length": 14.212670403551895,
+      "spherical_arc": 0.023361275326970608
+    },
+    {
+      "p": 709,
+      "q": 719,
+      "euclidean_length": 14.212670403551895,
+      "spherical_arc": 0.014022004052679806
+    },
+    {
+      "p": 829,
+      "q": 839,
+      "euclidean_length": 14.212670403551895,
+      "spherical_arc": 0.012019657219672216
+    }
+  ],
+  "shortest_euclidean_segments": [
+    {
+      "p": 2,
+      "q": 3,
+      "euclidean_length": 1.4142135623730951,
+      "spherical_arc": 0.1083595454839453
+    },
+    {
+      "p": 3,
+      "q": 5,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.04416543524608984
+    },
+    {
+      "p": 17,
+      "q": 19,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.08313994042944826
+    },
+    {
+      "p": 41,
+      "q": 43,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.04613299753536604
+    },
+    {
+      "p": 137,
+      "q": 139,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.015591182708736863
+    },
+    {
+      "p": 281,
+      "q": 283,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.007785698970653825
+    },
+    {
+      "p": 521,
+      "q": 523,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.0042421406009697914
+    },
+    {
+      "p": 569,
+      "q": 571,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.003888142976815164
+    },
+    {
+      "p": 617,
+      "q": 619,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.0035886673420343833
+    },
+    {
+      "p": 641,
+      "q": 643,
+      "euclidean_length": 3.0,
+      "spherical_arc": 0.0034555854913577992
+    }
+  ],
+  "claimed_as_theorem": false,
+  "status": "exploratory_bahn_c"
+}

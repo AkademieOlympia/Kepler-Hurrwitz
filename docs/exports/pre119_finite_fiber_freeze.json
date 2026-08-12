@@ -1,0 +1,23 @@
+{
+  "freeze": "pre119_finite_fiber_front",
+  "date": "2026-07-27",
+  "claims_freeze": false,
+  "collatz_proved": false,
+  "sorry_count": 0,
+  "closed_A": {
+    "FiberWordBasics": true,
+    "GapFiberShortPack1": [4639, 8735, 9247],
+    "GapFiberClassTail5": {"word": [1, 1, 1, 1, 2, 2, 5], "forall_k_lt": 128},
+    "GapFiberClassTail4": {"word": [1, 1, 1, 1, 2, 2, 4], "forall_k_lt": 256},
+    "class_members_censused": 384
+  },
+  "open_C": [
+    "HasGoodPrefixContinuation_forall_n",
+    "CoverUpTo_double_lift",
+    "CoverCertified",
+    "InfiniteCover",
+    "Collatz"
+  ],
+  "next_math_keel": "Core6_plus_e_AP_schema_lemma",
+  "pr": 13
+}

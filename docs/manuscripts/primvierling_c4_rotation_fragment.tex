@@ -1,0 +1,67 @@
+% Fragment for paper inclusion — Primvierling C4 / Delta theta / Phi_theta
+% Source of truth: docs/theory/primvierling_c4_rotation.md
+% Epistemic: congruence = B; terminology = C; enumeration = E (regression only)
+% Seal 2026-07-17: nomenclature inert; proven core vs withdrawn claims
+
+\subsection{Channel circle \(C_4\), rotation increment \(\Delta\theta\), and type map \(\Phi_\theta\)}
+
+\paragraph{Nomenclature.}
+We write \(\mathrm{inert}\) (first mention: German \emph{„träge“}) and
+\(\mathrm{zerfallend}\) for the two Gaussian types under \(\Phi_\theta\).
+After first use, only \(\mathrm{inert}\) is used.
+
+Fix the ordered set of EABC residues
+\[
+\mathcal{S}=(11,1,5,7)
+\]
+and the phase map \(\varphi(11)=0\), \(\varphi(1)=1\), \(\varphi(5)=2\), \(\varphi(7)=3\),
+with angle \(\theta=\varphi(r)\cdot\pi/2\).
+For successive residues \(r,r'\) of consecutive components of a prime quadruplet
+\(Q(p)=(p,p+2,p+6,p+8)\), define the discrete rotation increment
+\[
+\Delta\theta(r,r')=\bigl(\varphi(r')-\varphi(r)\bigr)\bmod 4
+\]
+in units of \(\pi/2\). The successive arithmetic gaps along \(Q(p)\) are
+\(+2,+4,+2\).
+
+Define the Gaussian type map
+\[
+\Phi_\theta(0)=\Phi_\theta\Bigl(\tfrac{3\pi}{2}\Bigr)=\mathrm{inert},\qquad
+\Phi_\theta\Bigl(\tfrac{\pi}{2}\Bigr)=\Phi_\theta(\pi)=\mathrm{zerfallend}.
+\]
+
+\begin{proposition}[Congruence cycles]
+\label{prop:quad-c4}
+Let \(p>3\) and suppose \(Q(p)\) is a prime quadruplet. Then
+\(p\equiv 5\) or \(p\equiv 11\pmod{12}\), and the residue word
+\(w(Q(p))=(p,p+2,p+6,p+8)\bmod 12\) equals
+\((11,1,5,7)\) if \(p\equiv 11\pmod{12}\), respectively
+\((5,7,11,1)\) if \(p\equiv 5\pmod{12}\).
+In both cases \(\Delta\theta=+1\) on each successive edge, i.e.\ the invariant
+transition word on \(C_4\) is \((+1,+1,+1)\).
+The two trajectories differ by a pure phase shift of exactly \(\pi\).
+The induced Gaussian type words
+\[
+(\mathrm{inert},\mathrm{zerfallend},\mathrm{zerfallend},\mathrm{inert})
+\quad\text{and}\quad
+(\mathrm{zerfallend},\mathrm{inert},\mathrm{inert},\mathrm{zerfallend})
+\]
+are algebraically complementary under \(\Phi_\theta\):
+at each quadruplet position the type of one channel is replaced by the other type.
+\end{proposition}
+
+\begin{remark}[Claim boundary; regression, not proof]
+Finite enumeration (e.g.\ \(p+8\le 10^6\): \(166\) quadruplets, \(0\) congruence
+errors) is an implementation regression test. It does not prove
+Proposition~\ref{prop:quad-c4}, which follows from modular arithmetic.
+The exception \(Q(5)=(5,7,11,13)\) is counted separately.
+We speak of a combinatorial channel signature / Gaussian type word, not of a
+topological invariant, unless a transformation group is specified.
+
+Withdrawn claims: no antipodality (equal types sit on adjacent \(C_4\) states,
+not opposite); no canonical identification with real/imaginary axes of
+\(\mathbb{C}\); no physical dynamics, duality, or topological invariance.
+Any interactive display is a geometric illustration of combinatorial rotation
+and type marking only (\(\mathrm{illustration}\neq\mathrm{physics}\)).
+This seal does not prove Collatz and does not unblock independent layer B3.
+\end{remark}

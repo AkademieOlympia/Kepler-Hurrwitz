@@ -1,0 +1,95 @@
+{
+  "tag": "[C]",
+  "governance": {
+    "status": "C large-witness v2 / S_k / mod8-carrier audit",
+    "carrier_rule": "C if n0\u22617 (mod 8); B if n0\u22613 or 5; else A \u2014 on odd core only",
+    "not_claimed": "DualCarrier/V4 identity; Collatz proof; physical phase volume; Lean theorem that S_k is anisotropic packing volume"
+  },
+  "n_witnesses": 7,
+  "witnesses": [
+    {
+      "n": 10000000000000,
+      "n0": 1220703125,
+      "v2": 13,
+      "k": 14,
+      "S_k": 105,
+      "e_kep": "610351561/610351563",
+      "carrier": "B",
+      "mod8": 5,
+      "phase_volume": "1 / 2^105 (~10^-31)"
+    },
+    {
+      "n": 10000000000003,
+      "n0": 10000000000003,
+      "v2": 0,
+      "k": 1,
+      "S_k": 1,
+      "e_kep": "2500000000000/2500000000001",
+      "carrier": "B",
+      "mod8": 3,
+      "phase_volume": "1 / 2"
+    },
+    {
+      "n": 10000000000007,
+      "n0": 10000000000007,
+      "v2": 0,
+      "k": 1,
+      "S_k": 1,
+      "e_kep": "2500000000001/2500000000002",
+      "carrier": "C",
+      "mod8": 7,
+      "phase_volume": "1 / 2"
+    },
+    {
+      "n": 10000000001024,
+      "n0": 9765625001,
+      "v2": 10,
+      "k": 11,
+      "S_k": 66,
+      "e_kep": "4882812499/4882812501",
+      "carrier": "A",
+      "mod8": 1,
+      "phase_volume": "1 / 2^66 (~10^-19)"
+    },
+    {
+      "n": 1000000000000007,
+      "n0": 1000000000000007,
+      "v2": 0,
+      "k": 1,
+      "S_k": 1,
+      "e_kep": "250000000000001/250000000000002",
+      "carrier": "C",
+      "mod8": 7,
+      "phase_volume": "1 / 2"
+    },
+    {
+      "n": 1099511627775,
+      "n0": 1099511627775,
+      "v2": 0,
+      "k": 1,
+      "S_k": 1,
+      "e_kep": "274877906943/274877906944",
+      "carrier": "C",
+      "mod8": 7,
+      "phase_volume": "1 / 2"
+    },
+    {
+      "n": 1099511627776,
+      "n0": 1,
+      "v2": 40,
+      "k": 41,
+      "S_k": 861,
+      "e_kep": "0",
+      "carrier": "A",
+      "mod8": 1,
+      "phase_volume": "1 / 2^861 (~10^-259)"
+    }
+  ],
+  "claimed_as_theorem": false,
+  "status": "large_witness_audit_c",
+  "notes": [
+    "Carrier is mod-8 on odd core only \u2014 not DualCarrier/V4.",
+    "S_k volume is a modeling index [C], not a Lean packing theorem.",
+    "Table corrections vs early draft: 10^13 \u2192 carrier B; 10^13+1024 \u2192 n0=9765625001, carrier A."
+  ]
+}

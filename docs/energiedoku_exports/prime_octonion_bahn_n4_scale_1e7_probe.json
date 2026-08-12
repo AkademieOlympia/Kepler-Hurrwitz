@@ -1,0 +1,92 @@
+{
+  "tag": "[C]",
+  "name": "N4_rotor_scale_scan",
+  "statement": "Does rotor-edge excess vs family-label shuffle persist at larger X?",
+  "null_reps": 400,
+  "seed": 20260719,
+  "limits": [
+    1000000,
+    10000000
+  ],
+  "points": [
+    {
+      "limit": 1000000,
+      "n_eabc_primes": 78496,
+      "n_transitions": 78495,
+      "observed_rotor_total": 26838,
+      "null_rotor_total_mean": 19612.25,
+      "null_rotor_total_std": 119.54201144367615,
+      "z_rotor_total": 60.44527704307963,
+      "holds": false,
+      "excess_rotor_count": 7225.75,
+      "excess_rotor_rate": 0.09205363398942608,
+      "z_over_sqrt_n": 0.21574531597077787,
+      "edges": {
+        "A->B": {
+          "observed": 7058,
+          "null_mean": 4913.33,
+          "z": 40.909667590240474
+        },
+        "B->C": {
+          "observed": 6460,
+          "null_mean": 4920.6075,
+          "z": 29.153757397200938
+        },
+        "E->A": {
+          "observed": 6333,
+          "null_mean": 4882.6175,
+          "z": 28.34881820242002
+        },
+        "C->E": {
+          "observed": 6987,
+          "null_mean": 4895.695,
+          "z": 41.25402040169933
+        }
+      }
+    },
+    {
+      "limit": 10000000,
+      "n_eabc_primes": 664577,
+      "n_transitions": 664576,
+      "observed_rotor_total": 218661,
+      "null_rotor_total_mean": 166152.8425,
+      "null_rotor_total_std": 360.19157082551226,
+      "z_rotor_total": 145.7784183557048,
+      "holds": false,
+      "excess_rotor_count": 52508.1575,
+      "excess_rotor_rate": 0.07901001164652349,
+      "z_over_sqrt_n": 0.1788219832838934,
+      "edges": {
+        "A->B": {
+          "observed": 57148,
+          "null_mean": 41553.465,
+          "z": 102.1314350860327
+        },
+        "B->C": {
+          "observed": 52391,
+          "null_mean": 41551.3875,
+          "z": 70.05461366533035
+        },
+        "E->A": {
+          "observed": 52230,
+          "null_mean": 41516.755,
+          "z": 71.11124646643248
+        },
+        "C->E": {
+          "observed": 56892,
+          "null_mean": 41531.235,
+          "z": 103.94518536353284
+        }
+      }
+    }
+  ],
+  "verdict": {
+    "n4_fails_at_all_scanned_limits": true,
+    "z_trend": "growing_|z|",
+    "excess_rate_roughly_stable": true,
+    "mean_z_over_sqrt_n": 0.19728364962733563,
+    "interpretation": "Large |z| persists beyond X=5000; excess rotor rate roughly stable while |z| trend=growing_|z|. Persistent rate excess \u21d2 channel dynamics beyond family marginals [C]; not infinitude / not HL claim."
+  },
+  "claimed_as_theorem": false,
+  "status": "n4_scale_scan_c"
+}

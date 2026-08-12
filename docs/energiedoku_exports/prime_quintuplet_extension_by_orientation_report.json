@@ -1,0 +1,65 @@
+{
+  "tag": "[C]",
+  "question": "Does +12 extension rate depend on ABCE vs CEAB?",
+  "limits": {
+    "100000": {
+      "counts": {
+        "ABCE": {
+          "n": 22,
+          "extends": 6
+        },
+        "CEAB": {
+          "n": 16,
+          "extends": 4
+        },
+        "other": {
+          "n": 0,
+          "extends": 0
+        }
+      },
+      "rates": {
+        "ABCE": 0.2727272727272727,
+        "CEAB": 0.25,
+        "other": null
+      },
+      "abs_rate_diff": 0.022727272727272707,
+      "two_proportion_z": 0.15708381417359532,
+      "orientation_dependence_flag": false,
+      "extension_residue": {
+        "ABCE": "p+12 \u2261 5 (A)",
+        "CEAB": "p+12 \u2261 11 (C)"
+      },
+      "interpretation": "No clear ABCE/CEAB dependence of +12 extension at |z|<2 [C]"
+    },
+    "1000000": {
+      "counts": {
+        "ABCE": {
+          "n": 84,
+          "extends": 20
+        },
+        "CEAB": {
+          "n": 82,
+          "extends": 14
+        },
+        "other": {
+          "n": 0,
+          "extends": 0
+        }
+      },
+      "rates": {
+        "ABCE": 0.23809523809523808,
+        "CEAB": 0.17073170731707318,
+        "other": null
+      },
+      "abs_rate_diff": 0.0673635307781649,
+      "two_proportion_z": 1.0752242019091052,
+      "orientation_dependence_flag": false,
+      "extension_residue": {
+        "ABCE": "p+12 \u2261 5 (A)",
+        "CEAB": "p+12 \u2261 11 (C)"
+      },
+      "interpretation": "No clear ABCE/CEAB dependence of +12 extension at |z|<2 [C]"
+    }
+  },
+  "claimed_as_theorem": false
+}

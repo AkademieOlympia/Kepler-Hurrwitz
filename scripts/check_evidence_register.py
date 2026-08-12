@@ -9,9 +9,23 @@ from typing import Any
 
 
 DEFAULT_LEVELS = {"A", "B", "C", "L4"}
-FILE_EXTENSIONS = (".lean", ".md", ".json", ".py", ".toml", ".yaml", ".yml")
+FILE_EXTENSIONS = (
+    ".lean",
+    ".md",
+    ".json",
+    ".py",
+    ".toml",
+    ".yaml",
+    ".yml",
+    ".sage",
+    ".csv",
+    ".pdf",
+    ".dat",
+)
 ID_PATTERN = re.compile(r"^\|\s*`(E-\d+)`\s*\|", re.MULTILINE)
 SYMBOL_PATTERN = re.compile(r"^[A-Za-z_][A-Za-z0-9_']*$")
+# Generated / gitignored artifact trees (see .gitignore `/results`).
+OPTIONAL_PATH_PREFIXES = ("results/",)
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -35,9 +49,29 @@ def normalize_ref(raw: str) -> str:
     return ref
 
 
+def split_ref_parts(raw: str) -> list[str]:
+    """Split comma-separated registry path lists into individual refs."""
+    return [normalize_ref(part) for part in raw.split(",") if part.strip()]
+
+
+def is_optional_artifact_ref(ref: str) -> bool:
+    normalized = normalize_ref(ref).lstrip("./")
+    return any(normalized.startswith(prefix) for prefix in OPTIONAL_PATH_PREFIXES)
+
+
+def is_pattern_ref(ref: str) -> bool:
+    """Globs / brace-expansions are documentation hints, not concrete paths."""
+    return "*" in ref or "?" in ref or "{" in ref
+
+
 def looks_like_file_ref(raw: str) -> bool:
     ref = normalize_ref(raw)
     if ref.startswith("E-"):
+        return False
+    if not ref or " " in ref:
+        # Conceptual labels such as "phi/phi_inv Skalenkomponente x_0".
+        return False
+    if is_pattern_ref(ref):
         return False
     if "/" in ref:
         return True
@@ -122,25 +156,37 @@ def validate(
             )
 
         refs: list[str] = []
+        source_parts: list[str] = []
         source = entry.get("source")
         if isinstance(source, str) and source.strip():
-            refs.append(source)
+            source_parts = split_ref_parts(source)
+            refs.extend(source_parts)
 
         for field in ("depends_on", "supports"):
             values = entry.get(field, [])
             if not isinstance(values, list):
                 continue
-            refs.extend(v for v in values if isinstance(v, str))
+            for value in values:
+                if not isinstance(value, str):
+                    continue
+                refs.extend(split_ref_parts(value) if "," in value else [normalize_ref(value)])
 
         source_path: Path | None = None
-        if isinstance(source, str):
-            normalized_source = normalize_ref(source)
-            source_path = root / normalized_source
-            if not source_path.exists():
-                issues.append(f"{entry_id}: source file missing: {normalized_source}")
+        for part in source_parts:
+            if not looks_like_file_ref(part):
+                continue
+            if is_optional_artifact_ref(part) or is_pattern_ref(part):
+                continue
+            resolved = resolve_ref_path(part, root=root, source_path=None)
+            if resolved is None:
+                issues.append(f"{entry_id}: source file missing: {part}")
+            elif source_path is None:
+                source_path = resolved
 
         for ref in refs:
             if not looks_like_file_ref(ref):
+                continue
+            if is_optional_artifact_ref(ref) or is_pattern_ref(ref):
                 continue
             normalized = normalize_ref(ref)
             ref_path = resolve_ref_path(ref, root=root, source_path=source_path)

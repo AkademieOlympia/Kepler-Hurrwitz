@@ -1,0 +1,25 @@
+{
+  "tag": "[C]",
+  "limit": 1000000,
+  "n_ABCE": 84,
+  "n_CEAB": 82,
+  "png": "/Users/thomashoffbauer/Projects/Kepler-Hurrwitz/docs/energiedoku_exports/abce_ceab_mollweide.png",
+  "pdf": "/Users/thomashoffbauer/Projects/Kepler-Hurrwitz/docs/energiedoku_exports/abce_ceab_mollweide.pdf",
+  "dpi": 400,
+  "figsize": [
+    18.0,
+    9.0
+  ],
+  "projection": {
+    "name": "mollweide",
+    "lon": "2\u03c0\u00b7(n mod 12)/12 + 0.12\u00b7e1",
+    "lat": "blend(\u03c7\u2087, e1, tanh(log n))",
+    "arcs": "S\u00b2 great-circle slerp per quadruplet edge"
+  },
+  "colors": {
+    "ABCE": "#0B6E4F",
+    "CEAB": "#C45C26"
+  },
+  "claimed_as_theorem": false,
+  "status": "abce_ceab_mollweide_c"
+}

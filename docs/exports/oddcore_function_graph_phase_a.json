@@ -1,0 +1,205 @@
+{
+  "status": "completed",
+  "governance": "[B]",
+  "generated_at_utc": "2026-07-17T13:36:50Z",
+  "branch": "post-freeze/octonionic-collatz-proof-attempt",
+  "phase": "A",
+  "map": "oddCoreStep / syracuse odd step via kepler_hurwitz.odd_core_step",
+  "projection_caveat": "oddCoreStep on Nat does not always descend to Z/mZ; scan uses T_m(r)=oddCoreStep(r) mod m on canonical odd residues",
+  "moduli": [
+    8,
+    16,
+    32,
+    64,
+    128
+  ],
+  "scans": [
+    {
+      "modulus": 8,
+      "state_space": "odd_residues_mod_m",
+      "state_count": 4,
+      "map_definition": "T_m(r) := oddCoreStep(r) mod m on canonical odd representatives {1,3,...,m-1}; not claimed as modular descent of Nat-oddCoreStep",
+      "weak_components_count": 1,
+      "attractor_cycles_count": 1,
+      "attractor_cycles": [
+        [
+          1
+        ]
+      ],
+      "basin_sizes": [
+        4
+      ],
+      "weakly_connected": true,
+      "nonconstant_invariant_ruled_out": true,
+      "nonconstant_invariant_possible": false,
+      "honest_report": "weakly connected ⇒ no nonconstant J with J∘T=J on this finite space"
+    },
+    {
+      "modulus": 16,
+      "state_space": "odd_residues_mod_m",
+      "state_count": 8,
+      "map_definition": "T_m(r) := oddCoreStep(r) mod m on canonical odd representatives {1,3,...,m-1}; not claimed as modular descent of Nat-oddCoreStep",
+      "weak_components_count": 1,
+      "attractor_cycles_count": 1,
+      "attractor_cycles": [
+        [
+          1
+        ]
+      ],
+      "basin_sizes": [
+        8
+      ],
+      "weakly_connected": true,
+      "nonconstant_invariant_ruled_out": true,
+      "nonconstant_invariant_possible": false,
+      "honest_report": "weakly connected ⇒ no nonconstant J with J∘T=J on this finite space"
+    },
+    {
+      "modulus": 32,
+      "state_space": "odd_residues_mod_m",
+      "state_count": 16,
+      "map_definition": "T_m(r) := oddCoreStep(r) mod m on canonical odd representatives {1,3,...,m-1}; not claimed as modular descent of Nat-oddCoreStep",
+      "weak_components_count": 1,
+      "attractor_cycles_count": 1,
+      "attractor_cycles": [
+        [
+          1
+        ]
+      ],
+      "basin_sizes": [
+        16
+      ],
+      "weakly_connected": true,
+      "nonconstant_invariant_ruled_out": true,
+      "nonconstant_invariant_possible": false,
+      "honest_report": "weakly connected ⇒ no nonconstant J with J∘T=J on this finite space"
+    },
+    {
+      "modulus": 64,
+      "state_space": "odd_residues_mod_m",
+      "state_count": 32,
+      "map_definition": "T_m(r) := oddCoreStep(r) mod m on canonical odd representatives {1,3,...,m-1}; not claimed as modular descent of Nat-oddCoreStep",
+      "weak_components_count": 1,
+      "attractor_cycles_count": 1,
+      "attractor_cycles": [
+        [
+          1
+        ]
+      ],
+      "basin_sizes": [
+        32
+      ],
+      "weakly_connected": true,
+      "nonconstant_invariant_ruled_out": true,
+      "nonconstant_invariant_possible": false,
+      "honest_report": "weakly connected ⇒ no nonconstant J with J∘T=J on this finite space"
+    },
+    {
+      "modulus": 128,
+      "state_space": "odd_residues_mod_m",
+      "state_count": 64,
+      "map_definition": "T_m(r) := oddCoreStep(r) mod m on canonical odd representatives {1,3,...,m-1}; not claimed as modular descent of Nat-oddCoreStep",
+      "weak_components_count": 1,
+      "attractor_cycles_count": 1,
+      "attractor_cycles": [
+        [
+          1
+        ]
+      ],
+      "basin_sizes": [
+        64
+      ],
+      "weakly_connected": true,
+      "nonconstant_invariant_ruled_out": true,
+      "nonconstant_invariant_possible": false,
+      "honest_report": "weakly connected ⇒ no nonconstant J with J∘T=J on this finite space"
+    }
+  ],
+  "phase_b_smoke": [
+    {
+      "observable": "disk_axis_parity_constant_1",
+      "modulus": 32,
+      "type": "exact_invariant",
+      "induced_map": {
+        "1": 1
+      },
+      "ambiguous_entries": null,
+      "note": "diskAxisParity is constantly 1 on odd n — exact_invariant is the trivial constant lock-in (connectivity symptom)"
+    },
+    {
+      "observable": "n_mod_8",
+      "modulus": 32,
+      "type": "no_closed_quotient",
+      "induced_map": null,
+      "ambiguous_entries": {
+        "1": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "3": [
+          1,
+          5
+        ],
+        "5": [
+          1,
+          3,
+          5
+        ],
+        "7": [
+          3,
+          7
+        ]
+      },
+      "note": null
+    },
+    {
+      "observable": "channel_seven_flag",
+      "modulus": 32,
+      "type": "no_closed_quotient",
+      "induced_map": null,
+      "ambiguous_entries": {
+        "0": [
+          0,
+          1
+        ],
+        "1": [
+          0,
+          1
+        ]
+      },
+      "note": null
+    },
+    {
+      "observable": "smoothness_channel_label",
+      "modulus": 32,
+      "type": "no_closed_quotient",
+      "induced_map": null,
+      "ambiguous_entries": {
+        "mittel": [
+          "klein",
+          "mittel",
+          "tief"
+        ],
+        "klein": [
+          "klein",
+          "mittel",
+          "tief"
+        ],
+        "tief": [
+          "klein",
+          "mittel",
+          "tief"
+        ]
+      },
+      "note": null
+    }
+  ],
+  "satzschema_d": "nonconstant finite-valued J∘T=J exists iff weak_components_count > 1; if weakly connected, search cyclic covariance J(Tx)=σ(J(x)), σ≠id",
+  "not_claimed": "No Collatz proof; Fano/character candidates remain hypotheses until graph findings; projected digraph ≠ modular Collatz descent",
+  "reproduction": {
+    "command": "PYTHONPATH=src python examples/run_oddcore_function_graph_scan.py",
+    "pytest": "PYTHONPATH=src pytest tests/test_graph_analyzer.py -q"
+  }
+}

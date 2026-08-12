@@ -4,7 +4,10 @@
 
 **Implementierung:** `src/kepler_hurwitz/signatures.py` (`signature_from_nat`, `eabc_mass`)  
 **Lean:** `KeplerHurwitz/EABCLayer.lean` (`EABCSignature4`, `totalWeight`)  
-**Kanalabbildung:** `eabc_channel_from_mod12` in `dumas_natural_fill.py` (1→E, 5→A, 7→B, 11→C)
+**Kanalabbildung:** `eabc_channel_from_mod12` in `dumas_natural_fill.py` (1→E, 5→A, 7→B, 11→C)  
+**Normalform \(n=2^\alpha 3^\beta r\,e\):** [`docs/eabc_normal_form.md`](eabc_normal_form.md) · Lean `KeplerHurwitz/EABC/NormalForm.lean` · Register [`E-096`](../EVIDENCE_REGISTER.md) · [`EABC_MASTER_INDEX.md`](../EABC_MASTER_INDEX.md)
+
+**Nomenklatur \(e\) vs. \(e_{\mathrm{kep}}\):** In der Normalform ist \(e\) ausschließlich der Mod-12-**E-Faktor** (\(p\equiv 1\bmod 12\)). Die Kepler-Exzentrizität heißt \(e_{\mathrm{kep}}\) (Lean `EABCSignature4.eccentricity` / `projectToKepler`); sie ist **nicht** der E-Faktor und **nicht** der Kanalzähler \(E\) in \(H(n)=(E,A,B,C)\). Pipeline und Governance: [`eabc_normal_form.md` §7](eabc_normal_form.md).
 
 ## Definition
 

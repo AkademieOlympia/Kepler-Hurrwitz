@@ -93,7 +93,11 @@ def l2_from_uniform(vec: Sequence[float]) -> float:
 
 def project_to_kepler(signature: EABCSignature4 | tuple[int, int, int, int]) -> tuple[float, float, float]:
     """
-    Lean ``projectToKepler``: a = M/4, e = (max-min)/(M+1), R_v = (1+e)/(1-e).
+    Lean ``projectToKepler``: a = M/4, e_kep = (max-min)/(M+1), R_v = (1+e_kep)/(1-e_kep).
+
+    Returns ``(a, e_kep, R_v)``. Here ``e_kep`` is Kepler eccentricity (spread-based),
+    not the normal-form E-factor ``e`` in ``n = 2^α 3^β r e``.
+    See ``docs/eabc_normal_form.md`` §7.
     """
     if isinstance(signature, EABCSignature4):
         channels = signature.as_tuple()
@@ -104,9 +108,9 @@ def project_to_kepler(signature: EABCSignature4 | tuple[int, int, int, int]) -> 
         raise ValueError("channel mass must be > 0")
     a = mass / 4
     spread = max(channels) - min(channels)
-    e = spread / (mass + 1)
-    radius_ratio = (1 + e) / (1 - e) if e < 1 else float("inf")
-    return (a, e, radius_ratio)
+    e_kep = spread / (mass + 1)
+    radius_ratio = (1 + e_kep) / (1 - e_kep) if e_kep < 1 else float("inf")
+    return (a, e_kep, radius_ratio)
 
 
 def product_kepler(v: Primvierling) -> tuple[float, float, float]:
