@@ -1,0 +1,323 @@
+% !TEX program = pdflatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue!50!black}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\TT}{T}
+\newcommand{\Pleft}{\mathcal{P}_{\mathrm{left}}}
+\newcommand{\Pland}{\mathcal{P}_{\mathrm{landing}}}
+\newcommand{\Pright}{\mathcal{P}_{\mathrm{right}}}
+
+\title{A Lean~4 Formalization of a Bertrand--Syracuse Prime Trichotomy}
+\author{Thomas Hofbauer\\
+\small Bamberg / Akademie Olympia\\
+\small\texttt{Kepler--Hurwitz}}
+\date{28 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We formalize a local interaction between prime distribution in Bertrand
+intervals and the odd-step Syracuse map. For every odd integer $n>1$
+satisfying $v_2(3n+1)=1$, the Syracuse successor
+\[
+\TT(n)=\frac{3n+1}{2}
+\]
+lies strictly inside the interval $(n,2n]$. It therefore determines a
+canonical partition of the prime spectrum in this interval into primes
+lying to the left of $\TT(n)$, the possible prime landing point $\TT(n)$
+itself, and primes lying to its right. We prove that these classes are
+pairwise disjoint and exhaust all primes in the Bertrand interval. The
+landing class is a singleton exactly when $\TT(n)$ is prime and is empty
+otherwise.
+
+The result provides a formally verified bridge between a bounded
+prime-number window and the local orbit geometry of the Syracuse
+transformation. It is a finite classification theorem and makes no claim
+of proving global termination of Collatz orbits. The complete development
+has been checked in Lean~4 without unproved placeholders.
+\end{abstract}
+
+\section{Introduction}
+
+Two classical objects meet in a finite window:
+\[
+(n,2n]\cap\mathbb{P}
+\qquad\text{and}\qquad
+\TT(n)=\frac{3n+1}{2^{v_2(3n+1)}}.
+\]
+We study neither the asymptotic distribution of primes nor the global
+termination of Collatz orbits. Our result concerns a canonical finite
+partition induced by a single odd Syracuse step.
+
+Under the standing condition $v_2(3n+1)=1$, one has simply
+$\TT(n)=(3n+1)/2$. For odd $n>1$ this successor lies in the interior of
+the Bertrand window:
+\[
+n<\TT(n)<2n.
+\]
+Thus $\TT(n)$ is not a free threshold. It is the actual local orbit
+successor of~$n$, and it cuts the Bertrand prime spectrum at an
+\emph{orbit-determined partition point}
+(equivalently: a distinguished dynamical landing point).
+\begin{remark}
+In the terminology of the broader EABC framework, this point may be
+regarded as a local resonance point. That interpretive language is not
+required for the theorems below and is not used as a primary technical
+term.
+\end{remark}
+
+\begin{remark}[Detachability]
+This note is intentionally independent of any Dumas-holography wording and
+of any affine-transport principle. Those larger bridges remain separate
+programme layers; the present theorem does not import them.
+\end{remark}
+
+\section{Arithmetic preliminaries}
+
+\begin{definition}
+Write $\TT(n):=(3n+1)/2$ whenever $v_2(3n+1)=1$.
+\end{definition}
+
+\begin{lemma}[Residue characterisation]
+\label{lem:val-mod}
+Let $n$ be odd. Then
+\[
+v_2(3n+1)=1 \iff n\equiv 3\pmod{4}.
+\]
+\end{lemma}
+\begin{proof}[Sketch]
+Since $n$ is odd, $n\equiv 1$ or $3\pmod{4}$. If $n\equiv 1\pmod{4}$, then
+$3n+1\equiv 0\pmod{4}$, so $v_2(3n+1)\ge 2$. If $n\equiv 3\pmod{4}$, then
+$3n+1=2(6k+5)$ with $6k+5$ odd, hence $v_2(3n+1)=1$.
+\end{proof}
+Thus the family under study is exactly one natural half of the odd
+residue classes, not an artificial valuation slice.
+
+\begin{definition}
+The Bertrand prime spectrum of $n$ is
+\[
+\mathbb{P}\cap(n,2n]
+=
+\{p\in\mathbb{P}: n<p\le 2n\}.
+\]
+\end{definition}
+
+\section{Interior landing lemma}
+
+\begin{lemma}[Interior landing]
+\label{lem:interior}
+Let $n>1$ and $n\equiv 3\pmod{4}$. Then
+\[
+n<\TT(n)<2n.
+\]
+\end{lemma}
+\begin{proof}
+The hypothesis yields $2\TT(n)=3n+1$. Then
+\[
+\TT(n)-n=\frac{n+1}{2}>0,
+\qquad
+2n-\TT(n)=\frac{n-1}{2}>0.
+\]
+\end{proof}
+This inequality is the hinge between dynamics and interval arithmetic. It
+precedes any prime partition: the reader sees immediately that the primes
+in the Bertrand window are cut at a dynamically determined point, that the
+point is not a free threshold, that it is the local orbit successor of~$n$,
+and that the statement remains fully local and finite.
+
+\section{Prime-spectrum trichotomy}
+
+\begin{definition}
+\[
+\begin{aligned}
+\Pleft(n)
+&=\{p\in\mathbb{P}: n<p<\TT(n)\},\\
+\Pland(n)
+&=\{p\in\mathbb{P}: p=\TT(n)\},\\
+\Pright(n)
+&=\{p\in\mathbb{P}: \TT(n)<p\le 2n\}.
+\end{aligned}
+\]
+\end{definition}
+In particular,
+\[
+\Pland(n)
+=
+\begin{cases}
+\{\TT(n)\}, & \TT(n)\in\mathbb{P},\\
+\varnothing, & \TT(n)\notin\mathbb{P}.
+\end{cases}
+\]
+Hence $\#\Pland(n)\le 1$.
+
+\begin{theorem}[Bertrand--Syracuse prime trichotomy]
+\label{thm:main}
+Let $n>1$ and $n\equiv 3\pmod{4}$. Define $\TT(n)=(3n+1)/2$.
+Then $n<\TT(n)<2n$. Consequently the primes in the Bertrand interval admit
+the disjoint decomposition
+\[
+\mathbb{P}\cap(n,2n]
+=
+\Pleft(n)
+\,\dot\cup\,
+\Pland(n)
+\,\dot\cup\,
+\Pright(n),
+\]
+where the three classes are as above.
+Moreover $\Pland(n)=\{\TT(n)\}$ if and only if $\TT(n)$ is prime, and
+$\Pland(n)=\varnothing$ otherwise.
+\end{theorem}
+\begin{proof}[Proof outline]
+Lemma~\ref{lem:interior} places $\TT(n)$ in $(n,2n)$. For any prime
+$p\in(n,2n]$, the trichotomy $p<\TT(n)$, $p=\TT(n)$, or $p>\TT(n)$ yields
+membership in exactly one of $\Pleft(n)$, $\Pland(n)$, $\Pright(n)$.
+Disjointness is immediate from the strict inequalities. The landing
+characterisation is the definition of $\Pland(n)$.
+\end{proof}
+
+Two layers must be kept distinct:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Order-theoretic trichotomy.} The partition follows from the
+  linear order on~$\mathbb{N}$ once Lemma~\ref{lem:interior} places
+  $\TT(n)$ inside $(n,2n]$. Bertrand's postulate is not used here.
+  \item \textbf{Bertrand non-emptiness.} Bertrand's postulate supplies
+  $\mathbb{P}\cap(n,2n]\neq\varnothing$ for $n>1$. The name
+  ``Bertrand--Syracuse'' therefore combines an order partition with an
+  independent existence theorem; Bertrand is not credited with proving the
+  trichotomy itself.
+\end{enumerate}
+
+\section{Bertrand consequences}
+
+\begin{corollary}
+\label{cor:landing-empty}
+If $\Pland(n)=\varnothing$, then
+$\Pleft(n)\neq\varnothing$ or $\Pright(n)\neq\varnothing$.
+\end{corollary}
+\begin{proof}
+By Bertrand, $\mathbb{P}\cap(n,2n]\neq\varnothing$. Theorem~\ref{thm:main}
+exhausts this set by the three classes; with empty landing class, at least
+one of the remaining classes is nonempty.
+\end{proof}
+
+\begin{corollary}
+\label{cor:unique-landing}
+If $\TT(n)$ is the unique prime in $(n,2n]$, then
+$\Pleft(n)=\Pright(n)=\varnothing$ and $\Pland(n)=\{\TT(n)\}$.
+\end{corollary}
+\begin{proof}
+Uniqueness forces $\mathbb{P}\cap(n,2n]=\{\TT(n)\}$, so $\TT(n)$ is prime
+and no prime lies strictly left or right of it inside the window.
+\end{proof}
+
+\section{Scope and non-claims}
+
+The formalization does not establish that the Syracuse map is globally
+terminating. It does not derive monotone descent, bounded stopping times,
+or a global covering of odd integers by descending cylinders. The
+construction records how one local orbit step canonically organizes the
+primes in a bounded interval.
+
+In particular, a schema-level equivalence of the form
+``totality of a formal predicate $\Leftrightarrow$ Collatz''---if present
+elsewhere in a larger development---is a characterisation of global reach,
+not a proof that the predicate holds. No such claim is made here.
+
+Interpretive vocabulary (``resonance'', ``arithmetico-dynamical coupling'',
+``local spectral structure'', EABC geometry) is optional commentary only.
+
+\section{Formalization architecture}
+
+The reproducible preprint package lives at
+\texttt{docs/manuscripts/bertrand\_syracuse\_preprint\_package/}
+(README, \texttt{MANIFEST.json}, \texttt{reproduce.sh}).
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Item & Value \\
+\midrule
+Lean & 4.31.0 \\
+Mathlib & \texttt{v4.31.0} \\
+Module &
+\texttt{KeplerHurwitz.Collatz.BertrandSyracuseTrichotomy} \\
+Build &
+\texttt{lake build KeplerHurwitz.Collatz.BertrandSyracuseTrichotomy} \\
+Package check &
+\texttt{./docs/manuscripts/bertrand\_syracuse\_preprint\_package/reproduce.sh} \\
+Sorry audit &
+\texttt{rg -n -P '(sorry\textbar admit)'
+  KeplerHurwitz/Collatz/BertrandSyracuseTrichotomy.lean} \\
+Certificate &
+\texttt{bertrandSyracuseTrichotomyCertificate} \\
+Placeholders & \texttt{0 sorry} / \texttt{0 admit} in the module \\
+Seal & PREPRINT-READY $\cdot$ FORMAL CORE SEALED \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Principal Lean names:
+\texttt{padicValNat\_two\_three\_n\_succ\_eq\_one\_iff},
+\texttt{syracuseT\_mem\_interior},
+\texttt{bertrandPrimeSpectrum\_eq\_union},
+\texttt{landing\_eq\_singleton\_iff\_prime},
+\texttt{landing\_ncard\_le\_one},
+\texttt{bertrandPrimeSpectrum\_nonempty},
+\texttt{left\_or\_right\_of\_landing\_empty},
+\texttt{unique\_prime\_is\_landing}.
+
+\section*{Acknowledgements}
+The author thanks the classical $3x+1$ tradition---Collatz, Terras,
+Lagarias, and many others---for the language in which a finite local
+statement can be stated without overclaiming a global solution.
+
+\begin{thebibliography}{9}
+\bibitem{Bertrand}
+J.~Bertrand.
+\newblock M\'emoire sur le nombre de valeurs que peut prendre une fonction
+qui d\'epend de plusieurs variables.
+\newblock \emph{J.\ \'Ec.\ Polytech.} \textbf{30} (1845), 123--140.
+
+\bibitem{Erdos1932}
+P.~Erd\H{o}s.
+\newblock Beweis eines Satzes von Tschebyschef.
+\newblock \emph{Acta Sci.\ Math.\ (Szeged)} \textbf{5} (1932), 194--198.
+
+\bibitem{Terras1976}
+R.~Terras.
+\newblock A stopping time problem on the positive integers.
+\newblock \emph{Acta Arith.} \textbf{30} (1976), 241--252.
+
+\bibitem{Lagarias2010}
+J.~C.~Lagarias (ed.).
+\newblock \emph{The Ultimate Challenge: The $3x+1$ Problem}.
+\newblock American Mathematical Society, 2010.
+
+\bibitem{MathlibBertrand}
+The mathlib Community.
+\newblock Bertrand's postulate
+(\texttt{Mathlib.NumberTheory.Bertrand}).
+\end{thebibliography}
+
+\end{document}

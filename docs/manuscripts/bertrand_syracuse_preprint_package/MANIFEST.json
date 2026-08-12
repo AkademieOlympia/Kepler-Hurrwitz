@@ -1,0 +1,43 @@
+{
+  "package": "bertrand-syracuse-prime-trichotomy",
+  "title": "A Lean 4 Formalization of a Bertrand–Syracuse Prime Trichotomy",
+  "seal": "PREPRINT-READY · FORMAL CORE SEALED",
+  "date": "2026-07-28",
+  "branch": "cursor/bertrand-syracuse-trichotomy-4007",
+  "pull_request": "https://github.com/AkademieOlympia/Kepler-Hurrwitz/pull/20",
+  "artifacts": {
+    "manuscript": "docs/manuscripts/bertrand_syracuse_prime_trichotomy.tex",
+    "lean_module": "KeplerHurwitz/Collatz/BertrandSyracuseTrichotomy.lean",
+    "status_note": "docs/energiedoku_exports/bertrand_syracuse_prime_trichotomy.md",
+    "package_readme": "docs/manuscripts/bertrand_syracuse_preprint_package/README.md",
+    "reproduce_script": "docs/manuscripts/bertrand_syracuse_preprint_package/reproduce.sh"
+  },
+  "versions": {
+    "lean": "leanprover/lean4:v4.31.0",
+    "mathlib_input_rev": "v4.31.0",
+    "mathlib_resolved_rev": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f"
+  },
+  "build": {
+    "lean_target": "KeplerHurwitz.Collatz.BertrandSyracuseTrichotomy",
+    "command": "lake build KeplerHurwitz.Collatz.BertrandSyracuseTrichotomy",
+    "sorry_audit_regex": "(^|[^A-Za-z0-9_/`])(sorry|admit)([^A-Za-z0-9_]|$)"
+  },
+  "certificate": "bertrandSyracuseTrichotomyCertificate",
+  "primary_terminology": "orbit-determined partition point",
+  "layers": [
+    "interior_landing",
+    "order_theoretic_trichotomy",
+    "bertrand_nonemptiness",
+    "interpretation_optional"
+  ],
+  "non_claims": [
+    "no_global_collatz_termination",
+    "no_monotone_descent_or_stopping_time_bound",
+    "no_cylinder_covering",
+    "no_dumas_holography",
+    "no_affine_transport_theorem",
+    "resonance_not_required_primitive"
+  ],
+  "base_formal_core_commit": "f5df496abea7bbd6f8ad78c0ad1b9d62e16b7de9",
+  "package_commit": "96842bb50fb48e57ff9bfd281311e9bf9821138f"
+}
